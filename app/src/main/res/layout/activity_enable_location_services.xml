@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp">
+
+    <ImageView
+        android:id="@+id/crossImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cross_popup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/location_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/map"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvlocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="Enable location services"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp20"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_img"
+        />
+
+    <TextView
+        android:id="@+id/tv_paragraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="@dimen/dp25"
+        android:paddingRight="@dimen/dp25"
+        android:text="@string/emmazone_wants_to_access_your_location_only_to_provide_a_better_experience_by_helping_you_find_services_nearby"
+        android:textAlignment="center"
+        android:textColor="@color/normalBlack"
+        android:textSize="@dimen/sp17"
+        app:layout_constraintLeft_toLeftOf="@+id/tvlocation"
+        app:layout_constraintRight_toRightOf="@+id/tvlocation"
+        app:layout_constraintTop_toBottomOf="@+id/tvlocation"
+
+        />
+
+    <android.widget.Button
+        android:id="@+id/button_enable_services"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp50"
+        android:background="@drawable/enable"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_paragraph"
+        app:layout_constraintRight_toRightOf="@+id/tv_paragraph"
+        app:layout_constraintTop_toBottomOf="@+id/tv_paragraph" />
+
+    <TextView
+        android:id="@+id/tv_manually"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp25"
+        android:text="@string/manually"
+        android:textColor="@color/normalBlack"
+        android:textSize="@dimen/sp18"
+        app:layout_constraintEnd_toEndOf="@+id/button_enable_services"
+        app:layout_constraintStart_toStartOf="@+id/button_enable_services"
+        app:layout_constraintTop_toBottomOf="@+id/button_enable_services" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

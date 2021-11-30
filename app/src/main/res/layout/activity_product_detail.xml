@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".activities.main.ProductDetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/arrow_back"
+                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
+                app:layout_constraintStart_toStartOf="@+id/layoutMain"
+                app:layout_constraintTop_toTopOf="@+id/changePassword" />
+
+            <TextView
+                android:id="@+id/changePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/product_detail"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/image_cart"
+                app:layout_constraintStart_toEndOf="@+id/back"
+                app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+            <ImageView
+                android:id="@+id/image_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/cart"
+                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/changePassword" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/bannerProductDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp16"
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner_product_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutMain"
+            app:riv_corner_radius="@dimen/dp10"
+            tools:layout_editor_absoluteX="42dp"
+            tools:layout_editor_absoluteY="225dp" />
+
+        <TextView
+            android:id="@+id/productItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/bernd_shoes"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/bannerProductDetail"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/bannerProductDetail"
+            app:layout_constraintTop_toBottomOf="@+id/bannerProductDetail" />
+
+        <ImageView
+            android:id="@+id/imageAskExpert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:padding="@dimen/dp5"
+            android:src="@drawable/ask_expert"
+            app:layout_constraintBottom_toBottomOf="@+id/productItemName"
+            app:layout_constraintEnd_toEndOf="@+id/bannerProductDetail"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/productItemName"
+            app:layout_constraintTop_toTopOf="@+id/productItemName" />
+
+        <ImageView
+            android:id="@+id/ratingBarProductDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp5"
+            android:src="@drawable/rating"
+            app:layout_constraintEnd_toEndOf="@+id/productItemName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/productItemName"
+            app:layout_constraintTop_toBottomOf="@+id/productItemName" />
+
+        <TextView
+            android:id="@+id/tvShopDetailProductText"
+            android:layout_width="30dp"
+            android:layout_height="14dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp8"
+            android:text="4.5/5"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingBarProductDetail"
+            app:layout_constraintStart_toEndOf="@+id/ratingBarProductDetail"
+            app:layout_constraintTop_toTopOf="@+id/ratingBarProductDetail" />
+
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp16"
+            android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_edipscing_elit_sed_to_mode_tempor_incidedunt_ut_lebore_et_dolor_magna_aliqua_quis_ipsum_suspendisse"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/ratingBarProductDetail"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBarProductDetail" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/itemImageProductDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp16"
+            android:scaleType="centerCrop"
+            android:src="@drawable/green"
+            app:layout_constraintEnd_toEndOf="@+id/tvDesc"
+            app:layout_constraintStart_toStartOf="@+id/tvDesc"
+            app:layout_constraintTop_toBottomOf="@+id/tvDesc"
+            app:riv_corner_radius="@dimen/dp10" />
+
+        <ImageView
+            android:id="@+id/dots"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dots"
+            app:layout_constraintEnd_toEndOf="@+id/itemImageProductDetail"
+            app:layout_constraintStart_toStartOf="@+id/itemImageProductDetail"
+            app:layout_constraintTop_toBottomOf="@+id/itemImageProductDetail" />
+
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:text="@string/price_hiphen"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/dots"
+            app:layout_constraintTop_toBottomOf="@+id/dots" />
+
+        <TextView
+            android:id="@+id/tvPriceInteger"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp5"
+            android:text="30.00"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+            app:layout_constraintEnd_toEndOf="@+id/itemImageProductDetail"
+            app:layout_constraintStart_toEndOf="@+id/tvPrice"
+            app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+
+        <TextView
+            android:id="@+id/tvDelivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp16"
+            android:text="2  delivery in 30 min or collect it from the shop. Delivery is free for members."
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="@+id/tvPriceInteger"
+            app:layout_constraintStart_toStartOf="@+id/tvPrice"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+
+        <LinearLayout
+            android:id="@+id/spinnerLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/tvDelivery"
+            app:layout_constraintStart_toStartOf="@+id/tvDelivery"
+            app:layout_constraintTop_toBottomOf="@+id/tvDelivery">
+
+            <LinearLayout
+                android:id="@+id/sizeSpinLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_margin="@dimen/dp5"
+                android:layout_weight="1"
+                android:background="@drawable/bg_spinner"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/size"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp15" />
+
+                <ImageView
+                    android:id="@+id/sizeSpinImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp16"
+                    android:src="@drawable/arrow_drop_down" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/colorSpinLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_margin="@dimen/dp5"
+                android:layout_weight="1"
+                android:background="@drawable/box"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/colour"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp15" />
+
+                <ImageView
+                    android:id="@+id/colorSpinImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp16"
+                    android:src="@drawable/arrow_drop_down_black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quantitySpinLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp50"
+                android:layout_margin="@dimen/dp5"
+                android:layout_weight="1"
+                android:background="@drawable/box"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Quantity"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp15" />
+
+                <ImageView
+                    android:id="@+id/quantitySpinImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp16"
+                    android:src="@drawable/arrow_drop_down_black" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.widget.Button
+            android:id="@+id/btnBuyDeliver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sp20"
+            android:background="@drawable/buy_deliver"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerLayout"
+            app:layout_constraintStart_toStartOf="@+id/spinnerLayout"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerLayout" />
+
+        <android.widget.Button
+            android:id="@+id/btnClickCollect"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sp20"
+            android:layout_marginBottom="@dimen/dp10"
+            android:background="@drawable/click_collect"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnBuyDeliver"
+            app:layout_constraintStart_toStartOf="@+id/btnBuyDeliver"
+            app:layout_constraintTop_toBottomOf="@+id/btnBuyDeliver" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

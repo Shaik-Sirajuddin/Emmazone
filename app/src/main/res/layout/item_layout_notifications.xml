@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutItemDeliveryAdrs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/faq_bg"
+        android:padding="@dimen/dp20"
+        android:paddingLeft="@dimen/dp20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/profileImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
+            android:scaleType="fitCenter"
+            android:src="@drawable/nick2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/layoutItemDeliveryAdrs"
+            app:layout_constraintTop_toTopOf="@+id/layoutItemDeliveryAdrs"
+            app:riv_corner_radius="30dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true"
+            app:riv_tile_mode="repeat" />
+
+        <TextView
+            android:id="@+id/tvOrderPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp10"
+            android:text="@string/jolly_deo"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp18"
+            app:layout_constraintStart_toEndOf="@+id/profileImage"
+            app:layout_constraintTop_toTopOf="@+id/profileImage" />
+
+
+        <TextView
+            android:id="@+id/tvOrderDeliveryAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry"
+            android:textColor="@color/normalBlack"
+            app:layout_constraintEnd_toEndOf="@+id/tvNotificationTime"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+            app:layout_constraintStart_toStartOf="@+id/tvOrderPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrderPersonName" />
+
+        <TextView
+            android:id="@+id/tvNotificationTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
+            android:text="10:55 AM"
+            android:textColor="@color/light_black"
+            app:layout_constraintEnd_toEndOf="@+id/layoutItemDeliveryAdrs"
+            android:textSize="@dimen/sp15"
+            app:layout_constraintBottom_toBottomOf="@+id/tvOrderPersonName"
+            app:layout_constraintStart_toEndOf="@+id/tvOrderPersonName"
+            app:layout_constraintTop_toTopOf="@+id/tvOrderPersonName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

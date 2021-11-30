@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.main.Message">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginTop="@dimen/dp24"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/userImageMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:src="@drawable/user"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutMain"
+        app:layout_constraintEnd_toEndOf="@+id/layoutMain"
+        app:layout_constraintStart_toStartOf="@+id/layoutMain"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain"
+        app:riv_border_color="@color/white"
+        app:riv_border_width="@dimen/dp5"
+        app:riv_corner_radius="30dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        app:riv_tile_mode="repeat" />
+
+    <TextView
+        android:id="@+id/tvMessageUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jhonson Marker"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/userImageMessage"
+        app:layout_constraintStart_toStartOf="@+id/userImageMessage"
+        app:layout_constraintTop_toBottomOf="@+id/userImageMessage" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/login_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/edtTypeMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/login_bg"
+            android:hint="Type your message here..."
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:paddingLeft="@dimen/dp8"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutMessage"
+            app:layout_constraintEnd_toStartOf="@+id/btnSendMessage"
+            app:layout_constraintStart_toStartOf="@+id/layoutMessage"
+            app:layout_constraintTop_toTopOf="@+id/layoutMessage" />
+
+        <android.widget.Button
+            android:id="@+id/btnSendMessage"
+            android:layout_width="@dimen/dp25"
+            android:layout_height="@dimen/dp25"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/arrow_send_message"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutMessage"
+            app:layout_constraintEnd_toEndOf="@+id/layoutMessage"
+            app:layout_constraintTop_toTopOf="@+id/layoutMessage" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

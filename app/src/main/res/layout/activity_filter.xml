@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".activities.main.FilterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:src="@drawable/arrow_back"
+                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
+                app:layout_constraintStart_toStartOf="@+id/layoutMain"
+                app:layout_constraintTop_toTopOf="@+id/changePassword" />
+
+            <TextView
+                android:id="@+id/changePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/filter"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.42"
+                app:layout_constraintStart_toEndOf="@+id/back"
+                app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/priceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp20"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/layoutMain"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toBottomOf="@+id/layoutMain">
+
+            <TextView
+                android:id="@+id/idAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/range_slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:valueFrom="0.0"
+                android:valueTo="100.0"
+                app:values="@array/initial_slider_values" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/priceLayoutDollarValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp20"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/priceLayout"
+            app:layout_constraintStart_toStartOf="@+id/priceLayout"
+            app:layout_constraintTop_toBottomOf="@+id/priceLayout">
+
+            <TextView
+                android:id="@+id/id1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0$"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15" />
+
+            <TextView
+                android:id="@+id/id2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp10"
+                android:text="1500$"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/distanceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp20"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/priceLayoutDollarValue"
+            app:layout_constraintStart_toStartOf="@+id/priceLayoutDollarValue"
+            app:layout_constraintTop_toBottomOf="@+id/priceLayoutDollarValue">
+
+            <TextView
+                android:id="@+id/idDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/distance"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:value="20.0"
+                android:valueFrom="0.0"
+                android:valueTo="100.0" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/distanceLayoutValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+
+            android:layout_marginEnd="@dimen/dp20"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/distanceLayout"
+            app:layout_constraintStart_toStartOf="@+id/distanceLayout"
+            app:layout_constraintTop_toBottomOf="@+id/distanceLayout">
+
+            <TextView
+                android:id="@+id/idmiles1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:text="0 miles"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15" />
+
+            <TextView
+                android:id="@+id/idmiles2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp10"
+                android:text="200 miles"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/currentLocLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp20"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/distanceLayoutValue"
+            app:layout_constraintStart_toStartOf="@+id/distanceLayoutValue"
+            app:layout_constraintTop_toBottomOf="@+id/distanceLayoutValue">
+
+            <TextView
+                android:id="@+id/tvCurrentLoc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:text="@string/current_location"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCurrentLoc2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@drawable/login_bg"
+                android:drawableLeft="@drawable/location_green"
+                android:drawablePadding="@dimen/dp10"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp20"
+                android:text="@string/nw_tower_new_york_usa"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/colorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp20"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/currentLocLayout"
+            app:layout_constraintStart_toStartOf="@+id/currentLocLayout"
+            app:layout_constraintTop_toBottomOf="@+id/currentLocLayout">
+
+            <TextView
+                android:id="@+id/tvColour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/colour"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageAddColour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp10"
+                android:src="@drawable/plus"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/selectColourLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp20"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/colorLayout"
+            app:layout_constraintStart_toStartOf="@+id/colorLayout"
+            app:layout_constraintTop_toBottomOf="@+id/colorLayout">
+
+            <TextView
+                android:id="@+id/tvColourSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/colour1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageSelectedColour"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="@dimen/dp25"
+                android:src="@drawable/otp_bg"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp18" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sizeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp20"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/selectColourLayout"
+            app:layout_constraintStart_toStartOf="@+id/selectColourLayout"
+            app:layout_constraintTop_toBottomOf="@+id/selectColourLayout">
+
+            <TextView
+                android:id="@+id/tvSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/size"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp10"
+                android:src="@drawable/plus"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp18" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/selectSizeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp25"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/sizeLayout"
+            app:layout_constraintStart_toStartOf="@+id/sizeLayout"
+            app:layout_constraintTop_toBottomOf="@+id/sizeLayout">
+
+            <TextView
+                android:id="@+id/tvSizeSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/size1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15" />
+
+            <TextView
+                android:id="@+id/tvSizeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp30"
+                android:text="@string/x"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12" />
+
+        </LinearLayout>
+
+        <android.widget.Button
+            android:id="@+id/btnApply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_marginEnd="@dimen/dp20"
+            android:background="@drawable/apply"
+            app:layout_constraintEnd_toEndOf="@+id/selectSizeLayout"
+            app:layout_constraintStart_toStartOf="@+id/selectSizeLayout"
+            app:layout_constraintTop_toBottomOf="@+id/selectSizeLayout" />
+
+        <android.widget.Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp20"
+            android:layout_marginBottom="@dimen/dp20"
+            android:background="@drawable/cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnApply"
+            app:layout_constraintStart_toStartOf="@+id/btnApply"
+            app:layout_constraintTop_toBottomOf="@+id/btnApply" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

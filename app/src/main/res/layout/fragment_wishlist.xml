@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/wishlist"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/image_notifications"
+            app:layout_constraintHorizontal_bias="0.68"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+        <ImageView
+            android:id="@+id/image_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@drawable/notifications"
+            app:layout_constraintBottom_toBottomOf="@+id/cart"
+            app:layout_constraintEnd_toStartOf="@+id/cart"
+            app:layout_constraintTop_toTopOf="@+id/cart" />
+
+        <ImageView
+            android:id="@+id/cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/dp20"
+            android:src="@drawable/cart"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchWishListLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/search_bg"
+        android:padding="@dimen/dp5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain">
+
+        <EditText
+            android:id="@+id/edtSearchWishList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:drawableRight="@drawable/search"
+            android:hint="Search"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:padding="@dimen/dp8"
+            android:textSize="@dimen/sp15"
+            app:layout_constraintBottom_toBottomOf="@+id/searchWishListLayout"
+            app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+            app:layout_constraintTop_toTopOf="@+id/searchWishListLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvWishList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/wishlist"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp20"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+        app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+        app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/recyclerWishList"
+        app:layout_constraintTop_toBottomOf="@+id/tvWishList"
+        app:layout_constraintStart_toStartOf="@+id/tvWishList"
+        app:layout_constraintEnd_toEndOf="@+id/tvWishList"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/dp5"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/itemShopDetailCategory"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avtarr_girl"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="30dip"
+        app:riv_mutate_background="true"
+        app:riv_border_color="@color/normalBlack"
+        app:riv_border_width="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/dp20"
+        app:riv_oval="true"
+        app:riv_tile_mode="repeat"
+        />
+
+    <TextView
+        android:id="@+id/tvShopDetailCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp8"
+        android:text="@string/all"
+        android:textAlignment="center"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/sp12"
+        app:layout_constraintTop_toBottomOf="@+id/itemShopDetailCategory"
+        app:layout_constraintStart_toStartOf="@+id/itemShopDetailCategory"
+        app:layout_constraintEnd_toEndOf="@+id/itemShopDetailCategory"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

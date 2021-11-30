@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageOrder"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="@dimen/dp10"
+        app:riv_mutate_background="true"
+        app:riv_tile_mode="repeat" />
+
+    <TextView
+        android:id="@+id/productItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp8"
+        android:text="@string/bernd_shoes"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp18"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageOrder"
+        app:layout_constraintStart_toEndOf="@+id/imageOrder"
+        app:layout_constraintTop_toTopOf="@+id/imageOrder"
+        app:layout_constraintVertical_bias="0.26" />
+
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="90.00$"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp20"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/tvOrderQuantity"
+        app:layout_constraintStart_toStartOf="@+id/tvOrderQuantity"
+        app:layout_constraintEnd_toEndOf="@+id/tvOrderQuantity"
+        tools:layout_editor_absoluteX="256dp" />
+
+    <TextView
+        android:id="@+id/tvOrderQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Quantity :"
+        app:layout_constraintStart_toStartOf="@+id/productItemName"
+        app:layout_constraintTop_toBottomOf="@+id/productItemName" />
+
+    <TextView
+        android:id="@+id/tvOrderQuantityNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp2"
+        android:text="3"
+        app:layout_constraintTop_toTopOf="@+id/tvOrderQuantity"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOrderQuantity"
+        app:layout_constraintStart_toEndOf="@+id/tvOrderQuantity"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

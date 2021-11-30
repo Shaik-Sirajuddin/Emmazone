@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollLayout"
+        >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="16dp"
+            android:text="@string/hi"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.68"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="@dimen/dp16"
+            android:text="@string/jhon_smith"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.68"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+        <ImageView
+            android:id="@+id/image_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp2"
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@drawable/location"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp5"
+            android:text="@string/_207_mazekin_street_new_york_usa"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintBottom_toBottomOf="@+id/image_location"
+            app:layout_constraintStart_toEndOf="@+id/image_location"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+
+        <ImageView
+            android:id="@+id/image_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@drawable/notifications"
+            app:layout_constraintBottom_toBottomOf="@+id/cart"
+            app:layout_constraintEnd_toStartOf="@+id/cart"
+            app:layout_constraintTop_toTopOf="@+id/cart" />
+
+        <ImageView
+            android:id="@+id/cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/dp20"
+            android:src="@drawable/cart"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/searchHomeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain">
+
+        <EditText
+            android:id="@+id/edtSearchWishList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_weight="1"
+            android:background="@drawable/search_bg"
+            android:drawableRight="@drawable/search"
+            android:hint="Search"
+            android:textSize="@dimen/sp15"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:padding="@dimen/dp10"
+            app:layout_constraintBottom_toBottomOf="@+id/searchHomeLayout"
+            app:layout_constraintEnd_toEndOf="@+id/searchHomeLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
+            app:layout_constraintTop_toTopOf="@+id/searchHomeLayout" />
+
+        <ImageView
+            android:id="@+id/imageLocationHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@drawable/location_black" />
+
+        <ImageView
+            android:id="@+id/imageFilterHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@drawable/filter" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp5"
+        app:layout_constraintEnd_toEndOf="@+id/searchHomeLayout"
+        app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/searchHomeLayout">
+
+        <ImageView
+            android:id="@+id/imgHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp10"
+            android:background="@drawable/wallet"
+            android:drawableRight="@drawable/search"
+            android:hint="Search"
+            android:padding="@dimen/dp10" />
+
+        <TextView
+            android:id="@+id/tvHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp10"
+            android:text="@string/you_are_a_shop" />
+
+        <android.widget.Button
+            android:id="@+id/btnClickHereHome"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp30"
+            android:background="@drawable/click_here" />
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvNearByShop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:text="Near By Shops"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/search"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/search"
+            app:layout_constraintTop_toBottomOf="@+id/search" />
+
+        <ImageView
+            android:id="@+id/itemImageHome"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/faq_bg"
+            android:scaleType="fitXY"
+            android:src="@drawable/img4"
+            app:layout_constraintEnd_toEndOf="@+id/tvNearByShop"
+            app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
+            app:layout_constraintTop_toBottomOf="@+id/tvNearByShop" />
+
+    <ImageView
+        android:id="@+id/itemHeartWishList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp24"
+        android:background="@drawable/heart"
+        app:layout_constraintEnd_toEndOf="@+id/itemImageHome"
+        app:layout_constraintTop_toTopOf="@+id/itemImageHome" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layoutWishListStore"
+        android:layout_marginStart="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp16"
+        app:layout_constraintEnd_toEndOf="@+id/itemImageHome"
+        app:layout_constraintStart_toStartOf="@+id/itemImageHome"
+        app:layout_constraintTop_toBottomOf="@+id/itemImageHome"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/tvWishListStoreName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/berserka_store"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+        <ImageView
+            android:id="@+id/ratingBarWishList"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/dp5"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/rating" />
+
+        <TextView
+            android:id="@+id/tvWishListRatingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="4.5/5"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tvDistanceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp16"
+        app:layout_constraintEnd_toEndOf="@+id/layoutWishListStore"
+        app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
+        app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ImageView
+            android:id="@+id/imageLocation"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/dp5"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/location" />
+
+        <TextView
+            android:id="@+id/tvWishListDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="03 Miles Away"
+            android:layout_marginStart="@dimen/dp2"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageShopDetail2"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/faq_bg"
+            android:scaleType="fitXY"
+            android:src="@drawable/img2"
+            app:layout_constraintEnd_toEndOf="@+id/tvDistanceLayout"
+            app:layout_constraintStart_toStartOf="@+id/tvDistanceLayout"
+            app:layout_constraintTop_toBottomOf="@+id/tvDistanceLayout" />
+
+        <LinearLayout
+            android:id="@+id/layoutHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/imageShopDetail2"
+            app:layout_constraintStart_toStartOf="@+id/imageShopDetail2"
+            app:layout_constraintTop_toBottomOf="@+id/imageShopDetail2">
+
+            <TextView
+                android:id="@+id/tvHomeStoreName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/curve_store"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp18"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+                app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+                app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+            <ImageView
+                android:id="@+id/ratingBarHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dp5"
+                android:src="@drawable/rating" />
+
+            <TextView
+                android:id="@+id/tvHomeRatingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="4.5/5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12"
+                app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+                app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+                app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutHomeShop2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/layoutHome"
+            app:layout_constraintStart_toStartOf="@+id/layoutHome"
+            app:layout_constraintTop_toBottomOf="@+id/layoutHome">
+
+            <ImageView
+                android:id="@+id/imageLocation1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/dp5"
+                android:src="@drawable/location" />
+
+            <TextView
+                android:id="@+id/tvWishListDistance1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp2"
+                android:text="03 Miles Away"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp12"
+                app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+                app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+                app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageBanner"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/faq_bg"
+            android:scaleType="fitXY"
+            android:src="@drawable/banner"
+            app:layout_constraintEnd_toEndOf="@+id/layoutHomeShop2"
+            app:layout_constraintStart_toStartOf="@+id/layoutHomeShop2"
+            app:layout_constraintTop_toBottomOf="@+id/layoutHomeShop2" />
+
+        <android.widget.Button
+            android:id="@+id/btnSeeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="@dimen/dp15"
+            android:background="@drawable/seeall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageBanner"
+            app:layout_constraintStart_toStartOf="@+id/imageBanner"
+            app:layout_constraintTop_toBottomOf="@+id/imageBanner" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

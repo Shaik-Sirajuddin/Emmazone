@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingLeft="@dimen/sp20"
+        android:background="@drawable/faq_bg"
+        android:id="@+id/layoutItemDeliveryAdrs"
+        >
+        <TextView
+            android:id="@+id/tvOrderPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:text="@string/john_marker"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp18"
+            app:layout_constraintTop_toTopOf="@+id/layoutItemDeliveryAdrs"
+            app:layout_constraintStart_toStartOf="@+id/layoutItemDeliveryAdrs"
+          />
+
+        <TextView
+            android:id="@+id/tvOrderDeliveryAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_marginTop="8dp"
+            android:text="@string/_260_c_north_ei_camino_real"
+            android:textColor="@color/normalBlack"
+            android:textSize="@dimen/sp18"
+            app:layout_constraintEnd_toEndOf="@+id/tvOrderPersonName"
+            app:layout_constraintHorizontal_bias="0.11"
+            app:layout_constraintStart_toStartOf="@+id/tvOrderPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrderPersonName" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:id="@+id/radioBtnDeliveryAdrs"
+            android:layout_marginEnd="@dimen/dp10"
+            app:layout_constraintEnd_toEndOf="@+id/layoutItemDeliveryAdrs"
+            app:layout_constraintTop_toTopOf="@+id/tvOrderPersonName"
+            app:layout_constraintBottom_toBottomOf="@+id/tvOrderDeliveryAddress"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

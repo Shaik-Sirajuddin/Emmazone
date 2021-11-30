@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.main.ShopReviewsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintBottom_toBottomOf="@+id/changePassword"
+            app:layout_constraintEnd_toStartOf="@+id/changePassword"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/changePassword" />
+
+        <TextView
+            android:id="@+id/changePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:text="Your reviews"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/layoutMain"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageShopDetail"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/faq_bg"
+        android:scaleType="fitXY"
+        android:src="@drawable/img4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain" />
+
+    <LinearLayout
+        android:id="@+id/layoutWishListStore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp16"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/imageShopDetail"
+        app:layout_constraintStart_toStartOf="@+id/imageShopDetail"
+        app:layout_constraintTop_toBottomOf="@+id/imageShopDetail"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/tvWishListStoreName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/berserka_store"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+        <ImageView
+            android:id="@+id/ratingBarWishList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dp5"
+            android:src="@drawable/rating" />
+
+        <TextView
+            android:id="@+id/tvWishListRatingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="4.5/5"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+    </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/ratingbarShopReviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sp15"
+        android:rating="3"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:progressTint="@color/yellow"
+        android:transformPivotX="0dp"
+        android:transformPivotY="0dp"
+        android:isIndicator="true"
+        android:max="5"
+      app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore"
+        app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
+        android:layout_marginStart="@dimen/dp8"
+        />
+
+    <TextView
+        android:id="@+id/tvInsertComment1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/insert_comment"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/ratingbarShopReviews"
+        app:layout_constraintStart_toStartOf="@+id/ratingbarShopReviews"
+       />
+
+    <EditText
+        android:id="@+id/edtInsertCommentShopReview"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginEnd="@dimen/dp16"
+        android:background="@drawable/login_bg"
+        android:hint="Write here..."
+        android:imeOptions="actionDone"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/dp8"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/sp15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvInsertComment1"
+        app:layout_constraintTop_toBottomOf="@+id/tvInsertComment1" />
+
+
+    <android.widget.Button
+        android:id="@+id/btnSubmitShopReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp20"
+        android:background="@drawable/submit_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edtInsertCommentShopReview"
+        app:layout_constraintStart_toStartOf="@+id/edtInsertCommentShopReview"
+        app:layout_constraintTop_toBottomOf="@+id/edtInsertCommentShopReview"
+        app:layout_constraintVertical_bias="0.86" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

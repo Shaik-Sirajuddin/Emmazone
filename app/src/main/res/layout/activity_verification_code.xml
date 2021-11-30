@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.VerificationCode">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/walk_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_arrowback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/arroww"
+            app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
+            app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
+
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/verification_code"
+                android:textAlignment="center"
+                android:textColor="@color/light_black"
+                app:layout_constraintTop_toTopOf="@+id/layoutConstraint"
+                app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
+                app:layout_constraintEnd_toEndOf="@+id/layoutConstraint"
+                app:layout_constraintBottom_toBottomOf="@+id/layoutConstraint"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/tvVerificationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp50"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutConstraint">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/please_type_in_the_verification"
+            android:textAlignment="center"
+            android:textColor="@color/light_black"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/code"
+            android:textAlignment="center"
+            android:textColor="@color/light_black"
+            android:textSize="18sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/otpFieldLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp50"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVerificationLayout">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp20"
+            android:maxLength="1"
+            android:imeOptions="actionNext"
+            android:layout_marginRight="@dimen/dp10"
+            android:gravity="center"
+            android:background="@drawable/otp_bg"
+            android:hint="1"
+            />
+        <EditText
+            android:padding="@dimen/dp20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="1"
+            android:imeOptions="actionNext"
+            android:layout_marginRight="@dimen/dp10"
+            android:gravity="center"
+            android:background="@drawable/otp_bg"
+            android:hint="1"
+            />
+        <EditText
+            android:padding="@dimen/dp20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="1"
+            android:maxLength="1"
+            android:imeOptions="actionNext"
+            android:layout_marginRight="@dimen/dp10"
+            android:gravity="center"
+            android:background="@drawable/otp_bg"
+            />
+        <EditText
+            android:padding="@dimen/dp20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp10"
+            android:maxLength="1"
+            android:background="@drawable/otp_bg"
+            android:hint="1"
+            android:imeOptions="actionNext"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvResend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resend"
+        android:textAlignment="center"
+        android:textColor="@color/light_black"
+        android:textSize="18sp"
+        android:layout_marginTop="@dimen/dp20"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/otpFieldLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <View
+        android:layout_width="60dp"
+        android:layout_height="1dp"
+        android:background="@color/light_black"
+        app:layout_constraintTop_toBottomOf="@+id/tvResend"
+        app:layout_constraintStart_toStartOf="@+id/tvResend"
+        app:layout_constraintEnd_toEndOf="@+id/tvResend"
+        />
+
+    <android.widget.Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp50"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginEnd="@dimen/dp50"
+        android:background="@drawable/submit_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvResend"
+        app:layout_constraintStart_toStartOf="@+id/tvResend"
+        app:layout_constraintTop_toBottomOf="@+id/tvResend"
+        app:layout_constraintVertical_bias="0.19999999" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
