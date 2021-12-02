@@ -4,17 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.model.ModelDeliveryAddress
-import com.live.emmazone.model.ModelNotifications
+import com.live.emmazone.activities.main.OnItemClick
 import com.live.emmazone.model.ModelShopDetailProducts
-import com.live.emmazone.model.ModelWishList
 
-class AdapterShopDetailProducts(private val list: ArrayList<ModelShopDetailProducts>) :
-    RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
+
+class AdapterShopDetailProducts(private val list: ArrayList<ModelShopDetailProducts>, private val
+cellClickListener: OnItemClick) : RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_shopdetail_products, parent, false)
@@ -22,6 +20,7 @@ class AdapterShopDetailProducts(private val list: ArrayList<ModelShopDetailProdu
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
       val ModelShopDetailProducts = list[position]
         holder.imageProductSD.setImageResource(ModelShopDetailProducts.imageProductShopDetail)
         holder.productItemNameSD.setText(ModelShopDetailProducts.productItemName)
@@ -29,6 +28,10 @@ class AdapterShopDetailProducts(private val list: ArrayList<ModelShopDetailProdu
         holder.tvShopDetailProductBrandSD.setText(ModelShopDetailProducts.tvShopDetailProductBrand)
         holder.tvShopDetailProductTextSD.setText(ModelShopDetailProducts.tvShopDetailProductText)
         holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.tvSDDeliveryEstimate)
+
+        holder.itemView.setOnClickListener {
+            cellClickListener.onCellClickListener()
+        }
     }
 
     override fun getItemCount(): Int {

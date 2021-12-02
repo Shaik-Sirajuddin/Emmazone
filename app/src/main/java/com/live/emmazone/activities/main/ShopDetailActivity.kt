@@ -1,5 +1,6 @@
 package com.live.emmazone.activities.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -15,7 +16,7 @@ import com.live.emmazone.model.ModelNotifications
 import com.live.emmazone.model.ModelShopDetailCategory
 import com.live.emmazone.model.ModelShopDetailProducts
 
-class ShopDetailActivity : AppCompatActivity() {
+class ShopDetailActivity : AppCompatActivity(), OnItemClick {
     lateinit var binding : ActivityShopDetailBinding
     var list = ArrayList<ModelShopDetailCategory>()
     var listSDProduct = ArrayList<ModelShopDetailProducts>()
@@ -27,6 +28,16 @@ class ShopDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+        binding.imageCart.setOnClickListener {
+            val intent= Intent(this, Cart::class.java)
+            startActivity(intent)
+        }
+
+        binding.imageAskExpert.setOnClickListener {
+            val intent = Intent(this, Message::class.java)
+            startActivity(intent)
+        }
 
         binding.recyclerShopDetailCategory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
@@ -51,7 +62,11 @@ class ShopDetailActivity : AppCompatActivity() {
         listSDProduct.add(ModelShopDetailProducts(R.drawable.green, "Matrix", "30.00$", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
-        binding.recyclerShopDetailProducts.adapter = AdapterShopDetailProducts(listSDProduct)
+        binding.recyclerShopDetailProducts.adapter = AdapterShopDetailProducts(listSDProduct, this)
+    }
 
+    override fun onCellClickListener() {
+        val intent = Intent(this, ProductDetailActivity::class.java)
+        startActivity(intent)
     }
 }
