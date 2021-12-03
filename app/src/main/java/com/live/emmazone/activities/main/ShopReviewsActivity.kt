@@ -22,6 +22,9 @@ class ShopReviewsActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 }

@@ -1,4 +1,4 @@
-package com.live.emmazone.activities
+package com.live.emmazone.activities.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,9 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.live.emmazone.R
+import com.live.emmazone.activities.FAQ
+import com.live.emmazone.activities.Privacypolicy
+import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.ChangePassword
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.main.Notifications

@@ -29,6 +29,10 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
 
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.imageCart.setOnClickListener {
             val intent= Intent(this, Cart::class.java)
             startActivity(intent)

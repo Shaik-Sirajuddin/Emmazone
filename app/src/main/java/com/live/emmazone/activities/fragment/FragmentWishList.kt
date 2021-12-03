@@ -1,6 +1,5 @@
-package com.live.emmazone.activities
+package com.live.emmazone.activities.fragment
 
-import android.app.Notification
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater

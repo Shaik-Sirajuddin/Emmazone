@@ -25,10 +25,17 @@ class PaymentMethod : AppCompatActivity() {
 
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
+        binding.btnNext.setOnClickListener {
+            onBackPressed()
+        }
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.recyclerChooseCard.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         list.add(ModelPaymentCard(R.drawable.add_new_card))
-        list.add(ModelPaymentCard(R.drawable.add_new_card))
+
 
         binding.recyclerChooseCard.adapter = AdapterAddPaymentCard(list)
 
