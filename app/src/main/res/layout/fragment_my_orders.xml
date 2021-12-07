@@ -51,5 +51,46 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutMyOrders"
+        android:padding="@dimen/dp15"
+        android:background="@drawable/selector_my_orders"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp16"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tvOnGoingMyOrders"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAllCaps="false"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tvPastMyOrders"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAllCaps="false"
+            />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainerMyOrders"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/layoutMyOrders"
+        app:layout_constraintStart_toStartOf="@+id/layoutMyOrders"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMyOrders" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

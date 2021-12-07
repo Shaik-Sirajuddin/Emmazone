@@ -100,7 +100,7 @@
     <string name="bernd">Bernd</string>
     <string name="delivery_estimate_4_5_days">Delivery Estimate 4-5 days</string>
     <string name="product_detail">Product Detail</string>
-    <string name="bernd_shoes">Bernd Shoes</string>
+    <string name="bernd_shoes">Brend Shoes</string>
     <string name="size">Size</string>
     <string name="insert_comment">Insert Comment</string>
     <string name="winter_sweaters">Winter Sweaters</string>
@@ -111,6 +111,12 @@
     <string name="profile">Profile</string>
     <string name="order_detail">Order Detail</string>
     <string name="delivery_address">Delivery Address</string>
+    <string name="on_going">On Going</string>
+    <string name="past">Past</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="status">Status</string>
+    <string name="_02">02</string>
 
 
 </resources>

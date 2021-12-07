@@ -63,7 +63,7 @@
             android:layout_marginTop="@dimen/dp10"
             android:hint="jackson@gmail.com"
             android:paddingLeft="@dimen/dp10"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:background="@drawable/login_bg"
             android:inputType="textEmailAddress"
             android:maxLines="1"

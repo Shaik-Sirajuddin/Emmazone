@@ -393,15 +393,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="order :"
-            android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginTop="@dimen/dp8"
             android:textSize="@dimen/sp12"
-            android:layout_marginStart="@dimen/dp5"
-app:layout_constraintTop_toTopOf="@+id/tvODOrderDate"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tvODOrderDate"
             app:layout_constraintEnd_toStartOf="@+id/tvODOrderDate"
-            />
+            app:layout_constraintTop_toTopOf="@+id/tvODOrderDate" />
 
         <TextView
             android:id="@+id/tvODOrderDate"
@@ -415,20 +412,42 @@ app:layout_constraintTop_toTopOf="@+id/tvODOrderDate"
             app:layout_constraintTop_toBottomOf="@+id/layoutPaymentMethodOD"
             android:textSize="@dimen/sp12"
             android:layout_marginStart="@dimen/dp8"
-
             />
 
         <android.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnCancel"
-            android:background="@drawable/cancel"
-            app:layout_constraintTop_toBottomOf="@+id/tvODStatus"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/btnQRScanner"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="@dimen/dp24"
             android:layout_marginBottom="@dimen/dp16"
+            android:background="@drawable/qr_code_scanner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvODStatus" />
+
+        <TextView
+            android:id="@+id/tvQRCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QR Code"
+            android:textColor="@color/green"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/btnQRScanner"
+            app:layout_constraintStart_toStartOf="@+id/btnQRScanner"
+            app:layout_constraintTop_toBottomOf="@+id/btnQRScanner" />
+
+        <android.widget.Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp16"
+            android:background="@drawable/cancel"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvQRCode"
+            android:layout_marginTop="@dimen/dp32"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 
 

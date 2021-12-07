@@ -2,6 +2,7 @@ package com.live.emmazone.activities.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.adapter.AdapterRatingReviews
@@ -17,6 +18,8 @@ class RatingReviews : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRatingReviewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.recyclerRatingReviews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 

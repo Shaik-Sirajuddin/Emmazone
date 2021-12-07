@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/onGoingItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp5"
+        android:scaleType="fitCenter"
+        android:src="@drawable/shoes_square"
+        app:layout_constraintStart_toStartOf="parent"
+        app:riv_corner_radius="@dimen/dp5"
+        app:riv_mutate_background="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_tile_mode="repeat" />
+
+    <TextView
+        android:id="@+id/onGoingItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp8"
+        android:text="@string/bernd_shoes"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/onGoingItem"
+        app:layout_constraintStart_toEndOf="@+id/onGoingItem"
+        app:layout_constraintTop_toTopOf="@+id/onGoingItem"
+        app:layout_constraintVertical_bias="0.41000003" />
+
+    <TextView
+        android:id="@+id/productItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantity of products -"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp10"
+        app:layout_constraintBottom_toBottomOf="@+id/onGoingItem"
+        app:layout_constraintEnd_toEndOf="@+id/onGoingItemName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/onGoingItemName"
+        app:layout_constraintTop_toBottomOf="@+id/onGoingItemName"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/onGoingItemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_02"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp10"
+        app:layout_constraintTop_toTopOf="@+id/productItemName"
+        app:layout_constraintBottom_toBottomOf="@+id/productItemName"
+        app:layout_constraintStart_toEndOf="@+id/productItemName"
+        android:layout_marginStart="@dimen/dp2"
+        />
+
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="90.00$"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/productItemName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/onGoingItemName"
+        app:layout_constraintTop_toTopOf="@+id/onGoingItemName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmmaZone">
         <activity
+            android:name=".activities.main.OrderPickupCollect"
+            android:exported="true" />
+        <activity
             android:name=".activities.main.OrderDeliveredDetail"
             android:exported="true" />
         <activity
