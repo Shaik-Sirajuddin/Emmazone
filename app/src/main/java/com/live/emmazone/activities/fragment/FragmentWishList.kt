@@ -1,6 +1,5 @@
-package com.live.emmazone.activities
+package com.live.emmazone.activities.fragment
 
-import android.app.Notification
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.adapter.AdapterWishList
 import com.live.emmazone.model.ModelWishList
@@ -25,6 +25,12 @@ class FragmentWishList : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerWishList)
         val notifications = view.findViewById<ImageView>(R.id.image_notifications)
+        val cart = view.findViewById<ImageView>(R.id.cart)
+
+        cart.setOnClickListener {
+            val intent = Intent(activity, Cart::class.java)
+            startActivity(intent)
+        }
 
         notifications.setOnClickListener {
             val intent = Intent(activity, Notifications::class.java)

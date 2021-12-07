@@ -1,4 +1,4 @@
-package com.live.emmazone.activities
+package com.live.emmazone.activities.fragment
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.live.emmazone.MainActivity
 import com.live.emmazone.R
-import com.live.emmazone.activities.main.FilterActivity
-import com.live.emmazone.activities.main.Notifications
-import com.live.emmazone.activities.main.ShopDetailActivity
+import com.live.emmazone.activities.main.*
 
 class FragmentHome : Fragment() {
 
@@ -23,6 +21,18 @@ class FragmentHome : Fragment() {
         val imageLocation = view.findViewById<ImageView>(R.id.imageLocationHome)
         val imageNotification = view.findViewById<ImageView>(R.id.image_notifications)
         val itemImageHome = view.findViewById<ImageView>(R.id.itemImageHome)
+        val ratingBar = view.findViewById<ImageView>(R.id.ratingBarWishList)
+        val cart = view.findViewById<ImageView>(R.id.cart)
+
+        cart.setOnClickListener {
+            val intent = Intent(activity, Cart::class.java)
+            startActivity(intent)
+        }
+
+        ratingBar.setOnClickListener {
+            val intent = Intent(activity, ShopReviewsActivity::class.java)
+            startActivity(intent)
+        }
 
         itemImageHome.setOnClickListener {
             val intent = Intent(activity, ShopDetailActivity::class.java)
@@ -48,8 +58,12 @@ class FragmentHome : Fragment() {
             alertDialog.setView(view)
             alertDialog.show()
             alertDialog.setCancelable(true)
+
             crossIcon.setOnClickListener {
+              //  alertDialog.setCancelable(true)
                 alertDialog.setCancelable(true)
+                val intent = Intent(activity, MainActivity::class.java)
+                startActivity(intent)
             }
 
         }

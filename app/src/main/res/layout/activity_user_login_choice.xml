@@ -81,6 +81,7 @@
             android:layout_height="wrap_content"
             android:text="@string/create_account"
             android:textColor="@color/green"
+            android:textStyle="bold"
             android:textSize="@dimen/sp12" />
 
     </LinearLayout>

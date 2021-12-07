@@ -155,6 +155,7 @@
             android:id="@+id/dots"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:src="@drawable/dots"
             app:layout_constraintEnd_toEndOf="@+id/itemImageProductDetail"
             app:layout_constraintStart_toStartOf="@+id/itemImageProductDetail"

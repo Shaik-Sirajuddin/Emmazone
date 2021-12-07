@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.auth.ChangePassword">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,9 +19,9 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:src="@drawable/arrow_back"
             app:layout_constraintBottom_toBottomOf="@+id/changePassword"
-            app:layout_constraintEnd_toStartOf="@+id/changePassword"
             app:layout_constraintStart_toStartOf="@+id/layoutMain"
             app:layout_constraintTop_toTopOf="@+id/changePassword" />
 
@@ -32,9 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp20"
             android:text="@string/add_new_address"
+            android:textAllCaps="true"
             android:textColor="@color/black"
             android:textSize="22sp"
-            android:textAllCaps="true"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"
             app:layout_constraintStart_toStartOf="@+id/layoutMain"
@@ -46,7 +45,7 @@
         android:id="@+id/layout8"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginEnd="@dimen/dp10"
         android:padding="@dimen/dp20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,12 +55,13 @@
             android:id="@+id/oldPwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
             android:text="@string/name"
             android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +69,8 @@
             android:id="@+id/editLayout"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintLeft_toLeftOf="@+id/oldPwd"
             app:layout_constraintRight_toRightOf="@+id/layout8"
             app:layout_constraintTop_toBottomOf="@+id/oldPwd">
@@ -83,11 +84,11 @@
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:padding="10dp"
-                app:layout_constraintTop_toTopOf="@+id/editLayout"
+                android:textSize="@dimen/sp12"
+                app:layout_constraintBottom_toBottomOf="@+id/editLayout"
                 app:layout_constraintEnd_toEndOf="@+id/editLayout"
                 app:layout_constraintStart_toStartOf="@+id/editLayout"
-                app:layout_constraintBottom_toBottomOf="@+id/editLayout"
-                />
+                app:layout_constraintTop_toTopOf="@+id/editLayout" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,8 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/address"
-            android:textStyle="bold"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/editLayout"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/editLayout"
@@ -109,7 +110,7 @@
             android:id="@+id/editLayout2"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/newPwd"
             app:layout_constraintTop_toBottomOf="@+id/newPwd">
@@ -124,10 +125,11 @@
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:padding="10dp"
+                android:textSize="@dimen/sp12"
                 app:layout_constraintBottom_toBottomOf="@+id/editLayout2"
+                app:layout_constraintEnd_toEndOf="@+id/editLayout2"
                 app:layout_constraintStart_toStartOf="@+id/editLayout2"
-                app:layout_constraintTop_toTopOf="@+id/editLayout2"
-                app:layout_constraintEnd_toEndOf="@+id/editLayout2"/>
+                app:layout_constraintTop_toTopOf="@+id/editLayout2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -149,7 +151,8 @@
             android:id="@+id/editLayout3"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/login_bg"
             app:layout_constraintLeft_toLeftOf="@+id/cpassword"
             app:layout_constraintRight_toRightOf="@+id/layout8"
             app:layout_constraintTop_toBottomOf="@+id/cpassword">
@@ -158,15 +161,16 @@
                 android:id="@+id/edidConfirmPwd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/login_bg"
+                android:backgroundTint="@color/light_white"
                 android:drawablePadding="10dp"
                 android:hint="Select State"
-                android:padding="10dp"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
+                android:padding="10dp"
+                android:textSize="@dimen/sp12"
                 app:layout_constraintBottom_toBottomOf="@+id/editLayout3"
-                app:layout_constraintStart_toStartOf="@+id/editLayout3"
                 app:layout_constraintEnd_toStartOf="@+id/spinnerState"
+                app:layout_constraintStart_toStartOf="@+id/editLayout3"
                 app:layout_constraintTop_toTopOf="@+id/editLayout3" />
 
             <Spinner
@@ -174,10 +178,10 @@
                 style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/editLayout3"
+                android:spinnerMode="dropdown"
                 app:layout_constraintBottom_toBottomOf="@+id/editLayout3"
-                app:layout_constraintTop_toTopOf="@+id/editLayout3"
-                android:spinnerMode="dropdown" />
+                app:layout_constraintEnd_toEndOf="@+id/editLayout3"
+                app:layout_constraintTop_toTopOf="@+id/editLayout3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -198,7 +202,8 @@
             android:id="@+id/cityLayout"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:background="@drawable/login_bg"
+            android:layout_marginTop="8dp"
             app:layout_constraintLeft_toLeftOf="@+id/city"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/city">
@@ -210,24 +215,25 @@
                 android:background="@drawable/login_bg"
                 android:drawablePadding="10dp"
                 android:hint="@string/select_city"
-                android:padding="10dp"
                 android:imeOptions="actionDone"
+               android:backgroundTint="@color/light_white"
                 android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="@+id/cityLayout"
-                app:layout_constraintTop_toTopOf="@id/cityLayout"
-                app:layout_constraintEnd_toStartOf="@+id/spinnerCity"
+                android:padding="10dp"
+                android:textSize="@dimen/sp12"
                 app:layout_constraintBottom_toBottomOf="@id/cityLayout"
-                />
+                app:layout_constraintEnd_toStartOf="@+id/spinnerCity"
+                app:layout_constraintStart_toStartOf="@+id/cityLayout"
+                app:layout_constraintTop_toTopOf="@id/cityLayout" />
 
             <Spinner
                 android:id="@+id/spinnerCity"
                 style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/cityLayout"
+                android:spinnerMode="dropdown"
                 app:layout_constraintBottom_toBottomOf="@+id/cityLayout"
-                app:layout_constraintTop_toTopOf="@+id/cityLayout"
-                android:spinnerMode="dropdown" />
+                app:layout_constraintEnd_toEndOf="@+id/cityLayout"
+                app:layout_constraintTop_toTopOf="@+id/cityLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -239,17 +245,16 @@
             android:text="@string/zip_code"
             android:textColor="@color/black"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/cityLayout"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/cityLayout"
-            app:layout_constraintEnd_toEndOf="@+id/cityLayout"
-            app:layout_constraintTop_toBottomOf="@id/cityLayout"
-             />
+            app:layout_constraintTop_toBottomOf="@id/cityLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutZipCode"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/zipCode"
             app:layout_constraintTop_toBottomOf="@+id/zipCode">
@@ -264,10 +269,11 @@
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:padding="10dp"
+                android:textSize="@dimen/sp12"
                 app:layout_constraintBottom_toBottomOf="@+id/layoutZipCode"
+                app:layout_constraintEnd_toEndOf="@+id/layoutZipCode"
                 app:layout_constraintStart_toStartOf="@+id/layoutZipCode"
-                app:layout_constraintTop_toTopOf="@+id/layoutZipCode"
-                app:layout_constraintEnd_toEndOf="@+id/layoutZipCode"/>
+                app:layout_constraintTop_toTopOf="@+id/layoutZipCode" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -276,7 +282,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <android.widget.Button
-        android:id="@+id/btnSubmit"
+        android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"

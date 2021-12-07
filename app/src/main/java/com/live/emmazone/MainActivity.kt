@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
-import com.live.emmazone.activities.FragmentAccount
-import com.live.emmazone.activities.FragmentHome
-import com.live.emmazone.activities.FragmentMyOrders
-import com.live.emmazone.activities.FragmentWishList
+import com.live.emmazone.activities.fragment.FragmentAccount
+import com.live.emmazone.activities.fragment.FragmentHome
+import com.live.emmazone.activities.fragment.FragmentMyOrders
+import com.live.emmazone.activities.fragment.FragmentWishList
 import com.live.emmazone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
