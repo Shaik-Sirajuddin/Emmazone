@@ -20,5 +20,9 @@ class OrderCancelled : AppCompatActivity() {
             onBackPressed()
         }
 
+        binding.btnReOrder.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 }

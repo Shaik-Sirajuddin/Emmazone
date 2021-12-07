@@ -25,9 +25,9 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:src="@drawable/arrow_back"
                 app:layout_constraintBottom_toBottomOf="@+id/changePassword"
-                app:layout_constraintEnd_toStartOf="@+id/changePassword"
                 app:layout_constraintStart_toStartOf="@+id/layoutMain"
                 app:layout_constraintTop_toTopOf="@+id/changePassword" />
 
@@ -35,11 +35,11 @@
                 android:id="@+id/changePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginTop="24dp"
                 android:text="@string/privacy_policy"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/layoutMain"
                 app:layout_constraintStart_toStartOf="@+id/layoutMain"
@@ -51,7 +51,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutTermsText"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

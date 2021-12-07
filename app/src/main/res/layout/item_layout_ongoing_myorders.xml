@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -17,7 +16,7 @@
         app:riv_corner_radius="@dimen/dp5"
         app:riv_mutate_background="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:riv_tile_mode="repeat" />
+        app:riv_tile_mode="clamp" />
 
     <TextView
         android:id="@+id/onGoingItemName"

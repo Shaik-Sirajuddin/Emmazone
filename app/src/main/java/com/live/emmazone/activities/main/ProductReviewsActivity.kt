@@ -16,5 +16,12 @@ class ProductReviewsActivity : AppCompatActivity() {
 
        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
+        binding.btnSubmit.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 }

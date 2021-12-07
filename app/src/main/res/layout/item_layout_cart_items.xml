@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:paddingBottom="@dimen/dp8"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -10,12 +11,12 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/shoes_square"
+        android:src="@drawable/shoes2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:riv_corner_radius="@dimen/dp10"
+        app:riv_corner_radius="@dimen/dp15"
         app:riv_mutate_background="true"
-        app:riv_tile_mode="repeat" />
+        app:riv_tile_mode="clamp" />
 
     <TextView
         android:id="@+id/productItemName"
@@ -63,7 +64,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/bgg"
         android:orientation="horizontal"
-        android:padding="@dimen/dp5"
+        android:padding="@dimen/dp2"
         app:layout_constraintEnd_toEndOf="@+id/imgDelete"
         app:layout_constraintStart_toStartOf="@+id/imgDelete"
         app:layout_constraintTop_toBottomOf="@+id/imgDelete">

@@ -55,25 +55,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="@dimen/dp25"
+        android:layout_marginBottom="24dp"
+        android:padding="@dimen/dp8"
+        android:gravity="center"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv2"
-        >
+        app:layout_constraintVertical_bias="0.0">
+
         <android.widget.Button
+            android:id="@+id/btnCancelYes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp10"
-            android:id="@+id/btnCancelYes"
-            android:background="@drawable/yes"
-            />
+            android:background="@drawable/yes" />
+
         <android.widget.Button
+            android:id="@+id/btnCancelNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnCancelNo"
             android:layout_marginStart="@dimen/dp10"
-            android:background="@drawable/no"
-            />
+            android:background="@drawable/no" />
 
     </LinearLayout>
 

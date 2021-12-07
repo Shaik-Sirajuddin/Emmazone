@@ -15,7 +15,10 @@ import com.live.emmazone.activities.Privacypolicy
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.ChangePassword
 import com.live.emmazone.activities.auth.LoginActivity
+import com.live.emmazone.activities.auth.ProfileActivity
+import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
+import com.makeramen.roundedimageview.RoundedImageView
 
 class FragmentAccount : Fragment() {
 
@@ -31,8 +34,19 @@ class FragmentAccount : Fragment() {
         val faqLayout = view.findViewById<ConstraintLayout>(R.id.faqLayout)
         val tcLayout = view.findViewById<ConstraintLayout>(R.id.termsConditionLayout)
         val privacyPolicyLayout = view.findViewById<ConstraintLayout>(R.id.privacyPolicyLayout)
-
+        val cart = view.findViewById<ImageView>(R.id.cart)
         val notifications = view.findViewById<ImageView>(R.id.image_notifications)
+        val profileImage = view.findViewById<RoundedImageView>(R.id.pickImage)
+
+        profileImage.setOnClickListener {
+            val intent = Intent(activity, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        cart.setOnClickListener {
+            val intent = Intent(activity, Cart::class.java)
+            startActivity(intent)
+        }
 
         notifications.setOnClickListener {
             val intent = Intent(activity, Notifications::class.java)

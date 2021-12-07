@@ -25,7 +25,7 @@
                 android:id="@+id/image_arrowback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="36dp"
                 android:src="@drawable/arroww"
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
@@ -272,11 +272,11 @@
             app:layout_constraintStart_toStartOf="@+id/SignupLayout"
             app:layout_constraintTop_toBottomOf="@+id/SignupLayout">
 
-            <CheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox"
                 android:layout_width="wrap_content"
+                android:buttonTint="@color/checkbox_selector"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/green"
                 app:layout_constraintStart_toStartOf="@+id/SignupLayout"
                 app:layout_constraintTop_toBottomOf="@+id/SignupLayout" />
 
@@ -337,7 +337,7 @@
                 android:layout_marginStart="@dimen/dp5"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_in"
-                android:textColor="@color/green"
+                android:textColor="@color/black"
                 android:textSize="@dimen/sp12" />
 
         </LinearLayout>

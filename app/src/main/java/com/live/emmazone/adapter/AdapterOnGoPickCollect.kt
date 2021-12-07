@@ -11,8 +11,8 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.model.*
 
-class AdapterOnGoingOrders(private val list: ArrayList<ModelOnGoingOrders>, private val cellClickListener: OnItemClick):
-    RecyclerView.Adapter<AdapterOnGoingOrders.ViewHolder>() {
+class AdapterOnGoPickCollect(private val list: ArrayList<ModelOnGoingOrders>, private val cellClickListener: OnItemClick):
+    RecyclerView.Adapter<AdapterOnGoPickCollect.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_ongoing_myorders, parent, false)
@@ -27,7 +27,7 @@ class AdapterOnGoingOrders(private val list: ArrayList<ModelOnGoingOrders>, priv
         holder.tvproductPrice.setText(ModelOnGoingOrders.productPrice)
 
         holder.itemView.setOnClickListener {
-            cellClickListener.onClick()
+            cellClickListener.onClickPickCollect()
         }
     }
 

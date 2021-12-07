@@ -18,7 +18,7 @@
         app:riv_corner_radius="30dip"
         app:riv_mutate_background="true"
         app:riv_oval="true"
-        app:riv_tile_mode="repeat" />
+        app:riv_tile_mode="clamp" />
 
     <TextView
         android:id="@+id/tvPersonName"

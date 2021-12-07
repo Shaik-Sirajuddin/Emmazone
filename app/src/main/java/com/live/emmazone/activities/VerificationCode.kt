@@ -3,6 +3,8 @@ package com.live.emmazone.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.WindowManager
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
@@ -18,6 +20,62 @@ class VerificationCode : AppCompatActivity() {
         setContentView(binding.root)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+        binding.otpField1.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0 != null) {
+                    if (p0.length > 0) {
+                        binding.otpField1.clearFocus()
+                        binding.otpField2.requestFocus()
+                        binding.otpField2.setCursorVisible(true)
+                    }
+                }
+            }
+
+        })
+
+        binding.otpField2.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0 != null) {
+                    if (p0.length>0){
+                     binding.otpField2.clearFocus()
+                        binding.otpField3.requestFocus()
+                        binding.otpField3.setCursorVisible(true)
+                    }
+                }
+            }
+
+        })
+
+        binding.otpField3.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0 != null) {
+                    if (p0.length>0){
+                        binding.otpField3.clearFocus()
+                        binding.otpField4.requestFocus()
+                        binding.otpField4.setCursorVisible(true)
+                    }
+                }
+            }
+        })
 
         binding.imageArrowback.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)

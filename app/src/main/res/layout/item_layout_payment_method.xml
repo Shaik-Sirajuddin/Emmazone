@@ -9,12 +9,12 @@
         android:id="@+id/imageAddPaymentCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:scaleType="centerCrop"
+        android:padding="@dimen/dp5"
         android:src="@drawable/add_new_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:riv_corner_radius="@dimen/dp10"
-      />
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="@dimen/dp10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

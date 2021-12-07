@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
+import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.adapter.AdapterCart
 import com.live.emmazone.adapter.AdapterShopDetailProducts
@@ -91,8 +92,8 @@ class Cart : AppCompatActivity(), OnItemClick {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerCartMayLike.layoutManager = GridLayoutManager(this, 2)
 
-        list.add(ModelCart(R.drawable.green, R.drawable.bin, "Brend Shoes", "30.00$"))
-        list.add(ModelCart(R.drawable.green, R.drawable.bin, "Winter Sweeters", "30.00$"))
+        list.add(ModelCart(R.drawable.shoes2, R.drawable.bin, "Brend Shoes", "30.00$"))
+        list.add(ModelCart(R.drawable.shoes2, R.drawable.bin, "Brend Shoes", "30.00$"))
 
         binding.recyclerCart.adapter = AdapterCart(list)
 
@@ -115,5 +116,17 @@ class Cart : AppCompatActivity(), OnItemClick {
     override fun onCellClickListener() {
         val intent = Intent(this, ProductDetailActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onClick() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickPickCollect() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onOrderCancelled() {
+        TODO("Not yet implemented")
     }
 }

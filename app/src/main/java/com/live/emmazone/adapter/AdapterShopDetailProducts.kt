@@ -7,12 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.activities.main.OnItemClick
+import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.model.ModelShopDetailProducts
 
 
 class AdapterShopDetailProducts(private val list: ArrayList<ModelShopDetailProducts>, private val
-cellClickListener: OnItemClick) : RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
+cellClickListener: OnItemClick
+) : RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_shopdetail_products, parent, false)

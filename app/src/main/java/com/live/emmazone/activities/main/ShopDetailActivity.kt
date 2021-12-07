@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.adapter.AdapterNotifications
+import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivityShopDetailBinding
-import com.live.emmazone.model.ModelNotifications
 import com.live.emmazone.model.ModelShopDetailCategory
 import com.live.emmazone.model.ModelShopDetailProducts
 
@@ -47,12 +45,12 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
 
         list.add(ModelShopDetailCategory(R.drawable.tshiert, "All"))
-        list.add(ModelShopDetailCategory(R.drawable.shoe, "Shoe"))
         list.add(ModelShopDetailCategory(R.drawable.google, "goggle"))
         list.add(ModelShopDetailCategory(R.drawable.time, "TimePiece"))
         list.add(ModelShopDetailCategory(R.drawable.tshiert, "T Shirts"))
+        list.add(ModelShopDetailCategory(R.drawable.google, "goggle"))
 
-       binding.recyclerShopDetailCategory.adapter = AdapterShopDetailCategory(list)
+        binding.recyclerShopDetailCategory.adapter = AdapterShopDetailCategory(list)
 
         listSDProduct.add(ModelShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00$", "Lorem ipsum dolor",
         "4.8", "Delivery estimate 4-5 days"))
@@ -60,10 +58,10 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         listSDProduct.add(ModelShopDetailProducts(R.drawable.shoes2, "Matrix", "30.00$", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
-        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoes, "Bernd", "30.00$", "Lorem ipsum dolor",
+        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00$", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
-        listSDProduct.add(ModelShopDetailProducts(R.drawable.green, "Matrix", "30.00$", "Lorem ipsum dolor",
+        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoes2, "Matrix", "30.00$", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
         binding.recyclerShopDetailProducts.adapter = AdapterShopDetailProducts(listSDProduct, this)
@@ -73,4 +71,17 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         val intent = Intent(this, ProductDetailActivity::class.java)
         startActivity(intent)
     }
+
+    override fun onClick() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickPickCollect() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onOrderCancelled() {
+        TODO("Not yet implemented")
+    }
+
 }

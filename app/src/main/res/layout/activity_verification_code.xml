@@ -20,7 +20,7 @@
             android:id="@+id/image_arrowback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="36dp"
             android:src="@drawable/arroww"
             app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
@@ -37,7 +37,7 @@
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
                 app:layout_constraintEnd_toEndOf="@+id/layoutConstraint"
                 app:layout_constraintBottom_toBottomOf="@+id/layoutConstraint"
-                android:textSize="18sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="bold" />
 
 
@@ -60,7 +60,7 @@
             android:text="@string/please_type_in_the_verification"
             android:textAlignment="center"
             android:textColor="@color/light_black"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp15"
             />
 
         <TextView
@@ -69,7 +69,7 @@
             android:text="@string/code"
             android:textAlignment="center"
             android:textColor="@color/light_black"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp15"
             />
     </LinearLayout>
 
@@ -85,18 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvVerificationLayout">
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dp20"
-            android:maxLength="1"
-            android:imeOptions="actionNext"
-            android:layout_marginRight="@dimen/dp10"
-            android:gravity="center"
-            android:background="@drawable/otp_bg"
-            android:hint="1"
-            />
-        <EditText
-            android:padding="@dimen/dp20"
+            android:id="@+id/otpField1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLength="1"
@@ -107,7 +96,18 @@
             android:hint="1"
             />
         <EditText
-            android:padding="@dimen/dp20"
+            android:id="@+id/otpField2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="1"
+            android:imeOptions="actionNext"
+            android:layout_marginRight="@dimen/dp10"
+            android:gravity="center"
+            android:background="@drawable/otp_bg"
+            android:hint="1"
+            />
+        <EditText
+            android:id="@+id/otpField3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="1"
@@ -118,14 +118,14 @@
             android:background="@drawable/otp_bg"
             />
         <EditText
-            android:padding="@dimen/dp20"
+            android:id="@+id/otpField4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp10"
             android:maxLength="1"
             android:background="@drawable/otp_bg"
             android:hint="1"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:gravity="center"
             />
 

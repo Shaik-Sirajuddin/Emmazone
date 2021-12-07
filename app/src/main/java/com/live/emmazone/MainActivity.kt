@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import com.live.emmazone.activities.FragmentMyOrders
 import com.live.emmazone.activities.fragment.FragmentAccount
 import com.live.emmazone.activities.fragment.FragmentHome
-import com.live.emmazone.activities.fragment.FragmentMyOrders
 import com.live.emmazone.activities.fragment.FragmentWishList
 import com.live.emmazone.databinding.ActivityMainBinding
 
@@ -21,8 +21,7 @@ class MainActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         loadFragment(FragmentHome())
-    //    binding.bottomNavigationView.setBackgroundColor(resources.getColor(R.color.dashboard_black))
-     //   binding.bottomNavigationView.menu.findItem(R.id.dollar).isChecked = true
+    //   binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.addToBackStack(null)
+     //   transaction.addToBackStack(null)
         transaction.commit()
     }
 }

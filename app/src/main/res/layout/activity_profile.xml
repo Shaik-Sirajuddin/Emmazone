@@ -31,11 +31,11 @@
             android:id="@+id/changePassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginTop="24dp"
             android:text="@string/profile"
-            android:textColor="@color/black"
-            android:textSize="22sp"
             android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp20"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"
             app:layout_constraintStart_toStartOf="@+id/layoutMain"
@@ -47,27 +47,27 @@
         android:id="@+id/imageProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        app:layout_constraintVertical_bias="0"
+        android:adjustViewBounds="true"
         android:src="@drawable/profile_img"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutMain"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
         app:riv_corner_radius_top_left="@dimen/dp10"
         app:riv_corner_radius_top_right="@dimen/dp10"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:riv_mutate_background="true"
-        app:riv_tile_mode="repeat" />
+        app:riv_tile_mode="clamp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutProfile"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:id="@+id/layoutProfile"
         android:background="@drawable/bg_profile"
-       app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent">
+
         <TextView
             android:id="@+id/tvname"
             android:layout_width="wrap_content"
@@ -75,13 +75,13 @@
             android:layout_marginStart="@dimen/dp24"
             android:layout_marginTop="@dimen/dp24"
             android:layout_weight="1"
-            android:textSize="@dimen/sp12"
             android:text="@string/name"
-            app:layout_constraintStart_toStartOf="@+id/layoutProfile"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
             app:layout_constraintEnd_toEndOf="@+id/layoutProfile"
-            app:layout_constraintTop_toTopOf="@+id/layoutProfile"
             app:layout_constraintHorizontal_bias="0"
-            android:textColor="@color/light_black" />
+            app:layout_constraintStart_toStartOf="@+id/layoutProfile"
+            app:layout_constraintTop_toTopOf="@+id/layoutProfile" />
 
         <TextView
             android:id="@+id/tvUserName"
@@ -89,14 +89,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:layout_weight="1"
-            android:textSize="@dimen/sp15"
             android:text="Jhonson Marker"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp15"
             android:textStyle="bold"
-          app:layout_constraintTop_toBottomOf="@+id/tvname"
-            app:layout_constraintStart_toStartOf="@+id/tvname"
             app:layout_constraintEnd_toEndOf="@+id/tvname"
             app:layout_constraintHorizontal_bias="0"
-            android:textColor="@color/light_black" />
+            app:layout_constraintStart_toStartOf="@+id/tvname"
+            app:layout_constraintTop_toBottomOf="@+id/tvname" />
 
         <TextView
             android:id="@+id/tv_email"
@@ -104,13 +104,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp24"
             android:layout_weight="1"
-            android:textSize="@dimen/sp12"
             android:text="@string/email"
-           app:layout_constraintTop_toBottomOf="@+id/tvUserName"
-            app:layout_constraintStart_toStartOf="@+id/tvUserName"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
             app:layout_constraintEnd_toEndOf="@+id/tvUserName"
             app:layout_constraintHorizontal_bias="0"
-            android:textColor="@color/light_black" />
+            app:layout_constraintStart_toStartOf="@+id/tvUserName"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
         <TextView
             android:id="@+id/tvUserEmail"
@@ -118,14 +118,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:layout_weight="1"
-            android:textSize="@dimen/sp15"
             android:text="jhonsonmarker@gmail.com"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email"
-            app:layout_constraintStart_toStartOf="@+id/tv_email"
             app:layout_constraintEnd_toEndOf="@+id/tv_email"
             app:layout_constraintHorizontal_bias="0"
-            android:textColor="@color/light_black" />
+            app:layout_constraintStart_toStartOf="@+id/tv_email"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
         <TextView
             android:id="@+id/tv_phone"
@@ -133,13 +133,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp24"
             android:layout_weight="1"
-            android:textSize="@dimen/sp12"
             android:text="Phone Number"
-            app:layout_constraintTop_toBottomOf="@+id/tvUserEmail"
-            app:layout_constraintStart_toStartOf="@+id/tvUserEmail"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
             app:layout_constraintEnd_toEndOf="@+id/tvUserEmail"
             app:layout_constraintHorizontal_bias="0"
-            android:textColor="@color/light_black" />
+            app:layout_constraintStart_toStartOf="@+id/tvUserEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserEmail" />
 
         <TextView
             android:id="@+id/tvUserPhone"
@@ -147,26 +147,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:layout_weight="1"
-            android:textSize="@dimen/sp15"
             android:text="+12-456-789-456"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/tv_phone"
-            app:layout_constraintStart_toStartOf="@+id/tv_phone"
             app:layout_constraintEnd_toEndOf="@+id/tv_phone"
             app:layout_constraintHorizontal_bias="0"
-            android:textColor="@color/light_black" />
+            app:layout_constraintStart_toStartOf="@+id/tv_phone"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
         <android.widget.Button
             android:id="@+id/btnEditProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp24"
             android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp24"
             android:layout_marginEnd="@dimen/dp16"
             android:background="@drawable/edit_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUserPhone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
