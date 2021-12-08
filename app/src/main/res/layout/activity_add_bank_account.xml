@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.provider.AddBankAccountActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintBottom_toBottomOf="@+id/changePassword"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/changePassword" />
+
+        <TextView
+            android:id="@+id/changePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/add_bank_account"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/layoutMain"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/edtIFSC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp24"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/dp24"
+        android:background="@drawable/bg_add_bank"
+        android:gravity="center_vertical"
+        android:hint="@string/ifsc_code"
+        android:imeOptions="actionNext"
+        android:maxLines="1"
+        android:padding="@dimen/dp16"
+        android:paddingStart="@dimen/dp16"
+        android:text="@string/ifsc_code"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain" />
+
+    <EditText
+        android:id="@+id/edtBankBranch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp16"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_add_bank"
+        android:gravity="center_vertical"
+        android:imeOptions="actionNext"
+        android:maxLines="1"
+        android:hint="@string/bank_branch"
+        android:paddingStart="@dimen/dp16"
+        android:text="@string/bank_branch"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/edtIFSC"
+        app:layout_constraintStart_toStartOf="@+id/edtIFSC"
+        app:layout_constraintTop_toBottomOf="@+id/edtIFSC" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtActNumber"
+        android:layout_marginTop="@dimen/dp16"
+        android:imeOptions="actionNext"
+        android:maxLines="1"
+        android:text="@string/account_number"
+        android:paddingLeft="@dimen/dp16"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/sp15"
+        android:padding="@dimen/dp16"
+        android:hint="@string/account_number"
+        android:textStyle="bold"
+        android:background="@drawable/bg_add_bank"
+        app:layout_constraintTop_toBottomOf="@+id/edtBankBranch"
+        app:layout_constraintStart_toStartOf="@+id/edtBankBranch"
+        app:layout_constraintEnd_toEndOf="@+id/edtBankBranch"
+        />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtConfirmActNumber"
+        android:layout_marginTop="@dimen/dp16"
+        android:text="@string/confirm_account_number"
+        android:imeOptions="actionNext"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/dp16"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp16"
+        android:textSize="@dimen/sp15"
+        android:hint="@string/confirm_account_number"
+        android:textStyle="bold"
+        android:background="@drawable/bg_add_bank"
+        app:layout_constraintTop_toBottomOf="@+id/edtActNumber"
+        app:layout_constraintStart_toStartOf="@+id/edtActNumber"
+        app:layout_constraintEnd_toEndOf="@+id/edtActNumber"
+        />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtActHolderName"
+        android:layout_marginTop="@dimen/dp16"
+        android:text="@string/account_holder_name"
+        android:paddingLeft="@dimen/dp16"
+        android:imeOptions="actionNext"
+        android:maxLines="1"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/sp15"
+        android:padding="@dimen/dp16"
+        android:hint="@string/account_holder_name"
+        android:textStyle="bold"
+        android:background="@drawable/bg_add_bank"
+        app:layout_constraintTop_toBottomOf="@+id/edtConfirmActNumber"
+        app:layout_constraintStart_toStartOf="@+id/edtConfirmActNumber"
+        app:layout_constraintEnd_toEndOf="@+id/edtConfirmActNumber"
+        />
+
+    <android.widget.Button
+        android:id="@+id/btnSaveAct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edtActHolderName"
+        app:layout_constraintStart_toStartOf="@+id/edtActHolderName"
+        app:layout_constraintTop_toBottomOf="@+id/edtActHolderName"
+        app:layout_constraintVertical_bias="0.8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

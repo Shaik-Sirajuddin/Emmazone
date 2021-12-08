@@ -37,7 +37,6 @@ class VerificationCode : AppCompatActivity() {
                     }
                 }
             }
-
         })
 
         binding.otpField2.addTextChangedListener(object : TextWatcher{

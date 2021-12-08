@@ -8,7 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="light_black">#CE000000</color>
     <color name="normalBlack">#5E000000</color>
+    <color name="normalBlack1">#22000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="sky">#F5F8F8</color>
     <color name="light_white">#2DFFFFFF</color>
     <color name="green">#3E7A40</color>
     <color name="light_green">#8ABBDC95</color>

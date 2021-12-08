@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/tick"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:src="@drawable/tick"
+    android:layout_marginTop="@dimen/dp20"
+    app:layout_constraintEnd_toEndOf="parent"
+    />
+    <TextView
+        android:id="@+id/thankYou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/updated"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/tick"
+        android:layout_marginTop="@dimen/dp10"
+        app:layout_constraintStart_toStartOf="@+id/tick"
+        app:layout_constraintEnd_toEndOf="@+id/tick"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp20"
+        />
+    <TextView
+        android:id="@+id/orderPlaced"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_shop_detail_has_been"
+        app:layout_constraintTop_toBottomOf="@+id/thankYou"
+        android:layout_marginTop="@dimen/dp10"
+        app:layout_constraintStart_toStartOf="@+id/tick"
+        app:layout_constraintEnd_toEndOf="@+id/tick"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/sp15"
+        />
+    <TextView
+        android:id="@+id/successfully"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/update_successfully"
+        app:layout_constraintTop_toBottomOf="@+id/orderPlaced"
+        app:layout_constraintStart_toStartOf="@+id/orderPlaced"
+        app:layout_constraintEnd_toEndOf="@+id/orderPlaced"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/sp15"
+        />
+
+    <android.widget.Button
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp25"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/ok"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/successfully"
+        app:layout_constraintStart_toStartOf="@+id/successfully"
+        app:layout_constraintTop_toBottomOf="@id/successfully"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
