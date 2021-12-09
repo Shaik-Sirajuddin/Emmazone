@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".activities.provider.ProviderShopDetailActivity">
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
             android:layout_width="match_parent"
@@ -31,17 +29,17 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp20"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/image_cart"
+                app:layout_constraintEnd_toStartOf="@+id/image_editShop"
                 app:layout_constraintHorizontal_bias="0.61"
                 app:layout_constraintStart_toStartOf="@+id/layoutMain"
                 app:layout_constraintTop_toTopOf="@+id/layoutMain" />
 
             <ImageView
-                android:id="@+id/image_cart"
+                android:id="@+id/image_editShop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                android:src="@drawable/edit"
+                android:src="@drawable/pencil"
                 app:layout_constraintBottom_toBottomOf="@+id/changePassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/changePassword" />
@@ -87,60 +85,6 @@
                 app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
                 app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
 
-            <ImageView
-                android:id="@+id/ratingBarWishList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/dp5"
-                android:src="@drawable/rating" />
-
-            <TextView
-                android:id="@+id/tvWishListRatingText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="4.5/5"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
-                app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
-                app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/tvDistanceLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginEnd="@dimen/dp16"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/layoutWishListStore"
-            app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
-            app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore"
-            tools:layout_editor_absoluteX="0dp">
-
-            <ImageView
-                android:id="@+id/imageLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="@dimen/dp5"
-                android:src="@drawable/location" />
-
-            <TextView
-                android:id="@+id/tvWishListDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/dp2"
-                android:text="03 Miles Away"
-                android:textColor="@color/light_black"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
-                app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
-                app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
 
         </LinearLayout>
 
@@ -149,24 +93,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/description"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tvDistanceLayout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tvDistanceLayout"
-            app:layout_constraintTop_toBottomOf="@+id/tvDistanceLayout" />
+            app:layout_constraintEnd_toEndOf="@+id/layoutWishListStore"
+            app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
+            app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore" />
 
         <ImageView
             android:id="@+id/itemHeartShopDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:padding="@dimen/dp10"
             android:layout_marginEnd="24dp"
             android:background="@drawable/heart"
+            android:padding="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageShopDetail" />
 
@@ -176,10 +119,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp20"
             android:layout_marginEnd="28dp"
-          android:text="30"
+            android:gravity="bottom"
+            android:text="30"
             android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="@dimen/dp8"
+            android:textSize="@dimen/dp10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageShopDetail" />
 
@@ -199,52 +142,67 @@
             app:layout_constraintTop_toBottomOf="@+id/tvShopDetailDesc" />
 
         <TextView
+            android:id="@+id/tvFoundationYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="@string/year_of_foundation"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tvDesc"
+            app:layout_constraintStart_toStartOf="@+id/tvDesc"
+            app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+
+        <TextView
+            android:id="@+id/tvFYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="1997"
+            android:textAlignment="viewStart"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="@+id/tvFoundationYear"
+            app:layout_constraintStart_toStartOf="@+id/tvFoundationYear"
+            app:layout_constraintTop_toBottomOf="@+id/tvFoundationYear" />
+
+
+        <TextView
             android:id="@+id/tvShopDetailAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/address"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tvDesc"
-            app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
-
-        <ImageView
-            android:id="@+id/imageAskExpert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ask_expert"
-            android:padding="@dimen/dp5"
-            android:layout_marginStart="@dimen/dp10"
-            app:layout_constraintStart_toEndOf="@+id/tvShopDetailAddress"
-            app:layout_constraintTop_toTopOf="@+id/tvShopDetailAddress"
-            app:layout_constraintBottom_toBottomOf="@+id/tvShopDetailAddress"
-            />
+            app:layout_constraintEnd_toEndOf="@+id/tvFYear"
+            app:layout_constraintStart_toStartOf="@+id/tvFYear"
+            app:layout_constraintTop_toBottomOf="@+id/tvFYear" />
 
         <TextView
             android:id="@+id/tvShopAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
-            android:textAlignment="viewStart"
             android:text="@string/goteo_near_market_new_york_usa"
+            android:textAlignment="viewStart"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp12"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailAddress"
-            app:layout_constraintEnd_toEndOf="@+id/imageAskExpert"
-            app:layout_constraintTop_toBottomOf="@+id/tvShopDetailAddress"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tvShopDetailAddress" />
+
         <View
-            android:layout_width="0dp"
             android:id="@+id/view"
+            android:layout_width="0dp"
             android:layout_height="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvShopAddress"
-            app:layout_constraintStart_toStartOf="@+id/tvShopAddress"
             app:layout_constraintEnd_toEndOf="@+id/tvShopAddress"
-            />
+            app:layout_constraintStart_toStartOf="@+id/tvShopAddress"
+            app:layout_constraintTop_toBottomOf="@+id/tvShopAddress" />
+
         <TextView
             android:id="@+id/tvShopDetailCategories"
             android:layout_width="0dp"
@@ -255,21 +213,19 @@
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/view"
-            app:layout_constraintTop_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="@+id/view"
-            />
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProviderShopDetailCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/recyclerShopDetailCategory"
-            app:layout_constraintTop_toBottomOf="@+id/tvShopDetailCategories"
-            app:layout_constraintStart_toStartOf="@+id/tvShopDetailCategories"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/dp16"
             android:layout_marginTop="@dimen/dp16"
-            />
+            android:layout_marginEnd="@dimen/dp16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvShopDetailCategories"
+            app:layout_constraintTop_toBottomOf="@+id/tvShopDetailCategories" />
 
         <TextView
             android:id="@+id/tvShopDetailProducts"
@@ -280,19 +236,18 @@
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/recyclerShopDetailCategory"
-            app:layout_constraintStart_toStartOf="@+id/recyclerShopDetailCategory"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerShopDetailCategory" />
+            app:layout_constraintEnd_toEndOf="@+id/recyclerProviderShopDetailCategory"
+            app:layout_constraintStart_toStartOf="@+id/recyclerProviderShopDetailCategory"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerProviderShopDetailCategory" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProviderSDProducts"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/recyclerShopDetailProducts"
-            app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProducts"
-            app:layout_constraintStart_toStartOf="@+id/tvShopDetailProducts"
-            app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProducts"
             android:layout_marginTop="@dimen/dp16"
-            />
+            app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProducts"
+            app:layout_constraintStart_toStartOf="@+id/tvShopDetailProducts"
+            app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProducts" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

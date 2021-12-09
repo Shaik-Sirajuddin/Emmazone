@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home -> {
                     loadFragment(FragmentHome())
                     return@setOnNavigationItemSelectedListener true
-                    binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(R.drawable.home_selected)
+                 //   binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(R.drawable.home_selected)
                 }
             }
             false

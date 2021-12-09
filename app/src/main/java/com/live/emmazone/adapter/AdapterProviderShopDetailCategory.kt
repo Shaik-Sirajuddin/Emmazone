@@ -9,23 +9,22 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.model.ModelDeliveryAddress
-import com.live.emmazone.model.ModelMyEarnings
 import com.live.emmazone.model.ModelNotifications
+import com.live.emmazone.model.ModelShopDetailCategory
 import com.live.emmazone.model.ModelWishList
 
-class AdapterMyEarnings(private val list: ArrayList<ModelMyEarnings>) :
-    RecyclerView.Adapter<AdapterMyEarnings.ViewHolder>() {
+class AdapterProviderShopDetailCategory(private val list: ArrayList<ModelShopDetailCategory>) :
+    RecyclerView.Adapter<AdapterProviderShopDetailCategory.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_my_earnings, parent, false)
+      val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_shopdetail_category, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val ModelMyEarnings = list[position]
-        holder.tvproductName.setText(ModelMyEarnings.productName)
-        holder.tvMyEarningDate.setText(ModelMyEarnings.tvMyEarningsDate)
-        holder.tvearningsDollar.setText(ModelMyEarnings.earningsDollar)
+      val ModelShopDetailCategory = list[position]
+        holder.imageCategory.setImageResource(ModelShopDetailCategory.imageShopDetailCategory)
+        holder.tvItemName.setText(ModelShopDetailCategory.tvShopDetailCategoryItemName)
     }
 
     override fun getItemCount(): Int {
@@ -34,9 +33,7 @@ class AdapterMyEarnings(private val list: ArrayList<ModelMyEarnings>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val tvproductName = itemView.findViewById<TextView>(R.id.productName)
-        val tvMyEarningDate = itemView.findViewById<TextView>(R.id.tvMyEarningsDate)
-        val tvearningsDollar= itemView.findViewById<TextView>(R.id.earningsDollar)
-
+        val imageCategory : ImageView = itemView.findViewById(R.id.itemShopDetailCategory)
+        val tvItemName = itemView.findViewById<TextView>(R.id.tvShopDetailCategories)
             }
 }

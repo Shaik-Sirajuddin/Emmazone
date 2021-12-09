@@ -3,6 +3,7 @@ package com.live.emmazone.activities.provider
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.adapter.AdapterMyEarnings
@@ -18,6 +19,8 @@ class MyEarningsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMyEarningsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.back.setOnClickListener {
             onBackPressed()

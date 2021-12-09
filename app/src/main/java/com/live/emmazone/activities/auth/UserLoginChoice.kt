@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
+import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.databinding.ActivityUserLoginChoiceBinding
 
 class UserLoginChoice : AppCompatActivity() {
@@ -28,6 +29,10 @@ class UserLoginChoice : AppCompatActivity() {
         }
         binding.tvCreateAccount.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnSignInSeller.setOnClickListener {
+            val intent = Intent(this, ProviderMainActivity::class.java)
             startActivity(intent)
         }
     }

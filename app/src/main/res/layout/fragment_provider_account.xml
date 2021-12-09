@@ -132,10 +132,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <Switch
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp20"
+                android:background="@drawable/notification_selector"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

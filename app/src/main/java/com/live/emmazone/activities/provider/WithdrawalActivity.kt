@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityMainBinding
 import com.live.emmazone.databinding.ActivityWithdrawalBinding
@@ -15,6 +16,8 @@ class WithdrawalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWithdrawalBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
       binding.back.setOnClickListener {
           onBackPressed()

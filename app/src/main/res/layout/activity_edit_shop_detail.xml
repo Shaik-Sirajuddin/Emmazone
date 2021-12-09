@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".activities.provider.EditShopDetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/walk_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_arrowback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="36dp"
+                android:src="@drawable/arroww"
+                app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
+                app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
+
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_shop_detail"
+                android:textAlignment="center"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp20"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/layoutConstraint"
+                app:layout_constraintEnd_toEndOf="@+id/layoutConstraint"
+                app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
+                app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imgEditShop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layoutConstraint"
+            app:layout_constraintVertical_bias="0.16000003"
+            app:riv_corner_radius="@dimen/dp16">
+
+        </com.makeramen.roundedimageview.RoundedImageView>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/dp40"
+            android:layout_height="@dimen/dp40"
+            app:layout_constraintBottom_toBottomOf="@+id/imgEditShop"
+            app:layout_constraintEnd_toEndOf="@+id/imgEditShop"
+            app:layout_constraintStart_toStartOf="@+id/imgEditShop"
+            app:layout_constraintTop_toTopOf="@+id/imgEditShop"
+            app:layout_constraintVertical_bias="0.40"
+            app:srcCompat="@drawable/photo"
+            tools:layout_editor_absoluteX="324dp"
+            tools:layout_editor_absoluteY="198dp" />
+
+        <TextView
+            android:id="@+id/tvAddPic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:text="@string/add_change"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/tvAddImgVdo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/images_videos"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15"
+            app:layout_constraintEnd_toEndOf="@+id/tvAddPic"
+            app:layout_constraintStart_toStartOf="@+id/tvAddPic"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddPic" />
+
+        <ImageView
+            android:id="@+id/imageAddAShop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp8"
+            android:layout_marginBottom="@dimen/dp8"
+            app:layout_constraintBottom_toBottomOf="@+id/imgEditShop"
+            app:layout_constraintEnd_toEndOf="@+id/imgEditShop"
+            app:layout_constraintVertical_bias="0.40"
+            app:srcCompat="@drawable/plus"
+            tools:layout_editor_absoluteX="324dp"
+            tools:layout_editor_absoluteY="198dp" />
+
+        <TextView
+            android:id="@+id/tvShopName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp24"
+            android:text="Shop Name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgEditShop" />
+
+        <EditText
+            android:id="@+id/edtShopName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:background="@drawable/login_bg"
+            android:hint="Berserka Store"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@+id/tvShopName"
+            app:layout_constraintStart_toStartOf="@+id/tvShopName"
+            app:layout_constraintTop_toBottomOf="@+id/tvShopName" />
+
+        <TextView
+            android:id="@+id/tvYearFoundation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:text="@string/year_of_foundation"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/edtShopName"
+            app:layout_constraintStart_toStartOf="@+id/edtShopName"
+            app:layout_constraintTop_toBottomOf="@+id/edtShopName" />
+
+        <EditText
+            android:id="@+id/edtShopYearFoundation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:background="@drawable/login_bg"
+            android:hint="1997"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@+id/tvYearFoundation"
+            app:layout_constraintStart_toStartOf="@+id/tvYearFoundation"
+            app:layout_constraintTop_toBottomOf="@+id/tvYearFoundation" />
+
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:text="Address"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/edtShopYearFoundation"
+            app:layout_constraintStart_toStartOf="@+id/edtShopYearFoundation"
+            app:layout_constraintTop_toBottomOf="@+id/edtShopYearFoundation" />
+
+        <EditText
+            android:id="@+id/edtShopAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:background="@drawable/login_bg"
+            android:hint="Emma Marker"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@+id/tvAddress"
+            app:layout_constraintStart_toStartOf="@+id/tvAddress"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
+
+        <TextView
+            android:id="@+id/tvDESC"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:text="@string/description"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/edtShopAddress"
+            app:layout_constraintStart_toStartOf="@+id/edtShopAddress"
+            app:layout_constraintTop_toBottomOf="@+id/edtShopAddress" />
+
+        <EditText
+            android:id="@+id/edtShopDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:background="@drawable/login_bg"
+            android:hint="@string/lorem_ipsum_dolor_sit_amet_consectetur_edipscing_elit_sed_to_mode_tempor_incidedunt_ut_lebore_et_dolor_magna_aliqua_quis_ipsum_suspendisse"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dp5"
+            android:textColorHint="@color/black"
+            android:textSize="@dimen/sp15"
+            app:layout_constraintEnd_toEndOf="@+id/tvDESC"
+            app:layout_constraintStart_toStartOf="@+id/tvDESC"
+            app:layout_constraintTop_toBottomOf="@+id/tvDESC" />
+
+        <TextView
+            android:id="@+id/tvCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp24"
+            android:text="@string/categories"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/edtShopDesc"
+            app:layout_constraintTop_toBottomOf="@+id/edtShopDesc" />
+
+        <ImageView
+            android:id="@+id/imageAddCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="@dimen/dp8"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvCat"
+            app:layout_constraintTop_toTopOf="@+id/tvCat"
+            app:srcCompat="@drawable/plus" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvEditShop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvCatName"
+            app:layout_constraintEnd_toEndOf="@+id/imageAddCat"
+            app:layout_constraintStart_toStartOf="@+id/tvCat"
+            app:layout_constraintTop_toBottomOf="@+id/tvCat" />
+
+        <TextView
+            android:id="@+id/tvCatName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp24"
+            android:text="@string/category_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintStart_toStartOf="@+id/rvEditShop"
+            app:layout_constraintTop_toBottomOf="@+id/rvEditShop" />
+
+        <View
+            android:id="@+id/viewCatname"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvCatName"
+            app:layout_constraintStart_toStartOf="@+id/tvCatName"
+            app:layout_constraintTop_toBottomOf="@+id/tvCatName" />
+
+        <TextView
+            android:id="@+id/tvAddImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_image"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCatName"
+            app:layout_constraintEnd_toEndOf="@+id/rvEditShop"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvCatName"
+            app:layout_constraintTop_toTopOf="@+id/tvCatName" />
+
+        <View
+            android:id="@+id/viewAddImage"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvAddImg"
+            app:layout_constraintStart_toStartOf="@+id/tvAddImg"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddImg" />
+
+        <android.widget.Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/update"
+            app:layout_constraintStart_toStartOf="@+id/viewCatname"
+            app:layout_constraintEnd_toEndOf="@+id/viewAddImage"
+            android:layout_marginTop="@dimen/dp32"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewCatname"
+            android:layout_marginBottom="@dimen/dp32"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

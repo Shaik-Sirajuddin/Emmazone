@@ -148,6 +148,15 @@
     <string name="are_you_sure_you_want_to_delete">Are you sure you want to Delete</string>
     <string name="this_product">this product?</string>
     <string name="your_product_detail_has_been">Your product detail has been</string>
+    <string name="add_product">Add Product</string>
+    <string name="sales">Sales</string>
+    <string name="edit_shop_detail">Edit Shop Detail</string>
+    <string name="add_change">Add/change</string>
+    <string name="images_videos">Images/Videos</string>
+    <string name="year_of_foundation">Year of foundation</string>
+    <string name="category_name">Category Name</string>
+    <string name="add_image">Add Image</string>
+    <string name="edit_image">Edit Image</string>
 
 
 </resources>
