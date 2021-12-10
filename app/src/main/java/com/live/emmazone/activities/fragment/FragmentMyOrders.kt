@@ -46,7 +46,6 @@ class FragmentMyOrders : Fragment() {
         tvPastOrders.setOnClickListener {
             openOnGoingOrdersFragment(PastFragment())
         }
-
         return view
     }
 

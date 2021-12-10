@@ -13,6 +13,7 @@
     <color name="sky">#F5F8F8</color>
     <color name="light_white">#2DFFFFFF</color>
     <color name="green">#3E7A40</color>
+    <color name="status_bar">#D0E3BB</color>
     <color name="light_green">#8ABBDC95</color>
     <color name="green_spinner">#8FAC6D</color>
     <color name="bgDeliveryAddress">#DDEDDD</color>

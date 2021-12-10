@@ -10,7 +10,12 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.EmmaZone">
-
+        <activity
+            android:name=".activities.provider.EditProductActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.provider.AddNewProductActivity"
+            android:exported="true" />
         <activity
             android:name=".activities.provider.EditShopDetailActivity"
             android:exported="true" />

@@ -15,6 +15,7 @@ import com.live.emmazone.activities.Privacypolicy
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.ChangePassword
 import com.live.emmazone.activities.auth.LoginActivity
+import com.live.emmazone.activities.auth.ProfileActivity
 import com.live.emmazone.activities.main.Message
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.MyEarningsActivity
@@ -37,6 +38,12 @@ class FragmentProviderAccount : Fragment() {
         val pcLayout: ConstraintLayout = view.findViewById(R.id.privacyPolicyLayout)
         val btnLogout: Button = view.findViewById(R.id.btn_logout)
         val imgNotify: ImageView = view.findViewById(R.id.image_notifications)
+        val proAccountImage: ImageView = view.findViewById(R.id.proAccountImage)
+
+        proAccountImage.setOnClickListener {
+            val intent = Intent(activity, ProfileActivity::class.java)
+            startActivity(intent)
+        }
 
         imgNotify.setOnClickListener {
             val intent = Intent(activity, Notifications::class.java)

@@ -157,6 +157,19 @@
     <string name="category_name">Category Name</string>
     <string name="add_image">Add Image</string>
     <string name="edit_image">Edit Image</string>
+    <string name="choose_your_services">Choose your Services</string>
+    <string name="click_and_collect">Click And Collect</string>
+    <string name="own_delivery">Own Delivery</string>
+    <string name="delivery_type">Delivery Type</string>
+    <string name="home_delivery">Home Delivery</string>
+    <string name="add_product_images">Add Product Images</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_price">Product Price</string>
+    <string name="product_quality">Product Quantity</string>
+    <string name="product_colour">Product Colour</string>
+    <string name="colour_1">Colour 1</string>
+    <string name="product_size">Product Size</string>
+    <string name="product_highlight">product Highlight</string>
 
 
 </resources>

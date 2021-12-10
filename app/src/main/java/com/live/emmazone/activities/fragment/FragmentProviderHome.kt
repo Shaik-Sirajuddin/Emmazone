@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.provider.EditShopDetailActivity
-import com.live.emmazone.adapter.AdapterProviderShopDetailCategory
 import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.model.ModelProShopDetailProducts

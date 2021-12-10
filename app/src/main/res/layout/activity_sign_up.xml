@@ -274,9 +274,9 @@
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dp20"
                 android:buttonTint="@color/checkbox_selector"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp20"
                 app:layout_constraintStart_toStartOf="@+id/SignupLayout"
                 app:layout_constraintTop_toBottomOf="@+id/SignupLayout" />
 

@@ -7,9 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.model.ModelProShopDetailProducts
-import com.live.emmazone.model.ModelShopDetailProducts
 import com.makeramen.roundedimageview.RoundedImageView
 
 class AdapterProviderShopDetailProducts(private val list: ArrayList<ModelProShopDetailProducts>) :
