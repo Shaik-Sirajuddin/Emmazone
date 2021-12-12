@@ -1,5 +1,6 @@
 package com.live.emmazone.adapter
 
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,13 @@ class AdapterProviderShopDetailProducts(private val list: ArrayList<ModelProShop
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
       val ModelProShopDetailProducts = list[position]
+
+        if (position == 0)
+        {
+           holder.imageEditSDProduct.visibility= View.GONE
+           holder.imageDelete.visibility= View.GONE
+        }
+
         holder.imageProductSD.setImageResource(ModelProShopDetailProducts.imageProductShopDetail)
         holder.imageEditSDProduct.setImageResource(ModelProShopDetailProducts.imgEdit)
         holder.imageDelete.setImageResource(ModelProShopDetailProducts.imgDelete)

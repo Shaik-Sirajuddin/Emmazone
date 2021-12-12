@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.adapter.AdapterProviderNewSales
+import com.live.emmazone.model.ModelOnGoingOrders
 import com.live.emmazone.model.ModelProviderNewSale
 
-class NewSalesProviderFragment : Fragment(){
+class NewSalesProviderFragment : Fragment(), OnItemClick{
     val list = ArrayList<ModelProviderNewSale>()
+    val listChildRecycler = ArrayList<ModelOnGoingOrders>()
     lateinit var adapter : AdapterProviderNewSales
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -22,12 +25,30 @@ class NewSalesProviderFragment : Fragment(){
 
         rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        list.add(ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl,
-        "Allen Chandler", "Delivery Type", " Home Delivery",
-        R.drawable.ontheway, "29-March-2021"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoe, "Brend Shoe", "03", "90.00"))
 
-        rv.adapter = AdapterProviderNewSales(list)
+        list.add(ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl,
+        "Allen Chandler", "Delivery Type", " Home Delivery", listChildRecycler, R.drawable.ontheway,
+        "29-march-2021"))
+
+        rv.adapter = AdapterProviderNewSales(list, this)
 
         return view
+    }
+
+    override fun onCellClickListener() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClick() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickPickCollect() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onOrderCancelled() {
+        TODO("Not yet implemented")
     }
 }

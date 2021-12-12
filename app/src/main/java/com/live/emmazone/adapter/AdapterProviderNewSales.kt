@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.model.*
 
-class AdapterProviderNewSales(private val list: ArrayList<ModelProviderNewSale>) :
+class AdapterProviderNewSales(private val list: ArrayList<ModelProviderNewSale>,private val
+cellClickListener: OnItemClick) :
     RecyclerView.Adapter<AdapterProviderNewSales.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,6 +32,8 @@ class AdapterProviderNewSales(private val list: ArrayList<ModelProviderNewSale>)
         holder.tvODOrderDate.setText(ModelProviderNewSale.tvODOrderDate)
         holder.imageSales.setImageResource(ModelProviderNewSale.imageSales)
         holder.imgStatus.setImageResource(ModelProviderNewSale.imgStatus)
+        holder.recyclerChildNewsale.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
+        holder.recyclerChildNewsale.adapter = AdapterOnGoingOrders(ModelProviderNewSale.list,cellClickListener)
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +50,7 @@ class AdapterProviderNewSales(private val list: ArrayList<ModelProviderNewSale>)
         val tvODOrderDate : TextView = itemView.findViewById(R.id.tvODOrderDate)
         val imageSales : ImageView = itemView.findViewById(R.id.imageSales)
         val imgStatus : ImageView = itemView.findViewById(R.id.imgStatus)
+        val recyclerChildNewsale : RecyclerView = itemView.findViewById(R.id.recyclerChildNewSales)
 
 
             }
