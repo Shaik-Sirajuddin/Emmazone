@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.provider.WithdrawalActivity">
+    tools:context=".activities.provider.WithDrawBankInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutMain"
@@ -100,7 +100,8 @@
         android:layout_marginEnd="@dimen/dp16"
         android:background="@drawable/bg_withdrawal"
         android:gravity="center"
-        android:hint="$0.00"
+        android:hint="$10.00"
+        android:textColorHint="@color/black"
         android:textSize="@dimen/sp20"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tvWithdrawAmt"
@@ -113,7 +114,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp16"
         android:layout_marginTop="@dimen/dp8"
-        android:layout_marginEnd="@dimen/dp16"
         android:gravity="center"
         android:text="@string/to"
         android:textColor="@color/black"
@@ -125,70 +125,116 @@
 
     <TextView
         android:id="@+id/tvTransferInto"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp16"
         android:layout_marginTop="@dimen/dp8"
-        android:layout_marginEnd="@dimen/dp16"
         android:text="Transfer into"
         android:textColor="@color/black"
         android:textSize="@dimen/sp15"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTo" />
 
-    <android.widget.Button
-        android:id="@+id/btnAddBank"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dp80"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_marginTop="@dimen/dp10"
-        android:layout_marginEnd="@dimen/dp16"
-        android:background="@drawable/bg_withdrawal"
-        android:gravity="center"
-        android:text="@string/add_your_bank_account"
-        android:textColor="@color/black"
-        android:textSize="@dimen/sp18"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tvTransferInto"
-        app:layout_constraintStart_toStartOf="@+id/tvTransferInto"
-        app:layout_constraintTop_toBottomOf="@+id/tvTransferInto" />
-
-
-    <android.widget.Button
-        android:id="@+id/btnWithdrawNow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:padding="@dimen/dp16"
-        android:background="@drawable/withdraw_now"
-        app:layout_constraintEnd_toEndOf="@+id/btnAddBank"
-        app:layout_constraintStart_toStartOf="@+id/btnAddBank"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddBank" />
-
-    <android.widget.Button
-        android:id="@+id/btnWithdrawGreen"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:padding="@dimen/dp16"
-        android:visibility="invisible"
-        android:background="@drawable/withdraw_bg_green"
-        app:layout_constraintEnd_toEndOf="@+id/btnAddBank"
-        app:layout_constraintStart_toStartOf="@+id/btnAddBank"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddBank" />
-
-    <ImageView
+    <TextView
+        android:id="@+id/tvChangeAct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imgNoTransaction"
-        android:src="@drawable/notransaction"
-        app:layout_constraintTop_toBottomOf="@+id/btnWithdrawNow"
-        app:layout_constraintStart_toStartOf="@+id/btnWithdrawNow"
-        app:layout_constraintEnd_toEndOf="@+id/btnWithdrawNow"
-        android:layout_marginTop="@dimen/dp24"
+        android:layout_marginStart="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp8"
+        android:text="@string/change_account"
+        app:layout_constraintEnd_toEndOf="@+id/tvTo"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/tvTo" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:id="@+id/viewChangeAct"
+        android:background="@color/green"
+        app:layout_constraintStart_toStartOf="@+id/tvChangeAct"
+        app:layout_constraintEnd_toEndOf="@+id/tvChangeAct"
+        app:layout_constraintTop_toBottomOf="@+id/tvChangeAct"
         />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutAddBankAccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_marginTop="@dimen/dp16"
+        android:paddingBottom="@dimen/dp24"
+        android:background="@drawable/bg_withdrawal"
+        app:layout_constraintBottom_toTopOf="@+id/tvTransferInto"
+        app:layout_constraintEnd_toEndOf="@+id/viewChangeAct"
+        app:layout_constraintStart_toStartOf="@+id/tvTransferInto"
+        app:layout_constraintTop_toBottomOf="@+id/tvTransferInto"
+        app:layout_constraintVertical_bias="0.050000012">
+
+        <ImageView
+            android:id="@+id/imageBank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="@dimen/dp10"
+            android:paddingStart="@dimen/dp24"
+            android:src="@drawable/hdfc"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutAddBankAccount"
+            app:layout_constraintStart_toStartOf="@+id/layoutAddBankAccount"
+            app:layout_constraintTop_toTopOf="@+id/layoutAddBankAccount"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/tvBankAccountName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginTop="5dp"
+            android:gravity="start"
+            android:text="@string/hdfc_bank_account"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageBank"
+            app:layout_constraintTop_toTopOf="@+id/imageBank" />
+
+        <TextView
+            android:id="@+id/tvBankAccountNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/xxxx_xxxx_xxxx_6789"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvBankAccountName"
+            app:layout_constraintTop_toBottomOf="@+id/tvBankAccountName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <android.widget.Button
+        android:id="@+id/btnWithdraw"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/withdraw_bg_green"
+        android:padding="@dimen/dp16"
+        app:layout_constraintEnd_toEndOf="@+id/layoutAddBankAccount"
+        app:layout_constraintStart_toStartOf="@+id/layoutAddBankAccount"
+        app:layout_constraintTop_toBottomOf="@+id/layoutAddBankAccount" />
+
+    <ImageView
+        android:id="@+id/imgNoTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/notransaction"
+        app:layout_constraintEnd_toEndOf="@+id/btnWithdraw"
+        app:layout_constraintStart_toStartOf="@+id/btnWithdraw"
+        app:layout_constraintTop_toBottomOf="@+id/btnWithdraw" />
 
     <TextView
         android:id="@+id/tvNoTransactionYet"
@@ -200,9 +246,12 @@
         android:textColor="@color/light_black"
         android:textSize="@dimen/sp15"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/imgNoTransaction"
-        app:layout_constraintStart_toStartOf="@+id/imgNoTransaction"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imgNoTransaction"
-       />
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="@+id/imgNoTransaction"
+        app:layout_constraintTop_toBottomOf="@+id/imgNoTransaction"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

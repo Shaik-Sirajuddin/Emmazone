@@ -94,7 +94,7 @@
         android:id="@+id/imgSort"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginTop="5dp"
         android:padding="@dimen/dp5"
         android:src="@drawable/sort"
         app:layout_constraintStart_toStartOf="@+id/searchLayout"
@@ -104,7 +104,7 @@
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         app:cardCornerRadius="@dimen/dp16"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,29 +172,27 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/tvProducts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/tvProducts"
-        android:textSize="@dimen/sp18"
-        android:textColor="@color/black"
-        android:text="@string/products"
-        android:textStyle="bold"
         android:layout_marginTop="@dimen/dp16"
-        android:layout_marginStart="@dimen/dp8"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
+        android:text="@string/products"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp18"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
-        />
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAdProductProvider"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/rvAdProductProvider"
-        android:layout_marginTop="@dimen/dp16"
-        app:layout_constraintTop_toBottomOf="@+id/tvProducts"
-        app:layout_constraintStart_toStartOf="@+id/tvProducts"
-        app:layout_constraintEnd_toEndOf="@+id/tvProducts"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="@+id/tvProducts"
+        app:layout_constraintStart_toStartOf="@+id/tvProducts"
+        app:layout_constraintTop_toBottomOf="@+id/tvProducts" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

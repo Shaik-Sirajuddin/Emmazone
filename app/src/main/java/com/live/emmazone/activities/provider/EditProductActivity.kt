@@ -20,6 +20,10 @@ class EditProductActivity : AppCompatActivity() {
 
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.btnUpdate.setOnClickListener {
             val alertBuilder = AlertDialog.Builder(this)
             val factory = LayoutInflater.from(this)

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Notifications
+import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
 import com.live.emmazone.model.ModelProShopDetailProducts
 
@@ -27,7 +28,7 @@ class FragmentProviderAddProduct : Fragment() {
         val back : ImageView = view.findViewById(R.id.back)
 
         back.setOnClickListener {
-            val intent = Intent(activity, FragmentProviderHome::class.java)
+            val intent = Intent(activity, ProviderMainActivity::class.java)
             startActivity(intent)
         }
 
@@ -44,20 +45,20 @@ class FragmentProviderAddProduct : Fragment() {
 
         list.add(
             ModelProShopDetailProducts(R.drawable.shoes2, "Bernd", "30.00$",
-                "Lorem ipsum dolor", "4.8", "Delivery estimate 4-5 days",
+                "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
         list.add(
             ModelProShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00$",
-                "Lorem ipsum dolor", "4.8", "Delivery estimate 4-5 days",
+                "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
         list.add(
             ModelProShopDetailProducts(R.drawable.shoes2, "Bernd", "30.00$",
-                "Lorem ipsum dolor", "4.8", "Delivery estimate 4-5 days",
+                "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
-        rv.adapter = AdapterProviderShopDetailProducts(list)
+        rv.adapter = AdapterProviderShopDetailProducts(requireContext(), list)
 
         return view
     }

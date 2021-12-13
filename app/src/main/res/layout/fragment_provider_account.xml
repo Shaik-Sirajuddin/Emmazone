@@ -66,36 +66,35 @@
         android:id="@+id/profileAccountLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/dp10"
-        app:layout_constraintTop_toBottomOf="@+id/proAccountImage"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/proAccountImage">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Emma Marker"
-            android:textStyle="bold"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
-            />
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:text="emmamarker@gmail.com"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp12"
-            />
+            android:textSize="@dimen/sp12" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+934867863493"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp12"
-            />
+            android:textSize="@dimen/sp12" />
 
     </LinearLayout>
 
@@ -124,8 +123,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="@string/notifications"
                 android:paddingLeft="@dimen/dp15"
+                android:text="@string/notifications"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

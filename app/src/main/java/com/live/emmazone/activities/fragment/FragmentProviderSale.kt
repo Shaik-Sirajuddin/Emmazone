@@ -1,6 +1,7 @@
 package com.live.emmazone.activities.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,8 @@ class FragmentProviderSale : Fragment() {
 
         tvongoingSale.setOnClickListener {
             openSalesFragment(OnGoingSalesProviderFragment())
+//            tvongoingSale.setTextColor(Color.WHITE)
+//            tvongoingSale.setBackgroundResource(R.drawable.bg_fill_earning)
         }
 
         tvPastSale.setOnClickListener {
@@ -45,7 +48,7 @@ class FragmentProviderSale : Fragment() {
 
     private fun openSalesFragment(fragment : Fragment) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
-        transaction?.replace(R.id.fragmentProviderContainer, fragment)
+        transaction?.replace(R.id.fragmentProviderSalesContainer, fragment)
         //  transaction?.addToBackStack("My Orders")
         transaction?.commit()
     }

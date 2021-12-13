@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -85,7 +86,7 @@
 
             <TextView
                 android:id="@+id/tvUsername"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp5"
                 android:layout_marginEnd="@dimen/dp24"
@@ -95,6 +96,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageSales"
                 app:layout_constraintEnd_toEndOf="@+id/view"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageSales"
                 app:layout_constraintTop_toTopOf="@+id/imageSales" />
 
@@ -113,86 +115,24 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/recyclerChildNewSales"
+                android:id="@+id/rvODChildNewSales"
                 android:layout_marginStart="@dimen/dp16"
                 app:layout_constraintTop_toBottomOf="@+id/view1"
                 app:layout_constraintStart_toStartOf="@+id/view1"
                 app:layout_constraintEnd_toEndOf="@+id/view1"
                 />
 
-            <TextView
-                android:id="@+id/tvDeliveryType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp8"
-                android:layout_marginTop="8dp"
-                android:text="@string/delivery_type"
-                android:textColor="@color/green"
-                android:textSize="@dimen/sp12"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/recyclerChildNewSales"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerChildNewSales" />
-
-            <TextView
-                android:id="@+id/tvHomeDelivery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home_delivery"
-                android:textColor="@color/light_black"
-                android:textSize="@dimen/sp12"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvDeliveryType"
-                app:layout_constraintEnd_toEndOf="@+id/recyclerChildNewSales"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvDeliveryType"
-                app:layout_constraintTop_toTopOf="@+id/tvDeliveryType" />
-
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp5"
-                android:layout_marginBottom="@dimen/dp16"
-                android:text="@string/status"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintStart_toStartOf="@+id/tvDeliveryType"
-                app:layout_constraintTop_toBottomOf="@+id/tvDeliveryType" />
-
             <ImageView
-                android:id="@+id/imgStatus"
+                android:id="@+id/imgChat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ontheway"
-                app:layout_constraintTop_toTopOf="@+id/tvStatus"
-                app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
-                app:layout_constraintStart_toEndOf="@+id/tvStatus"
-                android:layout_marginStart="@dimen/dp5"
-                />
-
-            <TextView
-                android:id="@+id/tvODOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Order :"
-                android:layout_marginEnd="@dimen/dp5"
-                android:textColor="@color/normalBlack"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintBottom_toBottomOf="@+id/tvODOrderDate"
-                app:layout_constraintEnd_toStartOf="@+id/tvODOrderDate"
-                app:layout_constraintTop_toTopOf="@+id/tvODOrderDate" />
-
-            <TextView
-                android:id="@+id/tvODOrderDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp16"
-                android:text="29-Mar-2021"
-                android:textColor="@color/normalBlack"
-                android:layout_marginTop="@dimen/dp5"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintTop_toBottomOf="@+id/tvHomeDelivery"
-                app:layout_constraintEnd_toEndOf="@+id/tvHomeDelivery"/>
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvUsername"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tvUsername"
+                app:layout_constraintTop_toTopOf="@+id/tvUsername"
+                app:srcCompat="@drawable/chat" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

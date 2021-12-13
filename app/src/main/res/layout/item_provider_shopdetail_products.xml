@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/dp5"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp5">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
         android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/dp16"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="@dimen/dp8"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="30.00$"
+                android:text="30.00€"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp15"
                 app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
@@ -89,8 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/bin1"
                 android:layout_marginTop="@dimen/dp8"
+                android:src="@drawable/bin1"
                 app:layout_constraintEnd_toEndOf="@+id/imgEdit"
                 app:layout_constraintStart_toStartOf="@+id/imgEdit"
                 app:layout_constraintTop_toBottomOf="@+id/imgEdit" />
@@ -100,27 +100,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/dp5"
+                android:layout_marginStart="8dp"
                 android:text="4.8"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
+                android:textSize="@dimen/sp10"
                 app:layout_constraintBottom_toBottomOf="@+id/ratingBarShopDetailProduct"
                 app:layout_constraintStart_toEndOf="@+id/ratingBarShopDetailProduct"
                 app:layout_constraintTop_toTopOf="@+id/ratingBarShopDetailProduct"
-                tools:layout_editor_absoluteX="50dp"
-                tools:layout_editor_absoluteY="322dp" />
+                app:layout_constraintVertical_bias="0.19999999" />
 
             <TextView
                 android:id="@+id/tvShopDetailProductBrand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/dp5"
                 android:text="@string/lorem_ipsum_dolor"
                 android:textColor="@color/black"
-                app:layout_constraintHorizontal_bias="0"
                 android:textSize="@dimen/sp12"
                 app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProductText"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/ratingBarShopDetailProduct"
                 app:layout_constraintTop_toBottomOf="@+id/ratingBarShopDetailProduct" />
 
@@ -129,20 +127,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/dp2"
                 android:paddingBottom="@dimen/dp5"
-                app:layout_constraintHorizontal_bias="0"
                 android:text="@string/delivery_estimate_4_5_days"
                 android:textColor="@color/green"
                 android:textSize="@dimen/sp12"
-                app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProductBrand"
                 app:layout_constraintStart_toStartOf="@+id/tvShopDetailProductBrand"
                 app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProductBrand" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

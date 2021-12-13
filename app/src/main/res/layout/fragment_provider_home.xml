@@ -221,7 +221,7 @@
             android:id="@+id/recyclerProviderShopDetailCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/dp16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailCategories"
@@ -244,7 +244,7 @@
             android:id="@+id/recyclerProviderSDProducts"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProducts"
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailProducts"
             app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProducts" />

@@ -150,20 +150,19 @@
             android:id="@+id/ratingbarYourReviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sp15"
+            android:layout_marginTop="12dp"
+            android:isIndicator="true"
+            android:max="5"
+            android:progressTint="@color/yellow"
             android:rating="3"
             android:scaleX=".5"
             android:scaleY=".5"
-            android:progressTint="@color/yellow"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp"
-            android:isIndicator="true"
-            android:max="5"
             app:layout_constraintEnd_toEndOf="@+id/reviewslayout"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/imageReviews"
-            app:layout_constraintTop_toBottomOf="@+id/imageReviews"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/imageReviews" />
 
         <TextView
             android:id="@+id/tvInsertComment"

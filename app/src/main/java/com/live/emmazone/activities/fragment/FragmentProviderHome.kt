@@ -39,7 +39,7 @@ class FragmentProviderHome  : Fragment(){
 
         rv1.layoutManager = GridLayoutManager(context, 2)
 
-        list.add(ModelShopDetailCategory(R.drawable.ic_baseline_add_24, "Add"))
+        list.add(ModelShopDetailCategory(R.drawable.addd, "Add"))
         list.add(ModelShopDetailCategory(R.drawable.shoe_round, "Shoes"))
         list.add(ModelShopDetailCategory(R.drawable.gogg, "Googles"))
         list.add(ModelShopDetailCategory(R.drawable.shoe_round, "Timepiece"))
@@ -48,26 +48,26 @@ class FragmentProviderHome  : Fragment(){
        rv.adapter = AdapterShopDetailCategory(list)
 
         listProSDProducts.add(
-            ModelProShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00$",
-                "Lorem ipsum dolor", "4.8", "Delivery estimate 4-5 days",
+            ModelProShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00€",
+                "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
         listProSDProducts.add(
-            ModelProShopDetailProducts(R.drawable.shoes2, "Bernd", "30.00$",
-                "Lorem ipsum dolor", "4.8", "Delivery estimate 4-5 days",
+            ModelProShopDetailProducts(R.drawable.shoes2, "Bernd", "30.00€",
+                "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
         listProSDProducts.add(
-            ModelProShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00$",
-                "Lorem ipsum dolor", "4.8", "Delivery estimate 4-5 days",
+            ModelProShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00€",
+                "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
         listProSDProducts.add(
-            ModelProShopDetailProducts(R.drawable.shoes2, "Bernd", "30.00$",
-                "Lorem ipsum dolor", "4.8", "Delivery estimate 4-5 days",
+            ModelProShopDetailProducts(R.drawable.shoes2, "Bernd", "30.00€",
+                "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
-        rv1.adapter = AdapterProviderShopDetailProducts(listProSDProducts)
+        rv1.adapter = AdapterProviderShopDetailProducts(requireContext(), listProSDProducts)
 
         return view
     }

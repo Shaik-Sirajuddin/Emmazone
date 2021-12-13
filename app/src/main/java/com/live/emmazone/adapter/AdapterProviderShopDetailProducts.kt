@@ -1,32 +1,45 @@
 package com.live.emmazone.adapter
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.provider.EditProductActivity
+import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.model.ModelProShopDetailProducts
 import com.makeramen.roundedimageview.RoundedImageView
 
-class AdapterProviderShopDetailProducts(private val list: ArrayList<ModelProShopDetailProducts>) :
+class AdapterProviderShopDetailProducts(
+    private val context: Context,
+    private val list: ArrayList<ModelProShopDetailProducts>
+) :
     RecyclerView.Adapter<AdapterProviderShopDetailProducts.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      val view = LayoutInflater.from(parent.context).inflate(R.layout.item_provider_shopdetail_products, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_provider_shopdetail_products, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-      val ModelProShopDetailProducts = list[position]
+        val ModelProShopDetailProducts = list[position]
 
-        if (position == 0)
-        {
-           holder.imageEditSDProduct.visibility= View.GONE
-           holder.imageDelete.visibility= View.GONE
+        if (position == 0) {
+            holder.imageEditSDProduct.visibility = View.GONE
+            holder.imageDelete.visibility = View.GONE
+            holder.ratingBar.visibility = View.GONE
         }
 
         holder.imageProductSD.setImageResource(ModelProShopDetailProducts.imageProductShopDetail)
@@ -37,6 +50,37 @@ class AdapterProviderShopDetailProducts(private val list: ArrayList<ModelProShop
         holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.tvShopDetailProductBrand)
         holder.tvShopDetailProductText.setText(ModelProShopDetailProducts.tvShopDetailProductText)
         holder.tvSDDeliveryEstimateSD.setText(ModelProShopDetailProducts.tvSDDeliveryEstimate)
+
+        holder.imageEditSDProduct.setOnClickListener {
+            val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
+            holder.itemView.context.startActivity(intent)
+        }
+
+        holder.imageDelete.setOnClickListener {
+
+            val dialog = Dialog(context)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.dialog_delete_product)
+            dialog.window?.setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    android.R.color.transparent
+                )
+            )
+
+            val yesBtn: Button = dialog.findViewById(R.id.btnCancelYes)
+            val noBtn: Button = dialog.findViewById(R.id.btnCancelNo)
+
+            yesBtn.setOnClickListener {
+                dialog.dismiss()
+                // perform your task
+            }
+
+            noBtn.setOnClickListener { dialog.dismiss() }
+
+            dialog.show()
+        }
     }
 
     override fun getItemCount(): Int {
@@ -45,14 +89,16 @@ class AdapterProviderShopDetailProducts(private val list: ArrayList<ModelProShop
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val imageProductSD : RoundedImageView = itemView.findViewById(R.id.imageProductShopDetail)
-        val imageEditSDProduct : ImageView = itemView.findViewById(R.id.imgEdit)
-        val imageDelete : ImageView = itemView.findViewById(R.id.imgDelete)
+        val imageProductSD: RoundedImageView = itemView.findViewById(R.id.imageProductShopDetail)
+        val imageEditSDProduct: ImageView = itemView.findViewById(R.id.imgEdit)
+        val imageDelete: ImageView = itemView.findViewById(R.id.imgDelete)
         val productItemNameSD = itemView.findViewById<TextView>(R.id.productItemName)
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
-        val tvShopDetailProductBrandSD= itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
-        val tvShopDetailProductText= itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
-        val tvSDDeliveryEstimateSD= itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
+        val tvShopDetailProductBrandSD = itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
+        val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
+        val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
+        val ratingBar = itemView.findViewById<ImageView>(R.id.ratingBarShopDetailProduct)
 
-            }
+    }
+
 }

@@ -22,9 +22,8 @@ lateinit var binding : ActivityAddBankAccountBinding
    }
 
         binding.btnSaveAct.setOnClickListener {
-            val intent = Intent(this, WithdrawalActivity::class.java)
+            val intent = Intent(this, WithDrawBankInfoActivity::class.java)
             startActivity(intent)
-
         }
 
     }

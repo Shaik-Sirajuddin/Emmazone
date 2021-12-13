@@ -11,6 +11,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmmaZone">
         <activity
+            android:name=".activities.provider.OrderDetailDeliveredStatusActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.provider.OrderDetailProOngoingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.provider.OrderDetailPendingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.provider.OrderDetailNewSaleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.provider.WithDrawBankInfoActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.provider.EditProductActivity"
             android:exported="true" />
         <activity
