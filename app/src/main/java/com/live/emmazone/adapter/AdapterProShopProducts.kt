@@ -20,11 +20,11 @@ import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.model.ModelProShopDetailProducts
 import com.makeramen.roundedimageview.RoundedImageView
 
-class AdapterProviderShopDetailProducts(
+class AdapterProShopProducts(
     private val context: Context,
     private val list: ArrayList<ModelProShopDetailProducts>
 ) :
-    RecyclerView.Adapter<AdapterProviderShopDetailProducts.ViewHolder>() {
+    RecyclerView.Adapter<AdapterProShopProducts.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -36,16 +36,6 @@ class AdapterProviderShopDetailProducts(
 
         val ModelProShopDetailProducts = list[position]
 
-        if (position == 0) {
-          holder.layoutConst.visibility = View.GONE
-          holder.layoutAddProduct.visibility = View.VISIBLE
-
-        }
-        else{
-            holder.layoutConst.visibility = View.VISIBLE
-            holder.layoutAddProduct.visibility = View.GONE
-        }
-
         holder.imageProductSD.setImageResource(ModelProShopDetailProducts.imageProductShopDetail)
         holder.imageEditSDProduct.setImageResource(ModelProShopDetailProducts.imgEdit)
         holder.imageDelete.setImageResource(ModelProShopDetailProducts.imgDelete)
@@ -54,13 +44,6 @@ class AdapterProviderShopDetailProducts(
         holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.tvShopDetailProductBrand)
         holder.tvShopDetailProductText.setText(ModelProShopDetailProducts.tvShopDetailProductText)
         holder.tvSDDeliveryEstimateSD.setText(ModelProShopDetailProducts.tvSDDeliveryEstimate)
-
-        holder.itemView.setOnClickListener {
-            if (position == 0){
-                val intent = Intent(holder.itemView.context, AddNewProductActivity::class.java)
-                holder.itemView.context.startActivity(intent)
-            }
-        }
 
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
@@ -105,7 +88,6 @@ class AdapterProviderShopDetailProducts(
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
         val ratingBar = itemView.findViewById<ImageView>(R.id.ratingBarShopDetailProduct)
         val layoutAddProduct = itemView.findViewById<LinearLayout>(R.id.layoutAddProduct)
-        val layoutConst = itemView.findViewById<ConstraintLayout>(R.id.layoutConst)
 
     }
 

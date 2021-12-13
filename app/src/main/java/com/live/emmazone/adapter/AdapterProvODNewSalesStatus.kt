@@ -15,8 +15,7 @@ import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
 import com.live.emmazone.model.*
 import org.w3c.dom.Text
 
-class AdapterProvODNewSalesStatus(private val list: ArrayList<ModelNewSaleOrderDetail>, private val
-cellClickListener: OnItemClick) :
+class AdapterProvODNewSalesStatus(private val list: ArrayList<ModelNewSaleOrderDetail>) :
     RecyclerView.Adapter<AdapterProvODNewSalesStatus.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,17 +26,12 @@ cellClickListener: OnItemClick) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
       val ModelNewSaleOrderDetail = list[position]
 
-        if (position == 0){
-            val intent = Intent(holder.itemView.context, OrderDetailNewSaleActivity::class.java)
-            holder.itemView.context.startActivity(intent)
-        }
-
         holder.tvOrderID.setText(ModelNewSaleOrderDetail.tvOrderID)
         holder.imageSales.setImageResource(ModelNewSaleOrderDetail.imagePerson)
         holder.imgStatus.setText(ModelNewSaleOrderDetail.tvUsername)
         holder.imgChat.setImageResource(ModelNewSaleOrderDetail.imgChat)
         holder.recyclerODChildNewSales.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
-        holder.recyclerODChildNewSales.adapter = AdapterOnGoingOrders(ModelNewSaleOrderDetail.list,cellClickListener)
+        holder.recyclerODChildNewSales.adapter = AdapterOnGoingOrders(ModelNewSaleOrderDetail.list)
 
     }
 

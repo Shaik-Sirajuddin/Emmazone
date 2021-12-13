@@ -14,7 +14,7 @@ import com.live.emmazone.model.ModelNewSaleOrderDetail
 import com.live.emmazone.model.ModelOnGoingOrders
 import com.live.emmazone.model.ModelProviderNewSale
 
-class OrderDetailNewSaleActivity : AppCompatActivity(), OnItemClick {
+class OrderDetailNewSaleActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityOrderDetailNewSaleBinding
     val list = ArrayList<ModelNewSaleOrderDetail>()
@@ -70,22 +70,9 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), OnItemClick {
             )
         )
 
-        binding.rvOrderDetailNewSale.adapter = AdapterProvODNewSalesStatus(list, this)
+        binding.rvOrderDetailNewSale.adapter = AdapterProvODNewSalesStatus(list)
 
     }
 
-    override fun onCellClickListener() {
-        TODO("Not yet implemented")
-    }
 
-    override fun onClick() {
-    }
-
-    override fun onClickPickCollect() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onOrderCancelled() {
-        TODO("Not yet implemented")
-    }
 }

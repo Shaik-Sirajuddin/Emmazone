@@ -13,7 +13,7 @@ import com.live.emmazone.adapter.AdapterProviderNewSales
 import com.live.emmazone.model.ModelOnGoingOrders
 import com.live.emmazone.model.ModelProviderNewSale
 
-class OnGoingSalesProviderFragment : Fragment(), OnItemClick {
+class OnGoingSalesProviderFragment : Fragment() {
 
     val list = ArrayList<ModelProviderNewSale>()
     lateinit var adapter : AdapterProviderNewSales
@@ -48,25 +48,9 @@ class OnGoingSalesProviderFragment : Fragment(), OnItemClick {
                 status = "ongoing")
         )
 
-        rv.adapter = AdapterProviderNewSales(requireContext(),list, this)
+        rv.adapter = AdapterProviderNewSales(requireContext(),list)
 
         return view
-    }
-
-    override fun onCellClickListener() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClick() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickPickCollect() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onOrderCancelled() {
-        TODO("Not yet implemented")
     }
 
 }

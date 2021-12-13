@@ -18,7 +18,7 @@ import com.live.emmazone.adapter.AdapterOnGoPickCollect
 import com.live.emmazone.adapter.AdapterOnGoingOrders
 import com.live.emmazone.model.ModelOnGoingOrders
 
-class OnGoingOrdersFragment : Fragment(), OnItemClick {
+class OnGoingOrdersFragment : Fragment() {
 
     var list = ArrayList<ModelOnGoingOrders>()
     var listPickupCollectOrder = ArrayList<ModelOnGoingOrders>()
@@ -82,33 +82,16 @@ class OnGoingOrdersFragment : Fragment(), OnItemClick {
         list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "90.00$"))
         list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "30.00$"))
 
-        recyclerView.adapter = AdapterOnGoingOrders(list, this)
+        recyclerView.adapter = AdapterOnGoingOrders(list)
 
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         listPickupCollectOrder.clear()
         listPickupCollectOrder.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "30.00$"))
 
-        recyclerViewPastOrders.adapter = AdapterOnGoPickCollect(listPickupCollectOrder, this)
+        recyclerViewPastOrders.adapter = AdapterOnGoPickCollect(listPickupCollectOrder)
 
         return view
-    }
-
-    override fun onCellClickListener() {
-    }
-
-    override fun onClick() {
-        val intent = Intent(activity, OrderDetail::class.java)
-        startActivity(intent)
-    }
-
-    override fun onClickPickCollect() {
-        val intent = Intent(activity, ReservedDeliveredDetail::class.java)
-        startActivity(intent)
-    }
-
-    override fun onOrderCancelled() {
-        TODO("Not yet implemented")
     }
 
 }

@@ -13,13 +13,12 @@ import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
+import com.live.emmazone.activities.provider.OrderDetailPendingActivity
 import com.live.emmazone.model.*
 
 class AdapterProviderNewSales(
     private val context: Context,
-    private val list: ArrayList<ModelProviderNewSale>,
-    private val cellClickListener: OnItemClick
-) :
+    private val list: ArrayList<ModelProviderNewSale>, ) :
     RecyclerView.Adapter<AdapterProviderNewSales.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,22 +38,30 @@ class AdapterProviderNewSales(
         holder.imageSales.setImageResource(model.imageSales)
         holder.imgStatus.setImageResource(model.imgStatus)
 
-        holder.recyclerChildNewsale.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
-        holder.recyclerChildNewsale.adapter = AdapterOnGoingOrders(model.list, cellClickListener)
+        holder.recyclerChildNewsale.layoutManager =
+            LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
+        holder.recyclerChildNewsale.adapter = AdapterOnGoingOrders(model.list)
         holder.recyclerChildNewsale.isNestedScrollingEnabled = false
 
-        holder.itemView.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                openScreen(list[holder.adapterPosition])
+        holder.itemView.setOnClickListener {
+            if (position == 0) {
+                val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
+                context.startActivity(intent)
             }
-        })
+            else if (position == 1)
+            {
+                val intent = Intent(context, OrderDetailPendingActivity::class.java)
+                context.startActivity(intent)
+            }
+        }
+
     }
 
-    private fun openScreen(model: ModelProviderNewSale) {
-        val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
-        intent.putExtra("model", model)
-        context.startActivity(intent)
-    }
+//    private fun openScreen(model: ModelProviderNewSale) {
+//        val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
+//        intent.putExtra("model", model)
+//        context.startActivity(intent)
+//    }
 
     override fun getItemCount(): Int {
         return list.size

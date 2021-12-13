@@ -17,7 +17,7 @@ import com.live.emmazone.adapter.AdapterOnGoingOrders
 import com.live.emmazone.adapter.AdapterOrderCancel
 import com.live.emmazone.model.ModelOnGoingOrders
 
-class PastFragment : Fragment(), OnItemClick {
+class PastFragment : Fragment() {
     var list = ArrayList<ModelOnGoingOrders>()
     lateinit var adapter : AdapterOnGoingOrders
     lateinit var adapterOrderCancel : AdapterOrderCancel
@@ -56,33 +56,16 @@ class PastFragment : Fragment(), OnItemClick {
         list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "90.00$"))
         list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "30.00$"))
 
-        rvPastDelivered.adapter = AdapterOnGoingOrders(list, this)
+        rvPastDelivered.adapter = AdapterOnGoingOrders(list)
 
         rvCancelledOrder.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         listPastOrders.clear()
         listPastOrders.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "30.00$"))
 
-        rvCancelledOrder.adapter = AdapterOrderCancel(listPastOrders, this)
+        rvCancelledOrder.adapter = AdapterOrderCancel(listPastOrders)
 
 
         return view
-    }
-
-    override fun onCellClickListener() {
-    }
-
-    override fun onClick() {
-       val intent = Intent(activity, OrderDeliveredDetail::class.java)
-        startActivity(intent)
-    }
-
-    override fun onClickPickCollect() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onOrderCancelled() {
-        val intent = Intent(activity, OrderCancelled::class.java)
-        startActivity(intent)
     }
 }

@@ -11,7 +11,7 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.model.*
 
-class AdapterOrderCancel(private val list: ArrayList<ModelOnGoingOrders>, private val cellClickListener: OnItemClick):
+class AdapterOrderCancel(private val list: ArrayList<ModelOnGoingOrders>):
     RecyclerView.Adapter<AdapterOrderCancel.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,9 +26,6 @@ class AdapterOrderCancel(private val list: ArrayList<ModelOnGoingOrders>, privat
         holder.tvonGoingItemQuantity.setText(ModelOnGoingOrders.onGoingItemQuantity)
         holder.tvproductPrice.setText(ModelOnGoingOrders.productPrice)
 
-        holder.itemView.setOnClickListener {
-            cellClickListener.onOrderCancelled()
-        }
     }
 
     override fun getItemCount(): Int {

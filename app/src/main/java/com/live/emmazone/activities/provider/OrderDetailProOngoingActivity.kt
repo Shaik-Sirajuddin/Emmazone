@@ -11,7 +11,7 @@ import com.live.emmazone.databinding.ActivityOrderDetailProOngoingBinding
 import com.live.emmazone.model.ModelNewSaleOrderDetail
 import com.live.emmazone.model.ModelOnGoingOrders
 
-class OrderDetailProOngoingActivity : AppCompatActivity(), OnItemClick {
+class OrderDetailProOngoingActivity : AppCompatActivity() {
     lateinit var binding : ActivityOrderDetailProOngoingBinding
     val list = ArrayList<ModelNewSaleOrderDetail>()
     val listChildRecycler = ArrayList<ModelOnGoingOrders>()
@@ -39,23 +39,8 @@ class OrderDetailProOngoingActivity : AppCompatActivity(), OnItemClick {
         list.add(ModelNewSaleOrderDetail("PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
             R.drawable.chat, listChildRecycler))
 
-        binding.rvOrderDetailOnGoing.adapter = AdapterProvODNewSalesStatus(list, this)
+        binding.rvOrderDetailOnGoing.adapter = AdapterProvODNewSalesStatus(list)
 
     }
 
-    override fun onCellClickListener() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClick() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickPickCollect() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onOrderCancelled() {
-        TODO("Not yet implemented")
-    }
 }

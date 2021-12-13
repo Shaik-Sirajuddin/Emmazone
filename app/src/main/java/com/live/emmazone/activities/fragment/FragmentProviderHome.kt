@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.provider.EditShopDetailActivity
+import com.live.emmazone.adapter.AdapterProShopProducts
 import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.model.ModelProShopDetailProducts
@@ -21,7 +22,7 @@ class FragmentProviderHome  : Fragment(){
     val list = ArrayList<ModelShopDetailCategory>()
     val listProSDProducts = ArrayList<ModelProShopDetailProducts>()
     lateinit var adapter : AdapterShopDetailCategory
-    lateinit var adapterProviderSDProducts : AdapterProviderShopDetailProducts
+    lateinit var adapterProviderSDProducts : AdapterProShopProducts
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
       val view : View = LayoutInflater.from(context).inflate(R.layout.fragment_provider_home, container, false)
@@ -67,7 +68,7 @@ class FragmentProviderHome  : Fragment(){
                 "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
-        rv1.adapter = AdapterProviderShopDetailProducts(requireContext(), listProSDProducts)
+        rv1.adapter = AdapterProShopProducts(requireContext(), listProSDProducts)
 
         return view
     }
