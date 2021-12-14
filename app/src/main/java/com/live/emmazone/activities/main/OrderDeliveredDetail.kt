@@ -24,8 +24,10 @@ class OrderDeliveredDetail : AppCompatActivity() {
 
         binding.recyclerOrderDeliveredDetail.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        list.add(ModelOrderDetail(R.drawable.shoes_square, "Brend Shoes", "3", "90.00$"))
-        list.add(ModelOrderDetail(R.drawable.shoes_square, "Winter Sweeters", "1", "30.00$"))
+        list.add(ModelOrderDetail(R.drawable.shoes_square, "Brend Shoes",
+            "3", "90.00€"))
+        list.add(ModelOrderDetail(R.drawable.winter, "Winter Sweeters",
+            "1", "30.00€"))
 
         binding.recyclerOrderDeliveredDetail.adapter = AdapterOrderDetail(list)
 

@@ -32,10 +32,7 @@ class Cart : AppCompatActivity(), OnItemClick {
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.back.setOnClickListener {
             onBackPressed()
@@ -92,21 +89,25 @@ class Cart : AppCompatActivity(), OnItemClick {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerCartMayLike.layoutManager = GridLayoutManager(this, 2)
 
-        list.add(ModelCart(R.drawable.shoes2, R.drawable.bin, "Brend Shoes", "30.00$"))
-        list.add(ModelCart(R.drawable.shoes2, R.drawable.bin, "Brend Shoes", "30.00$"))
+        list.add(ModelCart(R.drawable.shoes2, R.drawable.bin, "Brend Shoes",
+            "30.00€"))
+        list.add(ModelCart(R.drawable.shoes2, R.drawable.bin, "Brend Shoes",
+            "30.00€"))
 
         binding.recyclerCart.adapter = AdapterCart(list)
 
         listMayLike.add(
             ModelShopDetailProducts(
-                R.drawable.shoe_bernd, "Bernd", "30.00$", "Lorem ipsum dolor",
+                R.drawable.shoe_bernd, "Bernd", "30.00€",
+                "Lorem ipsum dolor",
                 "4.8", "Delivery estimate 4-5 days"
             )
         )
 
         listMayLike.add(
             ModelShopDetailProducts(
-                R.drawable.shoes2, "Matrix", "30.00$", "Lorem ipsum dolor",
+                R.drawable.shoes2, "Matrix", "30.00€",
+                "Lorem ipsum dolor",
                 "4.8", "Delivery estimate 4-5 days"
             )
         )

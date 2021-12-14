@@ -9,6 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -174,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp32"
-                android:text="120.00$"
+                android:text="120.00€"
                 android:textColor="@color/light_black" />
         </LinearLayout>
 
@@ -202,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp32"
-                android:text="10.00$"
+                android:text="10.00€"
                 android:textColor="@color/light_black" />
         </LinearLayout>
 
@@ -230,7 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp32"
-                android:text="00.00$"
+                android:text="00.00€"
                 android:textColor="@color/light_black" />
         </LinearLayout>
 
@@ -259,7 +260,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp32"
-                android:text="130.00$"
+                android:text="130.00€"
                 android:textColor="@color/light_black" />
         </LinearLayout>
 
@@ -377,11 +378,15 @@
             app:layout_constraintStart_toStartOf="@+id/layoutPaymentMethodOD"
             />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.widget.Button
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp20"
             android:id="@+id/btnOnTheWay"
-            android:background="@drawable/ontheway"
+            android:background="@drawable/bg_fill_earning"
+            android:textColor="@color/white"
+            android:text="@string/on_the_way"
+            android:textAllCaps="false"
+            android:textSize="@dimen/sp10"
             android:layout_marginStart="@dimen/dp8"
             app:layout_constraintTop_toTopOf="@+id/tvODStatus"
             app:layout_constraintBottom_toBottomOf="@+id/tvODStatus"
@@ -433,6 +438,7 @@
             android:textColor="@color/green"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
+            android:background="@drawable/underline_green"
             app:layout_constraintEnd_toEndOf="@+id/btnQRScanner"
             app:layout_constraintStart_toStartOf="@+id/btnQRScanner"
             app:layout_constraintTop_toBottomOf="@+id/btnQRScanner" />

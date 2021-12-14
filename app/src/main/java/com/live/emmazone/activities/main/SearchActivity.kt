@@ -44,16 +44,16 @@ class SearchActivity : AppCompatActivity(), OnItemClick {
 
         binding.recyclerSearch.layoutManager = GridLayoutManager(this, 2)
 
-        list.add(ModelShopDetailProducts(R.drawable.bike2, "Bernd", "30.00$", "Lorem ipsum dolor",
+        list.add(ModelShopDetailProducts(R.drawable.bike2, "Bernd", "30.00€", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
-        list.add(ModelShopDetailProducts(R.drawable.bike1, "Matrix", "30.00$", "Lorem ipsum dolor",
+        list.add(ModelShopDetailProducts(R.drawable.bike1, "Matrix", "30.00€", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
-        list.add(ModelShopDetailProducts(R.drawable.bike2, "Bernd", "30.00$", "Lorem ipsum dolor",
+        list.add(ModelShopDetailProducts(R.drawable.bike2, "Bernd", "30.00€", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
-        list.add(ModelShopDetailProducts(R.drawable.bike3, "Matrix", "30.00$", "Lorem ipsum dolor",
+        list.add(ModelShopDetailProducts(R.drawable.bike3, "Matrix", "30.00€", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
         binding.recyclerSearch.adapter = AdapterShopDetailProducts(list, this)

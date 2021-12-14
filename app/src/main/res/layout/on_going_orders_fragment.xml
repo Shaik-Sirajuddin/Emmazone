@@ -9,6 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent"
         >
 
@@ -73,13 +74,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/layoutOnGoing"
             app:layout_constraintStart_toStartOf="@+id/rvMyOrderOnGoing" />
 
-        <ImageView
-            android:id="@+id/imgStatusOnTheWay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <android.widget.Button
+            android:id="@+id/btnStatusOnTheWay"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp20"
             android:layout_marginStart="@dimen/dp5"
-            android:background="@drawable/ontheway"
-            android:padding="@dimen/dp5"
+            android:background="@drawable/bg_fill_earning"
+            android:textColor="@color/white"
+            android:text="@string/on_the_way"
+            android:textAllCaps="false"
+            android:textSize="@dimen/sp10"
             app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
             app:layout_constraintStart_toEndOf="@+id/tvStatus"
             app:layout_constraintTop_toTopOf="@+id/tvStatus" />
@@ -188,7 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp5"
             android:background="@drawable/pickup_collect"
-            android:padding="@dimen/dp5"
+            android:padding="@dimen/dp10"
             app:layout_constraintBottom_toBottomOf="@+id/tvStatusPickCollect"
             app:layout_constraintStart_toEndOf="@+id/tvStatusPickCollect"
             app:layout_constraintTop_toTopOf="@+id/tvStatusPickCollect" />

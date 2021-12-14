@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="@color/white"
     tools:context=".activities.main.OrderDeliveredDetail">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -174,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp32"
-                android:text="120.00$"
+                android:text="120.00€"
                 android:textColor="@color/light_black" />
         </LinearLayout>
 
@@ -202,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp32"
-                android:text="10.00$"
+                android:text="10.00€"
                 android:textColor="@color/light_black" />
         </LinearLayout>
 
@@ -230,7 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp32"
-                android:text="00.00$"
+                android:text="00.00€"
                 android:textColor="@color/light_black" />
         </LinearLayout>
 
@@ -259,7 +260,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp32"
-                android:text="130.00$"
+                android:text="130.00€"
                 android:textColor="@color/light_black" />
         </LinearLayout>
 

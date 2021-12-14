@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:fillViewport="true"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".activities.main.SearchActivity">
 
@@ -56,6 +57,15 @@
             app:layout_constraintBottom_toBottomOf="@+id/cart"
             app:layout_constraintEnd_toStartOf="@+id/cart"
             app:layout_constraintTop_toTopOf="@+id/cart" />
+
+        <ImageView
+            android:id="@+id/notifyRedBG"
+            android:layout_width="@dimen/dp10"
+            android:layout_height="@dimen/dp10"
+            android:background="@drawable/notification_red_color"
+            app:layout_constraintEnd_toStartOf="@+id/cart"
+            app:layout_constraintStart_toStartOf="@+id/image_notifications"
+            app:layout_constraintTop_toTopOf="@+id/image_notifications" />
 
         <ImageView
             android:id="@+id/cart"

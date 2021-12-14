@@ -1,6 +1,7 @@
 package com.live.emmazone.activities
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,10 +42,18 @@ class FragmentMyOrders : Fragment() {
 
         tvOnGoing.setOnClickListener {
             openOnGoingOrdersFragment(OnGoingOrdersFragment())
+            tvOnGoing.setBackgroundResource(R.drawable.bg_fill_earning)
+            tvOnGoing.setTextColor(Color.WHITE)
+            tvPastOrders.setTextColor(Color.BLACK)
+            tvPastOrders.setBackgroundColor(Color.TRANSPARENT)
         }
 
         tvPastOrders.setOnClickListener {
             openOnGoingOrdersFragment(PastFragment())
+            tvOnGoing.setBackgroundColor(Color.TRANSPARENT)
+            tvOnGoing.setTextColor(Color.BLACK)
+            tvPastOrders.setTextColor(Color.WHITE)
+            tvPastOrders.setBackgroundResource(R.drawable.bg_fill_earning)
         }
         return view
     }

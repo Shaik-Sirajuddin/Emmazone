@@ -8,6 +8,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,6 +45,18 @@
             app:layout_constraintBottom_toBottomOf="@+id/changePassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/changePassword" />
+
+        <ImageView
+            android:id="@+id/notifyRedBG"
+            android:layout_width="@dimen/dp10"
+            android:layout_height="@dimen/dp10"
+            android:background="@drawable/notification_red_color"
+            app:layout_constraintBottom_toBottomOf="@+id/imgNotify"
+            app:layout_constraintEnd_toEndOf="@+id/imgNotify"
+            app:layout_constraintHorizontal_bias="0.88"
+            app:layout_constraintStart_toStartOf="@+id/imgNotify"
+            app:layout_constraintTop_toTopOf="@+id/imgNotify"
+            app:layout_constraintVertical_bias="0.23000002" />
 
         <ImageView
             android:id="@+id/back"

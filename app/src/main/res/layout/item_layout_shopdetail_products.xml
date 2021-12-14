@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:textColor="@color/black"
-            android:text="30.00$"
+            android:text="30.00€"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
             app:layout_constraintHorizontal_bias="0.93"

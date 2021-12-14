@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fillViewport="true"
     android:scrollbars="none"
     tools:context=".activities.auth.SignUpActivity">
@@ -26,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:padding="@dimen/dp5"
                 android:layout_marginTop="36dp"
                 android:src="@drawable/arroww"
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
@@ -39,7 +41,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/layoutConstraint"
                 app:layout_constraintEnd_toEndOf="@+id/layoutConstraint"
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
-                app:layout_constraintTop_toTopOf="@+id/layoutConstraint">
+                app:layout_constraintTop_toTopOf="@+id/layoutConstraint"
+                app:layout_constraintVertical_bias="0.6">
 
                 <TextView
                     android:id="@+id/tvWelcome"
@@ -115,6 +118,7 @@
                 android:layout_marginTop="@dimen/dp10"
                 android:layout_marginEnd="24dp"
                 android:text="@string/name"
+                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/SignupLayout"
@@ -128,13 +132,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="@dimen/dp10"
-                android:paddingLeft="@dimen/dp8"
                 android:background="@drawable/login_bg"
-                android:hint="Jackson Jack"
+                android:hint="Enter your name"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textSize="@dimen/sp15"
+                android:paddingLeft="@dimen/dp8"
+                android:textSize="@dimen/sp14"
                 app:layout_constraintEnd_toEndOf="@+id/tvNname"
                 app:layout_constraintStart_toStartOf="@+id/tvNname"
                 app:layout_constraintTop_toBottomOf="@+id/tvNname" />
@@ -145,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/email"
+                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/edtEmail"
@@ -158,12 +163,12 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:hint="jackson@gmail.com"
+                android:hint="Enter email"
                 android:imeOptions="actionNext"
-                android:paddingLeft="@dimen/dp8"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textSize="@dimen/sp15"
+                android:paddingLeft="@dimen/dp8"
+                android:textSize="@dimen/sp14"
                 app:layout_constraintEnd_toEndOf="@+id/tvEmail"
                 app:layout_constraintStart_toStartOf="@+id/tvEmail"
                 app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
@@ -174,6 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/mobile"
+                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/edtPassword"
@@ -189,12 +195,12 @@
                 android:layout_marginStart="@dimen/dp5"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:hint="+6525999333"
+                android:hint="Enter phone number"
                 android:imeOptions="actionNext"
                 android:inputType="number"
-                android:paddingLeft="@dimen/dp8"
                 android:maxLines="1"
-                android:textSize="@dimen/sp15"
+                android:paddingLeft="@dimen/dp8"
+                android:textSize="@dimen/sp14"
                 app:layout_constraintEnd_toEndOf="@+id/tvMobile"
                 app:layout_constraintStart_toStartOf="@+id/tvMobile"
                 app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
@@ -205,6 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/password"
+                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/edtMobile"
@@ -220,7 +227,7 @@
                 android:layout_marginStart="@dimen/dp5"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:hint="**********"
+                android:hint="Enter password"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -236,12 +243,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/confirm_password"
+                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/edtPwd"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtPwd"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/edtPwd" />
 
             <EditText
                 android:id="@+id/edtConfirmPwd"
@@ -250,11 +257,11 @@
                 android:layout_marginStart="@dimen/dp5"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:hint="**********"
+                android:hint="Confirm password"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                android:paddingLeft="@dimen/dp8"
                 android:maxLines="1"
+                android:paddingLeft="@dimen/dp8"
                 android:textSize="@dimen/sp15"
                 app:layout_constraintEnd_toEndOf="@+id/tvConfirmPwd"
                 app:layout_constraintStart_toStartOf="@+id/tvConfirmPwd"
@@ -274,37 +281,32 @@
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkBox"
-                android:layout_width="@dimen/dp20"
-                android:buttonTint="@color/checkbox_selector"
+                android:layout_width="@dimen/dp30"
                 android:layout_height="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp5"
+                android:buttonTint="@color/checkbox_selector"
                 app:layout_constraintStart_toStartOf="@+id/SignupLayout"
                 app:layout_constraintTop_toBottomOf="@+id/SignupLayout" />
 
             <TextView
                 android:id="@+id/termsConditions"
                 android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:background="@drawable/underline_black"
                 android:layout_height="wrap_content"
                 android:text="@string/i_accept_terms_conditions" />
 
         </LinearLayout>
 
-        <View
-            android:layout_width="180dp"
-            android:layout_height="1dp"
-            android:background="@color/light_black"
-            app:layout_constraintEnd_toEndOf="@+id/checkBoxLayout"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/checkBoxLayout"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxLayout" />
 
         <android.widget.Button
             android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/sign_up"
             android:layout_marginStart="@dimen/dp50"
+            android:layout_marginTop="@dimen/dp24"
             android:layout_marginEnd="@dimen/dp50"
-            android:layout_marginTop="@dimen/dp20"
+            android:background="@drawable/sign_up"
             app:layout_constraintEnd_toEndOf="@+id/checkBoxLayout"
             app:layout_constraintStart_toStartOf="@+id/checkBoxLayout"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxLayout" />
@@ -317,11 +319,10 @@
             android:layout_marginBottom="@dimen/dp15"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/btnSignUp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/btnSignUp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -329,27 +330,19 @@
                 android:paddingRight="@dimen/dp2"
                 android:text="@string/already_a_member"
                 android:textColor="@color/light_black"
-                android:textSize="@dimen/sp12" />
+                android:textSize="@dimen/sp14" />
 
             <TextView
                 android:id="@+id/tvSignIn"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="@dimen/dp5"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp2"
                 android:text="@string/sign_in"
+                android:background="@drawable/underline_black"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp12" />
+                android:textSize="@dimen/sp14" />
 
         </LinearLayout>
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="1dp"
-            android:background="@color/green"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -30,10 +30,13 @@ class OrderDetailDeliveredStatusActivity : AppCompatActivity(){
 
         binding.rvOrderDetailDelivered.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
-        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "03", "90.00€"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "03", "90.00€"))
 
-        list.add(ModelNewSaleOrderDetail("PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
+        list.add(ModelNewSaleOrderDetail("PLU9540572", R.drawable.avtarr_girl,
+            "Allen Chandler",
             R.drawable.chat, listChildRecycler))
 
         binding.rvOrderDetailDelivered.adapter = AdapterProvODNewSalesStatus(list)

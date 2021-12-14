@@ -44,24 +44,28 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         binding.recyclerShopDetailCategory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
 
-        list.add(ModelShopDetailCategory(R.drawable.tshiert, "All"))
-        list.add(ModelShopDetailCategory(R.drawable.google, "goggle"))
-        list.add(ModelShopDetailCategory(R.drawable.time, "TimePiece"))
-        list.add(ModelShopDetailCategory(R.drawable.tshiert, "T Shirts"))
-        list.add(ModelShopDetailCategory(R.drawable.google, "goggle"))
+        list.add(ModelShopDetailCategory(R.drawable.shoe, "All"))
+        list.add(ModelShopDetailCategory(R.drawable.shoe, "goggle"))
+        list.add(ModelShopDetailCategory(R.drawable.google, "TimePiece"))
+        list.add(ModelShopDetailCategory(R.drawable.time, "T Shirts"))
+        list.add(ModelShopDetailCategory(R.drawable.tshiert, "goggle"))
 
         binding.recyclerShopDetailCategory.adapter = AdapterShopDetailCategory(list)
 
-        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00$", "Lorem ipsum dolor",
+        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoe_bernd, "Bernd",
+            "30.00€", "Lorem ipsum dolor",
         "4.8", "Delivery estimate 4-5 days"))
 
-        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoes2, "Matrix", "30.00$", "Lorem ipsum dolor",
+        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoes2, "Matrix",
+            "30.00€", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
-        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00$", "Lorem ipsum dolor",
+        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoe_bernd, "Bernd",
+            "30.00€", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
-        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoes2, "Matrix", "30.00$", "Lorem ipsum dolor",
+        listSDProduct.add(ModelShopDetailProducts(R.drawable.shoes2, "Matrix",
+            "30.00€", "Lorem ipsum dolor",
             "4.8", "Delivery estimate 4-5 days"))
 
         binding.recyclerShopDetailProducts.adapter = AdapterShopDetailProducts(listSDProduct, this)

@@ -10,6 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent"
         >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -102,7 +103,7 @@
             android:id="@+id/tvItemCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginStart="@dimen/dp5"
             android:text="@string/_3"
             android:textColor="@color/light_black" />
     </LinearLayout>
@@ -135,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp10"
             android:layout_marginEnd="@dimen/dp32"
-            android:text="120.00$"
+            android:text="120.00€"
             android:textColor="@color/light_black" />
     </LinearLayout>
 
@@ -166,7 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp10"
             android:layout_marginEnd="@dimen/dp32"
-            android:text="10.00$"
+            android:text="10.00€"
             android:textColor="@color/light_black" />
     </LinearLayout>
 
@@ -197,7 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp10"
             android:layout_marginEnd="@dimen/dp32"
-            android:text="00.00$"
+            android:text="00.00€"
             android:textColor="@color/light_black" />
     </LinearLayout>
 
@@ -229,7 +230,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp10"
             android:layout_marginEnd="@dimen/dp32"
-            android:text="130.00$"
+            android:text="130.00€"
             android:textColor="@color/light_black" />
     </LinearLayout>
 

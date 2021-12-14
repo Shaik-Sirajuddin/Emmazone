@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -38,6 +39,17 @@
             app:layout_constraintTop_toTopOf="@+id/cart" />
 
         <ImageView
+            android:id="@+id/notifyRedBG"
+            android:layout_width="@dimen/dp10"
+            android:layout_height="@dimen/dp10"
+            android:background="@drawable/notification_red_color"
+            app:layout_constraintEnd_toStartOf="@+id/cart"
+            app:layout_constraintHorizontal_bias="0.58"
+            app:layout_constraintStart_toStartOf="@+id/image_notifications"
+            app:layout_constraintTop_toTopOf="@+id/image_notifications" />
+
+
+        <ImageView
             android:id="@+id/cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,10 +66,9 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp40"
         android:id="@+id/layoutMyOrders"
-        android:padding="@dimen/dp15"
-        android:background="@drawable/selector_my_orders"
+        android:background="@drawable/bg_earning"
         app:layout_constraintTop_toBottomOf="@+id/layoutMain"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +82,9 @@
             android:id="@+id/tvOnGoingMyOrders"
             android:layout_weight="1"
             android:gravity="center"
+            android:text="@string/on_going"
+            android:background="@drawable/bg_fill_earning"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             />
         <TextView
@@ -79,6 +93,8 @@
             android:id="@+id/tvPastMyOrders"
             android:layout_weight="1"
             android:gravity="center"
+            android:text="Past"
+            android:textColor="@color/black"
             android:textAllCaps="false"
             />
 

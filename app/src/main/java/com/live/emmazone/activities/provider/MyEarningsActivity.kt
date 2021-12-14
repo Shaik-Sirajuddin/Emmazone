@@ -33,7 +33,8 @@ class MyEarningsActivity : AppCompatActivity() {
 
         binding.rvMyEarnings.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        list.add(ModelMyEarnings("Brend Shoes", "6:00 PM on 03 sep,2020", "50$"))
+        list.add(ModelMyEarnings("Brend Shoes", "6:00 PM on 03 sep,2020",
+            "50$"))
         list.add(ModelMyEarnings("Brend Shoes", "8:00 PM on 03 sep,2020", "70$"))
         list.add(ModelMyEarnings("Brend Shoes", "6:00 PM on 03 sep,2020", "50$"))
         list.add(ModelMyEarnings("Brend Shoes", "8:00 PM on 03 sep,2020", "70$"))

@@ -34,7 +34,8 @@ class OrderDetailPendingActivity : AppCompatActivity() {
 
         binding.rvOrderDetailPending.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "03", "90.00€"))
         listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
 
         list.add(ModelNewSaleOrderDetail("PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",

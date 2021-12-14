@@ -32,8 +32,10 @@ class NewSalesProviderFragment : Fragment() {
 
         val listChildRecycler = ArrayList<ModelOnGoingOrders>()
 
-        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
-        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "03", "90.00€"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "03", "90.00€"))
 
         list.add(
             ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",

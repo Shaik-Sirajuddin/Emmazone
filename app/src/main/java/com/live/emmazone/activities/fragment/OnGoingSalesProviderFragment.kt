@@ -27,11 +27,14 @@ class OnGoingSalesProviderFragment : Fragment() {
 
         val listChildRecycler = ArrayList<ModelOnGoingOrders>()
 
-        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
-        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "03", "90.00€"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "03", "90.00€"))
 
         list.add(
-            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
+            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl,
+                "Allen Chandler",
                 "Delivery Type", " Home Delivery", listChildRecycler, R.drawable.ontheway, "29-march-2021"
                 ,status = "pending")
         )
@@ -43,8 +46,10 @@ class OnGoingSalesProviderFragment : Fragment() {
         )
 
         list.add(
-            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
-                "Delivery Type", " Home Delivery", item, R.drawable.accept, "29-march-2021",
+            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl,
+                "Allen Chandler",
+                "Delivery Type", " Home Delivery", item, R.drawable.accept,
+                "29-march-2021",
                 status = "ongoing")
         )
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,7 +32,7 @@ class OnGoingOrdersFragment : Fragment() {
 
         val recyclerView : RecyclerView = view.findViewById(R.id.rvMyOrderOnGoing)
         val recyclerViewPastOrders : RecyclerView = view.findViewById(R.id.rvMyOrderOnGoingPickCollect)
-        val imageStatusOnTheWay : ImageView = view.findViewById(R.id.imgStatusOnTheWay)
+        val imageStatusOnTheWay : Button = view.findViewById(R.id.btnStatusOnTheWay)
         val imageStatusPickCollect : ImageView = view.findViewById(R.id.imgStatusPickCollect)
         val scannerOnWay : ImageView = view.findViewById(R.id.imgCodeScanner)
         val scannerPickCollect : ImageView = view.findViewById(R.id.imgCodeScanner1)
@@ -79,15 +80,18 @@ class OnGoingOrdersFragment : Fragment() {
         recyclerViewPastOrders.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         list.clear()
-        list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "90.00$"))
-        list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "30.00$"))
+        list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "02", "90.00€"))
+        list.add(ModelOnGoingOrders(R.drawable.winter, "Winter Sweeters",
+            "02", "30.00€"))
 
         recyclerView.adapter = AdapterOnGoingOrders(list)
 
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         listPickupCollectOrder.clear()
-        listPickupCollectOrder.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "30.00$"))
+        listPickupCollectOrder.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "02", "30.00€"))
 
         recyclerViewPastOrders.adapter = AdapterOnGoPickCollect(listPickupCollectOrder)
 

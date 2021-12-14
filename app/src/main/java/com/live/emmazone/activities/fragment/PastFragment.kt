@@ -53,15 +53,18 @@ class PastFragment : Fragment() {
         rvCancelledOrder.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         list.clear()
-        list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "90.00$"))
-        list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "30.00$"))
+        list.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "02", "90.00€"))
+        list.add(ModelOnGoingOrders(R.drawable.winter, "Winter Sweeters",
+            "02", "30.00€"))
 
         rvPastDelivered.adapter = AdapterOnGoingOrders(list)
 
         rvCancelledOrder.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         listPastOrders.clear()
-        listPastOrders.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "02", "30.00$"))
+        listPastOrders.add(ModelOnGoingOrders(R.drawable.shoes_square,
+            "Brend Shoe", "02", "30.00€"))
 
         rvCancelledOrder.adapter = AdapterOrderCancel(listPastOrders)
 

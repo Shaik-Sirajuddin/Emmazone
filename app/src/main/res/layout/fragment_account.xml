@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:scrollbars="none"
+    android:fillViewport="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutMain"
@@ -38,6 +46,16 @@
             app:layout_constraintTop_toTopOf="@+id/cart" />
 
         <ImageView
+            android:id="@+id/notifyRedBG"
+            android:layout_width="@dimen/dp10"
+            android:layout_height="@dimen/dp10"
+            android:background="@drawable/notification_red_color"
+            app:layout_constraintEnd_toStartOf="@+id/cart"
+            app:layout_constraintHorizontal_bias="0.58"
+            app:layout_constraintStart_toStartOf="@+id/image_notifications"
+            app:layout_constraintTop_toTopOf="@+id/image_notifications" />
+
+        <ImageView
             android:id="@+id/cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,42 +87,40 @@
         app:riv_oval="true"
         app:riv_tile_mode="clamp" />
 
-    <LinearLayout
-        android:id="@+id/profileAccountLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/dp10"
-        app:layout_constraintTop_toBottomOf="@+id/pickImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/profileAccountLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="John Marker"
-            android:textStyle="bold"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp15"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp5"
-            android:text="johnmarker@gmail.com"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp12"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+934867863493"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp12"
-            />
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pickImage">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="John Marker"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:text="johnmarker@gmail.com"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+934867863493"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12" />
+
+        </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutMain1"
@@ -113,8 +129,10 @@
         android:padding="@dimen/dp25"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileAccountLayout">
+        app:layout_constraintTop_toBottomOf="@+id/profileAccountLayout"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notificationLayout"
@@ -131,8 +149,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="@string/notifications"
                 android:paddingLeft="@dimen/dp15"
+                android:text="@string/notifications"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -153,9 +171,8 @@
             android:id="@+id/changePwdLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="@dimen/dp15"
             android:background="@drawable/faq"
+            android:padding="@dimen/dp15"
             app:layout_constraintEnd_toEndOf="@+id/notificationLayout"
             app:layout_constraintStart_toStartOf="@+id/notificationLayout"
             app:layout_constraintTop_toBottomOf="@+id/notificationLayout">
@@ -187,9 +204,8 @@
             android:id="@+id/faqLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="@dimen/dp15"
             android:background="@drawable/faq"
+            android:padding="@dimen/dp15"
             app:layout_constraintEnd_toEndOf="@+id/changePwdLayout"
             app:layout_constraintStart_toStartOf="@+id/changePwdLayout"
             app:layout_constraintTop_toBottomOf="@+id/changePwdLayout">
@@ -221,9 +237,8 @@
             android:id="@+id/privacyPolicyLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp15"
-            android:layout_marginTop="8dp"
             android:background="@drawable/faq"
+            android:padding="@dimen/dp15"
             app:layout_constraintEnd_toEndOf="@+id/termsConditionLayout"
             app:layout_constraintStart_toStartOf="@+id/termsConditionLayout"
             app:layout_constraintTop_toBottomOf="@+id/termsConditionLayout">
@@ -233,8 +248,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="@string/privacy_policy"
                 android:paddingLeft="@dimen/dp15"
+                android:text="@string/privacy_policy"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -255,9 +270,8 @@
             android:id="@+id/termsConditionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp15"
-            android:layout_marginTop="8dp"
             android:background="@drawable/faq"
+            android:padding="@dimen/dp15"
             app:layout_constraintEnd_toEndOf="@+id/faqLayout"
             app:layout_constraintStart_toStartOf="@+id/faqLayout"
             app:layout_constraintTop_toBottomOf="@+id/faqLayout">
@@ -267,9 +281,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:paddingLeft="@dimen/dp15"
                 android:text="@string/terms_conditions"
                 android:textColor="@color/black"
-                android:paddingLeft="@dimen/dp15"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -290,16 +304,17 @@
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@drawable/logout"
-            android:paddingLeft="10dp"
+            android:paddingLeft="@dimen/dp10"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/termsConditionLayout"
-            app:layout_constraintVertical_bias="0.79" />
+            app:layout_constraintTop_toBottomOf="@+id/privacyPolicyLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

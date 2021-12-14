@@ -27,36 +27,46 @@ class PastSalesProviderFragment : Fragment() {
 
         val listChildRecycler = ArrayList<ModelOnGoingOrders>()
 
-        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
-        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "03", "90.00€"))
+        listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+            "03", "90.00€"))
 
         list.add(
-            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
-                "Delivery Type", " Home Delivery", listChildRecycler, R.drawable.delivered, "29-march-2021"
+            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl,
+                "Allen Chandler",
+                "Delivery Type", " Home Delivery", listChildRecycler,
+                R.drawable.delivered, "29-march-2021"
                 ,status = "pending")
         )
 
         val itemNew = ArrayList<ModelOnGoingOrders>()
 
         itemNew.add(
-            ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€")
+            ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03",
+                "90.00€")
         )
 
         list.add(
-            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
-                "Delivery Type", " Home Delivery", itemNew, R.drawable.puck, "29-march-2021",
+            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl,
+                "Allen Chandler",
+                "Delivery Type", " Home Delivery", itemNew, R.drawable.puck,
+                "29-march-2021",
                 status = "ongoing")
         )
 
         val item1 = ArrayList<ModelOnGoingOrders>()
 
         itemNew.add(
-            ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€")
+            ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
+                "03", "90.00€")
         )
 
         list.add(
-            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
-                "Delivery Type", " Home Delivery", itemNew, R.drawable.canceled, "29-march-2021",
+            ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl,
+                "Allen Chandler",
+                "Delivery Type", " Home Delivery", itemNew, R.drawable.canceled,
+                "29-march-2021",
                 status = "ongoing")
         )
 

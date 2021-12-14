@@ -44,9 +44,12 @@ class DeliveryAddress : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        list.add(ModelDeliveryAddress("John Marker", "260-C North EI Camino Real"))
-        list.add(ModelDeliveryAddress("Jackson", "1186 Roseville pkwy"))
-        list.add(ModelDeliveryAddress("John Marker", "260-C North EI Camino Real"))
+        list.add(ModelDeliveryAddress("John Marker",
+            "260-C North EI Camino Real"))
+        list.add(ModelDeliveryAddress("Jackson",
+            "1186 Roseville pkwy"))
+        list.add(ModelDeliveryAddress("John Marker",
+            "260-C North EI Camino Real"))
 
         recyclerView.adapter = AdapterDeliveryAddress(list)
     }

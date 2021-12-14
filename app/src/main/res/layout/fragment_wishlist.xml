@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,6 +39,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/cart"
             app:layout_constraintEnd_toStartOf="@+id/cart"
             app:layout_constraintTop_toTopOf="@+id/cart" />
+
+        <ImageView
+            android:id="@+id/notifyRedBG"
+            android:layout_width="@dimen/dp10"
+            android:layout_height="@dimen/dp10"
+            android:background="@drawable/notification_red_color"
+            app:layout_constraintEnd_toStartOf="@+id/cart"
+            app:layout_constraintHorizontal_bias="0.58"
+            app:layout_constraintStart_toStartOf="@+id/image_notifications"
+            app:layout_constraintTop_toTopOf="@+id/image_notifications" />
 
         <ImageView
             android:id="@+id/cart"
@@ -87,7 +98,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/wishlist"
+        android:text="@string/wishlist1"
         android:textColor="@color/black"
         android:textSize="@dimen/sp20"
         android:textStyle="bold"
