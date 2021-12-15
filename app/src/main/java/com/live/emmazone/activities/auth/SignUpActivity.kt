@@ -22,11 +22,22 @@ import com.permissionx.guolindev.PermissionX
 class SignUpActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySignUpBinding
-
+     var isChecked = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.checkBox.setOnClickListener {
+
+            isChecked = !isChecked
+            binding.checkBox.setImageResource(
+                if (isChecked)
+                    R.drawable.otp_bg
+                else
+                    R.drawable.checkbox_tick
+            )
+        }
 
         binding.imageArrowback.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
