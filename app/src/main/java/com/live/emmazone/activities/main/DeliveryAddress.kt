@@ -26,7 +26,6 @@ class DeliveryAddress : AppCompatActivity() {
         binding = ActivityDeliveryAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.btnaddNewAddress.setOnClickListener {
             val intent = Intent(this, AddNewAddress::class.java)

@@ -17,13 +17,25 @@ class PaymentMethod : AppCompatActivity() {
     lateinit var binding : ActivityPaymentMethodBinding
     var list = ArrayList<ModelPaymentCard>()
     lateinit var adapter: AdapterAddPaymentCard
+    var isNotification =  true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPaymentMethodBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        binding.imgWallet.setOnClickListener {
+
+            isNotification = !isNotification
+            binding.imgWallet.setImageResource(
+                if (isNotification)
+                    R.drawable.radio_dot_circle
+            else
+                R.drawable.radio_circle
+            )
+
+        }
+
 
         binding.btnNext.setOnClickListener {
             onBackPressed()

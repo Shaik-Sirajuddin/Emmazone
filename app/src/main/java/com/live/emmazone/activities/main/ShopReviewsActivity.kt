@@ -14,8 +14,6 @@ class ShopReviewsActivity : AppCompatActivity() {
         binding = ActivityShopReviewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         binding.back.setOnClickListener {
             onBackPressed()
         }

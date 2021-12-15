@@ -181,7 +181,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp5"
-            android:text="30.00"
+            android:text="30.00€"
             android:textAlignment="viewStart"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp18"

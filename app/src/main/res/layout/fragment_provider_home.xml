@@ -200,6 +200,7 @@
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:background="@drawable/underline_grey"
             app:layout_constraintEnd_toEndOf="@+id/tvShopAddress"
             app:layout_constraintStart_toStartOf="@+id/tvShopAddress"
             app:layout_constraintTop_toBottomOf="@+id/tvShopAddress" />

@@ -24,7 +24,6 @@ class OrderDetail : AppCompatActivity() {
         binding = ActivityOrderDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.btnQRScanner.setOnClickListener {
 

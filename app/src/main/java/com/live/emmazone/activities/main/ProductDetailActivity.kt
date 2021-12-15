@@ -23,7 +23,6 @@ class ProductDetailActivity : AppCompatActivity()
         binding =  ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.btnBuyDeliver.setOnClickListener {
             val dialog = BottomSheetDialog(this)

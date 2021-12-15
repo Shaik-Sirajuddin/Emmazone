@@ -21,6 +21,7 @@ import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.MyEarningsActivity
 
 class FragmentProviderAccount : Fragment() {
+ var isNotification = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +40,18 @@ class FragmentProviderAccount : Fragment() {
         val btnLogout: Button = view.findViewById(R.id.btn_logout)
         val imgNotify: ImageView = view.findViewById(R.id.image_notifications)
         val proAccountImage: ImageView = view.findViewById(R.id.proAccountImage)
+        val toggle: ImageView = view.findViewById(R.id.toggle)
+
+        toggle.setOnClickListener {
+
+            isNotification = !isNotification
+            toggle.setImageResource(
+                if (isNotification)
+                    R.drawable.on
+                else
+                    R.drawable.off
+            )
+        }
 
         proAccountImage.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)

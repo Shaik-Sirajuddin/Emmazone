@@ -167,7 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp10"
             android:layout_marginEnd="@dimen/dp10"
-            android:background="@drawable/wallet"
+            android:background="@drawable/stor"
             android:drawableRight="@drawable/search"
             android:hint="Search"
             android:padding="@dimen/dp10" />

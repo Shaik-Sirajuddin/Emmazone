@@ -19,7 +19,6 @@ class RatingReviews : AppCompatActivity() {
         binding = ActivityRatingReviewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.recyclerRatingReviews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 

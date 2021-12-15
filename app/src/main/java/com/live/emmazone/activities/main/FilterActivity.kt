@@ -15,6 +15,7 @@ class FilterActivity : AppCompatActivity() {
         binding = ActivityFilterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         binding.btnApply.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)

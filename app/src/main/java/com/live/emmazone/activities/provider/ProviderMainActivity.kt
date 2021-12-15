@@ -16,9 +16,9 @@ class ProviderMainActivity : AppCompatActivity() {
         binding = ActivityProviderMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-     window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         loadFragment(FragmentProviderHome())
+        binding.bottomNavigationView.itemIconTintList = null
         //   binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {

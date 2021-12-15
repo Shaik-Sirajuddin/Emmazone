@@ -20,7 +20,6 @@ class OrderDeliveredDetail : AppCompatActivity() {
         binding = ActivityOrderDeliveredDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.recyclerOrderDeliveredDetail.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 

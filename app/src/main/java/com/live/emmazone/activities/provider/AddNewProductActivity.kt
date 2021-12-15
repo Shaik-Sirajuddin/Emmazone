@@ -19,7 +19,6 @@ class AddNewProductActivity : AppCompatActivity() {
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.btnSave.setOnClickListener {
             val builder = AlertDialog.Builder(this)

@@ -10,19 +10,19 @@
 
     <item
         android:id="@+id/wishList"
-        android:icon="@drawable/wishlist"
+        android:icon="@drawable/wishlist_selector"
         android:title="@string/wishlist1"
         app:showAsAction="withText" />
 
     <item
         android:id="@+id/myOrders"
-        android:icon="@drawable/my_orders"
+        android:icon="@drawable/my_orders_selector"
         android:title="@string/my_orders"
         app:showAsAction="withText" />
 
     <item
         android:id="@+id/account"
-        android:icon="@drawable/account"
+        android:icon="@drawable/account_selector"
         android:title="@string/account"
         app:showAsAction="withText" />
 

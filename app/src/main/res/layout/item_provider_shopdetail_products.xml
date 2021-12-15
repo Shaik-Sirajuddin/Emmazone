@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingLeft="@dimen/dp5"
-    android:paddingRight="@dimen/dp5"
-    android:paddingBottom="@dimen/dp5">
+   >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="@dimen/dp8"
+        android:layout_margin="@dimen/dp8"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="@dimen/dp16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +60,7 @@
                 android:layout_marginTop="2dp"
                 android:text="30.00€"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
+                android:textSize="@dimen/sp12"
                 app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
                 app:layout_constraintHorizontal_bias="0.93"
                 app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
@@ -120,7 +119,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/lorem_ipsum_dolor"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
+                android:textSize="@dimen/sp10"
                 app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProductText"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/ratingBarShopDetailProduct"
@@ -134,7 +133,7 @@
                 android:paddingBottom="@dimen/dp5"
                 android:text="@string/delivery_estimate_4_5_days"
                 android:textColor="@color/green"
-                android:textSize="@dimen/sp12"
+                android:textSize="@dimen/sp10"
                 app:layout_constraintStart_toStartOf="@+id/tvShopDetailProductBrand"
                 app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProductBrand" />
 

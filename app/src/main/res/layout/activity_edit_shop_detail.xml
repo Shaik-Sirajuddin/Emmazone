@@ -271,6 +271,7 @@
             android:id="@+id/viewCatname"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:background="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/tvCatName"
             app:layout_constraintStart_toStartOf="@+id/tvCatName"
             app:layout_constraintTop_toBottomOf="@+id/tvCatName" />
@@ -292,6 +293,7 @@
             android:id="@+id/viewAddImage"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:background="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/tvAddImg"
             app:layout_constraintStart_toStartOf="@+id/tvAddImg"
             app:layout_constraintTop_toBottomOf="@+id/tvAddImg" />

@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fillViewport="true"
     android:layout_height="match_parent"
     tools:context=".activities.auth.UserLoginChoice">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
     <ImageView
         android:id="@+id/imageBg"
@@ -73,27 +80,20 @@
             android:paddingRight="@dimen/dp2"
             android:text="@string/new_user"
             android:textColor="@color/light_black"
-            android:textSize="@dimen/sp12" />
+            android:textSize="@dimen/sp14" />
 
         <TextView
             android:id="@+id/tvCreateAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_account"
+            android:background="@drawable/underline_green"
             android:textColor="@color/green"
             android:textStyle="bold"
-            android:textSize="@dimen/sp12" />
+            android:textSize="@dimen/sp14" />
 
     </LinearLayout>
 
-    <View
-        android:layout_width="80dp"
-        android:layout_height="1dp"
-        android:background="@color/green"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -105,4 +105,6 @@
         app:layout_constraintTop_toTopOf="@+id/imageBg"
         app:srcCompat="@drawable/logo" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
