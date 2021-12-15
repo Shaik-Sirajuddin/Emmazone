@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.main.PaymentMethod">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,9 +63,10 @@
         android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp10"
         android:layout_marginTop="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp10"
         android:orientation="vertical"
+        android:paddingLeft="4dp"
         app:layout_constraintEnd_toEndOf="@+id/tvPaymentSelection"
         app:layout_constraintStart_toStartOf="@+id/tvPaymentSelection"
         app:layout_constraintTop_toBottomOf="@+id/tvPaymentSelection">
@@ -74,21 +74,30 @@
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@null"
+            android:button="@drawable/custom_radio_button"
             android:drawableRight="@drawable/pay"
+            android:paddingHorizontal="7dp"
             android:text="@string/paypal"
             android:textSize="@dimen/sp15" />
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@null"
+            android:button="@drawable/custom_radio_button"
             android:drawableRight="@drawable/credit"
+            android:padding="7dp"
             android:text="@string/credit_card_debit_card"
             android:textSize="@dimen/sp15" />
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@null"
+            android:button="@drawable/custom_radio_button"
             android:drawableRight="@drawable/wallet"
+            android:paddingHorizontal="7dp"
             android:text="@string/cash_on_delivery"
             android:textSize="@dimen/sp15" />
 
@@ -115,9 +124,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/dp8"
         android:layout_marginEnd="16dp"
         android:gravity="center"
-        android:layout_marginTop="@dimen/dp8"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/tvMyWallet"
         app:layout_constraintStart_toStartOf="@+id/tvMyWallet"
@@ -127,8 +136,8 @@
             android:id="@+id/imgWallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-         android:src="@drawable/radio_dot_circle"
             android:layout_marginStart="@dimen/dp5"
+            android:src="@drawable/radio_dot_circle"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintTop_toBottomOf="@+id/tvMyWallet" />
 
@@ -136,11 +145,11 @@
             android:id="@+id/tvWallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wallet"
             android:layout_marginStart="@dimen/dp8"
-            android:textColor="@color/black"
-            android:layout_weight="1"
             android:layout_marginEnd="@dimen/dp8"
+            android:layout_weight="1"
+            android:text="@string/wallet"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/radioGroup"
             app:layout_constraintStart_toStartOf="@+id/radioGroup"
@@ -150,9 +159,9 @@
             android:id="@+id/tvWalletBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp8"
             android:text="$30.00"
             android:textColor="@color/black"
-            android:layout_marginEnd="@dimen/dp8"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/radioGroup"
             app:layout_constraintStart_toStartOf="@+id/radioGroup"

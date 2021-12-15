@@ -6,6 +6,7 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.13645833333333332" />
         <entry key="app/src/main/res/drawable-xhdpi/myorder_selector.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable-xxhdpi/account_selector.xml" value="0.18055555555555555" />
+        <entry key="app/src/main/res/drawable-xxhdpi/custom_radio_button.xml" value="0.17407407407407408" />
         <entry key="app/src/main/res/drawable/account_selectod.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/account_selector.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/add_product_selector.xml" value="0.2324074074074074" />
@@ -26,6 +27,8 @@
         <entry key="app/src/main/res/drawable/bottom_selector_bg.xml" value="0.22407407407407406" />
         <entry key="app/src/main/res/drawable/btn_bg_my_orders.xml" value="0.25333333333333335" />
         <entry key="app/src/main/res/drawable/btn_withdraw.xml" value="0.2101851851851852" />
+        <entry key="app/src/main/res/drawable/custom_radio_button_off.xml" value="0.17407407407407408" />
+        <entry key="app/src/main/res/drawable/custom_radio_button_on.xml" value="0.17407407407407408" />
         <entry key="app/src/main/res/drawable/emmazone_background.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/icon_app_background.xml" value="0.13802083333333334" />
@@ -52,7 +55,7 @@
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_delivery_address.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/activity_edit_product.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_edit_product.xml" value="0.13148148148148148" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_edit_shop_detail.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_enable_location_services.xml" value="0.19" />
@@ -72,7 +75,7 @@
         <entry key="app/src/main/res/layout/activity_order_detail_pending.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_order_detail_pro_ongoing.xml" value="0.19" />
         <entry key="app/src/main/res/layout/activity_order_pickup_collect.xml" value="0.22708333333333333" />
-        <entry key="app/src/main/res/layout/activity_payment_method.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_payment_method.xml" value="0.2486865148861646" />
         <entry key="app/src/main/res/layout/activity_privacypolicy.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_product_detail.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_product_reviews.xml" value="0.2" />
