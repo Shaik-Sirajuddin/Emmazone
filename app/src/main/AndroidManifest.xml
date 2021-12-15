@@ -102,13 +102,7 @@
         <activity
             android:name=".activities.main.FilterActivity"
             android:exported="true"
-            android:theme="@style/EmmaZone.MaterialTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/EmmaZone.MaterialTheme" />
         <activity
             android:name=".activities.main.PaymentMethod"
             android:exported="true" />
@@ -156,11 +150,11 @@
             android:name=".activities.SplashActivity"
             android:exported="true"
             android:theme="@style/EmmaZone.Splash">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
