@@ -1,61 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mcxtzhang.swipemenulib.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    app:ios="false"
+    app:leftSwipe="true"
+    app:swipeEnable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutItemDeliveryAdrs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/faq_bg"
         android:paddingStart="@dimen/dp16"
         android:paddingBottom="@dimen/dp8"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/faq_bg"
-        android:id="@+id/layoutItemDeliveryAdrs"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0">
+
         <TextView
             android:id="@+id/tvOrderPersonName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp20"
-            android:textStyle="bold"
             android:text="@string/john_marker"
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"
-            app:layout_constraintTop_toTopOf="@+id/layoutItemDeliveryAdrs"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/layoutItemDeliveryAdrs"
-          />
+            app:layout_constraintTop_toTopOf="@+id/layoutItemDeliveryAdrs" />
 
         <TextView
             android:id="@+id/tvOrderDeliveryAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/layoutItemDeliveryAdrs"
             android:layout_marginStart="@dimen/dp15"
-            android:text="@string/_260_c_north_ei_camino_real"
             android:layout_marginBottom="@dimen/dp10"
+            android:text="@string/_260_c_north_ei_camino_real"
             android:textColor="@color/normalBlack"
             android:textSize="@dimen/sp15"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutItemDeliveryAdrs"
             app:layout_constraintEnd_toEndOf="@+id/tvOrderPersonName"
             app:layout_constraintHorizontal_bias="0.11"
             app:layout_constraintStart_toStartOf="@+id/tvOrderPersonName"
             app:layout_constraintTop_toBottomOf="@+id/tvOrderPersonName" />
 
         <RadioButton
+            android:id="@+id/radioBtnDeliveryAdrs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioBtnDeliveryAdrs"
             android:layout_marginEnd="@dimen/dp10"
-            app:layout_constraintEnd_toEndOf="@+id/layoutItemDeliveryAdrs"
-            app:layout_constraintTop_toTopOf="@+id/tvOrderPersonName"
             app:layout_constraintBottom_toBottomOf="@+id/tvOrderDeliveryAddress"
-            />
+            app:layout_constraintEnd_toEndOf="@+id/layoutItemDeliveryAdrs"
+            app:layout_constraintTop_toTopOf="@+id/tvOrderPersonName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/layout_delete"
+        android:layout_width="60dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/app_name"
+            android:padding="5dp"
+            android:src="@drawable/bin" />
+
+    </RelativeLayout>
+
+</com.mcxtzhang.swipemenulib.SwipeMenuLayout>

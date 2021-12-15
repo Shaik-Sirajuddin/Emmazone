@@ -10,14 +10,13 @@ import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
+
     lateinit var binding : ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.tvForgotPwd.setOnClickListener {
             val intent = Intent(this, ForgotPasswordActivity::class.java)

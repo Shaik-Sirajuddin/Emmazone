@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fillViewport="true"
     tools:context=".activities.main.FilterActivity">
 
@@ -74,8 +74,8 @@
                 android:id="@+id/range_slider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:valueFrom="0.0"
-                android:valueTo="100.0"
+                android:valueFrom="0"
+                android:valueTo="1500"
                 app:values="@array/initial_slider_values" />
 
         </LinearLayout>
@@ -97,9 +97,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0$"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp15" />
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/id2"
@@ -138,9 +138,9 @@
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:value="20.0"
-                android:valueFrom="0.0"
-                android:valueTo="100.0" />
+                android:value="50"
+                android:valueFrom="0"
+                android:valueTo="200" />
 
         </LinearLayout>
 
@@ -161,10 +161,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textStyle="bold"
                 android:text="0 miles"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp15" />
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/idmiles2"
@@ -172,9 +172,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dp10"
                 android:text="200 miles"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp15" />
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout

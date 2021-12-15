@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="status_color">#B7DC8D</color>
-    <color name="status_bar_color">#B7DC8D</color>
+    <color name="status_color">#D2E8C4</color>
+    <color name="status_bar_color">#D2E8C4</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
@@ -15,8 +15,12 @@
     <color name="green">#3E7A40</color>
     <color name="status_bar">#D0E3BB</color>
     <color name="light_green">#8ABBDC95</color>
-    <color name="green_spinner">#8FAC6D</color>
+    <color name="green_spinner">#498056</color>
     <color name="bgDeliveryAddress">#DDEDDD</color>
     <color name="yellow">#FF9800</color>
     <color name="red">#E73527</color>
+    <color name="splash_bg">#D2E8C4</color>
+
+    <color name="track_active">#457F59</color>
+    <color name="track_inactive">#EDEDED</color>
 </resources>

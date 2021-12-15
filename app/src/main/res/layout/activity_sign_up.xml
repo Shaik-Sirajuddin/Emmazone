@@ -27,8 +27,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:padding="@dimen/dp5"
                 android:layout_marginTop="36dp"
+                android:padding="@dimen/dp5"
                 android:src="@drawable/arroww"
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
                 app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
@@ -68,20 +68,17 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.makeramen.roundedimageview.RoundedImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/pickImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_75sdp"
+            android:layout_height="@dimen/_75sdp"
             android:layout_marginTop="@dimen/dp10"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@drawable/avtarr_girl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutConstraint"
-            app:riv_corner_radius="30dip"
-            app:riv_mutate_background="true"
-            app:riv_oval="true"
-            app:riv_tile_mode="repeat" />
+            app:shapeAppearanceOverlay="@style/circularImageView" />
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageAdd"
@@ -118,8 +115,8 @@
                 android:layout_marginTop="@dimen/dp10"
                 android:layout_marginEnd="24dp"
                 android:text="@string/name"
-                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/SignupLayout"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -149,8 +146,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/email"
-                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/edtEmail"
                 app:layout_constraintStart_toStartOf="parent"
@@ -179,8 +176,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/mobile"
-                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/edtPassword"
                 app:layout_constraintStart_toStartOf="parent"
@@ -211,8 +208,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/password"
-                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/edtMobile"
                 app:layout_constraintStart_toStartOf="parent"
@@ -243,8 +240,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:text="@string/confirm_password"
-                android:textSize="@dimen/sp15"
                 android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/edtPwd"
                 app:layout_constraintStart_toStartOf="parent"
@@ -291,13 +288,12 @@
             <TextView
                 android:id="@+id/termsConditions"
                 android:layout_width="wrap_content"
-                android:textColor="@color/black"
-                android:background="@drawable/underline_black"
                 android:layout_height="wrap_content"
-                android:text="@string/i_accept_terms_conditions" />
+                android:background="@drawable/underline_black"
+                android:text="@string/i_accept_terms_conditions"
+                android:textColor="@color/black" />
 
         </LinearLayout>
-
 
         <android.widget.Button
             android:id="@+id/btnSignUp"
@@ -337,8 +333,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp2"
-                android:text="@string/sign_in"
                 android:background="@drawable/underline_black"
+                android:text="@string/sign_in"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp14" />
 

@@ -17,8 +17,6 @@ class UserLoginChoice : AppCompatActivity() {
         binding = ActivityUserLoginChoiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         binding.btnSignInUser.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)

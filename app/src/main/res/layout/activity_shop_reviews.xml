@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".activities.main.ShopReviewsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,23 +103,25 @@
 
     </LinearLayout>
 
-    <RatingBar
+    <com.willy.ratingbar.ScaleRatingBar
         android:id="@+id/ratingbarShopReviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/sp15"
-        android:rating="3"
-        android:scaleX=".5"
-        android:scaleY=".5"
-        android:progressTint="@color/yellow"
-        android:transformPivotX="0dp"
-        android:transformPivotY="0dp"
-        android:isIndicator="true"
-        android:max="5"
-      app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore"
-        app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
         android:layout_marginStart="@dimen/dp8"
-        />
+        android:layout_marginTop="@dimen/sp15"
+        app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
+        app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore"
+        app:srb_clickable="true"
+        app:srb_drawableEmpty="@drawable/star"
+        app:srb_drawableFilled="@drawable/star_fill"
+        app:srb_isIndicator="false"
+        app:srb_numStars="5"
+        app:srb_rating="2"
+        app:srb_scrollable="true"
+        app:srb_starHeight="20dp"
+        app:srb_starPadding="2dp"
+        app:srb_starWidth="20dp"
+        app:srb_stepSize="0.5" />
 
     <TextView
         android:id="@+id/tvInsertComment1"
@@ -130,9 +131,8 @@
         android:textColor="@color/light_black"
         android:textSize="@dimen/sp15"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/ratingbarShopReviews"
         app:layout_constraintStart_toStartOf="@+id/ratingbarShopReviews"
-       />
+        app:layout_constraintTop_toBottomOf="@+id/ratingbarShopReviews" />
 
     <EditText
         android:id="@+id/edtInsertCommentShopReview"
@@ -142,9 +142,9 @@
         android:layout_marginTop="@dimen/dp10"
         android:layout_marginEnd="@dimen/dp16"
         android:background="@drawable/login_bg"
+        android:gravity="top"
         android:hint="Write here..."
         android:imeOptions="actionDone"
-        android:gravity="top"
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:paddingLeft="@dimen/dp8"

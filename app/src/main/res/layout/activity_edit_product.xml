@@ -66,11 +66,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/photo"
-            app:layout_constraintTop_toTopOf="@+id/imgEditShop"
+            app:layout_constraintBottom_toBottomOf="@+id/imgEditShop"
             app:layout_constraintEnd_toEndOf="@+id/imgEditShop"
             app:layout_constraintStart_toStartOf="@+id/imgEditShop"
-            app:layout_constraintBottom_toBottomOf="@+id/imgEditShop"
-            />
+            app:layout_constraintTop_toTopOf="@+id/imgEditShop" />
 
         <TextView
             android:id="@+id/tvAddPic"
@@ -145,8 +144,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:background="@drawable/login_bg"
-            android:maxLines="1"
             android:hint="Brend Shoes"
+            android:maxLines="1"
             android:paddingStart="@dimen/dp8"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/tvProdctName"
@@ -171,11 +170,11 @@
             android:id="@+id/edtDesc"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:textSize="@dimen/sp15"
             android:layout_marginTop="@dimen/dp5"
-            android:paddingStart="@dimen/dp8"
             android:background="@drawable/login_bg"
             android:hint="@string/lorem_ipsum_dolor_sit_amet_consectetur_edipscing_elit_sed_to_mode_tempor_incidedunt_ut_lebore_et_dolor_magna_aliqua_quis_ipsum_suspendisse"
+            android:paddingStart="@dimen/dp8"
+            android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/tvDescP"
             app:layout_constraintStart_toStartOf="@+id/tvDescP"
             app:layout_constraintTop_toBottomOf="@+id/tvDescP" />
@@ -199,10 +198,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:background="@drawable/login_bg"
-            android:textSize="@dimen/sp15"
+            android:hint="$30.00"
             android:maxLines="1"
             android:paddingStart="@dimen/dp8"
-            android:hint="$30.00"
+            android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/tvProcutPrice"
             app:layout_constraintStart_toStartOf="@+id/tvProcutPrice"
             app:layout_constraintTop_toBottomOf="@+id/tvProcutPrice" />
@@ -226,9 +225,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/login_bg"
+            android:hint="25"
             android:maxLines="1"
             android:paddingStart="@dimen/dp8"
-            android:hint="25"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/tvPq"
             app:layout_constraintStart_toStartOf="@+id/tvPq"
@@ -324,11 +323,11 @@
             android:id="@+id/tvProductSizeX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/dp5"
             android:text="9"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            android:padding="@dimen/dp5"
             app:layout_constraintBottom_toBottomOf="@+id/addColour2"
             app:layout_constraintEnd_toStartOf="@+id/addColour2"
             app:layout_constraintHorizontal_bias="0.92"
@@ -344,36 +343,33 @@
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductSize"
             app:layout_constraintStart_toStartOf="@+id/tvProductSize"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tvProductSize" />
 
         <ImageView
+            android:id="@+id/ingNotifyOnOff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ingNotifyOnOff"
+            android:layout_marginEnd="@dimen/dp16"
             android:layout_marginRight="@dimen/dp20"
             android:background="@drawable/notification_selector"
-            app:layout_constraintTop_toTopOf="@+id/tvProductHighLight"
             app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
-            app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/dp16"
             app:layout_constraintHorizontal_bias="1"
-            />
+            app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
+            app:layout_constraintTop_toTopOf="@+id/tvProductHighLight" />
 
         <android.widget.Button
+            android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnUpdate"
-            android:background="@drawable/update"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductHighLight"
-            app:layout_constraintStart_toStartOf="@+id/tvProductHighLight"
-            app:layout_constraintEnd_toEndOf="@+id/ingNotifyOnOff"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="@dimen/dp32"
             android:layout_marginBottom="@dimen/dp24"
-            />
+            android:background="@drawable/update"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ingNotifyOnOff"
+            app:layout_constraintStart_toStartOf="@+id/tvProductHighLight"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductHighLight" />
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageSelectedColour"
@@ -382,10 +378,9 @@
             android:src="@drawable/otp_bg"
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"
-            app:layout_constraintTop_toTopOf="@+id/addColour1"
             app:layout_constraintBottom_toBottomOf="@+id/addColour1"
             app:layout_constraintEnd_toStartOf="@+id/addColour1"
-            />
+            app:layout_constraintTop_toTopOf="@+id/addColour1" />
 
         <ImageView
             android:id="@+id/addColour2"
@@ -394,12 +389,11 @@
             android:layout_marginEnd="5dp"
             android:padding="@dimen/dp2"
             android:src="@drawable/close_cancel"
-            app:layout_constraintEnd_toEndOf="@+id/productSize"
-            app:layout_constraintTop_toTopOf="@+id/tvProductSize"
             app:layout_constraintBottom_toBottomOf="@+id/tvProductSize"
-            app:layout_constraintStart_toEndOf="@+id/tvProductSize"
+            app:layout_constraintEnd_toEndOf="@+id/productSize"
             app:layout_constraintHorizontal_bias="1"
-             />
+            app:layout_constraintStart_toEndOf="@+id/tvProductSize"
+            app:layout_constraintTop_toTopOf="@+id/tvProductSize" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
