@@ -85,7 +85,7 @@
             android:id="@+id/viewOrderID"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/normalBlack"
+            android:background="@color/normalBlack1"
             app:layout_constraintEnd_toEndOf="@+id/tvOrderID"
             app:layout_constraintStart_toStartOf="@+id/tvOrder"
             app:layout_constraintTop_toBottomOf="@+id/tvOrder" />
@@ -95,20 +95,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
-            app:layout_constraintBottom_toTopOf="@+id/viewOrderID1"
+            android:paddingBottom="@dimen/dp8"
+            android:background="@drawable/underline_grey"
+            app:layout_constraintBottom_toTopOf="@+id/tvPriceDetails"
             app:layout_constraintEnd_toEndOf="@+id/viewOrderID"
             app:layout_constraintStart_toStartOf="@+id/viewOrderID"
             app:layout_constraintTop_toBottomOf="@+id/viewOrderID" />
-
-        <View
-            android:id="@+id/viewOrderID1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/dp8"
-            android:background="@color/normalBlack"
-            app:layout_constraintEnd_toEndOf="@+id/recyclerOrderDetail"
-            app:layout_constraintStart_toStartOf="@+id/recyclerOrderDetail"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerOrderDetail" />
 
         <TextView
             android:id="@+id/tvPriceDetails"
@@ -120,9 +112,9 @@
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/viewOrderID1"
-            app:layout_constraintStart_toStartOf="@+id/viewOrderID1"
-            app:layout_constraintTop_toBottomOf="@+id/viewOrderID1" />
+            app:layout_constraintEnd_toEndOf="@+id/recyclerOrderDetail"
+            app:layout_constraintStart_toStartOf="@+id/recyclerOrderDetail"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerOrderDetail" />
 
         <LinearLayout
             android:id="@+id/itemLayout"
@@ -130,6 +122,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/dp5"
+            android:background="@drawable/underline_grey"
             app:layout_constraintEnd_toEndOf="@+id/tvPriceDetails"
             app:layout_constraintStart_toStartOf="@+id/tvPriceDetails"
             app:layout_constraintTop_toBottomOf="@+id/tvPriceDetails">
@@ -145,7 +138,7 @@
                 android:id="@+id/tvItemCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp10"
+                android:layout_marginStart="@dimen/dp5"
                 android:text="@string/_3"
                 android:textColor="@color/light_black" />
         </LinearLayout>
@@ -212,6 +205,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@drawable/underline_grey"
             android:padding="@dimen/dp5"
             app:layout_constraintEnd_toEndOf="@+id/deliveryChargesLayout"
             app:layout_constraintStart_toStartOf="@+id/deliveryChargesLayout"
@@ -242,6 +236,7 @@
             android:layout_marginTop="@dimen/dp10"
             android:orientation="horizontal"
             android:padding="@dimen/dp5"
+            android:background="@drawable/underline_grey"
             app:layout_constraintEnd_toEndOf="@+id/taxLayout"
             app:layout_constraintStart_toStartOf="@+id/taxLayout"
             app:layout_constraintTop_toBottomOf="@+id/taxLayout">

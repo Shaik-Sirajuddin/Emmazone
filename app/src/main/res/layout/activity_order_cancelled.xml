@@ -181,6 +181,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/dp5"
+            android:background="@drawable/underline_grey"
             app:layout_constraintEnd_toEndOf="@+id/tvPriceDetails"
             app:layout_constraintStart_toStartOf="@+id/tvPriceDetails"
             app:layout_constraintTop_toBottomOf="@+id/tvPriceDetails">
@@ -196,7 +197,7 @@
                 android:id="@+id/tvItemCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp10"
+                android:layout_marginStart="@dimen/dp5"
                 android:text="@string/_3"
                 android:textColor="@color/light_black" />
         </LinearLayout>
@@ -263,7 +264,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/dp5"
+            android:background="@drawable/underline_grey"
+            android:padding="@dimen/dp8"
             app:layout_constraintEnd_toEndOf="@+id/deliveryChargesLayout"
             app:layout_constraintStart_toStartOf="@+id/deliveryChargesLayout"
             app:layout_constraintTop_toBottomOf="@+id/deliveryChargesLayout">
@@ -292,7 +294,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
             android:orientation="horizontal"
-            android:padding="@dimen/dp5"
+            android:background="@drawable/underline_grey"
+            android:padding="@dimen/dp8"
             app:layout_constraintEnd_toEndOf="@+id/taxLayout"
             app:layout_constraintStart_toStartOf="@+id/taxLayout"
             app:layout_constraintTop_toBottomOf="@+id/taxLayout">

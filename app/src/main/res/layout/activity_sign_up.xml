@@ -279,12 +279,12 @@
             app:layout_constraintStart_toStartOf="@+id/SignupLayout"
             app:layout_constraintTop_toBottomOf="@+id/SignupLayout">
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <ImageView
                 android:id="@+id/checkBox"
                 android:layout_width="@dimen/dp30"
                 android:layout_height="@dimen/dp20"
                 android:layout_marginEnd="@dimen/dp5"
-                android:buttonTint="@color/checkbox_selector"
+                android:src="@drawable/otp_bg"
                 app:layout_constraintStart_toStartOf="@+id/SignupLayout"
                 app:layout_constraintTop_toBottomOf="@+id/SignupLayout" />
 

@@ -23,8 +23,6 @@ class ReservedDeliveredDetail : AppCompatActivity() {
         binding = ActivityReservedDeliveredDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         binding.btnQRScanner.setOnClickListener {
             val alertDialog = AlertDialog.Builder(this)
             val factory = LayoutInflater.from(this)

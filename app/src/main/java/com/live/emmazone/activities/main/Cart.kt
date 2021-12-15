@@ -32,9 +32,7 @@ class Cart : AppCompatActivity(), OnItemClick {
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
-        binding.back.setOnClickListener {
+               binding.back.setOnClickListener {
             onBackPressed()
         }
 

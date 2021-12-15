@@ -15,7 +15,6 @@ class FilterActivity : AppCompatActivity() {
         binding = ActivityFilterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         binding.btnApply.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)

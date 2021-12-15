@@ -27,8 +27,6 @@ class Notifications : AppCompatActivity() {
             onBackPressed()
         }
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
        // recyclerView = findViewById(R.id.recyclerNotifications)
 
        binding.recyclerNotifications.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

@@ -34,11 +34,6 @@ class OrderDetailNewSaleActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-
         binding.btnReadyDelivery.setOnClickListener {
             onBackPressed()
         }

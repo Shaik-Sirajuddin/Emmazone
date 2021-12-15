@@ -85,7 +85,7 @@
             android:id="@+id/viewOrderID"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/normalBlack"
+            android:background="@color/normalBlack1"
             app:layout_constraintEnd_toEndOf="@+id/tvOrderID"
             app:layout_constraintStart_toStartOf="@+id/tvOrder"
             app:layout_constraintTop_toBottomOf="@+id/tvOrder" />
@@ -105,7 +105,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/dp8"
-            android:background="@color/normalBlack"
+            android:background="@color/normalBlack1"
             app:layout_constraintEnd_toEndOf="@+id/recyclerOrderDetail"
             app:layout_constraintStart_toStartOf="@+id/recyclerOrderDetail"
             app:layout_constraintTop_toBottomOf="@+id/recyclerOrderDetail" />
@@ -129,7 +129,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/dp5"
+            android:padding="@dimen/dp8"
+            android:background="@drawable/underline_grey"
             app:layout_constraintEnd_toEndOf="@+id/tvPriceDetails"
             app:layout_constraintStart_toStartOf="@+id/tvPriceDetails"
             app:layout_constraintTop_toBottomOf="@+id/tvPriceDetails">
@@ -212,7 +213,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/dp5"
+            android:padding="@dimen/dp8"
+            android:background="@drawable/underline_grey"
             app:layout_constraintEnd_toEndOf="@+id/deliveryChargesLayout"
             app:layout_constraintStart_toStartOf="@+id/deliveryChargesLayout"
             app:layout_constraintTop_toBottomOf="@+id/deliveryChargesLayout">
@@ -241,7 +243,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
             android:orientation="horizontal"
-            android:padding="@dimen/dp5"
+            android:padding="@dimen/dp8"
+            android:background="@drawable/underline_grey"
             app:layout_constraintEnd_toEndOf="@+id/taxLayout"
             app:layout_constraintStart_toStartOf="@+id/taxLayout"
             app:layout_constraintTop_toBottomOf="@+id/taxLayout">

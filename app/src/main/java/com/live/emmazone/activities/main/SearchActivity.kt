@@ -21,7 +21,6 @@ class SearchActivity : AppCompatActivity(), OnItemClick {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
    binding.cart.setOnClickListener {
        val intent = Intent(this, Cart::class.java)

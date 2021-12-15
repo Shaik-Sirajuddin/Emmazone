@@ -25,8 +25,6 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         binding = ActivityShopDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         binding.back.setOnClickListener {
             onBackPressed()
         }
@@ -44,7 +42,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         binding.recyclerShopDetailCategory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
 
-        list.add(ModelShopDetailCategory(R.drawable.shoe, "All"))
+        list.add(ModelShopDetailCategory(R.drawable.all, "All"))
         list.add(ModelShopDetailCategory(R.drawable.shoe, "goggle"))
         list.add(ModelShopDetailCategory(R.drawable.google, "TimePiece"))
         list.add(ModelShopDetailCategory(R.drawable.time, "T Shirts"))

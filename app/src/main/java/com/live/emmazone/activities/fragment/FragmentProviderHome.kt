@@ -43,8 +43,8 @@ class FragmentProviderHome  : Fragment(){
         list.add(ModelShopDetailCategory(R.drawable.addd, "Add"))
         list.add(ModelShopDetailCategory(R.drawable.shoe_round, "Shoes"))
         list.add(ModelShopDetailCategory(R.drawable.gogg, "Googles"))
-        list.add(ModelShopDetailCategory(R.drawable.shoe_round, "Timepiece"))
-        list.add(ModelShopDetailCategory(R.drawable.clock3, "T Shirts"))
+        list.add(ModelShopDetailCategory(R.drawable.clock3, "Timepiece"))
+        list.add(ModelShopDetailCategory(R.drawable.tshiert, "T Shirts"))
 
        rv.adapter = AdapterShopDetailCategory(list)
 

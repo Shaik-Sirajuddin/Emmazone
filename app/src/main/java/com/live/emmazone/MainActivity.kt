@@ -18,32 +18,29 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         loadFragment(FragmentHome())
-    //   binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
+
+        binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
+        binding.bottomNavigationView.itemIconTintList = null
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.wishList -> {
                     loadFragment(FragmentWishList())
-                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.myOrders -> {
                     loadFragment(FragmentMyOrders())
-                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.account -> {
                     loadFragment(FragmentAccount())
-                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.home -> {
                     loadFragment(FragmentHome())
-                    return@setOnNavigationItemSelectedListener true
                  //   binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(R.drawable.home_selected)
                 }
             }
-            false
+
+            true
         }
     }
     private fun loadFragment(fragment: Fragment) {
@@ -52,4 +49,5 @@ class MainActivity : AppCompatActivity() {
      //   transaction.addToBackStack(null)
         transaction.commit()
     }
+
 }

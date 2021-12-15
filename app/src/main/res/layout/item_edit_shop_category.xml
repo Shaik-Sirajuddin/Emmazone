@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:text="@string/edit_image"
       android:textColor="@color/black"
+        android:background="@drawable/underline_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvCategoryName"
         app:layout_constraintBottom_toBottomOf="@+id/tvCategoryName"
