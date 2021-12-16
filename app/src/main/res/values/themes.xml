@@ -74,6 +74,11 @@
         <item name="cornerSize">5%</item>
     </style>
 
+    <style name="roundedImageView1" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8%</item>
+    </style>
+
     <style name="EmmaZone.MaterialTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!-- Primary brand color. -->

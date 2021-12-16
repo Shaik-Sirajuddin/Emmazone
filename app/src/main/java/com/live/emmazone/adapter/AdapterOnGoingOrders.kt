@@ -4,11 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.model.*
 
 class AdapterOnGoingOrders(private val list: ArrayList<ModelOnGoingOrders>,):

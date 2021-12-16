@@ -2,10 +2,8 @@ package com.live.emmazone.activities.provider
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.adapter.AdapterProvODNewSalesStatus
 import com.live.emmazone.databinding.ActivityOrderDetailDeliveredStatusBinding
 import com.live.emmazone.model.ModelNewSaleOrderDetail

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.activities.main.OrderDetail
 import com.live.emmazone.activities.main.ReservedDeliveredDetail
 import com.live.emmazone.adapter.AdapterOnGoPickCollect

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.adapter.AdapterProviderNewSales
 import com.live.emmazone.model.ModelOnGoingOrders
 import com.live.emmazone.model.ModelProviderNewSale

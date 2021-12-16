@@ -55,7 +55,7 @@ class FragmentProviderSale : Fragment() {
             tvNewsale.setTextColor(Color.BLACK)
             salesLayout.setBackgroundResource(R.drawable.bg_earning)
             tvNewsale.setBackgroundColor(Color.TRANSPARENT)
-            tvPastSale.setTextColor(Color.BLACK)
+            tvPastSale.setTextColor(Color.WHITE)
             tvPastSale.setBackgroundResource(R.drawable.bg_fill_earning)
         }
 

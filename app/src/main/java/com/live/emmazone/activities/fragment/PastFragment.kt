@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.activities.main.*
 import com.live.emmazone.adapter.AdapterOnGoingOrders
 import com.live.emmazone.adapter.AdapterOrderCancel

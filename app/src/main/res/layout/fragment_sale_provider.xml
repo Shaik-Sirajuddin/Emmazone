@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutMain"
@@ -34,8 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:src="@drawable/notifications"
             android:padding="@dimen/dp2"
+            android:src="@drawable/notifications"
             app:layout_constraintBottom_toBottomOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"
             app:layout_constraintHorizontal_bias="1"
@@ -71,31 +70,31 @@
         app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
         <TextView
+            android:id="@+id/NewSale"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/NewSale"
+            android:background="@drawable/bg_fill_earning"
             android:gravity="center"
             android:text="New"
-            android:background="@drawable/bg_fill_earning"
             android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/OnGoingSale"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/OnGoingSale"
             android:gravity="center"
             android:text="@string/on_going"
             android:textColor="@color/black" />
 
         <TextView
+            android:id="@+id/pastSale"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Past"
-            android:id="@+id/pastSale"
             android:textColor="@color/black" />
     </LinearLayout>
 

@@ -48,92 +48,87 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imgEditShop"
+        <RelativeLayout
+            android:id="@+id/main_image_layout"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginEnd="@dimen/dp16"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img23"
+            android:layout_height="180dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutMain"
-            app:riv_corner_radius="@dimen/dp16" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
-        <TextView
-            android:id="@+id/tvAddPic"
-            android:layout_width="wrap_content"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="#232323"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/roundedImageView1" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp40"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/app_name"
+                app:srcCompat="@drawable/photo" />
+
+            <TextView
+                android:id="@+id/tvAddPic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageView2"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/dp8"
+                android:text="Add Product Images"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp15" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_shop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/roundedImageView1" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_images"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:text="@string/add_product_images"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp15"
-            app:layout_constraintBottom_toBottomOf="@+id/imgEditShop"
-            app:layout_constraintEnd_toEndOf="@+id/imgEditShop"
-            app:layout_constraintStart_toStartOf="@+id/imgEditShop"
-            app:layout_constraintTop_toTopOf="@+id/imgEditShop"
-            app:layout_constraintVertical_bias=".65" />
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imgEditShop1"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_marginEnd="@dimen/dp16"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img23"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgEditShop"
-            app:riv_corner_radius="@dimen/dp16" />
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imgEditShop2"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img23"
-            app:layout_constraintBottom_toBottomOf="@+id/imgEditShop1"
-            app:layout_constraintStart_toEndOf="@+id/imgEditShop1"
-            app:layout_constraintTop_toTopOf="@+id/imgEditShop1"
-            app:riv_corner_radius="@dimen/dp16" />
-
-        <ImageView
-            android:id="@+id/addImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dp5"
-            android:src="@drawable/plus"
-            app:layout_constraintBottom_toBottomOf="@+id/imgEditShop2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.34"
-            app:layout_constraintStart_toEndOf="@+id/imgEditShop2"
-            app:layout_constraintTop_toTopOf="@+id/imgEditShop2" />
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_14sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/main_image_layout"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_images" />
 
         <TextView
             android:id="@+id/tvProdctName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="@dimen/dp16"
-            android:layout_marginEnd="@dimen/dp16"
+            android:layout_marginEnd="24dp"
             android:text="@string/product_name"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/imgEditShop1"
-            app:layout_constraintTop_toBottomOf="@+id/imgEditShop1"
-            app:layout_constraintVertical_bias=".65" />
+            app:layout_constraintEnd_toEndOf="@+id/recycler_images"
+            app:layout_constraintStart_toStartOf="@+id/recycler_images"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_images" />
 
         <EditText
             android:id="@+id/edtShopName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
+            android:autofillHints="false"
             android:background="@drawable/login_bg"
+            android:inputType="text"
             android:maxLines="1"
             app:layout_constraintEnd_toEndOf="@+id/tvProdctName"
             app:layout_constraintStart_toStartOf="@+id/tvProdctName"
@@ -158,7 +153,9 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_marginTop="@dimen/dp5"
+            android:autofillHints="false"
             android:background="@drawable/login_bg"
+            android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@+id/tvDescP"
             app:layout_constraintStart_toStartOf="@+id/tvDescP"
             app:layout_constraintTop_toBottomOf="@+id/tvDescP" />
@@ -181,7 +178,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
+            android:autofillHints="false"
             android:background="@drawable/login_bg"
+            android:inputType="text"
             android:maxLines="1"
             app:layout_constraintEnd_toEndOf="@+id/tvProcutPrice"
             app:layout_constraintStart_toStartOf="@+id/tvProcutPrice"
@@ -205,7 +204,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
+            android:autofillHints="false"
             android:background="@drawable/login_bg"
+            android:inputType="numberDecimal"
             android:maxLines="1"
             android:paddingStart="@dimen/dp5"
             android:textSize="@dimen/sp15"
@@ -322,36 +323,33 @@
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductSize"
             app:layout_constraintStart_toStartOf="@+id/tvProductSize"
-             />
+            app:layout_constraintTop_toBottomOf="@+id/tvProductSize" />
 
         <ImageView
+            android:id="@+id/ingNotifyOnOff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ingNotifyOnOff"
+            android:layout_marginEnd="@dimen/dp16"
             android:layout_marginRight="@dimen/dp20"
             android:background="@drawable/notification_selector"
-            app:layout_constraintTop_toTopOf="@+id/tvProductHighLight"
             app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
-            app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/dp16"
             app:layout_constraintHorizontal_bias="1"
-             />
+            app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
+            app:layout_constraintTop_toTopOf="@+id/tvProductHighLight" />
 
         <android.widget.Button
+            android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnSave"
-            android:background="@drawable/save_button"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductHighLight"
-            app:layout_constraintStart_toStartOf="@+id/tvProductHighLight"
-            app:layout_constraintEnd_toEndOf="@+id/ingNotifyOnOff"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="@dimen/dp32"
             android:layout_marginBottom="@dimen/dp24"
-            />
+            android:background="@drawable/save_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ingNotifyOnOff"
+            app:layout_constraintStart_toStartOf="@+id/tvProductHighLight"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductHighLight" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

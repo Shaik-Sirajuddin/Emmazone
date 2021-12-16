@@ -1,19 +1,14 @@
 package com.live.emmazone.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
-import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
 import com.live.emmazone.model.*
-import org.w3c.dom.Text
 
 class AdapterProvODNewSalesStatus(private val list: ArrayList<ModelNewSaleOrderDetail>) :
     RecyclerView.Adapter<AdapterProvODNewSalesStatus.ViewHolder>() {

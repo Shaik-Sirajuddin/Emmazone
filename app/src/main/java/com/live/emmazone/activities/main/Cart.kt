@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
+import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.adapter.AdapterCart
 import com.live.emmazone.adapter.AdapterShopDetailProducts

@@ -1,4 +1,4 @@
-package com.live.emmazone.activities.Interface
+package com.live.emmazone.activities.listeners
 
 
 interface OnItemClick {

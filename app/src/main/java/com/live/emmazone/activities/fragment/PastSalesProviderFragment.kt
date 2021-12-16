@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.adapter.AdapterProviderNewSales
 import com.live.emmazone.model.ModelOnGoingOrders
 import com.live.emmazone.model.ModelProviderNewSale
@@ -37,7 +36,7 @@ class PastSalesProviderFragment : Fragment() {
                 "Allen Chandler",
                 "Delivery Type", " Home Delivery", listChildRecycler,
                 R.drawable.delivered, "29-march-2021"
-                ,status = "pending")
+                ,status = "past")
         )
 
         val itemNew = ArrayList<ModelOnGoingOrders>()
@@ -52,7 +51,7 @@ class PastSalesProviderFragment : Fragment() {
                 "Allen Chandler",
                 "Delivery Type", " Home Delivery", itemNew, R.drawable.puck,
                 "29-march-2021",
-                status = "ongoing")
+                status = "past")
         )
 
         val item1 = ArrayList<ModelOnGoingOrders>()
@@ -67,7 +66,7 @@ class PastSalesProviderFragment : Fragment() {
                 "Allen Chandler",
                 "Delivery Type", " Home Delivery", itemNew, R.drawable.canceled,
                 "29-march-2021",
-                status = "ongoing")
+                status = "past")
         )
 
 

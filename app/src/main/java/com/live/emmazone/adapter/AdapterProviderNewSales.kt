@@ -9,11 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.live.emmazone.MainActivity
 import com.live.emmazone.R
-import com.live.emmazone.activities.Interface.OnItemClick
+import com.live.emmazone.activities.provider.OrderDetailDeliveredStatusActivity
 import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
 import com.live.emmazone.activities.provider.OrderDetailPendingActivity
+import com.live.emmazone.activities.provider.OrderDetailProOngoingActivity
 import com.live.emmazone.model.*
 
 class AdapterProviderNewSales(
@@ -44,15 +44,31 @@ class AdapterProviderNewSales(
         holder.recyclerChildNewsale.isNestedScrollingEnabled = false
 
         holder.itemView.setOnClickListener {
-            if (position == 0) {
-                val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
-                context.startActivity(intent)
+            when(model.status){
+                "new" ->{
+                    if (position == 0) {
+                        val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                    else if (position == 1)
+                    {
+                        val intent = Intent(context, OrderDetailPendingActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                }
+                "ongoing" ->{
+                    val intent = Intent(context, OrderDetailProOngoingActivity::class.java)
+                    context.startActivity(intent)
+                }
+                "past" ->{
+                    val intent = Intent(context, OrderDetailDeliveredStatusActivity::class.java)
+                    context.startActivity(intent)
+                }
+                else -> {
+                    // do nothing
+                }
             }
-            else if (position == 1)
-            {
-                val intent = Intent(context, OrderDetailPendingActivity::class.java)
-                context.startActivity(intent)
-            }
+
         }
 
     }
