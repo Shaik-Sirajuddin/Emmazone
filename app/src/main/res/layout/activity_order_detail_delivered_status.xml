@@ -53,8 +53,8 @@
             android:id="@+id/rvOrderDetailDelivered"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/underline_grey"
             android:paddingBottom="@dimen/dp8"
             app:layout_constraintBottom_toTopOf="@+id/cardOrderDeatil"
@@ -67,9 +67,11 @@
             android:id="@+id/cardOrderDeatil"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginEnd="8dp"
             android:elevation="@dimen/dp8"
             app:cardCornerRadius="@dimen/dp8"
-            android:layout_marginTop="@dimen/dp16"
             app:layout_constraintEnd_toEndOf="@+id/rvOrderDetailDelivered"
             app:layout_constraintStart_toStartOf="@+id/rvOrderDetailDelivered"
             app:layout_constraintTop_toBottomOf="@+id/rvOrderDetailDelivered">
@@ -77,20 +79,20 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardLayout"
                 android:layout_width="match_parent"
-                android:paddingBottom="@dimen/dp8"
+                android:layout_height="match_parent"
                 android:paddingTop="@dimen/dp8"
-                android:layout_height="match_parent">
+                android:paddingBottom="@dimen/dp8">
 
                 <TextView
                     android:id="@+id/tvPriceDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/dp5"
                     android:text="@string/price_details"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18"
                     android:textStyle="bold"
-                    android:layout_marginTop="@dimen/dp5"
                     app:layout_constraintEnd_toEndOf="@+id/cardLayout"
                     app:layout_constraintStart_toStartOf="@+id/cardLayout"
                     app:layout_constraintTop_toTopOf="@+id/cardLayout" />

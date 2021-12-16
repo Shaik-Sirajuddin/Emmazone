@@ -247,6 +247,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingBottom="16dp"
             app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProducts"
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailProducts"
             app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProducts" />

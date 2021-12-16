@@ -40,7 +40,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/layoutConstraint"
                 app:layout_constraintBottom_toBottomOf="@+id/layoutConstraint"
                 android:textSize="@dimen/sp20"
-                android:textStyle="bold" />
+              />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -253,6 +253,7 @@
         android:gravity="center"
         android:text="@string/no_transaction_yet"
         android:textColor="@color/light_black"
+        android:layout_marginBottom="16dp"
         android:textSize="@dimen/sp15"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

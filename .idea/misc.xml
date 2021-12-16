@@ -52,7 +52,7 @@
         <entry key="app/src/main/res/layout/activity_add_new_address.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_add_new_product.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_bottom_sheet_dialog.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_cart.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_cart.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_delivery_address.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_edit_product.xml" value="0.2" />
@@ -118,7 +118,7 @@
         <entry key="app/src/main/res/layout/fragment_on_going_orders.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_on_going_sale_provider.xml" value="0.21" />
         <entry key="app/src/main/res/layout/fragment_past_sale_provider.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/fragment_provider_account.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_provider_account.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_provider_home.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_provider_home_old.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_sale_provider.xml" value="0.2" />
@@ -126,7 +126,7 @@
         <entry key="app/src/main/res/layout/item_delivery_address.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_edit_shop_category.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_images.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/item_layout_cart_items.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/item_layout_cart_items.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_layout_choose_card.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_layout_my_earnings.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_layout_notifications.xml" value="0.22" />
