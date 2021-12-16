@@ -14,15 +14,16 @@ import com.live.emmazone.activities.provider.OrderDetailDeliveredStatusActivity
 import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
 import com.live.emmazone.activities.provider.OrderDetailPendingActivity
 import com.live.emmazone.activities.provider.OrderDetailProOngoingActivity
-import com.live.emmazone.model.*
+import com.live.emmazone.model.ModelProviderNewSale
 
 class AdapterProviderNewSales(
     private val context: Context,
-    private val list: ArrayList<ModelProviderNewSale>, ) :
-    RecyclerView.Adapter<AdapterProviderNewSales.ViewHolder>() {
+    private val list: ArrayList<ModelProviderNewSale>,
+) : RecyclerView.Adapter<AdapterProviderNewSales.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_provider_new_sale_layout, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_provider_new_sale_layout, parent, false)
         return ViewHolder(view)
     }
 
@@ -38,29 +39,26 @@ class AdapterProviderNewSales(
         holder.imageSales.setImageResource(model.imageSales)
         holder.imgStatus.setImageResource(model.imgStatus)
 
-        holder.recyclerChildNewsale.layoutManager =
-            LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
+        holder.recyclerChildNewsale.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
         holder.recyclerChildNewsale.adapter = AdapterOnGoingOrders(model.list)
         holder.recyclerChildNewsale.isNestedScrollingEnabled = false
 
         holder.itemView.setOnClickListener {
-            when(model.status){
-                "new" ->{
+            when (model.status) {
+                "pending" -> {
                     if (position == 0) {
                         val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
                         context.startActivity(intent)
-                    }
-                    else if (position == 1)
-                    {
+                    } else if (position == 1) {
                         val intent = Intent(context, OrderDetailPendingActivity::class.java)
                         context.startActivity(intent)
                     }
                 }
-                "ongoing" ->{
+                "ongoing" -> {
                     val intent = Intent(context, OrderDetailProOngoingActivity::class.java)
                     context.startActivity(intent)
                 }
-                "past" ->{
+                "past" -> {
                     val intent = Intent(context, OrderDetailDeliveredStatusActivity::class.java)
                     context.startActivity(intent)
                 }

@@ -2,15 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="260dp"
-    android:layout_height="260dp"
-    android:background="@color/white">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_add_bank"
+    android:paddingTop="@dimen/_12sdp"
+    android:paddingBottom="@dimen/_20sdp">
 
     <ImageView
         android:id="@+id/crossImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp20"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="@dimen/dp20"
+        android:padding="@dimen/_8sdp"
         android:src="@drawable/cross_popup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/scan_qr_code"
-        android:textColor="@color/black"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="@dimen/sp20"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +35,9 @@
         android:id="@+id/scanQR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/dp10"
+        android:adjustViewBounds="true"
         android:src="@drawable/qr_code_scanner"
         app:layout_constraintEnd_toEndOf="@+id/thankYou"
         app:layout_constraintStart_toStartOf="@+id/thankYou"
