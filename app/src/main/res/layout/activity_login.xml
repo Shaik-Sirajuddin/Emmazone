@@ -50,9 +50,9 @@
             android:layout_marginTop="@dimen/dp10"
             android:layout_marginEnd="16dp"
             android:textSize="@dimen/sp15"
+            android:fontFamily="@font/avenir_black"
             android:text="@string/email"
             android:textColor="@color/light_black"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/loginLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/loginLayout" />
@@ -63,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="@dimen/dp10"
+            android:fontFamily="@font/avenir_book"
             android:background="@drawable/login_bg"
             android:hint="Enter email"
             android:imeOptions="actionNext"
@@ -82,8 +83,8 @@
             android:layout_marginTop="@dimen/dp10"
             android:text="@string/password"
             android:textColor="@color/light_black"
-            android:textStyle="bold"
             android:textSize="@dimen/sp15"
+            android:fontFamily="@font/avenir_black"
             app:layout_constraintEnd_toEndOf="@+id/edtEmail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
@@ -97,6 +98,7 @@
             android:background="@drawable/login_bg"
             android:hint="Enter password"
             android:imeOptions="actionDone"
+            android:fontFamily="@font/avenir_book"
             android:inputType="textPassword"
             android:maxLines="1"
             android:paddingLeft="@dimen/dp10"
@@ -113,6 +115,7 @@
             android:text="@string/forgot_password"
             android:textColor="@color/light_black"
             android:gravity="end"
+            android:fontFamily="@font/avenir_book"
             android:textSize="@dimen/sp14"
             app:layout_constraintEnd_toEndOf="@+id/edtPassword"
             app:layout_constraintHorizontal_bias="1.0"
@@ -148,18 +151,20 @@
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/dp2"
             android:text="@string/new_user"
+            android:fontFamily="@font/avenir_book"
             android:textColor="@color/light_black"
-            android:textSize="@dimen/sp14" />
+            android:textSize="@dimen/sp15" />
 
         <TextView
             android:id="@+id/tvCreateAccount"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/avenir_book"
             android:layout_height="wrap_content"
             android:text="@string/create_account"
             android:background="@drawable/underline_green"
             android:textColor="@color/green"
-            android:textSize="@dimen/sp14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp15"
+           />
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/white"
     tools:context=".activities.provider.WithdrawalActivity">
 
@@ -107,7 +108,7 @@
         android:background="@drawable/bg_withdrawal"
         android:digits="0123456789"
         android:gravity="center"
-        android:hint="$0.00"
+        android:hint="€0.00"
         android:inputType="numberDecimal"
         android:textSize="@dimen/sp20"
         android:textStyle="bold"

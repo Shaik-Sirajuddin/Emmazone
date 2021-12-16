@@ -28,7 +28,7 @@ import com.permissionx.guolindev.PermissionX
 class AddNewProductActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAddNewProductBinding
-
+    var isNotifyOn = true
     private lateinit var images: ArrayList<ImageModel>
     private lateinit var imageAdapter: ImageAdapter
 
@@ -38,6 +38,18 @@ class AddNewProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        binding.ingNotifyOnOff.setOnClickListener {
+            isNotifyOn = !isNotifyOn
+            binding.ingNotifyOnOff.setImageResource(
+                if (isNotifyOn)
+                    R.drawable.on
+                else
+                    R.drawable.off
+            )
+        }
+
 
         images = arrayListOf()
 

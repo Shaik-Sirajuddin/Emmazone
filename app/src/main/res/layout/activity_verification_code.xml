@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/verification_code"
+                android:fontFamily="@font/avenir_black"
                 android:textAlignment="center"
                 android:textColor="@color/light_black"
                 app:layout_constraintTop_toTopOf="@+id/layoutConstraint"
@@ -60,6 +61,7 @@
             android:layout_height="wrap_content"
             android:text="@string/please_type_in_the_verification"
             android:textColor="@color/light_black"
+            android:fontFamily="@font/avenir_book"
             android:textSize="@dimen/sp15"
             />
 
@@ -68,6 +70,7 @@
             android:layout_height="wrap_content"
             android:text="@string/code"
             android:textAlignment="center"
+            android:fontFamily="@font/avenir_book"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
             />
@@ -142,6 +145,7 @@
         android:text="Resend"
         android:textAlignment="center"
         android:textColor="@color/light_black"
+        android:fontFamily="@font/avenir_book"
         android:textSize="@dimen/sp18"
         android:layout_marginTop="@dimen/dp20"
         app:layout_constraintTop_toBottomOf="@+id/otpFieldLayout"

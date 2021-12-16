@@ -29,6 +29,7 @@ class EditProductActivity : AppCompatActivity() {
 
     private lateinit var images: ArrayList<ImageModel>
     private lateinit var imageAdapter: ImageAdapter
+    var isNotifyOn = true
 
     lateinit var binding: ActivityEditProductBinding
 
@@ -39,11 +40,23 @@ class EditProductActivity : AppCompatActivity() {
         binding = ActivityEditProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.ingNotifyOnOff.setOnClickListener {
+            isNotifyOn = !isNotifyOn
+            binding.ingNotifyOnOff.setImageResource(
+                if (isNotifyOn)
+                    R.drawable.on
+                else
+                    R.drawable.off
+            )
+        }
+
         images = arrayListOf()
 
         initListener()
         initAdapter()
     }
+
+
 
     private fun initAdapter() {
 

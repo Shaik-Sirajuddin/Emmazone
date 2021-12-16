@@ -43,18 +43,29 @@ class OnGoingOrdersFragment : Fragment() {
         val scannerPickCollect : ImageView = view.findViewById(R.id.imgCodeScanner1)
 
         scannerOnWay.setOnClickListener {
-            val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context)
-            val factory = LayoutInflater.from(context)
-            val view: View = factory.inflate(R.layout.dialog_scan_qr_code, null)
-            val backIcon = view.findViewById<ImageView>(R.id.crossImage)
+            val dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(true)
+            dialog.setCanceledOnTouchOutside(true)
+            dialog.window?.apply {
 
-            alertDialog.setView(view)
-            alertDialog.show()
-            alertDialog.setCancelable(true)
-            backIcon.setOnClickListener {
-           activity?.onBackPressed()
+                setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT)
+
+                setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        android.R.color.transparent
+                    )
+                )
             }
 
+            dialog.setContentView(R.layout.dialog_scan_qr_code)
+
+            val backIcon = dialog.findViewById<ImageView>(R.id.crossImage)
+
+            backIcon.setOnClickListener { dialog.dismiss() }
+
+            dialog.show()
         }
 
         scannerPickCollect.setOnClickListener {

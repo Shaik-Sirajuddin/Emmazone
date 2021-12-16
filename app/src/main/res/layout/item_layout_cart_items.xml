@@ -63,21 +63,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:padding="@dimen/dp8"
         android:background="@drawable/bg_cart_items"
         android:orientation="horizontal"
-
         app:layout_constraintEnd_toEndOf="@+id/imgDelete"
         app:layout_constraintStart_toStartOf="@+id/imgDelete"
         app:layout_constraintTop_toBottomOf="@+id/imgDelete">
 
         <ImageView
             android:id="@+id/imgMinus"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp8"
-            android:src="@drawable/minus"
-            android:paddingLeft="@dimen/dp5"
-            android:paddingBottom="@dimen/dp8"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_baseline_horizontal_rule_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/productItemName" />
 
@@ -85,11 +85,9 @@
             android:id="@+id/product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp8"
             android:text="3"
             android:textColor="@color/black"
-            android:paddingBottom="@dimen/dp8"
             android:textSize="@dimen/sp18"
             app:layout_constraintEnd_toEndOf="@+id/productItemName"
             app:layout_constraintHorizontal_bias="0.0"
@@ -98,12 +96,10 @@
 
         <ImageView
             android:id="@+id/imgAdd"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginEnd="@dimen/dp16"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_add_24"
-            android:paddingBottom="@dimen/dp8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/productItemName" />
 

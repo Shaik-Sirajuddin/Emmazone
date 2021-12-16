@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="480$"
+        android:text="480€"
         android:textColor="@color/black"
         android:textSize="@dimen/sp18"
         android:textStyle="bold"
