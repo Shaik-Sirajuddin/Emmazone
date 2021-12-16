@@ -1,4 +1,4 @@
-package com.live.emmazone.activities
+package com.live.emmazone.activities.fragment
 
 import android.content.Intent
 import android.graphics.Color
@@ -9,12 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat.setBackground
 import androidx.fragment.app.Fragment
-import com.live.emmazone.activities.fragment.OnGoingOrdersFragment
 import com.live.emmazone.R
-import com.live.emmazone.activities.fragment.PastFragment
 import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
 
