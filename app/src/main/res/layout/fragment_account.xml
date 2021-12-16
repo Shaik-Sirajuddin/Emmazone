@@ -301,16 +301,16 @@
 
             <android.widget.Button
                 android:id="@+id/btn_logout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/logout"
-                android:paddingLeft="@dimen/dp10"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
+                android:padding="@dimen/dp10"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/privacyPolicyLayout"
+                app:layout_constraintStart_toStartOf="@+id/privacyPolicyLayout"
                 app:layout_constraintTop_toBottomOf="@+id/privacyPolicyLayout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

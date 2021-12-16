@@ -39,7 +39,7 @@ class NewSalesProviderFragment : Fragment() {
 
         list.add(
             ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
-                "Delivery Type", " Home Delivery", listChildRecycler, R.drawable.ontheway, "29-march-2021"
+                "Delivery Type", " Home Delivery", listChildRecycler, R.drawable.pendding_g, "29-march-2021"
                 ,status = "pending")
         )
 
@@ -51,8 +51,8 @@ class NewSalesProviderFragment : Fragment() {
 
         list.add(
             ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
-                "Delivery Type", " Home Delivery", items, R.drawable.ontheway, "29-march-2021",
-                status = "ongoing")
+                "Delivery Type", " Home Delivery", items, R.drawable.pendding_g, "29-march-2021",
+                status = "pending")
         )
 
         rv.adapter = AdapterProviderNewSales(requireContext(), list)

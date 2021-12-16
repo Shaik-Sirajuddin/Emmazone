@@ -329,9 +329,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ingNotifyOnOff"
+            android:id="@+id/imgNotifyOnOff"
             android:layout_marginRight="@dimen/dp20"
-            android:background="@drawable/notification_selector"
+            android:src="@drawable/notification_selector"
             app:layout_constraintTop_toTopOf="@+id/tvProductHighLight"
             app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
             app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"

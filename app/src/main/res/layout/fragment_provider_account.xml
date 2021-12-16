@@ -66,7 +66,7 @@
             android:id="@+id/proAccountImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@drawable/pro_account"
             app:layout_constraintBottom_toBottomOf="@+id/layoutMain"
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"

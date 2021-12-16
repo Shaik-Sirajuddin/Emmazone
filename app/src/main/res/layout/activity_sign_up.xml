@@ -281,7 +281,7 @@
                 android:layout_width="@dimen/dp30"
                 android:layout_height="@dimen/dp20"
                 android:layout_marginEnd="@dimen/dp5"
-                android:src="@drawable/otp_bg"
+                android:src="@drawable/otp_box"
                 app:layout_constraintStart_toStartOf="@+id/SignupLayout"
                 app:layout_constraintTop_toBottomOf="@+id/SignupLayout" />
 

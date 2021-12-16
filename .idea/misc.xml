@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/add_product_selector.xml" value="0.2324074074074074" />
         <entry key="app/src/main/res/drawable/app_icon_background.xml" value="0.22870370370370371" />
         <entry key="app/src/main/res/drawable/bg_add_bank.xml" value="0.22592592592592592" />
+        <entry key="app/src/main/res/drawable/bg_cart_items.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/drawable/bg_delivery_address.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/drawable/bg_earning.xml" value="0.2101851851851852" />
         <entry key="app/src/main/res/drawable/bg_fill_earning.xml" value="0.2101851851851852" />
@@ -26,6 +27,7 @@
         <entry key="app/src/main/res/drawable/bottom_selector_bg.xml" value="0.22407407407407406" />
         <entry key="app/src/main/res/drawable/btn_bg_my_orders.xml" value="0.25333333333333335" />
         <entry key="app/src/main/res/drawable/btn_withdraw.xml" value="0.2101851851851852" />
+        <entry key="app/src/main/res/drawable/custom_radio_button.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/drawable/emmazone_background.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/icon_app_background.xml" value="0.13802083333333334" />
@@ -66,11 +68,11 @@
         <entry key="app/src/main/res/layout/activity_my_earnings.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_notifications.xml" value="0.21" />
         <entry key="app/src/main/res/layout/activity_order_cancelled.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/activity_order_delivered_detail.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_order_delivered_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_order_detail.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_order_detail_delivered_status.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_order_detail_new_sale.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_order_detail_pending.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_order_detail_delivered_status.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_order_detail_new_sale.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_order_detail_pending.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_order_detail_pro_ongoing.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_order_pickup_collect.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/layout/activity_payment_method.xml" value="0.22" />
@@ -92,7 +94,7 @@
         <entry key="app/src/main/res/layout/activity_user_login_choice.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_verification_code.xml" value="0.21" />
         <entry key="app/src/main/res/layout/activity_with_draw_bank_info.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_withdrawal.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_withdrawal.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_your_reviews.xml" value="0.19" />
         <entry key="app/src/main/res/layout/dialog_cancel_order.xml" value="0.19" />
         <entry key="app/src/main/res/layout/dialog_cancel_reserved_order.xml" value="0.24114583333333334" />
@@ -116,7 +118,7 @@
         <entry key="app/src/main/res/layout/fragment_on_going_orders.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_on_going_sale_provider.xml" value="0.21" />
         <entry key="app/src/main/res/layout/fragment_past_sale_provider.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/fragment_provider_account.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_provider_account.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_provider_home.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_provider_home_old.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_sale_provider.xml" value="0.2" />
@@ -139,7 +141,7 @@
         <entry key="app/src/main/res/layout/item_provider_new_sale_layout.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_provider_order_detail_new_sale_layout.xml" value="0.21" />
         <entry key="app/src/main/res/layout/item_provider_shopdetail_products.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/on_going_orders_fragment.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/on_going_orders_fragment.xml" value="0.22" />
         <entry key="app/src/main/res/layout/past_fragment.xml" value="0.22" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.17" />
         <entry key="app/src/main/res/menu/bottom_nav_menu_provider.xml" value="0.19" />

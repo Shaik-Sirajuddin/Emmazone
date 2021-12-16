@@ -36,7 +36,7 @@ class OnGoingSalesProviderFragment : Fragment() {
             ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl,
                 "Allen Chandler",
                 "Delivery Type", " Home Delivery", listChildRecycler, R.drawable.ontheway, "29-march-2021"
-                ,status = "pending")
+                ,status = "ongoing")
         )
 
         val item = ArrayList<ModelOnGoingOrders>()

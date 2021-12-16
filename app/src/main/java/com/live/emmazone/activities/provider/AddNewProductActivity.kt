@@ -13,12 +13,24 @@ import com.live.emmazone.databinding.ActivityAddNewProductBinding
 
 class AddNewProductActivity : AppCompatActivity() {
     lateinit var binding : ActivityAddNewProductBinding
+    var isNotifyOn = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imgNotifyOnOff.setOnClickListener {
+
+            isNotifyOn = !isNotifyOn
+            binding.imgNotifyOnOff.setImageResource(
+                if (isNotifyOn)
+                    R.drawable.on
+            else
+                R.drawable.off
+            )
+
+        }
 
         binding.btnSave.setOnClickListener {
             val builder = AlertDialog.Builder(this)

@@ -1,16 +1,22 @@
 package com.live.emmazone.activities.fragment
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.Interface.OnItemClick
 import com.live.emmazone.activities.main.OrderDetail
@@ -47,23 +53,36 @@ class OnGoingOrdersFragment : Fragment() {
             alertDialog.show()
             alertDialog.setCancelable(true)
             backIcon.setOnClickListener {
-                alertDialog.setCancelable(true)
+           activity?.onBackPressed()
             }
 
         }
 
         scannerPickCollect.setOnClickListener {
-            val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context)
-            val factory = LayoutInflater.from(context)
-            val view: View = factory.inflate(R.layout.dialog_scan_qr_code, null)
-            val backIcon = view.findViewById<ImageView>(R.id.crossImage)
 
-            alertDialog.setView(view)
-            alertDialog.show()
-            alertDialog.setCancelable(true)
-            backIcon.setOnClickListener {
-                alertDialog.setCancelable(true)
+            val dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(true)
+            dialog.setCanceledOnTouchOutside(true)
+            dialog.window?.apply {
+
+                setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT)
+
+                setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        android.R.color.transparent
+                    )
+                )
             }
+
+            dialog.setContentView(R.layout.dialog_scan_qr_code)
+
+            val backIcon = dialog.findViewById<ImageView>(R.id.crossImage)
+
+            backIcon.setOnClickListener { dialog.dismiss() }
+
+            dialog.show()
         }
 
         imageStatusPickCollect.setOnClickListener {
