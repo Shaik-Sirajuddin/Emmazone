@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -37,11 +38,10 @@ class AdapterProviderShopDetailProducts(
         val ModelProShopDetailProducts = list[position]
 
         if (position == 0) {
-          holder.layoutConst.visibility = View.GONE
-          holder.layoutAddProduct.visibility = View.VISIBLE
+            holder.layoutConst.visibility = View.GONE
+            holder.layoutAddProduct.visibility = View.VISIBLE
 
-        }
-        else{
+        } else {
             holder.layoutConst.visibility = View.VISIBLE
             holder.layoutAddProduct.visibility = View.GONE
         }
@@ -56,7 +56,7 @@ class AdapterProviderShopDetailProducts(
         holder.tvSDDeliveryEstimateSD.setText(ModelProShopDetailProducts.tvSDDeliveryEstimate)
 
         holder.itemView.setOnClickListener {
-            if (position == 0){
+            if (position == 0) {
                 val intent = Intent(holder.itemView.context, AddNewProductActivity::class.java)
                 holder.itemView.context.startActivity(intent)
             }
@@ -72,10 +72,14 @@ class AdapterProviderShopDetailProducts(
             val dialog = Dialog(context)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(false)
-            dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+            dialog.window?.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
             dialog.setContentView(R.layout.dialog_delete_product)
             dialog.window?.setBackgroundDrawable(
-                ContextCompat.getDrawable(context, android.R.color.transparent))
+                ContextCompat.getDrawable(context, android.R.color.transparent)
+            )
 
             val yesBtn: Button = dialog.findViewById(R.id.btnCancelYes)
             val noBtn: Button = dialog.findViewById(R.id.btnCancelNo)
@@ -100,7 +104,8 @@ class AdapterProviderShopDetailProducts(
         val imageDelete: ImageView = itemView.findViewById(R.id.imgDelete)
         val productItemNameSD = itemView.findViewById<TextView>(R.id.productItemName)
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
-        val tvShopDetailProductBrandSD = itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
+        val tvShopDetailProductBrandSD =
+            itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
         val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
         val ratingBar = itemView.findViewById<ImageView>(R.id.ratingBarShopDetailProduct)

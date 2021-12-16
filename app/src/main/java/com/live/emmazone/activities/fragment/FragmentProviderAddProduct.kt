@@ -19,6 +19,7 @@ import com.live.emmazone.model.ModelProShopDetailProducts
 class FragmentProviderAddProduct : Fragment() {
   lateinit var adapter : AdapterProviderShopDetailProducts
   val list = ArrayList<ModelProShopDetailProducts>()
+  var isChecked = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
        val view : View = LayoutInflater.from(context).inflate(R.layout.fragment_add_product_provider, container, false)
@@ -26,6 +27,40 @@ class FragmentProviderAddProduct : Fragment() {
         val rv : RecyclerView = view.findViewById(R.id.rvAdProductProvider)
         val imgNotifictaion : ImageView = view.findViewById(R.id.imgNotify)
         val back : ImageView = view.findViewById(R.id.back)
+        val checkClickCollect : ImageView = view.findViewById(R.id.checkBox)
+        val checkLifeRando : ImageView = view.findViewById(R.id.checkBoxLife)
+        val checkOwnDelivery : ImageView = view.findViewById(R.id.checkOwnDelvry)
+
+        checkClickCollect.setOnClickListener {
+            isChecked = !isChecked
+            checkClickCollect.setImageResource(
+                if (isChecked)
+                    R.drawable.checkbox_g
+            else
+                R.drawable.checkbox_tick
+            )
+        }
+
+        checkLifeRando.setOnClickListener {
+            isChecked = !isChecked
+            checkLifeRando.setImageResource(
+                if (isChecked)
+                    R.drawable.checkbox_g
+            else
+                R.drawable.checkbox_tick
+            )
+        }
+
+        checkOwnDelivery.setOnClickListener {
+            isChecked = !isChecked
+            checkOwnDelivery.setImageResource(
+                if (isChecked)
+                    R.drawable.checkbox_g
+                else
+                    R.drawable.checkbox_tick
+            )
+        }
+
 
         back.setOnClickListener {
             val intent = Intent(activity, ProviderMainActivity::class.java)

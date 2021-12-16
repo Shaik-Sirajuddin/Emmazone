@@ -144,43 +144,78 @@
                 app:layout_constraintStart_toStartOf="@+id/layoutCardView"
                 app:layout_constraintTop_toTopOf="@+id/layoutCardView" />
 
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/checkBoxClickCollect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/checkbox_selector"
-                android:text="@string/click_and_collect"
-                android:textColor="@color/black"
-                android:layout_marginTop="@dimen/sp10"
-                android:textStyle="bold"
+            <ImageView
+                android:id="@+id/checkBox"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/dp5"
+                android:src="@drawable/checkbox_tick"
                 app:layout_constraintStart_toStartOf="@+id/tvChoose"
                 app:layout_constraintTop_toBottomOf="@+id/tvChoose" />
 
-
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/checkBoxLifeRando"
+            <TextView
+                android:id="@+id/click"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp16"
-                android:buttonTint="@color/checkbox_selector"
-                android:text="@string/click_and_collect"
+                android:layout_marginStart="@dimen/dp5"
+                android:text="Click And Collect"
                 android:textColor="@color/black"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/checkBoxClickCollect"
-                app:layout_constraintStart_toEndOf="@+id/checkBoxClickCollect"
-                app:layout_constraintTop_toTopOf="@+id/checkBoxClickCollect" />
+                app:layout_constraintBottom_toBottomOf="@+id/checkBox"
+                app:layout_constraintStart_toEndOf="@+id/checkBox"
+                app:layout_constraintTop_toTopOf="@+id/checkBox" />
 
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/checkBoxOwnDelivery"
+            <ImageView
+                android:id="@+id/checkBoxLife"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp5"
+                android:src="@drawable/checkbox_g"
+                android:layout_marginStart="24dp"
+                app:layout_constraintTop_toTopOf="@+id/click"
+                app:layout_constraintBottom_toBottomOf="@+id/click"
+                app:layout_constraintStart_toEndOf="@+id/click"
+                 />
+
+            <TextView
+                android:id="@+id/clickLife"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:buttonTint="@color/checkbox_selector"
-                android:text="@string/own_delivery"
+                android:layout_marginStart="@dimen/dp5"
+                android:text="Liferando"
                 android:textColor="@color/black"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/checkBoxClickCollect"
-                app:layout_constraintTop_toBottomOf="@+id/checkBoxClickCollect" />
+                app:layout_constraintBottom_toBottomOf="@+id/checkBoxLife"
+                app:layout_constraintStart_toEndOf="@+id/checkBoxLife"
+                app:layout_constraintTop_toTopOf="@+id/checkBoxLife" />
+
+            <ImageView
+                android:id="@+id/checkOwnDelvry"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp5"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/checkbox_tick"
+               app:layout_constraintTop_toBottomOf="@+id/checkBox"
+                app:layout_constraintStart_toStartOf="@+id/checkBox"
+                />
+
+            <TextView
+                android:id="@+id/ownDelvery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp5"
+                android:text="Own Delivery"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@+id/checkOwnDelvry"
+                app:layout_constraintBottom_toBottomOf="@+id/checkOwnDelvry"
+                app:layout_constraintStart_toEndOf="@+id/checkOwnDelvry"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -204,6 +239,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+      android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvProducts"
         app:layout_constraintStart_toStartOf="@+id/tvProducts"

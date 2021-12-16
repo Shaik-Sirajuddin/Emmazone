@@ -63,16 +63,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/bgg"
+        android:background="@drawable/bg_cart_items"
         android:orientation="horizontal"
-        android:padding="@dimen/dp2"
+
         app:layout_constraintEnd_toEndOf="@+id/imgDelete"
         app:layout_constraintStart_toStartOf="@+id/imgDelete"
         app:layout_constraintTop_toBottomOf="@+id/imgDelete">
 
         <ImageView
             android:id="@+id/imgMinus"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp8"
             android:src="@drawable/minus"
@@ -90,7 +90,7 @@
             android:text="3"
             android:textColor="@color/black"
             android:paddingBottom="@dimen/dp8"
-            android:textSize="@dimen/sp15"
+            android:textSize="@dimen/sp18"
             app:layout_constraintEnd_toEndOf="@+id/productItemName"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/productItemName"
@@ -98,8 +98,8 @@
 
         <ImageView
             android:id="@+id/imgAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp16"
             android:src="@drawable/ic_baseline_add_24"

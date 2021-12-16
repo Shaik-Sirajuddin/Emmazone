@@ -4,16 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-   >
+    android:background="@color/white">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/dp8"
+        app:cardCornerRadius="@dimen/dp8"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:cardCornerRadius="@dimen/dp16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -144,9 +143,14 @@
             android:id="@+id/layoutAddProduct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+         android:layout_marginTop="@dimen/dp5"
+           android:layout_marginBottom=".05dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginStart="1dp"
             android:background="@drawable/add_new_product"
             android:orientation="horizontal"
-            android:visibility="gone" />
+            android:visibility="gone"
+            />
 
     </androidx.cardview.widget.CardView>
 
