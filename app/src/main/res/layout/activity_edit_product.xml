@@ -336,6 +336,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp16"
             android:layout_marginRight="@dimen/dp20"
+            android:background="@android:color/transparent"
             android:src="@drawable/notification_selector"
             app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
             app:layout_constraintEnd_toEndOf="parent"

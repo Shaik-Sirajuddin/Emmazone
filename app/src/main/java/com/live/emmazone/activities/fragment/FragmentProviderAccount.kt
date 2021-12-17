@@ -21,7 +21,7 @@ import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.MyEarningsActivity
 
 class FragmentProviderAccount : Fragment() {
- var isNotification = true
+    var isNotification = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,6 +88,9 @@ class FragmentProviderAccount : Fragment() {
             startActivity(intent)
         }
         btnLogout.setOnClickListener {
+
+            activity?.finishAffinity()
+
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
         }
