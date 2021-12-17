@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:paddingLeft="@dimen/dp5"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@drawable/nick2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/layoutItemDeliveryAdrs"

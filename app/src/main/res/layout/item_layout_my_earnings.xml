@@ -10,7 +10,7 @@
         android:id="@+id/layoutMyEarnings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp15"
+        android:padding="12dp"
       android:layout_margin="@dimen/dp2"
         android:background="@drawable/bg_my_earning_rv"
         app:layout_constraintBottom_toBottomOf="parent"

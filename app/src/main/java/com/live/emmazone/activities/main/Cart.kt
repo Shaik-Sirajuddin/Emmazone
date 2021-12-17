@@ -36,7 +36,7 @@ class Cart : AppCompatActivity(), OnItemClick {
         }
 
         binding.btnBuyNow.setOnClickListener {
-            val dialog = BottomSheetDialog(this)
+            val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
             val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
 
             val tvChangeDeliveryAdd = view.findViewById<TextView>(R.id.tvChange)

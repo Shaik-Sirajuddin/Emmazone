@@ -73,11 +73,11 @@
 
         <ImageView
             android:id="@+id/imgMinus"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp8"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_baseline_horizontal_rule_24"
+            android:layout_gravity="center"
+            android:src="@drawable/cart_minus"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/productItemName" />
 
@@ -87,8 +87,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp8"
             android:text="3"
+            android:background="@drawable/cart_text_bg"
+            android:paddingLeft="@dimen/dp5"
+            android:paddingRight="@dimen/dp5"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp18"
+            android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/productItemName"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/productItemName"
@@ -99,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_add_24"
+            android:src="@drawable/cart_plus"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/productItemName" />
 

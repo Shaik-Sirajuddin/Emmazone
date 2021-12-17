@@ -330,12 +330,10 @@
             android:id="@+id/ingNotifyOnOff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp16"
-            android:layout_marginRight="@dimen/dp20"
             android:src="@drawable/notification_selector"
             app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintHorizontal_bias="0.88"
             app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
             app:layout_constraintTop_toTopOf="@+id/tvProductHighLight" />
 

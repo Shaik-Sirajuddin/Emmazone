@@ -154,6 +154,7 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_withdrawal"
             android:gravity="center"
+            android:textAllCaps="false"
             android:text="@string/add_your_bank_account"
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"

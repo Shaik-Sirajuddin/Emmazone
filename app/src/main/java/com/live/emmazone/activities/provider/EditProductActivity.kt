@@ -44,7 +44,7 @@ class EditProductActivity : AppCompatActivity() {
             isNotifyOn = !isNotifyOn
             binding.ingNotifyOnOff.setImageResource(
                 if (isNotifyOn)
-                    R.drawable.on
+                    R.drawable.on_round
                 else
                     R.drawable.off
             )

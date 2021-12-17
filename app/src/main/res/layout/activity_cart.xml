@@ -54,7 +54,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp16"
-        android:layout_marginEnd="@dimen/dp16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutMain"
@@ -68,9 +67,10 @@
             android:id="@+id/cardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginEnd="16dp"
             android:elevation="@dimen/dp8"
             app:cardCornerRadius="@dimen/dp8"
-            android:layout_marginTop="@dimen/dp16"
             app:layout_constraintEnd_toEndOf="@+id/recyclerCart"
             app:layout_constraintStart_toStartOf="@+id/recyclerCart"
             app:layout_constraintTop_toBottomOf="@+id/recyclerCart">
@@ -78,20 +78,20 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardLayout"
                 android:layout_width="match_parent"
-                android:paddingBottom="@dimen/dp8"
+                android:layout_height="match_parent"
                 android:paddingTop="@dimen/dp8"
-                android:layout_height="match_parent">
+                android:paddingBottom="@dimen/dp8">
 
                 <TextView
                     android:id="@+id/tvPriceDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/dp5"
                     android:text="@string/price_details"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18"
                     android:textStyle="bold"
-                    android:layout_marginTop="@dimen/dp5"
                     app:layout_constraintEnd_toEndOf="@+id/cardLayout"
                     app:layout_constraintStart_toStartOf="@+id/cardLayout"
                     app:layout_constraintTop_toTopOf="@+id/cardLayout" />
@@ -112,6 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/item"
+                        android:layout_marginStart="@dimen/dp2"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/sp12" />
 
@@ -142,6 +143,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/sub_total"
+                        android:layout_marginStart="@dimen/dp5"
                         android:textColor="@color/light_black" />
 
                     <TextView
@@ -169,6 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dp5"
                         android:text="@string/delivery_charges"
                         android:textColor="@color/light_black" />
 
@@ -199,6 +202,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/tax"
+                        android:layout_marginStart="@dimen/dp5"
                         android:textColor="@color/light_black" />
 
                     <TextView
@@ -227,6 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dp5"
                         android:text="@string/total"
                         android:textColor="@color/light_black" />
 
@@ -269,19 +274,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBuyNow" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerCartMayLike"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp16"
-        app:layout_constraintEnd_toEndOf="@+id/tvYouMayLike"
-        app:layout_constraintStart_toStartOf="@+id/tvYouMayLike"
-        app:layout_constraintTop_toBottomOf="@+id/tvYouMayLike"
-        tools:layout_editor_absoluteX="-16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteY="268dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerCartMayLike"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="@dimen/dp8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvYouMayLike"
+            app:layout_constraintStart_toStartOf="@+id/tvYouMayLike"
+            app:layout_constraintTop_toBottomOf="@+id/tvYouMayLike">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

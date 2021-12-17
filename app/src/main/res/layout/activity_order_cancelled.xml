@@ -209,6 +209,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/item"
+                        android:layout_marginStart="@dimen/dp2"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/sp12" />
 
@@ -239,6 +240,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/sub_total"
+                      android:layout_marginStart="@dimen/dp5"
                         android:textColor="@color/light_black" />
 
                     <TextView
@@ -266,6 +268,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="@dimen/dp5"
                         android:text="@string/delivery_charges"
                         android:textColor="@color/light_black" />
 
@@ -285,7 +288,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/underline_grey"
                     android:orientation="horizontal"
-                    android:padding="@dimen/dp8"
+                    android:padding="@dimen/dp5"
                     app:layout_constraintEnd_toEndOf="@+id/deliveryChargesLayout"
                     app:layout_constraintStart_toStartOf="@+id/deliveryChargesLayout"
                     app:layout_constraintTop_toBottomOf="@+id/deliveryChargesLayout">
@@ -296,6 +299,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/tax"
+                        android:layout_marginStart="@dimen/dp5"
                         android:textColor="@color/light_black" />
 
                     <TextView
@@ -314,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp10"
                     android:orientation="horizontal"
-                    android:padding="@dimen/dp8"
+                    android:padding="@dimen/dp5"
                     app:layout_constraintEnd_toEndOf="@+id/taxLayout"
                     app:layout_constraintStart_toStartOf="@+id/taxLayout"
                     app:layout_constraintTop_toBottomOf="@+id/taxLayout">
@@ -325,6 +329,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/total"
+                        android:layout_marginStart="@dimen/dp5"
                         android:textColor="@color/light_black" />
 
                     <TextView

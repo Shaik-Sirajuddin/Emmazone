@@ -25,7 +25,7 @@ class ProductDetailActivity : AppCompatActivity()
 
 
         binding.btnBuyDeliver.setOnClickListener {
-            val dialog = BottomSheetDialog(this)
+            val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
             val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
 
             val tvChangeDeliveryAdd = view.findViewById<TextView>(R.id.tvChange)
@@ -70,7 +70,7 @@ class ProductDetailActivity : AppCompatActivity()
         }
 
         binding.btnClickCollect.setOnClickListener {
-            val dialog = BottomSheetDialog(this)
+            val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
             val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
 
             val tvChangeDeliveryAdd = view.findViewById<TextView>(R.id.tvChange)

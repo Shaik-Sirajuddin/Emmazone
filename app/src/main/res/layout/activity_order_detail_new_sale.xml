@@ -64,9 +64,7 @@
             android:id="@+id/cardOrderDeatil"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="@dimen/dp16"
-            android:layout_marginEnd="8dp"
             android:elevation="@dimen/dp8"
             app:cardCornerRadius="@dimen/dp8"
             app:layout_constraintEnd_toEndOf="@+id/rvOrderDetailNewSale"
@@ -109,6 +107,7 @@
                         android:id="@+id/tvItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp2"
                         android:text="@string/item"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/sp12" />
@@ -138,6 +137,7 @@
                         android:id="@+id/tvSubTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp5"
                         android:layout_weight="1"
                         android:text="@string/sub_total"
                         android:textColor="@color/light_black" />
@@ -166,6 +166,7 @@
                         android:id="@+id/tvDeliveryCharges"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp5"
                         android:layout_weight="1"
                         android:text="@string/delivery_charges"
                         android:textColor="@color/light_black" />
@@ -186,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/underline_grey"
                     android:orientation="horizontal"
-                    android:padding="@dimen/dp8"
+                    android:padding="@dimen/dp5"
                     app:layout_constraintEnd_toEndOf="@+id/deliveryChargesLayout"
                     app:layout_constraintStart_toStartOf="@+id/deliveryChargesLayout"
                     app:layout_constraintTop_toBottomOf="@+id/deliveryChargesLayout">
@@ -195,6 +196,7 @@
                         android:id="@+id/tvTax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp5"
                         android:layout_weight="1"
                         android:text="@string/tax"
                         android:textColor="@color/light_black" />
@@ -215,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp10"
                     android:orientation="horizontal"
-                    android:padding="@dimen/dp8"
+                    android:padding="@dimen/dp5"
                     app:layout_constraintEnd_toEndOf="@+id/taxLayout"
                     app:layout_constraintStart_toStartOf="@+id/taxLayout"
                     app:layout_constraintTop_toBottomOf="@+id/taxLayout">
@@ -224,6 +226,7 @@
                         android:id="@+id/tvTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp5"
                         android:layout_weight="1"
                         android:text="@string/total"
                         android:textColor="@color/light_black" />
@@ -412,7 +415,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp24"
             android:background="@drawable/ready"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
