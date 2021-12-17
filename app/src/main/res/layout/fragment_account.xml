@@ -154,15 +154,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imgRadioBtn"
-                    android:layout_width="@dimen/dp30"
-                    android:layout_height="@dimen/dp20"
-                    android:layout_marginEnd="24dp"
-                    android:src="@drawable/on"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_switch"
+                    android:checked="true"
+                    android:layout_marginEnd="@dimen/dp24"
+                    app:layout_constraintTop_toTopOf="@+id/notificationLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/notificationLayout"
+                    app:layout_constraintBottom_toBottomOf="@+id/notificationLayout"
+                    android:paddingHorizontal="2dp"
+                    android:paddingVertical="0.2dp"
+                    android:thumb="@drawable/switch_thumb"
+                    android:track="@android:color/transparent"
+                    app:track="@android:color/transparent" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

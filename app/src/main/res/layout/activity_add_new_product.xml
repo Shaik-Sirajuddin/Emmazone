@@ -61,8 +61,8 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="#232323"
                 android:scaleType="centerCrop"
+                android:src="#232323"
                 app:shapeAppearanceOverlay="@style/roundedImageView1" />
 
             <ImageView
@@ -303,7 +303,7 @@
             android:id="@+id/tvProductSizeX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp32"
+            android:layout_marginEnd="24dp"
             android:text="X"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
@@ -314,28 +314,66 @@
             app:layout_constraintStart_toEndOf="@+id/tvProductSize"
             app:layout_constraintTop_toTopOf="@+id/tvProductSize" />
 
-        <TextView
-            android:id="@+id/tvProductHighLight"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/product_highlight"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="@+id/tvProductSizeX"
             app:layout_constraintStart_toStartOf="@+id/tvProductSize"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductSize" />
+            app:layout_constraintTop_toBottomOf="@+id/tvProductSize">
 
-        <ImageView
-            android:id="@+id/ingNotifyOnOff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/notification_selector"
-            app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.88"
-            app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
-            app:layout_constraintTop_toTopOf="@+id/tvProductHighLight" />
+            <TextView
+                android:id="@+id/tvProductHighLight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/product_highlight"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteY="981dp" />
+
+            <TextView
+                android:id="@+id/tvProduct"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="top"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/product_highlight"
+                android:gravity="center"
+                android:text="i"
+                android:textColor="@color/white"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
+                app:layout_constraintTop_toTopOf="@id/tvProductHighLight" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_switch"
+                android:checked="true"
+                android:paddingHorizontal="2dp"
+                android:paddingVertical="0.2dp"
+                android:thumb="@drawable/switch_thumb"
+                android:track="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
+                app:layout_constraintEnd_toEndOf="@+id/productSize"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
+                app:layout_constraintTop_toTopOf="@+id/tvProductHighLight"
+                app:track="@android:color/transparent" />
+
+        </LinearLayout>
 
         <android.widget.Button
             android:id="@+id/btnSave"
@@ -343,11 +381,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp32"
             android:layout_marginBottom="@dimen/dp24"
-            android:background="@drawable/save_button"
+            android:background="@drawable/save"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/ingNotifyOnOff"
-            app:layout_constraintStart_toStartOf="@+id/tvProductHighLight"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductHighLight" />
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

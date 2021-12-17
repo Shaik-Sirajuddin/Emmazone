@@ -39,18 +39,6 @@ class AddNewProductActivity : AppCompatActivity() {
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        binding.ingNotifyOnOff.setOnClickListener {
-            isNotifyOn = !isNotifyOn
-            binding.ingNotifyOnOff.setImageResource(
-                if (isNotifyOn)
-                    R.drawable.on_round
-                else
-                    R.drawable.off
-            )
-        }
-
-
         images = arrayListOf()
 
         initListener()

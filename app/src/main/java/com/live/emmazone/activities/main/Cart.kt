@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.activities.TermsCondition
@@ -57,7 +58,8 @@ class Cart : AppCompatActivity(), OnItemClick {
                 val dialogOrderPlaced = view.findViewById<Button>(R.id.done)
 
                 dialogOrderPlaced.setOnClickListener {
-                    onBackPressed()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 }
 
                 alertDialog.setView(view)

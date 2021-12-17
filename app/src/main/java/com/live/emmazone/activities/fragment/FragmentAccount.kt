@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.live.emmazone.R
 import com.live.emmazone.activities.FAQ
 import com.live.emmazone.activities.Privacypolicy
@@ -17,6 +18,7 @@ import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.ChangePassword
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.ProfileActivity
+import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
 import com.makeramen.roundedimageview.RoundedImageView
@@ -45,18 +47,18 @@ class FragmentAccount : Fragment() {
         val cart = view.findViewById<ImageView>(R.id.cart)
         val notifications = view.findViewById<ImageView>(R.id.image_notifications)
         val profileImage = view.findViewById<RoundedImageView>(R.id.pickImage)
-        val toggle = view.findViewById<ImageView>(R.id.imgRadioBtn)
+        val toggle = view.findViewById<SwitchMaterial>(R.id.switch_notification)
 
-        toggle.setOnClickListener {
-
-            isNotification = !isNotification
-            toggle.setImageResource(
-                if (isNotification)
-                    R.drawable.on
-                else
-                    R.drawable.off
-            )
-        }
+//        toggle.setOnClickListener {
+//
+//            isNotification = !isNotification
+//            toggle.setImageResource(
+//                if (isNotification)
+//                    R.drawable.on
+//                else
+//                    R.drawable.off
+//            )
+//        }
 
         profileImage.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)
@@ -75,7 +77,7 @@ class FragmentAccount : Fragment() {
 
         logout.setOnClickListener {
             activity?.finishAffinity()
-            val intent = Intent(activity, LoginActivity::class.java)
+            val intent = Intent(activity, UserLoginChoice::class.java)
             startActivity(intent)
         }
         changePwdLayout.setOnClickListener {

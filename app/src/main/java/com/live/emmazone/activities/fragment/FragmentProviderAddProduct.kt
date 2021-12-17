@@ -80,18 +80,18 @@ class FragmentProviderAddProduct : Fragment() {
                 R.drawable.edit, R.drawable.bin1))
 
         list.add(
-            ModelProShopDetailProducts(R.drawable.shoes2, "Bernd", "30.00€",
+            ModelProShopDetailProducts(R.drawable.sho1, "Bernd", "30.00€",
                 "Lorem ipsum dolor", "Delivery estimate 4-5 days",
                 "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
         list.add(
-            ModelProShopDetailProducts(R.drawable.shoe_bernd, "Bernd", "30.00€",
+            ModelProShopDetailProducts(R.drawable.sho2, "Bernd", "30.00€",
                 "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 
         list.add(
-            ModelProShopDetailProducts(R.drawable.shoes2, "Bernd", "30.00€",
+            ModelProShopDetailProducts(R.drawable.sho3, "Bernd", "30.00€",
                 "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
                 R.drawable.edit, R.drawable.bin1))
 

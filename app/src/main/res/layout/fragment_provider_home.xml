@@ -8,8 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
@@ -103,29 +103,31 @@
             app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
             app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore" />
 
-        <ImageView
-            android:id="@+id/itemHeartShopDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/heart"
-            android:padding="12dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageShopDetail" />
+            app:layout_constraintTop_toTopOf="@+id/imageShopDetail">
 
-        <TextView
-            android:id="@+id/tvHeartsCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_marginEnd="28dp"
-            android:gravity="bottom"
-            android:text="30"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dp10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageShopDetail" />
+            <ImageView
+                android:id="@+id/itemHeartShopDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="7dp"
+                android:src="@drawable/heart" />
+
+            <TextView
+                android:id="@+id/tvHeartsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="30"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp12" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvDesc"
@@ -247,8 +249,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:paddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProducts"
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailProducts"
             app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProducts" />

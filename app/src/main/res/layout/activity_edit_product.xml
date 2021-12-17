@@ -330,19 +330,23 @@
             app:layout_constraintStart_toStartOf="@+id/tvProductSize"
             app:layout_constraintTop_toBottomOf="@+id/tvProductSize" />
 
-        <ImageView
-            android:id="@+id/ingNotifyOnOff"
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp16"
-            android:layout_marginRight="@dimen/dp20"
-            android:background="@android:color/transparent"
-            android:src="@drawable/notification_selector"
+            android:background="@drawable/custom_switch"
+            android:checked="true"
+            android:paddingHorizontal="2dp"
+            android:paddingVertical="0.2dp"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintEnd_toEndOf="@+id/addColour2"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
-            app:layout_constraintTop_toTopOf="@+id/tvProductHighLight" />
+            app:layout_constraintTop_toTopOf="@+id/tvProductHighLight"
+            app:track="@android:color/transparent" />
+
 
         <android.widget.Button
             android:id="@+id/btnUpdate"
@@ -352,7 +356,7 @@
             android:layout_marginBottom="@dimen/dp24"
             android:background="@drawable/update"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/ingNotifyOnOff"
+            app:layout_constraintEnd_toEndOf="@+id/productSize"
             app:layout_constraintStart_toStartOf="@+id/tvProductHighLight"
             app:layout_constraintTop_toBottomOf="@+id/tvProductHighLight" />
 

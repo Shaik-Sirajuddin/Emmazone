@@ -55,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/underline_grey"
             android:paddingBottom="@dimen/dp8"
             app:layout_constraintBottom_toTopOf="@+id/cardOrderDeatil"
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"

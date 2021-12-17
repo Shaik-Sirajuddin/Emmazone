@@ -23,4 +23,7 @@
 
     <color name="track_active">#457F59</color>
     <color name="track_inactive">#EDEDED</color>
+
+    <color name="image_bg">#DEDDDC</color>
+
 </resources>

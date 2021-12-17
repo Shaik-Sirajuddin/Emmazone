@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.live.emmazone.R
 import com.live.emmazone.activities.FAQ
 import com.live.emmazone.activities.Privacypolicy
@@ -16,6 +17,7 @@ import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.ChangePassword
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.ProfileActivity
+import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.Message
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.MyEarningsActivity
@@ -40,18 +42,18 @@ class FragmentProviderAccount : Fragment() {
         val btnLogout: Button = view.findViewById(R.id.btn_logout)
         val imgNotify: ImageView = view.findViewById(R.id.image_notifications)
         val proAccountImage: ImageView = view.findViewById(R.id.proAccountImage)
-        val toggle: ImageView = view.findViewById(R.id.toggle)
+        val toggle: SwitchMaterial = view.findViewById(R.id.switch_notification)
 
-        toggle.setOnClickListener {
-
-            isNotification = !isNotification
-            toggle.setImageResource(
-                if (isNotification)
-                    R.drawable.on
-                else
-                    R.drawable.off
-            )
-        }
+//        toggle.setOnClickListener {
+//
+//            isNotification = !isNotification
+//            toggle.setImageResource(
+//                if (isNotification)
+//                    R.drawable.on
+//                else
+//                    R.drawable.off
+//            )
+//        }
 
         proAccountImage.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)
@@ -91,7 +93,7 @@ class FragmentProviderAccount : Fragment() {
 
             activity?.finishAffinity()
 
-            val intent = Intent(activity, LoginActivity::class.java)
+            val intent = Intent(activity, UserLoginChoice::class.java)
             startActivity(intent)
         }
 

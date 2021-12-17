@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="@+id/cardView"
             app:layout_constraintTop_toTopOf="@+id/cardView">
 
-            <com.makeramen.roundedimageview.RoundedImageView
+            <ImageView
                 android:id="@+id/imageProductShopDetail"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp120"
@@ -34,9 +34,7 @@
                 android:src="@drawable/shoes2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius_top_left="@dimen/dp16"
-                app:riv_corner_radius_top_right="@dimen/dp16" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/productItemName"
@@ -160,10 +158,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/avenir_black"
             android:text="Add New Product"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

@@ -94,7 +94,7 @@ class AdapterProviderShopDetailProducts(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val imageProductSD: RoundedImageView = itemView.findViewById(R.id.imageProductShopDetail)
+        val imageProductSD: ImageView = itemView.findViewById(R.id.imageProductShopDetail)
         val imageEditSDProduct: ImageView = itemView.findViewById(R.id.imgEdit)
         val imageDelete: ImageView = itemView.findViewById(R.id.imgDelete)
         val productItemNameSD = itemView.findViewById<TextView>(R.id.productItemName)
