@@ -1,146 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
-   <androidx.cardview.widget.CardView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/cardAddProducts"
-       android:layout_marginEnd="@dimen/dp8"
-       app:layout_constraintBottom_toBottomOf="parent"
-       android:layout_marginStart="@dimen/dp5"
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:cardCornerRadius="@dimen/dp8"
-       >
-       <androidx.constraintlayout.widget.ConstraintLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:background="@drawable/bg_shop_detail_product"
-           app:layout_constraintBottom_toBottomOf="@+id/cardAddProducts"
-           app:layout_constraintEnd_toEndOf="@+id/cardAddProducts"
-           app:layout_constraintStart_toStartOf="@+id/cardAddProducts"
-           app:layout_constraintTop_toTopOf="@+id/cardAddProducts">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardAddProducts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp5"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp8"
+        app:cardCornerRadius="@dimen/dp8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-           <com.makeramen.roundedimageview.RoundedImageView
-               android:id="@+id/imageProductShopDetail"
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/dp120"
-               android:scaleType="centerCrop"
-               android:src="@drawable/shoes"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent"
-               app:riv_corner_radius_top_left="@dimen/dp16"
-               app:riv_corner_radius_top_right="@dimen/dp16" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_shop_detail_product"
+            app:layout_constraintBottom_toBottomOf="@+id/cardAddProducts"
+            app:layout_constraintEnd_toEndOf="@+id/cardAddProducts"
+            app:layout_constraintStart_toStartOf="@+id/cardAddProducts"
+            app:layout_constraintTop_toTopOf="@+id/cardAddProducts">
 
-           <TextView
-               android:id="@+id/productItemName"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="2dp"
-               android:text="@string/bernd"
-               android:textColor="@color/black"
-               android:textSize="@dimen/sp15"
-               app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
-               app:layout_constraintHorizontal_bias="0.07"
-               app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
-               app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageProductShopDetail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp120"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shoes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius_top_left="@dimen/dp16"
+                app:riv_corner_radius_top_right="@dimen/dp16" />
 
-           <TextView
-               android:id="@+id/productItemPrice"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="2dp"
-               android:text="30.00€"
-               android:textColor="@color/black"
-               android:textSize="@dimen/sp12"
-               app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
-               app:layout_constraintHorizontal_bias="0.93"
-               app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
-               app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
+            <TextView
+                android:id="@+id/productItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/bernd"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15"
+                app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
+                app:layout_constraintHorizontal_bias="0.07"
+                app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
+                app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
 
-           <ImageView
-               android:id="@+id/ratingBarShopDetailProduct"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_vertical"
-               android:src="@drawable/rating"
-               app:layout_constraintEnd_toEndOf="@+id/productItemName"
-               app:layout_constraintHorizontal_bias="0.0"
-               app:layout_constraintStart_toStartOf="@+id/productItemName"
-               app:layout_constraintTop_toBottomOf="@+id/productItemName" />
+            <TextView
+                android:id="@+id/productItemPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="30.00€"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12"
+                app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
+                app:layout_constraintHorizontal_bias="0.93"
+                app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
+                app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
 
-           <ImageView
-               android:id="@+id/imgEdit"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_vertical"
-               android:layout_marginTop="@dimen/dp16"
-               android:layout_marginEnd="@dimen/dp24"
-               android:src="@drawable/edit"
-               app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
-               app:layout_constraintTop_toTopOf="@+id/imageProductShopDetail" />
+            <ImageView
+                android:id="@+id/ratingBarShopDetailProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/rating"
+                app:layout_constraintEnd_toEndOf="@+id/productItemName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/productItemName"
+                app:layout_constraintTop_toBottomOf="@+id/productItemName" />
 
-           <ImageView
-               android:id="@+id/imgDelete"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_vertical"
-               android:src="@drawable/bin1"
-               android:layout_marginTop="@dimen/dp8"
-               app:layout_constraintEnd_toEndOf="@+id/imgEdit"
-               app:layout_constraintStart_toStartOf="@+id/imgEdit"
-               app:layout_constraintTop_toBottomOf="@+id/imgEdit" />
+            <ImageView
+                android:id="@+id/imgEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/dp16"
+                android:layout_marginEnd="@dimen/dp24"
+                android:src="@drawable/edit"
+                app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
+                app:layout_constraintTop_toTopOf="@+id/imageProductShopDetail" />
 
-           <TextView
-               android:id="@+id/tvShopDetailProductText"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_vertical"
-               android:layout_marginStart="@dimen/dp5"
-               android:text="4.8"
-               android:textColor="@color/black"
-               android:textSize="@dimen/sp12"
-               app:layout_constraintBottom_toBottomOf="@+id/ratingBarShopDetailProduct"
-               app:layout_constraintStart_toEndOf="@+id/ratingBarShopDetailProduct"
-               app:layout_constraintTop_toTopOf="@+id/ratingBarShopDetailProduct"
-               tools:layout_editor_absoluteX="50dp"
-               tools:layout_editor_absoluteY="322dp" />
+            <ImageView
+                android:id="@+id/imgDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/dp8"
+                android:src="@drawable/bin1"
+                app:layout_constraintEnd_toEndOf="@+id/imgEdit"
+                app:layout_constraintStart_toStartOf="@+id/imgEdit"
+                app:layout_constraintTop_toBottomOf="@+id/imgEdit" />
 
-           <TextView
-               android:id="@+id/tvShopDetailProductBrand"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_vertical"
-               android:layout_marginTop="@dimen/dp5"
-               android:text="@string/lorem_ipsum_dolor"
-               android:textColor="@color/black"
-               android:textSize="@dimen/sp10"
-               app:layout_constraintStart_toStartOf="@+id/ratingBarShopDetailProduct"
-               app:layout_constraintTop_toBottomOf="@+id/ratingBarShopDetailProduct" />
+            <TextView
+                android:id="@+id/tvShopDetailProductText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp5"
+                android:text="4.8"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12"
+                app:layout_constraintBottom_toBottomOf="@+id/ratingBarShopDetailProduct"
+                app:layout_constraintStart_toEndOf="@+id/ratingBarShopDetailProduct"
+                app:layout_constraintTop_toTopOf="@+id/ratingBarShopDetailProduct"
+                tools:layout_editor_absoluteX="50dp"
+                tools:layout_editor_absoluteY="322dp" />
 
-           <TextView
-               android:id="@+id/tvSDDeliveryEstimate"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_vertical"
-               android:layout_marginTop="@dimen/dp2"
-               android:text="@string/delivery_estimate_4_5_days"
-               android:textColor="@color/green"
-               android:textSize="@dimen/sp10"
-               app:layout_constraintStart_toStartOf="@+id/tvShopDetailProductBrand"
-               app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProductBrand" />
+            <TextView
+                android:id="@+id/tvShopDetailProductBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/dp5"
+                android:text="@string/lorem_ipsum_dolor"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp10"
+                app:layout_constraintStart_toStartOf="@+id/ratingBarShopDetailProduct"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBarShopDetailProduct" />
 
-       </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvSDDeliveryEstimate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/dp2"
+                android:text="@string/delivery_estimate_4_5_days"
+                android:textColor="@color/green"
+                android:textSize="@dimen/sp10"
+                app:layout_constraintStart_toStartOf="@+id/tvShopDetailProductBrand"
+                app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProductBrand" />
 
-   </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

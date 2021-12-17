@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmmaZone">
         <activity
+            android:name=".activities.provider.QrScannerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.provider.ScannerActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.auth.ForgotPasswordActivity"
             android:exported="true" />
         <activity
