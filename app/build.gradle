@@ -48,7 +48,6 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'
 
-    /* Rounded Imageview */
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.guolindev.permissionx:permissionx:1.6.1'

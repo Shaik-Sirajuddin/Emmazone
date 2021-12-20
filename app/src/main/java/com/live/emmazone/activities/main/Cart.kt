@@ -1,12 +1,17 @@
 package com.live.emmazone.activities.main
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.format.DateFormat.is24HourFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.TextView
+import android.widget.TimePicker
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +25,9 @@ import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivityCartBinding
 import com.live.emmazone.model.ModelCart
 import com.live.emmazone.model.ModelShopDetailProducts
+import java.text.DateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Cart : AppCompatActivity(), OnItemClick {
     lateinit var binding: ActivityCartBinding
@@ -42,6 +50,7 @@ class Cart : AppCompatActivity(), OnItemClick {
 
             val tvChangeDeliveryAdd = view.findViewById<TextView>(R.id.tvChange)
             val tvChangePaymentMethod = view.findViewById<TextView>(R.id.tvPaymentMethodChange)
+            val tvChangeDateTime = view.findViewById<TextView>(R.id.tvChangeDateTime)
             val tvTerms = view.findViewById<TextView>(R.id.btnTerms)
             val buy = view.findViewById<TextView>(R.id.btnBuy)
 
@@ -67,6 +76,47 @@ class Cart : AppCompatActivity(), OnItemClick {
                 alertDialog.setCancelable(true)
 
             }
+
+//            tvChangeDateTime.setOnClickListener {
+//
+//                var day = 0
+//                var month: Int = 0
+//                var year: Int = 0
+//                var minute: Int = 0
+//                var myDay = 0
+//                var myMonth: Int = 0
+//                var myYear: Int = 0
+//                var myHour: Int = 0
+//                var myMinute: Int = 0
+//                var hour: Int = 0
+//
+//                val calendar: Calendar = Calendar.getInstance()
+//                day = calendar.get(Calendar.DAY_OF_MONTH)
+//                month = calendar.get(Calendar.MONTH)
+//                year = calendar.get(Calendar.YEAR)
+//                val datePickerDialog =
+//                    DatePickerDialog(this, this, year, month,day)
+//                datePickerDialog.show()
+//
+//                fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+//                    myDay = day
+//                    myYear = year
+//                    myMonth = month
+//                    val calendar: Calendar = Calendar.getInstance()
+//                    hour = calendar.get(Calendar.HOUR)
+//                    minute = calendar.get(Calendar.MINUTE)
+//                    val timePickerDialog = TimePickerDialog(this, this, hour, minute,
+//                        DateFormat.is24HourFormat(this))
+//                    timePickerDialog.show()
+//                }
+//                 fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+//                    myHour = hourOfDay
+//                    myMinute = minute
+//                     tvChangeDateTime.text = "Year: " + myYear + "\n" + "Month: " + myMonth + "\n" + "Day: " + myDay + "\n" + "Hour: " + myHour + "\n" + "Minute: " + myMinute
+//                }
+//
+//
+//            }
 
             tvChangeDeliveryAdd.setOnClickListener {
                 val intent = Intent(this, DeliveryAddress::class.java)
@@ -129,4 +179,5 @@ class Cart : AppCompatActivity(), OnItemClick {
     override fun onOrderCancelled() {
         TODO("Not yet implemented")
     }
+
 }

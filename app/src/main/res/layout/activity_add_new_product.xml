@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp24"
                 android:layout_marginTop="@dimen/dp24"
-                android:padding="@dimen/dp5"
+                android:padding="10dp"
                 android:src="@drawable/arrow_back"
                 app:layout_constraintStart_toStartOf="@+id/layoutMain"
                 app:layout_constraintTop_toTopOf="@+id/layoutMain" />

@@ -19,10 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmmaZone">
         <activity
-            android:name=".activities.provider.QrScannerActivity"
-            android:exported="true" />
+            android:name=".activities.provider.AddShopDetailActivity"
+            android:exported="true" >
+
+        </activity>
         <activity
-            android:name=".activities.provider.ScannerActivity"
+            android:name=".activities.provider.QrScannerActivity"
             android:exported="true" />
         <activity
             android:name=".activities.auth.ForgotPasswordActivity"
@@ -156,11 +158,13 @@
             android:name=".activities.SplashActivity"
             android:exported="true"
             android:theme="@style/EmmaZone.Splash">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".MainActivity"

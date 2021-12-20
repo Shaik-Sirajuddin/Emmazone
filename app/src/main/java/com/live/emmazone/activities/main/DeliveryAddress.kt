@@ -14,8 +14,6 @@ import com.live.emmazone.model.ModelDeliveryAddress
 
 class DeliveryAddress : AppCompatActivity() {
     lateinit var binding : ActivityDeliveryAddressBinding
-//    lateinit var list: ArrayList<ModelDeliveryAddress>
-//    lateinit var adapter : AdapterDeliveryAddress
 
     var list = ArrayList<ModelDeliveryAddress>()
     lateinit var adapter: AdapterDeliveryAddress
@@ -25,7 +23,6 @@ class DeliveryAddress : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDeliveryAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         binding.btnaddNewAddress.setOnClickListener {
             val intent = Intent(this, AddNewAddress::class.java)

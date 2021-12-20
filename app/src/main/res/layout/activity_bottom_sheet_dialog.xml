@@ -30,12 +30,23 @@
         android:layout_marginTop="@dimen/dp20"
         android:text="@string/_13_june_2021_07_00_pm"
         android:textColor="@color/green"
-        android:textStyle="bold"
         android:textSize="@dimen/sp15"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/estimateDeliveryTime"
         app:layout_constraintTop_toBottomOf="@+id/estimateDeliveryTime" />
+
+    <TextView
+        android:id="@+id/tvChangeDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/underline_green"
+        android:text="@string/Change"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp15"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="64dp" />
 
     <TextView
         android:id="@+id/tvDeliveryAddress"
@@ -83,7 +94,7 @@
         android:id="@+id/tvChange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="26dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/underline_green"
         android:text="@string/Change"
         android:textColor="@color/green"

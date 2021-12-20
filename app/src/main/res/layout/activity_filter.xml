@@ -25,6 +25,7 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:layout_marginStart="24dp"
                 android:src="@drawable/arrow_back"
                 app:layout_constraintBottom_toBottomOf="@+id/changePassword"
@@ -161,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0 miles"
+                android:text="0 kilometer"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp15"
                 android:textStyle="bold" />
@@ -171,7 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dp10"
-                android:text="200 miles"
+                android:text="200 kilometer"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp15"
                 android:textStyle="bold" />

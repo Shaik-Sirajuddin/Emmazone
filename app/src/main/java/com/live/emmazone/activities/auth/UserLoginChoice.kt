@@ -30,7 +30,7 @@ class UserLoginChoice : AppCompatActivity() {
             startActivity(intent)
         }
         binding.btnSignInSeller.setOnClickListener {
-            val intent = Intent(this, ProviderMainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }

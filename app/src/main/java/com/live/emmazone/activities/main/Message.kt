@@ -14,6 +14,9 @@ class Message : AppCompatActivity() {
         binding =  ActivityMessageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 }

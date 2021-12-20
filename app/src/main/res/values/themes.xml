@@ -15,7 +15,6 @@
         <item name="colorOnBackground">@color/green</item>
         <item name="colorSurface">@color/green</item>
 
-        <item name="android:forceDarkAllowed">false</item>
         <!-- Customize your theme here. -->
         <item name="editTextStyle">@style/customEditTextTheme</item>
     </style>

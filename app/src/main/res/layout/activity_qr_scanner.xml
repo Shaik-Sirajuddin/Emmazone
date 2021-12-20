@@ -14,7 +14,10 @@
         android:id="@+id/iv_back"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
-        android:layout_margin="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_back_white" />
 

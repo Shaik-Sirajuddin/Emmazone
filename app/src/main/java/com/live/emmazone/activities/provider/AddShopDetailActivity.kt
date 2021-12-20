@@ -2,88 +2,56 @@ package com.live.emmazone.activities.provider
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
-import com.live.emmazone.activities.listeners.OnActionListener
-import com.live.emmazone.adapter.ImageAdapter
-import com.live.emmazone.databinding.ActivityAddNewProductBinding
-import com.live.emmazone.model.ImageModel
+import com.live.emmazone.databinding.ActivityAddShopDetailBinding
 import com.live.emmazone.utils.ToastUtils
 import com.permissionx.guolindev.PermissionX
 
-class AddNewProductActivity : AppCompatActivity() {
-
-    lateinit var binding: ActivityAddNewProductBinding
-    var isNotifyOn = true
-    private lateinit var images: ArrayList<ImageModel>
-    private lateinit var imageAdapter: ImageAdapter
-
-    private var isMainPhoto = true
+class AddShopDetailActivity : AppCompatActivity() {
+    lateinit var binding : ActivityAddShopDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddNewProductBinding.inflate(layoutInflater)
+        binding = ActivityAddShopDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        images = arrayListOf()
-
-        initListener()
-        initAdapter()
-    }
-
-    private fun initAdapter() {
-
-        val onActionListener = object : OnActionListener<ImageModel> {
-            override fun notify(model: ImageModel, position: Int) {
-                isMainPhoto = false
-                optionsDialog()
-            }
-        }
-
-        imageAdapter = ImageAdapter(this, images, onActionListener)
-        binding.recyclerImages.adapter = imageAdapter
-    }
-
-    private fun initListener() {
         binding.apply {
+            mainImageLayout.setOnClickListener { optionsDialog() }
+        }
 
-            back.setOnClickListener { onBackPressed() }
+      binding.imageArrowback.setOnClickListener {
+          onBackPressed()
+      }
 
-            btnSave.setOnClickListener { showAddProductDialog() }
+        binding.btnDone.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+             WindowManager.LayoutParams.WRAP_CONTENT)
+            dialog.setContentView(R.layout.dialog_profile_completed)
+            dialog.window?.setBackgroundDrawable(
+                ContextCompat.getDrawable(this, android.R.color.transparent))
 
-            ivShop.setOnClickListener {
-                isMainPhoto = true
-                optionsDialog()
+          val ok = dialog.findViewById<Button>(R.id.ok)
+
+            ok.setOnClickListener {
+                dialog.dismiss()
             }
         }
-    }
-
-    private fun showAddProductDialog() {
-        val alertBuilder = AlertDialog.Builder(this)
-        val factory = LayoutInflater.from(this)
-        val view: View = factory.inflate(R.layout.dialog_product_added, null)
-
-        val buttonOk = view.findViewById<Button>(R.id.ok)
-
-        buttonOk.setOnClickListener {
-            onBackPressed()
-        }
-        alertBuilder.setView(view)
-        alertBuilder.show()
     }
 
     private fun optionsDialog() {
@@ -91,7 +59,8 @@ class AddNewProductActivity : AppCompatActivity() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
         dialog.setCanceledOnTouchOutside(true)
-        dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.transparent))
+        dialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(this, android.R.color.transparent))
         dialog.setContentView(R.layout.dialog_select_photo)
 
         val tvCamera: TextView? = dialog.findViewById(R.id.tv_camera)
@@ -162,8 +131,8 @@ class AddNewProductActivity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 val imageBitmap = data?.extras?.get("data") as Bitmap?
-                val uri = getImageUri(imageBitmap)
-                addImageToList(uri)
+                if (imageBitmap != null)
+                    binding.ivShop.setImageBitmap(imageBitmap)
             }
         }
 
@@ -171,30 +140,8 @@ class AddNewProductActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
-                addImageToList(data?.data)
+                binding.ivShop.setImageURI(data?.data)
             }
         }
 
-    private fun addImageToList(uri: Uri?) {
-        if (isMainPhoto)
-            binding.ivShop.setImageURI(uri)
-        else {
-            val model = ImageModel(imgUrl = uri)
-            images.add(model)
-            imageAdapter?.notifyDataSetChanged()
-        }
-
-        binding.recyclerImages.scrollToPosition(images.size)
-    }
-
-    private fun getImageUri(inImage: Bitmap?): Uri? {
-        val outImage = Bitmap.createScaledBitmap(inImage!!, 1000, 1000, true)
-        val path = MediaStore.Images.Media.insertImage(
-            baseContext.contentResolver,
-            outImage,
-            "Title",
-            null
-        )
-        return Uri.parse(path)
-    }
 }

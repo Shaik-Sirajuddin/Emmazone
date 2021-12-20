@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="36dp"
-                android:padding="@dimen/dp5"
+                android:padding="10dp"
                 android:src="@drawable/arroww"
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
                 app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
