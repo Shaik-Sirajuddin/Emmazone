@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.wishList -> {
                     if (getProfileType() == "guest") {
                         showLoginOption()
+
                     } else
                         loadFragment(FragmentWishList())
                 }
@@ -85,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
+        dialog.setCancelable(true)
         dialog.window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.setContentView(R.layout.dialog_login)
@@ -100,11 +101,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
+            dialog.dismiss()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+
         }
 
         dialog.show()
+
     }
 }
 

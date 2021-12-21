@@ -219,12 +219,7 @@ class AddNewProductActivity : AppCompatActivity() {
             applicationContext?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.popup_my_post, null)
 
-        val myPopupWindow = PopupWindow(
-            view,
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-            true
-        )
+        val myPopupWindow = PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true)
         myPopupWindow.showAsDropDown(it, 0, -180)
     }
 }

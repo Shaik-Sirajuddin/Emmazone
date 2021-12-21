@@ -77,7 +77,7 @@
         <entry key="app/src/main/res/layout/activity_order_cancelled.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_order_delivered_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_order_detail.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_order_detail_delivered_status.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_order_detail_delivered_status.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_order_detail_new_sale.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_order_detail_pending.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_order_detail_pro_ongoing.xml" value="0.22" />
@@ -91,7 +91,7 @@
         <entry key="app/src/main/res/layout/activity_provider_shop_detail.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_qr_scanner.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/activity_rating_reviews.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_reserved_delivered_detail.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_reserved_delivered_detail.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_shop_detail.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_shop_reviews.xml" value="0.23743589743589744" />
@@ -104,9 +104,11 @@
         <entry key="app/src/main/res/layout/activity_with_draw_bank_info.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_withdrawal.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_your_reviews.xml" value="0.19" />
+        <entry key="app/src/main/res/layout/custom_toast.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_cancel_order.xml" value="0.19" />
         <entry key="app/src/main/res/layout/dialog_cancel_reserved_order.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_delete_product.xml" value="0.19" />
+        <entry key="app/src/main/res/layout/dialog_login.xml" value="0.21" />
         <entry key="app/src/main/res/layout/dialog_order_placed.xml" value="0.19" />
         <entry key="app/src/main/res/layout/dialog_password_updated.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_product_added.xml" value="0.24114583333333334" />
@@ -128,7 +130,7 @@
         <entry key="app/src/main/res/layout/fragment_on_going_sale_provider.xml" value="0.21" />
         <entry key="app/src/main/res/layout/fragment_past_sale_provider.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_provider_account.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_provider_home.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_provider_home.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_provider_home_old.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_sale_provider.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_wishlist.xml" value="0.22" />
@@ -153,10 +155,10 @@
         <entry key="app/src/main/res/layout/item_provider_shopdetail_products.xml" value="0.2" />
         <entry key="app/src/main/res/layout/on_going_orders_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/past_fragment.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/popup_my_post.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/popup_my_post.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.17" />
         <entry key="app/src/main/res/menu/bottom_nav_menu_provider.xml" value="0.19" />
-        <entry key="app/src/main/res/menu/popup_menu.xml" value="0.16145833333333334" />
+        <entry key="app/src/main/res/menu/popup_menu.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/app_icon.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2518518518518518" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2518518518518518" />
