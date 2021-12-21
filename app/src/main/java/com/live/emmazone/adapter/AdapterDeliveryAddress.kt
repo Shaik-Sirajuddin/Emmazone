@@ -17,8 +17,6 @@ class AdapterDeliveryAddress(
 ) :
     RecyclerView.Adapter<AdapterDeliveryAddress.ViewHolder>() {
 
-    private var selectedIndex = 0
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemDeliveryAddressBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.listeners.OnActionListenerNew
 import com.live.emmazone.activities.main.OrderDetail
 import com.live.emmazone.activities.main.ReservedDeliveredDetail
 import com.live.emmazone.adapter.AdapterOnGoPickCollect
@@ -136,7 +137,12 @@ class OnGoingOrdersFragment : Fragment() {
             )
         )
 
-        recyclerView.adapter = context?.let { AdapterOnGoingOrders(it, list) }
+        val onActionListenerNew = object : OnActionListenerNew {
+            override fun notifyOnClick() {
+                imageStatusOnTheWay.performClick()
+            }
+        }
+        recyclerView.adapter = context?.let { AdapterOnGoingOrders(it, list, onActionListenerNew) }
 
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

@@ -3,20 +3,23 @@ package com.live.emmazone.activities.provider
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.Window
 import android.widget.Button
-import android.widget.PopupMenu
+import android.widget.PopupWindow
+import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
@@ -99,7 +102,12 @@ class AddNewProductActivity : AppCompatActivity() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
         dialog.setCanceledOnTouchOutside(true)
-        dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.transparent))
+        dialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                this,
+                android.R.color.transparent
+            )
+        )
         dialog.setContentView(R.layout.dialog_select_photo)
 
         val tvCamera: TextView? = dialog.findViewById(R.id.tv_camera)
@@ -206,20 +214,17 @@ class AddNewProductActivity : AppCompatActivity() {
         return Uri.parse(path)
     }
 
-    private fun showPopup(view: View) {
-        val popup = PopupMenu(this, view)
-        popup.inflate(R.menu.popup_menu)
+    private fun showPopup(it: View) {
+        val inflater =
+            applicationContext?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.popup_my_post, null)
 
-//        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
-//
-//            when (item!!.itemId) {
-//                R.id.header1 -> {
-//                   // Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//            true
-//        })
-
-        popup.show()
+        val myPopupWindow = PopupWindow(
+            view,
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
+        myPopupWindow.showAsDropDown(it, 0, -180)
     }
 }

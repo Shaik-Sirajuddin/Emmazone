@@ -1,72 +1,48 @@
 package com.live.emmazone.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.live.emmazone.R
-import com.live.emmazone.activities.main.OrderDetail
-import com.live.emmazone.activities.main.ReservedDeliveredDetail
-import com.live.emmazone.activities.provider.OrderDetailDeliveredStatusActivity
-import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
-import com.live.emmazone.activities.provider.OrderDetailPendingActivity
-import com.live.emmazone.activities.provider.OrderDetailProOngoingActivity
+import com.live.emmazone.activities.listeners.OnActionListenerNew
+import com.live.emmazone.databinding.ItemLayoutOngoingMyordersBinding
 import com.live.emmazone.model.ModelOnGoingOrders
 
-class AdapterOnGoingOrders(private val context: Context, private val list: ArrayList<ModelOnGoingOrders>) :
+class AdapterOnGoingOrders(
+    private val context: Context,
+    private val list: ArrayList<ModelOnGoingOrders>,
+    private val onActionListenerNew: OnActionListenerNew? = null
+) :
     RecyclerView.Adapter<AdapterOnGoingOrders.ViewHolder>() {
 
+    class ViewHolder(val binding: ItemLayoutOngoingMyordersBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_layout_ongoing_myorders, parent, false)
-        return ViewHolder(view)
+        val binding =
+            ItemLayoutOngoingMyordersBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ModelOnGoingOrders = list[position]
-        holder.imgOnGoingItem.setImageResource(ModelOnGoingOrders.onGoingItem)
-        holder.tvonGoingItemName.setText(ModelOnGoingOrders.onGoingItemName)
-        holder.tvonGoingItemQuantity.setText(ModelOnGoingOrders.onGoingItemQuantity)
-        holder.tvproductPrice.setText(ModelOnGoingOrders.productPrice)
+        val model = list[position]
+        with(holder.binding) {
+            onGoingItem.setImageResource(model.onGoingItem)
+            onGoingItemName.text = model.onGoingItemName
+            onGoingItemQuantity.text = model.onGoingItemQuantity
+            productPrice.text = model.productPrice
+        }
 
         holder.itemView.setOnClickListener {
-
-            when (ModelOnGoingOrders.status) {
-
-                "ontheway" -> {
-                    val intent = Intent(context, OrderDetail::class.java)
-                    context.startActivity(intent)
-                }
-
-                "pickupCollect" -> {
-                    val intent = Intent(context, ReservedDeliveredDetail::class.java)
-                    context.startActivity(intent)
-                }
-                "delivered" -> {
-                    val intent = Intent(context, OrderDetailDeliveredStatusActivity::class.java)
-                    context.startActivity(intent)
-                }
-                else -> {
-                    // do nothing
-                }
-            }
+            onActionListenerNew?.notifyOnClick()
         }
     }
 
     override fun getItemCount(): Int {
         return list.size
-    }
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val imgOnGoingItem: ImageView = itemView.findViewById(R.id.onGoingItem)
-        val tvonGoingItemName: TextView = itemView.findViewById(R.id.onGoingItemName)
-        val tvonGoingItemQuantity = itemView.findViewById<TextView>(R.id.onGoingItemQuantity)
-        val tvproductPrice = itemView.findViewById<TextView>(R.id.productPrice)
-
     }
 }
