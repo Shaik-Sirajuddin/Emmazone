@@ -23,12 +23,12 @@
 
             <ImageView
                 android:id="@+id/image_arrowback"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="36dp"
                 android:src="@drawable/arroww"
-                android:padding="10dp"
+                android:padding="8dp"
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
                 app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
 
@@ -134,6 +134,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/login_bg"
             android:maxLines="1"
+            android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvShopName"
             app:layout_constraintStart_toStartOf="@+id/tvShopName"
             app:layout_constraintTop_toBottomOf="@+id/tvShopName" />
@@ -159,6 +160,7 @@
             android:background="@drawable/login_bg"
             android:inputType="number"
             android:maxLines="1"
+            android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvYearFoundation"
             app:layout_constraintStart_toStartOf="@+id/tvYearFoundation"
             app:layout_constraintTop_toBottomOf="@+id/tvYearFoundation" />
@@ -183,6 +185,7 @@
             android:layout_marginTop="@dimen/dp5"
             android:background="@drawable/login_bg"
             android:maxLines="1"
+            android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvAddress"
             app:layout_constraintStart_toStartOf="@+id/tvAddress"
             app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
@@ -206,9 +209,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/login_bg"
-            android:paddingStart="@dimen/dp5"
             android:textColorHint="@color/black"
             android:textSize="@dimen/sp15"
+            android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvDESC"
             app:layout_constraintStart_toStartOf="@+id/tvDESC"
             app:layout_constraintTop_toBottomOf="@+id/tvDESC" />

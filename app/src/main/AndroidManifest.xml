@@ -78,6 +78,7 @@
             android:name=".activities.main.OrderDetail"
             android:exported="true" />
         <activity
+            android:windowSoftInputMode="adjustResize"
             android:name=".activities.main.Message"
             android:exported="true" />
         <activity

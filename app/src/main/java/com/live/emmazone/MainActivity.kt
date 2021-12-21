@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.LoginActivity
@@ -81,11 +84,15 @@ class MainActivity : AppCompatActivity() {
     fun showLoginOption() {
 
         val dialog = Dialog(this)
-        val view = layoutInflater.inflate(R.layout.dialog_login, null)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setContentView(R.layout.dialog_login)
+        //dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.transparent))
 
-        val imgCross = view.findViewById<ImageView>(R.id.cross)
-        val btnSignUp = view.findViewById<Button>(R.id.btnSignUp)
-        val btnLogin = view.findViewById<Button>(R.id.btnLogin)
+        val imgCross = dialog.findViewById<ImageView>(R.id.cross)
+        val btnLogin = dialog.findViewById<Button>(R.id.btnLogin)
 
         imgCross.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -97,15 +104,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnSignUp.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
-
-        dialog.setCancelable(true)
-        dialog.setContentView(view)
         dialog.show()
-
     }
 }
 
