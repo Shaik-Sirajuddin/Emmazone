@@ -27,9 +27,9 @@ class PastSalesProviderFragment : Fragment() {
         val listChildRecycler = ArrayList<ModelOnGoingOrders>()
 
         listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
-            "03", "90.00€"))
+            "03", "90.00€",  status = "past"))
         listChildRecycler.add(ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
-            "03", "90.00€"))
+            "03", "90.00€"  ,status = "past"))
 
         list.add(
             ModelProviderNewSale("Order ID:", "PLU9540572", R.drawable.avtarr_girl,
@@ -43,7 +43,7 @@ class PastSalesProviderFragment : Fragment() {
 
         itemNew.add(
             ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03",
-                "90.00€")
+                "90.00€",status = "past" )
         )
 
         list.add(
@@ -58,7 +58,7 @@ class PastSalesProviderFragment : Fragment() {
 
         itemNew.add(
             ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe",
-                "03", "90.00€")
+                "03", "90.00€" ,status = "past")
         )
 
         list.add(

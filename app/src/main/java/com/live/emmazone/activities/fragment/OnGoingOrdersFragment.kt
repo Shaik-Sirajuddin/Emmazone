@@ -1,6 +1,5 @@
 package com.live.emmazone.activities.fragment
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -127,17 +126,17 @@ class OnGoingOrdersFragment : Fragment() {
         list.add(
             ModelOnGoingOrders(
                 R.drawable.shoes_square, "Brend Shoe",
-                "02", "90.00€"
+                "02", "90.00€", status = "ontheway"
             )
         )
         list.add(
             ModelOnGoingOrders(
                 R.drawable.winter, "Winter Sweeters",
-                "02", "30.00€"
+                "02", "30.00€", status = "ontheway"
             )
         )
 
-        recyclerView.adapter = AdapterOnGoingOrders(list)
+        recyclerView.adapter = context?.let { AdapterOnGoingOrders(it, list) }
 
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -146,11 +145,12 @@ class OnGoingOrdersFragment : Fragment() {
         listPickupCollectOrder.add(
             ModelOnGoingOrders(
                 R.drawable.shoes_square, "Brend Shoe",
-                "02", "30.00€"
+                "02", "30.00€", status = "pickupCollect"
             )
         )
 
-        recyclerViewPastOrders.adapter = AdapterOnGoPickCollect(listPickupCollectOrder)
+        recyclerViewPastOrders.adapter =
+            context?.let { AdapterOnGoPickCollect(it, listPickupCollectOrder) }
 
         return view
     }

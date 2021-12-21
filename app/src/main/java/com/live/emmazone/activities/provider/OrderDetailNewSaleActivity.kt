@@ -42,7 +42,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity() {
                 R.drawable.shoes_square,
                 "Brend Shoe",
                 "03",
-                "90.00€"
+                "90.00€", status = "null"
             )
         )
         listChildRecycler.add(
@@ -50,7 +50,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity() {
                 R.drawable.shoes_square,
                 "Brend Shoe",
                 "03",
-                "90.00€"
+                "90.00€", status = "null"
             )
         )
 
@@ -61,7 +61,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity() {
             )
         )
 
-        binding.rvOrderDetailNewSale.adapter = AdapterProvODNewSalesStatus(list)
+        binding.rvOrderDetailNewSale.adapter = AdapterProvODNewSalesStatus(this, list)
 
     }
 

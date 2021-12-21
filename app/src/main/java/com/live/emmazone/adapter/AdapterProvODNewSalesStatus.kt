@@ -1,5 +1,6 @@
 package com.live.emmazone.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.model.*
 
-class AdapterProvODNewSalesStatus(private val list: ArrayList<ModelNewSaleOrderDetail>) :
+class AdapterProvODNewSalesStatus(private val context : Context, private val list: ArrayList<ModelNewSaleOrderDetail>) :
     RecyclerView.Adapter<AdapterProvODNewSalesStatus.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +27,7 @@ class AdapterProvODNewSalesStatus(private val list: ArrayList<ModelNewSaleOrderD
         holder.imgStatus.setText(ModelNewSaleOrderDetail.tvUsername)
         holder.imgChat.setImageResource(ModelNewSaleOrderDetail.imgChat)
         holder.recyclerODChildNewSales.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
-        holder.recyclerODChildNewSales.adapter = AdapterOnGoingOrders(ModelNewSaleOrderDetail.list)
+        holder.recyclerODChildNewSales.adapter = AdapterOnGoingOrders(context, ModelNewSaleOrderDetail.list)
 
     }
 

@@ -33,13 +33,13 @@ class NewSalesProviderFragment : Fragment() {
         listChildRecycler.add(
             ModelOnGoingOrders(
                 R.drawable.shoes_square, "Brend Shoe",
-                "03", "90.00€"
+                "03", "90.00€",  status = "pending"
             )
         )
         listChildRecycler.add(
             ModelOnGoingOrders(
                 R.drawable.shoes_square, "Brend Shoe",
-                "03", "90.00€"
+                "03", "90.00€",  status = "pending"
             )
         )
 
@@ -61,7 +61,7 @@ class NewSalesProviderFragment : Fragment() {
         val items = ArrayList<ModelOnGoingOrders>()
 
         items.add(
-            ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€")
+            ModelOnGoingOrders(R.drawable.shoes_square, "Brend Shoe", "03", "90.00€",  status = "pending")
         )
 
         list.add(

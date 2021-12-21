@@ -46,25 +46,7 @@
                 app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="@+id/layoutMain" />
 
-            <ImageView
-                android:id="@+id/imgNotify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/notifications"
-                app:layout_constraintTop_toTopOf="@+id/image_cart"
-                app:layout_constraintBottom_toBottomOf="@+id/image_cart"
-                app:layout_constraintEnd_toStartOf="@+id/image_cart"
-              />
 
-            <ImageView
-                android:id="@+id/notifyRedBG"
-                android:layout_width="@dimen/dp10"
-                android:layout_height="@dimen/dp10"
-                android:background="@drawable/notification_red_color"
-                app:layout_constraintEnd_toStartOf="@+id/image_cart"
-                app:layout_constraintStart_toStartOf="@+id/imgNotify"
-                app:layout_constraintTop_toTopOf="@+id/imgNotify" />
 
 
             <ImageView
@@ -221,27 +203,42 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="@string/description"
+            android:text="@string/year_of_foundation"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp18"
+            app:layout_constraintTop_toBottomOf="@+id/tvDesc"
+            app:layout_constraintStart_toStartOf="@+id/tvDesc"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tvDistanceLayout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tvDistanceLayout"
-            app:layout_constraintTop_toBottomOf="@+id/tvDistanceLayout" />
+            app:layout_constraintEnd_toEndOf="@+id/tvDesc"
+           />
+
+        <TextView
+            android:id="@+id/tvShopFY"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Since 1997"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintTop_toBottomOf="@+id/tvShopFoundationYear"
+            app:layout_constraintStart_toStartOf="@+id/tvShopFoundationYear"
+            app:layout_constraintEnd_toEndOf="@+id/tvShopFoundationYear"
+            />
 
         <TextView
             android:id="@+id/tvShopDetailAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
             android:text="@string/address"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tvDesc"
-            app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+            app:layout_constraintTop_toBottomOf="@+id/tvShopFY"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/tvShopFY"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="455dp" />
 
         <ImageView
             android:id="@+id/imageAskExpert"
@@ -254,6 +251,8 @@
             app:layout_constraintStart_toEndOf="@+id/tvShopDetailAddress"
             app:layout_constraintTop_toTopOf="@+id/tvShopDetailAddress"
             app:layout_constraintVertical_bias="0.0" />
+
+
 
         <TextView
             android:id="@+id/tvShopAddress"

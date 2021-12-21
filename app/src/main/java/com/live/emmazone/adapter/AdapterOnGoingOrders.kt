@@ -1,5 +1,7 @@
 package com.live.emmazone.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.main.OrderDetail
+import com.live.emmazone.activities.main.ReservedDeliveredDetail
+import com.live.emmazone.activities.provider.OrderDetailDeliveredStatusActivity
+import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
+import com.live.emmazone.activities.provider.OrderDetailPendingActivity
+import com.live.emmazone.activities.provider.OrderDetailProOngoingActivity
 import com.live.emmazone.model.ModelOnGoingOrders
 
-class AdapterOnGoingOrders(private val list: ArrayList<ModelOnGoingOrders>) :
+class AdapterOnGoingOrders(private val context: Context, private val list: ArrayList<ModelOnGoingOrders>) :
     RecyclerView.Adapter<AdapterOnGoingOrders.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,6 +33,28 @@ class AdapterOnGoingOrders(private val list: ArrayList<ModelOnGoingOrders>) :
         holder.tvonGoingItemQuantity.setText(ModelOnGoingOrders.onGoingItemQuantity)
         holder.tvproductPrice.setText(ModelOnGoingOrders.productPrice)
 
+        holder.itemView.setOnClickListener {
+
+            when (ModelOnGoingOrders.status) {
+
+                "ontheway" -> {
+                    val intent = Intent(context, OrderDetail::class.java)
+                    context.startActivity(intent)
+                }
+
+                "pickupCollect" -> {
+                    val intent = Intent(context, ReservedDeliveredDetail::class.java)
+                    context.startActivity(intent)
+                }
+                "delivered" -> {
+                    val intent = Intent(context, OrderDetailDeliveredStatusActivity::class.java)
+                    context.startActivity(intent)
+                }
+                else -> {
+                    // do nothing
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int {

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.EditShopDetailActivity
 import com.live.emmazone.adapter.AdapterProShopProducts
 import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
@@ -30,6 +31,13 @@ class FragmentProviderHome  : Fragment(){
         val rv : RecyclerView = view.findViewById(R.id.recyclerProviderShopDetailCategory)
         val rv1 : RecyclerView = view.findViewById(R.id.recyclerProviderSDProducts)
         val imgEdit : ImageView = view.findViewById(R.id.image_editShop)
+        val imgNotify : ImageView = view.findViewById(R.id.imgNotify)
+
+        imgNotify.setOnClickListener {
+            val intent = Intent(activity, Notifications::class.java)
+            startActivity(intent)
+        }
+
 
         imgEdit.setOnClickListener {
             val intent = Intent(activity, EditShopDetailActivity::class.java)

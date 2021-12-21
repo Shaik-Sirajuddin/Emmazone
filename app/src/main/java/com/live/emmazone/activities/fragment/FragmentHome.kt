@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
+import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.main.*
+import com.live.emmazone.utils.helper.getProfileType
 
 class FragmentHome : Fragment() {
 
@@ -23,6 +27,17 @@ class FragmentHome : Fragment() {
         val itemImageHome = view.findViewById<ImageView>(R.id.itemImageHome)
         val ratingBar = view.findViewById<ImageView>(R.id.ratingBarWishList)
         val cart = view.findViewById<ImageView>(R.id.cart)
+        val btnClickHereHome = view.findViewById<Button>(R.id.btnClickHereHome)
+        val tvUserName = view.findViewById<TextView>(R.id.tvUserName)
+
+        if (getProfileType() == "guest"){
+            tvUserName.setText("Guest")
+        }
+
+        btnClickHereHome.setOnClickListener {
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         cart.setOnClickListener {
             val intent = Intent(activity, Cart::class.java)

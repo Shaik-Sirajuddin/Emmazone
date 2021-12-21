@@ -34,13 +34,13 @@ class OrderDetailProOngoingActivity : AppCompatActivity() {
         listChildRecycler.add(
             ModelOnGoingOrders(
                 R.drawable.shoes_square, "Brend Shoe",
-                "03", "90.00€"
+                "03", "90.00€",status = ""
             )
         )
         listChildRecycler.add(
             ModelOnGoingOrders(
                 R.drawable.shoes_square, "Brend Shoe",
-                "03", "90.00€"
+                "03", "90.00€",status = ""
             )
         )
 
@@ -52,7 +52,7 @@ class OrderDetailProOngoingActivity : AppCompatActivity() {
             )
         )
 
-        binding.rvOrderDetailOnGoing.adapter = AdapterProvODNewSalesStatus(list)
+        binding.rvOrderDetailOnGoing.adapter = AdapterProvODNewSalesStatus(this, list)
 
     }
 

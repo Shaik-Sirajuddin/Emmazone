@@ -1,20 +1,22 @@
 package com.live.emmazone.activities.provider
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.Window
+import android.view.*
 import android.widget.Button
+import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
@@ -34,6 +36,7 @@ class AddNewProductActivity : AppCompatActivity() {
 
     private var isMainPhoto = true
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
@@ -43,7 +46,12 @@ class AddNewProductActivity : AppCompatActivity() {
 
         initListener()
         initAdapter()
+
+        binding.tvInfo.setOnClickListener {
+            showPopup(binding.tvInfo)
+        }
     }
+
 
     private fun initAdapter() {
 
@@ -196,5 +204,22 @@ class AddNewProductActivity : AppCompatActivity() {
             null
         )
         return Uri.parse(path)
+    }
+
+    private fun showPopup(view: View) {
+        val popup = PopupMenu(this, view)
+        popup.inflate(R.menu.popup_menu)
+
+//        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
+//
+//            when (item!!.itemId) {
+//                R.id.header1 -> {
+//                   // Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//            true
+//        })
+
+        popup.show()
     }
 }

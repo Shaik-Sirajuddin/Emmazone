@@ -1,15 +1,19 @@
 package com.live.emmazone.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.main.ReservedDeliveredDetail
 import com.live.emmazone.model.*
 
-class AdapterOnGoPickCollect(private val list: ArrayList<ModelOnGoingOrders>):
+class AdapterOnGoPickCollect(private val context: Context, private val list: ArrayList<ModelOnGoingOrders>):
     RecyclerView.Adapter<AdapterOnGoPickCollect.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,6 +27,11 @@ class AdapterOnGoPickCollect(private val list: ArrayList<ModelOnGoingOrders>):
       holder.tvonGoingItemName.setText(ModelOnGoingOrders.onGoingItemName)
         holder.tvonGoingItemQuantity.setText(ModelOnGoingOrders.onGoingItemQuantity)
         holder.tvproductPrice.setText(ModelOnGoingOrders.productPrice)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, ReservedDeliveredDetail::class.java)
+            context.startActivity(intent)
+        }
 
     }
 

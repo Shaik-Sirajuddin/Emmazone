@@ -40,7 +40,7 @@ class AdapterProviderNewSales(
         holder.imgStatus.setImageResource(model.imgStatus)
 
         holder.recyclerChildNewsale.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
-        holder.recyclerChildNewsale.adapter = AdapterOnGoingOrders(model.list)
+        holder.recyclerChildNewsale.adapter = AdapterOnGoingOrders(context, model.list)
         holder.recyclerChildNewsale.isNestedScrollingEnabled = false
 
         holder.itemView.setOnClickListener {
