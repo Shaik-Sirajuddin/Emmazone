@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_item"
+    android:layout_width="@dimen/_200sdp"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:fontFamily="@font/average"
+    android:paddingHorizontal="@dimen/_10sdp"
+    android:paddingVertical="@dimen/_8sdp"
+    android:text="@string/long_text"
+    android:textColor="@color/white"
+    android:textSize="10sp" />

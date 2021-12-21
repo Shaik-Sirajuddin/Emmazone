@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.listeners.OnActionListenerNew
 import com.live.emmazone.activities.provider.OrderDetailDeliveredStatusActivity
 import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
 import com.live.emmazone.activities.provider.OrderDetailPendingActivity
@@ -39,36 +40,46 @@ class AdapterProviderNewSales(
         holder.imageSales.setImageResource(model.imageSales)
         holder.imgStatus.setImageResource(model.imgStatus)
 
-        holder.recyclerChildNewsale.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
-        holder.recyclerChildNewsale.adapter = AdapterOnGoingOrders(context, model.list)
+        val onActionListenerNew = object : OnActionListenerNew {
+            override fun notifyOnClick() {
+                openDetailScreen(model, holder.adapterPosition)
+            }
+        }
+
+        holder.recyclerChildNewsale.layoutManager =
+            LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
+        holder.recyclerChildNewsale.adapter =
+            AdapterOnGoingOrders(context, model.list, onActionListenerNew)
         holder.recyclerChildNewsale.isNestedScrollingEnabled = false
 
         holder.itemView.setOnClickListener {
-            when (model.status) {
-                "pending" -> {
-                    if (position == 0) {
-                        val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
-                        context.startActivity(intent)
-                    } else if (position == 1) {
-                        val intent = Intent(context, OrderDetailPendingActivity::class.java)
-                        context.startActivity(intent)
-                    }
-                }
-                "ongoing" -> {
-                    val intent = Intent(context, OrderDetailProOngoingActivity::class.java)
+            openDetailScreen(model, holder.adapterPosition)
+        }
+    }
+
+    private fun openDetailScreen(model: ModelProviderNewSale, position: Int) {
+        when (model.status) {
+            "pending" -> {
+                if (position == 0) {
+                    val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
                     context.startActivity(intent)
-                }
-                "past" -> {
-                    val intent = Intent(context, OrderDetailDeliveredStatusActivity::class.java)
+                } else if (position == 1) {
+                    val intent = Intent(context, OrderDetailPendingActivity::class.java)
                     context.startActivity(intent)
-                }
-                else -> {
-                    // do nothing
                 }
             }
-
+            "ongoing" -> {
+                val intent = Intent(context, OrderDetailProOngoingActivity::class.java)
+                context.startActivity(intent)
+            }
+            "past" -> {
+                val intent = Intent(context, OrderDetailDeliveredStatusActivity::class.java)
+                context.startActivity(intent)
+            }
+            else -> {
+                // do nothing
+            }
         }
-
     }
 
 //    private fun openScreen(model: ModelProviderNewSale) {
