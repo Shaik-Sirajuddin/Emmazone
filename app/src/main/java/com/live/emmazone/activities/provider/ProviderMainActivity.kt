@@ -9,7 +9,7 @@ import com.live.emmazone.activities.fragment.*
 import com.live.emmazone.databinding.ActivityProviderMainBinding
 
 class ProviderMainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityProviderMainBinding
+    lateinit var binding: ActivityProviderMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class ProviderMainActivity : AppCompatActivity() {
         //   binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.addProduct -> {
                     loadFragment(FragmentProviderAddProduct())
                     return@setOnNavigationItemSelectedListener true
@@ -43,6 +43,7 @@ class ProviderMainActivity : AppCompatActivity() {
             false
         }
     }
+
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentProviderContainer, fragment)
@@ -50,4 +51,7 @@ class ProviderMainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 }

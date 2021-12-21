@@ -206,7 +206,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/login_bg"
-            android:maxLines="1"
             android:paddingStart="@dimen/dp5"
             android:textColorHint="@color/black"
             android:textSize="@dimen/sp15"

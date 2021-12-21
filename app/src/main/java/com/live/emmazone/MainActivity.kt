@@ -10,7 +10,7 @@ import com.live.emmazone.activities.fragment.FragmentWishList
 import com.live.emmazone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.itemIconTintList = null
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.wishList -> {
                     loadFragment(FragmentWishList())
                 }
@@ -35,18 +35,22 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.home -> {
                     loadFragment(FragmentHome())
-                 //   binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(R.drawable.home_selected)
+                    //   binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(R.drawable.home_selected)
                 }
             }
 
             true
         }
     }
+
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, fragment)
-     //   transaction.addToBackStack(null)
+        //   transaction.addToBackStack(null)
         transaction.commit()
     }
 
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 }

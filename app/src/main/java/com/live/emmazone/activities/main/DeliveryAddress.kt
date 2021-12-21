@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.AddNewAddress
+import com.live.emmazone.activities.listeners.OnActionListener
 import com.live.emmazone.adapter.AdapterDeliveryAddress
 import com.live.emmazone.databinding.ActivityDeliveryAddressBinding
 import com.live.emmazone.model.ModelDeliveryAddress
 
 class DeliveryAddress : AppCompatActivity() {
-    lateinit var binding : ActivityDeliveryAddressBinding
+    lateinit var binding: ActivityDeliveryAddressBinding
 
     var list = ArrayList<ModelDeliveryAddress>()
     lateinit var adapter: AdapterDeliveryAddress
@@ -40,13 +41,35 @@ class DeliveryAddress : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        list.add(ModelDeliveryAddress("John Marker",
-            "260-C North EI Camino Real"))
-        list.add(ModelDeliveryAddress("Jackson",
-            "1186 Roseville pkwy"))
-        list.add(ModelDeliveryAddress("John Marker",
-            "260-C North EI Camino Real"))
+        list.add(
+            ModelDeliveryAddress(
+                "John Marker",
+                "260-C North EI Camino Real", isSelected = true
+            )
+        )
+        list.add(
+            ModelDeliveryAddress(
+                "Jackson",
+                "1186 Roseville pkwy"
+            )
+        )
+        list.add(
+            ModelDeliveryAddress(
+                "John Marker",
+                "260-C North EI Camino Real"
+            )
+        )
 
-        recyclerView.adapter = AdapterDeliveryAddress(list)
+        val onActionListener = object : OnActionListener<ModelDeliveryAddress> {
+            override fun notify(model: ModelDeliveryAddress, position: Int) {
+                for ((i, item) in list.withIndex()) {
+                    item.isSelected = (position == i)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+        }
+
+        adapter = AdapterDeliveryAddress(list, onActionListener)
+        recyclerView.adapter = adapter
     }
 }

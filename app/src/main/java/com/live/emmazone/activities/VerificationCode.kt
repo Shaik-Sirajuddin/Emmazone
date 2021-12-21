@@ -10,17 +10,20 @@ import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.SignUpActivity
+import com.live.emmazone.activities.provider.AddShopDetailActivity
 import com.live.emmazone.databinding.ActivityVerificationCodeBinding
+import com.live.emmazone.utils.Constants
+import com.live.emmazone.utils.helper.getProfileType
 
 class VerificationCode : AppCompatActivity() {
-    lateinit var binding : ActivityVerificationCodeBinding
+    lateinit var binding: ActivityVerificationCodeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVerificationCodeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        binding.otpField1.addTextChangedListener(object : TextWatcher{
+        binding.otpField1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -38,7 +41,7 @@ class VerificationCode : AppCompatActivity() {
             }
         })
 
-        binding.otpField2.addTextChangedListener(object : TextWatcher{
+        binding.otpField2.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -47,8 +50,8 @@ class VerificationCode : AppCompatActivity() {
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0 != null) {
-                    if (p0.length>0){
-                     binding.otpField2.clearFocus()
+                    if (p0.length > 0) {
+                        binding.otpField2.clearFocus()
                         binding.otpField3.requestFocus()
                         binding.otpField3.setCursorVisible(true)
                     }
@@ -57,7 +60,7 @@ class VerificationCode : AppCompatActivity() {
 
         })
 
-        binding.otpField3.addTextChangedListener(object : TextWatcher{
+        binding.otpField3.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -66,7 +69,7 @@ class VerificationCode : AppCompatActivity() {
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0 != null) {
-                    if (p0.length>0){
+                    if (p0.length > 0) {
                         binding.otpField3.clearFocus()
                         binding.otpField4.requestFocus()
                         binding.otpField4.setCursorVisible(true)
@@ -81,8 +84,13 @@ class VerificationCode : AppCompatActivity() {
         }
 
         binding.btnSubmit.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            finish()
+
+            if (getProfileType() == Constants.SELLER) {
+                startActivity(Intent(this, AddShopDetailActivity::class.java))
+            } else {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
         }
 
     }

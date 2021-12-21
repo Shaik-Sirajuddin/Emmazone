@@ -1,57 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-<ImageView
-    android:layout_width="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_280sdp"
     android:layout_height="wrap_content"
-    android:id="@+id/tick"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    android:src="@drawable/tick"
-    android:layout_marginTop="@dimen/dp20"
-    app:layout_constraintEnd_toEndOf="parent"
-    />
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/tick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp20"
+        android:src="@drawable/tick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/thankYou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/completed"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/tick"
         android:layout_marginTop="@dimen/dp10"
-        app:layout_constraintStart_toStartOf="@+id/tick"
-        app:layout_constraintEnd_toEndOf="@+id/tick"
+        android:text="@string/completed"
         android:textColor="@color/black"
         android:textSize="@dimen/sp20"
-        />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tick"
+        app:layout_constraintStart_toStartOf="@+id/tick"
+        app:layout_constraintTop_toBottomOf="@+id/tick" />
+
     <TextView
         android:id="@+id/orderPlaced"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your profile has been Completed"
-        app:layout_constraintTop_toBottomOf="@+id/thankYou"
         android:layout_marginTop="@dimen/dp10"
-        app:layout_constraintStart_toStartOf="@+id/tick"
-        app:layout_constraintEnd_toEndOf="@+id/tick"
+        android:text="Your profile has been Completed"
         android:textColor="@color/light_black"
         android:textSize="@dimen/sp15"
-        />
+        app:layout_constraintEnd_toEndOf="@+id/tick"
+        app:layout_constraintStart_toStartOf="@+id/tick"
+        app:layout_constraintTop_toBottomOf="@+id/thankYou" />
+
     <TextView
         android:id="@+id/successfully"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/successfully"
-        app:layout_constraintTop_toBottomOf="@+id/orderPlaced"
-        app:layout_constraintStart_toStartOf="@+id/orderPlaced"
-        app:layout_constraintEnd_toEndOf="@+id/orderPlaced"
         android:textColor="@color/light_black"
         android:textSize="@dimen/sp15"
-        />
+        app:layout_constraintEnd_toEndOf="@+id/orderPlaced"
+        app:layout_constraintStart_toStartOf="@+id/orderPlaced"
+        app:layout_constraintTop_toBottomOf="@+id/orderPlaced" />
 
     <android.widget.Button
         android:id="@+id/ok"

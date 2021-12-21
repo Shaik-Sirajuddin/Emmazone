@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_profile"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_profile"
     tools:context=".activities.main.BottomSheetDialog">
 
     <TextView
@@ -24,11 +23,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvDeliveryTime"
+        android:id="@+id/tvDeliveryDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp20"
-        android:text="@string/_13_june_2021_07_00_pm"
+        android:text="13 June 2021"
         android:textColor="@color/green"
         android:textSize="@dimen/sp15"
         android:textStyle="bold"
@@ -44,9 +43,11 @@
         android:text="@string/Change"
         android:textColor="@color/green"
         android:textSize="@dimen/sp15"
-
+        app:layout_constraintBottom_toBottomOf="@+id/tvDeliveryDate"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="64dp" />
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@+id/tvDeliveryDate"
+        app:layout_constraintTop_toTopOf="@+id/tvDeliveryDate" />
 
     <TextView
         android:id="@+id/tvDeliveryAddress"
@@ -59,8 +60,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvDeliveryTime"
-        app:layout_constraintTop_toBottomOf="@+id/tvDeliveryTime" />
+        app:layout_constraintStart_toStartOf="@+id/tvDeliveryDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvDeliveryDate" />
 
     <TextView
         android:id="@+id/tvOrderPersonName"
@@ -164,32 +165,32 @@
         android:id="@+id/cardOrderDeatil"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginEnd="16dp"
         android:elevation="@dimen/dp8"
         app:cardCornerRadius="@dimen/dp8"
-        android:layout_marginTop="@dimen/dp16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintTop_toBottomOf="@+id/paymentMethodLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardLayout"
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/dp8"
+            android:layout_height="match_parent"
             android:paddingTop="@dimen/dp8"
-            android:layout_height="match_parent">
+            android:paddingBottom="@dimen/dp8">
 
             <TextView
                 android:id="@+id/tvPriceDetails"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/dp5"
                 android:text="@string/price_details"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp18"
                 android:textStyle="bold"
-                android:layout_marginTop="@dimen/dp5"
                 app:layout_constraintEnd_toEndOf="@+id/cardLayout"
                 app:layout_constraintStart_toStartOf="@+id/cardLayout"
                 app:layout_constraintTop_toTopOf="@+id/cardLayout" />
@@ -209,8 +210,8 @@
                     android:id="@+id/tvItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/item"
                     android:layout_marginStart="@dimen/dp2"
+                    android:text="@string/item"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/sp12" />
 
@@ -239,9 +240,9 @@
                     android:id="@+id/tvSubTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
                     android:layout_weight="1"
                     android:text="@string/sub_total"
-                    android:layout_marginStart="@dimen/dp5"
                     android:textColor="@color/light_black" />
 
                 <TextView
@@ -298,9 +299,9 @@
                     android:id="@+id/tvTax"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
                     android:layout_weight="1"
                     android:text="@string/tax"
-                    android:layout_marginStart="@dimen/dp5"
                     android:textColor="@color/light_black" />
 
                 <TextView
@@ -328,8 +329,8 @@
                     android:id="@+id/tvTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="@dimen/dp5"
+                    android:layout_weight="1"
                     android:text="@string/total"
                     android:textColor="@color/light_black" />
 
@@ -350,12 +351,12 @@
     <android.widget.Button
         android:id="@+id/btnBuy"
         android:layout_width="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/cardOrderDeatil"
-        app:layout_constraintStart_toStartOf="@+id/cardOrderDeatil"
-        app:layout_constraintEnd_toEndOf="@+id/cardOrderDeatil"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:background="@drawable/buy"
+        app:layout_constraintEnd_toEndOf="@+id/cardOrderDeatil"
+        app:layout_constraintStart_toStartOf="@+id/cardOrderDeatil"
+        app:layout_constraintTop_toBottomOf="@+id/cardOrderDeatil"
         tools:layout_editor_absoluteX="103dp" />
 
 
@@ -363,25 +364,24 @@
         android:id="@+id/btnTerms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/terms_conditions"
-        android:textStyle="bold"
-        android:textSize="@dimen/dp16"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/btnBuy"
-        app:layout_constraintStart_toStartOf="@+id/btnBuy"
-        app:layout_constraintEnd_toEndOf="@+id/btnBuy"
         android:layout_marginTop="8dp"
-        />
+        android:text="@string/terms_conditions"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dp16"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/btnBuy"
+        app:layout_constraintStart_toStartOf="@+id/btnBuy"
+        app:layout_constraintTop_toBottomOf="@+id/btnBuy" />
+
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/btnTerms"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/dp16"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintStart_toStartOf="@+id/btnTerms"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnTerms"
-        />
+        app:layout_constraintStart_toStartOf="@+id/btnTerms"
+        app:layout_constraintTop_toBottomOf="@+id/btnTerms"
+        app:layout_constraintVertical_bias="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

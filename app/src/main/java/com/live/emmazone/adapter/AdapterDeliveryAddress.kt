@@ -7,32 +7,43 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.listeners.OnActionListener
+import com.live.emmazone.databinding.ItemDeliveryAddressBinding
 import com.live.emmazone.model.ModelDeliveryAddress
 
-class AdapterDeliveryAddress(private val list: ArrayList<ModelDeliveryAddress>) :
+class AdapterDeliveryAddress(
+    private val list: ArrayList<ModelDeliveryAddress>,
+    private var onActionListener: OnActionListener<ModelDeliveryAddress>
+) :
     RecyclerView.Adapter<AdapterDeliveryAddress.ViewHolder>() {
 
+    private var selectedIndex = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      val view = LayoutInflater.from(parent.context).inflate(R.layout.item_delivery_address, parent, false)
-        return ViewHolder(view)
+        val binding =
+            ItemDeliveryAddressBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val ModelDeliveryAddress = list[position]
-        holder.tvOrderPerson.setText(ModelDeliveryAddress.tvOrderPersonName)
-        holder.tvDeliveryAddress.setText(ModelDeliveryAddress.tvOrderDeliveryAddress)
+        val model = list[position]
+        with(holder.binding) {
+            tvOrderPersonName.text = model.tvOrderPersonName
+            tvOrderDeliveryAddress.text = model.tvOrderDeliveryAddress
+
+            radioBtnDeliveryAdrs.isChecked = model.isSelected
+            radioBtnDeliveryAdrs.isClickable = false
+
+            layoutItemDeliveryAdrs.setOnClickListener {
+                onActionListener.notify(model, holder.adapterPosition)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val tvOrderPerson = itemView.findViewById<TextView>(R.id.tvOrderPersonName)
-        val tvDeliveryAddress = itemView.findViewById<TextView>(R.id.tvOrderDeliveryAddress)
-        //val radioButtonDeliveryAdrs = itemView.findViewById<RadioButton>(R.id.radioBtnDeliveryAdrs)
-
-    }
-
+    class ViewHolder(val binding: ItemDeliveryAddressBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

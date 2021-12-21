@@ -180,7 +180,7 @@
             android:layout_marginTop="@dimen/dp5"
             android:autofillHints="false"
             android:background="@drawable/login_bg"
-            android:inputType="text"
+            android:inputType="number"
             android:maxLines="1"
             app:layout_constraintEnd_toEndOf="@+id/tvProcutPrice"
             app:layout_constraintStart_toStartOf="@+id/tvProcutPrice"

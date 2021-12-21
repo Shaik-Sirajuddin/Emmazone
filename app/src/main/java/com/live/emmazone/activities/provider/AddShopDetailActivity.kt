@@ -15,13 +15,14 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityAddShopDetailBinding
 import com.live.emmazone.utils.ToastUtils
 import com.permissionx.guolindev.PermissionX
 
 class AddShopDetailActivity : AppCompatActivity() {
-    lateinit var binding : ActivityAddShopDetailBinding
+    lateinit var binding: ActivityAddShopDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,25 +33,33 @@ class AddShopDetailActivity : AppCompatActivity() {
             mainImageLayout.setOnClickListener { optionsDialog() }
         }
 
-      binding.imageArrowback.setOnClickListener {
-          onBackPressed()
-      }
+        binding.imageArrowback.setOnClickListener {
+            onBackPressed()
+        }
 
         binding.btnDone.setOnClickListener {
+
             val dialog = Dialog(this)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(false)
-            dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-             WindowManager.LayoutParams.WRAP_CONTENT)
             dialog.setContentView(R.layout.dialog_profile_completed)
-            dialog.window?.setBackgroundDrawable(
-                ContextCompat.getDrawable(this, android.R.color.transparent))
 
-          val ok = dialog.findViewById<Button>(R.id.ok)
+            dialog.window?.setLayout(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
+            dialog.window?.setBackgroundDrawable(
+                ContextCompat.getDrawable(this, android.R.color.transparent)
+            )
+
+            val ok = dialog.findViewById<Button>(R.id.ok)
 
             ok.setOnClickListener {
+                startActivity(Intent(this, ProviderMainActivity::class.java))
                 dialog.dismiss()
             }
+
+            dialog.show()
         }
     }
 
@@ -60,7 +69,8 @@ class AddShopDetailActivity : AppCompatActivity() {
         dialog.setCancelable(true)
         dialog.setCanceledOnTouchOutside(true)
         dialog.window?.setBackgroundDrawable(
-            ContextCompat.getDrawable(this, android.R.color.transparent))
+            ContextCompat.getDrawable(this, android.R.color.transparent)
+        )
         dialog.setContentView(R.layout.dialog_select_photo)
 
         val tvCamera: TextView? = dialog.findViewById(R.id.tv_camera)

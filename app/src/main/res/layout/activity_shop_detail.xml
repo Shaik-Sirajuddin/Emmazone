@@ -47,6 +47,27 @@
                 app:layout_constraintTop_toTopOf="@+id/layoutMain" />
 
             <ImageView
+                android:id="@+id/imgNotify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/notifications"
+                app:layout_constraintTop_toTopOf="@+id/image_cart"
+                app:layout_constraintBottom_toBottomOf="@+id/image_cart"
+                app:layout_constraintEnd_toStartOf="@+id/image_cart"
+              />
+
+            <ImageView
+                android:id="@+id/notifyRedBG"
+                android:layout_width="@dimen/dp10"
+                android:layout_height="@dimen/dp10"
+                android:background="@drawable/notification_red_color"
+                app:layout_constraintEnd_toStartOf="@+id/image_cart"
+                app:layout_constraintStart_toStartOf="@+id/imgNotify"
+                app:layout_constraintTop_toTopOf="@+id/imgNotify" />
+
+
+            <ImageView
                 android:id="@+id/image_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -193,6 +214,21 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailDesc"
             app:layout_constraintTop_toBottomOf="@+id/tvShopDetailDesc" />
+
+        <TextView
+            android:id="@+id/tvShopFoundationYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="@string/description"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tvDistanceLayout"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvDistanceLayout"
+            app:layout_constraintTop_toBottomOf="@+id/tvDistanceLayout" />
 
         <TextView
             android:id="@+id/tvShopDetailAddress"

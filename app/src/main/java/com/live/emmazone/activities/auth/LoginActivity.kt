@@ -7,7 +7,11 @@ import android.text.Html
 import android.view.WindowManager
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
+import com.live.emmazone.activities.provider.AddShopDetailActivity
+import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.databinding.ActivityLoginBinding
+import com.live.emmazone.utils.Constants
+import com.live.emmazone.utils.helper.getProfileType
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,8 +28,12 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnSignIn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+
+            if (getProfileType() == Constants.SELLER) {
+                startActivity(Intent(this, ProviderMainActivity::class.java))
+            } else {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
         }
         binding.tvCreateAccount.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)

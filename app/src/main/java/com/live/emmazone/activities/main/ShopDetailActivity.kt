@@ -24,6 +24,11 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         binding = ActivityShopDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imgNotify.setOnClickListener {
+            val intent = Intent(this, Notifications::class.java)
+            startActivity(intent)
+        }
+
         binding.back.setOnClickListener {
             onBackPressed()
         }

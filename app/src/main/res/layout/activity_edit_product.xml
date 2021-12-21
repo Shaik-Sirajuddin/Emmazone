@@ -184,6 +184,7 @@
             android:background="@drawable/login_bg"
             android:hint="$30.00"
             android:maxLines="1"
+            android:inputType="number"
             android:paddingStart="@dimen/dp8"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/tvProcutPrice"
