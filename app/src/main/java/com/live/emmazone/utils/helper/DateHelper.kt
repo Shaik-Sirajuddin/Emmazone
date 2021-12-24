@@ -10,7 +10,7 @@ object DateHelper {
     fun getDate(dayOfMonth: Int, monthOfYear: Int, year: Int): Date? {
         val calendar = Calendar.getInstance()
         calendar[Calendar.YEAR] = year
-        calendar[Calendar.MONTH] = (monthOfYear + 1)
+        calendar[Calendar.MONTH] = monthOfYear
         calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
         return calendar.time
     }
@@ -34,7 +34,7 @@ object DateHelper {
         calendar[Calendar.YEAR] = cal1[Calendar.YEAR]
         calendar[Calendar.MONTH] = cal1[Calendar.MONTH]
         calendar[Calendar.DAY_OF_MONTH] = cal1[Calendar.DAY_OF_MONTH]
-        calendar[Calendar.HOUR] = cal2[Calendar.HOUR_OF_DAY]
+        calendar[Calendar.HOUR_OF_DAY] = cal2[Calendar.HOUR_OF_DAY]
         calendar[Calendar.MINUTE] = cal2[Calendar.MINUTE]
         calendar[Calendar.SECOND] = 0
         return calendar.time

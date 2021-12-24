@@ -2,27 +2,18 @@ package com.live.emmazone
 
 import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.LoginActivity
-import com.live.emmazone.activities.auth.SignUpActivity
-import com.live.emmazone.activities.fragment.FragmentMyOrders
 import com.live.emmazone.activities.fragment.FragmentAccount
 import com.live.emmazone.activities.fragment.FragmentHome
+import com.live.emmazone.activities.fragment.FragmentMyOrders
 import com.live.emmazone.activities.fragment.FragmentWishList
-import com.live.emmazone.activities.main.DeliveryAddress
-import com.live.emmazone.activities.main.PaymentMethod
 import com.live.emmazone.databinding.ActivityMainBinding
 import com.live.emmazone.utils.helper.getProfileType
 
@@ -43,20 +34,20 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.wishList -> {
                     if (getProfileType() == "guest") {
-                        showLoginOption()
+                        showLoginDialog()
                     } else
                         loadFragment(FragmentWishList())
                 }
                 R.id.myOrders -> {
                     if (getProfileType() == "guest") {
-                        showLoginOption()
+                        showLoginDialog()
                     } else
                         loadFragment(FragmentMyOrders())
                 }
 
                 R.id.account -> {
                     if (getProfileType() == "guest") {
-                        showLoginOption()
+                        showLoginDialog()
                     } else
                         loadFragment(FragmentAccount())
                 }
@@ -81,13 +72,14 @@ class MainActivity : AppCompatActivity() {
         finishAffinity()
     }
 
-    fun showLoginOption() {
-
+    fun showLoginDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(false)
         dialog.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT,
+        )
         dialog.setContentView(R.layout.dialog_login)
         //dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.transparent))
 
@@ -95,15 +87,12 @@ class MainActivity : AppCompatActivity() {
         val btnLogin = dialog.findViewById<Button>(R.id.btnLogin)
 
         imgCross.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            dialog.dismiss()
         }
 
         btnLogin.setOnClickListener {
             dialog.dismiss()
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-
+            startActivity(Intent(this, LoginActivity::class.java))
         }
 
         dialog.show()

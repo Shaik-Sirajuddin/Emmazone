@@ -3,26 +3,27 @@ package com.live.emmazone.activities.main
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.live.emmazone.MainActivity
 import com.live.emmazone.R
-import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.activities.TermsCondition
+import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.adapter.AdapterCart
 import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivityCartBinding
-import com.live.emmazone.utils.helper.DateHelper
 import com.live.emmazone.model.ModelCart
 import com.live.emmazone.model.ModelShopDetailProducts
+import com.live.emmazone.utils.Constants
+import com.live.emmazone.utils.helper.DateHelper
+import com.live.emmazone.utils.helper.getProfileType
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,7 +32,7 @@ class Cart : AppCompatActivity(), OnItemClick {
     lateinit var adapter: AdapterCart
     val list = ArrayList<ModelCart>()
     val listMayLike = ArrayList<ModelShopDetailProducts>()
-    private var eventDate: Date? = null
+    private var selectedDate: Date? = null
     var tvDeliveryDate: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,61 +44,7 @@ class Cart : AppCompatActivity(), OnItemClick {
             onBackPressed()
         }
 
-        binding.btnBuyNow.setOnClickListener {
-            val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
-            val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
-
-            val tvChangeDeliveryAdd = view.findViewById<TextView>(R.id.tvChange)
-            val tvChangePaymentMethod = view.findViewById<TextView>(R.id.tvPaymentMethodChange)
-            val tvChangeDateTime = view.findViewById<TextView>(R.id.tvChangeDateTime)
-            tvDeliveryDate = view.findViewById<TextView>(R.id.tvDeliveryDate)
-            val tvTerms = view.findViewById<TextView>(R.id.btnTerms)
-            val buy = view.findViewById<TextView>(R.id.btnBuy)
-
-            tvTerms.setOnClickListener {
-                val intent = Intent(this, TermsCondition::class.java)
-                startActivity(intent)
-            }
-
-            buy.setOnClickListener {
-                val alertDialog = AlertDialog.Builder(this)
-                val factory = LayoutInflater.from(this)
-                val view: View = factory.inflate(R.layout.dialog_order_placed, null)
-
-                val dialogOrderPlaced = view.findViewById<Button>(R.id.done)
-
-                dialogOrderPlaced.setOnClickListener {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                }
-
-                alertDialog.setView(view)
-                alertDialog.show()
-                alertDialog.setCancelable(true)
-
-            }
-
-            tvChangeDateTime.setOnClickListener {
-
-                openDateTimerPicker()
-            }
-
-
-            tvChangeDeliveryAdd.setOnClickListener {
-                val intent = Intent(this, DeliveryAddress::class.java)
-                startActivity(intent)
-            }
-
-            tvChangePaymentMethod.setOnClickListener {
-                val intent = Intent(this, PaymentMethod::class.java)
-                startActivity(intent)
-            }
-
-            dialog.setCancelable(true)
-            dialog.setContentView(view)
-            dialog.show()
-
-        }
+        binding.btnBuyNow.setOnClickListener { showBottomDialog() }
 
         binding.recyclerCart.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -153,11 +100,60 @@ class Cart : AppCompatActivity(), OnItemClick {
         TODO("Not yet implemented")
     }
 
-    private fun openDateTimerPicker() {
+    private fun showBottomDialog() {
+        val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
+        val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
 
+        tvDeliveryDate = view.findViewById(R.id.tvDeliveryDate)
+        val tvChangeDateTime = view.findViewById<TextView>(R.id.tvChangeDateTime)
+        val tvChangeDeliveryAdd = view.findViewById<TextView>(R.id.tvChange)
+        val tvChangePaymentMethod = view.findViewById<TextView>(R.id.tvPaymentMethodChange)
+        val tvTerms = view.findViewById<TextView>(R.id.btnTerms)
+        val buy = view.findViewById<TextView>(R.id.btnBuy)
+
+        tvDeliveryDate?.text = DateHelper.getFormattedDate(Date())
+
+        tvChangeDateTime.setOnClickListener { openDateTimerPicker() }
+
+        tvTerms.setOnClickListener {
+            val intent = Intent(this, TermsCondition::class.java)
+            startActivity(intent)
+        }
+        buy.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(this)
+            val factory = LayoutInflater.from(this)
+            val view: View = factory.inflate(R.layout.dialog_order_placed, null)
+
+            val dialogOrderPlaced = view.findViewById<Button>(R.id.done)
+
+            dialogOrderPlaced.setOnClickListener {
+                onBackPressed()
+            }
+            alertDialog.setCancelable(true)
+
+            alertDialog.setView(view)
+            alertDialog.show()
+        }
+
+        tvChangeDeliveryAdd.setOnClickListener {
+            val intent = Intent(this, DeliveryAddress::class.java)
+            startActivity(intent)
+        }
+
+        tvChangePaymentMethod.setOnClickListener {
+            val intent = Intent(this, PaymentMethod::class.java)
+            startActivity(intent)
+        }
+
+        dialog.setCancelable(true)
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
+    private fun openDateTimerPicker() {
         val c = Calendar.getInstance()
-        if (eventDate != null)
-            c.time = eventDate!!
+        if (selectedDate != null)
+            c.time = selectedDate!!
 
         val year = c[Calendar.YEAR]
         val month = c[Calendar.MONTH]
@@ -166,7 +162,7 @@ class Cart : AppCompatActivity(), OnItemClick {
         val dpd = DatePickerDialog(
             this, { _, sYear, sMonth, sDay ->
                 run {
-                    eventDate = DateHelper.getDate(sDay, sMonth, sYear)
+                    selectedDate = DateHelper.getDate(sDay, sMonth, sYear)
                     showTimePicker()
                 }
             },
@@ -174,13 +170,14 @@ class Cart : AppCompatActivity(), OnItemClick {
             month,
             day
         )
+        dpd.datePicker.minDate = Calendar.getInstance().timeInMillis
         dpd.show()
     }
 
     private fun showTimePicker() {
         val now = Calendar.getInstance()
-        if (eventDate != null)
-            now.time = eventDate!!
+        if (selectedDate != null)
+            now.time = selectedDate!!
 
         val hour = now[Calendar.HOUR_OF_DAY]
         val minute = now[Calendar.MINUTE]
@@ -189,8 +186,8 @@ class Cart : AppCompatActivity(), OnItemClick {
             this, { _, sHour, sMinute ->
                 kotlin.run {
                     val date: Date? = DateHelper.getDate(sHour, sMinute)
-                    eventDate = DateHelper.combineDateTime(eventDate!!, date!!)
-                    tvDeliveryDate?.text = DateHelper.getFormattedDate(eventDate!!)
+                    selectedDate = DateHelper.combineDateTime(selectedDate!!, date!!)
+                    tvDeliveryDate?.text = DateHelper.getFormattedDate(selectedDate!!)
                 }
             }, hour, minute, false
         )

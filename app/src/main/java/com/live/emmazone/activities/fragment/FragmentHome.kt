@@ -1,11 +1,12 @@
 package com.live.emmazone.activities.fragment
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +16,7 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.*
+import com.live.emmazone.utils.Constants
 import com.live.emmazone.utils.helper.getProfileType
 
 class FragmentHome : Fragment() {
@@ -43,16 +45,24 @@ class FragmentHome : Fragment() {
             if (getProfileType() == "guest") {
                 startActivity(Intent(activity, UserLoginChoice::class.java))
             } else {
-                startActivity(Intent(activity, ShopDetailActivity::class.java))
+                startActivity(Intent(activity, LoginActivity::class.java))
             }
         }
 
         cart.setOnClickListener {
+            if (getProfileType() == Constants.GUEST) {
+                (activity as MainActivity).showLoginDialog()
+                return@setOnClickListener
+            }
             val intent = Intent(activity, Cart::class.java)
             startActivity(intent)
         }
 
         ratingBar.setOnClickListener {
+            if (getProfileType() == Constants.GUEST) {
+                (activity as MainActivity).showLoginDialog()
+                return@setOnClickListener
+            }
             val intent = Intent(activity, ShopReviewsActivity::class.java)
             startActivity(intent)
         }
@@ -68,27 +78,36 @@ class FragmentHome : Fragment() {
         }
 
         imageNotification.setOnClickListener {
+            if (getProfileType() == Constants.GUEST) {
+                (activity as MainActivity).showLoginDialog()
+                return@setOnClickListener
+            }
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
 
         imageLocation.setOnClickListener {
-            val alertDialog = AlertDialog.Builder(context)
-            val factory = LayoutInflater.from(context)
-            val view: View = factory.inflate(R.layout.activity_enable_location_services, null)
-            val crossIcon = view.findViewById<ImageView>(R.id.crossImage)
 
-            alertDialog.setView(view)
-            alertDialog.show()
-            alertDialog.setCancelable(true)
+            val dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.activity_enable_location_services)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val crossIcon = dialog.findViewById<ImageView>(R.id.crossImage)
+            val btnEnable = dialog.findViewById<Button>(R.id.button_enable_services)
 
             crossIcon.setOnClickListener {
-                //  alertDialog.setCancelable(true)
-                alertDialog.setCancelable(true)
-                val intent = Intent(activity, MainActivity::class.java)
-                startActivity(intent)
+                dialog.dismiss()
             }
 
+            btnEnable.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.setCancelable(true)
+            dialog.setCanceledOnTouchOutside(true)
+            dialog.window!!.setGravity(Gravity.CENTER)
+            dialog.show()
         }
         return view
     }
