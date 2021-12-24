@@ -13,6 +13,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.databinding.ActivityProductDetailBinding
+import com.live.emmazone.utils.Constants
+import com.live.emmazone.utils.helper.getProfileType
 
 class ProductDetailActivity : AppCompatActivity()
 {
@@ -25,6 +27,11 @@ class ProductDetailActivity : AppCompatActivity()
 
 
         binding.btnBuyDeliver.setOnClickListener {
+
+            if (getProfileType() == Constants.GUEST){
+
+                return@setOnClickListener
+            }
             val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
             val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
 

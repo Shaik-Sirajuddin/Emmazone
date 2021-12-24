@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.wishList -> {
                     if (getProfileType() == "guest") {
                         showLoginOption()
-
                     } else
                         loadFragment(FragmentWishList())
                 }

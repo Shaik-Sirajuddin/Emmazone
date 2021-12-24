@@ -13,13 +13,18 @@ import androidx.fragment.app.Fragment
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.auth.LoginActivity
+import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.*
 import com.live.emmazone.utils.helper.getProfileType
 
 class FragmentHome : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = LayoutInflater.from(context).inflate( R.layout.fragment_home, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = LayoutInflater.from(context).inflate(R.layout.fragment_home, container, false)
 
         val imageFilter = view.findViewById<ImageView>(R.id.imageFilterHome)
         val imageLocation = view.findViewById<ImageView>(R.id.imageLocationHome)
@@ -30,13 +35,16 @@ class FragmentHome : Fragment() {
         val btnClickHereHome = view.findViewById<Button>(R.id.btnClickHereHome)
         val tvUserName = view.findViewById<TextView>(R.id.tvUserName)
 
-        if (getProfileType() == "guest"){
-            tvUserName.setText("Guest")
+        if (getProfileType() == "guest") {
+            tvUserName.text = "Guest"
         }
 
         btnClickHereHome.setOnClickListener {
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
+            if (getProfileType() == "guest") {
+                startActivity(Intent(activity, UserLoginChoice::class.java))
+            } else {
+                startActivity(Intent(activity, ShopDetailActivity::class.java))
+            }
         }
 
         cart.setOnClickListener {
@@ -67,7 +75,7 @@ class FragmentHome : Fragment() {
         imageLocation.setOnClickListener {
             val alertDialog = AlertDialog.Builder(context)
             val factory = LayoutInflater.from(context)
-            val view : View = factory.inflate(R.layout.activity_enable_location_services, null)
+            val view: View = factory.inflate(R.layout.activity_enable_location_services, null)
             val crossIcon = view.findViewById<ImageView>(R.id.crossImage)
 
             alertDialog.setView(view)
@@ -75,7 +83,7 @@ class FragmentHome : Fragment() {
             alertDialog.setCancelable(true)
 
             crossIcon.setOnClickListener {
-              //  alertDialog.setCancelable(true)
+                //  alertDialog.setCancelable(true)
                 alertDialog.setCancelable(true)
                 val intent = Intent(activity, MainActivity::class.java)
                 startActivity(intent)

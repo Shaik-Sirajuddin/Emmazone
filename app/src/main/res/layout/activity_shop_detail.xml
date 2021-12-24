@@ -25,8 +25,8 @@
                 android:id="@+id/back"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:padding="8dp"
                 android:layout_marginStart="24dp"
+                android:padding="8dp"
                 android:src="@drawable/arrow_back"
                 app:layout_constraintBottom_toBottomOf="@+id/changePassword"
                 app:layout_constraintStart_toStartOf="@+id/layoutMain"
@@ -45,8 +45,6 @@
                 app:layout_constraintEnd_toStartOf="@+id/image_cart"
                 app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="@+id/layoutMain" />
-
-
 
 
             <ImageView
@@ -197,46 +195,46 @@
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailDesc"
             app:layout_constraintTop_toBottomOf="@+id/tvShopDetailDesc" />
 
-        <TextView
-            android:id="@+id/tvShopFoundationYear"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="@string/year_of_foundation"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp18"
-            app:layout_constraintTop_toBottomOf="@+id/tvDesc"
-            app:layout_constraintStart_toStartOf="@+id/tvDesc"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tvDesc"
-           />
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvShopFoundationYear"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:text="@string/year_of_foundation"-->
+        <!--            android:textColor="@color/light_black"-->
+        <!--            android:textSize="@dimen/sp18"-->
+        <!--            android:textStyle="bold"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/tvDesc"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/tvDesc"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tvDesc" />-->
 
         <TextView
             android:id="@+id/tvShopFY"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="12dp"
             android:text="Since 1997"
             android:textColor="@color/light_black"
-            android:textSize="@dimen/sp12"
-            app:layout_constraintTop_toBottomOf="@+id/tvShopFoundationYear"
-            app:layout_constraintStart_toStartOf="@+id/tvShopFoundationYear"
-            app:layout_constraintEnd_toEndOf="@+id/tvShopFoundationYear"
-            />
+            android:textSize="@dimen/sp14"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tvDesc"
+            app:layout_constraintStart_toStartOf="@+id/tvDesc"
+            app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
 
         <TextView
             android:id="@+id/tvShopDetailAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:text="@string/address"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/tvShopFY"
-            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/tvShopFY"
+            app:layout_constraintTop_toBottomOf="@+id/tvShopFY"
             tools:layout_editor_absoluteX="18dp"
             tools:layout_editor_absoluteY="455dp" />
 
@@ -253,16 +251,15 @@
             app:layout_constraintVertical_bias="0.0" />
 
 
-
         <TextView
             android:id="@+id/tvShopAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
+            android:background="@drawable/underline_light_black"
             android:text="@string/goteo_near_market_new_york_usa"
             android:textAlignment="viewStart"
             android:textColor="@color/light_black"
-            android:background="@drawable/underline_light_black"
             android:textSize="@dimen/sp12"
             app:layout_constraintEnd_toEndOf="@+id/imageAskExpert"
             app:layout_constraintHorizontal_bias="0.0"
