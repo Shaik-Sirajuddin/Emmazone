@@ -24,7 +24,6 @@ class AdapterAddPaymentCard(private val list: ArrayList<ModelPaymentCard>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
       val ModelPaymentCard = list[position]
         holder.imageAddPaymentCard.setImageResource(ModelPaymentCard.imageAddPaymentCard)
-
     }
 
     override fun getItemCount(): Int {
@@ -34,7 +33,6 @@ class AdapterAddPaymentCard(private val list: ArrayList<ModelPaymentCard>) :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val imageAddPaymentCard : ImageView = itemView.findViewById(R.id.imageAddPaymentCard)
-
 
             }
 }

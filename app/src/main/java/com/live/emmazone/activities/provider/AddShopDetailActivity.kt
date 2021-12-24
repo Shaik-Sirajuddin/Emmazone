@@ -44,13 +44,8 @@ class AddShopDetailActivity : AppCompatActivity() {
             dialog.setCancelable(false)
             dialog.setContentView(R.layout.dialog_profile_completed)
 
-            dialog.window?.setLayout(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT
-            )
-            dialog.window?.setBackgroundDrawable(
-                ContextCompat.getDrawable(this, android.R.color.transparent)
-            )
+            dialog.window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+            dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.transparent))
 
             val ok = dialog.findViewById<Button>(R.id.ok)
 
@@ -58,7 +53,6 @@ class AddShopDetailActivity : AppCompatActivity() {
                 startActivity(Intent(this, ProviderMainActivity::class.java))
                 dialog.dismiss()
             }
-
             dialog.show()
         }
     }
@@ -90,7 +84,6 @@ class AddShopDetailActivity : AppCompatActivity() {
         tvCancel?.setOnClickListener {
             dialog.dismiss()
         }
-
         dialog.show()
     }
 

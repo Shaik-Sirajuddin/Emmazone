@@ -25,7 +25,6 @@ class ProductDetailActivity : AppCompatActivity()
         binding =  ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.btnBuyDeliver.setOnClickListener {
 
             if (getProfileType() == Constants.GUEST){
@@ -57,7 +56,6 @@ class ProductDetailActivity : AppCompatActivity()
                 alertDialog.setView(view)
                 alertDialog.show()
                 alertDialog.setCancelable(true)
-
             }
 
             tvChangeDeliveryAdd.setOnClickListener {
@@ -73,7 +71,6 @@ class ProductDetailActivity : AppCompatActivity()
             dialog.setCancelable(true)
             dialog.setContentView(view)
             dialog.show()
-
         }
 
         binding.btnClickCollect.setOnClickListener {
@@ -118,11 +115,7 @@ class ProductDetailActivity : AppCompatActivity()
             dialog.setCancelable(true)
             dialog.setContentView(view)
             dialog.show()
-
         }
-
-
-
 
         binding.imageAskExpert.setOnClickListener {
             val intent = Intent(this, Message::class.java)

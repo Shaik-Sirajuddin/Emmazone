@@ -236,12 +236,12 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp15" />
 
-                <ImageView
+                <Spinner
                     android:id="@+id/sizeSpinImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp16"
-                    android:src="@drawable/arrow_drop_down" />
+                    android:background="@drawable/arrow_drop_down" />
 
             </LinearLayout>
 
@@ -264,12 +264,12 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp15" />
 
-                <ImageView
+                <Spinner
                     android:id="@+id/colorSpinImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp16"
-                    android:src="@drawable/arrow_drop_down_black" />
+                    android:background="@drawable/arrow_drop_down_black" />
 
             </LinearLayout>
 
@@ -293,12 +293,12 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp15" />
 
-                <ImageView
+                <Spinner
                     android:id="@+id/quantitySpinImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp16"
-                    android:src="@drawable/arrow_drop_down_black" />
+                    android:background="@drawable/arrow_drop_down_black" />
 
             </LinearLayout>
 
