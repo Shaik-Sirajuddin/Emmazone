@@ -3,7 +3,6 @@ package com.live.emmazone.activities.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
@@ -41,24 +40,11 @@ class DeliveryAddress : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        list.add(
-            ModelDeliveryAddress(
-                "John Marker",
-                "260-C North EI Camino Real", isSelected = true
-            )
-        )
-        list.add(
-            ModelDeliveryAddress(
-                "Jackson",
-                "1186 Roseville pkwy"
-            )
-        )
-        list.add(
-            ModelDeliveryAddress(
-                "John Marker",
-                "260-C North EI Camino Real"
-            )
-        )
+        list.add(ModelDeliveryAddress("John Marker", "260-C North EI Camino Real", isSelected = true))
+
+        list.add(ModelDeliveryAddress("Jackson", "1186 Roseville pkwy"))
+
+        list.add(ModelDeliveryAddress("John Marker", "260-C North EI Camino Real"))
 
         val onActionListener = object : OnActionListener<ModelDeliveryAddress> {
             override fun notify(model: ModelDeliveryAddress, position: Int) {
@@ -68,7 +54,6 @@ class DeliveryAddress : AppCompatActivity() {
                 }
             }
         }
-
         adapter = AdapterDeliveryAddress(list, onActionListener)
         recyclerView.adapter = adapter
     }

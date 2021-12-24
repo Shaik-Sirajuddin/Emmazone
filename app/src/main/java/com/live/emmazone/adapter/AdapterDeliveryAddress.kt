@@ -13,13 +13,11 @@ import com.live.emmazone.model.ModelDeliveryAddress
 
 class AdapterDeliveryAddress(
     private val list: ArrayList<ModelDeliveryAddress>,
-    private var onActionListener: OnActionListener<ModelDeliveryAddress>
-) :
+    private var onActionListener: OnActionListener<ModelDeliveryAddress>) :
     RecyclerView.Adapter<AdapterDeliveryAddress.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            ItemDeliveryAddressBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDeliveryAddressBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

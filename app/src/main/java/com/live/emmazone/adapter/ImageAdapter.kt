@@ -9,10 +9,7 @@ import com.live.emmazone.activities.listeners.OnActionListener
 import com.live.emmazone.databinding.ItemImagesBinding
 import com.live.emmazone.model.ImageModel
 
-class ImageAdapter(
-    var context: Context,
-    var items: List<ImageModel>,
-    var onActionListener: OnActionListener<ImageModel>
+class ImageAdapter(var context: Context, var items: List<ImageModel>, var onActionListener: OnActionListener<ImageModel>
 ) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
     class ViewHolder(var binding: ItemImagesBinding) : RecyclerView.ViewHolder(binding.root)

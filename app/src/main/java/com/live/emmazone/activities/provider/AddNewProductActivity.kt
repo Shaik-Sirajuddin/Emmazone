@@ -9,14 +9,9 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
-import android.widget.Button
-import android.widget.PopupWindow
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +24,8 @@ import com.live.emmazone.databinding.ActivityAddNewProductBinding
 import com.live.emmazone.model.ImageModel
 import com.live.emmazone.utils.ToastUtils
 import com.permissionx.guolindev.PermissionX
+import android.widget.*
+
 
 class AddNewProductActivity : AppCompatActivity() {
 
@@ -215,11 +212,13 @@ class AddNewProductActivity : AppCompatActivity() {
     }
 
     private fun showPopup(it: View) {
-        val inflater =
-            applicationContext?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        val inflater = applicationContext?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.popup_my_post, null)
 
         val myPopupWindow = PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true)
         myPopupWindow.showAsDropDown(it, 0, -180)
     }
 }
+
+

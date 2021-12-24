@@ -35,7 +35,6 @@ class EditShopDetailActivity : AppCompatActivity() {
         binding = ActivityEditShopDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.imageArrowback.setOnClickListener {
             onBackPressed()
         }
@@ -49,13 +48,11 @@ class EditShopDetailActivity : AppCompatActivity() {
             buttonOk.setOnClickListener {
                 onBackPressed()
             }
-
             alertDialog.setView(view)
             alertDialog.show()
         }
 
-        binding.rvEditShop.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvEditShop.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         list.add(ModelEditShopCategory(R.drawable.shoe_round, "Shoes", "Edit Image"))
         list.add(ModelEditShopCategory(R.drawable.gogg, "Goggles", "Edit Image"))
@@ -74,12 +71,7 @@ class EditShopDetailActivity : AppCompatActivity() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
         dialog.setCanceledOnTouchOutside(true)
-        dialog.window?.setBackgroundDrawable(
-            ContextCompat.getDrawable(
-                this,
-                android.R.color.transparent
-            )
-        )
+        dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.transparent))
         dialog.setContentView(R.layout.dialog_select_photo)
 
         val tvCamera: TextView? = dialog.findViewById(R.id.tv_camera)

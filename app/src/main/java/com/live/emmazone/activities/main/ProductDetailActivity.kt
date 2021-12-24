@@ -23,7 +23,6 @@ class ProductDetailActivity : AppCompatActivity()
         binding =  ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.btnBuyDeliver.setOnClickListener {
             val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
             val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
@@ -50,7 +49,6 @@ class ProductDetailActivity : AppCompatActivity()
                 alertDialog.setView(view)
                 alertDialog.show()
                 alertDialog.setCancelable(true)
-
             }
 
             tvChangeDeliveryAdd.setOnClickListener {
@@ -66,7 +64,6 @@ class ProductDetailActivity : AppCompatActivity()
             dialog.setCancelable(true)
             dialog.setContentView(view)
             dialog.show()
-
         }
 
         binding.btnClickCollect.setOnClickListener {
@@ -111,11 +108,7 @@ class ProductDetailActivity : AppCompatActivity()
             dialog.setCancelable(true)
             dialog.setContentView(view)
             dialog.show()
-
         }
-
-
-
 
         binding.imageAskExpert.setOnClickListener {
             val intent = Intent(this, Message::class.java)
