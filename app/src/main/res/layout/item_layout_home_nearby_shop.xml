@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/itemImageHome"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/faq_bg"
+        app:shapeAppearanceOverlay="@style/roundedImageView1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/itemHeartWishList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginEnd="@dimen/dp24"
+        android:background="@drawable/heart"
+        app:layout_constraintEnd_toEndOf="@+id/itemImageHome"
+        app:layout_constraintTop_toTopOf="@+id/itemImageHome" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layoutWishListStore"
+        android:layout_marginTop="@dimen/dp8"
+        app:layout_constraintEnd_toEndOf="@+id/itemImageHome"
+        app:layout_constraintStart_toStartOf="@+id/itemImageHome"
+        app:layout_constraintTop_toBottomOf="@+id/itemImageHome"
+       >
+
+        <TextView
+            android:id="@+id/tvWishListStoreName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/berserka_store"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+        <ImageView
+            android:id="@+id/ratingBarWishList"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/dp5"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/rating" />
+
+        <TextView
+            android:id="@+id/tvWishListRatingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="4.5/5"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tvDistanceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+       android:paddingBottom="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/layoutWishListStore"
+        app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
+        app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore"
+    >
+
+        <ImageView
+            android:id="@+id/imageLocation"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/dp5"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/location" />
+
+        <TextView
+            android:id="@+id/tvWishListDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="03 Miles Away"
+            android:layout_marginStart="@dimen/dp2"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

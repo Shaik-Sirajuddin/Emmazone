@@ -77,7 +77,6 @@ class QrScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
         binding.containerScanner.addView(scannerView)
     }
 
-
     private fun startQRCamera() {
         scannerView?.startCamera()
     }

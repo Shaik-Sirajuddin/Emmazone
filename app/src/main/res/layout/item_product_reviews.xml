@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageReviews"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/dp16"
+        android:scaleType="centerCrop"
+        app:shapeAppearance="@style/roundedImageView"
+        android:src="@drawable/shoes_square"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/productItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_marginTop="16dp"
+        android:text="@string/bernd_shoes"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp18"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageReviews"
+        app:layout_constraintTop_toTopOf="@+id/imageReviews" />
+
+    <TextView
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp8"
+        android:text="4.0"
+        android:textColor="@color/yellow"
+        android:textSize="@dimen/sp15"
+        app:layout_constraintEnd_toEndOf="@+id/productItemName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageReviews"
+        app:layout_constraintTop_toBottomOf="@+id/productItemName" />
+
+    <ImageView
+        android:id="@+id/ratingReviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rating"
+        app:layout_constraintStart_toStartOf="@+id/tvRating"
+        app:layout_constraintTop_toBottomOf="@+id/tvRating"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="193dp" />
+
+    <LinearLayout
+        android:id="@+id/reviewslayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp16"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ratingReviews"
+        app:layout_constraintTop_toBottomOf="@+id/ratingReviews">
+
+        <ImageView
+            android:id="@+id/imagePersonReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/user2"
+            app:layout_constraintStart_toStartOf="@+id/tvRating"
+            app:layout_constraintTop_toBottomOf="@+id/tvRating" />
+
+        <TextView
+            android:id="@+id/tvPersonRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:text="5258"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="@+id/productItemName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageReviews"
+            app:layout_constraintTop_toBottomOf="@+id/productItemName" />
+
+        <TextView
+            android:id="@+id/tvRatingTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp5"
+            android:text="@string/total"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintEnd_toEndOf="@+id/productItemName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageReviews"
+            app:layout_constraintTop_toBottomOf="@+id/productItemName" />
+
+    </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/ratingbarYourReviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:isIndicator="true"
+        android:max="5"
+        android:progressTint="@color/yellow"
+        android:rating="3"
+        android:scaleX=".5"
+        android:scaleY=".5"
+        android:transformPivotX="0dp"
+        android:transformPivotY="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/reviewslayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageReviews"
+        app:layout_constraintTop_toBottomOf="@+id/imageReviews" />
+
+    <TextView
+        android:id="@+id/tvInsertComment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp5"
+        android:text="@string/insert_comment"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ratingbarYourReviews"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ratingbarYourReviews"
+        app:layout_constraintTop_toBottomOf="@+id/ratingbarYourReviews" />
+
+    <EditText
+        android:id="@+id/edtInsertComment"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginEnd="@dimen/dp16"
+        android:background="@drawable/login_bg"
+        android:hint="Write here..."
+        android:imeOptions="actionDone"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/dp8"
+        android:gravity="top"
+        android:textSize="@dimen/sp15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvInsertComment"
+        app:layout_constraintTop_toBottomOf="@+id/tvInsertComment" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

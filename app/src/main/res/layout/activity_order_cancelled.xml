@@ -103,7 +103,7 @@
             app:layout_constraintTop_toBottomOf="@+id/viewOrderID"
             app:riv_corner_radius="@dimen/dp10"
             app:riv_mutate_background="true"
-            app:riv_tile_mode="repeat" />
+            app:riv_tile_mode="clamp" />
 
         <TextView
             android:id="@+id/productItemName"
