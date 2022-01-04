@@ -15,8 +15,8 @@ import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivitySearchBinding
 import com.live.emmazone.model.ModelShopDetailProducts
-import com.live.emmazone.utils.Constants
-import com.live.emmazone.utils.helper.getProfileType
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.extensionfuncton.getPreference
 
 class SearchActivity : AppCompatActivity(), OnItemClick {
     lateinit var binding: ActivitySearchBinding
@@ -30,7 +30,7 @@ class SearchActivity : AppCompatActivity(), OnItemClick {
 
 
         binding.cart.setOnClickListener {
-            if (getProfileType() == Constants.GUEST) {
+            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
                 showLoginDialog()
                 return@setOnClickListener
             }
@@ -39,7 +39,7 @@ class SearchActivity : AppCompatActivity(), OnItemClick {
         }
 
         binding.imageNotifications.setOnClickListener {
-            if (getProfileType() == Constants.GUEST) {
+            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
                 showLoginDialog()
                 return@setOnClickListener
             }

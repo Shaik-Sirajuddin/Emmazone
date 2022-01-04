@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutConstraint"
@@ -48,20 +48,19 @@
                     android:id="@+id/tvWelcome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/welcome_please_sign_up_to_continue"
                     android:fontFamily="@font/avenir_black"
+                    android:text="@string/welcome_please_sign_up_to_continue"
                     android:textAlignment="center"
                     android:textColor="@color/light_black"
-                    android:textSize="18sp"
-                   />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tvContinue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/avenir_black"
                     android:text="@string/to_continue"
                     android:textAlignment="center"
-                    android:fontFamily="@font/avenir_black"
                     android:textColor="@color/light_black"
                     android:textSize="18sp"
                     tools:ignore="DuplicateIds" />
@@ -75,7 +74,7 @@
             android:layout_height="@dimen/_75sdp"
             android:layout_marginTop="@dimen/dp10"
             android:scaleType="centerCrop"
-            android:src="@drawable/avtarr_girl"
+            android:src="@drawable/placeholder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutConstraint"
@@ -115,8 +114,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:layout_marginEnd="24dp"
-                android:text="@string/name"
                 android:fontFamily="@font/avenir_black"
+                android:text="@string/name"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp15"
                 app:layout_constraintEnd_toEndOf="@+id/SignupLayout"
@@ -125,16 +124,16 @@
                 app:layout_constraintTop_toTopOf="@+id/SignupLayout" />
 
             <EditText
-                android:id="@+id/edtEmail"
+                android:id="@+id/edtName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:hint="Enter your name"
-                android:imeOptions="actionNext"
                 android:fontFamily="@font/avenir_book"
-                android:inputType="textEmailAddress"
+                android:hint="@string/enter_your_name"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/dp8"
                 android:textSize="@dimen/sp14"
@@ -147,23 +146,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
+                android:fontFamily="@font/avenir_black"
                 android:text="@string/email"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp15"
-                android:fontFamily="@font/avenir_black"
-                app:layout_constraintEnd_toEndOf="@+id/edtEmail"
+                app:layout_constraintEnd_toEndOf="@+id/edtName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/edtName" />
 
             <EditText
-                android:id="@+id/edtPassword"
+                android:id="@+id/edtEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:hint="Enter email"
                 android:fontFamily="@font/avenir_book"
+                android:hint="@string/enter_email"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
@@ -178,46 +177,70 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
-                android:text="@string/mobile"
                 android:fontFamily="@font/avenir_black"
+                android:text="@string/mobile"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp15"
-                app:layout_constraintEnd_toEndOf="@+id/edtPassword"
+                app:layout_constraintEnd_toEndOf="@+id/edtEmail"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtPassword"
+                app:layout_constraintTop_toBottomOf="@+id/edtEmail"
 
                 />
 
-            <EditText
-                android:id="@+id/edtMobile"
+            <LinearLayout
+                android:id="@+id/llPhoneNo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp5"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:hint="Enter phone number"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:fontFamily="@font/avenir_book"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/dp8"
-                android:textSize="@dimen/sp14"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/tvMobile"
                 app:layout_constraintStart_toStartOf="@+id/tvMobile"
-                app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
+                app:layout_constraintTop_toBottomOf="@+id/tvMobile">
+
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/avenir_book"
+                    android:gravity="center_vertical"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_autoDetectLanguage="true"
+                    app:ccp_countryAutoDetectionPref="NETWORK_SIM_LOCALE"
+                    app:ccp_showFlag="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_textSize="@dimen/sp14" />
+
+                <EditText
+                    android:id="@+id/edtMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/login_bg"
+                    android:fontFamily="@font/avenir_book"
+                    android:hint="@string/enter_phone_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/dp8"
+                    android:textSize="@dimen/sp14" />
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tvPwd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
+                android:fontFamily="@font/avenir_black"
                 android:text="@string/password"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp15"
-                android:fontFamily="@font/avenir_black"
-                app:layout_constraintEnd_toEndOf="@+id/edtMobile"
+                app:layout_constraintEnd_toEndOf="@+id/llPhoneNo"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtMobile"
+                app:layout_constraintTop_toBottomOf="@+id/llPhoneNo"
 
                 />
 
@@ -228,10 +251,10 @@
                 android:layout_marginStart="@dimen/dp5"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:hint="Enter password"
+                android:fontFamily="@font/avenir_book"
+                android:hint="@string/enter_password"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
-                android:fontFamily="@font/avenir_book"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/dp8"
                 android:textSize="@dimen/sp15"
@@ -244,10 +267,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
+                android:fontFamily="@font/avenir_black"
                 android:text="@string/confirm_password"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp15"
-                android:fontFamily="@font/avenir_black"
                 app:layout_constraintEnd_toEndOf="@+id/edtPwd"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edtPwd" />
@@ -259,11 +282,11 @@
                 android:layout_marginStart="@dimen/dp5"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:hint="Confirm password"
+                android:fontFamily="@font/avenir_book"
+                android:hint="@string/confirm_password"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:fontFamily="@font/avenir_book"
                 android:paddingLeft="@dimen/dp8"
                 android:textSize="@dimen/sp15"
                 app:layout_constraintEnd_toEndOf="@+id/tvConfirmPwd"
@@ -295,8 +318,8 @@
                 android:id="@+id/termsConditions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/avenir_book"
                 android:background="@drawable/underline_black"
+                android:fontFamily="@font/avenir_book"
                 android:text="@string/i_accept_terms_conditions"
                 android:textColor="@color/black" />
 
@@ -330,19 +353,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir_book"
                 android:paddingRight="@dimen/dp2"
                 android:text="@string/already_a_member"
                 android:textColor="@color/light_black"
-                android:fontFamily="@font/avenir_book"
                 android:textSize="@dimen/sp14" />
 
             <TextView
                 android:id="@+id/tvSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/avenir_book"
                 android:layout_marginStart="@dimen/dp2"
                 android:background="@drawable/underline_black"
+                android:fontFamily="@font/avenir_book"
                 android:text="@string/sign_in"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp14" />
@@ -351,4 +374,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

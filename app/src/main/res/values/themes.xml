@@ -36,7 +36,7 @@
         <item name="android:windowBackground">@color/splash_bg</item>
         <item name="android:windowNoTitle">true</item>
 
-        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="CheckboxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
@@ -96,7 +96,7 @@
         <item name="colorOnBackground">@color/green</item>
         <item name="colorSurface">@color/green</item>
 
-        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <!-- Customize your theme here. -->
         <item name="editTextStyle">@style/customEditTextTheme</item>
 
@@ -106,6 +106,13 @@
         <item name="thumbTint">@color/white</item>
         <item name="thumbColor">@color/white</item>
         <item name="thumbTintMode">add</item>
+    </style>
+
+    <style name="Theme_Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

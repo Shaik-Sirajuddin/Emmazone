@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.live.emmazone"
-        minSdk 21
+        minSdk 23
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -56,4 +56,23 @@ dependencies {
     implementation 'com.github.hearsilent:DiscreteSlider:1.2.1'
     implementation 'me.dm7.barcodescanner:zbar:1.9.13'
 
+    //socket
+    implementation 'io.socket:socket.io-client:2.0.1'
+
+    //Retrofit, and Gson
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+
+    //country code pick dependency
+    implementation 'com.hbb20:ccp:2.4.5'
+
+    //OTP pin
+    implementation 'com.chaos.view:pinview:1.4.3'
+
+    //ktx
+    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
 }

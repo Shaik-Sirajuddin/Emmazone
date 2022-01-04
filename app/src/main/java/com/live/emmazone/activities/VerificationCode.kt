@@ -1,21 +1,28 @@
 package com.live.emmazone.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.WindowManager
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.live.emmazone.MainActivity
-import com.live.emmazone.R
-import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.SignUpActivity
 import com.live.emmazone.activities.provider.AddShopDetailActivity
 import com.live.emmazone.databinding.ActivityVerificationCodeBinding
-import com.live.emmazone.utils.Constants
-import com.live.emmazone.utils.helper.getProfileType
+import com.live.emmazone.extensionfuncton.Validator
+import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.OtpResendResponse
+import com.live.emmazone.response_model.OtpVerifyResponse
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.view_models.AppViewModel
 
-class VerificationCode : AppCompatActivity() {
+class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
+
+    private val appViewModel: AppViewModel by viewModels()
+
     lateinit var binding: ActivityVerificationCodeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,75 +30,66 @@ class VerificationCode : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.otpField1.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+        clicksHandle()
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+    }
 
-            override fun afterTextChanged(p0: Editable?) {
-                if (p0 != null) {
-                    if (p0.length > 0) {
-                        binding.otpField1.clearFocus()
-                        binding.otpField2.requestFocus()
-                        binding.otpField2.setCursorVisible(true)
-                    }
-                }
-            }
-        })
-
-        binding.otpField2.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                if (p0 != null) {
-                    if (p0.length > 0) {
-                        binding.otpField2.clearFocus()
-                        binding.otpField3.requestFocus()
-                        binding.otpField3.setCursorVisible(true)
-                    }
-                }
-            }
-
-        })
-
-        binding.otpField3.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                if (p0 != null) {
-                    if (p0.length > 0) {
-                        binding.otpField3.clearFocus()
-                        binding.otpField4.requestFocus()
-                        binding.otpField4.setCursorVisible(true)
-                    }
-                }
-            }
-        })
-
+    private fun clicksHandle() {
         binding.imageArrowback.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
-        binding.btnSubmit.setOnClickListener {
-            finish()
 
-            if (getProfileType() == Constants.SELLER) {
-                startActivity(Intent(this, AddShopDetailActivity::class.java))
-            } else {
-                startActivity(Intent(this, MainActivity::class.java))
-            }
+        binding.tvResend.setOnClickListener {
+            appViewModel.resendOtpApi(this,true)
+            appViewModel.getResponse().observe(this,this)
         }
 
+        binding.btnSubmit.setOnClickListener {
+            validateData()
+        }
+    }
+
+    private fun validateData() {
+        val otp = binding.otpPin.text.toString().trim()
+
+        if (Validator.validateOtp(otp)) {
+
+            val hashMap = HashMap<String, String>()
+            hashMap["otp"] = otp
+
+            appViewModel.otpVerifyApi(this, true, hashMap)
+            appViewModel.getResponse().observe(this, this)
+        } else AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+    }
+
+    override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is OtpVerifyResponse) {
+                    val response: OtpVerifyResponse = t.data
+
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+
+                        if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.SELLER) {
+                            startActivity(Intent(this, AddShopDetailActivity::class.java))
+                            finish()
+                        } else {
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        }
+
+                    }
+                } else if (t.data is OtpResendResponse) {
+                    val response: OtpResendResponse = t.data
+
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+
+                        AppUtils.showMsgOnlyWithoutClick(this, response.message)
+                    }
+                }
+            }
+        }
     }
 }

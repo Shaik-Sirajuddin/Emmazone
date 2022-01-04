@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.live.emmazone.MainActivity
 import com.live.emmazone.activities.provider.ProviderMainActivity
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.databinding.ActivityLoginBinding
-import com.live.emmazone.utils.Constants
-import com.live.emmazone.utils.helper.getProfileType
+import com.live.emmazone.extensionfuncton.getPreference
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnSignIn.setOnClickListener {
-            if (getProfileType() == Constants.SELLER) {
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.SELLER) {
                 startActivity(Intent(this, ProviderMainActivity::class.java))
             } else {
                 startActivity(Intent(this, MainActivity::class.java))

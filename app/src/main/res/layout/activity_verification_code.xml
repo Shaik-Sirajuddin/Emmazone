@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.VerificationCode">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,27 +20,26 @@
             android:id="@+id/image_arrowback"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:padding="8dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="36dp"
+            android:padding="8dp"
             android:src="@drawable/arroww"
             app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
             app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
 
-            <TextView
-                android:id="@+id/tvWelcome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/verification_code"
-                android:fontFamily="@font/avenir_black"
-                android:textAlignment="center"
-                android:textColor="@color/light_black"
-                app:layout_constraintTop_toTopOf="@+id/layoutConstraint"
-                app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
-                app:layout_constraintEnd_toEndOf="@+id/layoutConstraint"
-                app:layout_constraintBottom_toBottomOf="@+id/layoutConstraint"
-                android:textSize="@dimen/sp20"
-              />
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_black"
+            android:text="@string/verification_code"
+            android:textAlignment="center"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp20"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutConstraint"
+            app:layout_constraintEnd_toEndOf="@+id/layoutConstraint"
+            app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
+            app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -50,8 +48,8 @@
         android:id="@+id/tvVerificationLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="@dimen/dp50"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,82 +58,50 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_book"
             android:text="@string/please_type_in_the_verification"
             android:textColor="@color/light_black"
-            android:fontFamily="@font/avenir_book"
-            android:textSize="@dimen/sp15"
-            />
+            android:textSize="@dimen/sp15" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_book"
             android:text="@string/code"
             android:textAlignment="center"
-            android:fontFamily="@font/avenir_book"
             android:textColor="@color/light_black"
-            android:textSize="@dimen/sp15"
-            />
+            android:textSize="@dimen/sp15" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/otpFieldLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="@dimen/dp50"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvVerificationLayout">
 
-        <EditText
-            android:id="@+id/otpField1"
+        <com.chaos.view.PinView
+            android:id="@+id/otpPin"
+            style="@style/PinWidget.PinView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="1"
+            android:layout_gravity="center"
+            android:cursorVisible="true"
+            android:hint="@string/otp_hint"
             android:inputType="number"
-            android:imeOptions="actionNext"
-            android:layout_marginRight="@dimen/dp10"
-            android:gravity="center"
-            android:background="@drawable/otp_bg"
-            android:hint="1"
-            />
-        <EditText
-            android:id="@+id/otpField2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLength="1"
-            android:inputType="number"
-            android:imeOptions="actionNext"
-            android:layout_marginRight="@dimen/dp10"
-            android:gravity="center"
-            android:background="@drawable/otp_bg"
-            android:hint="1"
-            />
-        <EditText
-            android:id="@+id/otpField3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="1"
-            android:maxLength="1"
-            android:inputType="number"
-            android:imeOptions="actionNext"
-            android:layout_marginRight="@dimen/dp10"
-            android:gravity="center"
-            android:background="@drawable/otp_bg"
-            />
-        <EditText
-            android:id="@+id/otpField4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp10"
-            android:maxLength="1"
-            android:inputType="number"
-            android:background="@drawable/otp_bg"
-            android:hint="1"
-           android:imeOptions="actionDone"
-            android:gravity="center"
-            />
+            android:itemBackground="@drawable/otp_bg"
+            app:hideLineWhenFilled="true"
+            app:itemCount="4"
+            app:itemHeight="@dimen/_35sdp"
+            app:itemSpacing="@dimen/dp15"
+            app:itemWidth="@dimen/_35sdp"
+            app:lineColor="@android:color/transparent"
+            app:lineWidth="0dp" />
+
 
     </LinearLayout>
 
@@ -143,25 +109,23 @@
         android:id="@+id/tvResend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resend"
+        android:layout_marginTop="@dimen/dp20"
+        android:fontFamily="@font/avenir_book"
+        android:text="@string/resend"
         android:textAlignment="center"
         android:textColor="@color/light_black"
-        android:fontFamily="@font/avenir_book"
         android:textSize="@dimen/sp18"
-        android:layout_marginTop="@dimen/dp20"
-        app:layout_constraintTop_toBottomOf="@+id/otpFieldLayout"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otpFieldLayout" />
 
     <View
         android:layout_width="60dp"
         android:layout_height="1dp"
         android:background="@color/light_black"
-        app:layout_constraintTop_toBottomOf="@+id/tvResend"
-        app:layout_constraintStart_toStartOf="@+id/tvResend"
         app:layout_constraintEnd_toEndOf="@+id/tvResend"
-        />
+        app:layout_constraintStart_toStartOf="@+id/tvResend"
+        app:layout_constraintTop_toBottomOf="@+id/tvResend" />
 
     <android.widget.Button
         android:id="@+id/btnSubmit"

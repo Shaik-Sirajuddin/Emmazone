@@ -18,8 +18,8 @@ import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivityShopDetailBinding
 import com.live.emmazone.model.ModelShopDetailCategory
 import com.live.emmazone.model.ModelShopDetailProducts
-import com.live.emmazone.utils.Constants
-import com.live.emmazone.utils.helper.getProfileType
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.extensionfuncton.getPreference
 
 class ShopDetailActivity : AppCompatActivity(), OnItemClick {
     lateinit var binding: ActivityShopDetailBinding
@@ -37,7 +37,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         }
 
         binding.imageCart.setOnClickListener {
-            if (getProfileType() == Constants.GUEST) {
+            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
                 showLoginDialog()
                 return@setOnClickListener
             }
@@ -46,7 +46,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         }
 
         binding.imageAskExpert.setOnClickListener {
-            if (getProfileType() == Constants.GUEST) {
+            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
                 showLoginDialog()
                 return@setOnClickListener
             }

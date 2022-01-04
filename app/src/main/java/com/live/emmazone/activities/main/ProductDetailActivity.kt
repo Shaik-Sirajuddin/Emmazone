@@ -19,9 +19,9 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.databinding.ActivityProductDetailBinding
-import com.live.emmazone.utils.Constants
-import com.live.emmazone.utils.helper.DateHelper
-import com.live.emmazone.utils.helper.getProfileType
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.utils.DateHelper
 import java.util.*
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -41,7 +41,7 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.btnClickCollect.setOnClickListener { showBottomDialog() }
 
         binding.imageAskExpert.setOnClickListener {
-            if (getProfileType() == Constants.GUEST) {
+            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
                 showLoginDialog()
                 return@setOnClickListener
             }
@@ -50,7 +50,7 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         binding.imageCart.setOnClickListener {
-            if (getProfileType() == Constants.GUEST) {
+            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
                 showLoginDialog()
                 return@setOnClickListener
             }
@@ -65,7 +65,7 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun showBottomDialog() {
-        if (getProfileType() == Constants.GUEST) {
+        if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
             showLoginDialog()
             return
         }

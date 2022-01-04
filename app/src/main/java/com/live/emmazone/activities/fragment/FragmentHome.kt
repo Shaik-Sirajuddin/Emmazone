@@ -1,6 +1,5 @@
 package com.live.emmazone.activities.fragment
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -19,11 +18,9 @@ import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.*
 import com.live.emmazone.adapter.AdapterNearbyShops
-import com.live.emmazone.adapter.AdapterWishList
 import com.live.emmazone.model.ModelNearbyShop
-import com.live.emmazone.model.ModelWishList
-import com.live.emmazone.utils.Constants
-import com.live.emmazone.utils.helper.getProfileType
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.extensionfuncton.getPreference
 
 class FragmentHome : Fragment() {
 
@@ -58,12 +55,12 @@ class FragmentHome : Fragment() {
 
         recyclerView.adapter = context?.let { AdapterNearbyShops(it,list) }
 
-        if (getProfileType() == "guest") {
+        if ( getPreference(AppConstants.PROFILE_TYPE,"") == "guest") {
             tvUserName.text = "Guest"
         }
 
         btnClickHereHome.setOnClickListener {
-            if (getProfileType() == "guest") {
+            if ( getPreference(AppConstants.PROFILE_TYPE,"") == "guest") {
                 startActivity(Intent(activity, UserLoginChoice::class.java))
             } else {
                 startActivity(Intent(activity, LoginActivity::class.java))
@@ -71,7 +68,7 @@ class FragmentHome : Fragment() {
         }
 
         cart.setOnClickListener {
-            if (getProfileType() == Constants.GUEST) {
+            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
                 (activity as MainActivity).showLoginDialog()
                 return@setOnClickListener
             }
@@ -80,7 +77,7 @@ class FragmentHome : Fragment() {
         }
 
 //        ratingBar.setOnClickListener {
-//            if (getProfileType() == Constants.GUEST) {
+//            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
 //                (activity as MainActivity).showLoginDialog()
 //                return@setOnClickListener
 //            }
@@ -99,7 +96,7 @@ class FragmentHome : Fragment() {
         }
 
         imageNotification.setOnClickListener {
-            if (getProfileType() == Constants.GUEST) {
+            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
                 (activity as MainActivity).showLoginDialog()
                 return@setOnClickListener
             }

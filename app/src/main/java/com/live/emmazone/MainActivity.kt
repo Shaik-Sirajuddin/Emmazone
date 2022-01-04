@@ -14,8 +14,10 @@ import com.live.emmazone.activities.fragment.FragmentAccount
 import com.live.emmazone.activities.fragment.FragmentHome
 import com.live.emmazone.activities.fragment.FragmentMyOrders
 import com.live.emmazone.activities.fragment.FragmentWishList
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.databinding.ActivityMainBinding
-import com.live.emmazone.utils.helper.getProfileType
+import com.live.emmazone.extensionfuncton.getPreference
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -33,20 +35,20 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.wishList -> {
-                    if (getProfileType() == "guest") {
+                    if ( getPreference(AppConstants.PROFILE_TYPE,"") == "guest") {
                         showLoginDialog()
                     } else
                         loadFragment(FragmentWishList())
                 }
                 R.id.myOrders -> {
-                    if (getProfileType() == "guest") {
+                    if ( getPreference(AppConstants.PROFILE_TYPE,"") == "guest") {
                         showLoginDialog()
                     } else
                         loadFragment(FragmentMyOrders())
                 }
 
                 R.id.account -> {
-                    if (getProfileType() == "guest") {
+                    if ( getPreference(AppConstants.PROFILE_TYPE,"") == "guest") {
                         showLoginDialog()
                     } else
                         loadFragment(FragmentAccount())
@@ -93,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             dialog.dismiss()
             startActivity(Intent(this, LoginActivity::class.java))
+            finishAffinity()
         }
 
         dialog.show()

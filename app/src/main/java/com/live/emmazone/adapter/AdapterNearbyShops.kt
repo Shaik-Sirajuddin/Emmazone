@@ -12,8 +12,8 @@ import com.live.emmazone.activities.main.ShopDetailActivity
 import com.live.emmazone.activities.main.ShopReviewsActivity
 import com.live.emmazone.databinding.ItemLayoutHomeNearbyShopBinding
 import com.live.emmazone.model.*
-import com.live.emmazone.utils.Constants
-import com.live.emmazone.utils.helper.getProfileType
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.extensionfuncton.getPreference
 
 class AdapterNearbyShops(private val context : Context, private val list: ArrayList<ModelNearbyShop>) :
     RecyclerView.Adapter<AdapterNearbyShops.ViewHolder>() {
@@ -49,7 +49,7 @@ class AdapterNearbyShops(private val context : Context, private val list: ArrayL
             }
 
             ratingBarWishList.setOnClickListener {
-                    if (getProfileType() == Constants.GUEST) {
+                    if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
                         (context.applicationContext as MainActivity).showLoginDialog()
                         return@setOnClickListener
                     }

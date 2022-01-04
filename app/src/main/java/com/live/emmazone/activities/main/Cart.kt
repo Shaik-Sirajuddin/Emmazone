@@ -21,9 +21,7 @@ import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivityCartBinding
 import com.live.emmazone.model.ModelCart
 import com.live.emmazone.model.ModelShopDetailProducts
-import com.live.emmazone.utils.Constants
-import com.live.emmazone.utils.helper.DateHelper
-import com.live.emmazone.utils.helper.getProfileType
+import com.live.emmazone.utils.DateHelper
 import java.util.*
 import kotlin.collections.ArrayList
 
