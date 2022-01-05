@@ -9,9 +9,7 @@ import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.net.RestApiInterface
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.ServiceGenerator
-import com.live.emmazone.response_model.OtpResendResponse
-import com.live.emmazone.response_model.OtpVerifyResponse
-import com.live.emmazone.response_model.SignUpResponse
+import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppUtils
 import com.schunts.extensionfuncton.checkIfHasNetwork
 import okhttp3.MultipartBody
@@ -150,5 +148,120 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
+
+    fun loginApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.login(hashMap)
+                .enqueue(object : Callback<LoginResponse> {
+                    override fun onResponse(
+                        call: Call<LoginResponse>,
+                        response: Response<LoginResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        loginApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+
+    fun termsConditionApi(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.termsCondition()
+                .enqueue(object : Callback<TermsConditionResponse> {
+                    override fun onResponse(
+                        call: Call<TermsConditionResponse>,
+                        response: Response<TermsConditionResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<TermsConditionResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        termsConditionApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+
+
+    fun privacyPolicyApi(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.privacyPolicy()
+                .enqueue(object : Callback<PrivacyPolicyResponse> {
+                    override fun onResponse(
+                        call: Call<PrivacyPolicyResponse>,
+                        response: Response<PrivacyPolicyResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<PrivacyPolicyResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        privacyPolicyApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+
 
 }

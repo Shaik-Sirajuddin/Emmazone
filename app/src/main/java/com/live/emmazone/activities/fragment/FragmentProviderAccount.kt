@@ -12,10 +12,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.live.emmazone.R
 import com.live.emmazone.activities.FAQ
-import com.live.emmazone.activities.Privacypolicy
+import com.live.emmazone.activities.PrivacyPolicy
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.ChangePassword
-import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.ProfileActivity
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.Message
@@ -86,7 +85,7 @@ class FragmentProviderAccount : Fragment() {
             startActivity(intent)
         }
         pcLayout.setOnClickListener {
-            val intent = Intent(activity, Privacypolicy::class.java)
+            val intent = Intent(activity, PrivacyPolicy::class.java)
             startActivity(intent)
         }
         btnLogout.setOnClickListener {

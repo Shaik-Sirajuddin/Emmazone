@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "204121089542",
+    "project_id": "emmazone",
+    "storage_bucket": "emmazone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204121089542:android:41820dc481bb4a9bdac587",
+        "android_client_info": {
+          "package_name": "com.live.emmazone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204121089542-dulkvqf3naomh22c30vst28hljldgf4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIa-b7gOULsyM30Cfpdlc5EaQts9AHIgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204121089542-dulkvqf3naomh22c30vst28hljldgf4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

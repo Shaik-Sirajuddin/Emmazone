@@ -2,8 +2,11 @@ package com.live.emmazone.activities.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.VerificationCode
@@ -31,6 +34,7 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var mImagePath = ""
 
     private val appViewModel: AppViewModel by viewModels()
+    private var deviceToken = ""
 
     override fun selectedImage(imagePath: String?, code: Int) {
         if (imagePath != null) {
@@ -109,6 +113,8 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["phone"] = toBody(mobileNo)
             hashMap["countryCode"] = toBody(binding.ccp.selectedCountryCodeWithPlus)
             hashMap["password"] = toBody(password)
+            hashMap["device_type"] = toBody(AppConstants.DEVICE_TYPE)
+            hashMap["device_token"] = toBody(deviceToken)
 
 
             appViewModel.signUpApi(this, true, hashMap, image)
@@ -125,6 +131,7 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
                     if (response.code == AppConstants.SUCCESS_CODE) {
 
                         savePreference(AppConstants.AUTHORIZATION,response.body.token)
+                        savePreference(AppConstants.ROLE,response.body.role)
 
                         val intent = Intent(this, VerificationCode::class.java)
                         startActivity(intent)
@@ -135,5 +142,26 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
         }
     }
 
+
+    private fun getDeviceToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.e("DEVICE TOKEN", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            Log.e("DEVICE TOKEN", token.toString())
+            deviceToken = token.toString()
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getDeviceToken()
+    }
 
 }

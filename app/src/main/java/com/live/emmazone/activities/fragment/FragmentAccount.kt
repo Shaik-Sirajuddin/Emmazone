@@ -7,16 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.RadioButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.live.emmazone.R
 import com.live.emmazone.activities.FAQ
-import com.live.emmazone.activities.Privacypolicy
+import com.live.emmazone.activities.PrivacyPolicy
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.ChangePassword
-import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.ProfileActivity
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.Cart
@@ -93,7 +91,7 @@ class FragmentAccount : Fragment() {
             startActivity(intent)
         }
         privacyPolicyLayout.setOnClickListener {
-            val intent = Intent(activity, Privacypolicy::class.java)
+            val intent = Intent(activity, PrivacyPolicy::class.java)
             startActivity(intent)
         }
 

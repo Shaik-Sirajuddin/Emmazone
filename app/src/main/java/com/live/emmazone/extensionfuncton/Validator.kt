@@ -53,4 +53,21 @@ object Validator {
         }else  true
     }
 
+
+    fun validateLogin(
+        email: String,
+        password: String
+    ): Boolean {
+        return if (TextUtils.isEmpty(email)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_email)
+            false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_valid_email)
+            false
+        } else if (TextUtils.isEmpty(password)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_password)
+            false
+        } else return true
+    }
+
 }

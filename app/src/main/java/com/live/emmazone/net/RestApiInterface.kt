@@ -1,9 +1,7 @@
 package com.live.emmazone.net
 
 
-import com.live.emmazone.response_model.OtpResendResponse
-import com.live.emmazone.response_model.OtpVerifyResponse
-import com.live.emmazone.response_model.SignUpResponse
+import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -30,4 +28,17 @@ interface RestApiInterface {
     @POST(AppConstants.RESEND_OTP)
     fun resendOtp(
     ): Call<OtpResendResponse>
+
+
+    @FormUrlEncoded
+    @POST(AppConstants.LOGIN)
+    fun login(
+        @FieldMap hashMap: HashMap<String, String>
+    ): Call<LoginResponse>
+
+    @GET(AppConstants.TERMS)
+    fun termsCondition(): Call<TermsConditionResponse>
+
+    @GET(AppConstants.PRIVACY_POLICY)
+    fun privacyPolicy(): Call<PrivacyPolicyResponse>
 }
