@@ -70,4 +70,14 @@ object Validator {
         } else return true
     }
 
+    fun validateForgot(email: String): Boolean {
+        return if (TextUtils.isEmpty(email)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_email)
+            false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_valid_email)
+            false
+        } else return true
+    }
+
 }

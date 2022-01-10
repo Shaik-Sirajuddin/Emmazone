@@ -41,4 +41,8 @@ interface RestApiInterface {
 
     @GET(AppConstants.PRIVACY_POLICY)
     fun privacyPolicy(): Call<PrivacyPolicyResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.FORGOT_PASSWORD)
+    fun forgotPassword(@FieldMap hashMap: HashMap<String, String>): Call<ForgotPasswordResponse>
 }

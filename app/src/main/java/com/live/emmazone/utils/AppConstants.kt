@@ -30,4 +30,5 @@ object AppConstants {
     const val LOGIN = "login"
     const val TERMS = "terms"
     const val PRIVACY_POLICY = "privacy_policy"
+    const val FORGOT_PASSWORD = "forgot_password"
 }
