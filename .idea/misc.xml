@@ -138,6 +138,7 @@
         <entry key="app/src/main/res/layout/fragment_provider_home_old.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_sale_provider.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_wishlist.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/item_add_color_size.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/item_delivery_address.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_edit_shop_category.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_images.xml" value="0.24114583333333334" />

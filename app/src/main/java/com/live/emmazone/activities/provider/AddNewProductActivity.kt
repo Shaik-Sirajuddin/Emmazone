@@ -25,6 +25,8 @@ import com.live.emmazone.model.ImageModel
 import com.live.emmazone.utils.ToastUtils
 import com.permissionx.guolindev.PermissionX
 import android.widget.*
+import com.live.emmazone.adapter.ColorSizeAdapter
+import com.live.emmazone.model.ColorSizeModel
 
 
 class AddNewProductActivity : AppCompatActivity() {
@@ -36,6 +38,11 @@ class AddNewProductActivity : AppCompatActivity() {
 
     private var isMainPhoto = true
 
+    private val colorList = ArrayList<ColorSizeModel>()
+    private val sizeList = ArrayList<ColorSizeModel>()
+    private lateinit var colorAdapter: ColorSizeAdapter
+    private lateinit var sizeAdapter: ColorSizeAdapter
+
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +53,23 @@ class AddNewProductActivity : AppCompatActivity() {
 
         initListener()
         initAdapter()
+        setColorSizeAdapter()
 
         binding.tvInfo.setOnClickListener {
             showPopup(binding.tvInfo)
         }
+    }
+
+    private fun setColorSizeAdapter() {
+        colorList.add(ColorSizeModel())
+        sizeList.add(ColorSizeModel())
+
+
+        colorAdapter = ColorSizeAdapter(colorList)
+        sizeAdapter = ColorSizeAdapter(sizeList)
+        binding.rvColor.adapter = colorAdapter
+        binding.rvSize.adapter = sizeAdapter
+
     }
 
 
@@ -69,13 +89,27 @@ class AddNewProductActivity : AppCompatActivity() {
     private fun initListener() {
         binding.apply {
 
-            back.setOnClickListener { onBackPressed() }
+            back.setOnClickListener {
+                onBackPressed()
+            }
 
-            btnSave.setOnClickListener { showAddProductDialog() }
+            btnSave.setOnClickListener {
+                showAddProductDialog()
+            }
 
             ivShop.setOnClickListener {
                 isMainPhoto = true
                 optionsDialog()
+            }
+
+            addColour.setOnClickListener {
+                colorList.add(ColorSizeModel())
+                colorAdapter.notifyDataSetChanged()
+            }
+
+            productSize.setOnClickListener {
+                sizeList.add(ColorSizeModel())
+                sizeAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -213,10 +247,16 @@ class AddNewProductActivity : AppCompatActivity() {
 
     private fun showPopup(it: View) {
 
-        val inflater = applicationContext?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater =
+            applicationContext?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.popup_my_post, null)
 
-        val myPopupWindow = PopupWindow(view, RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT, true)
+        val myPopupWindow = PopupWindow(
+            view,
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
         myPopupWindow.showAsDropDown(it, 0, -180)
     }
 }
