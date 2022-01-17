@@ -36,8 +36,10 @@ data class LoginResponse(
         var image: String,
         @SerializedName("isAt")
         var isAt: Int, // 1641281334
+        @SerializedName("isShopAdd")
+        var isShopAdd: Int, // 1
         @SerializedName("isVerified")
-        var is_verified: Int, // 0
+        var is_Verified: Int, // 0
         @SerializedName("latitude")
         var latitude: String, // 0.000000
         @SerializedName("location")
@@ -46,6 +48,8 @@ data class LoginResponse(
         var longitude: String, // 0.000000
         @SerializedName("nameuser")
         var nameuser: String,
+        @SerializedName("notification_status")
+        var notificationStatus: Int, // 1
         @SerializedName("otp")
         var otp: Int, // 1111
         @SerializedName("password")
@@ -54,19 +58,17 @@ data class LoginResponse(
         var phone: String, // 8219879419
         @SerializedName("role")
         var role: Int, // 1
-        @SerializedName("size")
-        var size: String, // 0
         @SerializedName("status")
         var status: Int, // 1
         @SerializedName("token")
-        var token: String, // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxODksImVtYWlsIjoic2lyaUB5b3BtYWlsLmNvbSJ9LCJpYXQiOjE2NDEzNjY4NTl9.Ajt6Bo97yWqIh4O09mdE3L5KaaRc97YjpEvoIv7zX_g
+        var token: String, // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxODksImVtYWlsIjoic2lyaUB5b3BtYWlsLmNvbSJ9LCJpYXQiOjE2NDI0MTQzMjN9.fmoTXLKlSmx4ClAr4HUAsFR9-VO6iVGB1E5_Gq8zk-o
         @SerializedName("updated")
         var updated: Int, // 1641294443
         @SerializedName("updatedAt")
-        var updatedAt: String, // 2022-01-04T11:07:22.000Z
+        var updatedAt: String, // 2022-01-13T11:06:52.000Z
         @SerializedName("username")
         var username: String, // siri
         @SerializedName("verified")
         var verified: Int // 0
     )
-} 
+}
