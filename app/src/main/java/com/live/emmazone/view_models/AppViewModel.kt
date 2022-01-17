@@ -34,7 +34,7 @@ class AppViewModel : ViewModel() {
     ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
-            service.signUp(hashMap,image)
+            service.signUp(hashMap, image)
                 .enqueue(object : Callback<SignUpResponse> {
                     override fun onResponse(
                         call: Call<SignUpResponse>,
@@ -264,7 +264,6 @@ class AppViewModel : ViewModel() {
     }
 
 
-
     fun forgotPassApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
@@ -302,6 +301,84 @@ class AppViewModel : ViewModel() {
         }
     }
 
+
+    fun categoryListApi(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.categoryList()
+                .enqueue(object : Callback<CategoryListResponse> {
+                    override fun onResponse(
+                        call: Call<CategoryListResponse>,
+                        response: Response<CategoryListResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<CategoryListResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        categoryListApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+
+
+    fun addShopApi(
+        activity: Activity, isDialogShow: Boolean,
+        hashMap: HashMap<String, RequestBody>, image: MultipartBody.Part
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addShop(hashMap, image)
+                .enqueue(object : Callback<AddShopResponse> {
+                    override fun onResponse(
+                        call: Call<AddShopResponse>,
+                        response: Response<AddShopResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<AddShopResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addShopApi(activity, isDialogShow, hashMap, image)
+                    }
+                })
+        }
+    }
 
 
 }

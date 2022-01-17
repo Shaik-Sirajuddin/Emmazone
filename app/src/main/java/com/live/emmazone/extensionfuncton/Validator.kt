@@ -46,11 +46,11 @@ object Validator {
     }
 
 
-    fun validateOtp(otp:String):Boolean{
+    fun validateOtp(otp: String): Boolean {
         return if (TextUtils.isEmpty(otp)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_otp)
             false
-        }else  true
+        } else true
     }
 
 
@@ -76,6 +76,36 @@ object Validator {
             false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             errorMessage = AppController.instance!!.getString(R.string.msg_valid_email)
+            false
+        } else return true
+    }
+
+
+    fun validateAddShop(
+        image: String,
+        shopName: String,
+        shopYear: String,
+        address: String,
+        desc: String,
+        categories: String
+    ): Boolean {
+        return if (TextUtils.isEmpty(image)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_image)
+            false
+        } else if (TextUtils.isEmpty(shopName)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_shop_name)
+            false
+        } else if (TextUtils.isEmpty(shopYear)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_shop_year)
+            false
+        } else if (TextUtils.isEmpty(address)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_address)
+            false
+        } else if (TextUtils.isEmpty(desc)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
+            false
+        }else if (TextUtils.isEmpty(categories)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_category)
             false
         } else return true
     }

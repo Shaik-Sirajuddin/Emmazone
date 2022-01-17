@@ -45,4 +45,14 @@ interface RestApiInterface {
     @FormUrlEncoded
     @POST(AppConstants.FORGOT_PASSWORD)
     fun forgotPassword(@FieldMap hashMap: HashMap<String, String>): Call<ForgotPasswordResponse>
+
+
+    @GET(AppConstants.CATEGORY_LIST)
+    fun categoryList(): Call<CategoryListResponse>
+
+    @Multipart
+    @POST(AppConstants.ADD_SHOP)
+    fun addShop(@PartMap hashMap: HashMap<String, RequestBody>,
+    @Part image: MultipartBody.Part): Call<AddShopResponse>
+
 }

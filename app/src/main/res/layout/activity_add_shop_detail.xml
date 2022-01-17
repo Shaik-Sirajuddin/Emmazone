@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,8 +27,8 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="36dp"
-                android:src="@drawable/arroww"
                 android:padding="8dp"
+                android:src="@drawable/arroww"
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
                 app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
 
@@ -86,7 +86,7 @@
                 android:layout_below="@id/imageView2"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="8dp"
-                android:text="@string/add_images_videos"
+                android:text="@string/add_image"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp15" />
 
@@ -118,7 +118,7 @@
             android:layout_marginStart="@dimen/dp24"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/dp24"
-            android:text="Shop Name"
+            android:text="@string/shop_name"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
@@ -133,8 +133,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/login_bg"
-            android:maxLines="1"
             android:inputType="text"
+            android:maxLines="1"
             android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvShopName"
             app:layout_constraintStart_toStartOf="@+id/tvShopName"
@@ -171,7 +171,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp8"
-            android:text="Address"
+            android:text="@string/address"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
@@ -185,8 +185,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:background="@drawable/login_bg"
-            android:maxLines="1"
             android:inputType="text"
+            android:maxLines="1"
             android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvAddress"
             app:layout_constraintStart_toStartOf="@+id/tvAddress"
@@ -211,10 +211,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/login_bg"
-            android:textColorHint="@color/black"
-            android:textSize="@dimen/sp15"
             android:inputType="text"
             android:paddingStart="8dp"
+            android:textColorHint="@color/black"
+            android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/tvDESC"
             app:layout_constraintStart_toStartOf="@+id/tvDESC"
             app:layout_constraintTop_toBottomOf="@+id/tvDESC" />
@@ -248,9 +248,9 @@
             android:id="@+id/rvAddShop"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/tvCatName"
             app:layout_constraintEnd_toEndOf="@+id/imageAddCat"
             app:layout_constraintStart_toStartOf="@+id/tvCat"
@@ -314,4 +314,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

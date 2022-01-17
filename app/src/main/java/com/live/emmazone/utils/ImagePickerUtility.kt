@@ -64,7 +64,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
                 val contentURI = result.data?.data
 
                 val selectedVideoPath = getPath(contentURI!!)
-                val a = "/storage/emulated/0/Movies/Instagram/VID_53050323_203748_988.mp4"
+//                val dummyPath = "/storage/emulated/0/Movies/Instagram/VID_53050323_203748_988.mp4"
                 selectedImage(selectedVideoPath, mCode)
             }
         }
