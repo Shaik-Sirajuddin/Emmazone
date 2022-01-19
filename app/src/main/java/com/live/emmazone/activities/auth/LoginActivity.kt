@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                         savePreference(AppConstants.ROLE, response.body.role)
                         savePreference(AppConstants.AUTHORIZATION, response.body.token)
 
-                        if (response.body.is_verified == 1) {
+                        if (response.body.is_Verified == 1) {
 
                             if (response.body.role == 1) {
                                 //role = 1 -> User, 3 -> Seller
