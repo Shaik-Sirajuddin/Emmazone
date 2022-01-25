@@ -22,12 +22,10 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (getPreference(AppConstants.IS_LOGIN, false)) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                val intent = Intent(this, UserLoginChoice::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, UserLoginChoice::class.java))
                 finish()
             }
         }, 3000)

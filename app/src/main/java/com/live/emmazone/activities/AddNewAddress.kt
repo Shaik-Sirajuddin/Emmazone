@@ -17,8 +17,7 @@ class AddNewAddress : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnSave.setOnClickListener {
-            val intent = Intent(this, DeliveryAddress::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, DeliveryAddress::class.java))
         }
         binding.back.setOnClickListener {
             onBackPressed()

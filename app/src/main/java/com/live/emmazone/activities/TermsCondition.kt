@@ -36,7 +36,7 @@ class TermsCondition : AppCompatActivity(), Observer<RestObservable> {
     }
 
     override fun onChanged(t: RestObservable?) {
-        when (t!!.status) {
+        when (t?.status) {
             Status.SUCCESS -> {
                 if (t.data is TermsConditionResponse) {
                     val response: TermsConditionResponse = t.data
@@ -52,6 +52,7 @@ class TermsCondition : AppCompatActivity(), Observer<RestObservable> {
                 }
             }
 
+            else -> {}
         }
     }
 }

@@ -33,7 +33,7 @@ class PrivacyPolicy : AppCompatActivity(), Observer<RestObservable> {
     }
 
     override fun onChanged(t: RestObservable?) {
-        when (t!!.status) {
+        when (t?.status) {
             Status.SUCCESS -> {
                 if (t.data is PrivacyPolicyResponse) {
                     val response: PrivacyPolicyResponse = t.data
@@ -49,6 +49,7 @@ class PrivacyPolicy : AppCompatActivity(), Observer<RestObservable> {
                 }
             }
 
+            else -> {}
         }
     }
 

@@ -36,8 +36,7 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
 
     private fun clicksHandle() {
         binding.imageArrowback.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
 
 
@@ -65,7 +64,7 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
     }
 
     override fun onChanged(t: RestObservable?) {
-        when (t!!.status) {
+        when (t?.status) {
             Status.SUCCESS -> {
                 if (t.data is OtpVerifyResponse) {
                     val response: OtpVerifyResponse = t.data
@@ -90,6 +89,7 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 }
