@@ -71,7 +71,7 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
 
-                        if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.SELLER) {
+                        if (getPreference(AppConstants.PROFILE_TYPE, "").equals("seller")) {
                             startActivity(Intent(this, AddShopDetailActivity::class.java))
                             finish()
                         } else {

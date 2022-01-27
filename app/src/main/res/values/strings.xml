@@ -216,6 +216,9 @@
     <string name="msg_valid_email">Please enter valid email</string>
     <string name="msg_enter_contact">Please enter contact no.</string>
     <string name="msg_enter_password">Please enter password</string>
+    <string name="msg_enter_old_password">Please enter old password</string>
+    <string name="msg_enter_new_password">Please enter new password</string>
+    <string name="msg_enter_confirm_password">Please enter confirm password</string>
     <string name="msg_password_6_character">Please enter at least 6 characters in your password</string>
     <string name="msg_password_not_match">Password and Confirm Password do not match</string>
     <string name="msg_agree_terms_condition">To register, please agree to the Terms and Conditions</string>
@@ -225,5 +228,6 @@
     <string name="msg_enter_address">Please enter address</string>
     <string name="msg_enter_description">Please enter description</string>
     <string name="msg_select_category">Please select atleast one category</string>
+    <string name="error_pass_confrimpass_not_same">Password and confirm password must be same</string>
 
 </resources>

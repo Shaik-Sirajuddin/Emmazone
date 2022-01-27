@@ -25,6 +25,7 @@ import com.live.emmazone.databinding.ActivityAddShopDetailBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.AddShopResponse
 import com.live.emmazone.response_model.CategoryListResponse
 import com.live.emmazone.utils.*
 import com.live.emmazone.view_models.AppViewModel
@@ -173,6 +174,9 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
                         list.addAll(response.body)
                         setCategoryAdapter()
                     }
+                }
+                else if (t.data is AddShopResponse){
+
                 }
             }
         }

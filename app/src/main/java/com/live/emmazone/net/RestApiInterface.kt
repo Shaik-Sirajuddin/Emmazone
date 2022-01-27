@@ -55,4 +55,13 @@ interface RestApiInterface {
     fun addShop(@PartMap hashMap: HashMap<String, RequestBody>,
     @Part image: MultipartBody.Part): Call<AddShopResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.CHANGE_PASSWORD)
+    fun changePassword(@FieldMap hashMap: HashMap<String, String>): Call<ChangePasswordResponse>
+
+
+
+
+
+
 }

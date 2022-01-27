@@ -33,4 +33,5 @@ object AppConstants {
     const val FORGOT_PASSWORD = "forgot_password"
     const val CATEGORY_LIST = "category_list"
     const val ADD_SHOP = "add_shop"
+    const val CHANGE_PASSWORD = "change_password"
 }

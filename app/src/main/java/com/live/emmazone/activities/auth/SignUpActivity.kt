@@ -12,6 +12,7 @@ import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.VerificationCode
 import com.live.emmazone.databinding.ActivitySignUpBinding
 import com.live.emmazone.extensionfuncton.Validator
+import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
@@ -115,7 +116,11 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["password"] = toBody(password)
             hashMap["device_type"] = toBody(AppConstants.DEVICE_TYPE)
             hashMap["device_token"] = toBody(deviceToken)
-
+            //Type 1 for user and Type 3 for Seller
+               if (getPreference(AppConstants.PROFILE_TYPE,"").equals("user"))
+                   hashMap["type"] = toBody(1.toString())
+               else
+                   hashMap["type"] = toBody(3.toString())
 
             appViewModel.signUpApi(this, true, hashMap, image)
             appViewModel.getResponse().observe(this, this)

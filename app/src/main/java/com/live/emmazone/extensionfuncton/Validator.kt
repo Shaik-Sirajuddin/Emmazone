@@ -1,5 +1,6 @@
 package com.live.emmazone.extensionfuncton
 
+import android.app.Activity
 import android.text.TextUtils
 import android.util.Patterns
 import com.live.emmazone.R
@@ -108,6 +109,34 @@ object Validator {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_category)
             false
         } else return true
+    }
+
+    fun validateChangePassword(pass: String,newpass: String, confirmpass: String): Boolean {
+        when {
+            pass.isEmpty() -> {
+                errorMessage = AppController.instance!!.getString(R.string.msg_enter_old_password)
+                return false
+            }
+            pass.length < 6 -> {
+                errorMessage = AppController.instance!!.getString(R.string.msg_password_6_character)
+                return false
+            }
+            newpass.isEmpty() -> {
+                errorMessage = AppController.instance!!.getString(R.string.msg_enter_new_password)
+                return false
+            }
+            newpass.length < 6 -> {
+                errorMessage = AppController.instance!!.getString(R.string.msg_password_6_character)
+                return false
+            }
+            !newpass.equals(confirmpass)  -> {
+                errorMessage = AppController.instance!!.getString(R.string.error_pass_confrimpass_not_same)
+                return false
+            }
+            else -> {
+                return true
+            }
+        }
     }
 
 }

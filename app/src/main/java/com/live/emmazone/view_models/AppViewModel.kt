@@ -380,5 +380,43 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun changePassApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.changePassword(hashMap)
+                .enqueue(object : Callback<ChangePasswordResponse> {
+                    override fun onResponse(
+                        call: Call<ChangePasswordResponse>,
+                        response: Response<ChangePasswordResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<ChangePasswordResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        forgotPassApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+
 
 }
