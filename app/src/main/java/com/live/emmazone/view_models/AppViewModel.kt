@@ -411,7 +411,44 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        forgotPassApi(activity, isDialogShow, hashMap)
+                        changePassApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun notificationListApi(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.notificationList()
+                .enqueue(object : Callback<NotificatioListingResponse> {
+                    override fun onResponse(
+                        call: Call<NotificatioListingResponse>,
+                        response: Response<NotificatioListingResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<NotificatioListingResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        notificationListApi(activity, isDialogShow)
                     }
                 })
         }

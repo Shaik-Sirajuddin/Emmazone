@@ -59,6 +59,8 @@ interface RestApiInterface {
     @POST(AppConstants.CHANGE_PASSWORD)
     fun changePassword(@FieldMap hashMap: HashMap<String, String>): Call<ChangePasswordResponse>
 
+    @GET(AppConstants.NOTIFICATION_LIST)
+    fun notificationList(): Call<NotificatioListingResponse>
 
 
 

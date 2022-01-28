@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.model.ModelDeliveryAddress
-import com.live.emmazone.model.ModelNotifications
+import com.live.emmazone.response_model.NotificatioListingResponse
+import com.schunts.extensionfuncton.loadImage
 
-class AdapterNotifications(private val list: ArrayList<ModelNotifications>) :
+class AdapterNotifications(private val list: ArrayList<NotificatioListingResponse.Body>) :
     RecyclerView.Adapter<AdapterNotifications.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,11 +19,20 @@ class AdapterNotifications(private val list: ArrayList<ModelNotifications>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val ModelNotifications = list[position]
-        holder.image.setImageResource(ModelNotifications.image)
-        holder.tvOrderPerson.setText(ModelNotifications.tvOrderPersonName)
-        holder.tvDeliveryAddress.setText(ModelNotifications.tvOrderDeliveryAddress)
-        holder.tvnotifyTime.setText(ModelNotifications.tvNotificationTime)
+
+//      val ModelNotifications = list[position]
+//        holder.image.setImageResource(ModelNotifications.image)
+//        holder.tvOrderPerson.setText(ModelNotifications.tvOrderPersonName)
+//        holder.tvDeliveryAddress.setText(ModelNotifications.tvOrderDeliveryAddress)
+//        holder.tvnotifyTime.setText(ModelNotifications.tvNotificationTime)
+
+        holder.tvOrderPerson.text = list[position].username
+        holder.tvDeliveryAddress.text = list[position].message
+        holder.tvnotifyTime.text = list[position].createdAt
+
+        holder.image.loadImage(list[position].user_image)
+
+
     }
 
     override fun getItemCount(): Int {

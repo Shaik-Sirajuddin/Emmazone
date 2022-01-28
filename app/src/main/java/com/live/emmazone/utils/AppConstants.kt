@@ -19,6 +19,7 @@ object AppConstants {
     const val GUEST = "guest"
     const val IS_LOGIN = "isLogin"
     const val ROLE = "role"  //1-> User, 3-> Seller
+    const val NOTIFICATION_STATUS = "notification_status"  //1-> On, 0-> Off
 
 
     /*******URLs*****/
@@ -34,4 +35,5 @@ object AppConstants {
     const val CATEGORY_LIST = "category_list"
     const val ADD_SHOP = "add_shop"
     const val CHANGE_PASSWORD = "change_password"
+    const val NOTIFICATION_LIST = "notification_list"
 }

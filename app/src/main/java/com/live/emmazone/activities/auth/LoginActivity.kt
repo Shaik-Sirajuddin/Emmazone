@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.live.emmazone.MainActivity
 import com.live.emmazone.activities.VerificationCode
+import com.live.emmazone.activities.provider.AddShopDetailActivity
 import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.databinding.ActivityLoginBinding
@@ -98,22 +99,33 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                         savePreference(AppConstants.ROLE, response.body.role)
                         savePreference(AppConstants.AUTHORIZATION, response.body.token)
 
-                        if (response.body.is_Verified == 1) {
+                        if (response.body.verified == 1) {
 
-                            if (response.body.role == 1) {
+                            if (response.body.role == 3) {
                                 //role = 1 -> User, 3 -> Seller
+                                if (response.body.isShopAdd == 1)
+                                    startActivity(Intent(this, ProviderMainActivity::class.java))
+                                    else
+                                    startActivity(Intent(this, AddShopDetailActivity::class.java))
+
+
+                            } else {
                                 startActivity(Intent(this, MainActivity::class.java))
                                 finishAffinity()
 
-                            } else {
-
-                                startActivity(Intent(this, ProviderMainActivity::class.java))
                             }
 
                         } else {
                             val intent = Intent(this, VerificationCode::class.java)
                             startActivity(intent)
                             finish()
+                        }
+
+                        if (response.body.notificationStatus == 1){
+                            savePreference(AppConstants.NOTIFICATION_STATUS, response.body.notificationStatus)
+
+                        }else{
+                            savePreference(AppConstants.NOTIFICATION_STATUS, response.body.notificationStatus)
                         }
 
                     }

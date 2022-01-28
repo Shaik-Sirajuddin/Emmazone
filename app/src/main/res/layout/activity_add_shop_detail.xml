@@ -250,11 +250,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"
-            android:visibility="gone"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/tvCatName"
             app:layout_constraintEnd_toEndOf="@+id/imageAddCat"
             app:layout_constraintStart_toStartOf="@+id/tvCat"
-            app:layout_constraintTop_toBottomOf="@+id/tvCat" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCat"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/tvCatName"

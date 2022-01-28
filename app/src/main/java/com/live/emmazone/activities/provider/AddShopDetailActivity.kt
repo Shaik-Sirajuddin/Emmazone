@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -30,6 +31,7 @@ import com.live.emmazone.response_model.CategoryListResponse
 import com.live.emmazone.utils.*
 import com.live.emmazone.view_models.AppViewModel
 import com.permissionx.guolindev.PermissionX
+import com.schunts.extensionfuncton.loadImage
 import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
 import okhttp3.RequestBody
@@ -48,6 +50,10 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
     private var longitude = ""
     private var mImagePath = ""
 
+    var categoryId = ""
+    private var categoryIdList =  ArrayList<String>()
+    var combineids = ""
+
     override fun updatedLatLng(lat: Double?, lng: Double?) {
         if (lat != null && lng != null) {
             latitude = lat.toString()
@@ -61,6 +67,7 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
     override fun selectedImage(imagePath: String?, code: Int) {
         if (imagePath != null) {
             mImagePath = imagePath
+            binding.imgEditShop.loadImage(imagePath)
         }
     }
 
@@ -78,7 +85,7 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
 
     private fun clicksHandle() {
 
-        binding.mainImageLayout.setOnClickListener {
+        binding.imgEditShop.setOnClickListener {
             getImage(0, false)
         }
 
@@ -91,7 +98,6 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
         }
 
         binding.btnDone.setOnClickListener {
-            profileCompletedDialog()
             validateData()
         }
     }
@@ -99,6 +105,25 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
     private fun setCategoryAdapter() {
         val categoryAdapter = CategoriesAdapter(list)
         binding.rvAddShop.adapter = categoryAdapter
+
+        categoryAdapter?.onClickListener = { pos, selectedid ->
+            list[pos].isSelected = !list[pos].isSelected
+            categoryAdapter.notifyDataSetChanged()
+            if (list[pos].isSelected)
+            {
+                categoryId = list[pos].id.toString()
+                categoryIdList.add(categoryId)
+
+            }else{
+                if (combineids.contains(categoryId))
+                    categoryIdList.remove(categoryId)
+
+            }
+            if (!categoryIdList.isNullOrEmpty()){
+                combineids = TextUtils.join(",",categoryIdList)
+            }
+
+        }
 
     }
 
@@ -149,12 +174,13 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
         ) {
 
             val hashMap = HashMap<String, RequestBody>()
-            hashMap["shop_name"] = toBody(shopName)
+            hashMap["shopName"] = toBody(shopName)
             hashMap["year_of_foundation"] = toBody(shopYear)
             hashMap["address"] = toBody(shopAddress)
             hashMap["description"] = toBody(shopDesc)
             hashMap["latitude"] = toBody(latitude)
             hashMap["longitude"] = toBody(longitude)
+            hashMap["category"] = toBody(combineids)
 
             val image = prepareMultiPart("image", File(mImagePath))
             appViewModel.addShopApi(this, true, hashMap, image)
@@ -176,6 +202,14 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
                     }
                 }
                 else if (t.data is AddShopResponse){
+                    val response: AddShopResponse = t.data
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        profileCompletedDialog()
+
+                    }
+
+
+
 
                 }
             }
