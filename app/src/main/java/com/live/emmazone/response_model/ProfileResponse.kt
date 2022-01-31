@@ -3,13 +3,13 @@ package com.live.emmazone.response_model
 
 import com.google.gson.annotations.SerializedName
 
-data class Signup(
+data class ProfileResponse(
     @SerializedName("body")
     var body: Body,
     @SerializedName("code")
     var code: Int, // 200
     @SerializedName("message")
-    var message: String, // Signup successfully
+    var message: String, // User profile fetched successfully.
     @SerializedName("success")
     var success: Boolean // true
 ) {
@@ -17,11 +17,11 @@ data class Signup(
         @SerializedName("countryCode")
         var countryCode: String, // +91
         @SerializedName("created")
-        var created: Int, // 1643374282
+        var created: Int, // 1641274768
         @SerializedName("createdAt")
-        var createdAt: String, // 2022-01-28T12:51:22.000Z
+        var createdAt: String, // 2022-01-04T05:39:27.000Z
         @SerializedName("email")
-        var email: String, // sachin123@yopmail.com
+        var email: String, // hello2@cqlsys.co.uk
         @SerializedName("facebookId")
         var facebookId: String,
         @SerializedName("forgotPasswordHash")
@@ -31,13 +31,13 @@ data class Signup(
         @SerializedName("googleId")
         var googleId: String,
         @SerializedName("id")
-        var id: Int, // 263
+        var id: Int, // 183
         @SerializedName("image")
-        var image: String, // 4051d15a-953b-4e58-b550-faeb037564e6.png
+        var image: String, // 3881d5d5-425f-4b98-a87d-83ee255b1b15.jpg
         @SerializedName("isAt")
-        var isAt: Int, // 1643364924
+        var isAt: Int, // 1641274740
         @SerializedName("isVerified")
-        var isVerified: Int, // 0
+        var is_Verified: Int, // 0
         @SerializedName("latitude")
         var latitude: String, // 0.000000
         @SerializedName("location")
@@ -47,26 +47,24 @@ data class Signup(
         @SerializedName("nameuser")
         var nameuser: String,
         @SerializedName("notification_status")
-        var notificationStatus: Int, // 1
+        var notificationStatus: Int, // 0
         @SerializedName("otp")
         var otp: Int, // 1111
         @SerializedName("password")
-        var password: String, // $2y$10$8ewj.iSIS/yk7rAjqMZXr.5oEAm.tlLxWCqini0ZFDoRFkeFj7Hdu
+        var password: String, // $2y$10$QLblWQIdPYh0j7kymdcJZutj3k953KKFM6GFFEmRgj/b0.T64aTcK
         @SerializedName("phone")
-        var phone: String, // 7807536707
+        var phone: String, // 7894564812
         @SerializedName("role")
-        var role: Int, // 3
+        var role: Int, // 1
         @SerializedName("status")
         var status: Int, // 1
-        @SerializedName("token")
-        var token: String, // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyNjMsImVtYWlsIjoic2FjaGluMTIzQHlvcG1haWwuY29tIn0sImlhdCI6MTY0MzM3NDI4Mn0.WCTXLjHqwozx7Q6wgl-V-rOcqFUAfveGV1H_YQBIuAc
         @SerializedName("updated")
-        var updated: Int, // 1643374282
+        var updated: Int, // 1641274768
         @SerializedName("updatedAt")
-        var updatedAt: String, // 2022-01-28T12:51:22.000Z
+        var updatedAt: String, // 2022-01-13T05:42:38.000Z
         @SerializedName("username")
-        var username: String, // sachin
+        var username: String, // hello2
         @SerializedName("verified")
-        var verified: Int // 1
+        var verified: Int // 0
     )
 }

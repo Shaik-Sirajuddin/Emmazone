@@ -15,12 +15,11 @@ import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.databinding.ActivityLoginBinding
 import com.live.emmazone.extensionfuncton.Validator
-import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.LoginResponse
-import com.live.emmazone.response_model.SignUpResponse
+import com.live.emmazone.utils.AppConstants.USER_CHOICE
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
 
@@ -29,6 +28,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
     lateinit var binding: ActivityLoginBinding
     private val appViewModel: AppViewModel by viewModels()
     private var deviceToken = ""
+    var userChoice = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +53,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+        userChoice = intent.getStringExtra(USER_CHOICE).toString()
 
     }
 
@@ -67,6 +68,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
             hashMap["password"] = password
             hashMap["device_type"] = AppConstants.DEVICE_TYPE
             hashMap["device_token"] = deviceToken
+            hashMap["type"] = userChoice
 
             appViewModel.loginApi(this, true, hashMap)
             appViewModel.getResponse().observe(this, this)
@@ -108,7 +110,6 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                                     else
                                     startActivity(Intent(this, AddShopDetailActivity::class.java))
 
-
                             } else {
                                 startActivity(Intent(this, MainActivity::class.java))
                                 finishAffinity()
@@ -121,12 +122,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                             finish()
                         }
 
-                        if (response.body.notificationStatus == 1){
-                            savePreference(AppConstants.NOTIFICATION_STATUS, response.body.notificationStatus)
-
-                        }else{
-                            savePreference(AppConstants.NOTIFICATION_STATUS, response.body.notificationStatus)
-                        }
+                        savePreference(AppConstants.NOTIFICATION_TYPE, response.body.notificationStatus.toString())
 
                     }
                 }

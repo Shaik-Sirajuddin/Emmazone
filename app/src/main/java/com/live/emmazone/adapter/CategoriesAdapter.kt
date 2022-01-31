@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.databinding.ItemCategoryBinding
 import com.live.emmazone.response_model.CategoryListResponse
+import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
 
 class CategoriesAdapter(val list: MutableList<CategoryListResponse.Body>) :
@@ -32,7 +33,7 @@ class CategoriesAdapter(val list: MutableList<CategoryListResponse.Body>) :
         fun bind(pos: Int) {
             val category = list[pos]
 
-            binding.civCategory.loadImage(category.image)
+            binding.civCategory.loadImage(AppConstants.IMAGE_CATEGORY_URL+category.image)
             binding.tvCategoryName.text = category.name
 
             if (category.isSelected) {

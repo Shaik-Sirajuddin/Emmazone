@@ -138,12 +138,8 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
                         savePreference(AppConstants.AUTHORIZATION,response.body.token)
                         savePreference(AppConstants.ROLE,response.body.role)
 
-//                        if (response.body. == 1){
-//                            savePreference(AppConstants.NOTIFICATION_STATUS, response.body.notificationStatus)
-//
-//                        }else{
-//                            savePreference(AppConstants.NOTIFICATION_STATUS, response.body.notificationStatus)
-//                        }
+                        savePreference(AppConstants.NOTIFICATION_TYPE, response.body.notificationStatus.toString())
+
 
                         val intent = Intent(this, VerificationCode::class.java)
                         startActivity(intent)

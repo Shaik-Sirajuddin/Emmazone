@@ -454,6 +454,77 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun notificationStatusApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.notificationStatus(hashMap)
+                .enqueue(object : Callback<NotificationStatusResponse> {
+                    override fun onResponse(
+                        call: Call<NotificationStatusResponse>,
+                        response: Response<NotificationStatusResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
 
+                        }
 
+                    }
+
+                    override fun onFailure(call: Call<NotificationStatusResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        notificationStatusApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun profileApi(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.profile()
+                .enqueue(object : Callback<ProfileResponse> {
+                    override fun onResponse(
+                        call: Call<ProfileResponse>,
+                        response: Response<ProfileResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        profileApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
 }

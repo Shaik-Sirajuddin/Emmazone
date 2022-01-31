@@ -62,6 +62,12 @@ interface RestApiInterface {
     @GET(AppConstants.NOTIFICATION_LIST)
     fun notificationList(): Call<NotificatioListingResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.NOTIFICATION_STATUS)
+    fun notificationStatus(@FieldMap hashMap: HashMap<String, String>): Call<NotificationStatusResponse>
+
+    @GET(AppConstants.PROFILE)
+    fun profile(): Call<ProfileResponse>
 
 
 
