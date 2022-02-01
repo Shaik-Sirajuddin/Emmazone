@@ -527,4 +527,78 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
+    fun editProfileApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, RequestBody>, image: MultipartBody.Part) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.editProfile(hashMap,image)
+                .enqueue(object : Callback<EditProfileResponse> {
+                    override fun onResponse(
+                        call: Call<EditProfileResponse>,
+                        response: Response<EditProfileResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<EditProfileResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        editProfileApi(activity, isDialogShow, hashMap,image)
+                    }
+                })
+        }
+    }
+
+    fun addAddressApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addAddress(hashMap)
+                .enqueue(object : Callback<AddNewAddressResponse> {
+                    override fun onResponse(
+                        call: Call<AddNewAddressResponse>,
+                        response: Response<AddNewAddressResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<AddNewAddressResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addAddressApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
 }

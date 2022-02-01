@@ -58,7 +58,7 @@
         <entry key="app/src/main/res/font/advent_pro_thin.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/font/average.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/activity_add_bank_account.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/activity_add_new_address.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_add_new_address.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_add_new_product.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_add_shop_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_bottom_sheet_dialog.xml" value="0.2" />
@@ -66,7 +66,7 @@
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_delivery_address.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_edit_product.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_edit_shop_detail.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_enable_location_services.xml" value="0.19" />
         <entry key="app/src/main/res/layout/activity_faq.xml" value="0.21" />
@@ -98,7 +98,7 @@
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_shop_detail.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_shop_reviews.xml" value="0.23743589743589744" />
-        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1388888888888889" />
         <entry key="app/src/main/res/layout/activity_terms_condition.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_terms_conditions.xml" value="0.24114583333333334" />

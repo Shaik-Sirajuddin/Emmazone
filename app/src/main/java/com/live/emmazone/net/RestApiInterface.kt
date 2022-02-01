@@ -69,6 +69,14 @@ interface RestApiInterface {
     @GET(AppConstants.PROFILE)
     fun profile(): Call<ProfileResponse>
 
+    @Multipart
+    @POST(AppConstants.EDIT_PROFILE)
+    fun editProfile(@PartMap hashMap: HashMap<String, RequestBody>,@Part image: MultipartBody.Part): Call<EditProfileResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.ADD_NEW_ADDRESS)
+    fun addAddress(@FieldMap hashMap: HashMap<String, String>): Call<AddNewAddressResponse>
+
 
 
 

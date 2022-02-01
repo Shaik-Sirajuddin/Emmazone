@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">EmmaZone</string>
+
+    <string name="map_key">"AIzaSyD1I33qCNnCUFHV9f2U7s_WeD8vJJ3wmEs"</string>
+
     <string name="sign_in_as_user">Sign In as User</string>
     <string name="sign_in_as_seller">Sign In as Seller</string>
     <string name="continue_as_a_guest">Continue as a Guest</string>

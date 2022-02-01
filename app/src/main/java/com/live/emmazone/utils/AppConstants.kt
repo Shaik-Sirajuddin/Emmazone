@@ -41,4 +41,8 @@ object AppConstants {
     const val NOTIFICATION_LIST = "notification_list"
     const val NOTIFICATION_STATUS = "notification_status"
     const val PROFILE = "profile"
+    const val EDIT_PROFILE = "edit_profile"
+    const val ADD_NEW_ADDRESS = "add_new_address"
+
+
 }

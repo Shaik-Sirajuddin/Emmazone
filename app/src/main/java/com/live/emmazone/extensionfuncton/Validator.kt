@@ -139,4 +139,18 @@ object Validator {
         }
     }
 
+    fun editProfileValidation(
+        name: String, mobileNo: String,
+    ): Boolean {
+
+        return if (TextUtils.isEmpty(name)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_name)
+            false
+        }  else if (TextUtils.isEmpty(mobileNo)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_contact)
+            false
+        } else true
+
+    }
+
 }
