@@ -197,7 +197,7 @@
                     android:background="@drawable/login_bg"
                     android:fontFamily="@font/avenir_book"
                     android:paddingLeft="@dimen/dp8"
-                    android:hint="+12-456-789-456"
+                    android:hint="456-789-456"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLines="1"

@@ -1,19 +1,15 @@
 package com.live.emmazone.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnActionListener
 import com.live.emmazone.databinding.ItemDeliveryAddressBinding
-import com.live.emmazone.model.ModelDeliveryAddress
+import com.live.emmazone.response_model.AddressListResponse
 
 class AdapterDeliveryAddress(
-    private val list: ArrayList<ModelDeliveryAddress>,
-    private var onActionListener: OnActionListener<ModelDeliveryAddress>) :
+    private val list: ArrayList<AddressListResponse.Body>,
+    private var onActionListener: OnActionListener<AddressListResponse.Body>) :
     RecyclerView.Adapter<AdapterDeliveryAddress.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,8 +20,8 @@ class AdapterDeliveryAddress(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = list[position]
         with(holder.binding) {
-            tvOrderPersonName.text = model.tvOrderPersonName
-            tvOrderDeliveryAddress.text = model.tvOrderDeliveryAddress
+            tvOrderPersonName.text = model.name
+            tvOrderDeliveryAddress.text = model.address+" , ".plus(model.city)
 
             radioBtnDeliveryAdrs.isChecked = model.isSelected
             radioBtnDeliveryAdrs.isClickable = false

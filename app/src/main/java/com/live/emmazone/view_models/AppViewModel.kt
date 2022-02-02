@@ -601,4 +601,41 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
+    fun addressListApi(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addressList()
+                .enqueue(object : Callback<AddressListResponse> {
+                    override fun onResponse(
+                        call: Call<AddressListResponse>,
+                        response: Response<AddressListResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<AddressListResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addressListApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
 }

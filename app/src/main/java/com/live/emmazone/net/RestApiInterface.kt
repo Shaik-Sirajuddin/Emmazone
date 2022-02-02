@@ -77,6 +77,9 @@ interface RestApiInterface {
     @POST(AppConstants.ADD_NEW_ADDRESS)
     fun addAddress(@FieldMap hashMap: HashMap<String, String>): Call<AddNewAddressResponse>
 
+    @GET(AppConstants.ADDRESS_LIST)
+    fun addressList(): Call<AddressListResponse>
+
 
 
 

@@ -1,9 +1,11 @@
 package com.live.emmazone.activities.auth
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -26,6 +28,7 @@ class ProfileActivity : AppCompatActivity(), Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
 
     lateinit var binding: ActivityProfileBinding
+     var profileDetails:ProfileResponse? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +41,19 @@ class ProfileActivity : AppCompatActivity(), Observer<RestObservable> {
 
         binding.btnEditProfile.setOnClickListener {
             val intent = Intent(this, EditProfileActivity::class.java)
-            startActivity(intent)
+            intent.putExtra("profile",profileDetails)
+            resultLauncher.launch(intent)
         }
 
         appViewModel.profileApi(this, true)
         appViewModel.getResponse().observe(this, this)
 
+    }
+
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            appViewModel.profileApi(this, true)
+        }
     }
 
     override fun onChanged(t: RestObservable?) {
@@ -52,6 +62,7 @@ class ProfileActivity : AppCompatActivity(), Observer<RestObservable> {
             Status.SUCCESS -> {
                 if (t.data is ProfileResponse) {
                     val response: ProfileResponse = t.data
+                    profileDetails = response
                     binding.ivProfile.loadImage(AppConstants.IMAGE_USER_URL+response.body.image)
 
                     binding.tvUserName.text = response.body.username

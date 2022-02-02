@@ -43,6 +43,7 @@ object AppConstants {
     const val PROFILE = "profile"
     const val EDIT_PROFILE = "edit_profile"
     const val ADD_NEW_ADDRESS = "add_new_address"
+    const val ADDRESS_LIST = "address_list"
 
 
 }

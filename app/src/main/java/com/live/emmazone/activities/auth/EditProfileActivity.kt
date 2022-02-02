@@ -26,6 +26,7 @@ import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.EditProfileResponse
+import com.live.emmazone.response_model.ProfileResponse
 import com.live.emmazone.response_model.SignUpResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
@@ -47,6 +48,7 @@ class EditProfileActivity : ImagePickerUtility(),Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
 
     private var mImagePath = ""
+    private var profileDetail:ProfileResponse? = null
 
 
     override fun selectedImage(imagePath: String?, code: Int) {
@@ -60,6 +62,7 @@ class EditProfileActivity : ImagePickerUtility(),Observer<RestObservable> {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+         profileDetail = intent.getSerializableExtra("profile") as ProfileResponse
 
         binding.back.setOnClickListener {
             onBackPressed()
@@ -76,6 +79,13 @@ class EditProfileActivity : ImagePickerUtility(),Observer<RestObservable> {
                 getImage(0,false)
             }
         }
+
+        binding.ivProfile.loadImage(AppConstants.IMAGE_USER_URL+profileDetail!!.body.image)
+
+        binding.edtName.setText( profileDetail!!.body.username)
+        binding.edtEditEmail.setText( profileDetail!!.body.email)
+        binding.ccp.setCountryForNameCode( profileDetail!!.body.countryCode)
+        binding.edtMobile.setText( profileDetail!!.body.phone)
     }
 
     private fun AlertDialog(){
@@ -221,7 +231,7 @@ class EditProfileActivity : ImagePickerUtility(),Observer<RestObservable> {
             Status.SUCCESS -> {
                 if (t.data is EditProfileResponse) {
                     val response: EditProfileResponse = t.data
-
+                    setResult(RESULT_OK)
                     AlertDialog()
 
                 }

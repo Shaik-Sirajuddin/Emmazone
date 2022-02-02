@@ -154,6 +154,11 @@ class FragmentAccount : Fragment(), Observer<RestObservable> {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        appViewModel.profileApi(requireActivity(), true)
+    }
+
     private fun notificationStatus() {
 
             val hashMap = HashMap<String, String>()

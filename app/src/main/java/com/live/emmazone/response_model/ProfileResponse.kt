@@ -2,6 +2,7 @@ package com.live.emmazone.response_model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ProfileResponse(
     @SerializedName("body")
@@ -12,7 +13,7 @@ data class ProfileResponse(
     var message: String, // User profile fetched successfully.
     @SerializedName("success")
     var success: Boolean // true
-) {
+):Serializable {
     data class Body(
         @SerializedName("countryCode")
         var countryCode: String, // +91
@@ -66,5 +67,5 @@ data class ProfileResponse(
         var username: String, // hello2
         @SerializedName("verified")
         var verified: Int // 0
-    )
+    ):Serializable
 }
