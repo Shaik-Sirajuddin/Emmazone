@@ -37,14 +37,15 @@
         app:layout_constraintEnd_toEndOf="@+id/itemImageHome"
         app:layout_constraintStart_toStartOf="@+id/itemImageHome"
         app:layout_constraintTop_toBottomOf="@+id/itemImageHome"
-       >
+        android:weightSum="2"
+        >
 
         <TextView
             android:id="@+id/tvWishListStoreName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/berserka_store"
-            android:layout_weight="1"
+            android:layout_weight="1.25"
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
@@ -52,17 +53,21 @@
             app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
             app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/ratingBarWishList"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="@dimen/dp5"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp5"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/rating" />
+            android:src="@drawable/rating"
+            android:layout_weight=".5"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:numStars="5"
+            />
 
         <TextView
             android:id="@+id/tvWishListRatingText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="4.5/5"
@@ -70,7 +75,9 @@
             android:textSize="@dimen/sp12"
             app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
             app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
-            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout"
+            android:layout_weight=".25"
+            />
 
     </LinearLayout>
 

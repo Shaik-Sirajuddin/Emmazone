@@ -153,4 +153,32 @@ object Validator {
 
     }
 
+ fun addAddressValidation(
+        name: String, address: String,city:String,state:String,zipcode:String
+    ): Boolean {
+
+        return if (TextUtils.isEmpty(name)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_name)
+            false
+        }
+        else if (TextUtils.isEmpty(address)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_address)
+            false
+        }
+        else if (TextUtils.isEmpty(city)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_city)
+            false
+        }
+        else if (TextUtils.isEmpty(state)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_state)
+            false
+        }
+        else if (TextUtils.isEmpty(zipcode)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_zipcode)
+            false
+        }
+        else true
+
+    }
+
 }

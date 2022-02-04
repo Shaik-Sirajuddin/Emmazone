@@ -638,4 +638,153 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
+    fun shopListApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.shopListing(hashMap)
+                .enqueue(object : Callback<ShopListingResponse> {
+                    override fun onResponse(
+                        call: Call<ShopListingResponse>,
+                        response: Response<ShopListingResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<ShopListingResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        shopListApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun addFavApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.favShop(hashMap)
+                .enqueue(object : Callback<AddFavouriteResponse> {
+                    override fun onResponse(
+                        call: Call<AddFavouriteResponse>,
+                        response: Response<AddFavouriteResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<AddFavouriteResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addFavApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun deleteAddressApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.deleteAddress(hashMap)
+                .enqueue(object : Callback<DeleteAddressResponse> {
+                    override fun onResponse(
+                        call: Call<DeleteAddressResponse>,
+                        response: Response<DeleteAddressResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<DeleteAddressResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        deleteAddressApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun addProductApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addProduct(hashMap)
+                .enqueue(object : Callback<AddProductResponse> {
+                    override fun onResponse(
+                        call: Call<AddProductResponse>,
+                        response: Response<AddProductResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<AddProductResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addProductApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
 }

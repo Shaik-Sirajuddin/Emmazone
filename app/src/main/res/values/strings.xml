@@ -232,5 +232,8 @@
     <string name="msg_enter_description">Please enter description</string>
     <string name="msg_select_category">Please select atleast one category</string>
     <string name="error_pass_confrimpass_not_same">Password and confirm password must be same</string>
+    <string name="msg_enter_city">Please enter city</string>
+    <string name="msg_enter_state">Please enter state</string>
+    <string name="msg_enter_zipcode">Please enter zipcode</string>
 
 </resources>

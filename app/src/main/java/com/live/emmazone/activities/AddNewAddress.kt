@@ -19,7 +19,12 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.DeliveryAddress
 import com.live.emmazone.databinding.ActivityAddNewAddressBinding
+import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.AddNewAddressResponse
+import com.live.emmazone.response_model.EditProfileResponse
+import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
 import java.io.IOException
 import java.util.*
@@ -41,7 +46,9 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
         setContentView(binding.root)
 
         binding.btnSave.setOnClickListener {
-            startActivity(Intent(this, DeliveryAddress::class.java))
+
+            validateData()
+
         }
         binding.back.setOnClickListener {
             onBackPressed()
@@ -53,9 +60,9 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
         binding.editState.setOnClickListener {
             val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
                 .build(this)
-            completedAddress(pickupLat!!,pickupLong!!)
 
             pickupLocationLauncher.launch(intent)
+
         }
 
     }
@@ -70,9 +77,9 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
            pickupLat = place.latLng!!.latitude
            pickupLong = place.latLng!!.longitude
 
+            completedAddress(pickupLat!!,pickupLong!!)
 
-
-            binding.editState.setText(place.address)
+//            binding.editState.setText(place.address)
 
         }
     }
@@ -111,8 +118,8 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
                 location = addresses[0].getAddressLine(0)
 
 
-                binding.editState.setText(island)
-                binding.editCity.setText(city)
+                binding.editState.setText(city)
+                binding.editCity.setText(island)
 //                edit_state.setText(island)
                 binding.editZipCode.setText(pinCode)
             }
@@ -124,7 +131,47 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
         return location
     }
 
+    private fun validateData() {
+        val name = binding.editName.text.toString().trim()
+        val address = binding.editAddress.text.toString().trim()
+        val state = binding.editState.text.toString().trim()
+        val city = binding.editCity.text.toString().trim()
+        val zipcode = binding.editZipCode.text.toString().trim()
+
+        if (Validator.addAddressValidation(name,address,state,city,zipcode)) {
+            //************Forgot Password API hit*********************
+
+            val hashMap = HashMap<String, String>()
+            hashMap["name"] = name
+            hashMap["address"] = address
+            hashMap["city"] = state
+            hashMap["state"] = city
+            hashMap["zipcode"] = zipcode
+            hashMap["latitude"] = pickupLat.toString()
+            hashMap["longitude"] = pickupLong.toString()
+
+            appViewModel.addAddressApi(this, true, hashMap)
+            appViewModel.getResponse().observe(this, this)
+
+        } else AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+    }
+
     override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is AddNewAddressResponse) {
+                    val response: AddNewAddressResponse = t.data
+                    setResult(RESULT_OK)
+                    finish()
+//                    startActivity(Intent(this, DeliveryAddress::class.java))
+//                    setResult(RESULT_OK)
+//                    AlertDialog()
+
+                }
+
+            }
+
+        }
 
     }
 }

@@ -12,6 +12,8 @@ class AdapterDeliveryAddress(
     private var onActionListener: OnActionListener<AddressListResponse.Body>) :
     RecyclerView.Adapter<AdapterDeliveryAddress.ViewHolder>() {
 
+    var onClickListener:((pos:Int)->Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemDeliveryAddressBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -25,6 +27,10 @@ class AdapterDeliveryAddress(
 
             radioBtnDeliveryAdrs.isChecked = model.isSelected
             radioBtnDeliveryAdrs.isClickable = false
+
+            ivDelete.setOnClickListener {
+                onClickListener?.invoke(position)
+            }
 
             layoutItemDeliveryAdrs.setOnClickListener {
                 onActionListener.notify(model, holder.adapterPosition)

@@ -80,7 +80,21 @@ interface RestApiInterface {
     @GET(AppConstants.ADDRESS_LIST)
     fun addressList(): Call<AddressListResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.SHOP_LIST)
+    fun shopListing(@FieldMap hashMap: HashMap<String, String>): Call<ShopListingResponse>
 
+   @FormUrlEncoded
+    @POST(AppConstants.FAV_SHOP)
+    fun favShop(@FieldMap hashMap: HashMap<String, String>): Call<AddFavouriteResponse>
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = AppConstants.DELETE_ADDRESS, hasBody = true)
+    fun deleteAddress(@FieldMap hashMap: HashMap<String, String>): Call<DeleteAddressResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.ADD_SHOP_PRODUCT)
+    fun addProduct(@FieldMap hashMap: HashMap<String, String>): Call<AddProductResponse>
 
 
 }

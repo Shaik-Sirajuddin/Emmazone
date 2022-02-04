@@ -69,6 +69,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/ivDelete"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_centerInParent="true"

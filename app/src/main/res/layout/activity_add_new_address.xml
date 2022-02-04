@@ -149,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/state"
+            android:text="@string/city"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintHorizontal_bias="0.0"
@@ -185,6 +185,7 @@
                 android:longClickable="false"
                 android:editable="false"
                 android:clickable="false"
+                android:focusable="false"
 
                 />
 
@@ -206,7 +207,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/city"
+            android:text="@string/state"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintHorizontal_bias="0.0"
@@ -243,6 +244,7 @@
                 android:longClickable="false"
                 android:editable="false"
                 android:clickable="false"
+                android:focusable="false"
                 />
 
             <Spinner

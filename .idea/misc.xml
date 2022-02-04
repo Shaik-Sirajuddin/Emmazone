@@ -35,6 +35,7 @@
         <entry key="app/src/main/res/drawable/custom_switch.xml" value="0.25333333333333335" />
         <entry key="app/src/main/res/drawable/dotted_stoke.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/drawable/emmazone_background.xml" value="0.24166666666666667" />
+        <entry key="app/src/main/res/drawable/heart_unselect.xml" value="0.1765625" />
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/icon_app_background.xml" value="0.13802083333333334" />
         <entry key="app/src/main/res/drawable/my_orders_selector.xml" value="0.18055555555555555" />
@@ -58,7 +59,7 @@
         <entry key="app/src/main/res/font/advent_pro_thin.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/font/average.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/activity_add_bank_account.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/activity_add_new_address.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_add_new_address.xml" value="0.19" />
         <entry key="app/src/main/res/layout/activity_add_new_product.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_add_shop_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_bottom_sheet_dialog.xml" value="0.2" />
@@ -145,7 +146,7 @@
         <entry key="app/src/main/res/layout/item_images.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/item_layout_cart_items.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_layout_choose_card.xml" value="0.19" />
-        <entry key="app/src/main/res/layout/item_layout_home_nearby_shop.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/item_layout_home_nearby_shop.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_layout_my_earnings.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_layout_notifications.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_layout_ongoing_myorders.xml" value="0.2" />

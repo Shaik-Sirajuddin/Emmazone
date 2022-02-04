@@ -1,8 +1,10 @@
 package com.live.emmazone.activities.main
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +16,7 @@ import com.live.emmazone.databinding.ActivityDeliveryAddressBinding
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddressListResponse
+import com.live.emmazone.response_model.DeleteAddressResponse
 import com.live.emmazone.view_models.AppViewModel
 
 class DeliveryAddress : AppCompatActivity(),Observer<RestObservable> {
@@ -24,6 +27,7 @@ class DeliveryAddress : AppCompatActivity(),Observer<RestObservable> {
     var list = ArrayList<AddressListResponse.Body>()
     lateinit var addressAdapter: AdapterDeliveryAddress
     lateinit var recyclerView: RecyclerView
+    var deletedPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +36,7 @@ class DeliveryAddress : AppCompatActivity(),Observer<RestObservable> {
 
         binding.btnaddNewAddress.setOnClickListener {
             val intent = Intent(this, AddNewAddress::class.java)
-            startActivity(intent)
+            resultLauncher.launch(intent)
         }
 
         binding.btnNext.setOnClickListener {
@@ -59,6 +63,13 @@ class DeliveryAddress : AppCompatActivity(),Observer<RestObservable> {
 
     }
 
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            appViewModel.addressListApi(this, true)
+        }
+    }
+
+
     override fun onChanged(t: RestObservable?) {
 
         when (t!!.status) {
@@ -79,6 +90,22 @@ class DeliveryAddress : AppCompatActivity(),Observer<RestObservable> {
                     }
                     addressAdapter = AdapterDeliveryAddress(list, onActionListener)
                     binding.recyclerDeliveryAddress.adapter = addressAdapter
+
+                    addressAdapter.onClickListener = { pos ->
+                        deletedPosition = pos
+                        var id = list[pos].id
+                        val hashMap = HashMap<String,String>()
+                        hashMap["id"] = id.toString()
+                        appViewModel.deleteAddressApi(this, true,hashMap)
+
+                    }
+
+                }
+
+                else if (t.data is DeleteAddressResponse){
+                   list.removeAt(deletedPosition)
+                    addressAdapter.notifyDataSetChanged()
+
                 }
             }
         }
