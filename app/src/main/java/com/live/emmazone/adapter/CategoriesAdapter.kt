@@ -12,7 +12,7 @@ import com.schunts.extensionfuncton.loadImage
 class CategoriesAdapter(val list: MutableList<CategoryListResponse.Body>) :
     RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
 
-    var onClickListener:((pos:Int,selectedid:CategoryListResponse.Body)->Unit)? = null
+    var onClickListener: ((pos: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val binding = ItemCategoryBinding.inflate(LayoutInflater.from(parent.context))
@@ -33,33 +33,17 @@ class CategoriesAdapter(val list: MutableList<CategoryListResponse.Body>) :
         fun bind(pos: Int) {
             val category = list[pos]
 
-            binding.civCategory.loadImage(AppConstants.IMAGE_CATEGORY_URL+category.image)
+            binding.civCategory.loadImage(category.image)
             binding.tvCategoryName.text = category.name
 
             if (category.isSelected) {
                 binding.ivTick.visibility = View.VISIBLE
             } else {
-                binding.ivTick.visibility = View.GONE
+                binding.ivTick.visibility = View.INVISIBLE
             }
 
-
-//            itemView.setOnClickListener {
-//                category.isSelected = !category.isSelected
-//                notifyDataSetChanged()
-//                if (category.isSelected)
-//                {
-//                 val selectedId =   list[pos].id
-//                }
-//
-//            }
-
             itemView.setOnClickListener {
-//                category.isSelected = !category.isSelected
-//                if (category.isSelected)
-//                {
-//                    val selectedId =   list[pos].id
-//                }
-                onClickListener?.invoke(pos,list[pos])
+                onClickListener?.invoke(pos)
             }
 
         }

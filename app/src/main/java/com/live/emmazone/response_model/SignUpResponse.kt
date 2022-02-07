@@ -17,11 +17,15 @@ data class SignUpResponse(
         @SerializedName("countryCode")
         var countryCode: String, // +91
         @SerializedName("created")
-        var created: Int, // 1643605281
+        var created: Int, // 1644237158
         @SerializedName("createdAt")
-        var createdAt: String, // 2022-01-31T05:01:21.000Z
+        var createdAt: String, // 2022-02-07T12:32:37.000Z
+        @SerializedName("deviceToken")
+        var deviceToken: String,
+        @SerializedName("deviceType")
+        var deviceType: Int, // 0
         @SerializedName("email")
-        var email: String, // sachin1234@yopmail.com
+        var email: String, // sellerrrrrd@gmail.coml18
         @SerializedName("facebookId")
         var facebookId: String,
         @SerializedName("forgotPasswordHash")
@@ -31,11 +35,11 @@ data class SignUpResponse(
         @SerializedName("googleId")
         var googleId: String,
         @SerializedName("id")
-        var id: Int, // 264
+        var id: Int, // 266
         @SerializedName("image")
-        var image: String, // 3d2d8d8d-2035-4c20-9ae7-66295089775b.png
+        var image: String,
         @SerializedName("isAt")
-        var isAt: Int, // 1643377185
+        var isAt: Int, // 1644228111
         @SerializedName("isVerified")
         var is_Verified: Int, // 0
         @SerializedName("latitude")
@@ -51,21 +55,23 @@ data class SignUpResponse(
         @SerializedName("otp")
         var otp: Int, // 1111
         @SerializedName("password")
-        var password: String, // $2y$10$Z7/DIFCxUw.5u1FRKFSiuux.m.AOaY.dgou/UrLKp5s0QxRniu0IK
+        var password: String, // $2y$10$UaTOv14ve1sHNTYBtKqwt.NwfhJhr1NgP/jYdDRUpjmX81wlcRaMm
         @SerializedName("phone")
-        var phone: String, // 7807536707
+        var phone: String, // 99887201438
         @SerializedName("role")
         var role: Int, // 3
         @SerializedName("status")
         var status: Int, // 1
         @SerializedName("token")
-        var token: String, // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyNjQsImVtYWlsIjoic2FjaGluMTIzNEB5b3BtYWlsLmNvbSJ9LCJpYXQiOjE2NDM2MDUyODF9.sl6wKavvLWu2az2zYvYl4p4T1jBO5FBobvhcm9cheBU
+        var token: String, // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyNjYsImVtYWlsIjoic2VsbGVycnJycmRAZ21haWwuY29tbDE4In0sImlhdCI6MTY0NDIzNzE1OH0.Hs9Gichwo6sa_jzkub3ZGTreUwaQRkSvbDmrpyNN_Lc
+        @SerializedName("total_bids")
+        var totalBids: Int, // 1
         @SerializedName("updated")
-        var updated: Int, // 1643605281
+        var updated: Int, // 1644237158
         @SerializedName("updatedAt")
-        var updatedAt: String, // 2022-01-31T05:01:21.000Z
+        var updatedAt: String, // 2022-02-07T12:32:37.000Z
         @SerializedName("username")
-        var username: String, // sachin
+        var username: String, // sellerrrr
         @SerializedName("verified")
         var verified: Int // 1
     )

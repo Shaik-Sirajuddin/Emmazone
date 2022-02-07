@@ -1,66 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/_5sdp"
-    android:paddingBottom="@dimen/_5sdp">
+    android:layout_marginTop="@dimen/dp16">
 
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edtColorSize"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_toStartOf="@id/ivTick"
-        android:text="@string/app_name"
-        android:textColor="@color/black" />
+        android:autofillHints="false"
+        android:background="@drawable/login_bg"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="8dp"
+        android:textSize="@dimen/sp15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="LabelFor" />
 
-
-    <ImageView
-        android:id="@+id/ivTick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/checkbox_tick" />
-
-</RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:layout_marginTop="@dimen/dp16">-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/edtColorSize"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:autofillHints="false"-->
-<!--        android:background="@drawable/login_bg"-->
-<!--        android:inputType="text"-->
-<!--        android:maxLines="1"-->
-<!--        android:paddingStart="8dp"-->
-<!--        android:textSize="@dimen/sp15"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:ignore="LabelFor" />-->
-
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

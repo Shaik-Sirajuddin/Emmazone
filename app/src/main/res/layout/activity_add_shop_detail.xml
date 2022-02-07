@@ -159,6 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:background="@drawable/login_bg"
+            android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLines="1"
             android:paddingStart="8dp"
@@ -185,7 +186,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:background="@drawable/login_bg"
+            android:clickable="false"
+            android:focusable="false"
             android:inputType="text"
+            android:longClickable="false"
             android:maxLines="1"
             android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvAddress"
@@ -211,6 +215,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/login_bg"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:paddingStart="8dp"
             android:textColorHint="@color/black"
@@ -245,75 +250,32 @@
             app:srcCompat="@drawable/plus" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAddShop"
+            android:id="@+id/rvCategories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/tvCatName"
             app:layout_constraintEnd_toEndOf="@+id/imageAddCat"
             app:layout_constraintStart_toStartOf="@+id/tvCat"
-            app:layout_constraintTop_toBottomOf="@+id/tvCat"
-            android:visibility="gone"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tvCat" />
 
-        <TextView
-            android:id="@+id/tvCatName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="@dimen/dp24"
-            android:text="@string/category_name"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp14"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvAddShop" />
-
-        <View
-            android:id="@+id/viewCatname"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tvCatName"
-            app:layout_constraintStart_toStartOf="@+id/tvCatName"
-            app:layout_constraintTop_toBottomOf="@+id/tvCatName" />
-
-        <TextView
-            android:id="@+id/tvAddImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:text="@string/add_image"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp14"
-            app:layout_constraintBottom_toBottomOf="@+id/tvCatName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tvCatName"
-            app:layout_constraintTop_toTopOf="@+id/tvCatName" />
-
-        <View
-            android:id="@+id/viewAddImage"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tvAddImg"
-            app:layout_constraintStart_toStartOf="@+id/tvAddImg"
-            app:layout_constraintTop_toBottomOf="@+id/tvAddImg" />
 
         <android.widget.Button
             android:id="@+id/btnDone"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_24sdp"
             android:layout_marginTop="@dimen/dp32"
+            android:layout_marginEnd="@dimen/_24sdp"
             android:layout_marginBottom="@dimen/dp32"
             android:background="@drawable/done"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/viewAddImage"
-            app:layout_constraintStart_toStartOf="@+id/viewCatname"
-            app:layout_constraintTop_toBottomOf="@+id/viewCatname" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvCategories" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -114,13 +114,13 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["phone"] = toBody(mobileNo)
             hashMap["countryCode"] = toBody(binding.ccp.selectedCountryCodeWithPlus)
             hashMap["password"] = toBody(password)
-            hashMap["device_type"] = toBody(AppConstants.DEVICE_TYPE)
-            hashMap["device_token"] = toBody(deviceToken)
+            hashMap["deviceType"] = toBody(AppConstants.DEVICE_TYPE)
+            hashMap["deviceToken"] = toBody(deviceToken)
             //Type 1 for user and Type 3 for Seller
-               if (getPreference(AppConstants.PROFILE_TYPE,"").equals("user"))
-                   hashMap["type"] = toBody(1.toString())
-               else
-                   hashMap["type"] = toBody(3.toString())
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == "user")
+                hashMap["type"] = toBody(1.toString())
+            else
+                hashMap["type"] = toBody(3.toString())
 
             appViewModel.signUpApi(this, true, hashMap, image)
             appViewModel.getResponse().observe(this, this)
@@ -135,10 +135,13 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
 
-                        savePreference(AppConstants.AUTHORIZATION,response.body.token)
-                        savePreference(AppConstants.ROLE,response.body.role)
+                        savePreference(AppConstants.AUTHORIZATION, response.body.token)
+                        savePreference(AppConstants.ROLE, response.body.role.toString())
 
-                        savePreference(AppConstants.NOTIFICATION_TYPE, response.body.notificationStatus.toString())
+                        savePreference(
+                            AppConstants.NOTIFICATION_TYPE,
+                            response.body.notificationStatus.toString()
+                        )
 
 
                         val intent = Intent(this, VerificationCode::class.java)

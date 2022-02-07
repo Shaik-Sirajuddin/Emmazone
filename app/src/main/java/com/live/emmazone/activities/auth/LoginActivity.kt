@@ -12,13 +12,13 @@ import com.live.emmazone.MainActivity
 import com.live.emmazone.activities.VerificationCode
 import com.live.emmazone.activities.provider.AddShopDetailActivity
 import com.live.emmazone.activities.provider.ProviderMainActivity
-import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.databinding.ActivityLoginBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.LoginResponse
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppConstants.USER_CHOICE
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
@@ -66,8 +66,8 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
             val hashMap = HashMap<String, String>()
             hashMap["email"] = email
             hashMap["password"] = password
-            hashMap["device_type"] = AppConstants.DEVICE_TYPE
-            hashMap["device_token"] = deviceToken
+            hashMap["deviceType"] = AppConstants.DEVICE_TYPE
+            hashMap["deviceToken"] = deviceToken
             hashMap["type"] = userChoice
 
             appViewModel.loginApi(this, true, hashMap)
@@ -98,19 +98,26 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                 if (t.data is LoginResponse) {
                     val response: LoginResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
-                        savePreference(AppConstants.ROLE, response.body.role)
+                        savePreference(AppConstants.ROLE, response.body.role.toString())
                         savePreference(AppConstants.AUTHORIZATION, response.body.token)
+                        savePreference(
+                            AppConstants.NOTIFICATION_TYPE,
+                            response.body.notificationStatus.toString()
+                        )
 
                         if (response.body.verified == 1) {
 
                             if (response.body.role == 3) {
                                 //role = 1 -> User, 3 -> Seller
-                                if (response.body.isShopAdd == 1)
+                                if (response.body.isShopAdd == 1) {
+                                    savePreference(AppConstants.IS_LOGIN, true)
                                     startActivity(Intent(this, ProviderMainActivity::class.java))
-                                    else
+                                } else {
                                     startActivity(Intent(this, AddShopDetailActivity::class.java))
+                                }
 
                             } else {
+                                savePreference(AppConstants.IS_LOGIN, true)
                                 startActivity(Intent(this, MainActivity::class.java))
                                 finishAffinity()
 
@@ -122,7 +129,6 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                             finish()
                         }
 
-                        savePreference(AppConstants.NOTIFICATION_TYPE, response.body.notificationStatus.toString())
 
                     }
                 }

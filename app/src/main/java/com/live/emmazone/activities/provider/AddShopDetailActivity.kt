@@ -1,25 +1,22 @@
 package com.live.emmazone.activities.provider
 
-import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
-import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.live.emmazone.MainActivity
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.live.emmazone.R
 import com.live.emmazone.adapter.CategoriesAdapter
 import com.live.emmazone.databinding.ActivityAddShopDetailBinding
@@ -28,18 +25,22 @@ import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddShopResponse
 import com.live.emmazone.response_model.CategoryListResponse
-import com.live.emmazone.utils.*
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.ImageLocationUpdateUtility
+import com.live.emmazone.utils.ImagePickerUtility
 import com.live.emmazone.view_models.AppViewModel
-import com.permissionx.guolindev.PermissionX
 import com.schunts.extensionfuncton.loadImage
 import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
 import okhttp3.RequestBody
-import retrofit2.http.Body
 import java.io.File
-import java.util.ArrayList
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.collections.forEach
+import kotlin.collections.set
 
-class AddShopDetailActivity : ImageLocationUpdateUtility(),
+class AddShopDetailActivity : ImagePickerUtility(),
     Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
@@ -50,19 +51,30 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
     private var longitude = ""
     private var mImagePath = ""
 
-    var categoryId = ""
+    /*var categoryId = ""
     private var categoryIdList =  ArrayList<String>()
-    var combineids = ""
+    var combineids = ""*/
 
-    override fun updatedLatLng(lat: Double?, lng: Double?) {
-        if (lat != null && lng != null) {
-            latitude = lat.toString()
-            longitude = lng.toString()
-            stopLocationUpdates()
-        } else {
-            getLiveLocation(this)
+    private var fields =
+        Arrays.asList(Place.Field.LAT_LNG, Place.Field.ADDRESS, Place.Field.ID, Place.Field.NAME)
+
+    private val locationLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val place = Autocomplete.getPlaceFromIntent(result.data!!)
+            Log.d("Place: ", place.address)
+
+            latitude = place.latLng!!.latitude.toString()
+            longitude = place.latLng!!.longitude.toString()
+
+            binding.edtShopAddress.setText(place.address)
+
+//            binding.editState.setText(place.address)
+
         }
     }
+
 
     override fun selectedImage(imagePath: String?, code: Int) {
         if (imagePath != null) {
@@ -76,21 +88,29 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
         binding = ActivityAddShopDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        clicksHandle()
-        getLiveLocation(this)
+        //Initialize Places
+        Places.initialize(this, this.getString(R.string.map_key))
 
+
+        clicksHandle()
         appViewModel.categoryListApi(this, true)
         appViewModel.getResponse().observe(this, this)
     }
 
     private fun clicksHandle() {
-
         binding.imgEditShop.setOnClickListener {
             getImage(0, false)
         }
 
         binding.imageAddCat.setOnClickListener {
-            binding.rvAddShop.visibility = View.VISIBLE
+            binding.rvCategories.visibility = View.VISIBLE
+        }
+
+        binding.edtShopAddress.setOnClickListener {
+            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+                .build(this)
+
+            locationLauncher.launch(intent)
         }
 
         binding.imageArrowback.setOnClickListener {
@@ -104,24 +124,11 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
 
     private fun setCategoryAdapter() {
         val categoryAdapter = CategoriesAdapter(list)
-        binding.rvAddShop.adapter = categoryAdapter
+        binding.rvCategories.adapter = categoryAdapter
 
-        categoryAdapter?.onClickListener = { pos, selectedid ->
+        categoryAdapter.onClickListener = { pos ->
             list[pos].isSelected = !list[pos].isSelected
             categoryAdapter.notifyDataSetChanged()
-            if (list[pos].isSelected)
-            {
-                categoryId = list[pos].id.toString()
-                categoryIdList.add(categoryId)
-
-            }else{
-                if (combineids.contains(categoryId))
-                    categoryIdList.remove(categoryId)
-
-            }
-            if (!categoryIdList.isNullOrEmpty()){
-                combineids = TextUtils.join(",",categoryIdList)
-            }
 
         }
 
@@ -158,7 +165,8 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
         var selectedCategories = ""
 
         list.forEach {
-            selectedCategories = selectedCategories + it.id + ","
+            if (it.isSelected)
+                selectedCategories = selectedCategories + it.id + ","
         }
 
         val shopName = binding.edtShopName.text.toString().trim()
@@ -173,14 +181,16 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
             )
         ) {
 
+
+
             val hashMap = HashMap<String, RequestBody>()
             hashMap["shopName"] = toBody(shopName)
-            hashMap["year_of_foundation"] = toBody(shopYear)
-            hashMap["address"] = toBody(shopAddress)
-            hashMap["description"] = toBody(shopDesc)
+            hashMap["year"] = toBody(shopYear)
+            hashMap["shopAddress"] = toBody(shopAddress)
+            hashMap["shopDescription"] = toBody(shopDesc)
             hashMap["latitude"] = toBody(latitude)
             hashMap["longitude"] = toBody(longitude)
-            hashMap["category"] = toBody(combineids)
+            hashMap["category"] = toBody(selectedCategories.substring(0, selectedCategories.length))
 
             val image = prepareMultiPart("image", File(mImagePath))
             appViewModel.addShopApi(this, true, hashMap, image)
@@ -200,15 +210,12 @@ class AddShopDetailActivity : ImageLocationUpdateUtility(),
                         list.addAll(response.body)
                         setCategoryAdapter()
                     }
-                }
-                else if (t.data is AddShopResponse){
+                } else if (t.data is AddShopResponse) {
                     val response: AddShopResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         profileCompletedDialog()
 
                     }
-
-
 
 
                 }

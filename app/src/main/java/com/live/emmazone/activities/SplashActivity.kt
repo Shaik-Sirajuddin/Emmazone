@@ -22,6 +22,8 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (getPreference(AppConstants.IS_LOGIN, false)) {
+
+                if (getPreference(AppConstants.ROLE,"") =="3")
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {

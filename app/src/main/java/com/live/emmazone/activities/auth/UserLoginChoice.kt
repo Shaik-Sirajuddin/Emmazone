@@ -10,7 +10,7 @@ import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.utils.AppConstants.USER_CHOICE
 
 class UserLoginChoice : AppCompatActivity() {
-    lateinit var binding : ActivityUserLoginChoiceBinding
+    lateinit var binding: ActivityUserLoginChoiceBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +21,7 @@ class UserLoginChoice : AppCompatActivity() {
 //            saveProfileType(AppConstants.USER)
             savePreference(AppConstants.PROFILE_TYPE, AppConstants.USER)
 
-            val intent = Intent(this, LoginActivity::class.java).putExtra(USER_CHOICE,"1")
+            val intent = Intent(this, LoginActivity::class.java).putExtra(USER_CHOICE, "1")
             startActivity(intent)
         }
         binding.btnContinueAsGuest.setOnClickListener {
@@ -41,7 +41,7 @@ class UserLoginChoice : AppCompatActivity() {
         binding.btnSignInSeller.setOnClickListener {
 //            saveProfileType(AppConstants.SELLER)
             savePreference(AppConstants.PROFILE_TYPE, AppConstants.SELLER)
-            val intent = Intent(this, LoginActivity::class.java).putExtra(USER_CHOICE,"3")
+            val intent = Intent(this, LoginActivity::class.java).putExtra(USER_CHOICE, "3")
             startActivity(intent)
         }
     }
