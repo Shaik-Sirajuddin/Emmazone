@@ -48,6 +48,8 @@ object AppConstants {
     const val FAV_SHOP = "fav_shop"
     const val DELETE_ADDRESS = "delete_address"
     const val ADD_SHOP_PRODUCT = "add_shop_product"
+    const val SIZE_LIST = "size_list"
+    const val COLOR_LIST = "color_list"
 
 
 }

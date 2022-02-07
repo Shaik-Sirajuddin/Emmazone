@@ -44,4 +44,5 @@ class AdapterDeliveryAddress(
 
     class ViewHolder(val binding: ItemDeliveryAddressBinding) :
         RecyclerView.ViewHolder(binding.root)
+
 }

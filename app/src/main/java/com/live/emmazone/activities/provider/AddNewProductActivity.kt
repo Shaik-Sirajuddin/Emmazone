@@ -25,11 +25,17 @@ import com.live.emmazone.model.ImageModel
 import com.live.emmazone.utils.ToastUtils
 import com.permissionx.guolindev.PermissionX
 import android.widget.*
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.live.emmazone.adapter.ColorSizeAdapter
 import com.live.emmazone.model.ColorSizeModel
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.view_models.AppViewModel
 
 
-class AddNewProductActivity : AppCompatActivity() {
+class AddNewProductActivity : AppCompatActivity(),Observer<RestObservable> {
+
+    private val appViewModel: AppViewModel by viewModels()
 
     lateinit var binding: ActivityAddNewProductBinding
     var isNotifyOn = true
@@ -258,6 +264,10 @@ class AddNewProductActivity : AppCompatActivity() {
             true
         )
         myPopupWindow.showAsDropDown(it, 0, -180)
+    }
+
+    override fun onChanged(t: RestObservable?) {
+
     }
 }
 

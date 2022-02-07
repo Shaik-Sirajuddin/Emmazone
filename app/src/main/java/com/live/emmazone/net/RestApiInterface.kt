@@ -96,5 +96,11 @@ interface RestApiInterface {
     @POST(AppConstants.ADD_SHOP_PRODUCT)
     fun addProduct(@FieldMap hashMap: HashMap<String, String>): Call<AddProductResponse>
 
+    @GET(AppConstants.SIZE_LIST)
+    fun sizeList(): Call<SizeListResponse>
+
+    @GET(AppConstants.COLOR_LIST)
+    fun colorList(): Call<ColorListResponse>
+
 
 }

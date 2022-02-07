@@ -62,7 +62,6 @@ class CategoriesAdapter(val list: MutableList<CategoryListResponse.Body>) :
                 onClickListener?.invoke(pos,list[pos])
             }
 
-
         }
     }
 }
