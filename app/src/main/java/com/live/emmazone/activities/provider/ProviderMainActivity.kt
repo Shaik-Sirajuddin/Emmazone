@@ -2,7 +2,6 @@ package com.live.emmazone.activities.provider
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.*
@@ -32,7 +31,7 @@ class ProviderMainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.account_provider -> {
-                    loadFragment(FragmentProviderAccount())
+                    loadFragment(ProviderAccountFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.home_provider -> {

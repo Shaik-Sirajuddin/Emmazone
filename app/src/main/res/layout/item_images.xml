@@ -7,44 +7,7 @@
     android:paddingHorizontal="@dimen/_5sdp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/layout_image"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
-        app:cardCornerRadius="16dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/image_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                android:src="@drawable/green" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#59000000" />
-
-            <ImageView
-                android:id="@+id/img1"
-                android:layout_width="@dimen/dp40"
-                android:layout_height="@dimen/dp40"
-                android:layout_centerInParent="true"
-                android:contentDescription="@string/app_name"
-                android:padding="5dp"
-                android:src="@drawable/photo"
-                android:visibility="gone" />
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/layout_add"
+        android:id="@+id/cvAdd"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
         app:cardCornerRadius="16dp">
@@ -54,8 +17,14 @@
             android:layout_height="@dimen/_80sdp"
             android:background="@drawable/sqaure_dotted">
 
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/rivProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+
             <ImageView
-                android:id="@+id/addImg"
+                android:id="@+id/ivAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

@@ -114,6 +114,7 @@
         <entry key="app/src/main/res/layout/dialog_common_accept_reject.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/dialog_delete_product.xml" value="0.19" />
         <entry key="app/src/main/res/layout/dialog_login.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/dialog_logout.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/dialog_order_placed.xml" value="0.19" />
         <entry key="app/src/main/res/layout/dialog_password_updated.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_product_added.xml" value="0.24114583333333334" />
@@ -142,6 +143,7 @@
         <entry key="app/src/main/res/layout/item.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/item_add_color_size.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/item_category.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/item_color.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/item_delivery_address.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_edit_shop_category.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_images.xml" value="0.24114583333333334" />

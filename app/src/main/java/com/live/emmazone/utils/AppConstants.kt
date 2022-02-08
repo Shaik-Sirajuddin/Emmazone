@@ -9,7 +9,6 @@ object AppConstants {
     const val DEVICE_TYPE = "1"    //1 ->Android, 2->iOS
 
 
-
     const val USER_TOKEN = "userToken"
     const val PROFILE_TYPE = "profileType"
     const val USER_CHOICE = "userChoice"
@@ -50,6 +49,8 @@ object AppConstants {
     const val ADD_SHOP_PRODUCT = "add_shop_product"
     const val SIZE_LIST = "size_list"
     const val COLOR_LIST = "color_list"
+    const val GET_SELECTED_CATEGORY = "get_selected_category"
+    const val LOGOUT = "logout"
 
 
 }

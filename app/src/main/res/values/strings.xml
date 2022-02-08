@@ -195,6 +195,7 @@
     <string name="cancel">Cancel</string>
     <string name="openSettings">Open Settings</string>
     <string name="no">No</string>
+    <string name="logout_desc">Are you sure you want logout?</string>
     <string name="yes">Yes</string>
     <string name="retry">Retry</string>
     <string name="error_">Error!</string>
@@ -237,5 +238,11 @@
     <string name="msg_enter_city">Please enter city</string>
     <string name="msg_enter_state">Please enter state</string>
     <string name="msg_enter_zipcode">Please enter zipcode</string>
+    <string name="msg_enter_product_name">Please enter product name</string>
+    <string name="msg_enter_price">Please enter price</string>
+    <string name="msg_enter_quantity">Please enter quantity</string>
+    <string name="msg_select_color">Please select color</string>
+    <string name="msg_select_size">Please select size</string>
+    <string name="msg_select_category_1">Please select category</string>
 
 </resources>

@@ -105,13 +105,13 @@ object Validator {
         } else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
             false
-        }else if (TextUtils.isEmpty(categories)) {
+        } else if (TextUtils.isEmpty(categories)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_category)
             false
         } else return true
     }
 
-    fun validateChangePassword(pass: String,newpass: String, confirmpass: String): Boolean {
+    fun validateChangePassword(pass: String, newpass: String, confirmpass: String): Boolean {
         when {
             pass.isEmpty() -> {
                 errorMessage = AppController.instance!!.getString(R.string.msg_enter_old_password)
@@ -129,8 +129,9 @@ object Validator {
                 errorMessage = AppController.instance!!.getString(R.string.msg_password_6_character)
                 return false
             }
-            !newpass.equals(confirmpass)  -> {
-                errorMessage = AppController.instance!!.getString(R.string.error_pass_confrimpass_not_same)
+            !newpass.equals(confirmpass) -> {
+                errorMessage =
+                    AppController.instance!!.getString(R.string.error_pass_confrimpass_not_same)
                 return false
             }
             else -> {
@@ -146,38 +147,67 @@ object Validator {
         return if (TextUtils.isEmpty(name)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_name)
             false
-        }  else if (TextUtils.isEmpty(mobileNo)) {
+        } else if (TextUtils.isEmpty(mobileNo)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_contact)
             false
         } else true
 
     }
 
- fun addAddressValidation(
-        name: String, address: String,city:String,state:String,zipcode:String
+    fun addAddressValidation(
+        name: String, address: String, city: String, state: String, zipcode: String
     ): Boolean {
 
         return if (TextUtils.isEmpty(name)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_name)
             false
-        }
-        else if (TextUtils.isEmpty(address)) {
+        } else if (TextUtils.isEmpty(address)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_address)
             false
-        }
-        else if (TextUtils.isEmpty(city)) {
+        } else if (TextUtils.isEmpty(city)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_city)
             false
-        }
-        else if (TextUtils.isEmpty(state)) {
+        } else if (TextUtils.isEmpty(state)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_state)
             false
-        }
-        else if (TextUtils.isEmpty(zipcode)) {
+        } else if (TextUtils.isEmpty(zipcode)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_zipcode)
             false
-        }
-        else true
+        } else true
+
+    }
+
+
+    fun addProductValidation(
+        image: Int, name: String, desc: String, price: String, quantity: String,
+        categories: String, color: String, size: String
+    ): Boolean {
+
+        return if (image == 0) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_image)
+            false
+        } else if (TextUtils.isEmpty(name)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_product_name)
+            false
+        } else if (TextUtils.isEmpty(desc)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
+            false
+        } else if (TextUtils.isEmpty(price)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_price)
+            false
+        } else if (TextUtils.isEmpty(quantity)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_quantity)
+            false
+        } else if (TextUtils.isEmpty(categories)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_category_1)
+            false
+        } else if (TextUtils.isEmpty(color)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_color)
+            false
+        } else if (TextUtils.isEmpty(size)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_size)
+            false
+        } else true
 
     }
 

@@ -8,11 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.activities.listeners.OnActionListener
 import com.live.emmazone.databinding.ItemImagesBinding
 import com.live.emmazone.model.ImageModel
+import com.schunts.extensionfuncton.loadImage
 
-class ImageAdapter(var context: Context, var items: List<ImageModel>, var onActionListener: OnActionListener<ImageModel>
+class ImageAdapter(
+    var list: ArrayList<String>
 ) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
-    class ViewHolder(var binding: ItemImagesBinding) : RecyclerView.ViewHolder(binding.root)
+
+    var onItemClickListener: ((pos: Int) -> Unit)? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemImagesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,33 +24,27 @@ class ImageAdapter(var context: Context, var items: List<ImageModel>, var onActi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val model = if (items.size == position)
-            ImageModel()
-        else
-            items[position]
-
-        with(model)
-        {
-            with(holder.binding) {
-                if (imgUrl == null) {
-                    layoutAdd.visibility = View.VISIBLE
-                    layoutImage.visibility = View.GONE
-
-                    layoutAdd.setOnClickListener {
-
-                        onActionListener.notify(model, position)
-                    }
-
-                } else {
-                    layoutAdd.visibility = View.GONE
-                    layoutImage.visibility = View.VISIBLE
-                    imageView.setImageURI(imgUrl)
-                }
-            }
-        }
+        holder.bind(position)
     }
 
     override fun getItemCount(): Int {
-        return items.size + 1
+        return list.size + 1
+    }
+
+    inner class ViewHolder(val binding: ItemImagesBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(pos: Int) {
+
+            if (pos != list.size) {
+                binding.ivAdd.visibility = View.GONE
+                binding.rivProduct.loadImage(list[pos])
+            } else {
+                binding.ivAdd.visibility = View.VISIBLE
+            }
+
+            itemView.setOnClickListener {
+                onItemClickListener?.invoke(pos)
+            }
+        }
     }
 }

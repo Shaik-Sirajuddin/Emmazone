@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ColorListResponse(
     @SerializedName("body")
-    var body: List<Body>,
+    var body: ArrayList<Body>,
     @SerializedName("code")
     var code: Int, // 200
     @SerializedName("message")
@@ -15,12 +15,13 @@ data class ColorListResponse(
 ) {
     data class Body(
         @SerializedName("color")
-        var color: String, // Black
+        var color: String, // Red
         @SerializedName("createdAt")
-        var createdAt: String, // 2022-01-31T05:54:23.000Z
+        var createdAt: String, // 2022-01-31T05:52:00.000Z
         @SerializedName("id")
-        var id: Int, // 8
+        var id: Int, // 1
         @SerializedName("updatedAt")
-        var updatedAt: String // 2022-01-31T05:54:23.000Z
+        var updatedAt: String, // 2022-01-31T05:52:00.000Z
+        var isSelected: Boolean = false
     )
 }

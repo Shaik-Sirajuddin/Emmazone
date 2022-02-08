@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_my_order"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dp30"
+    android:paddingBottom="@dimen/dp30">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginEnd="@dimen/dp20"
+        android:gravity="center"
+        android:paddingStart="@dimen/dp5"
+        android:paddingEnd="@dimen/dp5"
+        android:text="@string/logout_desc"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sdp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginTop="@dimen/dp30"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnYes"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_spinner"
+            android:text="@string/yes"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnNo"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp10"
+            android:background="@drawable/bg_spinner"
+            android:text="@string/no"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

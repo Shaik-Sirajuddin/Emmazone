@@ -1,59 +1,61 @@
 package com.live.emmazone.activities.fragment
 
-import android.app.Notification
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
+import com.live.emmazone.databinding.FragmentAddProductProviderBinding
 import com.live.emmazone.model.ModelProShopDetailProducts
 
 class FragmentProviderAddProduct : Fragment() {
-  lateinit var adapter : AdapterProviderShopDetailProducts
-  val list = ArrayList<ModelProShopDetailProducts>()
-  var isChecked = true
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-       val view : View = LayoutInflater.from(context).inflate(R.layout.fragment_add_product_provider, container, false)
+    private lateinit var binding: FragmentAddProductProviderBinding
+    private val list = ArrayList<ModelProShopDetailProducts>()
+    private var isChecked = true
 
-        val rv : RecyclerView = view.findViewById(R.id.rvAdProductProvider)
-        val imgNotifictaion : ImageView = view.findViewById(R.id.imgNotify)
-        val back : ImageView = view.findViewById(R.id.back)
-        val checkClickCollect : ImageView = view.findViewById(R.id.checkBox)
-        val checkLifeRando : ImageView = view.findViewById(R.id.checkBoxLife)
-        val checkOwnDelivery : ImageView = view.findViewById(R.id.checkOwnDelvry)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentAddProductProviderBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        checkClickCollect.setOnClickListener {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        binding.checkBox.setOnClickListener {
             isChecked = !isChecked
-            checkClickCollect.setImageResource(
+            binding.checkBox.setImageResource(
                 if (isChecked)
                     R.drawable.checkbox_g
-            else
-                R.drawable.checkbox_tick
+                else
+                    R.drawable.checkbox_tick
             )
         }
 
-        checkLifeRando.setOnClickListener {
+        binding.checkBoxLife.setOnClickListener {
             isChecked = !isChecked
-            checkLifeRando.setImageResource(
+            binding.checkBoxLife.setImageResource(
                 if (isChecked)
                     R.drawable.checkbox_g
-            else
-                R.drawable.checkbox_tick
+                else
+                    R.drawable.checkbox_tick
             )
         }
 
-        checkOwnDelivery.setOnClickListener {
+        binding.checkOwnDelvry.setOnClickListener {
             isChecked = !isChecked
-            checkOwnDelivery.setImageResource(
+            binding.checkOwnDelvry.setImageResource(
                 if (isChecked)
                     R.drawable.checkbox_g
                 else
@@ -62,42 +64,53 @@ class FragmentProviderAddProduct : Fragment() {
         }
 
 
-        back.setOnClickListener {
+        binding.back.setOnClickListener {
             val intent = Intent(activity, ProviderMainActivity::class.java)
             startActivity(intent)
         }
 
-        imgNotifictaion.setOnClickListener {
+        binding.imgNotify.setOnClickListener {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
 
-        rv.layoutManager = GridLayoutManager(context, 2)
+        binding.rvAdProductProvider.layoutManager = GridLayoutManager(context, 2)
 
         list.add(
-            ModelProShopDetailProducts(R.drawable.add_new_product, "", "",
+            ModelProShopDetailProducts(
+                R.drawable.add_new_product, "", "",
                 "", "", "",
-                R.drawable.edit, R.drawable.bin1))
+                R.drawable.edit, R.drawable.bin1
+            )
+        )
 
         list.add(
-            ModelProShopDetailProducts(R.drawable.sho1, "Bernd", "30.00€",
+            ModelProShopDetailProducts(
+                R.drawable.sho1, "Bernd", "30.00€",
                 "Lorem ipsum dolor", "Delivery estimate 4-5 days",
                 "4.8",
-                R.drawable.edit, R.drawable.bin1))
+                R.drawable.edit, R.drawable.bin1
+            )
+        )
 
         list.add(
-            ModelProShopDetailProducts(R.drawable.sho2, "Bernd", "30.00€",
+            ModelProShopDetailProducts(
+                R.drawable.sho2, "Bernd", "30.00€",
                 "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
-                R.drawable.edit, R.drawable.bin1))
+                R.drawable.edit, R.drawable.bin1
+            )
+        )
 
         list.add(
-            ModelProShopDetailProducts(R.drawable.sho3, "Bernd", "30.00€",
+            ModelProShopDetailProducts(
+                R.drawable.sho3, "Bernd", "30.00€",
                 "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
-                R.drawable.edit, R.drawable.bin1))
+                R.drawable.edit, R.drawable.bin1
+            )
+        )
 
-        rv.adapter = AdapterProviderShopDetailProducts(requireContext(), list)
+        binding.rvAdProductProvider.adapter =
+            AdapterProviderShopDetailProducts(requireContext(), list)
 
-        return view
     }
-
 }

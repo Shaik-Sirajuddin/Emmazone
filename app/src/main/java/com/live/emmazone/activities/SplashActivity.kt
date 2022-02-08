@@ -11,6 +11,7 @@ import android.view.WindowManager
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.auth.UserLoginChoice
+import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.utils.AppConstants
 
@@ -23,9 +24,14 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (getPreference(AppConstants.IS_LOGIN, false)) {
 
-                if (getPreference(AppConstants.ROLE,"") =="3")
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                if (getPreference(AppConstants.ROLE, "") == "3") {
+                    startActivity(Intent(this, ProviderMainActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+
             } else {
                 startActivity(Intent(this, UserLoginChoice::class.java))
                 finish()

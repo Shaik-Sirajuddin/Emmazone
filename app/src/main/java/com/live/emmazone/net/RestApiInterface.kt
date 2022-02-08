@@ -52,8 +52,10 @@ interface RestApiInterface {
 
     @Multipart
     @POST(AppConstants.ADD_SHOP)
-    fun addShop(@PartMap hashMap: HashMap<String, RequestBody>,
-    @Part image: MultipartBody.Part): Call<AddShopResponse>
+    fun addShop(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+        @Part image: MultipartBody.Part
+    ): Call<AddShopResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.CHANGE_PASSWORD)
@@ -71,7 +73,10 @@ interface RestApiInterface {
 
     @Multipart
     @POST(AppConstants.EDIT_PROFILE)
-    fun editProfile(@PartMap hashMap: HashMap<String, RequestBody>,@Part image: MultipartBody.Part): Call<EditProfileResponse>
+    fun editProfile(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+        @Part image: MultipartBody.Part
+    ): Call<EditProfileResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.ADD_NEW_ADDRESS)
@@ -84,7 +89,7 @@ interface RestApiInterface {
     @POST(AppConstants.SHOP_LIST)
     fun shopListing(@FieldMap hashMap: HashMap<String, String>): Call<ShopListingResponse>
 
-   @FormUrlEncoded
+    @FormUrlEncoded
     @POST(AppConstants.FAV_SHOP)
     fun favShop(@FieldMap hashMap: HashMap<String, String>): Call<AddFavouriteResponse>
 
@@ -92,9 +97,12 @@ interface RestApiInterface {
     @HTTP(method = "DELETE", path = AppConstants.DELETE_ADDRESS, hasBody = true)
     fun deleteAddress(@FieldMap hashMap: HashMap<String, String>): Call<DeleteAddressResponse>
 
-    @FormUrlEncoded
+    @Multipart
     @POST(AppConstants.ADD_SHOP_PRODUCT)
-    fun addProduct(@FieldMap hashMap: HashMap<String, String>): Call<AddProductResponse>
+    fun addProduct(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+        @Part images: ArrayList<MultipartBody.Part>
+    ): Call<AddProductResponse>
 
     @GET(AppConstants.SIZE_LIST)
     fun sizeList(): Call<SizeListResponse>
@@ -102,5 +110,10 @@ interface RestApiInterface {
     @GET(AppConstants.COLOR_LIST)
     fun colorList(): Call<ColorListResponse>
 
+    @GET(AppConstants.GET_SELECTED_CATEGORY)
+    fun selectedCategoryList(): Call<CategoryListResponse>
+
+    @POST(AppConstants.LOGOUT)
+    fun logout(): Call<LogoutResponse>
 
 }
