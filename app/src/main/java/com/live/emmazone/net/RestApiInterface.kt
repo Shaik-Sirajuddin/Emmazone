@@ -116,4 +116,8 @@ interface RestApiInterface {
     @POST(AppConstants.LOGOUT)
     fun logout(): Call<LogoutResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.RATING)
+    fun rating(@FieldMap hashMap: HashMap<String, String>): Call<RatingResponse>
+
 }

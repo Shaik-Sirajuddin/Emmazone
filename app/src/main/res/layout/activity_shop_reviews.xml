@@ -21,8 +21,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="24dp"
-            android:src="@drawable/arrow_back"
             android:padding="8dp"
+            android:src="@drawable/arrow_back"
             app:layout_constraintBottom_toBottomOf="@+id/changePassword"
             app:layout_constraintStart_toStartOf="@+id/layoutMain"
             app:layout_constraintTop_toTopOf="@+id/changePassword" />
@@ -43,7 +43,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageShopDetail"
         android:layout_width="match_parent"
         android:layout_height="180dp"
@@ -54,7 +54,8 @@
         android:src="@drawable/img4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutMain" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain"
+        app:riv_corner_radius="@dimen/_10sdp" />
 
     <LinearLayout
         android:id="@+id/layoutWishListStore"
@@ -82,13 +83,26 @@
             app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
             app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
 
-        <ImageView
+        <com.willy.ratingbar.ScaleRatingBar
             android:id="@+id/ratingBarWishList"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/dp5"
-            android:src="@drawable/rating" />
+            android:layout_marginEnd="@dimen/dp5"
+            app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
+            app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore"
+            app:srb_clickable="true"
+            app:srb_drawableEmpty="@drawable/star"
+            app:srb_drawableFilled="@drawable/star_fill"
+            app:srb_isIndicator="false"
+            app:srb_numStars="5"
+            app:srb_scrollable="true"
+            app:srb_starHeight="10dp"
+            app:srb_starPadding="2dp"
+            app:srb_starWidth="10dp"
+            app:srb_stepSize="0.5" />
+
 
         <TextView
             android:id="@+id/tvWishListRatingText"
@@ -117,7 +131,6 @@
         app:srb_drawableFilled="@drawable/star_fill"
         app:srb_isIndicator="false"
         app:srb_numStars="5"
-        app:srb_rating="2"
         app:srb_scrollable="true"
         app:srb_starHeight="20dp"
         app:srb_starPadding="2dp"

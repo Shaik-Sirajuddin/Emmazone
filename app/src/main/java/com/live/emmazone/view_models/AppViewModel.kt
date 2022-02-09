@@ -952,4 +952,48 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
+
+    fun ratingApi(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.rating(hashMap)
+                .enqueue(object : Callback<RatingResponse> {
+                    override fun onResponse(
+                        call: Call<RatingResponse>,
+                        response: Response<RatingResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<RatingResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        ratingApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+
 }

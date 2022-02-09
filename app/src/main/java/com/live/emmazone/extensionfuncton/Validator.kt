@@ -211,4 +211,15 @@ object Validator {
 
     }
 
+    fun reviewValidation(rating:Float,comment:String):Boolean{
+        return if (rating == 0.0F) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_rating)
+            false
+        } else if (TextUtils.isEmpty(comment)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_pls_add_comment)
+            false
+        }else {
+            true
+        }
+    }
 }

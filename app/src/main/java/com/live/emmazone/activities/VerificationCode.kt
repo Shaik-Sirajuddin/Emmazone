@@ -11,6 +11,7 @@ import com.live.emmazone.activities.provider.AddShopDetailActivity
 import com.live.emmazone.databinding.ActivityVerificationCodeBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.OtpResendResponse
@@ -41,8 +42,8 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
 
 
         binding.tvResend.setOnClickListener {
-            appViewModel.resendOtpApi(this,true)
-            appViewModel.getResponse().observe(this,this)
+            appViewModel.resendOtpApi(this, true)
+            appViewModel.getResponse().observe(this, this)
         }
 
         binding.btnSubmit.setOnClickListener {
@@ -75,6 +76,7 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
                             startActivity(Intent(this, AddShopDetailActivity::class.java))
                             finish()
                         } else {
+                            savePreference(AppConstants.IS_LOGIN, true)
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         }
@@ -89,7 +91,8 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
                     }
                 }
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 }

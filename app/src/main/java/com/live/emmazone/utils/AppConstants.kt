@@ -7,25 +7,29 @@ object AppConstants {
     const val SECURITY_KEY = "emmazone12@"
     const val SUCCESS_CODE = 200
     const val DEVICE_TYPE = "1"    //1 ->Android, 2->iOS
+    const val USER_ROLE = "1"
+    const val SELLER_ROLE = "3"
+    const val GUEST = "guest"
 
 
-    const val USER_TOKEN = "userToken"
     const val PROFILE_TYPE = "profileType"
     const val USER_CHOICE = "userChoice"
 
     const val USER_ID = "userId"
     const val USER = "user"
     const val SELLER = "seller"
-    const val GUEST = "guest"
     const val IS_LOGIN = "isLogin"
     const val ROLE = "role"  //1-> User, 3-> Seller
     const val NOTIFICATION_TYPE = "notification_type"  //1-> On, 0-> Off
+    const val SHOP_LISTING_RESPONSE = "shopListingResponse"
 
 
     /*******URLs*****/
     const val BASE_URL = "http://202.164.42.227:8188/api/"
     const val IMAGE_CATEGORY_URL = "http://202.164.42.227:8188/uploads/category/"
     const val IMAGE_USER_URL = "http://202.164.42.227:8188/uploads/user/"
+    const val SHOP_IMAGE_URL = "http://202.164.42.8188/uploads/shop_images/"
+    const val PRODUCT_IMAGE_URL = "http://202.164.42.227:8188/uploads/product/"
     const val SOCKET_BASE_URL = "http://202.164.42.227:8188/"
     const val SIGN_UP = "signup_user"
     const val OTP_VERIFY = "otp_verify"
@@ -51,6 +55,7 @@ object AppConstants {
     const val COLOR_LIST = "color_list"
     const val GET_SELECTED_CATEGORY = "get_selected_category"
     const val LOGOUT = "logout"
+    const val RATING = "ratings"
 
 
 }

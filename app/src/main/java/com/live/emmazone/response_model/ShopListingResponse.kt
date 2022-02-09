@@ -2,22 +2,25 @@ package com.live.emmazone.response_model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ShopListingResponse(
     @SerializedName("body")
-    var body: List<Body>,
+    var body: ArrayList<Body>,
     @SerializedName("code")
     var code: Int, // 200
     @SerializedName("message")
     var message: String, // Shop listing
     @SerializedName("success")
     var success: Boolean // true
-) {
+) :Serializable{
     data class Body(
         @SerializedName("distance")
-        var distance: Int, // 1
+        var distance: Int, // 4
         @SerializedName("id")
-        var id: Int, // 36
+        var id: Int, // 23
+        @SerializedName("image")
+        var image: String,
         @SerializedName("isLiked")
         var isLiked: Int, // 0
         @SerializedName("latitude")
@@ -29,8 +32,8 @@ data class ShopListingResponse(
         @SerializedName("shopDescription")
         var shopDescription: String, // here
         @SerializedName("shopName")
-        var shopName: String, // clothing HUB
+        var shopName: String, // ghbru collection
         @SerializedName("userId")
-        var userId: Int // 248
-    )
+        var userId: Int // 249
+    ):Serializable
 }

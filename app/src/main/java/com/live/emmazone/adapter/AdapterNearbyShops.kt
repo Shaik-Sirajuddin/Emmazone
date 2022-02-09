@@ -1,90 +1,79 @@
 package com.live.emmazone.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.live.emmazone.MainActivity
 import com.live.emmazone.R
-import com.live.emmazone.activities.main.ShopDetailActivity
-import com.live.emmazone.activities.main.ShopReviewsActivity
 import com.live.emmazone.databinding.ItemLayoutHomeNearbyShopBinding
-import com.live.emmazone.model.*
-import com.live.emmazone.utils.AppConstants
-import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.ShopListingResponse
+import com.live.emmazone.utils.AppConstants
+import com.schunts.extensionfuncton.loadImage
 
-class AdapterNearbyShops(private val context: Context, private val list: ArrayList<ShopListingResponse.Body>) :
-    RecyclerView.Adapter<AdapterNearbyShops.ViewHolder>() {
+class AdapterNearbyShops(private val list: ArrayList<ShopListingResponse.Body>) :
+    RecyclerView.Adapter<AdapterNearbyShops.NearByShopViewHolder>() {
 
-    var onClickListener:((pos:Int,type:String)->Unit)? = null
+    private lateinit var mContext: Context
+    var onClickListener: ((pos: Int, clickOn: String) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemLayoutHomeNearbyShopBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NearByShopViewHolder {
+        mContext = parent.context
+        val binding = ItemLayoutHomeNearbyShopBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return NearByShopViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val model = list[position]
-
-        with(holder.binding){
-//            itemImageHome.setImageResource(model.itemImageHome)
-//            tvWishListStoreName.text = model.tvWishListStoreName
-//            ratingBarWishList.setImageResource(model.ratingBarWishList)
-//            tvWishListRatingText.text = model.tvWishListRatingText
-//            tvWishListDistance.text = model.tvWishListDistance
-
-            tvWishListStoreName.text = list[position].shopName
-//            itemImageHome.setImageResource(list[position].i.itemImageHome)
-//            ratingBarWishList.setImageResource(model.ratingBarWishList)
-            tvWishListRatingText.text = list[position].ratings+"/"+"5"
-            tvWishListDistance.text = list[position].distance.toString()
-
-            if (position == 2){
-                itemImageHome.setImageResource(R.drawable.banner)
-                tvWishListStoreName.visibility = View.GONE
-                ratingBarWishList.visibility = View.GONE
-                tvWishListRatingText.visibility = View.GONE
-                tvWishListDistance.visibility = View.GONE
-                itemHeartWishList.visibility = View.GONE
-                imageLocation.visibility = View.GONE
-            }
-
-            itemHeartWishList.setOnClickListener {
-
-                onClickListener?.invoke(position,"1")
-
-            }
-
-
-            itemImageHome.setOnClickListener {
-
-                onClickListener?.invoke(position,"2")
-
-//
-//                val intent = Intent(context.applicationContext, ShopDetailActivity::class.java)
-//                context.startActivity(intent)
-            }
-
-            ratingBarWishList.setOnClickListener {
-
-                onClickListener?.invoke(position,"3")
-//
-//                    if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
-//                        (context.applicationContext as MainActivity).showLoginDialog()
-//                        return@setOnClickListener
-//                    }
-//                    val intent = Intent(context.applicationContext, ShopReviewsActivity::class.java)
-//                    context.startActivity(intent)
-            }
-        }
-            }
+    override fun onBindViewHolder(holder: NearByShopViewHolder, position: Int) {
+        holder.bind(position)
+    }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    class ViewHolder(val binding: ItemLayoutHomeNearbyShopBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class NearByShopViewHolder(val binding: ItemLayoutHomeNearbyShopBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(pos: Int) {
+            val nearShopModel = list[pos]
+
+            binding.itemImageHome.loadImage(AppConstants.SHOP_IMAGE_URL + nearShopModel.image)
+            binding.tvWishListStoreName.text = nearShopModel.shopName
+            binding.tvWishListRatingText.text = nearShopModel.ratings + "/" + "5"
+            binding.tvWishListDistance.text = nearShopModel.distance.toString() + " " +
+                    mContext.getString(R.string.miles_away)
+
+            if (nearShopModel.ratings.isNotEmpty()) {
+                binding.ratingBarWishList.rating = nearShopModel.ratings.toFloat()
+            }
+
+            if (nearShopModel.isLiked == 1) {
+                binding.itemHeartWishList.setImageResource(R.drawable.heart)
+            } else {
+                binding.itemHeartWishList.setImageResource(R.drawable.heart_unselect)
+            }
+
+            binding.itemHeartWishList.setOnClickListener {
+                onClickListener?.invoke(pos, "favourite")
+            }
+
+            binding.itemImageHome.setOnClickListener {
+                onClickListener?.invoke(pos, "itemClick")
+            }
+
+            binding.ratingBarWishList.setOnClickListener {
+                onClickListener?.invoke(pos, "rating")
+            }
+
+            binding.tvWishListRatingText.setOnClickListener {
+                onClickListener?.invoke(pos, "rating")
+            }
+
+        }
+    }
+
+
 }

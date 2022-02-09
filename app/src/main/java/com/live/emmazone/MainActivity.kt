@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.fragment.FragmentAccount
-import com.live.emmazone.activities.fragment.FragmentHome
+import com.live.emmazone.activities.fragment.HomeFragment
 import com.live.emmazone.activities.fragment.FragmentMyOrders
 import com.live.emmazone.activities.fragment.FragmentWishList
 import com.live.emmazone.utils.AppConstants
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadFragment(FragmentHome())
+        loadFragment(HomeFragment())
 
         binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
         binding.bottomNavigationView.itemIconTintList = null
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                         loadFragment(FragmentAccount())
                 }
                 R.id.home -> {
-                    loadFragment(FragmentHome())
+                    loadFragment(HomeFragment())
                     //   binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(R.drawable.home_selected)
                 }
             }

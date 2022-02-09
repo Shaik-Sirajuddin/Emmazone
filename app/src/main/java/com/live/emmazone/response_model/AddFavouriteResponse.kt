@@ -13,6 +13,8 @@ data class AddFavouriteResponse(
     @SerializedName("success")
     var success: Boolean // true
 ) {
-    class Body(
+    data class Body(
+        @SerializedName("status")
+        var status: Int // 0
     )
 }
