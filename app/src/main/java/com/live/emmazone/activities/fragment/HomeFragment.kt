@@ -66,7 +66,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
         clicksHandle()
         getLiveLocation(requireActivity())
-        RestObservable.loading(requireActivity(),true)
+
 
 
     }

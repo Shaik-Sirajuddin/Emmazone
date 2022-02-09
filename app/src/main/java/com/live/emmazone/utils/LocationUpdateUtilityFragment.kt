@@ -20,6 +20,7 @@ import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
 import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
+import com.live.emmazone.net.RestObservable
 
 abstract class LocationUpdateUtilityFragment : Fragment() {
 
@@ -97,6 +98,7 @@ abstract class LocationUpdateUtilityFragment : Fragment() {
                                 location.longitude + "========="
                     )
 
+                    RestObservable.progressDialogDismiss()
                     updatedLatLng(location.latitude, location.longitude)
                 }
             }
@@ -220,7 +222,8 @@ abstract class LocationUpdateUtilityFragment : Fragment() {
     }
 
     //call startLocationUpdates() method for start live location update
-    fun startLocationUpdates() {
+    private fun startLocationUpdates() {
+        RestObservable.loading(requireActivity(),true)
         if (ActivityCompat.checkSelfPermission(
                 mActivity,
                 Manifest.permission.ACCESS_FINE_LOCATION

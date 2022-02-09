@@ -148,5 +148,12 @@ class RestObservable(
             }
 
         }
+
+        fun progressDialogDismiss(){
+            if (progressDialog != null && progressDialog!!.isShowing) {
+                progressDialog!!.dismiss()
+            }
+        }
     }
+
 }
