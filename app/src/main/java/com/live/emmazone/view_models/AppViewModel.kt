@@ -996,4 +996,46 @@ class AppViewModel : ViewModel() {
     }
 
 
+    fun categoryColorSizeApi(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.categoryColorSize(hashMap)
+                .enqueue(object : Callback<CategoryColorSizeResponse> {
+                    override fun onResponse(
+                        call: Call<CategoryColorSizeResponse>,
+                        response: Response<CategoryColorSizeResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<CategoryColorSizeResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        categoryColorSizeApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+
 }

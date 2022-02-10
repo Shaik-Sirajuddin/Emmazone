@@ -21,6 +21,7 @@ import com.live.emmazone.R
 import com.live.emmazone.adapter.CategoriesAdapter
 import com.live.emmazone.databinding.ActivityAddShopDetailBinding
 import com.live.emmazone.extensionfuncton.Validator
+import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddShopResponse
@@ -182,7 +183,6 @@ class AddShopDetailActivity : ImagePickerUtility(),
         ) {
 
 
-
             val hashMap = HashMap<String, RequestBody>()
             hashMap["shopName"] = toBody(shopName)
             hashMap["year"] = toBody(shopYear)
@@ -213,6 +213,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
                 } else if (t.data is AddShopResponse) {
                     val response: AddShopResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
+                        savePreference(AppConstants.IS_LOGIN, true)
                         profileCompletedDialog()
 
                     }

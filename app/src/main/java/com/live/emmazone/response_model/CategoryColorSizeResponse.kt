@@ -45,7 +45,8 @@ data class CategoryColorSizeResponse(
             @SerializedName("color")
             var color: String, // Black
             @SerializedName("id")
-            var id: Int // 20
+            var id: Int, // 20
+            var isSelected: Boolean = false
         )
 
         data class CategorySize(
@@ -54,7 +55,8 @@ data class CategoryColorSizeResponse(
             @SerializedName("id")
             var id: Int, // 26
             @SerializedName("size")
-            var size: String // 23 inch
+            var size: String, // 23 inch
+            var isSelected: Boolean = false
         )
     }
 }

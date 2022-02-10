@@ -90,6 +90,7 @@
             app:layout_constraintTop_toBottomOf="@+id/proAccountImage">
 
             <TextView
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Emma Marker"
@@ -98,6 +99,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"
@@ -106,6 +108,7 @@
                 android:textSize="@dimen/sp12" />
 
             <TextView
+                android:id="@+id/tvPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+934867863493"
@@ -151,16 +154,16 @@
                     android:id="@+id/switch_notification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp24"
                     android:background="@drawable/custom_switch"
                     android:checked="true"
-                    android:layout_marginEnd="@dimen/dp24"
-                    app:layout_constraintTop_toTopOf="@+id/notificationLayout"
-                    app:layout_constraintEnd_toEndOf="@+id/notificationLayout"
-                    app:layout_constraintBottom_toBottomOf="@+id/notificationLayout"
                     android:paddingHorizontal="2dp"
                     android:paddingVertical="0.2dp"
                     android:thumb="@drawable/switch_thumb"
                     android:track="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/notificationLayout"
+                    app:layout_constraintEnd_toEndOf="@+id/notificationLayout"
+                    app:layout_constraintTop_toTopOf="@+id/notificationLayout"
                     app:track="@android:color/transparent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

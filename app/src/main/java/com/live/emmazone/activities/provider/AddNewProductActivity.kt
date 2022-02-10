@@ -12,20 +12,18 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
-import com.live.emmazone.activities.listeners.OnActionListener
 import com.live.emmazone.adapter.CategoriesAdapter
 import com.live.emmazone.adapter.ColorAdapter
 import com.live.emmazone.adapter.ImageAdapter
 import com.live.emmazone.adapter.SizeAdapter
 import com.live.emmazone.databinding.ActivityAddNewProductBinding
 import com.live.emmazone.extensionfuncton.Validator
-import com.live.emmazone.model.ColorSizeModel
 import com.live.emmazone.model.ImageModel
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddProductResponse
+import com.live.emmazone.response_model.CategoryColorSizeResponse
 import com.live.emmazone.response_model.CategoryListResponse
-import com.live.emmazone.response_model.ColorListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.ImagePickerUtility
@@ -45,8 +43,8 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     lateinit var binding: ActivityAddNewProductBinding
     private lateinit var images: ArrayList<ImageModel>
 
-    private val colorList = ArrayList<ColorListResponse.Body>()
-    private val sizeList = ArrayList<ColorSizeModel>()
+    private val colorList = ArrayList<CategoryColorSizeResponse.Body.CategoryColor>()
+    private val sizeList = ArrayList<CategoryColorSizeResponse.Body.CategorySize>()
     private lateinit var colorAdapter: ColorAdapter
     private lateinit var sizeAdapter: SizeAdapter
 
@@ -82,10 +80,8 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
         initListener()
         setImageAdapter()
-        setSizeAdapter()
 
         appViewModel.selectedCategoryListApi(this, true)
-        appViewModel.colorListApi(this, true)
         appViewModel.getResponse().observe(this, this)
 
     }
@@ -101,6 +97,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 if (pos == index) {
                     body.isSelected = true
                     selectedCategoryId = body.id.toString()
+                    getColorSizeApiHit()
                 } else {
                     body.isSelected = false
                 }
@@ -108,6 +105,14 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             categoryAdapter.notifyDataSetChanged()
         }
 
+    }
+
+    private fun getColorSizeApiHit() {
+        val hashMap = HashMap<String, String>()
+        hashMap["categoryId"] = selectedCategoryId
+
+        appViewModel.categoryColorSizeApi(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
     }
 
     private fun setColorAdapter() {
@@ -124,6 +129,13 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private fun setSizeAdapter() {
         sizeAdapter = SizeAdapter(sizeList)
         binding.rvSize.adapter = sizeAdapter
+
+
+        sizeAdapter.onClickListener = { pos ->
+            sizeList[pos].isSelected = !sizeList[pos].isSelected
+
+            sizeAdapter.notifyDataSetChanged()
+        }
 
     }
 
@@ -169,13 +181,13 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
         colorList.forEach {
             if (it.isSelected) {
-                selectedColorId = selectedColorId + "," + it.id
+                selectedColorId = selectedColorId + it.id + ","
             }
         }
 
         sizeList.forEach {
             if (it.isSelected) {
-                selectedSizeId = selectedSizeId + "," + it.text
+                selectedSizeId = selectedSizeId + it.id + ","
             }
         }
 
@@ -261,15 +273,21 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                         list.addAll(response.body)
                         setCategoryAdapter()
                     }
-                } else if (t.data is ColorListResponse) {
-                    val response: ColorListResponse = t.data
-
+                } else if (t.data is CategoryColorSizeResponse) {
+                    val response: CategoryColorSizeResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
+
                         colorList.clear()
-                        colorList.addAll(response.body)
+                        sizeList.clear()
+
+                        colorList.addAll(response.body.categoryColors)
+                        sizeList.addAll(response.body.categorySizes)
+
                         setColorAdapter()
+                        setSizeAdapter()
+
                     }
-                }else if (t.data is AddProductResponse) {
+                } else if (t.data is AddProductResponse) {
                     val response: AddProductResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {

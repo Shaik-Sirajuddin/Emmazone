@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.databinding.ItemColorBinding
 import com.live.emmazone.model.ColorSizeModel
+import com.live.emmazone.response_model.CategoryColorSizeResponse
 import com.live.emmazone.response_model.ColorListResponse
 
-class ColorAdapter(val list: ArrayList<ColorListResponse.Body>) :
+class ColorAdapter(val list: ArrayList<CategoryColorSizeResponse.Body.CategoryColor>) :
     RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
 
     var onClickListener: ((pos: Int) -> Unit)? = null

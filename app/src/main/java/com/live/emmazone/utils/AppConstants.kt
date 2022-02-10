@@ -56,6 +56,7 @@ object AppConstants {
     const val GET_SELECTED_CATEGORY = "get_selected_category"
     const val LOGOUT = "logout"
     const val RATING = "ratings"
+    const val CATEGORY_COLOR_SIZE = "category_color_size"
 
 
 }

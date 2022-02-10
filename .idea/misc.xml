@@ -87,6 +87,7 @@
         <entry key="app/src/main/res/layout/activity_order_detail_pro_ongoing.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_order_pickup_collect.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/layout/activity_payment_method.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_privacy_policy.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/activity_privacypolicy.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_product_detail.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_product_reviews.xml" value="0.2" />
