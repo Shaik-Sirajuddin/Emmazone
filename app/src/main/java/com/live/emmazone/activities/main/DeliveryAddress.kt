@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -17,58 +18,101 @@ import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddressListResponse
 import com.live.emmazone.response_model.DeleteAddressResponse
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.view_models.AppViewModel
 
-class DeliveryAddress : AppCompatActivity(),Observer<RestObservable> {
+class DeliveryAddress : AppCompatActivity(), Observer<RestObservable> {
     lateinit var binding: ActivityDeliveryAddressBinding
 
     private val appViewModel: AppViewModel by viewModels()
 
     var list = ArrayList<AddressListResponse.Body>()
     lateinit var addressAdapter: AdapterDeliveryAddress
-    lateinit var recyclerView: RecyclerView
     var deletedPosition = 0
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                appViewModel.addressListApi(this, true)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDeliveryAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+        appViewModel.addressListApi(this, true)
+        appViewModel.getResponse().observe(this, this)
+
+        clicksHandle()
+
+    }
+
+    private fun clicksHandle() {
         binding.btnaddNewAddress.setOnClickListener {
             val intent = Intent(this, AddNewAddress::class.java)
             resultLauncher.launch(intent)
         }
 
         binding.btnNext.setOnClickListener {
-            onBackPressed()
+            nextBtnClick()
         }
+
         binding.back.setOnClickListener {
             onBackPressed()
         }
-
-        appViewModel.addressListApi(this, true)
-        appViewModel.getResponse().observe(this, this)
-
-
-        recyclerView = findViewById(R.id.recyclerDeliveryAddress)
-//
-//        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//
-//        list.add(ModelDeliveryAddress("John Marker", "260-C North EI Camino Real", isSelected = true))
-//
-//        list.add(ModelDeliveryAddress("Jackson", "1186 Roseville pkwy"))
-//
-//        list.add(ModelDeliveryAddress("John Marker", "260-C North EI Camino Real"))
-//
-
     }
 
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            appViewModel.addressListApi(this, true)
+    private fun nextBtnClick() {
+        var addressResponse: AddressListResponse.Body? = null
+        list.forEach {
+            if (it.isSelected) {
+                addressResponse = it
+            }
+        }
+
+        setResult(RESULT_OK, intent.putExtra(AppConstants.Address_LIST_RESPONSE, addressResponse))
+        finish()
+    }
+
+    private fun setAddressAdapter() {
+        noDataVisibility()
+        addressAdapter = AdapterDeliveryAddress(list)
+        binding.recyclerDeliveryAddress.adapter = addressAdapter
+
+        addressAdapter.onClickListener = { pos, clickOn ->
+            if (clickOn == "delete") {
+                deletedPosition = pos
+                deleteAddressApiHit(list[pos].id)
+            } else if (clickOn == "item") {
+                list.forEachIndexed { index, body ->
+                    body.isSelected = index == pos
+                }
+                addressAdapter.notifyDataSetChanged()
+            }
+
         }
     }
 
+    private fun deleteAddressApiHit(id: Int) {
+        val hashMap = HashMap<String, String>()
+        hashMap["id"] = id.toString()
+        appViewModel.deleteAddressApi(this, true, hashMap)
+    }
+
+
+    private fun noDataVisibility() {
+        if (list.isEmpty()) {
+            binding.tvNoData.visibility = View.VISIBLE
+            binding.recyclerDeliveryAddress.visibility = View.GONE
+        } else {
+            binding.tvNoData.visibility = View.GONE
+            binding.recyclerDeliveryAddress.visibility = View.VISIBLE
+        }
+    }
 
     override fun onChanged(t: RestObservable?) {
 
@@ -76,38 +120,20 @@ class DeliveryAddress : AppCompatActivity(),Observer<RestObservable> {
             Status.SUCCESS -> {
                 if (t.data is AddressListResponse) {
                     val response: AddressListResponse = t.data
-
                     list.clear()
                     list.addAll(response.body)
 
-                    val onActionListener = object : OnActionListener<AddressListResponse.Body> {
-                        override fun notify(model: AddressListResponse.Body, position: Int) {
-                            for ((i, item) in list.withIndex()) {
-                                item.isSelected = (position == i)
-                                addressAdapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
-                    addressAdapter = AdapterDeliveryAddress(list, onActionListener)
-                    binding.recyclerDeliveryAddress.adapter = addressAdapter
+                    setAddressAdapter()
 
-                    addressAdapter.onClickListener = { pos ->
-                        deletedPosition = pos
-                        var id = list[pos].id
-                        val hashMap = HashMap<String,String>()
-                        hashMap["id"] = id.toString()
-                        appViewModel.deleteAddressApi(this, true,hashMap)
-
-                    }
-
-                }
-
-                else if (t.data is DeleteAddressResponse){
-                   list.removeAt(deletedPosition)
+                } else if (t.data is DeleteAddressResponse) {
+                    list.removeAt(deletedPosition)
                     addressAdapter.notifyDataSetChanged()
+                    noDataVisibility()
 
                 }
             }
         }
     }
+
+
 }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".activities.AddCardActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/header">
+
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="24dp"
+            android:padding="8dp"
+            android:src="@drawable/arrow_back" />
+
+        <TextView
+            android:id="@+id/changePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="24dp"
+            android:layout_toEndOf="@id/ivBack"
+            android:gravity="center_horizontal"
+            android:text="@string/add_card"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/avenir_black"
+                android:text="@string/name"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15" />
+
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@drawable/login_bg"
+                android:fontFamily="@font/avenir_book"
+                android:hint="@string/enter_name"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dp10"
+                android:textSize="@dimen/sp14" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/avenir_black"
+                android:text="@string/card_number"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15" />
+
+            <EditText
+                android:id="@+id/edtCardNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@drawable/login_bg"
+                android:fontFamily="@font/avenir_book"
+                android:hint="@string/card_number"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dp10"
+                android:textSize="@dimen/sp14" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

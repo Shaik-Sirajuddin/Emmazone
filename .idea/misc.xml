@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/drawable/app_icon_background.xml" value="0.22870370370370371" />
         <entry key="app/src/main/res/drawable/arrow_drop_down_black.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/bg_add_bank.xml" value="0.22592592592592592" />
+        <entry key="app/src/main/res/drawable/bg_add_card.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/bg_cart_items.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/drawable/bg_delivery_address.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/drawable/bg_earning.xml" value="0.17" />
@@ -59,6 +60,7 @@
         <entry key="app/src/main/res/font/advent_pro_thin.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/font/average.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/activity_add_bank_account.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_add_card.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/activity_add_new_address.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_add_new_product.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_add_shop_detail.xml" value="0.18" />
@@ -116,7 +118,7 @@
         <entry key="app/src/main/res/layout/dialog_delete_product.xml" value="0.19" />
         <entry key="app/src/main/res/layout/dialog_login.xml" value="0.21" />
         <entry key="app/src/main/res/layout/dialog_logout.xml" value="0.15625" />
-        <entry key="app/src/main/res/layout/dialog_order_placed.xml" value="0.19" />
+        <entry key="app/src/main/res/layout/dialog_order_placed.xml" value="0.18" />
         <entry key="app/src/main/res/layout/dialog_password_updated.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_product_added.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_product_detail_updated.xml" value="0.24114583333333334" />

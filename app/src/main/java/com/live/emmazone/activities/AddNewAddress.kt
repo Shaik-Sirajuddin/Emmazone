@@ -34,8 +34,24 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
 
-     private var pickupLat : Double? = null
-     private var pickupLong : Double? = null
+     private var mLatitude : Double? = null
+     private var mLongitude : Double? = null
+
+
+    private val pickupLocationLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val place = Autocomplete.getPlaceFromIntent(result.data!!)
+            Log.d("Place: ", place.address)
+
+            mLatitude = place.latLng!!.latitude
+            mLongitude = place.latLng!!.longitude
+
+            completedAddress(mLatitude!!,mLongitude!!)
+
+        }
+    }
 
     private var fields =
         Arrays.asList(Place.Field.LAT_LNG, Place.Field.ADDRESS, Place.Field.ID, Place.Field.NAME)
@@ -67,22 +83,7 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
 
     }
 
-    private val pickupLocationLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val place = Autocomplete.getPlaceFromIntent(result.data!!)
-            Log.d("Place: ", place.address)
 
-           pickupLat = place.latLng!!.latitude
-           pickupLong = place.latLng!!.longitude
-
-            completedAddress(pickupLat!!,pickupLong!!)
-
-//            binding.editState.setText(place.address)
-
-        }
-    }
 
     private fun completedAddress(latitude: Double, longitude: Double): String {
         var addresses: List<Address>? = null
@@ -147,8 +148,8 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
             hashMap["city"] = state
             hashMap["state"] = city
             hashMap["zipcode"] = zipcode
-            hashMap["latitude"] = pickupLat.toString()
-            hashMap["longitude"] = pickupLong.toString()
+            hashMap["latitude"] = mLatitude.toString()
+            hashMap["longitude"] = mLongitude.toString()
 
             appViewModel.addAddressApi(this, true, hashMap)
             appViewModel.getResponse().observe(this, this)

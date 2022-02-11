@@ -23,20 +23,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmmaZone"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".activities.AddCardActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
-
-
         <activity
             android:name=".activities.provider.AddShopDetailActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.provider.QrScannerActivity"
             android:exported="true"
@@ -217,13 +215,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/EmmaZone.Splash">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MainActivity"

@@ -2,6 +2,7 @@ package com.live.emmazone.response_model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class AddressListResponse(
     @SerializedName("body")
@@ -12,7 +13,7 @@ data class AddressListResponse(
     var message: String, // Address List
     @SerializedName("success")
     var success: Boolean // true
-) {
+) : Serializable {
     data class Body(
         @SerializedName("address")
         var address: String, // Phase8
@@ -38,5 +39,5 @@ data class AddressListResponse(
         var zipcode: String, // 143001
         @SerializedName("isSelected")
         var isSelected: Boolean = false
-    )
+    ) : Serializable
 }

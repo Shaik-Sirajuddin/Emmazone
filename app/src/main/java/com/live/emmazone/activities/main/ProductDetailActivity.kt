@@ -12,6 +12,10 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -21,6 +25,7 @@ import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.databinding.ActivityProductDetailBinding
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.response_model.AddressListResponse
 import com.live.emmazone.utils.DateHelper
 import java.util.*
 
@@ -29,7 +34,20 @@ class ProductDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityProductDetailBinding
 
     private var selectedDate: Date? = null
-    var tvDeliveryDate: TextView? = null
+    private var tvDeliveryDate: TextView? = null
+    private var tvOrderPersonName: TextView? = null
+    private var tvOrderDeliveryAddress: TextView? = null
+
+    private val addressLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val address = result.data?.getSerializableExtra(AppConstants.Address_LIST_RESPONSE)
+                        as AddressListResponse.Body
+                tvOrderPersonName?.text = address.name
+                tvOrderDeliveryAddress?.text = address.address + " , ".plus(address.city)
+
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +59,7 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.btnClickCollect.setOnClickListener { showBottomDialog() }
 
         binding.imageAskExpert.setOnClickListener {
-            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
                 showLoginDialog()
                 return@setOnClickListener
             }
@@ -50,7 +68,7 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         binding.imageCart.setOnClickListener {
-            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
                 showLoginDialog()
                 return@setOnClickListener
             }
@@ -65,7 +83,7 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun showBottomDialog() {
-        if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
+        if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
             showLoginDialog()
             return
         }
@@ -73,9 +91,14 @@ class ProductDetailActivity : AppCompatActivity() {
         val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
 
+        dialog.setCancelable(true)
+        dialog.setContentView(view)
+
         tvDeliveryDate = view.findViewById(R.id.tvDeliveryDate)
         val tvChangeDateTime = view.findViewById<TextView>(R.id.tvChangeDateTime)
         val tvChangeDeliveryAdd = view.findViewById<TextView>(R.id.tvChange)
+        tvOrderPersonName = view.findViewById(R.id.tvOrderPersonName)
+        tvOrderDeliveryAddress = view.findViewById(R.id.tvOrderDeliveryAddress)
         val tvChangePaymentMethod = view.findViewById<TextView>(R.id.tvPaymentMethodChange)
         val tvTerms = view.findViewById<TextView>(R.id.btnTerms)
         val buy = view.findViewById<TextView>(R.id.btnBuy)
@@ -106,7 +129,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         tvChangeDeliveryAdd.setOnClickListener {
             val intent = Intent(this, DeliveryAddress::class.java)
-            startActivity(intent)
+            addressLauncher.launch(intent)
         }
 
         tvChangePaymentMethod.setOnClickListener {
@@ -114,8 +137,7 @@ class ProductDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        dialog.setCancelable(true)
-        dialog.setContentView(view)
+
         dialog.show()
     }
 

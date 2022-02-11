@@ -10,7 +10,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.live.emmazone.activities.auth.LoginActivity
-import com.live.emmazone.activities.fragment.FragmentAccount
+import com.live.emmazone.activities.fragment.AccountFragment
 import com.live.emmazone.activities.fragment.HomeFragment
 import com.live.emmazone.activities.fragment.FragmentMyOrders
 import com.live.emmazone.activities.fragment.FragmentWishList
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                     if ( getPreference(AppConstants.PROFILE_TYPE,"") == "guest") {
                         showLoginDialog()
                     } else
-                        loadFragment(FragmentAccount())
+                        loadFragment(AccountFragment())
                 }
                 R.id.home -> {
                     loadFragment(HomeFragment())

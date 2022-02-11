@@ -9,16 +9,23 @@ import com.live.emmazone.databinding.ActivityPaymentMethodBinding
 import com.live.emmazone.model.ModelPaymentCard
 
 class PaymentMethod : AppCompatActivity() {
-    lateinit var binding: ActivityPaymentMethodBinding
-    var list = ArrayList<ModelPaymentCard>()
-    lateinit var adapter: AdapterAddPaymentCard
-    var isNotification = true
+
+    private lateinit var binding: ActivityPaymentMethodBinding
+    private var isNotification = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPaymentMethodBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        clicksHandle()
+        setPaymentAdapter()
+
+
+    }
+
+    private fun clicksHandle() {
         binding.imgWallet.setOnClickListener {
 
             isNotification = !isNotification
@@ -38,14 +45,16 @@ class PaymentMethod : AppCompatActivity() {
         binding.back.setOnClickListener {
             onBackPressed()
         }
+    }
 
-        binding.recyclerChooseCard.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    private fun setPaymentAdapter() {
+        val paymentAdapter = AdapterAddPaymentCard()
+        binding.recyclerChooseCard.adapter = paymentAdapter
 
-        list.add(ModelPaymentCard(R.drawable.add_new_card))
+        paymentAdapter.onItemClickListener = { pos, clickOn ->
+            if (clickOn == "addCard") {
 
-
-        binding.recyclerChooseCard.adapter = AdapterAddPaymentCard(list)
-
+            }
+        }
     }
 }

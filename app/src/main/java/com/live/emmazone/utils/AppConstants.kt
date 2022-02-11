@@ -22,6 +22,7 @@ object AppConstants {
     const val ROLE = "role"  //1-> User, 3-> Seller
     const val NOTIFICATION_TYPE = "notification_type"  //1-> On, 0-> Off
     const val SHOP_LISTING_RESPONSE = "shopListingResponse"
+    const val Address_LIST_RESPONSE = "AddressListResponse"
 
 
     /*******URLs*****/

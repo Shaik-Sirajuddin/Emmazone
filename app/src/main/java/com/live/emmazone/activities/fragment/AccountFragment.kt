@@ -22,6 +22,7 @@ import com.live.emmazone.activities.auth.ProfileActivity
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
+import com.live.emmazone.databinding.FragmentAccountBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
@@ -34,14 +35,11 @@ import com.live.emmazone.view_models.AppViewModel
 import com.makeramen.roundedimageview.RoundedImageView
 import com.schunts.extensionfuncton.loadImage
 
-class FragmentAccount : Fragment(), Observer<RestObservable> {
+class AccountFragment : Fragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
 
-    var profileImage: RoundedImageView? = null
-    var tvName: TextView? = null
-    var tvEmail: TextView? = null
-    var tvPhone: TextView? = null
+    private lateinit var binding: FragmentAccountBinding
 
 
     override fun onCreateView(
@@ -49,85 +47,66 @@ class FragmentAccount : Fragment(), Observer<RestObservable> {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentAccountBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_account, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val logout = view.findViewById<Button>(R.id.btn_logout)
-        val changePwdLayout = view.findViewById<ConstraintLayout>(R.id.changePwdLayout)
-        val faqLayout = view.findViewById<ConstraintLayout>(R.id.faqLayout)
-        val tcLayout = view.findViewById<ConstraintLayout>(R.id.termsConditionLayout)
-        val privacyPolicyLayout = view.findViewById<ConstraintLayout>(R.id.privacyPolicyLayout)
-        val cart = view.findViewById<ImageView>(R.id.cart)
-        val notifications = view.findViewById<ImageView>(R.id.image_notifications)
-        profileImage = view.findViewById<RoundedImageView>(R.id.pickImage)
-        val toggle = view.findViewById<SwitchMaterial>(R.id.switch_notification)
-        tvName = view.findViewById<TextView>(R.id.tvName)
-        tvEmail = view.findViewById<TextView>(R.id.tvEmail)
-        tvPhone = view.findViewById<TextView>(R.id.tvPhone)
+        appViewModel.profileApi(requireActivity(), true)
+        appViewModel.getResponse().observe(this, this)
+        clicksHandle()
+    }
 
-//        toggle.setOnClickListener {
-//
-//            isNotification = !isNotification
-//            toggle.setImageResource(
-//                if (isNotification)
-//                    R.drawable.on
-//                else
-//                    R.drawable.off
-//            )
-//        }
-
-        profileImage?.setOnClickListener {
+    private fun clicksHandle() {
+        binding.pickImage.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)
             startActivity(intent)
         }
 
-        cart.setOnClickListener {
+        binding.cart.setOnClickListener {
             val intent = Intent(activity, Cart::class.java)
             startActivity(intent)
         }
 
-        notifications.setOnClickListener {
+        binding.imageNotifications.setOnClickListener {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
 
-        logout.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             activity?.finishAffinity()
             val intent = Intent(activity, UserLoginChoice::class.java)
             startActivity(intent)
         }
-        changePwdLayout.setOnClickListener {
+        binding.changePwdLayout.setOnClickListener {
             val intent = Intent(activity, ChangePassword::class.java)
             startActivity(intent)
         }
-        faqLayout.setOnClickListener {
+        binding.faqLayout.setOnClickListener {
             val intent = Intent(activity, FAQ::class.java)
             startActivity(intent)
         }
-        tcLayout.setOnClickListener {
+        binding.termsConditionLayout.setOnClickListener {
             val intent = Intent(activity, TermsCondition::class.java)
             startActivity(intent)
         }
-        privacyPolicyLayout.setOnClickListener {
+        binding.privacyPolicyLayout.setOnClickListener {
             val intent = Intent(activity, PrivacyPolicy::class.java)
             startActivity(intent)
         }
 
-        toggle.isChecked = getPreference(AppConstants.NOTIFICATION_TYPE, "") == "1"
+        binding.switchNotification.isChecked =
+            getPreference(AppConstants.NOTIFICATION_TYPE, "") == "1"
 
 
-        toggle.setOnClickListener {
+        binding.switchNotification.setOnClickListener {
             if (getPreference(AppConstants.NOTIFICATION_TYPE, "0") == "1")
                 hitNotificationUpdateApi("0")
             else
                 hitNotificationUpdateApi("1")
         }
-
-        appViewModel.profileApi(requireActivity(), true)
-        appViewModel.getResponse().observe(this, this)
-
-
-        return view
     }
 
     private fun hitNotificationUpdateApi(type: String) {
@@ -136,12 +115,6 @@ class FragmentAccount : Fragment(), Observer<RestObservable> {
 
         appViewModel.notificationStatusApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(this, this)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
     }
 
     override fun onResume() {
@@ -172,10 +145,10 @@ class FragmentAccount : Fragment(), Observer<RestObservable> {
                     val response: ProfileResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
-                        profileImage?.loadImage(AppConstants.IMAGE_USER_URL + response.body.image)
-                        tvName?.text = response.body.username
-                        tvEmail?.text = response.body.email
-                        tvPhone?.text = response.body.countryCode + response.body.phone
+                        binding.pickImage.loadImage(AppConstants.IMAGE_USER_URL + response.body.image)
+                        binding.tvName.text = response.body.username
+                        binding.tvEmail.text = response.body.email
+                        binding.tvPhone.text = response.body.countryCode + response.body.phone
                     }
 
 

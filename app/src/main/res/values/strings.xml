@@ -248,5 +248,10 @@
     <string name="msg_pls_add_comment">Please add a comment</string>
     <string name="miles_away">Miles Away</string>
     <string name="notification_status_update">Notification status changed successfully</string>
+    <string name="visa">Visa</string>
+    <string name="card_number">Card Number</string>
+    <string name="add_new_card">Add New Card</string>
+    <string name="add_card">Add Card</string>
+    <string name="enter_name">Enter Name</string>
 
 </resources>
