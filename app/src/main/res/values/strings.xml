@@ -253,5 +253,7 @@
     <string name="add_new_card">Add New Card</string>
     <string name="add_card">Add Card</string>
     <string name="enter_name">Enter Name</string>
+    <string name="exp_date">Exp. Date</string>
+    <string name="cvv">CVV</string>
 
 </resources>

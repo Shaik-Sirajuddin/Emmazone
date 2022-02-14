@@ -160,9 +160,9 @@ class AppUtils {
 
 
         //------------------------Return Time in String------------------//
-        fun longToTime(timeInMillis: Long, format: String): String {
+        fun longToTime(seconds: Long, format: String): String {
             val sdf = SimpleDateFormat(format, Locale.getDefault())
-            val milliSeconds = timeInMillis*1000 // if "timeInMillis" in Seconds than use it.
+            val milliSeconds = seconds*1000 // if "timeInMillis" in Seconds than use it.
             return sdf.format(milliSeconds)
         }
 

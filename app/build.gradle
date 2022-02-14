@@ -91,4 +91,7 @@ dependencies {
 
     //Location
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+    //MonthYearPicker
+    implementation 'com.github.dewinjm:monthyear-picker:1.0.2'
 }
