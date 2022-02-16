@@ -211,6 +211,18 @@
     <string name="permission_rationale">Location permission needed for core functionality</string>
     <string name="permission_denied_explanation">Permission was denied, but is needed for core functionality.</string>
     <string name="gps_required">GPS is required you be turned on</string>
+    <string name="miles_away">Miles Away</string>
+    <string name="notification_status_update">Notification status changed successfully</string>
+    <string name="visa">Visa</string>
+    <string name="card_number">Card Number</string>
+    <string name="add_new_card">Add New Card</string>
+    <string name="add_card">Add Card</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="exp_date">Exp. Date</string>
+    <string name="cvv">CVV</string>
+    <string name="expired">Expired: %s</string>
+
+
 
     <string name="enter_your_name">Enter your name</string>
     <string name="enter_email">Enter email</string>
@@ -246,14 +258,7 @@
     <string name="msg_select_category_1">Please select category</string>
     <string name="msg_select_rating">Please select ratings</string>
     <string name="msg_pls_add_comment">Please add a comment</string>
-    <string name="miles_away">Miles Away</string>
-    <string name="notification_status_update">Notification status changed successfully</string>
-    <string name="visa">Visa</string>
-    <string name="card_number">Card Number</string>
-    <string name="add_new_card">Add New Card</string>
-    <string name="add_card">Add Card</string>
-    <string name="enter_name">Enter Name</string>
-    <string name="exp_date">Exp. Date</string>
-    <string name="cvv">CVV</string>
+    <string name="msg_enter_valid_card">Please enter valid card no.</string>
+    <string name="msg_enter_exp_date">Please enter exp date</string>
 
 </resources>

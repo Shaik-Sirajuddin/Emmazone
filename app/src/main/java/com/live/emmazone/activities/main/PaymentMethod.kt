@@ -2,60 +2,113 @@ package com.live.emmazone.activities.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.live.emmazone.R
+import androidx.lifecycle.Observer
 import com.live.emmazone.activities.AddCardActivity
 import com.live.emmazone.adapter.AdapterAddPaymentCard
 import com.live.emmazone.databinding.ActivityPaymentMethodBinding
-import com.live.emmazone.model.ModelPaymentCard
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.CardListResponse
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.view_models.AppViewModel
 
-class PaymentMethod : AppCompatActivity() {
+class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
 
+    private val appViewModel: AppViewModel by viewModels()
     private lateinit var binding: ActivityPaymentMethodBinding
-    private var isNotification = true
+    private var addPaymentAdapter: AdapterAddPaymentCard? = null
+    private val cardList = ArrayList<CardListResponse.Body>()
+
+
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                getCardListApiHit()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPaymentMethodBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         clicksHandle()
         setPaymentAdapter()
-
+        getCardListApiHit()
 
     }
 
     private fun clicksHandle() {
-        binding.imgWallet.setOnClickListener {
+        binding.rbWallet.setOnClickListener {
+            if (binding.rbWallet.isChecked) {
+                binding.rbPayPal.isChecked = false
+                binding.rbCredit.isChecked = false
+                binding.rbCOD.isChecked = false
+            }
+        }
 
-            isNotification = !isNotification
-            binding.imgWallet.setImageResource(
-                if (isNotification)
-                    R.drawable.radio_dot_circle
-                else
-                    R.drawable.radio_circle
-            )
+        binding.rbPayPal.setOnClickListener {
+            if (binding.rbPayPal.isChecked) {
+                binding.rbWallet.isChecked = false
+            }
+        }
 
+        binding.rbCredit.setOnClickListener {
+            if (binding.rbCredit.isChecked) {
+                binding.rbWallet.isChecked = false
+            }
+        }
+
+        binding.rbCOD.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.rbWallet.isChecked = false
+            }
         }
 
 
-        binding.btnNext.setOnClickListener {
+        binding.back.setOnClickListener {
             onBackPressed()
         }
-        binding.back.setOnClickListener {
+
+        binding.btnNext.setOnClickListener {
             onBackPressed()
         }
     }
 
     private fun setPaymentAdapter() {
-        val paymentAdapter = AdapterAddPaymentCard()
-        binding.recyclerChooseCard.adapter = paymentAdapter
+        addPaymentAdapter = AdapterAddPaymentCard(cardList)
+        binding.recyclerChooseCard.adapter = addPaymentAdapter
 
-        paymentAdapter.onItemClickListener = { pos, clickOn ->
+        addPaymentAdapter?.onItemClickListener = { pos, clickOn ->
             if (clickOn == "addCard") {
-                startActivity(Intent(this, AddCardActivity::class.java))
+                val intent = Intent(this, AddCardActivity::class.java)
+                launcher.launch(intent)
+            }
+        }
+    }
+
+
+    private fun getCardListApiHit() {
+        appViewModel.cardListApi(this, true)
+        appViewModel.getResponse().observe(this, this)
+    }
+
+    override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is CardListResponse) {
+                    val response: CardListResponse = t.data
+
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+
+                        cardList.clear()
+                        cardList.addAll(response.body)
+                        addPaymentAdapter?.notifyDataSetChanged()
+                    }
+                }
             }
         }
     }

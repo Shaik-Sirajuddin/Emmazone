@@ -124,4 +124,12 @@ interface RestApiInterface {
     @POST(AppConstants.CATEGORY_COLOR_SIZE)
     fun categoryColorSize(@FieldMap hashMap: HashMap<String, String>): Call<CategoryColorSizeResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.ADD_CARD)
+    fun addCard(@FieldMap hashMap: HashMap<String, String>): Call<AddCardResponse>
+
+    @GET(AppConstants.CARD_LIST)
+    fun cardList(): Call<CardListResponse>
+
+
 }

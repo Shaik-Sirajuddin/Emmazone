@@ -59,6 +59,8 @@ object AppConstants {
     const val LOGOUT = "logout"
     const val RATING = "ratings"
     const val CATEGORY_COLOR_SIZE = "category_color_size"
+    const val ADD_CARD = "addCard"
+    const val CARD_LIST = "card_list"
 
 
 }

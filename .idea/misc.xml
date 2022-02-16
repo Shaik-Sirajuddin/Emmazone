@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.17135416666666667" />
         <entry key="../../../../layout/custom_preview.xml" value="0.13645833333333332" />
         <entry key="app/src/main/res/drawable-xhdpi/myorder_selector.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable-xxhdpi/account_selector.xml" value="0.18055555555555555" />
@@ -60,7 +61,7 @@
         <entry key="app/src/main/res/font/advent_pro_thin.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/font/average.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/activity_add_bank_account.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/activity_add_card.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/activity_add_card.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_add_new_address.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_add_new_product.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_add_shop_detail.xml" value="0.18" />
@@ -88,7 +89,7 @@
         <entry key="app/src/main/res/layout/activity_order_detail_pending.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_order_detail_pro_ongoing.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_order_pickup_collect.xml" value="0.22708333333333333" />
-        <entry key="app/src/main/res/layout/activity_payment_method.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_payment_method.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_privacy_policy.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/activity_privacypolicy.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_product_detail.xml" value="0.2" />
@@ -169,6 +170,7 @@
         <entry key="app/src/main/res/layout/item_provider_order_detail_new_sale_layout.xml" value="0.21" />
         <entry key="app/src/main/res/layout/item_provider_shopdetail_products.xml" value="0.2" />
         <entry key="app/src/main/res/layout/layout_progress.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/month_year_picker_dialog.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/on_going_orders_fragment.xml" value="0.2" />
         <entry key="app/src/main/res/layout/past_fragment.xml" value="0.22" />
         <entry key="app/src/main/res/layout/popup_my_post.xml" value="0.24114583333333334" />

@@ -115,4 +115,9 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/green</item>  // you can change the color of the yearPiker dialog
+        <item name="android:textColorPrimary">@color/green</item> // you can change the color of the yearPiker dialog
+    </style>
+
 </resources>

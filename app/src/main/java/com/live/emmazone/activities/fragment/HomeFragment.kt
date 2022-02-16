@@ -68,7 +68,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         getLiveLocation(requireActivity())
 
 
-
     }
 
     private fun clicksHandle() {
@@ -141,22 +140,28 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
         nearShopAdapter.onClickListener = { pos, clickOn ->
 
-            if (clickOn == "favourite") {
-                selectedPos = pos
-                favUnFavApiHit(list[pos])
-            } else if (clickOn == "itemClick") {
-                val intent = Intent(requireContext(), ShopDetailActivity::class.java)
-                startActivity(intent)
-            } else if (clickOn == "rating") {
-                if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
-                    (requireContext().applicationContext as MainActivity).showLoginDialog()
-                } else {
-                    val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
-                    intent.putExtra(AppConstants.SHOP_LISTING_RESPONSE, list[pos])
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                (context as MainActivity).showLoginDialog()
+            } else{
+                if (clickOn == "favourite") {
+                    selectedPos = pos
+                    favUnFavApiHit(list[pos])
+                } else if (clickOn == "itemClick") {
+                    val intent = Intent(requireContext(), ShopDetailActivity::class.java)
                     startActivity(intent)
-                }
+                } else if (clickOn == "rating") {
+                    if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
+                        (requireContext().applicationContext as MainActivity).showLoginDialog()
+                    } else {
+                        val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
+                        intent.putExtra(AppConstants.SHOP_LISTING_RESPONSE, list[pos])
+                        startActivity(intent)
+                    }
 
+                }
             }
+
+
         }
     }
 

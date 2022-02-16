@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.util.Patterns
 import com.live.emmazone.R
 import com.live.emmazone.base.AppController
+import com.stripe.android.view.CardNumberEditText
 
 object Validator {
 
@@ -211,14 +212,33 @@ object Validator {
 
     }
 
-    fun reviewValidation(rating:Float,comment:String):Boolean{
+    fun reviewValidation(rating: Float, comment: String): Boolean {
         return if (rating == 0.0F) {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_rating)
             false
         } else if (TextUtils.isEmpty(comment)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_pls_add_comment)
             false
-        }else {
+        } else {
+            true
+        }
+    }
+
+    fun addCardValidation(
+        name: String,
+        cardEditText: CardNumberEditText,
+        expDate: String
+    ): Boolean {
+        return if (TextUtils.isEmpty(name)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_name)
+            false
+        } else if (!cardEditText.isCardNumberValid) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_valid_card)
+            false
+        }else if (TextUtils.isEmpty(expDate)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_exp_date)
+            false
+        } else {
             true
         }
     }

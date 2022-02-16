@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
-        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
         app:layout_constraintEnd_toEndOf="@+id/tvPaymentSelection"
         app:layout_constraintStart_toStartOf="@+id/tvPaymentSelection"
         app:layout_constraintTop_toBottomOf="@+id/tvPaymentSelection">
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:button="@drawable/custom_radio_button"
-            android:drawableRight="@drawable/pay"
+            android:drawableEnd="@drawable/pay"
             android:paddingHorizontal="7dp"
             android:text="@string/paypal"
             android:textSize="@dimen/sp15" />
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:button="@drawable/custom_radio_button"
-            android:drawableRight="@drawable/credit"
+            android:drawableEnd="@drawable/credit"
             android:padding="7dp"
             android:text="@string/credit_card_debit_card"
             android:textSize="@dimen/sp15" />
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:button="@drawable/custom_radio_button"
-            android:drawableRight="@drawable/wallet"
+            android:drawableEnd="@drawable/wallet"
             android:paddingHorizontal="7dp"
             android:text="@string/cash_on_delivery"
             android:textSize="@dimen/sp15" />
@@ -119,28 +119,17 @@
         app:layout_constraintStart_toStartOf="@+id/radioGroup"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup">
 
-        <ImageView
-            android:id="@+id/imgWallet"
-            android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/rbWallet"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp5"
-            android:src="@drawable/radio_dot_circle"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintTop_toBottomOf="@+id/tvMyWallet" />
-
-        <TextView
-            android:id="@+id/tvWallet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp8"
-            android:layout_marginEnd="@dimen/dp8"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
+            android:background="@null"
+            android:button="@drawable/custom_radio_button"
+            android:paddingHorizontal="7dp"
             android:text="@string/wallet"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp15"
-            app:layout_constraintEnd_toEndOf="@+id/radioGroup"
-            app:layout_constraintStart_toStartOf="@+id/radioGroup"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            android:textSize="@dimen/sp15" />
 
         <TextView
             android:id="@+id/tvWalletBalance"
@@ -241,12 +230,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerChooseCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"
         app:layout_constraintEnd_toEndOf="@+id/tvChooseCard"
         app:layout_constraintStart_toStartOf="@+id/tvChooseCard"
         app:layout_constraintTop_toBottomOf="@+id/tvChooseCard"

@@ -1,14 +1,17 @@
 package com.live.emmazone.activities.provider
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.NumberPicker
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -33,6 +36,7 @@ import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
 import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
+import com.schunts.extensionfuncton.toast
 import okhttp3.RequestBody
 import java.io.File
 import java.util.*
@@ -123,6 +127,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
 
         binding.edtShopYearFoundation.setOnClickListener {
            /* yearPickerDialog()*/
+            createDialogWithoutDateField()
         }
     }
 
@@ -261,5 +266,40 @@ class AddShopDetailActivity : ImagePickerUtility(),
         }
     }
 
+    private fun createDialogWithoutDateField() {
 
+        val alertDialog: AlertDialog?
+        val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+        val inflater = layoutInflater
+
+        val cal = Calendar.getInstance()
+
+        val dialog = inflater.inflate(R.layout.month_year_picker_dialog, null)
+        val monthPicker = dialog.findViewById(R.id.picker_month) as NumberPicker
+        val yearPicker = dialog.findViewById(R.id.picker_year) as NumberPicker
+
+        monthPicker.minValue = 1
+        monthPicker.maxValue = 12
+        monthPicker.value = cal.get(Calendar.MONTH) + 1
+
+        val year = cal.get(Calendar.YEAR)
+        yearPicker.minValue = 1900
+        yearPicker.maxValue = cal.get(Calendar.YEAR)
+        yearPicker.value = year
+
+        builder.setView(dialog).setPositiveButton(getString(R.string.ok)){ dialogInterface, which ->
+             val value = yearPicker.value
+            toast(value.toString())
+            dialogInterface.cancel()
+        }
+
+        builder.setNegativeButton(getString(R.string.cancel)){dialogInterface, which ->
+            dialogInterface.cancel()
+        }
+
+        alertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(true)
+        alertDialog.show()
+    }
 }

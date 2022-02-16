@@ -86,7 +86,26 @@
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp15" />
 
-            <EditText
+            <com.stripe.android.view.CardNumberEditText
+                android:id="@+id/et_card_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxLength="19"
+                android:background="@drawable/login_bg"
+                android:fontFamily="@font/avenir_book"
+                android:hint="@string/card_number"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="@dimen/dp10"
+                android:paddingStart="@dimen/dp10"
+                android:paddingEnd="@dimen/dp10"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15">
+            </com.stripe.android.view.CardNumberEditText>
+
+            <!--<EditText
                 android:id="@+id/edtCardNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +119,7 @@
                 android:inputType="number"
                 android:maxLines="1"
                 android:paddingStart="@dimen/dp10"
-                android:textSize="@dimen/sp14" />
+                android:textSize="@dimen/sp14" />-->
 
 
             <TextView
