@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,7 +15,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
+            android:background="@color/splash_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,8 +37,8 @@
                 android:id="@+id/changePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/edit_profile"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="@string/profile"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp20"
@@ -47,19 +47,21 @@
                 app:layout_constraintStart_toStartOf="@+id/layoutMain"
                 app:layout_constraintTop_toTopOf="@+id/layoutMain" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_55sdp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/profile_img_blur"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/roundedImageView" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="@dimen/dp30"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/changePassword"
+                app:riv_corner_radius_top_left="@dimen/dp20"
+                app:riv_corner_radius_top_right="@dimen/dp20" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/camera"
@@ -76,11 +78,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutProfile"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="-20dp"
             android:background="@drawable/bg_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutMain">
 
             <TextView
                 android:id="@+id/tvname"
@@ -107,11 +111,11 @@
                 android:hint="Jhonson Marker"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
-                android:textStyle="bold"
                 android:maxLines="1"
-                android:textColorHint="@color/black"
                 android:paddingLeft="@dimen/dp8"
+                android:textColorHint="@color/black"
                 android:textSize="@dimen/sp15"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/tvname"
                 app:layout_constraintStart_toStartOf="@+id/tvname"
                 app:layout_constraintTop_toBottomOf="@+id/tvname" />
@@ -142,9 +146,9 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/dp8"
-                android:textStyle="bold"
                 android:textColorHint="@color/black"
                 android:textSize="@dimen/sp15"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/tv_email"
                 app:layout_constraintStart_toStartOf="@+id/tv_email"
                 app:layout_constraintTop_toBottomOf="@+id/tv_email" />
@@ -196,37 +200,36 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/login_bg"
                     android:fontFamily="@font/avenir_book"
-                    android:paddingLeft="@dimen/dp8"
                     android:hint="456-789-456"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLines="1"
-                    android:textStyle="bold"
+                    android:paddingLeft="@dimen/dp8"
                     android:textColorHint="@color/black"
                     android:textSize="@dimen/sp15"
-                    />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
 
-<!--            <EditText-->
-<!--                android:id="@+id/edtEditPhone"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="5dp"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:background="@drawable/login_bg"-->
-<!--                android:hint="+12-456-789-456"-->
-<!--                android:imeOptions="actionNext"-->
-<!--                android:inputType="number"-->
-<!--                android:maxLines="1"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textColorHint="@color/black"-->
-<!--                android:paddingLeft="@dimen/dp8"-->
-<!--                android:textSize="@dimen/sp15"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/tv_phone"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/tv_phone"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_phone" />-->
+            <!--            <EditText-->
+            <!--                android:id="@+id/edtEditPhone"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="5dp"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:background="@drawable/login_bg"-->
+            <!--                android:hint="+12-456-789-456"-->
+            <!--                android:imeOptions="actionNext"-->
+            <!--                android:inputType="number"-->
+            <!--                android:maxLines="1"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:textColorHint="@color/black"-->
+            <!--                android:paddingLeft="@dimen/dp8"-->
+            <!--                android:textSize="@dimen/sp15"-->
+            <!--                app:layout_constraintEnd_toEndOf="@+id/tv_phone"-->
+            <!--                app:layout_constraintStart_toStartOf="@+id/tv_phone"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/tv_phone" />-->
 
             <android.widget.Button
                 android:id="@+id/btnUpdate"
@@ -240,7 +243,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/layoutProfile"
                 app:layout_constraintEnd_toEndOf="@+id/layoutProfile"
                 app:layout_constraintStart_toStartOf="@+id/layoutProfile"
-                app:layout_constraintTop_toBottomOf="@+id/edtEditPhone" />
+                app:layout_constraintTop_toBottomOf="@+id/llPhoneNo" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

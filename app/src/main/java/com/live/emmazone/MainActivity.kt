@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.live.emmazone.activities.auth.LoginActivity
+import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.fragment.AccountFragment
 import com.live.emmazone.activities.fragment.HomeFragment
 import com.live.emmazone.activities.fragment.FragmentMyOrders
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener {
             dialog.dismiss()
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, UserLoginChoice::class.java))
             finishAffinity()
         }
 

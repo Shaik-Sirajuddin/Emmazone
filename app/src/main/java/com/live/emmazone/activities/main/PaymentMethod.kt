@@ -1,9 +1,11 @@
 package com.live.emmazone.activities.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
+import com.live.emmazone.activities.AddCardActivity
 import com.live.emmazone.adapter.AdapterAddPaymentCard
 import com.live.emmazone.databinding.ActivityPaymentMethodBinding
 import com.live.emmazone.model.ModelPaymentCard
@@ -53,7 +55,7 @@ class PaymentMethod : AppCompatActivity() {
 
         paymentAdapter.onItemClickListener = { pos, clickOn ->
             if (clickOn == "addCard") {
-
+                startActivity(Intent(this, AddCardActivity::class.java))
             }
         }
     }

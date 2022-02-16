@@ -94,4 +94,8 @@ dependencies {
 
     //MonthYearPicker
     implementation 'com.github.dewinjm:monthyear-picker:1.0.2'
+
+    //Only Year Picker
+//    implementation 'com.whiteelephant:monthandyearpicker:1.3.0'
+
 }

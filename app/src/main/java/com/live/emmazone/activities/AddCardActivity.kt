@@ -23,6 +23,7 @@ class AddCardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         clicksHandle()
+        datePickDialog()
     }
 
     private fun clicksHandle() {
@@ -31,7 +32,8 @@ class AddCardActivity : AppCompatActivity() {
         }
 
         binding.edtExpDate.setOnClickListener {
-            datePickDialog()
+            monthYearPickerDialog.show(supportFragmentManager, "DateYearPicker")
+
         }
 
         binding.btnSubmit.setOnClickListener {
@@ -42,7 +44,6 @@ class AddCardActivity : AppCompatActivity() {
     private fun validateData() {
         val name = binding.edtName.text.toString()
         val cardNo = binding.edtCardNo.text.toString()
-        val edtCVV = binding.edtCVV.text.toString()
     }
 
     private fun datePickDialog() {
@@ -70,6 +71,6 @@ class AddCardActivity : AppCompatActivity() {
         val sdfYear = SimpleDateFormat(dateFormatYear, Locale.getDefault())
         selectedMonth = sdfMonth.format(timeInMillis)
         selectedYear = sdfYear.format(timeInMillis)
-        binding.edtExpDate.setText("$dateFormatMonth/$dateFormatYear")
+        binding.edtExpDate.setText("$sdfMonth/$sdfYear")
     }
 }

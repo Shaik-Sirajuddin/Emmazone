@@ -37,7 +37,7 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
 
     private fun clicksHandle() {
         binding.imageArrowback.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
+            onBackPressed()
         }
 
 
@@ -76,6 +76,7 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
                             startActivity(Intent(this, AddShopDetailActivity::class.java))
                             finish()
                         } else {
+                            savePreference(AppConstants.ROLE, AppConstants.USER_ROLE)
                             savePreference(AppConstants.IS_LOGIN, true)
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()

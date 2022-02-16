@@ -76,9 +76,8 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
         }
 
         binding.btnLogout.setOnClickListener {
-            activity?.finishAffinity()
-            val intent = Intent(activity, UserLoginChoice::class.java)
-            startActivity(intent)
+            val dialog = LogoutDialog()
+            dialog.show(requireActivity().supportFragmentManager, "logoutDialog")
         }
         binding.changePwdLayout.setOnClickListener {
             val intent = Intent(activity, ChangePassword::class.java)

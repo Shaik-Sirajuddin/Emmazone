@@ -28,7 +28,6 @@ import com.live.emmazone.response_model.AddShopResponse
 import com.live.emmazone.response_model.CategoryListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
-import com.live.emmazone.utils.ImageLocationUpdateUtility
 import com.live.emmazone.utils.ImagePickerUtility
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
@@ -121,7 +120,44 @@ class AddShopDetailActivity : ImagePickerUtility(),
         binding.btnDone.setOnClickListener {
             validateData()
         }
+
+        binding.edtShopYearFoundation.setOnClickListener {
+           /* yearPickerDialog()*/
+        }
     }
+
+//    private fun yearPickerDialog() {
+//        val builder = MonthPickerDialog.Builder(this, object : MonthPickerDialog.OnDateSetListener {
+//            override fun onDateSet(selectedMonth: Int, selectedYear: Int) {
+//                binding.edtShopYearFoundation.setText(selectedYear.toString())
+//            }
+//
+//        }, Calendar.YEAR, Calendar.MONTH)
+//
+//        builder
+//            .setMinYear(1980)
+//            .setActivatedYear(
+//                AppUtils.milliSecondsToTime(
+//                    System.currentTimeMillis(),
+//                    AppConstants.YEAR_FORMAT
+//                ).toInt()
+//            )
+//            .setMaxYear(
+//                AppUtils.milliSecondsToTime(
+//                    System.currentTimeMillis(),
+//                    AppConstants.YEAR_FORMAT
+//                ).toInt()
+//            )
+//            .setMinMonth(Calendar.FEBRUARY)
+//            .setTitle("Select trading month")
+//            .setMonthRange(Calendar.FEBRUARY, Calendar.NOVEMBER).showYearOnly()
+//        // .setMaxMonth(Calendar.OCTOBER)
+//        // .setYearRange(1890, 1890)
+//        // .setMonthAndYearRange(Calendar.FEBRUARY, Calendar.OCTOBER, 1890, 1890)
+//        //.showMonthOnly()
+//        // .showYearOnly()
+//
+//    }
 
     private fun setCategoryAdapter() {
         val categoryAdapter = CategoriesAdapter(list)
@@ -213,6 +249,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
                 } else if (t.data is AddShopResponse) {
                     val response: AddShopResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
+                        savePreference(AppConstants.ROLE, AppConstants.SELLER_ROLE)
                         savePreference(AppConstants.IS_LOGIN, true)
                         profileCompletedDialog()
 

@@ -103,83 +103,34 @@
                 android:textSize="@dimen/sp14" />
 
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/avenir_black"
+                android:text="@string/exp_date"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp10"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/avenir_black"
-                        android:text="@string/exp_date"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/sp15" />
-
-                    <EditText
-                        android:id="@+id/edtExpDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="@dimen/dp10"
-                        android:background="@drawable/login_bg"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:fontFamily="@font/avenir_book"
-                        android:hint="@string/exp_date"
-                        android:imeOptions="actionNext"
-                        android:importantForAutofill="no"
-                        android:inputType="number"
-                        android:longClickable="false"
-                        android:maxLines="1"
-                        android:paddingStart="@dimen/dp10"
-                        android:textSize="@dimen/sp14" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/avenir_black"
-                        android:text="@string/cvv"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/sp15" />
-
-                    <EditText
-                        android:id="@+id/edtCVV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="@dimen/dp10"
-                        android:background="@drawable/login_bg"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:fontFamily="@font/avenir_book"
-                        android:hint="@string/cvv"
-                        android:imeOptions="actionNext"
-                        android:importantForAutofill="no"
-                        android:inputType="numberPassword"
-                        android:longClickable="false"
-                        android:maxLength="4"
-                        android:maxLines="1"
-                        android:paddingStart="@dimen/dp10"
-                        android:textSize="@dimen/sp14" />
-                </LinearLayout>
-            </LinearLayout>
+            <EditText
+                android:id="@+id/edtExpDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@drawable/login_bg"
+                android:clickable="false"
+                android:focusable="false"
+                android:fontFamily="@font/avenir_book"
+                android:hint="@string/exp_date"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:longClickable="false"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dp10"
+                android:textSize="@dimen/sp14" />
 
 
             <android.widget.Button
