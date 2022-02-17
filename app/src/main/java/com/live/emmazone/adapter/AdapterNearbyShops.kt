@@ -40,7 +40,7 @@ class AdapterNearbyShops(private val list: ArrayList<ShopListingResponse.Body>) 
         fun bind(pos: Int) {
             val nearShopModel = list[pos]
 
-            binding.itemImageHome.loadImage(AppConstants.SHOP_IMAGE_URL + nearShopModel.image)
+            binding.itemImageHome.loadImage(AppConstants.IMAGE_USER_URL + nearShopModel.image)
             binding.tvWishListStoreName.text = nearShopModel.shopName
             binding.tvWishListRatingText.text = nearShopModel.ratings + "/" + "5"
             binding.tvWishListDistance.text = nearShopModel.distance.toString() + " " +

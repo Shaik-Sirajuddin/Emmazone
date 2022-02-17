@@ -230,6 +230,10 @@
     <string name="enter_password">Enter password</string>
     <string name="msg_select_image">Please select image</string>
     <string name="msg_enter_name">Please enter name</string>
+    <string name="msg_enter_ifsc">Please enter IFSC code</string>
+    <string name="msg_enter_bank_branch">Please enter bank branch</string>
+    <string name="msg_enter_acc_no">Please enter account no.</string>
+    <string name="msg_acc_no_not_match">Account no. and confirm account no. not match</string>
     <string name="msg_enter_email">Please enter email</string>
     <string name="msg_valid_email">Please enter valid email</string>
     <string name="msg_enter_contact">Please enter contact no.</string>

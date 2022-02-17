@@ -79,7 +79,7 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
                             savePreference(AppConstants.ROLE, AppConstants.USER_ROLE)
                             savePreference(AppConstants.IS_LOGIN, true)
                             startActivity(Intent(this, MainActivity::class.java))
-                            finish()
+                            finishAffinity()
                         }
 
                     }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ItemLayoutPaymentMethodBinding
@@ -50,6 +51,16 @@ class AdapterAddPaymentCard(val cardList: ArrayList<CardListResponse.Body>) :
             } else {
                 binding.llAddCard.visibility = View.VISIBLE
                 binding.rlCard.visibility = View.GONE
+
+            }
+
+
+            if ((pos - 1) % 2 == 0) {
+                binding.rlCard.background =
+                    ContextCompat.getDrawable(mContext, R.drawable.bg_green_15dp)
+            } else {
+                binding.rlCard.background =
+                    ContextCompat.getDrawable(mContext, R.drawable.bg_light_gray_15dp)
             }
 
 

@@ -132,4 +132,8 @@ interface RestApiInterface {
     fun cardList(): Call<CardListResponse>
 
 
+    @FormUrlEncoded
+    @POST(AppConstants.ADD_ACCOUNT)
+    fun addAccount(@FieldMap hashMap: HashMap<String, String>): Call<AddBankResponse>
+
 }

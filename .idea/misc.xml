@@ -21,6 +21,8 @@
         <entry key="app/src/main/res/drawable/bg_fill_earning.xml" value="0.19" />
         <entry key="app/src/main/res/drawable/bg_fill_light_green.xml" value="0.2101851851851852" />
         <entry key="app/src/main/res/drawable/bg_fill_sqaure.xml" value="0.20277777777777778" />
+        <entry key="app/src/main/res/drawable/bg_green_15dp.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/drawable/bg_light_gray_15dp.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/bg_my_earning_rv.xml" value="0.2101851851851852" />
         <entry key="app/src/main/res/drawable/bg_my_order.xml" value="0.23333333333333334" />
         <entry key="app/src/main/res/drawable/bg_profile.xml" value="0.25333333333333335" />
@@ -70,7 +72,7 @@
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_delivery_address.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_edit_product.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.16" />
         <entry key="app/src/main/res/layout/activity_edit_shop_detail.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_enable_location_services.xml" value="0.19" />
         <entry key="app/src/main/res/layout/activity_faq.xml" value="0.21" />

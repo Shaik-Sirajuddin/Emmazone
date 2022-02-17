@@ -235,11 +235,35 @@ object Validator {
         } else if (!cardEditText.isCardNumberValid) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_valid_card)
             false
-        }else if (TextUtils.isEmpty(expDate)) {
+        } else if (TextUtils.isEmpty(expDate)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_exp_date)
             false
         } else {
             true
         }
+    }
+
+    fun addAccountValidation(
+        ifsc: String, bank: String, accNo: String,
+        confirmAccNo: String, name: String
+    ): Boolean {
+
+        return if (TextUtils.isEmpty(ifsc)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_ifsc)
+            false
+        } else if (TextUtils.isEmpty(bank)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_bank_branch)
+            false
+        } else if (TextUtils.isEmpty(accNo)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_acc_no)
+            false
+        } else if (accNo != confirmAccNo) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_acc_no_not_match)
+            false
+        }else if (TextUtils.isEmpty(name)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_name)
+            false
+        } else return true
+
     }
 }

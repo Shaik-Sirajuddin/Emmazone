@@ -25,5 +25,6 @@
     <color name="track_inactive">#EDEDED</color>
 
     <color name="image_bg">#DEDDDC</color>
+    <color name="light_gray">#B5B5B5</color>
     <color name="skyBlue">#03A9F4</color>
 </resources>

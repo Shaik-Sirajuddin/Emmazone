@@ -61,6 +61,7 @@ object AppConstants {
     const val CATEGORY_COLOR_SIZE = "category_color_size"
     const val ADD_CARD = "addCard"
     const val CARD_LIST = "card_list"
+    const val ADD_ACCOUNT = "add_account"
 
 
 }

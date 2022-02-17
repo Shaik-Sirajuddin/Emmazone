@@ -146,7 +146,6 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
 
                         val intent = Intent(this, VerificationCode::class.java)
                         startActivity(intent)
-                        finishAffinity()
                     }
                 }
             }

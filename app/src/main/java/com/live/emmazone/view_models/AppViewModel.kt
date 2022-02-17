@@ -1113,4 +1113,43 @@ class AppViewModel : ViewModel() {
     }
 
 
+    fun addAccountApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addAccount(hashMap)
+                .enqueue(object : Callback<AddBankResponse> {
+                    override fun onResponse(
+                        call: Call<AddBankResponse>,
+                        response: Response<AddBankResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<AddBankResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addAccountApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+
+
 }

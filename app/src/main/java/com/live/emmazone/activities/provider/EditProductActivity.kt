@@ -1,40 +1,22 @@
 package com.live.emmazone.activities.provider
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
-import android.view.Window
 import android.widget.Button
-import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
-import com.live.emmazone.activities.listeners.OnActionListener
 import com.live.emmazone.adapter.ImageAdapter
 import com.live.emmazone.databinding.ActivityEditProductBinding
 import com.live.emmazone.model.ImageModel
 import com.live.emmazone.utils.ImagePickerUtility
-import com.live.emmazone.utils.ToastUtils
-import com.permissionx.guolindev.PermissionX
 import com.schunts.extensionfuncton.loadImage
 
 class EditProductActivity : ImagePickerUtility() {
 
     private lateinit var images: ArrayList<ImageModel>
-    var isNotifyOn = true
 
     lateinit var binding: ActivityEditProductBinding
-
-    private var isMainPhoto = true
 
     private lateinit var imageAdapter: ImageAdapter
     private val imageList = ArrayList<String>()

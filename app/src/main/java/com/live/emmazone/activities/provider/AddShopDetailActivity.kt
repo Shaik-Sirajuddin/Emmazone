@@ -126,43 +126,10 @@ class AddShopDetailActivity : ImagePickerUtility(),
         }
 
         binding.edtShopYearFoundation.setOnClickListener {
-           /* yearPickerDialog()*/
+
             createDialogWithoutDateField()
         }
     }
-
-//    private fun yearPickerDialog() {
-//        val builder = MonthPickerDialog.Builder(this, object : MonthPickerDialog.OnDateSetListener {
-//            override fun onDateSet(selectedMonth: Int, selectedYear: Int) {
-//                binding.edtShopYearFoundation.setText(selectedYear.toString())
-//            }
-//
-//        }, Calendar.YEAR, Calendar.MONTH)
-//
-//        builder
-//            .setMinYear(1980)
-//            .setActivatedYear(
-//                AppUtils.milliSecondsToTime(
-//                    System.currentTimeMillis(),
-//                    AppConstants.YEAR_FORMAT
-//                ).toInt()
-//            )
-//            .setMaxYear(
-//                AppUtils.milliSecondsToTime(
-//                    System.currentTimeMillis(),
-//                    AppConstants.YEAR_FORMAT
-//                ).toInt()
-//            )
-//            .setMinMonth(Calendar.FEBRUARY)
-//            .setTitle("Select trading month")
-//            .setMonthRange(Calendar.FEBRUARY, Calendar.NOVEMBER).showYearOnly()
-//        // .setMaxMonth(Calendar.OCTOBER)
-//        // .setYearRange(1890, 1890)
-//        // .setMonthAndYearRange(Calendar.FEBRUARY, Calendar.OCTOBER, 1890, 1890)
-//        //.showMonthOnly()
-//        // .showYearOnly()
-//
-//    }
 
     private fun setCategoryAdapter() {
         val categoryAdapter = CategoriesAdapter(list)
@@ -197,6 +164,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
 
         ok.setOnClickListener {
             startActivity(Intent(this, ProviderMainActivity::class.java))
+            finishAffinity()
             dialog.dismiss()
         }
         dialog.show()
@@ -287,13 +255,14 @@ class AddShopDetailActivity : ImagePickerUtility(),
         yearPicker.maxValue = cal.get(Calendar.YEAR)
         yearPicker.value = year
 
-        builder.setView(dialog).setPositiveButton(getString(R.string.ok)){ dialogInterface, which ->
-             val value = yearPicker.value
-            toast(value.toString())
-            dialogInterface.cancel()
-        }
+        builder.setView(dialog)
+            .setPositiveButton(getString(R.string.ok)) { dialogInterface, which ->
+                val value = yearPicker.value
+                binding.edtShopYearFoundation.setText(value.toString())
+                dialogInterface.cancel()
+            }
 
-        builder.setNegativeButton(getString(R.string.cancel)){dialogInterface, which ->
+        builder.setNegativeButton(getString(R.string.cancel)) { dialogInterface, which ->
             dialogInterface.cancel()
         }
 

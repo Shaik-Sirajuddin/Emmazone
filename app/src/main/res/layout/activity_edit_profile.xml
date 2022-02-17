@@ -1,94 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/splash_bg"
     android:fillViewport="true"
     tools:context=".activities.auth.EditProfileActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutMain"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/splash_bg"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/splash_bg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="@dimen/_15sdp">
 
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_centerVertical="true"
                 android:padding="8dp"
-                android:src="@drawable/arrow_back"
-                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
-                app:layout_constraintEnd_toStartOf="@+id/changePassword"
-                app:layout_constraintHorizontal_bias="0.22"
-                app:layout_constraintStart_toStartOf="@+id/layoutMain"
-                app:layout_constraintTop_toTopOf="@+id/changePassword" />
+                android:src="@drawable/arrow_back" />
 
             <TextView
                 android:id="@+id/changePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp20"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/back"
+                android:gravity="center_horizontal"
                 android:text="@string/profile"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp20"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/layoutMain"
-                app:layout_constraintStart_toStartOf="@+id/layoutMain"
-                app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+                android:textStyle="bold" />
 
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="@dimen/dp30">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/iv_profile"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="@dimen/dp30"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profile_img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/changePassword"
                 app:riv_corner_radius_top_left="@dimen/dp20"
                 app:riv_corner_radius_top_right="@dimen/dp20" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/camera"
-            android:layout_width="@dimen/dp50"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/camera"
-            app:layout_constraintBottom_toTopOf="@+id/layoutProfile"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <ImageView
+                android:id="@+id/camera"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/camera" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutProfile"
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="-20dp"
             android:background="@drawable/bg_profile"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutMain">
+            android:orientation="vertical">
+
 
             <TextView
                 android:id="@+id/tvname"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp24"
                 android:layout_marginTop="16dp"
@@ -96,17 +91,15 @@
                 android:text="@string/name"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp12"
-                app:layout_constraintEnd_toEndOf="@+id/layoutProfile"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="@+id/layoutProfile"
-                app:layout_constraintTop_toTopOf="@+id/layoutProfile" />
+               />
 
             <EditText
                 android:id="@+id/edtName"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="25dp"
                 android:background="@drawable/login_bg"
                 android:hint="Jhonson Marker"
                 android:imeOptions="actionNext"
@@ -122,7 +115,7 @@
 
             <TextView
                 android:id="@+id/tv_email"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp24"
                 android:layout_marginTop="8dp"
@@ -136,10 +129,11 @@
 
             <EditText
                 android:id="@+id/edtEditEmail"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="25dp"
                 android:background="@drawable/login_bg"
                 android:hint="jhonsonmarker@gmail.com"
                 android:imeOptions="actionNext"
@@ -156,7 +150,7 @@
 
             <TextView
                 android:id="@+id/tv_phone"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp24"
                 android:layout_marginTop="8dp"
@@ -170,15 +164,13 @@
 
             <LinearLayout
                 android:id="@+id/llPhoneNo"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp25"
+                android:layout_marginStart="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/tv_phone"
-                app:layout_constraintStart_toStartOf="@+id/tv_phone"
-                app:layout_constraintTop_toBottomOf="@+id/tv_phone">
+                android:orientation="horizontal">
 
 
                 <com.hbb20.CountryCodePicker
@@ -211,41 +203,20 @@
 
             </LinearLayout>
 
-
-            <!--            <EditText-->
-            <!--                android:id="@+id/edtEditPhone"-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="5dp"-->
-            <!--                android:layout_marginTop="8dp"-->
-            <!--                android:background="@drawable/login_bg"-->
-            <!--                android:hint="+12-456-789-456"-->
-            <!--                android:imeOptions="actionNext"-->
-            <!--                android:inputType="number"-->
-            <!--                android:maxLines="1"-->
-            <!--                android:textStyle="bold"-->
-            <!--                android:textColorHint="@color/black"-->
-            <!--                android:paddingLeft="@dimen/dp8"-->
-            <!--                android:textSize="@dimen/sp15"-->
-            <!--                app:layout_constraintEnd_toEndOf="@+id/tv_phone"-->
-            <!--                app:layout_constraintStart_toStartOf="@+id/tv_phone"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/tv_phone" />-->
-
             <android.widget.Button
                 android:id="@+id/btnUpdate"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp16"
-                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp25"
                 android:layout_marginEnd="@dimen/dp16"
                 android:layout_marginBottom="@dimen/dp16"
                 android:background="@drawable/update"
-                app:layout_constraintBottom_toBottomOf="@+id/layoutProfile"
-                app:layout_constraintEnd_toEndOf="@+id/layoutProfile"
-                app:layout_constraintStart_toStartOf="@+id/layoutProfile"
-                app:layout_constraintTop_toBottomOf="@+id/llPhoneNo" />
+               />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
