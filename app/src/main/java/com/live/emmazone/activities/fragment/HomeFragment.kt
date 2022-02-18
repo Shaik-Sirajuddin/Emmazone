@@ -142,12 +142,13 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
             if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                 (context as MainActivity).showLoginDialog()
-            } else{
+            } else {
                 if (clickOn == "favourite") {
                     selectedPos = pos
                     favUnFavApiHit(list[pos])
                 } else if (clickOn == "itemClick") {
                     val intent = Intent(requireContext(), ShopDetailActivity::class.java)
+                    intent.putExtra(AppConstants.SHOP_ID, list[pos].id.toString())
                     startActivity(intent)
                 } else if (clickOn == "rating") {
                     if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {

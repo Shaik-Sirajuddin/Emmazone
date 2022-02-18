@@ -23,7 +23,9 @@ object AppConstants {
     const val ROLE = "role"  //1-> User, 3-> Seller
     const val NOTIFICATION_TYPE = "notification_type"  //1-> On, 0-> Off
     const val SHOP_LISTING_RESPONSE = "shopListingResponse"
-    const val Address_LIST_RESPONSE = "AddressListResponse"
+    const val Address_LIST_RESPONSE = "addressListResponse"
+    const val WISH_LIST_RESPONSE = "wishListResponse"
+    const val SHOP_ID = "shopId"
 
 
     /*******URLs*****/
@@ -53,8 +55,6 @@ object AppConstants {
     const val FAV_SHOP = "fav_shop"
     const val DELETE_ADDRESS = "delete_address"
     const val ADD_SHOP_PRODUCT = "add_shop_product"
-    const val SIZE_LIST = "size_list"
-    const val COLOR_LIST = "color_list"
     const val GET_SELECTED_CATEGORY = "get_selected_category"
     const val LOGOUT = "logout"
     const val RATING = "ratings"
@@ -62,6 +62,9 @@ object AppConstants {
     const val ADD_CARD = "addCard"
     const val CARD_LIST = "card_list"
     const val ADD_ACCOUNT = "add_account"
+    const val WISH_LIST = "wish_list"
+    const val SHOP_DETAIL = "shop_details"
+    const val FAQ = "faq"
 
 
 }

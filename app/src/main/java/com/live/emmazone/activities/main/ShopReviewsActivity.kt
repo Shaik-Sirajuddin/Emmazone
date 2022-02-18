@@ -13,6 +13,7 @@ import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.RatingResponse
 import com.live.emmazone.response_model.ShopListingResponse
+import com.live.emmazone.response_model.WishListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
@@ -23,7 +24,8 @@ class ShopReviewsActivity : AppCompatActivity(),
 
     private val appViewModel: AppViewModel by viewModels()
     private lateinit var binding: ActivityShopReviewsBinding
-    private var shopResponse: ShopListingResponse.Body? = null
+    private var shopId = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +33,37 @@ class ShopReviewsActivity : AppCompatActivity(),
         setContentView(binding.root)
 
         if (intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE) != null) {
-            shopResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
+            val shopResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
                     as ShopListingResponse.Body
 
-            binding.imageShopDetail.loadImage(AppConstants.SHOP_IMAGE_URL+shopResponse!!.image)
-            binding.tvWishListStoreName.text = shopResponse!!.shopName
-            binding.tvWishListRatingText.text = shopResponse!!.ratings + "/" + "5"
+            shopId = shopResponse.id.toString()
+            setDataOnView(shopResponse.image, shopResponse.shopName, shopResponse.ratings)
 
-            if (shopResponse!!.ratings.isNotEmpty()) {
-                binding.ratingBarWishList.rating = shopResponse!!.ratings.toFloat()
-            }
+        } else if (intent.getSerializableExtra(AppConstants.WISH_LIST_RESPONSE) != null) {
+            val wishListResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
+                    as WishListResponse.Body
+
+
+            shopId = wishListResponse.id.toString()
+            setDataOnView(
+                wishListResponse.image, wishListResponse.shopName,
+                wishListResponse.ratings
+            )
+
         }
 
         clicksHandle()
 
+    }
+
+    private fun setDataOnView(image: String, shopName: String, ratings: String) {
+        binding.imageShopDetail.loadImage(AppConstants.SHOP_IMAGE_URL + image)
+        binding.tvWishListStoreName.text = shopName
+        binding.tvWishListRatingText.text = "$ratings/5"
+
+        if (ratings.isNotEmpty()) {
+            binding.ratingBarWishList.rating = ratings.toFloat()
+        }
     }
 
     private fun clicksHandle() {
@@ -65,7 +84,7 @@ class ShopReviewsActivity : AppCompatActivity(),
         if (Validator.reviewValidation(rating, comment)) {
 
             val hashMap = HashMap<String, String>()
-            hashMap["vendorId"] = shopResponse!!.id.toString()
+            hashMap["vendorId"] = shopId
             hashMap["ratings"] = rating.toString()
             hashMap["comment"] = comment
 

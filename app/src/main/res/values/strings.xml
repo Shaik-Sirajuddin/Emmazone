@@ -264,5 +264,6 @@
     <string name="msg_pls_add_comment">Please add a comment</string>
     <string name="msg_enter_valid_card">Please enter valid card no.</string>
     <string name="msg_enter_exp_date">Please enter exp date</string>
+    <string name="since">Since %s</string>
 
 </resources>

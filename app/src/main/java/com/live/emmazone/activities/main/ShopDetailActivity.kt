@@ -7,7 +7,9 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
@@ -16,14 +18,23 @@ import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivityShopDetailBinding
+import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.model.ModelShopDetailCategory
 import com.live.emmazone.model.ModelShopDetailProducts
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
-import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.view_models.AppViewModel
+import com.schunts.extensionfuncton.loadImage
 
-class ShopDetailActivity : AppCompatActivity(), OnItemClick {
+class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
+
+    private val appViewModel: AppViewModel by viewModels()
+    private var response: ShopDetailResponse? = null
+
+
     lateinit var binding: ActivityShopDetailBinding
-    var list = ArrayList<ModelShopDetailCategory>()
     var listSDProduct = ArrayList<ModelShopDetailProducts>()
     lateinit var adapter: AdapterShopDetailCategory
 
@@ -32,39 +43,14 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         binding = ActivityShopDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.back.setOnClickListener {
-            onBackPressed()
-        }
+        clicksHandle()
+        shopDetailApiHit()
 
-        binding.imageCart.setOnClickListener {
-            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
-                showLoginDialog()
-                return@setOnClickListener
-            }
-            val intent = Intent(this, Cart::class.java)
-            startActivity(intent)
-        }
 
-        binding.imageAskExpert.setOnClickListener {
-            if ( getPreference(AppConstants.PROFILE_TYPE,"") == AppConstants.GUEST) {
-                showLoginDialog()
-                return@setOnClickListener
-            }
-            val intent = Intent(this, Message::class.java)
-            startActivity(intent)
-        }
-
-        binding.recyclerShopDetailCategory.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
 
-        list.add(ModelShopDetailCategory(R.drawable.all, "All"))
-        list.add(ModelShopDetailCategory(R.drawable.shoe, "goggle"))
-        list.add(ModelShopDetailCategory(R.drawable.google, "TimePiece"))
-        list.add(ModelShopDetailCategory(R.drawable.time, "T Shirts"))
-        list.add(ModelShopDetailCategory(R.drawable.tshiert, "goggle"))
 
-        binding.recyclerShopDetailCategory.adapter = AdapterShopDetailCategory(list)
+
 
         listSDProduct.add(
             ModelShopDetailProducts(
@@ -101,21 +87,56 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
         binding.recyclerShopDetailProducts.adapter = AdapterShopDetailProducts(listSDProduct, this)
     }
 
+    private fun shopDetailApiHit() {
+        val shopId = intent.getStringExtra(AppConstants.SHOP_ID)
+
+        val hashMap = HashMap<String, String>()
+        hashMap["shopId"] = shopId!!
+
+        appViewModel.shopDetailApi(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+    }
+
+    private fun clicksHandle() {
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
+
+        binding.imageCart.setOnClickListener {
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
+                showLoginDialog()
+                return@setOnClickListener
+            }
+            val intent = Intent(this, Cart::class.java)
+            startActivity(intent)
+        }
+
+        binding.imageAskExpert.setOnClickListener {
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
+                showLoginDialog()
+                return@setOnClickListener
+            }
+            val intent = Intent(this, Message::class.java)
+            startActivity(intent)
+        }
+
+    }
+
     override fun onCellClickListener() {
         val intent = Intent(this, ProductDetailActivity::class.java)
         startActivity(intent)
     }
 
     override fun onClick() {
-        TODO("Not yet implemented")
+
     }
 
     override fun onClickPickCollect() {
-        TODO("Not yet implemented")
+
     }
 
     override fun onOrderCancelled() {
-        TODO("Not yet implemented")
+
     }
 
     private fun showLoginDialog() {
@@ -128,7 +149,6 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
             WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT,
         )
         dialog.setContentView(R.layout.dialog_login)
-        //dialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(this, android.R.color.transparent))
 
         val imgCross = dialog.findViewById<ImageView>(R.id.cross)
         val btnLogin = dialog.findViewById<Button>(R.id.btnLogin)
@@ -144,6 +164,57 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick {
 
         dialog.show()
 
+    }
+
+    override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is ShopDetailResponse) {
+                    response = t.data
+
+                    if (response!!.code == AppConstants.SUCCESS_CODE) {
+                        setData()
+                        setCategoryAdapter()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setCategoryAdapter() {
+        val list = ArrayList<ModelShopDetailCategory>()
+        list.add(ModelShopDetailCategory(R.drawable.all, "All"))
+        list.add(ModelShopDetailCategory(R.drawable.shoe, "goggle"))
+        list.add(ModelShopDetailCategory(R.drawable.google, "TimePiece"))
+        list.add(ModelShopDetailCategory(R.drawable.time, "T Shirts"))
+        list.add(ModelShopDetailCategory(R.drawable.tshiert, "goggle"))
+
+        val shopCategory = AdapterShopDetailCategory(list)
+        binding.recyclerShopDetailCategory.adapter = shopCategory
+    }
+
+    private fun setProductAdapter() {
+
+    }
+
+    private fun setData() {
+        binding.imageShopDetail.loadImage(AppConstants.IMAGE_USER_URL + response!!.body.image)
+        binding.tvWishListStoreName.text = response!!.body.shopName
+        binding.tvDesc.text = response!!.body.shopDescription
+        binding.tvShopFY.text = getString(R.string.since, "2022")
+        binding.tvShopAddress.text = response!!.body.shopAddress
+        binding.tvWishListRatingText.text = response!!.body.ratings + "/" + "5"
+        binding.tvWishListDistance.text = response!!.body.distance.toString() + " " +
+                getString(R.string.miles_away)
+
+        if (response!!.body.ratings.isNotEmpty()) {
+            binding.ratingBarWishList.rating = response!!.body.ratings.toFloat()
+        }
+        if (response!!.body.isLiked == 1) {
+            binding.itemHeartShopDetail.setImageResource(R.drawable.heart)
+        } else {
+            binding.itemHeartShopDetail.setImageResource(R.drawable.heart_unselect)
+        }
     }
 
 }

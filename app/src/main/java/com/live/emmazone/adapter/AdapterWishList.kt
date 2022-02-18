@@ -1,5 +1,6 @@
 package com.live.emmazone.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,42 +9,72 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.databinding.ItemLayoutPaymentMethodBinding
+import com.live.emmazone.databinding.ItemLayoutWishlistBinding
 import com.live.emmazone.model.ModelDeliveryAddress
 import com.live.emmazone.model.ModelNotifications
 import com.live.emmazone.model.ModelWishList
+import com.live.emmazone.response_model.WishListResponse
+import com.live.emmazone.utils.AppConstants
+import com.schunts.extensionfuncton.loadImage
 
-class AdapterWishList(private val list: ArrayList<ModelWishList>) :
-    RecyclerView.Adapter<AdapterWishList.ViewHolder>() {
+class AdapterWishList(private val list: ArrayList<WishListResponse.Body>) :
+    RecyclerView.Adapter<AdapterWishList.WishListViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_wishlist, parent, false)
-        return ViewHolder(view)
+    private lateinit var mContext: Context
+    var onClickListener: ((pos: Int, clickOn: String) -> Unit)? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishListViewHolder {
+        mContext = parent.context
+        val binding = ItemLayoutWishlistBinding.inflate(LayoutInflater.from(parent.context))
+        return WishListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val ModelWishList = list[position]
-        holder.imageStore.setImageResource(ModelWishList.itemImageWishList)
-        holder.imageHeart.setImageResource(ModelWishList.itemHeartWishList)
-        holder.imageRating.setImageResource(ModelWishList.ratingBarWishList)
-        holder.imageLoc.setImageResource(ModelWishList.imageLocation)
-        holder.tvWishListStore.setText(ModelWishList.tvWishListStoreName)
-        holder.tvWishRatingText.setText(ModelWishList.tvWishListRatingText)
-        holder.tvWishtDistance.setText(ModelWishList.tvWishListDistance)
+    override fun onBindViewHolder(holder: WishListViewHolder, position: Int) {
+        holder.bind(position)
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class WishListViewHolder(val binding: ItemLayoutWishlistBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(pos: Int) {
+            val nearShopModel = list[pos]
 
-        val imageStore : ImageView = itemView.findViewById(R.id.itemImageWishList)
-        val imageHeart : ImageView = itemView.findViewById(R.id.itemHeartWishList)
-        val imageRating : ImageView = itemView.findViewById(R.id.ratingBarWishList)
-        val imageLoc: ImageView = itemView.findViewById(R.id.imageLocation)
-        val tvWishListStore = itemView.findViewById<TextView>(R.id.tvWishListStoreName)
-        val tvWishRatingText = itemView.findViewById<TextView>(R.id.tvWishListRatingText)
-        val tvWishtDistance= itemView.findViewById<TextView>(R.id.tvWishListDistance)
+            binding.itemImageHome.loadImage(AppConstants.IMAGE_USER_URL + nearShopModel.image)
+            binding.tvWishListStoreName.text = nearShopModel.shopName
+            binding.tvWishListRatingText.text = nearShopModel.ratings + "/" + "5"
+            binding.tvWishListDistance.text = nearShopModel.distance.toString() + " " +
+                    mContext.getString(R.string.miles_away)
 
+            if (nearShopModel.ratings.isNotEmpty()) {
+                binding.ratingBarWishList.rating = nearShopModel.ratings.toFloat()
             }
+
+            if (nearShopModel.isLiked == 1) {
+                binding.itemHeartWishList.setImageResource(R.drawable.heart)
+            } else {
+                binding.itemHeartWishList.setImageResource(R.drawable.heart_unselect)
+            }
+
+            binding.itemHeartWishList.setOnClickListener {
+                onClickListener?.invoke(pos, "favourite")
+            }
+
+            binding.itemImageHome.setOnClickListener {
+                onClickListener?.invoke(pos, "itemClick")
+            }
+
+            binding.ratingBarWishList.setOnClickListener {
+                onClickListener?.invoke(pos, "rating")
+            }
+
+            binding.tvWishListRatingText.setOnClickListener {
+                onClickListener?.invoke(pos, "rating")
+            }
+
+        }
+    }
 }

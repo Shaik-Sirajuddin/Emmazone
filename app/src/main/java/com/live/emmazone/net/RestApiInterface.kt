@@ -104,11 +104,6 @@ interface RestApiInterface {
         @Part images: ArrayList<MultipartBody.Part>
     ): Call<AddProductResponse>
 
-    @GET(AppConstants.SIZE_LIST)
-    fun sizeList(): Call<SizeListResponse>
-
-    @GET(AppConstants.COLOR_LIST)
-    fun colorList(): Call<ColorListResponse>
 
     @GET(AppConstants.GET_SELECTED_CATEGORY)
     fun selectedCategoryList(): Call<CategoryListResponse>
@@ -131,9 +126,18 @@ interface RestApiInterface {
     @GET(AppConstants.CARD_LIST)
     fun cardList(): Call<CardListResponse>
 
-
     @FormUrlEncoded
     @POST(AppConstants.ADD_ACCOUNT)
     fun addAccount(@FieldMap hashMap: HashMap<String, String>): Call<AddBankResponse>
+
+    @GET(AppConstants.WISH_LIST)
+    fun wishList(): Call<WishListResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.SHOP_DETAIL)
+    fun shopDetail(@FieldMap hashMap: HashMap<String, String>): Call<ShopDetailResponse>
+
+    @GET(AppConstants.FAQ)
+    fun faq(): Call<WishListResponse>
 
 }

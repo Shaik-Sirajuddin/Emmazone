@@ -48,7 +48,10 @@ class AddBankAccountActivity : AppCompatActivity(), Observer<RestObservable> {
 
         if (Validator.addAccountValidation(ifsc, bankBranch, accountNo, confirmAccountNo, name)) {
             val hashMap = HashMap<String, String>()
-            hashMap[""]
+            hashMap["ifscSwiftCode"] = ifsc
+            hashMap["bankBranch"] = bankBranch
+            hashMap["accountHolderName"] = name
+            hashMap["accountNumber"] = accountNo
 
             appViewModel.addAccountApi(this, true, hashMap)
             appViewModel.getResponse().observe(this, this)

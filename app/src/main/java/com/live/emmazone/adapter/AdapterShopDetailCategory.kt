@@ -1,39 +1,44 @@
 package com.live.emmazone.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.model.ModelDeliveryAddress
-import com.live.emmazone.model.ModelNotifications
+import com.live.emmazone.databinding.ItemLayoutShopdetailCategoryBinding
 import com.live.emmazone.model.ModelShopDetailCategory
-import com.live.emmazone.model.ModelWishList
+import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.utils.AppConstants
+import com.schunts.extensionfuncton.loadImage
 
 class AdapterShopDetailCategory(private val list: ArrayList<ModelShopDetailCategory>) :
-    RecyclerView.Adapter<AdapterShopDetailCategory.ViewHolder>() {
+    RecyclerView.Adapter<AdapterShopDetailCategory.CategoryViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_shopdetail_category, parent, false)
-        return ViewHolder(view)
+    private lateinit var mContext: Context
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+        mContext = parent.context
+        val binding = ItemLayoutShopdetailCategoryBinding.inflate(LayoutInflater.from(mContext))
+        return CategoryViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val ModelShopDetailCategory = list[position]
-        holder.imageCategory.setImageResource(ModelShopDetailCategory.imageShopDetailCategory)
-        holder.tvItemName.setText(ModelShopDetailCategory.tvShopDetailCategoryItemName)
+    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+        holder.bind(position)
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CategoryViewHolder(val binding: ItemLayoutShopdetailCategoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(pos: Int) {
+            val category = list[pos]
 
-        val imageCategory : ImageView = itemView.findViewById(R.id.itemShopDetailCategory)
-        val tvItemName = itemView.findViewById<TextView>(R.id.tvShopDetailCategories)
-            }
+            binding.itemShopDetailCategory.setImageResource(category.imageShopDetailCategory)
+            binding.tvShopDetailCategories.text = category.tvShopDetailCategoryItemName
+        }
+    }
 }

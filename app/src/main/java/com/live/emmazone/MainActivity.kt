@@ -9,12 +9,11 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.fragment.AccountFragment
 import com.live.emmazone.activities.fragment.HomeFragment
 import com.live.emmazone.activities.fragment.FragmentMyOrders
-import com.live.emmazone.activities.fragment.FragmentWishList
+import com.live.emmazone.activities.fragment.WishListFragment
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.databinding.ActivityMainBinding
 import com.live.emmazone.extensionfuncton.getPreference
@@ -36,26 +35,35 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.wishList -> {
-                    if ( getPreference(AppConstants.PROFILE_TYPE,"") == "guest") {
+                    if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                         showLoginDialog()
-                    } else
-                        loadFragment(FragmentWishList())
+                    } else {
+                        if (currentFragment() !is WishListFragment)
+                            loadFragment(WishListFragment())
+                    }
                 }
                 R.id.myOrders -> {
-                    if ( getPreference(AppConstants.PROFILE_TYPE,"") == "guest") {
+                    if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                         showLoginDialog()
-                    } else
-                        loadFragment(FragmentMyOrders())
+                    } else {
+                        if (currentFragment() !is FragmentMyOrders)
+                            loadFragment(FragmentMyOrders())
+                    }
+
                 }
 
                 R.id.account -> {
-                    if ( getPreference(AppConstants.PROFILE_TYPE,"") == "guest") {
+                    if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                         showLoginDialog()
-                    } else
-                        loadFragment(AccountFragment())
+                    } else {
+                        if (currentFragment() !is AccountFragment)
+                            loadFragment(AccountFragment())
+                    }
+
                 }
                 R.id.home -> {
-                    loadFragment(HomeFragment())
+                    if (currentFragment() !is HomeFragment)
+                        loadFragment(HomeFragment())
                     //   binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(R.drawable.home_selected)
                 }
             }
@@ -69,6 +77,10 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.fragmentContainer, fragment)
         //   transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    private fun currentFragment(): Fragment? {
+        return supportFragmentManager.findFragmentById(R.id.fragmentContainer)
     }
 
     override fun onBackPressed() {

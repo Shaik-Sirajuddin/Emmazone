@@ -839,80 +839,6 @@ class AppViewModel : ViewModel() {
         }
     }
 
-    fun colorListApi(activity: Activity, isDialogShow: Boolean) {
-        if (activity.checkIfHasNetwork()) {
-            RestObservable.loading(activity, isDialogShow)
-            service.colorList()
-                .enqueue(object : Callback<ColorListResponse> {
-                    override fun onResponse(
-                        call: Call<ColorListResponse>,
-                        response: Response<ColorListResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            mResponse.value = RestObservable.success(response.body()!!)
-                        } else {
-                            mResponse.value = RestObservable.errorWithSuccess(
-                                activity,
-                                response.code(),
-                                response.errorBody()!!
-                            )
-
-                        }
-
-                    }
-
-                    override fun onFailure(call: Call<ColorListResponse>, t: Throwable) {
-                        mResponse.value = RestObservable.error(activity, t)
-                    }
-
-                })
-        } else {
-            AppUtils.showMsgOnlyWithClick(activity,
-                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
-                    override fun onPopupClickListener() {
-                        colorListApi(activity, isDialogShow)
-                    }
-                })
-        }
-    }
-
-    fun sizeListApi(activity: Activity, isDialogShow: Boolean) {
-        if (activity.checkIfHasNetwork()) {
-            RestObservable.loading(activity, isDialogShow)
-            service.sizeList()
-                .enqueue(object : Callback<SizeListResponse> {
-                    override fun onResponse(
-                        call: Call<SizeListResponse>,
-                        response: Response<SizeListResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            mResponse.value = RestObservable.success(response.body()!!)
-                        } else {
-                            mResponse.value = RestObservable.errorWithSuccess(
-                                activity,
-                                response.code(),
-                                response.errorBody()!!
-                            )
-
-                        }
-
-                    }
-
-                    override fun onFailure(call: Call<SizeListResponse>, t: Throwable) {
-                        mResponse.value = RestObservable.error(activity, t)
-                    }
-
-                })
-        } else {
-            AppUtils.showMsgOnlyWithClick(activity,
-                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
-                    override fun onPopupClickListener() {
-                        sizeListApi(activity, isDialogShow)
-                    }
-                })
-        }
-    }
-
     fun logoutApi(
         activity: Activity,
         isDialogShow: Boolean
@@ -1111,8 +1037,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
-
-
+    
     fun addAccountApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
@@ -1145,6 +1070,80 @@ class AppViewModel : ViewModel() {
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
                         addAccountApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+    
+    fun wishListApi(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.wishList()
+                .enqueue(object : Callback<WishListResponse> {
+                    override fun onResponse(
+                        call: Call<WishListResponse>,
+                        response: Response<WishListResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<WishListResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        wishListApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+
+    fun shopDetailApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.shopDetail(hashMap)
+                .enqueue(object : Callback<ShopDetailResponse> {
+                    override fun onResponse(
+                        call: Call<ShopDetailResponse>,
+                        response: Response<ShopDetailResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<ShopDetailResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        shopDetailApi(activity, isDialogShow, hashMap)
                     }
                 })
         }
