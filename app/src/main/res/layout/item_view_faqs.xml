@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loremIpsumLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp20"
+
+    android:layout_marginEnd="@dimen/dp20"
+    android:background="@drawable/faq"
+    android:padding="@dimen/dp15"
+    app:layout_constraintEnd_toEndOf="@+id/layoutFaqText"
+    app:layout_constraintStart_toStartOf="@+id/layoutFaqText"
+    app:layout_constraintTop_toBottomOf="@+id/layoutFaqText">
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp25"
+        android:layout_marginTop="@dimen/dp10"
+        android:text="@string/lorem_ipsum_dolor"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivDropDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/arrow_right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvQuestion"
+        app:layout_constraintBottom_toBottomOf="@id/tvQuestion"/>
+
+
+    <TextView
+        android:id="@+id/tvAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingLeft="@dimen/dp25"
+        android:text="@string/lorem_ipsum_dolor"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/dp10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuestion" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

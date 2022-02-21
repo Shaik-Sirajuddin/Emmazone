@@ -171,6 +171,7 @@
         <entry key="app/src/main/res/layout/item_provider_new_sale_layout.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_provider_order_detail_new_sale_layout.xml" value="0.21" />
         <entry key="app/src/main/res/layout/item_provider_shopdetail_products.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/item_view_faqs.xml" value="0.2" />
         <entry key="app/src/main/res/layout/layout_progress.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/month_year_picker_dialog.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/on_going_orders_fragment.xml" value="0.2" />

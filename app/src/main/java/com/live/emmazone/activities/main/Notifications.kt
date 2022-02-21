@@ -2,6 +2,7 @@ package com.live.emmazone.activities.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -32,28 +33,6 @@ class Notifications : AppCompatActivity(), Observer<RestObservable> {
         binding.back.setOnClickListener {
             onBackPressed()
         }
-
-       // recyclerView = findViewById(R.id.recyclerNotifications)
-
-
-//       binding.recyclerNotifications.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-
-//        list.add(ModelNotifications(R.drawable.nikk, "Jolly Deo",
-//            "Lorem ipsum is simply dummy text of the printing and typesetting industry",
-//        "10:45AM"))
-//        list.add(ModelNotifications(R.drawable.nick2, "Merry Karker",
-//            "Lorem ipsum is simply dummy text of the printing and typesetting industry",
-//            "10:45AM"))
-//        list.add(ModelNotifications(R.drawable.nick3, "John Marker",
-//            "Lorem ipsum is simply dummy text of the printing and typesetting industry",
-//            "10:45AM"))
-//        list.add(ModelNotifications(R.drawable.nikki, "Nikkie Jael",
-//            "Lorem ipsum is simply dummy text of the printing and typesetting industry",
-//            "10:45AM"))
-
-
-
     }
 
     override fun onChanged(t: RestObservable?) {
@@ -61,9 +40,16 @@ class Notifications : AppCompatActivity(), Observer<RestObservable> {
             Status.SUCCESS -> {
                 if (t.data is NotificatioListingResponse) {
                     list.clear()
-                    list.addAll(t.data!!.body)
+                    list.addAll(t.data.body)
+                    if(list.size>0){
+                        binding.tvNoNotification.visibility=View.GONE
+                        binding.recyclerNotifications.visibility=View.VISIBLE
+                        binding.recyclerNotifications.adapter = AdapterNotifications(list)
+                    }else{
+                        binding.tvNoNotification.visibility=View.VISIBLE
+                        binding.recyclerNotifications.visibility=View.GONE
+                    }
 
-                    binding.recyclerNotifications.adapter = AdapterNotifications(list)
 
                 }
             }

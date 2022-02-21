@@ -14,7 +14,8 @@ class AdapterNotifications(private val list: ArrayList<NotificatioListingRespons
     RecyclerView.Adapter<AdapterNotifications.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_notifications, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_notifications, parent, false)
         return ViewHolder(view)
     }
 
@@ -41,10 +42,10 @@ class AdapterNotifications(private val list: ArrayList<NotificatioListingRespons
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val image : ImageView = itemView.findViewById(R.id.profileImage)
+        val image: ImageView = itemView.findViewById(R.id.profileImage)
         val tvOrderPerson = itemView.findViewById<TextView>(R.id.tvOrderPersonName)
         val tvDeliveryAddress = itemView.findViewById<TextView>(R.id.tvOrderDeliveryAddress)
-        val tvnotifyTime= itemView.findViewById<TextView>(R.id.tvNotificationTime)
+        val tvnotifyTime = itemView.findViewById<TextView>(R.id.tvNotificationTime)
 
-            }
+    }
 }

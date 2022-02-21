@@ -1150,5 +1150,43 @@ class AppViewModel : ViewModel() {
     }
 
 
+    fun faqListApi(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.faq()
+                .enqueue(object : Callback<FaqListResponse> {
+                    override fun onResponse(
+                        call: Call<FaqListResponse>,
+                        response: Response<FaqListResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<FaqListResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        faqListApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+
+
 
 }

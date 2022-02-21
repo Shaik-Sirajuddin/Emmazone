@@ -138,6 +138,6 @@ interface RestApiInterface {
     fun shopDetail(@FieldMap hashMap: HashMap<String, String>): Call<ShopDetailResponse>
 
     @GET(AppConstants.FAQ)
-    fun faq(): Call<WishListResponse>
+    fun faq(): Call<FaqListResponse>
 
 }

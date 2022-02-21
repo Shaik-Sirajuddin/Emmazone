@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
@@ -94,7 +94,7 @@
 
             <TextView
                 android:id="@+id/id1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0Є"
@@ -159,7 +159,7 @@
 
             <TextView
                 android:id="@+id/idmiles1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0 kilometer"
@@ -207,13 +207,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:background="@drawable/login_bg"
-                android:drawableLeft="@drawable/location_green"
                 android:drawablePadding="@dimen/dp10"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp20"
+                android:paddingStart="@dimen/dp20"
                 android:text="@string/nw_tower_new_york_usa"
                 android:textColor="@color/light_black"
-                android:textSize="@dimen/sp12" />
+                android:textSize="@dimen/sp12"
+                app:drawableLeftCompat="@drawable/location_green" />
         </LinearLayout>
 
         <LinearLayout
@@ -230,7 +230,7 @@
 
             <TextView
                 android:id="@+id/tvColour"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/colour"
@@ -263,7 +263,7 @@
 
             <TextView
                 android:id="@+id/tvColourSelected"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/colour1"
@@ -294,7 +294,7 @@
 
             <TextView
                 android:id="@+id/tvSize"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/size"
@@ -326,7 +326,7 @@
 
             <TextView
                 android:id="@+id/tvSizeSelected"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/size1"
