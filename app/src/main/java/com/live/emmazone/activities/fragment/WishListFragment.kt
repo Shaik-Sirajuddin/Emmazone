@@ -110,7 +110,7 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
         }
 
         appViewModel.addFavApi(requireActivity(), true, hashMap)
-        appViewModel.getResponse().observe(requireActivity(), this)
+//        appViewModel.getResponse().observe(requireActivity(), this)
     }
 
     override fun onChanged(t: RestObservable?) {

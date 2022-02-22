@@ -35,7 +35,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
 
 
     lateinit var binding: ActivityShopDetailBinding
-    var listSDProduct = ArrayList<ModelShopDetailProducts>()
+    var listSDProduct = ArrayList<ShopDetailResponse.Body.Product>()
     lateinit var adapter: AdapterShopDetailCategory
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,45 +46,8 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
         clicksHandle()
         shopDetailApiHit()
 
-
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
 
-
-
-
-        listSDProduct.add(
-            ModelShopDetailProducts(
-                R.drawable.shoe_bernd, "Bernd",
-                "30.00€", "Lorem ipsum dolor",
-                "4.8", "Delivery estimate 4-5 days"
-            )
-        )
-
-        listSDProduct.add(
-            ModelShopDetailProducts(
-                R.drawable.shoes2, "Matrix",
-                "30.00€", "Lorem ipsum dolor",
-                "4.8", "Delivery estimate 4-5 days"
-            )
-        )
-
-        listSDProduct.add(
-            ModelShopDetailProducts(
-                R.drawable.shoe_bernd, "Bernd",
-                "30.00€", "Lorem ipsum dolor",
-                "4.8", "Delivery estimate 4-5 days"
-            )
-        )
-
-        listSDProduct.add(
-            ModelShopDetailProducts(
-                R.drawable.shoes2, "Matrix",
-                "30.00€", "Lorem ipsum dolor",
-                "4.8", "Delivery estimate 4-5 days"
-            )
-        )
-
-        binding.recyclerShopDetailProducts.adapter = AdapterShopDetailProducts(listSDProduct, this)
     }
 
     private fun shopDetailApiHit() {
@@ -182,14 +145,8 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
     }
 
     private fun setCategoryAdapter() {
-        val list = ArrayList<ModelShopDetailCategory>()
-        list.add(ModelShopDetailCategory(R.drawable.all, "All"))
-        list.add(ModelShopDetailCategory(R.drawable.shoe, "goggle"))
-        list.add(ModelShopDetailCategory(R.drawable.google, "TimePiece"))
-        list.add(ModelShopDetailCategory(R.drawable.time, "T Shirts"))
-        list.add(ModelShopDetailCategory(R.drawable.tshiert, "goggle"))
 
-        val shopCategory = AdapterShopDetailCategory(list)
+        val shopCategory = AdapterShopDetailCategory(response!!.body.shop_categories)
         binding.recyclerShopDetailCategory.adapter = shopCategory
     }
 
@@ -214,6 +171,11 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
             binding.itemHeartShopDetail.setImageResource(R.drawable.heart)
         } else {
             binding.itemHeartShopDetail.setImageResource(R.drawable.heart_unselect)
+        }
+        if(response!!.body.products.isNotEmpty()){
+            listSDProduct=response!!.body.products
+            binding.recyclerShopDetailProducts.adapter = AdapterShopDetailProducts(this,listSDProduct, this)
+
         }
     }
 

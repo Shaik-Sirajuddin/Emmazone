@@ -1018,15 +1018,11 @@ class AppViewModel : ViewModel() {
                                 response.code(),
                                 response.errorBody()!!
                             )
-
                         }
-
                     }
-
                     override fun onFailure(call: Call<CardListResponse>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
-
                 })
         } else {
             AppUtils.showMsgOnlyWithClick(activity,
@@ -1055,9 +1051,7 @@ class AppViewModel : ViewModel() {
                                 response.code(),
                                 response.errorBody()!!
                             )
-
                         }
-
                     }
 
                     override fun onFailure(call: Call<AddBankResponse>, t: Throwable) {
@@ -1092,11 +1086,8 @@ class AppViewModel : ViewModel() {
                                 response.code(),
                                 response.errorBody()!!
                             )
-
                         }
-
                     }
-
                     override fun onFailure(call: Call<WishListResponse>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
@@ -1129,9 +1120,7 @@ class AppViewModel : ViewModel() {
                                 response.code(),
                                 response.errorBody()!!
                             )
-
                         }
-
                     }
 
                     override fun onFailure(call: Call<ShopDetailResponse>, t: Throwable) {

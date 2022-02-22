@@ -1,17 +1,20 @@
 package com.live.emmazone.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnItemClick
-import com.live.emmazone.model.ModelShopDetailProducts
+import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.utils.AppConstants
 
 
-class AdapterShopDetailProducts(private val list: ArrayList<ModelShopDetailProducts>, private val
+class AdapterShopDetailProducts(val mContext:Context,private val list: ArrayList<ShopDetailResponse.Body.Product>, private val
 cellClickListener: OnItemClick
 ) : RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
 
@@ -22,13 +25,19 @@ cellClickListener: OnItemClick
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-      val ModelShopDetailProducts = list[position]
-        holder.imageProductSD.setImageResource(ModelShopDetailProducts.imageProductShopDetail)
-        holder.productItemNameSD.setText(ModelShopDetailProducts.productItemName)
-        holder.productItemPriceSD.setText(ModelShopDetailProducts.productItemPrice)
-        holder.tvShopDetailProductBrandSD.setText(ModelShopDetailProducts.tvShopDetailProductBrand)
-        holder.tvShopDetailProductTextSD.setText(ModelShopDetailProducts.tvShopDetailProductText)
-        holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.tvSDDeliveryEstimate)
+      val data = list[position]
+        if(data.product_images.isNotEmpty()){
+            Glide.with(mContext).load(AppConstants.PRODUCT_IMAGE_URL+data.product_images[0].image).into(holder.imageProductSD)
+
+        }else{
+            holder.imageProductSD.setImageResource(R.drawable.placeholder)
+
+        }
+        holder.productItemNameSD.text = data.name
+        holder.productItemPriceSD.text = data.product_price
+        holder.tvShopDetailProductBrandSD.text = data.brandName
+        holder.tvShopDetailProductTextSD.text = data.description
+      //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 
         holder.itemView.setOnClickListener {
             cellClickListener.onCellClickListener()
@@ -48,5 +57,5 @@ cellClickListener: OnItemClick
         val tvShopDetailProductTextSD= itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
         val tvSDDeliveryEstimateSD= itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
 
-            }
+    }
 }

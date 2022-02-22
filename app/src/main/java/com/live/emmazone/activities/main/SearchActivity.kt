@@ -17,10 +17,11 @@ import com.live.emmazone.databinding.ActivitySearchBinding
 import com.live.emmazone.model.ModelShopDetailProducts
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.response_model.ShopDetailResponse
 
 class SearchActivity : AppCompatActivity(), OnItemClick {
     lateinit var binding: ActivitySearchBinding
-    val list = ArrayList<ModelShopDetailProducts>()
+    val list = ArrayList<ShopDetailResponse.Body.Product>()
     lateinit var adapter: AdapterShopDetailProducts
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +58,7 @@ class SearchActivity : AppCompatActivity(), OnItemClick {
 
         binding.recyclerSearch.layoutManager = GridLayoutManager(this, 2)
 
-        list.add(
+       /* list.add(
             ModelShopDetailProducts(
                 R.drawable.bike2, "Bernd", "30.00€", "Lorem ipsum dolor",
                 "4.8", "Delivery estimate 4-5 days"
@@ -83,9 +84,9 @@ class SearchActivity : AppCompatActivity(), OnItemClick {
                 R.drawable.bike3, "Matrix", "30.00€", "Lorem ipsum dolor",
                 "4.8", "Delivery estimate 4-5 days"
             )
-        )
+        )*/
 
-        binding.recyclerSearch.adapter = AdapterShopDetailProducts(list, this)
+        binding.recyclerSearch.adapter = AdapterShopDetailProducts(this,list, this)
 
     }
 

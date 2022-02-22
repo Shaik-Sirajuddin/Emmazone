@@ -73,6 +73,8 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     private fun clicksHandle() {
         if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
             binding.tvUserName.text = "Guest"
+        }else{
+            binding.tvUserName.text= getPreference(AppConstants.NAME,"").toString()
         }
 
         binding.btnClickHereHome.setOnClickListener {

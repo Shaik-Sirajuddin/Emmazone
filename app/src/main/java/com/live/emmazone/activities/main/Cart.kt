@@ -21,6 +21,7 @@ import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivityCartBinding
 import com.live.emmazone.model.ModelCart
 import com.live.emmazone.model.ModelShopDetailProducts
+import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.DateHelper
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,7 +30,7 @@ class Cart : AppCompatActivity(), OnItemClick {
     lateinit var binding: ActivityCartBinding
     lateinit var adapter: AdapterCart
     val list = ArrayList<ModelCart>()
-    val listMayLike = ArrayList<ModelShopDetailProducts>()
+    val listMayLike = ArrayList<ShopDetailResponse.Body.Product>()
     private var selectedDate: Date? = null
     var tvDeliveryDate: TextView? = null
 
@@ -63,7 +64,7 @@ class Cart : AppCompatActivity(), OnItemClick {
 
         binding.recyclerCart.adapter = AdapterCart(list)
 
-        listMayLike.add(
+     /*   listMayLike.add(
             ModelShopDetailProducts(
                 R.drawable.shoe_bernd, "Bernd", "30.00€",
                 "Lorem ipsum dolor",
@@ -77,8 +78,8 @@ class Cart : AppCompatActivity(), OnItemClick {
                 "Lorem ipsum dolor",
                 "4.8", "Delivery estimate 4-5 days"
             )
-        )
-        binding.recyclerCartMayLike.adapter = AdapterShopDetailProducts(listMayLike, this)
+        )*/
+        binding.recyclerCartMayLike.adapter = AdapterShopDetailProducts(this,listMayLike, this)
     }
 
     override fun onCellClickListener() {

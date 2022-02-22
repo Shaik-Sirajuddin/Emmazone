@@ -99,6 +99,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                     val response: LoginResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         savePreference(AppConstants.ROLE, response.body.role.toString())
+                        savePreference(AppConstants.NAME, response.body.username)
                         savePreference(AppConstants.AUTHORIZATION, response.body.token)
                         savePreference(
                             AppConstants.NOTIFICATION_TYPE,

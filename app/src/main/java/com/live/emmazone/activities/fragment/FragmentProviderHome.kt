@@ -18,6 +18,8 @@ import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.model.ModelProShopDetailProducts
 import com.live.emmazone.model.ModelShopDetailCategory
+import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.response_model.ShopDetailResponse.Body.ShopCategory
 
 class FragmentProviderHome  : Fragment(){
     val list = ArrayList<ModelShopDetailCategory>()
@@ -48,13 +50,13 @@ class FragmentProviderHome  : Fragment(){
 
         rv1.layoutManager = GridLayoutManager(context, 2)
 
-        list.add(ModelShopDetailCategory(R.drawable.addd, "Add"))
+       /* list.add(ModelShopDetailCategory(R.drawable.addd, "Add"))
         list.add(ModelShopDetailCategory(R.drawable.shoe_round, "Shoes"))
         list.add(ModelShopDetailCategory(R.drawable.gogg, "Googles"))
         list.add(ModelShopDetailCategory(R.drawable.clock3, "Timepiece"))
-        list.add(ModelShopDetailCategory(R.drawable.tshiert, "T Shirts"))
+        list.add(ModelShopDetailCategory(R.drawable.tshiert, "T Shirts"))*/
 
-       rv.adapter = AdapterShopDetailCategory(list)
+       //rv.adapter = AdapterShopDetailCategory(ShopCategory)
 
         listProSDProducts.add(
             ModelProShopDetailProducts(R.drawable.sho1, "Bernd", "30.00€",

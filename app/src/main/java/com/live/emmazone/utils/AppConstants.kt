@@ -19,6 +19,7 @@ object AppConstants {
     const val USER_ID = "userId"
     const val USER = "user"
     const val SELLER = "seller"
+    const val NAME = "name"
     const val IS_LOGIN = "isLogin"
     const val ROLE = "role"  //1-> User, 3-> Seller
     const val NOTIFICATION_TYPE = "notification_type"  //1-> On, 0-> Off
