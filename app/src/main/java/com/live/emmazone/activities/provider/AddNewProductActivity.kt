@@ -51,6 +51,8 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private val list: ArrayList<CategoryListResponse.Body> = ArrayList()
 
     private var selectedCategoryId = ""
+    private var selectedSizeId = ""
+    private var selectedColorId = ""
 
     private lateinit var imageAdapter: ImageAdapter
     private val imageList = ArrayList<String>()
@@ -120,7 +122,17 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding.rvColor.adapter = colorAdapter
 
         colorAdapter.onClickListener = { pos ->
-            colorList[pos].isSelected = !colorList[pos].isSelected
+            colorList.forEachIndexed { index, body ->
+
+                if (pos == index) {
+                    body.isSelected = true
+                    selectedColorId = body.id.toString()
+                } else {
+                    body.isSelected = false
+                }
+            }
+
+           // colorList[pos].isSelected = !colorList[pos].isSelected
 
             colorAdapter.notifyDataSetChanged()
         }
@@ -132,7 +144,16 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
 
         sizeAdapter.onClickListener = { pos ->
-            sizeList[pos].isSelected = !sizeList[pos].isSelected
+            sizeList.forEachIndexed { index, body ->
+
+                if (pos == index) {
+                    body.isSelected = true
+                    selectedSizeId = body.id.toString()
+                } else {
+                    body.isSelected = false
+                }
+            }
+            // sizeList[pos].isSelected = !sizeList[pos].isSelected
 
             sizeAdapter.notifyDataSetChanged()
         }
