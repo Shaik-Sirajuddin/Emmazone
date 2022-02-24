@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/drawable/arrow_drop_down_black.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/bg_add_bank.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/bg_add_card.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/drawable/bg_black_corner_white_solid.xml" value="0.1505" />
         <entry key="app/src/main/res/drawable/bg_cart_items.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/drawable/bg_delivery_address.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/drawable/bg_earning.xml" value="0.17" />
@@ -105,7 +106,7 @@
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_shop_detail.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_shop_reviews.xml" value="0.15625" />
-        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1388888888888889" />
         <entry key="app/src/main/res/layout/activity_terms_condition.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_terms_conditions.xml" value="0.24114583333333334" />
@@ -170,7 +171,7 @@
         <entry key="app/src/main/res/layout/item_provider_add_products.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_provider_new_sale_layout.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_provider_order_detail_new_sale_layout.xml" value="0.21" />
-        <entry key="app/src/main/res/layout/item_provider_shopdetail_products.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/item_provider_shopdetail_products.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_view_faqs.xml" value="0.2" />
         <entry key="app/src/main/res/layout/layout_progress.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/month_year_picker_dialog.xml" value="0.15625" />
