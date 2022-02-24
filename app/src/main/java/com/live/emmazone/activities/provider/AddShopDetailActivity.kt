@@ -231,6 +231,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
 
                 }
             }
+
         }
     }
 

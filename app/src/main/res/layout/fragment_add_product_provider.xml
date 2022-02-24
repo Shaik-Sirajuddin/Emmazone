@@ -238,7 +238,6 @@
             android:layout_marginTop="8dp"
             android:nestedScrollingEnabled="false"
             android:paddingBottom="16dp"
-            tools:itemCount="10"
             tools:listitem="@layout/item_provider_shopdetail_products"
             app:layout_constraintEnd_toEndOf="@+id/tvProducts"
             app:layout_constraintStart_toStartOf="@+id/tvProducts"

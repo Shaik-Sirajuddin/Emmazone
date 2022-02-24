@@ -3,6 +3,7 @@ package com.live.emmazone.activities.provider
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -53,10 +54,12 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var selectedCategoryId = ""
     private var selectedSizeId = ""
     private var selectedColorId = ""
+    private var highlightValue = 1
 
     private lateinit var imageAdapter: ImageAdapter
     private val imageList = ArrayList<String>()
     private var mainImagePath = ""
+    private var imageslist: ArrayList<File> = ArrayList()
 
 
     override fun selectedImage(imagePath: String?, code: Int) {
@@ -82,10 +85,23 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
         initListener()
         setImageAdapter()
+        highlightSwitchListener()
 
         appViewModel.selectedCategoryListApi(this, true)
         appViewModel.getResponse().observe(this, this)
 
+    }
+
+    fun highlightSwitchListener() {
+        binding.switchHighlight.setOnCheckedChangeListener({ buttonView, isChecked ->
+            // do something, the isChecked will be
+            // true if the switch is in the On position
+            if (isChecked) {
+                highlightValue = 1
+            } else {
+                highlightValue = 0
+            }
+        })
     }
 
 
@@ -117,6 +133,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         appViewModel.getResponse().observe(this, this)
     }
 
+
     private fun setColorAdapter() {
         colorAdapter = ColorAdapter(colorList)
         binding.rvColor.adapter = colorAdapter
@@ -131,8 +148,8 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                     body.isSelected = false
                 }
             }
-
-           // colorList[pos].isSelected = !colorList[pos].isSelected
+            Log.d("selectedSizeId", selectedSizeId)
+            // colorList[pos].isSelected = !colorList[pos].isSelected
 
             colorAdapter.notifyDataSetChanged()
         }
@@ -153,6 +170,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                     body.isSelected = false
                 }
             }
+            Log.d("selectedSizeId", selectedSizeId)
             // sizeList[pos].isSelected = !sizeList[pos].isSelected
 
             sizeAdapter.notifyDataSetChanged()
@@ -181,7 +199,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         }
 
         binding.btnSave.setOnClickListener {
-            validateData()
+            validateAddProduct()
         }
 
         binding.ivShop.setOnClickListener {
@@ -191,69 +209,99 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     }
 
-    private fun validateData() {
-        val image: ArrayList<MultipartBody.Part> = ArrayList()
-        if (mainImagePath.isNotEmpty()) {
-            imageList.add(mainImagePath)
-        }
-        var selectedColorId = ""
-        var selectedSizeId = ""
-        var productHighLight = ""
+    private fun validateAddProduct() {
+        val productName = binding.tvProductName.text.toString().trim()
+        val description = binding.edtDesc.text.toString().trim()
+        val productPrice = binding.edtProductPrice.text.toString().trim()
+        val productQuantity = binding.edtProductQ.text.toString().trim()
 
-        colorList.forEach {
-            if (it.isSelected) {
-                selectedColorId = selectedColorId + it.id + ","
-            }
-        }
-
-        sizeList.forEach {
-            if (it.isSelected) {
-                selectedSizeId = selectedSizeId + it.id + ","
-            }
-        }
-
-        if (imageList.isNotEmpty()) {
-            imageList.forEach {
-                image.add(prepareMultiPart("image", File(it)))
-            }
-        }
-
-
-        if (binding.switchNotification.isChecked) {
-            productHighLight = "1"
-        } else {
-            productHighLight = "0"
-        }
-
-        val productName = binding.edtShopName.text.toString().trim()
-        val desc = binding.edtDesc.text.toString().trim()
-        val price = binding.edtProductPrice.text.toString().trim()
-        val quantity = binding.edtProductQ.text.toString().trim()
-
-
-        if (Validator.addProductValidation(
-                imageList.size, productName, desc, price, quantity,
-                selectedCategoryId, selectedColorId, selectedSizeId
-            )
+        if (Validator.addProductValidation(productName, description, productPrice, productQuantity, selectedCategoryId,
+                selectedColorId, selectedSizeId,imageList,mainImagePath)
         ) {
-
             val hashMap = HashMap<String, RequestBody>()
             hashMap["product_name"] = toBody(productName)
-            hashMap["price"] = toBody(price)
-            hashMap["product_quantity"] = toBody(quantity)
-            hashMap["description"] = toBody(desc)
-            hashMap["color"] = toBody(selectedColorId.substring(0, selectedColorId.length))
-            hashMap["size"] = toBody(selectedSizeId.substring(0, selectedSizeId.length))
-            hashMap["product_highlight"] = toBody(productHighLight)
+            hashMap["price"] = toBody(productPrice)
+            hashMap["product_quantity"] = toBody(productQuantity)
+            hashMap["description"] = toBody(description)
             hashMap["categoryId"] = toBody(selectedCategoryId)
+            hashMap["colorId"] = toBody(selectedColorId)
+            hashMap["sizeId"] = toBody(selectedSizeId)
+            hashMap["product_highlight"] = toBody(highlightValue.toString())
+            val mainImage = prepareMultiPart("mainImage", File(mainImagePath))
 
+            val image: ArrayList<MultipartBody.Part> = ArrayList()
+            if (imageList.isNotEmpty()) {
+                imageList.forEach {
+                    image.add(prepareMultiPart("image", File(it)))
+                }
+            }
 
-            appViewModel.addProductApi(this, true, hashMap, image)
-        } else {
+            appViewModel.addProductApi(this, true, hashMap, image,mainImage)
+            appViewModel.getResponse().observe(this, this)
+        }else {
             AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
         }
-
     }
+
+
+    /*private fun validateData() {
+            val image: ArrayList<MultipartBody.Part> = ArrayList()
+            if (mainImagePath.isNotEmpty()) {
+                imageList.add(mainImagePath)
+            }
+            var selectedColorId = ""
+            var selectedSizeId = ""
+            var productHighLight = ""
+
+            colorList.forEach {
+                if (it.isSelected) {
+                    selectedColorId = selectedColorId + it.id + ","
+                }
+            }
+
+            sizeList.forEach {
+                if (it.isSelected) {
+                    selectedSizeId = selectedSizeId + it.id + ","
+                }
+            }
+
+            if (imageList.isNotEmpty()) {
+                imageList.forEach {
+                    image.add(prepareMultiPart("image", File(it)))
+                }
+            }
+
+
+
+            val productName = binding.edtShopName.text.toString().trim()
+            val desc = binding.edtDesc.text.toString().trim()
+            val price = binding.edtProductPrice.text.toString().trim()
+            val quantity = binding.edtProductQ.text.toString().trim()
+
+
+            if (Validator.addProductValidation(
+                    imageList.size, productName, desc, price, quantity,
+                    selectedCategoryId, selectedColorId, selectedSizeId
+                )
+            ) {
+
+                val hashMap = HashMap<String, RequestBody>()
+                hashMap["product_name"] = toBody(productName)
+                hashMap["price"] = toBody(price)
+                hashMap["product_quantity"] = toBody(quantity)
+                hashMap["description"] = toBody(desc)
+                hashMap["color"] = toBody(selectedColorId.substring(0, selectedColorId.length))
+                hashMap["size"] = toBody(selectedSizeId.substring(0, selectedSizeId.length))
+                hashMap["product_highlight"] = toBody(productHighLight)
+                hashMap["categoryId"] = toBody(selectedCategoryId)
+
+
+                appViewModel.addProductApi(this, true, hashMap, image)
+            } else {
+                AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+            }
+
+        }*/
 
     private fun showAddProductDialog() {
         val alertBuilder = AlertDialog.Builder(this)
@@ -303,6 +351,17 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
                         colorList.addAll(response.body.categoryColors)
                         sizeList.addAll(response.body.categorySizes)
+
+                        if(colorList.size>0){
+                            binding.tvProColor.visibility = View.VISIBLE
+                        }else{
+                            binding.tvProColor.visibility = View.GONE
+                        }
+                        if(sizeList.size>0){
+                            binding.tvProdSize.visibility = View.VISIBLE
+                        }else{
+                            binding.tvProdSize.visibility = View.GONE
+                        }
 
                         setColorAdapter()
                         setSizeAdapter()

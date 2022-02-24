@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.live.emmazone.R
 import com.live.emmazone.interfaces.OnPopupClick
+import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestApiInterface
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.ServiceGenerator
@@ -21,7 +22,7 @@ import retrofit2.Response
 class AppViewModel : ViewModel() {
 
     private var service = ServiceGenerator.createService(RestApiInterface::class.java)
-    private var mResponse: MutableLiveData<RestObservable> = MutableLiveData()
+    var mResponse: MutableLiveData<RestObservable> = MutableLiveData()
     fun getResponse(): LiveData<RestObservable> {
         return mResponse
     }
@@ -325,6 +326,80 @@ class AppViewModel : ViewModel() {
                     }
 
                     override fun onFailure(call: Call<CategoryListResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        categoryListApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+
+    fun sellerShopDetailsApi(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.sellerShopDetails()
+                .enqueue(object : Callback<SellerShopDetailsResponse> {
+                    override fun onResponse(
+                        call: Call<SellerShopDetailsResponse>,
+                        response: Response<SellerShopDetailsResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<SellerShopDetailsResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        categoryListApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+
+    fun deleteProductApi(activity: Activity, isDialogShow: Boolean, productId: String) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.deleteProduct(productId)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
 
@@ -800,12 +875,15 @@ class AppViewModel : ViewModel() {
     }
 
     fun addProductApi(
-        activity: Activity, isDialogShow: Boolean,
-        hashMap: HashMap<String, RequestBody>, images: ArrayList<MultipartBody.Part>
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, RequestBody>,
+        images: ArrayList<MultipartBody.Part>,
+        mainImage: MultipartBody.Part
     ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
-            service.addProduct(hashMap, images)
+            service.addProduct(hashMap, images,mainImage)
                 .enqueue(object : Callback<AddProductResponse> {
                     override fun onResponse(
                         call: Call<AddProductResponse>,
@@ -833,7 +911,7 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        addProductApi(activity, isDialogShow, hashMap, images)
+                        addProductApi(activity, isDialogShow, hashMap, images, mainImage)
                     }
                 })
         }

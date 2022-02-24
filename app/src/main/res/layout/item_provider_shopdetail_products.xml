@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
@@ -8,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="190dp"
         android:layout_margin="@dimen/dp8"
         app:cardCornerRadius="@dimen/dp8"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +63,7 @@
                 app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
                 app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/ratingBarShopDetailProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +72,21 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/productItemName"
                 app:layout_constraintTop_toBottomOf="@+id/productItemName" />
-
+-->
+            <RatingBar
+                android:id="@+id/ratingBarShopDetailProduct"
+                style="?android:ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp10"
+                app:layout_constraintEnd_toEndOf="@+id/productItemName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/productItemName"
+                app:layout_constraintTop_toBottomOf="@+id/productItemName"
+                android:numStars="5"
+                android:progressTint="@color/yellow"
+                android:rating="0"
+                android:theme="@style/RatingBar" />
             <ImageView
                 android:id="@+id/imgEdit"
                 android:layout_width="wrap_content"
@@ -141,12 +156,14 @@
     <LinearLayout
         android:id="@+id/layoutAddProduct"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="190dp"
         android:layout_margin="@dimen/dp8"
         android:background="@drawable/dotted_stoke"
         android:gravity="center"
+
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:layout_width="@dimen/_35sdp"
@@ -165,4 +182,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -44,6 +44,8 @@ object AppConstants {
     const val PRIVACY_POLICY = "privacy_policy"
     const val FORGOT_PASSWORD = "forgot_password"
     const val CATEGORY_LIST = "category_list"
+    const val SELLER_SHOP_DETAILS = "seller_shop_details"
+    const val DELETE_PRODUCT = "delete_product"
     const val ADD_SHOP = "add_shop"
     const val CHANGE_PASSWORD = "change_password"
     const val NOTIFICATION_LIST = "notification_list"

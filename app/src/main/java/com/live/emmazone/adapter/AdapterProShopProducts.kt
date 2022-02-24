@@ -1,28 +1,22 @@
 package com.live.emmazone.adapter
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.opengl.Visibility
 import android.view.*
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.activities.provider.AddNewProductActivity
+import com.live.emmazone.activities.fragment.FragmentProviderHome
 import com.live.emmazone.activities.provider.EditProductActivity
-import com.live.emmazone.activities.provider.ProviderMainActivity
-import com.live.emmazone.model.ModelProShopDetailProducts
-import com.makeramen.roundedimageview.RoundedImageView
+import com.live.emmazone.model.sellerShopDetails.Product
+import com.schunts.extensionfuncton.loadImage
 
 class AdapterProShopProducts(
     private val context: Context,
-    private val list: ArrayList<ModelProShopDetailProducts>
+    val list: ArrayList<Product>,
+    val fragmentProviderHome: FragmentProviderHome
 ) :
     RecyclerView.Adapter<AdapterProShopProducts.ViewHolder>() {
 
@@ -33,25 +27,20 @@ class AdapterProShopProducts(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val ModelProShopDetailProducts = list[position]
-
-        holder.imageProductSD.setImageResource(ModelProShopDetailProducts.imageProductShopDetail)
-        holder.imageEditSDProduct.setImageResource(ModelProShopDetailProducts.imgEdit)
-        holder.imageDelete.setImageResource(ModelProShopDetailProducts.imgDelete)
-        holder.productItemNameSD.setText(ModelProShopDetailProducts.productItemName)
-        holder.productItemPriceSD.setText(ModelProShopDetailProducts.productItemPrice)
-        holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.tvShopDetailProductBrand)
-        holder.tvShopDetailProductText.setText(ModelProShopDetailProducts.tvShopDetailProductText)
-        holder.tvSDDeliveryEstimateSD.setText(ModelProShopDetailProducts.tvSDDeliveryEstimate)
-
+        holder.imageProductSD.loadImage(ModelProShopDetailProducts.mainImage)
+        holder.productItemNameSD.setText(ModelProShopDetailProducts.name)
+        holder.productItemPriceSD.setText(ModelProShopDetailProducts.product_price.toDouble().toInt().toString())
+        holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.description)
+        holder.tvShopDetailProductText.setText(ModelProShopDetailProducts.productReview)
+        holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
+        holder.ratingBar.rating = ModelProShopDetailProducts.productReview.toFloat()
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
             holder.itemView.context.startActivity(intent)
         }
 
         holder.imageDelete.setOnClickListener {
-
             val dialog = Dialog(context)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(false)
@@ -65,6 +54,7 @@ class AdapterProShopProducts(
 
             yesBtn.setOnClickListener {
                 dialog.dismiss()
+                fragmentProviderHome.deleteProductAPIMethod(position,ModelProShopDetailProducts.id.toString())
             }
 
             noBtn.setOnClickListener { dialog.dismiss() }
@@ -86,9 +76,15 @@ class AdapterProShopProducts(
         val tvShopDetailProductBrandSD = itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
         val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
-        val ratingBar = itemView.findViewById<ImageView>(R.id.ratingBarShopDetailProduct)
+        val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBarShopDetailProduct)
         val layoutAddProduct = itemView.findViewById<LinearLayout>(R.id.layoutAddProduct)
 
+    }
+
+    fun deleteItem(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, list.size)
     }
 
 }

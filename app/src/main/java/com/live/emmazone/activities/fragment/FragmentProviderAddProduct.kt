@@ -6,19 +6,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
 import com.live.emmazone.databinding.FragmentAddProductProviderBinding
-import com.live.emmazone.model.ModelProShopDetailProducts
+import com.live.emmazone.model.sellerShopDetails.Category
+import com.live.emmazone.model.sellerShopDetails.Product
+import com.live.emmazone.model.sellerShopDetails.ProductImage
+import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.CommonResponse
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.ToastUtils
+import com.live.emmazone.view_models.AppViewModel
 
-class FragmentProviderAddProduct : Fragment() {
+class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
     private lateinit var binding: FragmentAddProductProviderBinding
-    private val list = ArrayList<ModelProShopDetailProducts>()
+    private val list = ArrayList<Product>()
     private var isChecked = true
+    private val appViewModel: AppViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,44 +85,66 @@ class FragmentProviderAddProduct : Fragment() {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
-
         binding.rvAdProductProvider.layoutManager = GridLayoutManager(context, 2)
 
-        list.add(
-            ModelProShopDetailProducts(
-                R.drawable.add_new_product, "", "",
-                "", "", "",
-                R.drawable.edit, R.drawable.bin1
-            )
-        )
 
-        list.add(
-            ModelProShopDetailProducts(
-                R.drawable.sho1, "Bernd", "30.00€",
-                "Lorem ipsum dolor", "Delivery estimate 4-5 days",
-                "4.8",
-                R.drawable.edit, R.drawable.bin1
-            )
-        )
+    }
 
-        list.add(
-            ModelProShopDetailProducts(
-                R.drawable.sho2, "Bernd", "30.00€",
-                "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
-                R.drawable.edit, R.drawable.bin1
-            )
-        )
+    override fun onResume() {
+        super.onResume()
+        getSellerShopDetails()
 
-        list.add(
-            ModelProShopDetailProducts(
-                R.drawable.sho3, "Bernd", "30.00€",
-                "Lorem ipsum dolor", "Delivery estimate 4-5 days", "4.8",
-                R.drawable.edit, R.drawable.bin1
-            )
-        )
+    }
 
-        binding.rvAdProductProvider.adapter =
-            AdapterProviderShopDetailProducts(requireContext(), list)
+    override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is SellerShopDetailsResponse) {
+                    val response: SellerShopDetailsResponse = t.data
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        setDetailData(response)
+                    }
 
+                }
+                if (t.data is CommonResponse) {
+                    val response: CommonResponse = t.data
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        ToastUtils.showLongToast(response.message)
+                        productAdapter!!.deleteItem(pos)
+                    }
+
+                }
+            }
+            Status.ERROR -> {
+                ToastUtils.showLongToast(t.error.toString())
+
+            }
+        }
+    }
+
+    fun getSellerShopDetails(){
+        appViewModel.sellerShopDetailsApi(requireActivity(), true)
+        appViewModel.getResponse().observe(requireActivity(), this)
+    }
+    var productAdapter: AdapterProviderShopDetailProducts?=null
+
+     fun setDetailData(response: SellerShopDetailsResponse) {
+         val category = Category("","")
+         val product_images: List<ProductImage> = ArrayList()
+         list.clear()
+         list.add(Product(category,0,0,0,"",0,""
+             ,"","",0,product_images,"",0,0
+             ,0))
+         list.addAll(response.body.products)
+         productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)
+         binding.rvAdProductProvider.adapter = productAdapter
+
+    }
+
+    var pos = 0
+    fun deleteProductAPIMethod(position: Int, productId: String) {
+        pos = position
+        appViewModel.deleteProductApi(requireActivity(), true, productId)
+        appViewModel.mResponse.observe(requireActivity(), this)
     }
 }

@@ -108,7 +108,7 @@
             tools:listitem="@layout/item_images" />
 
         <TextView
-            android:id="@+id/tvProdctName"
+            android:id="@+id/tvProductName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -132,9 +132,9 @@
             android:inputType="text"
             android:maxLines="1"
             android:paddingStart="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/tvProdctName"
-            app:layout_constraintStart_toStartOf="@+id/tvProdctName"
-            app:layout_constraintTop_toBottomOf="@+id/tvProdctName"
+            app:layout_constraintEnd_toEndOf="@+id/tvProductName"
+            app:layout_constraintStart_toStartOf="@+id/tvProductName"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductName"
             app:layout_goneMarginTop="@dimen/dp8" />
 
         <TextView
@@ -248,13 +248,14 @@
 
 
         <TextView
-            android:id="@+id/tvPC"
+            android:id="@+id/tvProColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp24"
             android:text="@string/product_colour"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
+            android:visibility="gone"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/edtProductQ"
             app:layout_constraintTop_toBottomOf="@+id/rvCategories" />
@@ -267,8 +268,8 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvPC"
-            app:layout_constraintTop_toBottomOf="@+id/tvPC" />
+            app:layout_constraintStart_toStartOf="@+id/tvProColor"
+            app:layout_constraintTop_toBottomOf="@+id/tvProColor" />
 
 
         <TextView
@@ -279,6 +280,7 @@
             android:text="@string/product_size"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
+            android:visibility="gone"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/rvColor"
             app:layout_constraintTop_toBottomOf="@+id/rvColor" />
@@ -337,7 +339,7 @@
                 android:layout_weight="1" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_notification"
+                android:id="@+id/switch_highlight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_switch"

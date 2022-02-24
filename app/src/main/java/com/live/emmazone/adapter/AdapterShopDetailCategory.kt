@@ -10,11 +10,12 @@ import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ItemLayoutShopdetailCategoryBinding
 import com.live.emmazone.model.ModelShopDetailCategory
+import com.live.emmazone.model.sellerShopDetails.Category
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
 
-class AdapterShopDetailCategory(private val list: ArrayList<ShopDetailResponse.Body.ShopCategory>) :
+class AdapterShopDetailCategory(private val list: ArrayList<Category>) :
     RecyclerView.Adapter<AdapterShopDetailCategory.CategoryViewHolder>() {
 
     private lateinit var mContext: Context
@@ -37,9 +38,9 @@ class AdapterShopDetailCategory(private val list: ArrayList<ShopDetailResponse.B
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
             val category = list[pos]
-            Glide.with(mContext).load(AppConstants.IMAGE_CATEGORY_URL+category.image).into(binding.itemShopDetailCategory)
-           // binding.itemShopDetailCategory.setImageResource(category.image)
-            binding.tvShopDetailCategories.text = category.category_name
+            Glide.with(mContext).load(category.categoryImage).
+            placeholder(R.drawable.placeholder).into(binding.itemShopDetailCategory)
+            binding.tvShopDetailCategories.text = category.categoryName
         }
     }
 }

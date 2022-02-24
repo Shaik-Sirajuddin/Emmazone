@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,9 +9,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="match_parent"
-        >
+        android:background="@color/white">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
             android:layout_width="match_parent"
@@ -193,20 +192,72 @@
             app:layout_constraintStart_toEndOf="@+id/tvPrice"
             app:layout_constraintTop_toTopOf="@+id/tvPrice" />
 
-        <TextView
-            android:id="@+id/tvDelivery"
+        <LinearLayout
+            android:id="@+id/llPlusMinus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginEnd="@dimen/dp16"
-            android:text="2  delivery in 30 min or collect it from the shop. Delivery is free for members."
-            android:textAlignment="viewStart"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp12"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="@+id/tvPriceInteger"
             app:layout_constraintStart_toStartOf="@+id/tvPrice"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPrice">
+
+            <LinearLayout
+                android:id="@+id/plusMinusLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"
+                android:background="@drawable/bg_black_corner_white_solid"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp10"
+                android:paddingTop="@dimen/dp5"
+                android:paddingRight="@dimen/dp10"
+                android:paddingBottom="@dimen/dp5">
+
+                <ImageView
+                    android:id="@+id/ivMinus"
+                    android:layout_width="@dimen/dp25"
+                    android:layout_height="@dimen/dp25"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus_icon" />
+
+                <TextView
+                    android:id="@+id/tvCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+
+                <ImageView
+                    android:id="@+id/ivPlus"
+                    android:layout_width="@dimen/dp30"
+                    android:layout_height="@dimen/dp30"
+                    android:src="@drawable/plus_ico"
+                    app:tint="@color/black" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvDelivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"
+                android:text="2  delivery in 30 min or collect it from the shop. Delivery is free for members."
+                android:textAlignment="viewStart"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp12" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/spinnerLayout"
@@ -215,9 +266,9 @@
             android:layout_marginTop="@dimen/dp16"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/tvDelivery"
-            app:layout_constraintStart_toStartOf="@+id/tvDelivery"
-            app:layout_constraintTop_toBottomOf="@+id/tvDelivery">
+            app:layout_constraintEnd_toEndOf="@+id/llPlusMinus"
+            app:layout_constraintStart_toStartOf="@+id/llPlusMinus"
+            app:layout_constraintTop_toBottomOf="@+id/llPlusMinus">
 
             <LinearLayout
                 android:id="@+id/sizeSpinLayout"
@@ -260,8 +311,8 @@
                     android:id="@+id/tvColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/colour"
                     android:layout_marginStart="8dp"
+                    android:text="@string/colour"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp15" />
 
@@ -282,15 +333,16 @@
                 android:layout_weight="1"
                 android:background="@drawable/box"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tvQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:gravity="center"
                     android:text="Quantity"
-                    android:layout_marginStart="8dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp15" />
 
@@ -307,10 +359,17 @@
 
         <android.widget.Button
             android:id="@+id/btnBuyDeliver"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_50sdp"
             android:layout_marginTop="@dimen/sp20"
-            android:background="@drawable/buy_deliver"
+            android:text="Add to Cart"
+            android:textAllCaps="false"
+            android:fontFamily="@font/avenir_book"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:background="@drawable/bg_spinner"
             app:layout_constraintEnd_toEndOf="@+id/spinnerLayout"
             app:layout_constraintStart_toStartOf="@+id/spinnerLayout"
             app:layout_constraintTop_toBottomOf="@+id/spinnerLayout" />

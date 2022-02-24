@@ -4,23 +4,22 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.view.*
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.activities.fragment.FragmentProviderAddProduct
 import com.live.emmazone.activities.provider.AddNewProductActivity
 import com.live.emmazone.activities.provider.EditProductActivity
-import com.live.emmazone.model.ModelProShopDetailProducts
-import com.makeramen.roundedimageview.RoundedImageView
+import com.live.emmazone.model.sellerShopDetails.Product
+import com.schunts.extensionfuncton.loadImage
 
 class AdapterProviderShopDetailProducts(
     private val context: Context,
-    private val list: ArrayList<ModelProShopDetailProducts>
+    val list: ArrayList<Product>,
+    val fragmentProviderAddProduct: FragmentProviderAddProduct
 ) :
     RecyclerView.Adapter<AdapterProviderShopDetailProducts.ViewHolder>() {
 
@@ -39,16 +38,26 @@ class AdapterProviderShopDetailProducts(
         } else {
             holder.cardView.visibility = View.VISIBLE
             holder.layoutAddProduct.visibility = View.GONE
+
+            holder.imageProductSD.loadImage(model.mainImage)
+            holder.productItemNameSD.setText(model.name)
+            holder.productItemPriceSD.setText(model.product_price.toDouble().toInt().toString())
+            holder.tvShopDetailProductBrandSD.setText(model.description)
+            holder.tvShopDetailProductText.setText(model.productReview)
+            holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
+            holder.ratingBar.rating = model.productReview.toFloat()
         }
 
-        holder.imageProductSD.setImageResource(model.imageProductShopDetail)
+
+
+       /* holder.imageProductSD.setImageResource(model.imageProductShopDetail)
         holder.imageEditSDProduct.setImageResource(model.imgEdit)
         holder.imageDelete.setImageResource(model.imgDelete)
         holder.productItemNameSD.setText(model.productItemName)
-        holder.productItemPriceSD.setText(model.productItemPrice)
+        holder.productItemPriceSD.setText(model.productItemPrice+context.getString(R.string.euro_sign))
         holder.tvShopDetailProductBrandSD.setText(model.tvShopDetailProductBrand)
         holder.tvShopDetailProductText.setText(model.tvShopDetailProductText)
-        holder.tvSDDeliveryEstimateSD.setText(model.tvSDDeliveryEstimate)
+        holder.tvSDDeliveryEstimateSD.setText(model.tvSDDeliveryEstimate)*/
 
         holder.itemView.setOnClickListener {
             if (position == 0) {
@@ -81,6 +90,8 @@ class AdapterProviderShopDetailProducts(
 
             yesBtn.setOnClickListener {
                 dialog.dismiss()
+                fragmentProviderAddProduct.deleteProductAPIMethod(position,model.id.toString())
+
             }
 
             noBtn.setOnClickListener { dialog.dismiss() }
@@ -102,11 +113,17 @@ class AdapterProviderShopDetailProducts(
         val tvShopDetailProductBrandSD = itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
         val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
-        val ratingBar = itemView.findViewById<ImageView>(R.id.ratingBarShopDetailProduct)
+        val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBarShopDetailProduct)
         val layoutAddProduct = itemView.findViewById<LinearLayout>(R.id.layoutAddProduct)
         val layoutConst = itemView.findViewById<ConstraintLayout>(R.id.layoutConst)
         val cardView = itemView.findViewById<CardView>(R.id.cardView)
 
+    }
+
+    fun deleteItem(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, list.size)
     }
 
 }

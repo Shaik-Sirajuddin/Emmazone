@@ -1,6 +1,7 @@
 package com.live.emmazone.net
 
 
+import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import okhttp3.MultipartBody
@@ -16,7 +17,6 @@ interface RestApiInterface {
         @PartMap hashMap: HashMap<String, RequestBody>,
         @Part image: MultipartBody.Part
     ): Call<SignUpResponse>
-
 
     @FormUrlEncoded
     @POST(AppConstants.OTP_VERIFY)
@@ -49,6 +49,15 @@ interface RestApiInterface {
 
     @GET(AppConstants.CATEGORY_LIST)
     fun categoryList(): Call<CategoryListResponse>
+
+    @GET(AppConstants.SELLER_SHOP_DETAILS)
+    fun sellerShopDetails(): Call<SellerShopDetailsResponse>
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = AppConstants.DELETE_PRODUCT, hasBody = true)
+    fun deleteProduct(
+        @Field("product_id") product_id: String
+    ): Call<CommonResponse>
 
     @Multipart
     @POST(AppConstants.ADD_SHOP)
@@ -101,7 +110,8 @@ interface RestApiInterface {
     @POST(AppConstants.ADD_SHOP_PRODUCT)
     fun addProduct(
         @PartMap hashMap: HashMap<String, RequestBody>,
-        @Part images: ArrayList<MultipartBody.Part>
+        @Part images: ArrayList<MultipartBody.Part>,
+        @Part mainImage: MultipartBody.Part
     ): Call<AddProductResponse>
 
 

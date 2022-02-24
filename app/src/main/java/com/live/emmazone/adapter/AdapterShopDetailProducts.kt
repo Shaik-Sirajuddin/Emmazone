@@ -27,7 +27,8 @@ cellClickListener: OnItemClick
 
       val data = list[position]
         if(data.product_images.isNotEmpty()){
-            Glide.with(mContext).load(AppConstants.PRODUCT_IMAGE_URL+data.product_images[0].image).into(holder.imageProductSD)
+            Glide.with(mContext).load(AppConstants.PRODUCT_IMAGE_URL+data.product_images[0].image).
+            placeholder(R.drawable.placeholder).into(holder.imageProductSD)
 
         }else{
             holder.imageProductSD.setImageResource(R.drawable.placeholder)

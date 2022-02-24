@@ -146,8 +146,8 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
 
     private fun setCategoryAdapter() {
 
-        val shopCategory = AdapterShopDetailCategory(response!!.body.shop_categories)
-        binding.recyclerShopDetailCategory.adapter = shopCategory
+        /*val shopCategory = AdapterShopDetailCategory(response!!.body.shop_categories)
+        binding.recyclerShopDetailCategory.adapter = shopCategory*/
     }
 
     private fun setProductAdapter() {

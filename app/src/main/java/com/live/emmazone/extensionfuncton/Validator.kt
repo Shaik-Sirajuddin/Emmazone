@@ -47,7 +47,6 @@ object Validator {
 
     }
 
-
     fun validateOtp(otp: String): Boolean {
         return if (TextUtils.isEmpty(otp)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_otp)
@@ -180,12 +179,23 @@ object Validator {
 
 
     fun addProductValidation(
-        image: Int, name: String, desc: String, price: String, quantity: String,
-        categories: String, color: String, size: String
+        name: String,
+        desc: String,
+        price: String,
+        quantity: String,
+        categories: String,
+        color: String,
+        size: String,
+        imageList: ArrayList<String>,
+        mainImagePath: String
     ): Boolean {
 
-        return if (image == 0) {
-            errorMessage = AppController.instance!!.getString(R.string.msg_select_image)
+        return if (mainImagePath.isEmpty()) {
+            errorMessage = "Please select main image"
+            false
+        }
+        else if (imageList.size == 0) {
+            errorMessage = "Please select atleast one product image"
             false
         } else if (TextUtils.isEmpty(name)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_product_name)
