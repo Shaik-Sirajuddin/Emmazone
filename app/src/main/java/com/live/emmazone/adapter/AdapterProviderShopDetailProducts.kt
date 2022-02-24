@@ -68,6 +68,7 @@ class AdapterProviderShopDetailProducts(
 
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
+            intent.putExtra("productData",model)
             holder.itemView.context.startActivity(intent)
         }
 

@@ -220,54 +220,58 @@
             app:layout_constraintStart_toStartOf="@+id/tvPq"
             app:layout_constraintTop_toBottomOf="@+id/tvPq" />
 
+
         <TextView
-            android:id="@+id/tvPC"
+            android:id="@+id/tvCat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:text="@string/product_colour"
+            android:layout_marginTop="@dimen/dp24"
+            android:text="@string/categories"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/edtProductQ"
             app:layout_constraintTop_toBottomOf="@+id/edtProductQ" />
 
-        <ImageView
-            android:id="@+id/addColour"
-            android:layout_width="wrap_content"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategories"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp2"
-            android:src="@drawable/plus"
-            app:layout_constraintBottom_toBottomOf="@+id/tvPC"
-            app:layout_constraintEnd_toEndOf="@+id/edtProductQ"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@+id/tvPC"
-            app:layout_constraintTop_toTopOf="@+id/tvPC" />
+            android:layout_marginEnd="24dp"
+            android:nestedScrollingEnabled="false"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvCat"
+            app:layout_constraintTop_toBottomOf="@+id/tvCat" />
+
 
         <TextView
-            android:id="@+id/tvColor"
+            android:id="@+id/tvProColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/colour_1"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp12"
+            android:layout_marginTop="@dimen/dp24"
+            android:text="@string/product_colour"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            android:visibility="gone"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tvPC"
-            app:layout_constraintTop_toBottomOf="@+id/tvPC" />
+            app:layout_constraintStart_toStartOf="@+id/edtProductQ"
+            app:layout_constraintTop_toBottomOf="@+id/rvCategories" />
 
-        <ImageView
-            android:id="@+id/addColour1"
-            android:layout_width="@dimen/dp20"
-            android:layout_height="@dimen/dp15"
-            android:layout_marginEnd="5dp"
-            android:padding="@dimen/dp2"
-            android:src="@drawable/close_cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/tvColor"
-            app:layout_constraintEnd_toEndOf="@+id/addColour"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tvColor"
-            app:layout_constraintTop_toTopOf="@+id/tvColor" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp24"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvProColor"
+            app:layout_constraintTop_toBottomOf="@+id/tvProColor" />
+
 
         <TextView
             android:id="@+id/tvProdSize"
@@ -277,49 +281,22 @@
             android:text="@string/product_size"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
+            android:visibility="gone"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tvColor"
-            app:layout_constraintTop_toBottomOf="@+id/tvColor" />
+            app:layout_constraintStart_toStartOf="@+id/rvColor"
+            app:layout_constraintTop_toBottomOf="@+id/rvColor" />
 
-        <ImageView
-            android:id="@+id/productSize"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSize"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp2"
-            android:src="@drawable/plus"
-            app:layout_constraintBottom_toBottomOf="@+id/tvProdSize"
-            app:layout_constraintEnd_toEndOf="@+id/addColour1"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@+id/tvProdSize"
-            app:layout_constraintTop_toTopOf="@+id/tvProdSize" />
-
-        <TextView
-            android:id="@+id/tvProductSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/size1"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp12"
-            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/dp24"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvProdSize"
             app:layout_constraintTop_toBottomOf="@+id/tvProdSize" />
 
-
-        <TextView
-            android:id="@+id/tvProductSizeX"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dp5"
-            android:text="9"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/addColour2"
-            app:layout_constraintEnd_toStartOf="@+id/addColour2"
-            app:layout_constraintHorizontal_bias="0.92"
-            app:layout_constraintStart_toEndOf="@+id/tvProductSize"
-            app:layout_constraintTop_toTopOf="@+id/addColour2" />
 
         <TextView
             android:id="@+id/tvProductHighLight"
@@ -330,8 +307,8 @@
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tvProductSize"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductSize" />
+            app:layout_constraintStart_toStartOf="@+id/rvSize"
+            app:layout_constraintTop_toBottomOf="@+id/rvSize" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_notification"
@@ -344,7 +321,7 @@
             android:thumb="@drawable/switch_thumb"
             android:track="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
-            app:layout_constraintEnd_toEndOf="@+id/addColour2"
+            app:layout_constraintEnd_toEndOf="@+id/rvSize"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
             app:layout_constraintTop_toTopOf="@+id/tvProductHighLight"
@@ -362,30 +339,6 @@
             app:layout_constraintEnd_toEndOf="@+id/productSize"
             app:layout_constraintStart_toStartOf="@+id/tvProductHighLight"
             app:layout_constraintTop_toBottomOf="@+id/tvProductHighLight" />
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imageSelectedColour"
-            android:layout_width="@dimen/dp50"
-            android:layout_height="@dimen/dp25"
-            android:src="@drawable/otp_bg"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp18"
-            app:layout_constraintBottom_toBottomOf="@+id/addColour1"
-            app:layout_constraintEnd_toStartOf="@+id/addColour1"
-            app:layout_constraintTop_toTopOf="@+id/addColour1" />
-
-        <ImageView
-            android:id="@+id/addColour2"
-            android:layout_width="@dimen/dp20"
-            android:layout_height="@dimen/dp15"
-            android:layout_marginEnd="5dp"
-            android:padding="@dimen/dp2"
-            android:src="@drawable/close_cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/tvProductSize"
-            app:layout_constraintEnd_toEndOf="@+id/productSize"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@+id/tvProductSize"
-            app:layout_constraintTop_toTopOf="@+id/tvProductSize" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

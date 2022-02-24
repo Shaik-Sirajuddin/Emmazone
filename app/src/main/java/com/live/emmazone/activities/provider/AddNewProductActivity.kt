@@ -210,7 +210,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
 
     private fun validateAddProduct() {
-        val productName = binding.tvProductName.text.toString().trim()
+        val productName = binding.edtShopName.text.toString().trim()
         val description = binding.edtDesc.text.toString().trim()
         val productPrice = binding.edtProductPrice.text.toString().trim()
         val productQuantity = binding.edtProductQ.text.toString().trim()

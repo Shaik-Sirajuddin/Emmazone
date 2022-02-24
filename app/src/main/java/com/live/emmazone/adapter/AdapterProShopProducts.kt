@@ -37,6 +37,7 @@ class AdapterProShopProducts(
         holder.ratingBar.rating = ModelProShopDetailProducts.productReview.toFloat()
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
+            intent.putExtra("productData",ModelProShopDetailProducts)
             holder.itemView.context.startActivity(intent)
         }
 

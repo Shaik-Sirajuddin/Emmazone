@@ -165,7 +165,7 @@
         <entry key="app/src/main/res/layout/item_layout_provider_shopdetail_products.xml" value="0.21" />
         <entry key="app/src/main/res/layout/item_layout_rating_reviews.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/item_layout_shopdetail_category.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/item_layout_shopdetail_products.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_layout_shopdetail_products.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_layout_wishlist.xml" value="0.21" />
         <entry key="app/src/main/res/layout/item_product_reviews.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_provider_add_products.xml" value="0.25" />
