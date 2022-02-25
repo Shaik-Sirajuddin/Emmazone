@@ -155,8 +155,8 @@ interface RestApiInterface {
     @PUT(AppConstants.EDIT_SHOP_PRODUCT)
     fun editShopProduct(
         @PartMap hashMap: HashMap<String, RequestBody>,
-        @Part images: ArrayList<MultipartBody.Part>,
-        @Part mainImage: MultipartBody.Part
+        @Part images: ArrayList<MultipartBody.Part>?,
+        @Part mainImage: MultipartBody.Part?
     ): Call<AddProductResponse>
 
 

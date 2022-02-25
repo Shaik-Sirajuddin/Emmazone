@@ -1,10 +1,10 @@
 package com.live.emmazone.extensionfuncton
 
-import android.app.Activity
 import android.text.TextUtils
 import android.util.Patterns
 import com.live.emmazone.R
 import com.live.emmazone.base.AppController
+import com.live.emmazone.response_model.ShopDetailResponse
 import com.stripe.android.view.CardNumberEditText
 
 object Validator {
@@ -178,6 +178,48 @@ object Validator {
     }
 
 
+    fun editProductValidation(
+        name: String,
+        desc: String,
+        price: String,
+        quantity: String,
+        categories: String,
+        color: String,
+        size: String,
+        imageList: ArrayList<ShopDetailResponse.Body.Product.ProductImage>
+    ): Boolean {
+
+        return if (imageList.size == 0) {
+            errorMessage = "Please select atleast one product image"
+            false
+        } else if (TextUtils.isEmpty(name)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_product_name)
+            false
+        } else if (TextUtils.isEmpty(desc)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
+            false
+        } else if (TextUtils.isEmpty(price)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_price)
+            false
+        } else if (TextUtils.isEmpty(quantity)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_quantity)
+            false
+        } else if (TextUtils.isEmpty(categories)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_category_1)
+            false
+        } else if (TextUtils.isEmpty(color)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_color)
+            false
+        } else if (TextUtils.isEmpty(size)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_size)
+            false
+        } else true
+
+    }
+
+
+
+
     fun addProductValidation(
         name: String,
         desc: String,
@@ -186,11 +228,11 @@ object Validator {
         categories: String,
         color: String,
         size: String,
-        imageList: ArrayList<String>,
-        mainImagePath: String
+        imageList: ArrayList<ShopDetailResponse.Body.Product.ProductImage>,
+        mainImagePath: String? =null
     ): Boolean {
 
-        return if (mainImagePath.isEmpty()) {
+        return if (mainImagePath?.isNullOrEmpty()!!) {
             errorMessage = "Please select main image"
             false
         }

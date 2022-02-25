@@ -25,6 +25,7 @@ import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddProductResponse
 import com.live.emmazone.response_model.CategoryColorSizeResponse
 import com.live.emmazone.response_model.CategoryListResponse
+import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.ImagePickerUtility
@@ -57,8 +58,9 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var highlightValue = 1
 
     private lateinit var imageAdapter: ImageAdapter
-    private val imageList = ArrayList<String>()
+    private val imageList = ArrayList<ShopDetailResponse.Body.Product.ProductImage>()
     private var mainImagePath = ""
+    var mainImage=""
     private var imageslist: ArrayList<File> = ArrayList()
 
 
@@ -69,7 +71,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 mainImagePath = imagePath
                 binding.ivShop.loadImage(imagePath)
             } else {
-                imageList.add(imagePath)
+                imageList.add(ShopDetailResponse.Body.Product.ProductImage(0,imagePath,0,0))
                 imageAdapter.notifyDataSetChanged()
             }
         }
@@ -186,6 +188,11 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         imageAdapter.onItemClickListener = { pos ->
             getImage(1, false)
         }
+
+        imageAdapter.onDeleteImage={pos: Int, data: ShopDetailResponse.Body.Product.ProductImage ->
+            imageList.removeAt(pos)
+            imageAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun initListener() {
@@ -232,7 +239,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             val image: ArrayList<MultipartBody.Part> = ArrayList()
             if (imageList.isNotEmpty()) {
                 imageList.forEach {
-                    image.add(prepareMultiPart("image", File(it)))
+                    image.add(prepareMultiPart("image", File(it.image)))
                 }
             }
 

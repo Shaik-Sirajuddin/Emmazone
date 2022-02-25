@@ -242,6 +242,7 @@
             android:nestedScrollingEnabled="false"
             android:orientation="vertical"
             android:visibility="visible"
+
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvCat"
@@ -267,6 +268,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp24"
             android:orientation="vertical"
+            android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvProColor"
@@ -292,6 +294,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp24"
             android:orientation="vertical"
+            android:nestedScrollingEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvProdSize"
@@ -336,8 +339,8 @@
             android:layout_marginBottom="@dimen/dp24"
             android:background="@drawable/update"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/productSize"
-            app:layout_constraintStart_toStartOf="@+id/tvProductHighLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvProductHighLight" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

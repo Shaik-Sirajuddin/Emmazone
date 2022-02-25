@@ -1259,8 +1259,8 @@ class AppViewModel : ViewModel() {
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>,
-        images: ArrayList<MultipartBody.Part>,
-        mainImage: MultipartBody.Part
+        images: ArrayList<MultipartBody.Part>?,
+        mainImage: MultipartBody.Part?
     ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
@@ -1292,7 +1292,7 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        editShopProductApi(activity, isDialogShow, hashMap, images, mainImage)
+                        editShopProductApi(activity, isDialogShow, hashMap, images,mainImage)
                     }
                 })
         }

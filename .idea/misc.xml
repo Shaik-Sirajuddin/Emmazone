@@ -42,6 +42,7 @@
         <entry key="app/src/main/res/drawable/dotted_stoke.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/drawable/emmazone_background.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.22592592592592592" />
+        <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/drawable/icon_app_background.xml" value="0.13802083333333334" />
         <entry key="app/src/main/res/drawable/my_orders_selector.xml" value="0.18055555555555555" />
         <entry key="app/src/main/res/drawable/notification_red_color.xml" value="0.23148148148148148" />
@@ -153,7 +154,7 @@
         <entry key="app/src/main/res/layout/item_color.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/item_delivery_address.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_edit_shop_category.xml" value="0.19" />
-        <entry key="app/src/main/res/layout/item_images.xml" value="0.24114583333333334" />
+        <entry key="app/src/main/res/layout/item_images.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_layout_cart_items.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_layout_choose_card.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_layout_home_nearby_shop.xml" value="0.15625" />

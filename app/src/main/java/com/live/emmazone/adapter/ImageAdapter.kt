@@ -1,21 +1,21 @@
 package com.live.emmazone.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.live.emmazone.activities.listeners.OnActionListener
+import com.live.emmazone.R
 import com.live.emmazone.databinding.ItemImagesBinding
-import com.live.emmazone.model.ImageModel
+import com.live.emmazone.response_model.ShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class ImageAdapter(
-    var list: ArrayList<String>
+    var list: ArrayList<ShopDetailResponse.Body.Product.ProductImage>
 ) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
 
     var onItemClickListener: ((pos: Int) -> Unit)? = null
+    var onDeleteImage: ((pos:Int,data:ShopDetailResponse.Body.Product.ProductImage) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,15 +36,24 @@ class ImageAdapter(
         fun bind(pos: Int) {
 
             if (pos != list.size) {
+                binding.ivDeletePhoto.visibility=View.VISIBLE
                 binding.ivAdd.visibility = View.GONE
-                binding.rivProduct.loadImage(list[pos])
+                binding.rivProduct.loadImage(list[pos].image)
             } else {
+                binding.ivDeletePhoto.visibility=View.GONE
                 binding.ivAdd.visibility = View.VISIBLE
+                binding.rivProduct.setImageResource(R.drawable.sqaure_dotted)
             }
+
 
             itemView.setOnClickListener {
                 onItemClickListener?.invoke(pos)
             }
+
+            binding.ivDeletePhoto.setOnClickListener {
+                onDeleteImage?.invoke(pos,list[pos])
+            }
         }
     }
+
 }
