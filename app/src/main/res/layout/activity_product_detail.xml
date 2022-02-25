@@ -7,10 +7,11 @@
     android:fillViewport="true"
     tools:context=".activities.main.ProductDetailActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
@@ -73,124 +74,162 @@
             tools:layout_editor_absoluteX="42dp"
             tools:layout_editor_absoluteY="225dp" />
 
-        <TextView
-            android:id="@+id/productItemName"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="16dp"
-            android:text="@string/bernd_shoes"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp18"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/bannerProductDetail"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/bannerProductDetail"
-            app:layout_constraintTop_toBottomOf="@+id/bannerProductDetail" />
+            android:layout_marginRight="15dp">
 
-        <ImageView
-            android:id="@+id/imageAskExpert"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/productItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp18"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:id="@+id/imageAskExpert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/productItemName"
+                android:padding="@dimen/dp5"
+                android:src="@drawable/ask_expert" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:padding="@dimen/dp5"
-            android:src="@drawable/ask_expert"
-            app:layout_constraintBottom_toBottomOf="@+id/productItemName"
-            app:layout_constraintEnd_toEndOf="@+id/bannerProductDetail"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/productItemName"
-            app:layout_constraintTop_toTopOf="@+id/productItemName" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
-        <ImageView
-            android:id="@+id/ratingBarProductDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="@dimen/dp5"
-            android:src="@drawable/rating"
-            app:layout_constraintEnd_toEndOf="@+id/productItemName"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/productItemName"
-            app:layout_constraintTop_toBottomOf="@+id/productItemName" />
+            <RatingBar
+                android:id="@+id/ratingBarProductDetail"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/dp5" />
 
-        <TextView
-            android:id="@+id/tvShopDetailProductText"
-            android:layout_width="30dp"
-            android:layout_height="14dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/dp8"
-            android:text="4.5/5"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp12"
-            app:layout_constraintBottom_toBottomOf="@+id/ratingBarProductDetail"
-            app:layout_constraintStart_toEndOf="@+id/ratingBarProductDetail"
-            app:layout_constraintTop_toTopOf="@+id/ratingBarProductDetail" />
+
+            <TextView
+                android:id="@+id/tvShopDetailProductText"
+                android:layout_width="30dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp8"
+                android:layout_toRightOf="@+id/ratingBarProductDetail"
+                android:text="0/5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12"
+                app:layout_constraintBottom_toBottomOf="@+id/ratingBarProductDetail"
+                app:layout_constraintStart_toEndOf="@+id/ratingBarProductDetail"
+                app:layout_constraintTop_toTopOf="@+id/ratingBarProductDetail" />
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/tvDesc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginEnd="@dimen/dp16"
-            android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_edipscing_elit_sed_to_mode_tempor_incidedunt_ut_lebore_et_dolor_magna_aliqua_quis_ipsum_suspendisse"
-            android:textAlignment="viewStart"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp12"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/ratingBarProductDetail"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBarProductDetail" />
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/itemImageProductDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp16"
-            android:scaleType="centerCrop"
-            android:src="@drawable/green"
+             android:textAlignment="viewStart"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sp12" />
+
+        <RelativeLayout
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+
+            android:id="@+id/rl_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/tvDesc"
             app:layout_constraintStart_toStartOf="@+id/tvDesc"
-            app:layout_constraintTop_toBottomOf="@+id/tvDesc"
-            app:riv_corner_radius="@dimen/dp10" />
+            app:layout_constraintTop_toBottomOf="@+id/tvDesc">
 
-        <ImageView
-            android:id="@+id/dots"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/dots"
-            app:layout_constraintEnd_toEndOf="@+id/itemImageProductDetail"
-            app:layout_constraintStart_toStartOf="@+id/itemImageProductDetail"
-            app:layout_constraintTop_toBottomOf="@+id/itemImageProductDetail" />
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/itemImageProductDetail"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp16"
+                android:layout_marginEnd="@dimen/dp16"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder"
+
+                app:riv_corner_radius="@dimen/dp10" />
 
 
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:text="@string/price_hiphen"
-            android:textAlignment="viewStart"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/dots"
-            app:layout_constraintTop_toBottomOf="@+id/dots" />
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/indicator_product"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/itemImageProductDetail"
+                android:layout_gravity="center"
+                app:ci_drawable="@drawable/circleindicator_round"></me.relex.circleindicator.CircleIndicator>
 
-        <TextView
-            android:id="@+id/tvPriceInteger"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp5"
-            android:text="30.00€"
-            android:textAlignment="viewStart"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp18"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
-            app:layout_constraintEnd_toEndOf="@+id/itemImageProductDetail"
-            app:layout_constraintStart_toEndOf="@+id/tvPrice"
-            app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+            <!--
+                        <ImageView
+                            android:id="@+id/dots"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/dots"
+                            app:layout_constraintEnd_toEndOf="@+id/rl_view_pager"
+                            app:layout_constraintStart_toStartOf="@+id/rl_view_pager"
+                            app:layout_constraintTop_toBottomOf="@+id/rl_view_pager" />
+            -->
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:text="@string/price_hiphen"
+                android:textAlignment="viewStart"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:id="@+id/tvPriceInteger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp5"
+                android:layout_toRightOf="@+id/tvPrice"
+                android:text="0€"
+                android:textAlignment="viewStart"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/sp18"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
 
         <LinearLayout
             android:id="@+id/llPlusMinus"
@@ -261,7 +300,7 @@
 
         <LinearLayout
             android:id="@+id/spinnerLayout"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
             android:gravity="center"
@@ -291,6 +330,7 @@
                 <Spinner
                     android:id="@+id/sizeSpinImage"
                     android:layout_width="wrap_content"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp16"
                     android:background="@drawable/arrow_drop_down" />
@@ -321,6 +361,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp16"
+                    android:visibility="gone"
                     android:background="@drawable/arrow_drop_down_black" />
 
             </LinearLayout>
@@ -362,14 +403,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_50sdp"
-            android:layout_marginRight="@dimen/_50sdp"
             android:layout_marginTop="@dimen/sp20"
+            android:layout_marginRight="@dimen/_50sdp"
+            android:background="@drawable/bg_spinner"
+            android:fontFamily="@font/avenir_book"
             android:text="Add to Cart"
             android:textAllCaps="false"
-            android:fontFamily="@font/avenir_book"
             android:textColor="@color/white"
             android:textSize="17dp"
-            android:background="@drawable/bg_spinner"
             app:layout_constraintEnd_toEndOf="@+id/spinnerLayout"
             app:layout_constraintStart_toStartOf="@+id/spinnerLayout"
             app:layout_constraintTop_toBottomOf="@+id/spinnerLayout" />
@@ -386,6 +427,6 @@
             app:layout_constraintStart_toStartOf="@+id/btnBuyDeliver"
             app:layout_constraintTop_toBottomOf="@+id/btnBuyDeliver" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </ScrollView>

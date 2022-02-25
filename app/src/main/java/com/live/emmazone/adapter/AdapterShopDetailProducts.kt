@@ -1,6 +1,7 @@
 package com.live.emmazone.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnItemClick
+import com.live.emmazone.activities.main.ProductDetailActivity
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 
@@ -41,7 +43,10 @@ cellClickListener: OnItemClick
       //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 
         holder.itemView.setOnClickListener {
-            cellClickListener.onCellClickListener()
+           // cellClickListener.onCellClickListener()
+            val intent = Intent(mContext, ProductDetailActivity::class.java)
+            intent.putExtra("productId",list[position].id.toString())
+            mContext.startActivity(intent)
         }
     }
 

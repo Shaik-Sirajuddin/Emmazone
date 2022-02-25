@@ -21,6 +21,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+       Log.e("authKey","Bearer " + getPreference(AppConstants.AUTHORIZATION, ""))
+
         Handler(Looper.getMainLooper()).postDelayed({
             if (getPreference(AppConstants.IS_LOGIN, false)) {
 

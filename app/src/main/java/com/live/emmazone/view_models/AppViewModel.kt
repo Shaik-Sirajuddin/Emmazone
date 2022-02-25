@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.live.emmazone.R
 import com.live.emmazone.interfaces.OnPopupClick
+import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestApiInterface
 import com.live.emmazone.net.RestObservable
@@ -1211,6 +1212,41 @@ class AppViewModel : ViewModel() {
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
                         shopDetailApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun shopProductDetailApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.shopProductDetail(hashMap)
+                .enqueue(object : Callback<ShopProductDetailResponse> {
+                    override fun onResponse(
+                        call: Call<ShopProductDetailResponse>,
+                        response: Response<ShopProductDetailResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ShopProductDetailResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        shopProductDetailApi(activity, isDialogShow, hashMap)
                     }
                 })
         }

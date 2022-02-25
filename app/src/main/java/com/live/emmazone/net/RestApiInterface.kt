@@ -1,6 +1,7 @@
 package com.live.emmazone.net
 
 
+import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
@@ -158,6 +159,11 @@ interface RestApiInterface {
         @Part images: ArrayList<MultipartBody.Part>,
         @Part mainImage: MultipartBody.Part
     ): Call<AddProductResponse>
+
+
+    @FormUrlEncoded
+    @POST(AppConstants.PRODUCT_DETAIl)
+    fun shopProductDetail(@FieldMap hashMap: HashMap<String, String>): Call<ShopProductDetailResponse>
 
 
 }
