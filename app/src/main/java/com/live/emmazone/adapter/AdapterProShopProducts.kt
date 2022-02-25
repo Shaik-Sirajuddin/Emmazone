@@ -11,11 +11,12 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.FragmentProviderHome
 import com.live.emmazone.activities.provider.EditProductActivity
 import com.live.emmazone.model.sellerShopDetails.Product
+import com.live.emmazone.response_model.ShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProShopProducts(
     private val context: Context,
-    val list: ArrayList<Product>,
+    val list: ArrayList<ShopDetailResponse.Body.Product>,
     val fragmentProviderHome: FragmentProviderHome
 ) :
     RecyclerView.Adapter<AdapterProShopProducts.ViewHolder>() {

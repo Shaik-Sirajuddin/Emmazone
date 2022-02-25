@@ -14,11 +14,12 @@ import com.live.emmazone.activities.fragment.FragmentProviderAddProduct
 import com.live.emmazone.activities.provider.AddNewProductActivity
 import com.live.emmazone.activities.provider.EditProductActivity
 import com.live.emmazone.model.sellerShopDetails.Product
+import com.live.emmazone.response_model.ShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProviderShopDetailProducts(
     private val context: Context,
-    val list: ArrayList<Product>,
+    val list: ArrayList<ShopDetailResponse.Body.Product>,
     val fragmentProviderAddProduct: FragmentProviderAddProduct
 ) :
     RecyclerView.Adapter<AdapterProviderShopDetailProducts.ViewHolder>() {

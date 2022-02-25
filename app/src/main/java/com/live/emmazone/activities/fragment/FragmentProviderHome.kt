@@ -23,6 +23,7 @@ import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
+import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.ToastUtils
 import com.live.emmazone.view_models.AppViewModel
@@ -32,7 +33,7 @@ import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 class FragmentProviderHome  : Fragment(), Observer<RestObservable> {
     var productAdapter: AdapterProShopProducts?=null
     val list = ArrayList<Category>()
-    val listProSDProducts = ArrayList<Product>()
+    val listProSDProducts = ArrayList<ShopDetailResponse.Body.Product>()
     lateinit var adapter : AdapterShopDetailCategory
     lateinit var adapterProviderSDProducts : AdapterProShopProducts
     private val appViewModel: AppViewModel by viewModels()

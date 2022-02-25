@@ -60,13 +60,13 @@ class EditProductActivity : ImagePickerUtility() {
 
     private fun setData(productData: ShopDetailResponse.Body.Product) {
         for(i in 0 until productData.product_images.size){
-            imageList.add(productData?.product_images[i].image)
+            imageList.add(productData.product_images[i].image)
         }
-        binding.ivShop.loadImage(productData.image)
+        binding.ivShop.loadImage(productData.mainImage)
         binding.edtShopName.setText(productData.name)
         binding.edtDesc.setText(productData.description)
         binding.edtProductPrice.setText(productData.product_price)
-        binding.edtProductQ.setText(productData.product_quantity)
+        binding.edtProductQ.setText(productData.product_quantity.toString())
 
         setImageAdapter()
     }

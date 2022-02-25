@@ -36,7 +36,7 @@ cellClickListener: OnItemClick
         }
         holder.productItemNameSD.text = data.name
         holder.productItemPriceSD.text = data.product_price
-        holder.tvShopDetailProductBrandSD.text = data.brandName
+    //    holder.tvShopDetailProductBrandSD.text = data.p
         holder.tvShopDetailProductTextSD.text = data.description
       //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 

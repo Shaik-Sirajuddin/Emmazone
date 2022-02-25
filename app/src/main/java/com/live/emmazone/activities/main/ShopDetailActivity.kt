@@ -160,7 +160,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
         binding.tvDesc.text = response!!.body.shopDescription
         binding.tvShopFY.text = getString(R.string.since, "2022")
         binding.tvShopAddress.text = response!!.body.shopAddress
-        binding.tvWishListRatingText.text = response!!.body.ratings + "/" + "5"
+        binding.tvWishListRatingText.text = response!!.body.ratings.toString() + "/" + "5"
         binding.tvWishListDistance.text = response!!.body.distance.toString() + " " +
                 getString(R.string.miles_away)
 
