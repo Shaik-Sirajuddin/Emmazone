@@ -22,9 +22,9 @@
                 android:id="@+id/rivProduct"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/sqaure_dotted"
-                android:scaleType="centerCrop" />
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/ivAdd"

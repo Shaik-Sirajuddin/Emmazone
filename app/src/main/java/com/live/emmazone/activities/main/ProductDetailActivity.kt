@@ -24,17 +24,22 @@ import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.adapter.ImageSliderCustomeAdapter
 import com.live.emmazone.databinding.ActivityProductDetailBinding
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddressListResponse
+import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import java.util.*
+import kotlin.collections.HashMap
 
 
-class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable> {
+class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnPopupClick,
+    View.OnClickListener {
 
     lateinit var binding: ActivityProductDetailBinding
 
@@ -43,6 +48,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable> {
     private var tvOrderPersonName: TextView? = null
     private var tvOrderDeliveryAddress: TextView? = null
     private val appViewModel: AppViewModel by viewModels()
+    var qty=0
 
     var productId=""
     private val addressLauncher =
@@ -60,31 +66,16 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable> {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        qty= binding.tvCount.text.toString().toInt()
         if(intent.getStringExtra("productId")!=null){
             productId=intent.getStringExtra("productId")!!
-        }
-        binding.btnBuyDeliver.setOnClickListener { showBottomDialog() }
 
-        binding.btnClickCollect.setOnClickListener { showBottomDialog() }
-
-        binding.imageAskExpert.setOnClickListener {
-            if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
-                showLoginDialog()
-                return@setOnClickListener
-            }
-            val intent = Intent(this, Message::class.java)
-            startActivity(intent)
         }
 
-        binding.imageCart.setOnClickListener {
-            if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
-                showLoginDialog()
-                return@setOnClickListener
-            }
-            val intent = Intent(this, Cart::class.java)
-            startActivity(intent)
-        }
+        setOnClicks()
+
+
+
 
         binding.back.setOnClickListener {
             onBackPressed()
@@ -96,6 +87,23 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable> {
         appViewModel.shopProductDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
 
+
+    }
+
+    private fun setOnClicks() {
+        binding.ivPlus.setOnClickListener(this)
+        binding.btnBuyDeliver.setOnClickListener(this)
+        binding.btnClickCollect.setOnClickListener(this)
+        binding.imageAskExpert.setOnClickListener(this)
+        binding.btnClickCollect.setOnClickListener(this)
+
+    }
+
+    private fun addToCart() {
+        val hashMap= HashMap<String,String>()
+        hashMap["productId"]= productId
+        hashMap["qty"]=binding.tvCount.text.toString()
+        appViewModel.addToCart(this,true,hashMap)
 
     }
 
@@ -235,9 +243,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable> {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is ShopProductDetailResponse) {
-                   var  model = t.data.body
-
-
+                   val model = t.data.body
                     binding.productItemName.text=model.name
                     try {
                         binding.ratingBarProductDetail.rating=model.productReview.toFloat()
@@ -261,9 +267,50 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable> {
                     binding.tvPriceInteger.text="${model.product_price} €"
 
                 }
+                if(t.data is CommonResponse){
+                    AppUtils.showMsgOnlyWithClick(this,"Item add to cart successfully",this)
+                }
             }
         }
 
+    }
+
+    override fun onPopupClickListener() {
+        startActivity(Intent(this,Cart::class.java))
+
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id!!){
+            R.id.imageAskExpert ->{
+                if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
+                    showLoginDialog()
+                    return
+                }
+                val intent = Intent(this, Message::class.java)
+                startActivity(intent)
+            }
+            R.id.btnBuyDeliver ->{
+                if(qty>0){
+                    addToCart()
+                }else{
+                    AppUtils.showMsgOnlyWithoutClick(this,"Please select atleast one item")
+                }
+            }
+            R.id.btnClickCollect ->{
+                showBottomDialog()
+            }
+            R.id.ivPlus ->{
+                qty += 1
+            }
+            R.id.ivMinus ->{
+                if(qty>0){
+                    qty -= 1
+                }
+
+            }
+
+        }
     }
 
 }

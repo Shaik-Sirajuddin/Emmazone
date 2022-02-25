@@ -14,9 +14,6 @@ import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
 import com.live.emmazone.databinding.FragmentAddProductProviderBinding
-import com.live.emmazone.model.sellerShopDetails.Category
-import com.live.emmazone.model.sellerShopDetails.Product
-import com.live.emmazone.model.sellerShopDetails.ProductImage
 import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status

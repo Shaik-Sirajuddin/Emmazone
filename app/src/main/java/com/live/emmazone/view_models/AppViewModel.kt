@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.live.emmazone.R
 import com.live.emmazone.interfaces.OnPopupClick
+import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestApiInterface
@@ -1251,6 +1252,116 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
+
+    fun addToCart(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addCartItems(hashMap)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addToCart(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+
+    fun cartListing(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.cartItemListing()
+                .enqueue(object : Callback<CartResponsModel> {
+                    override fun onResponse(
+                        call: Call<CartResponsModel>,
+                        response: Response<CartResponsModel>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CartResponsModel>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        cartListing(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+
+
+    fun deleteCartItem(activity: Activity, isDialogShow: Boolean,id:String) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.deleteCartItem(id)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        deleteCartItem(activity, isDialogShow,id)
+                    }
+                })
+        }
+    }
+
+
 
 
     fun faqListApi(activity: Activity, isDialogShow: Boolean) {

@@ -273,6 +273,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingBottom="16dp"
+            android:nestedScrollingEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProducts"
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailProducts"

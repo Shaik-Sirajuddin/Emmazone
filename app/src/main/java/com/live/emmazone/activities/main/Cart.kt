@@ -4,12 +4,15 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -18,21 +21,31 @@ import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.adapter.AdapterCart
 import com.live.emmazone.adapter.AdapterShopDetailProducts
+import com.live.emmazone.adapter.ImageSliderCustomeAdapter
 import com.live.emmazone.databinding.ActivityCartBinding
+import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.model.ModelCart
 import com.live.emmazone.model.ModelShopDetailProducts
+import com.live.emmazone.model.ShopProductDetailResponse
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.DateHelper
+import com.live.emmazone.view_models.AppViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Cart : AppCompatActivity(), OnItemClick {
+class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
     lateinit var binding: ActivityCartBinding
     lateinit var adapter: AdapterCart
-    val list = ArrayList<ModelCart>()
+    val list = ArrayList<CartResponsModel.Body.CartItem>()
     val listMayLike = ArrayList<ShopDetailResponse.Body.Product>()
     private var selectedDate: Date? = null
     var tvDeliveryDate: TextView? = null
+    var adapterPosition=0
+    private val appViewModel: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,43 +56,23 @@ class Cart : AppCompatActivity(), OnItemClick {
             onBackPressed()
         }
 
+        getCartListing()
+
         binding.btnBuyNow.setOnClickListener { showBottomDialog() }
 
         binding.recyclerCart.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerCartMayLike.layoutManager = GridLayoutManager(this, 2)
 
-        list.add(
-            ModelCart(
-                R.drawable.shoes2, R.drawable.bin, "Brend Shoes",
-                "30.00€"
-            )
-        )
-        list.add(
-            ModelCart(
-                R.drawable.shoes2, R.drawable.bin, "Brend Shoes",
-                "30.00€"
-            )
-        )
+        adapter= AdapterCart(this,list,this)
+        binding.recyclerCart.adapter = adapter
 
-        binding.recyclerCart.adapter = AdapterCart(list)
-
-     /*   listMayLike.add(
-            ModelShopDetailProducts(
-                R.drawable.shoe_bernd, "Bernd", "30.00€",
-                "Lorem ipsum dolor",
-                "4.8", "Delivery estimate 4-5 days"
-            )
-        )
-
-        listMayLike.add(
-            ModelShopDetailProducts(
-                R.drawable.shoes2, "Matrix", "30.00€",
-                "Lorem ipsum dolor",
-                "4.8", "Delivery estimate 4-5 days"
-            )
-        )*/
         binding.recyclerCartMayLike.adapter = AdapterShopDetailProducts(this,listMayLike, this)
+    }
+
+    private fun getCartListing() {
+        appViewModel.cartListing(this,true)
+        appViewModel.getResponse().observe(this,this)
     }
 
     override fun onCellClickListener() {
@@ -192,6 +185,43 @@ class Cart : AppCompatActivity(), OnItemClick {
         )
         mTimePicker.setTitle("Select Time")
         mTimePicker.show()
+    }
+
+    override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if(t.data is CartResponsModel){
+                    t.data.body.apply {
+                        binding.tvSubTotalPrice.text= this.subTotal.toDouble().toString()
+                        binding.tvDeliveryChargesPrice.text= this.deliveryCharge.toDouble().toString()
+                        binding.tvTaxPrice.text= this.tax.toString() + "%"
+                        binding.tvTotalPrice.text= this.total.toDouble().toString()
+                        list.addAll(t.data.body.cartItems)
+                        adapter.notifyDataSetChanged()
+
+                        /*for(i in 0 until this.youMayLikeProducts.size){
+                            youMayLikeProducts[i].apply {
+                                listMayLike.add(ShopDetailResponse.Body.Product(this.category,
+                                this.categoryColorId,this.categoryId,this.categorySizeId,
+                                this.created,this.createdAt,this.description,this.id,this.mainImage,
+                                this.name,this.productColor,))
+                            }
+
+                        }*/
+                    }
+
+
+                }else if(t.data is CommonResponse){
+                    list.removeAt(adapterPosition)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+        }
+    }
+
+    fun deleteCartItem(position:Int,id:String){
+        adapterPosition= position
+        appViewModel.deleteCartItem(this,true,id)
     }
 
 }

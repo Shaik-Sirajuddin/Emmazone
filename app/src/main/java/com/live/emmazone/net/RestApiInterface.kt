@@ -1,6 +1,8 @@
 package com.live.emmazone.net
 
 
+import com.google.android.gms.common.internal.service.Common
+import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.response_model.*
@@ -165,5 +167,19 @@ interface RestApiInterface {
     @POST(AppConstants.PRODUCT_DETAIl)
     fun shopProductDetail(@FieldMap hashMap: HashMap<String, String>): Call<ShopProductDetailResponse>
 
+
+    @FormUrlEncoded
+    @POST(AppConstants.ADD_CART_ITEMS)
+    fun addCartItems(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
+
+    @GET(AppConstants.CART_LISTING)
+    fun cartItemListing(): Call<CartResponsModel>
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = AppConstants.DELETE_CART_ITEM, hasBody = true)
+    fun deleteCartItem(
+        @Field("id") id: String
+    ): Call<CommonResponse>
 
 }

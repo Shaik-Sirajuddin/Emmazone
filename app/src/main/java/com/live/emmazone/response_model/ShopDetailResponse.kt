@@ -60,6 +60,17 @@ data class ShopDetailResponse(
                 val isMainImage: Int,
                 val product_id: Int
             ):Parcelable
+
+            @Parcelize
+            data class ProductColor(
+                val categoryColorId: Int,
+                val color: String,
+                val createdAt: String,
+                val id: Int,
+                val productId: Int,
+                val updatedAt: String
+            ):Parcelable
+
         }
         @Parcelize
         data class ShopCategory(

@@ -18,7 +18,6 @@ import com.live.emmazone.activities.provider.EditShopDetailActivity
 import com.live.emmazone.adapter.AdapterProShopProducts
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.model.sellerShopDetails.Category
-import com.live.emmazone.model.sellerShopDetails.Product
 import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status

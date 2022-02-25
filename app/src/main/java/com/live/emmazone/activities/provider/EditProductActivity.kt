@@ -110,13 +110,15 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private fun setData(productData: ShopDetailResponse.Body.Product) {
         mainImage= productData.mainImage
         id= productData.id.toString()
-        imageList= productData.product_images as ArrayList<ShopDetailResponse.Body.Product.ProductImage>
+        imageList.addAll(productData.product_images)
         binding.ivShop.loadImage(productData.mainImage)
         binding.edtShopName.setText(productData.name)
         binding.edtDesc.setText(productData.description)
         binding.edtProductPrice.setText(productData.product_price)
         binding.edtProductQ.setText(productData.product_quantity.toString())
         selectedCategoryId= productData.categoryId.toString()
+        selectedColorId= productData.categoryColorId.toString()
+        selectedSizeId= productData.categorySizeId.toString()
 
         getColorSizeApiHit()
 
@@ -276,6 +278,12 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         colorAdapter = ColorAdapter(colorList)
         binding.rvColor.adapter = colorAdapter
 
+        for(i in 0 until colorList.size){
+            if(selectedColorId==colorList[i].id.toString()){
+                colorList[i].isSelected=true
+            }
+        }
+
         colorAdapter.onClickListener = { pos ->
             colorList.forEachIndexed { index, body ->
 
@@ -296,6 +304,12 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private fun setSizeAdapter() {
         sizeAdapter = SizeAdapter(sizeList)
         binding.rvSize.adapter = sizeAdapter
+
+        for(i in 0 until sizeList.size){
+            if(selectedSizeId==sizeList[i].id.toString()){
+                sizeList[i].isSelected=true
+            }
+        }
 
 
         sizeAdapter.onClickListener = { pos ->

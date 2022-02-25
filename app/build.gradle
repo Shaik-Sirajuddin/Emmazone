@@ -98,7 +98,7 @@ dependencies {
 
     //stripe
     implementation 'com.stripe:stripe-android:14.5.0'
-    implementation 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'me.relex:circleindicator:2.1.6'
 
 
 
