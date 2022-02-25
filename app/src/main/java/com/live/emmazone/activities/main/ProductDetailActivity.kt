@@ -12,24 +12,29 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.LoginActivity
+import com.live.emmazone.adapter.ImageSliderCustomeAdapter
 import com.live.emmazone.databinding.ActivityProductDetailBinding
-import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.model.ShopProductDetailResponse
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddressListResponse
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.DateHelper
+import com.live.emmazone.view_models.AppViewModel
 import java.util.*
 
-class ProductDetailActivity : AppCompatActivity() {
+
+class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable> {
 
     lateinit var binding: ActivityProductDetailBinding
 
@@ -37,7 +42,9 @@ class ProductDetailActivity : AppCompatActivity() {
     private var tvDeliveryDate: TextView? = null
     private var tvOrderPersonName: TextView? = null
     private var tvOrderDeliveryAddress: TextView? = null
+    private val appViewModel: AppViewModel by viewModels()
 
+    var productId=""
     private val addressLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -54,6 +61,9 @@ class ProductDetailActivity : AppCompatActivity() {
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if(intent.getStringExtra("productId")!=null){
+            productId=intent.getStringExtra("productId")!!
+        }
         binding.btnBuyDeliver.setOnClickListener { showBottomDialog() }
 
         binding.btnClickCollect.setOnClickListener { showBottomDialog() }
@@ -79,6 +89,13 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.back.setOnClickListener {
             onBackPressed()
         }
+
+        val hashMap = HashMap<String, String>()
+        hashMap["id"] = productId!!
+
+        appViewModel.shopProductDetailApi(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+
 
     }
 
@@ -211,6 +228,41 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         dialog.show()
+
+    }
+
+    override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is ShopProductDetailResponse) {
+                   var  model = t.data.body
+
+
+                    binding.productItemName.text=model.name
+                    try {
+                        binding.ratingBarProductDetail.rating=model.productReview.toFloat()
+                    } catch (e: Exception) {
+                    }
+
+                    binding.tvShopDetailProductText.text="${binding.ratingBarProductDetail.rating}/5"
+                    binding.tvDesc.text=model.description
+                    binding.tvSize.text=model.product_size.size
+                    binding.tvColor.text=model.productColor.color
+
+                    binding.itemImageProductDetail.setAdapter(
+                        ImageSliderCustomeAdapter(
+                            this@ProductDetailActivity,
+                            model.product_images
+                        )
+                    )
+                    binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
+
+
+                    binding.tvPriceInteger.text="${model.product_price} €"
+
+                }
+            }
+        }
 
     }
 
