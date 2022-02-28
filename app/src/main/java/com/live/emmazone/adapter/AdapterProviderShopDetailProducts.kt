@@ -42,7 +42,7 @@ class AdapterProviderShopDetailProducts(
 
             holder.imageProductSD.loadImage(model.mainImage)
             holder.productItemNameSD.setText(model.name)
-            holder.productItemPriceSD.setText(model.product_price.toDouble().toInt().toString())
+            holder.productItemPriceSD.text = context.getString(R.string.euro_symblol,model.product_price.toDouble().toString())
             holder.tvShopDetailProductBrandSD.setText(model.description)
             holder.tvShopDetailProductText.setText(model.productReview)
             holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
@@ -51,14 +51,6 @@ class AdapterProviderShopDetailProducts(
 
 
 
-       /* holder.imageProductSD.setImageResource(model.imageProductShopDetail)
-        holder.imageEditSDProduct.setImageResource(model.imgEdit)
-        holder.imageDelete.setImageResource(model.imgDelete)
-        holder.productItemNameSD.setText(model.productItemName)
-        holder.productItemPriceSD.setText(model.productItemPrice+context.getString(R.string.euro_sign))
-        holder.tvShopDetailProductBrandSD.setText(model.tvShopDetailProductBrand)
-        holder.tvShopDetailProductText.setText(model.tvShopDetailProductText)
-        holder.tvSDDeliveryEstimateSD.setText(model.tvSDDeliveryEstimate)*/
 
         holder.itemView.setOnClickListener {
             if (position == 0) {

@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp8"
         app:cardCornerRadius="@dimen/dp8"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,14 +20,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutConst"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/bg_shop_detail_product"
             app:layout_constraintBottom_toBottomOf="@+id/cardView"
             app:layout_constraintEnd_toEndOf="@+id/cardView"
             app:layout_constraintStart_toStartOf="@+id/cardView"
             app:layout_constraintTop_toTopOf="@+id/cardView">
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageProductShopDetail"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp120"
@@ -35,7 +35,9 @@
                 android:src="@drawable/shoes2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius_top_left="10dp"
+                app:riv_corner_radius_top_right="10dp" />
 
             <TextView
                 android:id="@+id/productItemName"
@@ -63,30 +65,21 @@
                 app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
                 app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
 
-            <!--<ImageView
-                android:id="@+id/ratingBarShopDetailProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/rating"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/productItemName"
-                app:layout_constraintTop_toBottomOf="@+id/productItemName" />
--->
             <RatingBar
                 android:id="@+id/ratingBarShopDetailProduct"
                 style="?android:ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
-                app:layout_constraintEnd_toEndOf="@+id/productItemName"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/productItemName"
-                app:layout_constraintTop_toBottomOf="@+id/productItemName"
                 android:numStars="5"
                 android:progressTint="@color/yellow"
                 android:rating="0"
-                android:theme="@style/RatingBar" />
+                android:theme="@style/RatingBar"
+                app:layout_constraintEnd_toEndOf="@+id/productItemName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/productItemName"
+                app:layout_constraintTop_toBottomOf="@+id/productItemName" />
+
             <ImageView
                 android:id="@+id/imgEdit"
                 android:layout_width="wrap_content"
@@ -125,13 +118,16 @@
 
             <TextView
                 android:id="@+id/tvShopDetailProductBrand"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/lorem_ipsum_dolor"
+                android:layout_marginEnd="5dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="@string/app_name"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp10"
-                app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProductText"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/ratingBarShopDetailProduct"
                 app:layout_constraintTop_toBottomOf="@+id/ratingBarShopDetailProduct" />

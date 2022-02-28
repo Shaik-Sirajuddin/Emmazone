@@ -34,32 +34,28 @@ class FragmentProviderHome  : Fragment(), Observer<RestObservable> {
     val list = ArrayList<Category>()
     val listProSDProducts = ArrayList<ShopDetailResponse.Body.Product>()
     lateinit var adapter : AdapterShopDetailCategory
-    lateinit var adapterProviderSDProducts : AdapterProShopProducts
     private val appViewModel: AppViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-      val view : View = LayoutInflater.from(context).inflate(R.layout.fragment_provider_home, container, false)
+        return LayoutInflater.from(context).inflate(R.layout.fragment_provider_home, container, false)
+    }
 
-        val rv : RecyclerView = view.findViewById(R.id.recyclerProviderShopDetailCategory)
-        val rv1 : RecyclerView = view.findViewById(R.id.recyclerProviderSDProducts)
-        val imgEdit : ImageView = view.findViewById(R.id.image_editShop)
-        val imgNotify : ImageView = view.findViewById(R.id.imgNotify)
 
-        imgNotify.setOnClickListener {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requireView().imgNotify.setOnClickListener {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
 
 
-        imgEdit.setOnClickListener {
+        requireView().image_editShop.setOnClickListener {
             val intent = Intent(activity, EditShopDetailActivity::class.java)
             startActivity(intent)
         }
 
-        rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        rv1.layoutManager = GridLayoutManager(context, 2)
         getSellerShopDetails()
-        return view
     }
 
     fun getSellerShopDetails(){

@@ -16,9 +16,9 @@ import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 
 
-class AdapterShopDetailProducts(val mContext:Context,private val list: ArrayList<ShopDetailResponse.Body.Product>, private val
-cellClickListener: OnItemClick
-) : RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
+class AdapterShopDetailProducts(val mContext:Context,private val list: ArrayList<ShopDetailResponse.Body.Product>,
+                                private val cellClickListener: OnItemClick) :
+    RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_shopdetail_products, parent, false)

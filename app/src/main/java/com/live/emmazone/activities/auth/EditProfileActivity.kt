@@ -70,9 +70,11 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding.edtEditEmail.setText(profileDetail!!.body.email)
         binding.ccp.setCountryForNameCode(profileDetail!!.body.countryCode)
         binding.edtMobile.setText(profileDetail!!.body.phone)
+        binding.ccp.registerCarrierNumberEditText(binding.edtMobile)
+        binding.ccp.fullNumber = profileDetail!!.body.countryCode+profileDetail!!.body.phone
     }
 
-    private fun AlertDialog() {
+    private fun alertDialog() {
 
         val alertDialog = AlertDialog.Builder(this)
         val factory = LayoutInflater.from(this)
@@ -122,7 +124,7 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
                 if (t.data is EditProfileResponse) {
                     val response: EditProfileResponse = t.data
                     setResult(RESULT_OK)
-                    AlertDialog()
+                    alertDialog()
 
                 }
 

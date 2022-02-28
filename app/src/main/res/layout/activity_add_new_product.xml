@@ -184,6 +184,7 @@
             android:layout_marginTop="@dimen/dp5"
             android:autofillHints="false"
             android:background="@drawable/login_bg"
+            android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLines="1"
             android:paddingStart="8dp"
@@ -211,6 +212,7 @@
             android:layout_marginTop="@dimen/dp16"
             android:autofillHints="false"
             android:background="@drawable/login_bg"
+            android:imeOptions="actionDone"
             android:inputType="numberDecimal"
             android:maxLines="1"
             android:paddingStart="8dp"
@@ -255,8 +257,8 @@
             android:text="@string/product_colour"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
-            android:visibility="gone"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/edtProductQ"
             app:layout_constraintTop_toBottomOf="@+id/rvCategories" />
 
@@ -280,8 +282,8 @@
             android:text="@string/product_size"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
-            android:visibility="gone"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/rvColor"
             app:layout_constraintTop_toBottomOf="@+id/rvColor" />
 

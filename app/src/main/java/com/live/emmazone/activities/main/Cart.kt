@@ -44,7 +44,7 @@ class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
     val listMayLike = ArrayList<ShopDetailResponse.Body.Product>()
     private var selectedDate: Date? = null
     var tvDeliveryDate: TextView? = null
-    var adapterPosition=0
+    var adapterPosition = 0
     private val appViewModel: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,15 +64,15 @@ class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerCartMayLike.layoutManager = GridLayoutManager(this, 2)
 
-        adapter= AdapterCart(this,list,this)
+        adapter = AdapterCart(this, list, this)
         binding.recyclerCart.adapter = adapter
 
-        binding.recyclerCartMayLike.adapter = AdapterShopDetailProducts(this,listMayLike, this)
+        binding.recyclerCartMayLike.adapter = AdapterShopDetailProducts(this, listMayLike, this)
     }
 
     private fun getCartListing() {
-        appViewModel.cartListing(this,true)
-        appViewModel.getResponse().observe(this,this)
+        appViewModel.cartListing(this, true)
+        appViewModel.getResponse().observe(this, this)
     }
 
     override fun onCellClickListener() {
@@ -190,38 +190,41 @@ class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
-                if(t.data is CartResponsModel){
+                if (t.data is CartResponsModel) {
                     t.data.body.apply {
-                        binding.tvSubTotalPrice.text= this.subTotal.toDouble().toString()
-                        binding.tvDeliveryChargesPrice.text= this.deliveryCharge.toDouble().toString()
-                        binding.tvTaxPrice.text= this.tax.toString() + "%"
-                        binding.tvTotalPrice.text= this.total.toDouble().toString()
+                        binding.tvSubTotalPrice.text = this.subTotal.toDouble().toString()
+                        binding.tvDeliveryChargesPrice.text =
+                            this.deliveryCharge.toDouble().toString()
+                        binding.tvTaxPrice.text = this.tax.toString() + "%"
+                        binding.tvTotalPrice.text = this.total.toDouble().toString()
                         list.addAll(t.data.body.cartItems)
                         adapter.notifyDataSetChanged()
-
-                        /*for(i in 0 until this.youMayLikeProducts.size){
-                            youMayLikeProducts[i].apply {
-                                listMayLike.add(ShopDetailResponse.Body.Product(this.category,
-                                this.categoryColorId,this.categoryId,this.categorySizeId,
-                                this.created,this.createdAt,this.description,this.id,this.mainImage,
-                                this.name,this.productColor,))
-                            }
-
-                        }*/
+                        noDataVisible()
                     }
 
 
-                }else if(t.data is CommonResponse){
+                } else if (t.data is CommonResponse) {
                     list.removeAt(adapterPosition)
                     adapter.notifyDataSetChanged()
+                    noDataVisible()
                 }
             }
         }
     }
 
-    fun deleteCartItem(position:Int,id:String){
-        adapterPosition= position
-        appViewModel.deleteCartItem(this,true,id)
+    fun deleteCartItem(position: Int, id: String) {
+        adapterPosition = position
+        appViewModel.deleteCartItem(this, true, id)
+    }
+
+    private fun noDataVisible() {
+        if (list.isEmpty()) {
+            binding.tvNoData.visibility = View.VISIBLE
+            binding.clData.visibility = View.GONE
+        } else {
+            binding.tvNoData.visibility = View.GONE
+            binding.clData.visibility = View.VISIBLE
+        }
     }
 
 }

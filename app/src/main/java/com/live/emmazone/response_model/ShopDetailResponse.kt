@@ -10,7 +10,7 @@ data class ShopDetailResponse(
     val code: Int,
     val message: String,
     val success: Boolean
-):Parcelable {
+) : Parcelable {
     @Parcelize
     data class Body(
         val id: Int,
@@ -25,9 +25,9 @@ data class ShopDetailResponse(
         val userId: Int,
         val year: Int,
         var distance: Int,
-        var ratings:String,
-        var isLiked:Int
-    ):Parcelable {
+        var ratings: String,
+        var isLiked: Int
+    ) : Parcelable {
         @Parcelize
         data class Product(
             val category: Category,
@@ -47,19 +47,20 @@ data class ShopDetailResponse(
             val product_quantity: Int,
             val status: Int,
             val userId: Int
-        ):Parcelable {
+        ) : Parcelable {
             @Parcelize
             data class Category(
                 val image: String,
                 val name: String
-            ):Parcelable
+            ) : Parcelable
+
             @Parcelize
             data class ProductImage(
                 val id: Int,
                 val image: String,
                 val isMainImage: Int,
                 val product_id: Int
-            ):Parcelable
+            ) : Parcelable
 
             @Parcelize
             data class ProductColor(
@@ -69,9 +70,10 @@ data class ShopDetailResponse(
                 val id: Int,
                 val productId: Int,
                 val updatedAt: String
-            ):Parcelable
+            ) : Parcelable
 
         }
+
         @Parcelize
         data class ShopCategory(
             val categoryId: Int,
@@ -82,6 +84,6 @@ data class ShopDetailResponse(
             val shopId: Int,
             val updatedAt: String,
             val vendorDetailId: Int
-        ):Parcelable
+        ) : Parcelable
     }
 }

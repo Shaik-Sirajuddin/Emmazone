@@ -95,15 +95,16 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
 
     fun highlightSwitchListener() {
-        binding.switchHighlight.setOnCheckedChangeListener({ buttonView, isChecked ->
+        binding.switchHighlight.setOnCheckedChangeListener { buttonView, isChecked ->
             // do something, the isChecked will be
             // true if the switch is in the On position
+
             if (isChecked) {
                 highlightValue = 1
             } else {
                 highlightValue = 0
             }
-        })
+        }
     }
 
 
@@ -117,6 +118,8 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 if (pos == index) {
                     body.isSelected = true
                     selectedCategoryId = body.id.toString()
+                    selectedColorId = ""
+                    selectedSizeId = ""
                     getColorSizeApiHit()
                 } else {
                     body.isSelected = false
@@ -225,6 +228,13 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         if (Validator.addProductValidation(productName, description, productPrice, productQuantity, selectedCategoryId,
                 selectedColorId, selectedSizeId,imageList,mainImagePath)
         ) {
+            val image: ArrayList<MultipartBody.Part> = ArrayList()
+            if (imageList.isNotEmpty()) {
+                imageList.forEach {
+                    image.add(prepareMultiPart("image", File(it.image)))
+                }
+            }
+
             val hashMap = HashMap<String, RequestBody>()
             hashMap["product_name"] = toBody(productName)
             hashMap["price"] = toBody(productPrice)
@@ -236,12 +246,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["product_highlight"] = toBody(highlightValue.toString())
             val mainImage = prepareMultiPart("mainImage", File(mainImagePath))
 
-            val image: ArrayList<MultipartBody.Part> = ArrayList()
-            if (imageList.isNotEmpty()) {
-                imageList.forEach {
-                    image.add(prepareMultiPart("image", File(it.image)))
-                }
-            }
+
 
             appViewModel.addProductApi(this, true, hashMap, image,mainImage)
             appViewModel.getResponse().observe(this, this)

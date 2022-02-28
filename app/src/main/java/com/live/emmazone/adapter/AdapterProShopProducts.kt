@@ -31,7 +31,7 @@ class AdapterProShopProducts(
         val ModelProShopDetailProducts = list[position]
         holder.imageProductSD.loadImage(ModelProShopDetailProducts.mainImage)
         holder.productItemNameSD.setText(ModelProShopDetailProducts.name)
-        holder.productItemPriceSD.setText(ModelProShopDetailProducts.product_price.toDouble().toInt().toString())
+        holder.productItemPriceSD.text =context.getString(R.string.euro_symblol, ModelProShopDetailProducts.product_price.toDouble().toString())
         holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.description)
         holder.tvShopDetailProductText.setText(ModelProShopDetailProducts.productReview)
         holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
