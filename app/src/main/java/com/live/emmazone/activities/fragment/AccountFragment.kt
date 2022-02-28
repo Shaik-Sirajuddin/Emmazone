@@ -144,7 +144,10 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
                     val response: ProfileResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
-                        binding.pickImage.loadImage(AppConstants.IMAGE_USER_URL + response.body.image)
+
+                        val firstLetter = response.body.username.subSequence(0,1)
+                        binding.profileText.text = firstLetter
+                        //   binding.pickImage.loadImage(AppConstants.IMAGE_USER_URL + response.body.image)
                         binding.tvName.text = response.body.username
                         binding.tvEmail.text = response.body.email
                         binding.tvPhone.text = response.body.countryCode + response.body.phone

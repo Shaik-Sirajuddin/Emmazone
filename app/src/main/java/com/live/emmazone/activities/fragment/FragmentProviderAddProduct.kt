@@ -54,6 +54,7 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
         }
 
         binding.checkBoxLife.setOnClickListener {
+
             isChecked = !isChecked
             binding.checkBoxLife.setImageResource(
                 if (isChecked)

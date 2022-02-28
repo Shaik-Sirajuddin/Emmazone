@@ -43,6 +43,7 @@
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/icon_app_background.xml" value="0.13802083333333334" />
         <entry key="app/src/main/res/drawable/my_orders_selector.xml" value="0.18055555555555555" />
+        <entry key="app/src/main/res/drawable/no_image_bg.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/drawable/notification_red_color.xml" value="0.23148148148148148" />
         <entry key="app/src/main/res/drawable/notification_selector.xml" value="0.2037037037037037" />
         <entry key="app/src/main/res/drawable/otp_verification_bg.xml" value="0.23425925925925925" />
