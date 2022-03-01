@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -145,17 +145,17 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp16"
-             android:textAlignment="viewStart"
+            android:textAlignment="viewStart"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp12" />
 
         <RelativeLayout
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-
             android:id="@+id/rl_view_pager"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             app:layout_constraintEnd_toEndOf="@+id/tvDesc"
             app:layout_constraintStart_toStartOf="@+id/tvDesc"
             app:layout_constraintTop_toBottomOf="@+id/tvDesc">
@@ -179,40 +179,27 @@
                 android:layout_height="48dp"
                 android:layout_below="@+id/itemImageProductDetail"
                 android:layout_gravity="center"
-                app:ci_drawable="@drawable/circleindicator_round"></me.relex.circleindicator.CircleIndicator>
-
-            <!--
-                        <ImageView
-                            android:id="@+id/dots"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:src="@drawable/dots"
-                            app:layout_constraintEnd_toEndOf="@+id/rl_view_pager"
-                            app:layout_constraintStart_toStartOf="@+id/rl_view_pager"
-                            app:layout_constraintTop_toBottomOf="@+id/rl_view_pager" />
-            -->
+                app:ci_drawable="@drawable/circleindicator_round" />
 
         </RelativeLayout>
-
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="@dimen/dp8"
+                android:layout_marginEnd="15dp"
                 android:text="@string/price_hiphen"
                 android:textAlignment="viewStart"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp15"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvPriceInteger"
@@ -241,46 +228,61 @@
             app:layout_constraintTop_toBottomOf="@+id/tvPrice">
 
             <LinearLayout
-                android:id="@+id/plusMinusLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="@dimen/dp16"
-                android:layout_marginTop="@dimen/dp8"
-                android:layout_marginEnd="@dimen/dp16"
-                android:background="@drawable/bg_black_corner_white_solid"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/dp10"
-                android:paddingTop="@dimen/dp5"
-                android:paddingRight="@dimen/dp10"
-                android:paddingBottom="@dimen/dp5">
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/ivMinus"
-                    android:layout_width="@dimen/dp25"
-                    android:layout_height="@dimen/dp25"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/minus_icon" />
+                <LinearLayout
+                    android:id="@+id/plusMinusLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp16"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:layout_marginEnd="@dimen/dp16"
+                    android:background="@drawable/bg_black_corner_white_solid"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingTop="@dimen/dp5"
+                    android:paddingRight="@dimen/dp10"
+                    android:paddingBottom="@dimen/dp5">
+
+                    <ImageView
+                        android:id="@+id/ivMinus"
+                        android:layout_width="@dimen/dp25"
+                        android:layout_height="@dimen/dp25"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/minus_icon" />
+
+                    <TextView
+                        android:id="@+id/tvCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp10"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
+
+
+                    <ImageView
+                        android:id="@+id/ivPlus"
+                        android:layout_width="@dimen/dp30"
+                        android:layout_height="@dimen/dp30"
+                        android:src="@drawable/plus_ico"
+                        app:tint="@color/black" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tvCount"
+                    android:id="@+id/tvQty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp10"
-                    android:layout_marginRight="@dimen/dp10"
-                    android:gravity="center"
-                    android:text="1"
+                    android:text="@string/of"
                     android:textColor="@color/black"
-                    android:textSize="15dp" />
-
-
-                <ImageView
-                    android:id="@+id/ivPlus"
-                    android:layout_width="@dimen/dp30"
-                    android:layout_height="@dimen/dp30"
-                    android:src="@drawable/plus_ico"
-                    app:tint="@color/black" />
+                    android:textSize="@dimen/sp15" />
 
             </LinearLayout>
 
@@ -327,14 +329,6 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp15" />
 
-                <Spinner
-                    android:id="@+id/sizeSpinImage"
-                    android:layout_width="wrap_content"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp16"
-                    android:background="@drawable/arrow_drop_down" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -356,47 +350,23 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp15" />
 
-                <Spinner
-                    android:id="@+id/colorSpinImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp16"
-                    android:visibility="gone"
-                    android:background="@drawable/arrow_drop_down_black" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/quantitySpinLayout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp50"
-                android:layout_margin="@dimen/dp5"
-                android:layout_weight="1"
-                android:background="@drawable/box"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/tvQuantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:gravity="center"
-                    android:text="Quantity"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp15" />
-
-                <Spinner
-                    android:id="@+id/quantitySpinImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp16"
-                    android:background="@drawable/arrow_drop_down_black" />
-
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvOutOfStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_marginEnd="@dimen/dp16"
+            android:text="@string/product_out_of_stock"
+            android:textAlignment="viewStart"
+            android:textColor="@color/red"
+            android:textSize="@dimen/sp15" />
+
+
 
         <android.widget.Button
             android:id="@+id/btnBuyDeliver"
@@ -410,23 +380,18 @@
             android:text="Add to Cart"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="17dp"
-            app:layout_constraintEnd_toEndOf="@+id/spinnerLayout"
-            app:layout_constraintStart_toStartOf="@+id/spinnerLayout"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerLayout" />
+            android:textSize="17dp" />
 
         <android.widget.Button
             android:id="@+id/btnClickCollect"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sp20"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_50sdp"
             android:layout_marginBottom="@dimen/dp10"
-            android:background="@drawable/click_collect"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/btnBuyDeliver"
-            app:layout_constraintStart_toStartOf="@+id/btnBuyDeliver"
-            app:layout_constraintTop_toBottomOf="@+id/btnBuyDeliver" />
+            android:background="@drawable/click_collect" />
 
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

@@ -144,13 +144,21 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
                     val response: ProfileResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
-
-                        val firstLetter = response.body.username.subSequence(0,1)
+                        val firstLetter = response.body.username.subSequence(0, 1)
                         binding.profileText.text = firstLetter
-                        //   binding.pickImage.loadImage(AppConstants.IMAGE_USER_URL + response.body.image)
                         binding.tvName.text = response.body.username
                         binding.tvEmail.text = response.body.email
                         binding.tvPhone.text = response.body.countryCode + response.body.phone
+
+                        if (!response.body.image.isNullOrEmpty()) {
+                            binding.pickImage.visibility = View.VISIBLE
+                            binding.rlProfile.visibility = View.GONE
+                            binding.pickImage.loadImage(AppConstants.IMAGE_USER_URL + response.body.image)
+                        } else {
+                            binding.pickImage.visibility = View.GONE
+                            binding.rlProfile.visibility = View.VISIBLE
+                        }
+
                     }
 
 

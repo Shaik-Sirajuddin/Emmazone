@@ -121,22 +121,26 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
         }
     }
 
-    fun getSellerShopDetails(){
+    fun getSellerShopDetails() {
         appViewModel.sellerShopDetailsApi(requireActivity(), true)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
-    var productAdapter: AdapterProviderShopDetailProducts?=null
 
-     fun setDetailData(response: SellerShopDetailsResponse) {
-         val category = ShopDetailResponse.Body.Product.Category("", "")
-         val product_images: List<ShopDetailResponse.Body.Product.ProductImage> = ArrayList()
-         list.clear()
-         list.add(ShopDetailResponse.Body.Product(category,0,0,0,0,"","",0,"","","",0,
-            product_images,""
-             ,0,0,0))
-         list.addAll(response.body.products)
-         productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)
-         binding.rvAdProductProvider.adapter = productAdapter
+    var productAdapter: AdapterProviderShopDetailProducts? = null
+
+    fun setDetailData(response: SellerShopDetailsResponse) {
+        val category = ShopDetailResponse.Body.Product.Category("", "")
+        val product_images: List<ShopDetailResponse.Body.Product.ProductImage> = ArrayList()
+        list.clear()
+        list.add(
+            ShopDetailResponse.Body.Product(
+                category, 0, 0, 0, 0, "", "", 0, "", "", "", 0,
+                product_images, "", 0, 0, 0, ""
+            )
+        )
+        list.addAll(response.body.products)
+        productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)
+        binding.rvAdProductProvider.adapter = productAdapter
 
     }
 

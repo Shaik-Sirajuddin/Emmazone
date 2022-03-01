@@ -78,6 +78,32 @@
             app:riv_oval="true"
             app:riv_tile_mode="clamp" />
 
+
+        <RelativeLayout
+            android:id="@+id/rlProfile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/no_image_bg"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutMain"
+            app:layout_constraintEnd_toEndOf="@+id/layoutMain"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toBottomOf="@+id/layoutMain">
+
+            <TextView
+                android:id="@+id/profile_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text=""
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
         <LinearLayout
             android:id="@+id/profileAccountLayout"
             android:layout_width="match_parent"

@@ -60,7 +60,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private lateinit var imageAdapter: ImageAdapter
     private val imageList = ArrayList<ShopDetailResponse.Body.Product.ProductImage>()
     private var mainImagePath = ""
-    var mainImage=""
+    var mainImage = ""
     private var imageslist: ArrayList<File> = ArrayList()
 
 
@@ -71,7 +71,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 mainImagePath = imagePath
                 binding.ivShop.loadImage(imagePath)
             } else {
-                imageList.add(ShopDetailResponse.Body.Product.ProductImage(0,imagePath,0,0))
+                imageList.add(ShopDetailResponse.Body.Product.ProductImage(0, imagePath, 0, 0))
                 imageAdapter.notifyDataSetChanged()
             }
         }
@@ -192,10 +192,11 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             getImage(1, false)
         }
 
-        imageAdapter.onDeleteImage={pos: Int, data: ShopDetailResponse.Body.Product.ProductImage ->
-            imageList.removeAt(pos)
-            imageAdapter.notifyDataSetChanged()
-        }
+        imageAdapter.onDeleteImage =
+            { pos: Int, data: ShopDetailResponse.Body.Product.ProductImage ->
+                imageList.removeAt(pos)
+                imageAdapter.notifyDataSetChanged()
+            }
     }
 
     private fun initListener() {
@@ -221,12 +222,23 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     private fun validateAddProduct() {
         val productName = binding.edtShopName.text.toString().trim()
+        val shotDesc = binding.edtShotDesc.text.toString().trim()
         val description = binding.edtDesc.text.toString().trim()
         val productPrice = binding.edtProductPrice.text.toString().trim()
         val productQuantity = binding.edtProductQ.text.toString().trim()
 
-        if (Validator.addProductValidation(productName, description, productPrice, productQuantity, selectedCategoryId,
-                selectedColorId, selectedSizeId,imageList,mainImagePath)
+        if (Validator.addProductValidation(
+                productName,
+                shotDesc,
+                description,
+                productPrice,
+                productQuantity,
+                selectedCategoryId,
+                selectedColorId,
+                selectedSizeId,
+                imageList,
+                mainImagePath
+            )
         ) {
             val image: ArrayList<MultipartBody.Part> = ArrayList()
             if (imageList.isNotEmpty()) {
@@ -239,6 +251,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["product_name"] = toBody(productName)
             hashMap["price"] = toBody(productPrice)
             hashMap["product_quantity"] = toBody(productQuantity)
+            hashMap["shortDescription"] = toBody(shotDesc)
             hashMap["description"] = toBody(description)
             hashMap["categoryId"] = toBody(selectedCategoryId)
             hashMap["colorId"] = toBody(selectedColorId)
@@ -248,9 +261,9 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
 
 
-            appViewModel.addProductApi(this, true, hashMap, image,mainImage)
+            appViewModel.addProductApi(this, true, hashMap, image, mainImage)
             appViewModel.getResponse().observe(this, this)
-        }else {
+        } else {
             AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
         }
     }
@@ -364,14 +377,14 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                         colorList.addAll(response.body.categoryColors)
                         sizeList.addAll(response.body.categorySizes)
 
-                        if(colorList.size>0){
+                        if (colorList.size > 0) {
                             binding.tvProColor.visibility = View.VISIBLE
-                        }else{
+                        } else {
                             binding.tvProColor.visibility = View.GONE
                         }
-                        if(sizeList.size>0){
+                        if (sizeList.size > 0) {
                             binding.tvProdSize.visibility = View.VISIBLE
-                        }else{
+                        } else {
                             binding.tvProdSize.visibility = View.GONE
                         }
 

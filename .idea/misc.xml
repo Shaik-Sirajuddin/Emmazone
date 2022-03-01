@@ -31,14 +31,14 @@
         <entry key="app/src/main/res/drawable/bg_withdrawal.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/bottom_selector.xml" value="0.20925925925925926" />
         <entry key="app/src/main/res/drawable/bottom_selector_bg.xml" value="0.22407407407407406" />
-        <entry key="app/src/main/res/drawable/btn_bg_my_orders.xml" value="0.25333333333333335" />
+        <entry key="app/src/main/res/drawable/btn_bg_my_orders.xml" value="0.16" />
         <entry key="app/src/main/res/drawable/btn_withdraw.xml" value="0.2101851851851852" />
         <entry key="app/src/main/res/drawable/cart_text_bg.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/drawable/custom_radio_button.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/drawable/custom_radio_button_off.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/custom_radio_button_on.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/custom_switch.xml" value="0.25333333333333335" />
-        <entry key="app/src/main/res/drawable/dotted_stoke.xml" value="0.25729166666666664" />
+        <entry key="app/src/main/res/drawable/dotted_stoke.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/emmazone_background.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/icon_app_background.xml" value="0.13802083333333334" />

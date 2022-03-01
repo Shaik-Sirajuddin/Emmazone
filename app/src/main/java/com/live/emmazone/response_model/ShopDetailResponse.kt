@@ -38,15 +38,16 @@ data class ShopDetailResponse(
             val createdAt: String,
             val description: String,
             val id: Int,
-            val mainImage: String,
+            val mainImage: String?,
             val name: String,
-            val productReview: String,
+            val productReview: String?,
             val product_highlight: Int,
             val product_images: List<ProductImage>,
             val product_price: String,
             val product_quantity: Int,
             val status: Int,
-            val userId: Int
+            val userId: Int,
+            val shortDescription: String
         ) : Parcelable {
             @Parcelize
             data class Category(

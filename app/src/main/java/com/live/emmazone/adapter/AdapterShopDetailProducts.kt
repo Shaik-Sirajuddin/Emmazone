@@ -16,36 +16,38 @@ import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 
 
-class AdapterShopDetailProducts(val mContext:Context,private val list: ArrayList<ShopDetailResponse.Body.Product>,
-                                private val cellClickListener: OnItemClick) :
+class AdapterShopDetailProducts(
+    val mContext: Context, private val list: ArrayList<ShopDetailResponse.Body.Product>,
+    private val cellClickListener: OnItemClick
+) :
     RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_shopdetail_products, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_shopdetail_products, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-      val data = list[position]
-        if(data.product_images.isNotEmpty()){
-            Glide.with(mContext).load(AppConstants.PRODUCT_IMAGE_URL+data.product_images[0].image).
-            placeholder(R.drawable.placeholder).into(holder.imageProductSD)
+        val data = list[position]
+        if (data.product_images.isNotEmpty()) {
+            Glide.with(mContext).load(AppConstants.PRODUCT_IMAGE_URL + data.product_images[0].image)
+                .placeholder(R.drawable.placeholder).into(holder.imageProductSD)
 
-        }else{
+        } else {
             holder.imageProductSD.setImageResource(R.drawable.placeholder)
 
         }
         holder.productItemNameSD.text = data.name
         holder.productItemPriceSD.text = data.product_price
-    //    holder.tvShopDetailProductBrandSD.text = data.p
-        holder.tvShopDetailProductTextSD.text = data.description
-      //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
+        holder.tvShopDetailProductBrandSD.text = data.shortDescription
+        //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 
         holder.itemView.setOnClickListener {
-           // cellClickListener.onCellClickListener()
+            // cellClickListener.onCellClickListener()
             val intent = Intent(mContext, ProductDetailActivity::class.java)
-            intent.putExtra("productId",list[position].id.toString())
+            intent.putExtra("productId", list[position].id.toString())
             mContext.startActivity(intent)
         }
     }
@@ -56,12 +58,14 @@ class AdapterShopDetailProducts(val mContext:Context,private val list: ArrayList
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val imageProductSD : ImageView = itemView.findViewById(R.id.imageProductShopDetail)
+        val imageProductSD: ImageView = itemView.findViewById(R.id.imageProductShopDetail)
         val productItemNameSD = itemView.findViewById<TextView>(R.id.productItemName)
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
-        val tvShopDetailProductBrandSD= itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
-        val tvShopDetailProductTextSD= itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
-        val tvSDDeliveryEstimateSD= itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
+        val tvShopDetailProductBrandSD =
+            itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
+        val tvShopDetailProductTextSD =
+            itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
+        val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
 
     }
 }

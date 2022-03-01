@@ -34,7 +34,7 @@ data class ProfileResponse(
         @SerializedName("id")
         var id: Int, // 183
         @SerializedName("image")
-        var image: String, // 3881d5d5-425f-4b98-a87d-83ee255b1b15.jpg
+        var image: String?, // 3881d5d5-425f-4b98-a87d-83ee255b1b15.jpg
         @SerializedName("isAt")
         var isAt: Int, // 1641274740
         @SerializedName("isVerified")

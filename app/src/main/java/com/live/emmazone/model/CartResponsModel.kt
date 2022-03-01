@@ -24,7 +24,7 @@ data class CartResponsModel(
             val id: Int,
             val product: Product,
             val productId: Int,
-            val qty: Int,
+            var qty: Int,
             val totalQtyPriceForThisProduct: Int,
             val updated: Int,
             val updatedAt: String,
