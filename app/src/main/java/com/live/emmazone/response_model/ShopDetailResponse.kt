@@ -47,7 +47,7 @@ data class ShopDetailResponse(
             val product_quantity: Int,
             val status: Int,
             val userId: Int,
-            val shortDescription: String
+            val shortDescription: String?
         ) : Parcelable {
             @Parcelize
             data class Category(
