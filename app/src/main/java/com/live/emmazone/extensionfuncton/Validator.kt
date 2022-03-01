@@ -12,14 +12,14 @@ object Validator {
     var errorMessage = ""
 
     fun signUpValidation(
-        image: String, name: String, email: String, mobileNo: String,
+       name: String, email: String, mobileNo: String,
         password: String, confirmPass: String, termsCondition: Boolean
     ): Boolean {
 
-        return if (TextUtils.isEmpty(image)) {
+        return /*if (TextUtils.isEmpty(image)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_image)
             false
-        } else if (TextUtils.isEmpty(name)) {
+        } else */if (TextUtils.isEmpty(name)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_name)
             false
         } else if (TextUtils.isEmpty(email)) {

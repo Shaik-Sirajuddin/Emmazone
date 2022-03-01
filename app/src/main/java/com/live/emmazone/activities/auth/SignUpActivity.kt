@@ -97,7 +97,6 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
         val image = prepareMultiPart("image", File(mImagePath))
 
         if (Validator.signUpValidation(
-                mImagePath,
                 name,
                 email,
                 mobileNo,

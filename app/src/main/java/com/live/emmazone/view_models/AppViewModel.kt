@@ -33,7 +33,7 @@ class AppViewModel : ViewModel() {
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>,
-        image: MultipartBody.Part
+        image: MultipartBody.Part?
     ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
