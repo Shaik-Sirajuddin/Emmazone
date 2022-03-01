@@ -1,11 +1,13 @@
 package com.live.emmazone.activities.fragment
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -29,15 +31,30 @@ import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
 import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 
-class FragmentProviderHome  : Fragment(), Observer<RestObservable> {
-    var productAdapter: AdapterProShopProducts?=null
+class FragmentProviderHome : Fragment(), Observer<RestObservable> {
+    var productAdapter: AdapterProShopProducts? = null
     val list = ArrayList<Category>()
     val listProSDProducts = ArrayList<ShopDetailResponse.Body.Product>()
-    lateinit var adapter : AdapterShopDetailCategory
+    lateinit var adapter: AdapterShopDetailCategory
     private val appViewModel: AppViewModel by viewModels()
+    private lateinit var response: SellerShopDetailsResponse
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_provider_home, container, false)
+
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                getSellerShopDetails()
+            }
+        }
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return LayoutInflater.from(context)
+            .inflate(R.layout.fragment_provider_home, container, false)
     }
 
 
@@ -52,13 +69,14 @@ class FragmentProviderHome  : Fragment(), Observer<RestObservable> {
 
         requireView().image_editShop.setOnClickListener {
             val intent = Intent(activity, EditShopDetailActivity::class.java)
-            startActivity(intent)
+            intent.putExtra(AppConstants.SHOP_DETAIL_RESPONSE, response)
+            launcher.launch(intent)
         }
 
         getSellerShopDetails()
     }
 
-    fun getSellerShopDetails(){
+    private fun getSellerShopDetails() {
         appViewModel.sellerShopDetailsApi(requireActivity(), true)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
@@ -67,7 +85,7 @@ class FragmentProviderHome  : Fragment(), Observer<RestObservable> {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is SellerShopDetailsResponse) {
-                    val response: SellerShopDetailsResponse = t.data
+                    response = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         setDetailData(response)
                     }
@@ -91,13 +109,14 @@ class FragmentProviderHome  : Fragment(), Observer<RestObservable> {
     }
 
     fun setDetailData(response: SellerShopDetailsResponse) {
-        if(response.body.image!=null){
+        if (response.body.image != null) {
             requireView().imageShopDetail.loadImage(response.body.image)
         }
         requireView().tvWishListStoreName.text = response.body.shopName
         requireView().tvDesc.text = response.body.shopDescription
         requireView().tvFYear.text = response.body.year.toString()
         requireView().tvShopAddress.text = response.body.shopAddress
+        requireView().tvHeartsCount.text = response.body.likesCount
         list.clear()
         listProSDProducts.clear()
         listProSDProducts.addAll(response.body.products)
@@ -107,6 +126,7 @@ class FragmentProviderHome  : Fragment(), Observer<RestObservable> {
         requireView().recyclerProviderShopDetailCategory.adapter = AdapterShopDetailCategory(list)
 
     }
+
     var pos = 0
     fun deleteProductAPIMethod(position: Int, productId: String) {
         pos = position

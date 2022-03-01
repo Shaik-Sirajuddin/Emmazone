@@ -17,5 +17,6 @@ data class Body(
     val shopAddress: String,
     val shopDescription: String,
     val shopName: String,
-    val userId: Int
+    val userId: Int,
+    val likesCount: String
 ):Parcelable

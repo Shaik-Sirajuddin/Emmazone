@@ -182,4 +182,11 @@ interface RestApiInterface {
         @Field("id") id: String
     ): Call<CommonResponse>
 
+    @Multipart
+    @POST(AppConstants.EDIT_SHOP_DETAIL)
+    fun editShopDetail(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+        @Part image: MultipartBody.Part
+    ): Call<EditShopDeatilResponse>
+
 }

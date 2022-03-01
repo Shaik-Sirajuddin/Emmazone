@@ -237,7 +237,7 @@
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/view"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 

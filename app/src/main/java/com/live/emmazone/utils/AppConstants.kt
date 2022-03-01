@@ -26,6 +26,7 @@ object AppConstants {
     const val SHOP_LISTING_RESPONSE = "shopListingResponse"
     const val Address_LIST_RESPONSE = "addressListResponse"
     const val WISH_LIST_RESPONSE = "wishListResponse"
+    const val SHOP_DETAIL_RESPONSE = "shopDetailResponse"
     const val SHOP_ID = "shopId"
 
 
@@ -73,6 +74,7 @@ object AppConstants {
     const val ADD_CART_ITEMS ="addCartItem"
     const val CART_LISTING ="cartItemsListing"
     const val DELETE_CART_ITEM ="deleteCartItem"
+    const val EDIT_SHOP_DETAIL ="edit_shop_details"
 
 
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fillViewport="true"
-    tools:context=".activities.provider.EditShopDetailActivity">
+    tools:context=".activities.provider.AddShopDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,8 +26,8 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="24dp"
-                android:padding="8dp"
                 android:layout_marginTop="36dp"
+                android:padding="8dp"
                 android:src="@drawable/arroww"
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
                 app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
@@ -44,7 +44,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/layoutConstraint"
                 app:layout_constraintEnd_toEndOf="@+id/layoutConstraint"
                 app:layout_constraintStart_toStartOf="@+id/layoutConstraint"
-                app:layout_constraintTop_toTopOf="@+id/layoutConstraint" />
+                app:layout_constraintTop_toTopOf="@+id/layoutConstraint"
+                app:layout_constraintVertical_bias="0.32" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,50 +60,14 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/layoutConstraint"
-            app:layout_constraintVertical_bias="0.16000003">
+            app:layout_constraintVertical_bias="0.17000002">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgEditShop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img9"
-                app:shapeAppearanceOverlay="@style/roundedImageView1" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="@dimen/dp40"
-                android:layout_height="@dimen/dp40"
-                android:layout_centerInParent="true"
-                android:contentDescription="@string/app_name"
-                app:srcCompat="@drawable/photo" />
-
-            <TextView
-                android:id="@+id/tvAddPic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imageView2"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="8dp"
-                android:text="@string/add_change"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp15" />
-
-            <TextView
-                android:id="@+id/tvAddImgVdo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvAddPic"
-                android:layout_centerInParent="true"
-                android:text="@string/images_videos"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp15" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_shop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/app_name"
+                android:adjustViewBounds="true"
+                android:background="@color/black"
                 android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/roundedImageView1" />
 
@@ -125,7 +90,7 @@
             android:layout_marginStart="@dimen/dp24"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/dp24"
-            android:text="Shop Name"
+            android:text="@string/shop_name"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
@@ -140,8 +105,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/login_bg"
-            android:hint="Berserka Store"
+            android:inputType="text"
             android:maxLines="1"
+            android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvShopName"
             app:layout_constraintStart_toStartOf="@+id/tvShopName"
             app:layout_constraintTop_toBottomOf="@+id/tvShopName" />
@@ -165,9 +131,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:background="@drawable/login_bg"
-            android:hint="1997"
+            android:clickable="false"
+            android:focusable="false"
+            android:imeOptions="actionDone"
             android:inputType="number"
+            android:longClickable="false"
             android:maxLines="1"
+            android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvYearFoundation"
             app:layout_constraintStart_toStartOf="@+id/tvYearFoundation"
             app:layout_constraintTop_toBottomOf="@+id/tvYearFoundation" />
@@ -177,7 +147,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp8"
-            android:text="Address"
+            android:text="@string/address"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
@@ -191,8 +161,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:background="@drawable/login_bg"
-            android:hint="Emma Marker"
+            android:clickable="false"
+            android:focusable="false"
+            android:inputType="text"
+            android:longClickable="false"
             android:maxLines="1"
+            android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvAddress"
             app:layout_constraintStart_toStartOf="@+id/tvAddress"
             app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
@@ -216,9 +190,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/login_bg"
-            android:hint="@string/lorem_ipsum_dolor_sit_amet_consectetur_edipscing_elit_sed_to_mode_tempor_incidedunt_ut_lebore_et_dolor_magna_aliqua_quis_ipsum_suspendisse"
-            android:maxLines="1"
-            android:paddingStart="@dimen/dp5"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:paddingStart="8dp"
             android:textColorHint="@color/black"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/tvDESC"
@@ -251,72 +225,32 @@
             app:srcCompat="@drawable/plus" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvEditShop"
+            android:id="@+id/rvCategories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"
-            app:layout_constraintBottom_toTopOf="@+id/tvCatName"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="@+id/imageAddCat"
             app:layout_constraintStart_toStartOf="@+id/tvCat"
             app:layout_constraintTop_toBottomOf="@+id/tvCat" />
 
-        <TextView
-            android:id="@+id/tvCatName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="@dimen/dp24"
-            android:text="@string/category_name"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp14"
-            app:layout_constraintStart_toStartOf="@+id/rvEditShop"
-            app:layout_constraintTop_toBottomOf="@+id/rvEditShop" />
-
-        <View
-            android:id="@+id/viewCatname"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tvCatName"
-            app:layout_constraintStart_toStartOf="@+id/tvCatName"
-            app:layout_constraintTop_toBottomOf="@+id/tvCatName" />
-
-        <TextView
-            android:id="@+id/tvAddImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="@string/add_image"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp14"
-            app:layout_constraintBottom_toBottomOf="@+id/tvCatName"
-            app:layout_constraintEnd_toEndOf="@+id/rvEditShop"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tvCatName"
-            app:layout_constraintTop_toTopOf="@+id/tvCatName" />
-
-        <View
-            android:id="@+id/viewAddImage"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tvAddImg"
-            app:layout_constraintStart_toStartOf="@+id/tvAddImg"
-            app:layout_constraintTop_toBottomOf="@+id/tvAddImg" />
 
         <android.widget.Button
             android:id="@+id/btnUpdate"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_24sdp"
             android:layout_marginTop="@dimen/dp32"
+            android:layout_marginEnd="@dimen/_24sdp"
             android:layout_marginBottom="@dimen/dp32"
             android:background="@drawable/update"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/viewAddImage"
-            app:layout_constraintStart_toStartOf="@+id/viewCatname"
-            app:layout_constraintTop_toBottomOf="@+id/viewCatname" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvCategories" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

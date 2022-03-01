@@ -319,4 +319,30 @@ object Validator {
         } else return true
 
     }
+
+    fun validateEditShop(
+        shopName: String,
+        shopYear: String,
+        address: String,
+        desc: String,
+        categories: String
+    ): Boolean {
+        return if (TextUtils.isEmpty(shopName)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_shop_name)
+            false
+        } else if (TextUtils.isEmpty(shopYear)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_shop_year)
+            false
+        } else if (TextUtils.isEmpty(address)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_address)
+            false
+        } else if (TextUtils.isEmpty(desc)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
+            false
+        } else if (TextUtils.isEmpty(categories)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_select_category)
+            false
+        } else return true
+    }
+
 }
