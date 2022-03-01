@@ -29,16 +29,24 @@ class AdapterProShopProducts(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ModelProShopDetailProducts = list[position]
-        holder.imageProductSD.loadImage(ModelProShopDetailProducts.mainImage)
+        ModelProShopDetailProducts.mainImage?.let { holder.imageProductSD.loadImage(it) }
         holder.productItemNameSD.setText(ModelProShopDetailProducts.name)
-        holder.productItemPriceSD.text =context.getString(R.string.euro_symblol, ModelProShopDetailProducts.product_price.toDouble().toString())
-        holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.description)
-        holder.tvShopDetailProductText.setText(ModelProShopDetailProducts.productReview)
+        holder.productItemPriceSD.text = context.getString(
+            R.string.euro_symblol,
+            ModelProShopDetailProducts.product_price.toDouble().toString()
+        )
+        holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.shortDescription)
+
         holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
-        holder.ratingBar.rating = ModelProShopDetailProducts.productReview.toFloat()
+
+        if (!ModelProShopDetailProducts.productReview.isNullOrEmpty()){
+            holder.tvShopDetailProductText.setText(ModelProShopDetailProducts.productReview)
+            holder.ratingBar.rating = ModelProShopDetailProducts.productReview.toFloat()
+        }
+
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
-            intent.putExtra("productData",ModelProShopDetailProducts)
+            intent.putExtra("productData", ModelProShopDetailProducts)
             holder.itemView.context.startActivity(intent)
         }
 
@@ -46,17 +54,24 @@ class AdapterProShopProducts(
             val dialog = Dialog(context)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(false)
-            dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+            dialog.window?.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
             dialog.setContentView(R.layout.dialog_delete_product)
             dialog.window?.setBackgroundDrawable(
-                ContextCompat.getDrawable(context, android.R.color.transparent))
+                ContextCompat.getDrawable(context, android.R.color.transparent)
+            )
 
             val yesBtn: Button = dialog.findViewById(R.id.btnCancelYes)
             val noBtn: Button = dialog.findViewById(R.id.btnCancelNo)
 
             yesBtn.setOnClickListener {
                 dialog.dismiss()
-                fragmentProviderHome.deleteProductAPIMethod(position,ModelProShopDetailProducts.id.toString())
+                fragmentProviderHome.deleteProductAPIMethod(
+                    position,
+                    ModelProShopDetailProducts.id.toString()
+                )
             }
 
             noBtn.setOnClickListener { dialog.dismiss() }
@@ -75,7 +90,8 @@ class AdapterProShopProducts(
         val imageDelete: ImageView = itemView.findViewById(R.id.imgDelete)
         val productItemNameSD = itemView.findViewById<TextView>(R.id.productItemName)
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
-        val tvShopDetailProductBrandSD = itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
+        val tvShopDetailProductBrandSD =
+            itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
         val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
         val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBarShopDetailProduct)

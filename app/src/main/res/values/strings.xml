@@ -248,6 +248,7 @@
     <string name="msg_enter_shop_name">Please enter shop name</string>
     <string name="msg_enter_shop_year">Please enter year of foundation</string>
     <string name="msg_enter_address">Please enter address</string>
+    <string name="msg_enter_shot_desc">Please enter shot description</string>
     <string name="msg_enter_description">Please enter description</string>
     <string name="msg_select_category">Please select atleast one category</string>
     <string name="error_pass_confrimpass_not_same">Password and confirm password must be same</string>
@@ -267,5 +268,9 @@
     <string name="since">Since %s</string>
     <string name="euro_symblol">%s €</string>
     <string name="no_items_in_shopping_cart">No items in shopping cart</string>
+    <string name="of">Of %s</string>
+    <string name="product_out_of_stock">This time product out of stock.</string>
+    <string name="shot_description">Shot Description</string>
+    <string name="only_25_characters">only 25 characters</string>
 
 </resources>

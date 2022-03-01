@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -21,17 +20,12 @@ import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.adapter.AdapterCart
 import com.live.emmazone.adapter.AdapterShopDetailProducts
-import com.live.emmazone.adapter.ImageSliderCustomeAdapter
 import com.live.emmazone.databinding.ActivityCartBinding
 import com.live.emmazone.model.CartResponsModel
-import com.live.emmazone.model.ModelCart
-import com.live.emmazone.model.ModelShopDetailProducts
-import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.ShopDetailResponse
-import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import java.util.*

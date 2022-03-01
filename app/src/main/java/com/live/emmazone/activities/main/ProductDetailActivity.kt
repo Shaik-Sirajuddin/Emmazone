@@ -48,9 +48,10 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private var tvOrderPersonName: TextView? = null
     private var tvOrderDeliveryAddress: TextView? = null
     private val appViewModel: AppViewModel by viewModels()
-    var qty=0
+    var qty = 0
+    var totalQty = 0
 
-    var productId=""
+    var productId = ""
     private val addressLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -66,9 +67,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        qty= binding.tvCount.text.toString().toInt()
-        if(intent.getStringExtra("productId")!=null){
-            productId=intent.getStringExtra("productId")!!
+        qty = binding.tvCount.text.toString().toInt()
+        if (intent.getStringExtra("productId") != null) {
+            productId = intent.getStringExtra("productId")!!
 
         }
 
@@ -92,6 +93,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     private fun setOnClicks() {
         binding.ivPlus.setOnClickListener(this)
+        binding.ivMinus.setOnClickListener(this)
         binding.btnBuyDeliver.setOnClickListener(this)
         binding.btnClickCollect.setOnClickListener(this)
         binding.imageAskExpert.setOnClickListener(this)
@@ -100,10 +102,10 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     }
 
     private fun addToCart() {
-        val hashMap= HashMap<String,String>()
-        hashMap["productId"]= productId
-        hashMap["qty"]=binding.tvCount.text.toString()
-        appViewModel.addToCart(this,true,hashMap)
+        val hashMap = HashMap<String, String>()
+        hashMap["productId"] = productId
+        hashMap["qty"] = binding.tvCount.text.toString()
+        appViewModel.addToCart(this, true, hashMap)
 
     }
 
@@ -243,17 +245,20 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is ShopProductDetailResponse) {
-                   val model = t.data.body
-                    binding.productItemName.text=model.name
+                    val model = t.data.body
+                    binding.productItemName.text = model.name
                     try {
-                        binding.ratingBarProductDetail.rating=model.productReview.toFloat()
+                        binding.ratingBarProductDetail.rating = model.productReview.toFloat()
                     } catch (e: Exception) {
                     }
 
-                    binding.tvShopDetailProductText.text="${binding.ratingBarProductDetail.rating}/5"
-                    binding.tvDesc.text=model.description
-                    binding.tvSize.text=model.product_size.size
-                    binding.tvColor.text=model.productColor.color
+                    binding.tvShopDetailProductText.text =
+                        "${binding.ratingBarProductDetail.rating}/5"
+                    binding.tvDesc.text = model.description
+                    binding.tvSize.text = model.product_size.size
+                    binding.tvColor.text = model.productColor.color
+                    binding.tvQty.text = getString(R.string.of,model.product_quantity.toString())
+                    totalQty = model.product_quantity
 
                     binding.itemImageProductDetail.setAdapter(
                         ImageSliderCustomeAdapter(
@@ -264,11 +269,21 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                     binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
 
 
-                    binding.tvPriceInteger.text="${model.product_price} €"
+                    binding.tvPriceInteger.text = "${model.product_price} €"
+
+                    if (model.product_quantity == 0){
+                        binding.tvOutOfStock.visibility = View.VISIBLE
+                        binding.btnBuyDeliver.visibility = View.GONE
+                        binding.btnClickCollect.visibility = View.GONE
+                    }else{
+                        binding.tvOutOfStock.visibility = View.GONE
+                        binding.btnBuyDeliver.visibility = View.VISIBLE
+                        binding.btnClickCollect.visibility = View.VISIBLE
+                    }
 
                 }
-                if(t.data is CommonResponse){
-                    AppUtils.showMsgOnlyWithClick(this,"Item add to cart successfully",this)
+                if (t.data is CommonResponse) {
+                    AppUtils.showMsgOnlyWithClick(this, "Item add to cart successfully", this)
                 }
             }
         }
@@ -276,13 +291,13 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     }
 
     override fun onPopupClickListener() {
-        startActivity(Intent(this,Cart::class.java))
+        startActivity(Intent(this, Cart::class.java))
 
     }
 
     override fun onClick(v: View?) {
-        when(v?.id!!){
-            R.id.imageAskExpert ->{
+        when (v?.id!!) {
+            R.id.imageAskExpert -> {
                 if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
                     showLoginDialog()
                     return
@@ -290,22 +305,26 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                 val intent = Intent(this, Message::class.java)
                 startActivity(intent)
             }
-            R.id.btnBuyDeliver ->{
-                if(qty>0){
+            R.id.btnBuyDeliver -> {
+                if (qty > 0) {
                     addToCart()
-                }else{
-                    AppUtils.showMsgOnlyWithoutClick(this,"Please select atleast one item")
+                } else {
+                    AppUtils.showMsgOnlyWithoutClick(this, "Please select atleast one item")
                 }
             }
-            R.id.btnClickCollect ->{
+            R.id.btnClickCollect -> {
                 showBottomDialog()
             }
-            R.id.ivPlus ->{
-                qty += 1
+            R.id.ivPlus -> {
+                if (qty < totalQty) {
+                    qty += 1
+                    binding.tvCount.text = qty.toString()
+                }
             }
-            R.id.ivMinus ->{
-                if(qty>0){
+            R.id.ivMinus -> {
+                if (qty > 1) {
                     qty -= 1
+                    binding.tvCount.text = qty.toString()
                 }
 
             }

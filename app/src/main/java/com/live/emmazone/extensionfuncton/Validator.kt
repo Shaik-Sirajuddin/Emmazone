@@ -218,10 +218,9 @@ object Validator {
     }
 
 
-
-
     fun addProductValidation(
         name: String,
+        shotDesc: String,
         desc: String,
         price: String,
         quantity: String,
@@ -229,18 +228,20 @@ object Validator {
         color: String,
         size: String,
         imageList: ArrayList<ShopDetailResponse.Body.Product.ProductImage>,
-        mainImagePath: String? =null
+        mainImagePath: String? = null
     ): Boolean {
 
         return if (mainImagePath?.isNullOrEmpty()!!) {
             errorMessage = "Please select main image"
             false
-        }
-        else if (imageList.size == 0) {
-            errorMessage = "Please select atleast one product image"
+        } else if (imageList.size == 0) {
+            errorMessage = "Please select atleast two product image"
             false
         } else if (TextUtils.isEmpty(name)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_product_name)
+            false
+        } else if (TextUtils.isEmpty(shotDesc)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_shot_desc)
             false
         } else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
@@ -312,7 +313,7 @@ object Validator {
         } else if (accNo != confirmAccNo) {
             errorMessage = AppController.instance!!.getString(R.string.msg_acc_no_not_match)
             false
-        }else if (TextUtils.isEmpty(name)) {
+        } else if (TextUtils.isEmpty(name)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_name)
             false
         } else return true

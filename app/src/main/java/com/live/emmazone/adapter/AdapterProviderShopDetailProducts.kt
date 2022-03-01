@@ -25,7 +25,8 @@ class AdapterProviderShopDetailProducts(
     RecyclerView.Adapter<AdapterProviderShopDetailProducts.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_provider_shopdetail_products, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_provider_shopdetail_products, parent, false)
         return ViewHolder(view)
     }
 
@@ -40,13 +41,18 @@ class AdapterProviderShopDetailProducts(
             holder.cardView.visibility = View.VISIBLE
             holder.layoutAddProduct.visibility = View.GONE
 
-            holder.imageProductSD.loadImage(model.mainImage)
+            model.mainImage?.let { holder.imageProductSD.loadImage(it) }
             holder.productItemNameSD.setText(model.name)
-            holder.productItemPriceSD.text = context.getString(R.string.euro_symblol,model.product_price.toDouble().toString())
-            holder.tvShopDetailProductBrandSD.setText(model.description)
-            holder.tvShopDetailProductText.setText(model.productReview)
+            holder.productItemPriceSD.text =
+                context.getString(R.string.euro_symblol, model.product_price.toDouble().toString())
+            holder.tvShopDetailProductBrandSD.setText(model.shortDescription)
+
             holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
-            holder.ratingBar.rating = model.productReview.toFloat()
+
+            if (!model.productReview.isNullOrEmpty()){
+                holder.ratingBar.rating = model.productReview.toFloat()
+                holder.tvShopDetailProductText.setText(model.productReview)
+            }
         }
 
 
@@ -61,7 +67,7 @@ class AdapterProviderShopDetailProducts(
 
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
-            intent.putExtra("productData",model)
+            intent.putExtra("productData", model)
             holder.itemView.context.startActivity(intent)
         }
 
@@ -84,7 +90,7 @@ class AdapterProviderShopDetailProducts(
 
             yesBtn.setOnClickListener {
                 dialog.dismiss()
-                fragmentProviderAddProduct.deleteProductAPIMethod(position,model.id.toString())
+                fragmentProviderAddProduct.deleteProductAPIMethod(position, model.id.toString())
 
             }
 
@@ -104,7 +110,8 @@ class AdapterProviderShopDetailProducts(
         val imageDelete: ImageView = itemView.findViewById(R.id.imgDelete)
         val productItemNameSD = itemView.findViewById<TextView>(R.id.productItemName)
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
-        val tvShopDetailProductBrandSD = itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
+        val tvShopDetailProductBrandSD =
+            itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
         val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
         val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBarShopDetailProduct)
