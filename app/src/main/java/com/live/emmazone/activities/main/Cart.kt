@@ -20,6 +20,7 @@ import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.adapter.AdapterCart
 import com.live.emmazone.adapter.AdapterShopDetailProducts
+import com.live.emmazone.adapter.YouMyLikeProductAdapter
 import com.live.emmazone.databinding.ActivityCartBinding
 import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.net.RestObservable
@@ -34,8 +35,9 @@ import kotlin.collections.ArrayList
 class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
     lateinit var binding: ActivityCartBinding
     lateinit var adapter: AdapterCart
+    lateinit var youMayLikeProductAdapter: YouMyLikeProductAdapter
     val list = ArrayList<CartResponsModel.Body.CartItem>()
-    val listMayLike = ArrayList<ShopDetailResponse.Body.Product>()
+    val listMayLike = ArrayList<CartResponsModel.Body.CartItem.Product>()
     private var selectedDate: Date? = null
     var tvDeliveryDate: TextView? = null
     var adapterPosition = 0
@@ -61,7 +63,8 @@ class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
         adapter = AdapterCart(this, list, this)
         binding.recyclerCart.adapter = adapter
 
-        binding.recyclerCartMayLike.adapter = AdapterShopDetailProducts(this, listMayLike, this)
+        youMayLikeProductAdapter=YouMyLikeProductAdapter(this, listMayLike, this)
+        binding.recyclerCartMayLike.adapter = youMayLikeProductAdapter
     }
 
     private fun getCartListing() {
@@ -193,6 +196,16 @@ class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
                         binding.tvTotalPrice.text = this.total.toDouble().toString()
                         list.addAll(t.data.body.cartItems)
                         adapter.notifyDataSetChanged()
+
+                        for(i in 0 until t.data.body.youMayLikeProducts.size){
+                            t.data.body.youMayLikeProducts[i].apply {
+                                listMayLike.add(CartResponsModel.Body.CartItem.Product(this.categoryColorId,this.categoryId,
+                                this.categorySizeId,this.created,this.createdAt,this.description,this.id,this.mainImage,
+                                this.name,this.productReview,this.product_highlight,this.product_price,this.product_quantity,
+                                this.status,this.userId,this.product_images))
+
+                            }
+                        }
                         noDataVisible()
                     }
 

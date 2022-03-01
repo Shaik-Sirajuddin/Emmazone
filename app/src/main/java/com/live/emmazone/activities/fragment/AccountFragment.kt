@@ -5,21 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.google.android.material.switchmaterial.SwitchMaterial
 import com.live.emmazone.R
 import com.live.emmazone.activities.FAQ
 import com.live.emmazone.activities.PrivacyPolicy
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.ChangePassword
 import com.live.emmazone.activities.auth.ProfileActivity
-import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.databinding.FragmentAccountBinding
@@ -32,7 +26,6 @@ import com.live.emmazone.response_model.ProfileResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
-import com.makeramen.roundedimageview.RoundedImageView
 import com.schunts.extensionfuncton.loadImage
 
 class AccountFragment : Fragment(), Observer<RestObservable> {
@@ -61,6 +54,10 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
 
     private fun clicksHandle() {
         binding.pickImage.setOnClickListener {
+            val intent = Intent(activity, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+        binding.rlProfile.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)
             startActivity(intent)
         }

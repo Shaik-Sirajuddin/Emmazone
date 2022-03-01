@@ -24,6 +24,7 @@ import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
 import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
@@ -94,7 +95,11 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
         val mobileNo = binding.edtMobile.text.toString().trim()
         val password = binding.edtPwd.text.toString().trim()
         val confirmPass = binding.edtConfirmPwd.text.toString().trim()
-        val image = prepareMultiPart("image", File(mImagePath))
+        var mainImage: MultipartBody.Part? = null
+        if (mImagePath.isNotEmpty()) {
+            mainImage = prepareMultiPart("image", File(mImagePath))
+        }
+
 
         if (Validator.signUpValidation(
                 name,
@@ -121,7 +126,7 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
             else
                 hashMap["type"] = toBody(3.toString())
 
-            appViewModel.signUpApi(this, true, hashMap, image)
+            appViewModel.signUpApi(this, true, hashMap, mainImage)
             appViewModel.getResponse().observe(this, this)
         } else AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
     }

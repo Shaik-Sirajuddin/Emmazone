@@ -1,5 +1,6 @@
 package com.live.emmazone.model
 
+import com.live.emmazone.model.sellerShopDetailNew.ProductImage
 import com.live.emmazone.response_model.ShopDetailResponse
 
 data class CartResponsModel(
@@ -45,12 +46,12 @@ data class CartResponsModel(
                 val product_price: String,
                 val product_quantity: Int,
                 val status: Int,
-                val userId: Int
+                val userId: Int,
+                val product_images: List<ProductImage>?=null
             )
         }
 
         data class YouMayLikeProducts(
-            val category: ShopDetailResponse.Body.Product.Category,
             val categoryColorId: Int,
             val categoryId: Int,
             val categorySizeId: Int,
@@ -60,33 +61,13 @@ data class CartResponsModel(
             val id: Int,
             val mainImage: String,
             val name: String,
-            val productColor: ProductColor,
             val productReview: String,
             val product_highlight: Int,
-            val product_images: List<ShopDetailResponse.Body.Product.ProductImage>,
             val product_price: String,
             val product_quantity: Int,
-            val product_size: ProductSize,
             val status: Int,
-            val userId: Int
-        ) {
-            data class ProductColor(
-                val categoryColorId: Int,
-                val color: String,
-                val createdAt: String,
-                val id: Int,
-                val productId: Int,
-                val updatedAt: String
-            )
-
-            data class ProductSize(
-                val categorySizeId: Int,
-                val createdAt: String,
-                val id: Int,
-                val productId: Int,
-                val size: String,
-                val updatedAt: String
-            )
-        }
+            val userId: Int,
+            val product_images: List<ProductImage>?
+        )
     }
 }

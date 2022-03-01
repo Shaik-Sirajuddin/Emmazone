@@ -91,7 +91,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/no_image_bg"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/layoutMain"
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"
             app:layout_constraintStart_toStartOf="@+id/layoutMain"
@@ -106,7 +106,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="18dp"
+                android:textSize="50dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
