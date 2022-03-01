@@ -18,7 +18,7 @@ interface RestApiInterface {
     @POST(AppConstants.SIGN_UP)
     fun signUp(
         @PartMap hashMap: HashMap<String, RequestBody>,
-        @Part image: MultipartBody.Part
+        @Part image: MultipartBody.Part?
     ): Call<SignUpResponse>
 
     @FormUrlEncoded
