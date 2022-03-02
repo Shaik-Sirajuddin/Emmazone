@@ -18,8 +18,7 @@ import com.live.emmazone.utils.AppConstants
 
 
 class YouMyLikeProductAdapter(
-    val mContext: Context, private val list: ArrayList<CartResponsModel.Body.CartItem.Product>,
-    private val cellClickListener: OnItemClick
+    val mContext: Context, private val list: ArrayList<CartResponsModel.Body.CartItem.Product>
 ) :
     RecyclerView.Adapter<YouMyLikeProductAdapter.ViewHolder>() {
 

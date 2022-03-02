@@ -189,4 +189,14 @@ interface RestApiInterface {
         @Part image: MultipartBody.Part
     ): Call<EditShopDeatilResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.SALES)
+    fun sales(@FieldMap hashMap: HashMap<String, String>): Call<SalesResponse>
+
+
+    @FormUrlEncoded
+    @POST(AppConstants.SALES)
+    fun cartUpdate(@FieldMap hashMap: HashMap<String, String>): Call<CartUpdateResponse>
+
+
 }

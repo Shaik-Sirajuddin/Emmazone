@@ -34,7 +34,7 @@ class ShopReviewsActivity : AppCompatActivity(),
 
         if (intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE) != null) {
             val shopResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
-                    as ShopListingResponse.Body
+                    as ShopListingResponse.Body.Shop
 
             shopId = shopResponse.id.toString()
             setDataOnView(shopResponse.image, shopResponse.shopName, shopResponse.ratings)

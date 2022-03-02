@@ -10,7 +10,7 @@ import com.live.emmazone.response_model.ShopListingResponse
 import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
 
-class AdapterNearbyShops(private val list: ArrayList<ShopListingResponse.Body>) :
+class AdapterNearbyShops(private val list: ArrayList<ShopListingResponse.Body.Shop>) :
     RecyclerView.Adapter<AdapterNearbyShops.NearByShopViewHolder>() {
 
     private lateinit var mContext: Context

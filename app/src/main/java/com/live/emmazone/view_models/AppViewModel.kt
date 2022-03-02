@@ -9,6 +9,7 @@ import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
+import com.live.emmazone.net.CartUpdateResponse
 import com.live.emmazone.net.RestApiInterface
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.ServiceGenerator
@@ -1489,6 +1490,78 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
+
+    fun salesListApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.sales(hashMap)
+                .enqueue(object : Callback<SalesResponse> {
+                    override fun onResponse(
+                        call: Call<SalesResponse>,
+                        response: Response<SalesResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SalesResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        salesListApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun cartUpdateApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.cartUpdate(hashMap)
+                .enqueue(object : Callback<CartUpdateResponse> {
+                    override fun onResponse(
+                        call: Call<CartUpdateResponse>,
+                        response: Response<CartUpdateResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CartUpdateResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        cartUpdateApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
 
 
 }

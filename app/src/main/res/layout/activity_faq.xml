@@ -1,272 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.FAQ">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutMain"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@drawable/header"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:padding="8dp"
-                android:layout_marginStart="32dp"
-                android:src="@drawable/arrow_back"
-                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
-                app:layout_constraintStart_toStartOf="@+id/layoutMain"
-                app:layout_constraintTop_toTopOf="@+id/changePassword" />
-
-            <TextView
-                android:id="@+id/changePassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/faq_s"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp20"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.42"
-                app:layout_constraintStart_toEndOf="@+id/back"
-                app:layout_constraintTop_toTopOf="@+id/layoutMain" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutFaqText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginEnd="@dimen/dp20"
-            android:background="@drawable/faq_bg"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:padding="@dimen/dp10"
-            android:layout_marginBottom="@dimen/dp10"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutMain">
-
-            <TextView
-                android:id="@+id/faqText1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp20"
-                android:paddingLeft="@dimen/dp25"
-                android:text="@string/lorem_ipsum_dolor"
-                android:textColor="@color/black"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/layoutFaqText"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/layoutFaqText"
-                app:layout_constraintTop_toTopOf="@+id/layoutFaqText" />
-
-            <TextView
-                android:id="@+id/faqText2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp10"
-                android:paddingLeft="@dimen/dp25"
-                android:text="@string/faqText"
-                android:textColor="@color/light_black"
-                android:textSize="@dimen/sp15"
-                app:layout_constraintEnd_toEndOf="@+id/layoutFaqText"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/layoutFaqText"
-             app:layout_constraintTop_toBottomOf="@+id/faqText1"/>
-
-            <TextView
-                android:id="@+id/faqText3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp10"
-                android:paddingLeft="@dimen/dp25"
-                android:text="@string/faqText"
-                android:textColor="@color/light_black"
-                android:textSize="@dimen/sp15"
-                android:paddingBottom="@dimen/dp10"
-                app:layout_constraintBottom_toBottomOf="@id/layoutFaqText"
-                app:layout_constraintEnd_toEndOf="@+id/layoutFaqText"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/layoutFaqText"
-                app:layout_constraintTop_toBottomOf="@+id/faqText2"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFaqList"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/layoutFaqText"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="120dp"
+        android:background="@drawable/header"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="32dp"
+            android:padding="8dp"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintBottom_toBottomOf="@+id/changePassword"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/changePassword" />
+
+        <TextView
+            android:id="@+id/changePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/faq_s"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.42"
+            app:layout_constraintStart_toEndOf="@+id/back"
+            app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutFaqText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/dp10"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0"
-        android:layout_marginTop="@dimen/dp20"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
-  <!--  <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loremIpsumLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/dp20"
-        android:layout_marginStart="@dimen/dp20"
-        android:layout_marginEnd="@dimen/dp20"
-        android:padding="@dimen/dp15"
-        android:background="@drawable/faq"
-        app:layout_constraintEnd_toEndOf="@+id/layoutFaqText"
-        app:layout_constraintStart_toStartOf="@+id/layoutFaqText"
-        app:layout_constraintTop_toBottomOf="@+id/layoutFaqText">
-
-        <TextView
-            android:id="@+id/ipsumDolor1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/dp25"
-            android:text="@string/lorem_ipsum_dolor"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:src="@drawable/arrow_right"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFaqList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loremIpsumLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:padding="@dimen/dp15"
-        android:layout_marginTop="@dimen/dp10"
-        android:layout_marginStart="@dimen/dp20"
-        android:layout_marginEnd="@dimen/dp20"
-        android:background="@drawable/faq"
-        app:layout_constraintEnd_toEndOf="@+id/loremIpsumLayout"
-        app:layout_constraintStart_toStartOf="@+id/loremIpsumLayout"
-        app:layout_constraintTop_toBottomOf="@+id/loremIpsumLayout">
-
-        <TextView
-            android:id="@+id/ipsumDolor2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/dp25"
-            android:text="@string/lorem_ipsum_dolor"
-            android:textSize="@dimen/sp15"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:src="@drawable/arrow_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loremIpsumLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/dp10"
-        android:padding="@dimen/dp15"
-        android:layout_marginStart="@dimen/dp20"
-        android:layout_marginEnd="@dimen/dp20"
-        android:background="@drawable/faq"
-        app:layout_constraintEnd_toEndOf="@+id/loremIpsumLayout2"
-        app:layout_constraintStart_toStartOf="@+id/loremIpsumLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/loremIpsumLayout2">
-
-        <TextView
-            android:id="@+id/ipsumDolor3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/dp25"
-            android:text="@string/lorem_ipsum_dolor"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:src="@drawable/arrow_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/loremIpsumLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/dp10"
-        android:layout_marginStart="@dimen/dp20"
-        android:layout_marginEnd="@dimen/dp20"
-        android:padding="@dimen/dp15"
-        android:background="@drawable/faq"
-        app:layout_constraintEnd_toEndOf="@+id/loremIpsumLayout3"
-        app:layout_constraintStart_toStartOf="@+id/loremIpsumLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/loremIpsumLayout3">
-
-        <TextView
-            android:id="@+id/ipsumDolor4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/dp25"
-            android:text="@string/lorem_ipsum_dolor"
-            android:textSize="@dimen/sp15"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:src="@drawable/arrow_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

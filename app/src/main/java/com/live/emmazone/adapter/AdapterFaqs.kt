@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.response_model.FaqListResponse
-import com.live.emmazone.response_model.NotificatioListingResponse
-import com.schunts.extensionfuncton.loadImage
 
 class AdapterFaqs(private val list: ArrayList<FaqListResponse.Body>) :
     RecyclerView.Adapter<AdapterFaqs.ViewHolder>() {
@@ -24,17 +23,18 @@ class AdapterFaqs(private val list: ArrayList<FaqListResponse.Body>) :
 
         holder.tvQuestion.text = list[position].title
         holder.tvAnswer.text = list[position].answer
-        holder.ivDropDown.setOnClickListener {
-            if (list[position].isSelected == "false") {
-                holder.ivDropDown.setImageResource(R.drawable.arrow_drop_down_black)
-                holder.tvAnswer.visibility = View.VISIBLE
-                list[position].isSelected="true"
-            } else  if (list[position].isSelected == "true") {
-                holder.ivDropDown.setImageResource(R.drawable.arrow_drop_down_black)
-                holder.tvAnswer.visibility = View.GONE
-                list[position].isSelected="false"
 
-            }
+        if (list[position].isSelected) {
+            holder.ivDropDown.visibility = View.GONE
+            holder.tvAnswer.visibility = View.VISIBLE
+        } else {
+            holder.ivDropDown.visibility = View.VISIBLE
+            holder.tvAnswer.visibility = View.GONE
+        }
+
+        holder.rlQuestions.setOnClickListener {
+            list[position].isSelected = !list[position].isSelected
+            notifyDataSetChanged()
         }
 
     }
@@ -48,6 +48,7 @@ class AdapterFaqs(private val list: ArrayList<FaqListResponse.Body>) :
         val tvQuestion = itemView.findViewById<TextView>(R.id.tvQuestion)
         val tvAnswer = itemView.findViewById<TextView>(R.id.tvAnswer)
         val ivDropDown = itemView.findViewById<ImageView>(R.id.ivDropDown)
+        val rlQuestions = itemView.findViewById<RelativeLayout>(R.id.rlQuestions)
 
     }
 }

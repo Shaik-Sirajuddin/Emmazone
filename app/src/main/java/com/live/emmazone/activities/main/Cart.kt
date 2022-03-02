@@ -23,6 +23,7 @@ import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.adapter.YouMyLikeProductAdapter
 import com.live.emmazone.databinding.ActivityCartBinding
 import com.live.emmazone.model.CartResponsModel
+import com.live.emmazone.net.CartUpdateResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
@@ -31,16 +32,18 @@ import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
-class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
+class Cart : AppCompatActivity(), Observer<RestObservable> {
+
     lateinit var binding: ActivityCartBinding
-    lateinit var adapter: AdapterCart
+    lateinit var cartAdapter: AdapterCart
     lateinit var youMayLikeProductAdapter: YouMyLikeProductAdapter
     val list = ArrayList<CartResponsModel.Body.CartItem>()
     val listMayLike = ArrayList<CartResponsModel.Body.CartItem.Product>()
     private var selectedDate: Date? = null
     var tvDeliveryDate: TextView? = null
-    var adapterPosition = 0
+    var adapterPosition: Int? = null
     private val appViewModel: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,22 +51,61 @@ class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        getCartListing()
+        setCartAdapter()
+        setLikeProductAdapter()
+        clicksHandle()
+
+    }
+
+    private fun clicksHandle() {
         binding.back.setOnClickListener {
             onBackPressed()
         }
 
-        getCartListing()
+        binding.btnBuyNow.setOnClickListener {
+            showBottomDialog()
+        }
+    }
 
-        binding.btnBuyNow.setOnClickListener { showBottomDialog() }
+    private fun setCartAdapter() {
+        cartAdapter = AdapterCart(this, list)
+        binding.recyclerCart.adapter = cartAdapter
 
-        binding.recyclerCart.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerCartMayLike.layoutManager = GridLayoutManager(this, 2)
+        cartAdapter.onDeleteClick = { pos ->
+            adapterPosition = pos
+            deleteCartItem(list[pos].id.toString())
+        }
 
-        adapter = AdapterCart(this, list, this)
-        binding.recyclerCart.adapter = adapter
+        cartAdapter.onPlusMinusClick = { pos, clickOn ->
+            if (clickOn == "minus") {
+                if (list[pos].qty > 1) {
+                    list[pos].qty = list[pos].qty - 1
+                    cartAdapter.notifyDataSetChanged()
 
-        youMayLikeProductAdapter=YouMyLikeProductAdapter(this, listMayLike, this)
+                    updateCartItem(list[pos].id.toString(), list[pos].qty.toString())
+                }
+            } else if (clickOn == "plus") {
+                if (list[pos].qty < list[pos].product.productQuantity) {
+                    list[pos].qty = list[pos].qty + 1
+                    cartAdapter.notifyDataSetChanged()
+
+                    updateCartItem(list[pos].id.toString(), list[pos].qty.toString())
+                }
+            }
+        }
+    }
+
+    private fun updateCartItem(cartId: String, qty: String) {
+        val hashMap = HashMap<String, String>()
+        hashMap["id"] = cartId
+        hashMap["qty"] = qty
+
+        appViewModel.cartUpdateApi(this, true, hashMap)
+    }
+
+    private fun setLikeProductAdapter() {
+        youMayLikeProductAdapter = YouMyLikeProductAdapter(this, listMayLike)
         binding.recyclerCartMayLike.adapter = youMayLikeProductAdapter
     }
 
@@ -72,22 +114,6 @@ class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
         appViewModel.getResponse().observe(this, this)
     }
 
-    override fun onCellClickListener() {
-        val intent = Intent(this, ProductDetailActivity::class.java)
-        startActivity(intent)
-    }
-
-    override fun onClick() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickPickCollect() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onOrderCancelled() {
-        TODO("Not yet implemented")
-    }
 
     private fun showBottomDialog() {
         val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
@@ -195,14 +221,29 @@ class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
                         binding.tvTaxPrice.text = this.tax.toString() + "%"
                         binding.tvTotalPrice.text = this.total.toDouble().toString()
                         list.addAll(t.data.body.cartItems)
-                        adapter.notifyDataSetChanged()
+                        cartAdapter.notifyDataSetChanged()
 
-                        for(i in 0 until t.data.body.youMayLikeProducts.size){
+                        for (i in 0 until t.data.body.youMayLikeProducts.size) {
                             t.data.body.youMayLikeProducts[i].apply {
-                                listMayLike.add(CartResponsModel.Body.CartItem.Product(this.categoryColorId,this.categoryId,
-                                this.categorySizeId,this.created,this.createdAt,this.description,this.id,this.mainImage,
-                                this.name,this.productReview,this.product_highlight,this.product_price,this.product_quantity,
-                                this.status,this.userId,this.product_images))
+                                listMayLike.add(
+                                    CartResponsModel.Body.CartItem.Product(
+                                        this.categoryColorId,
+                                        this.categoryId,
+                                        this.categorySizeId,
+                                        this.created,
+                                        this.createdAt,
+                                        this.description,
+                                        this.id,
+                                        this.mainImage,
+                                        this.name,
+                                        this.productReview.toInt(),
+                                        this.productHighlight.toString(),
+                                        this.productPrice.toInt(),
+                                        this.productQuantity.toString(),
+                                        this.status,
+                                        this.userId
+                                    )
+                                )
 
                             }
                         }
@@ -211,16 +252,18 @@ class Cart : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
 
 
                 } else if (t.data is CommonResponse) {
-                    list.removeAt(adapterPosition)
-                    adapter.notifyDataSetChanged()
+                    list.removeAt(adapterPosition!!)
+                    cartAdapter.notifyDataSetChanged()
                     noDataVisible()
+                }else if (t.data is CartUpdateResponse){
+                    val response:CartUpdateResponse = t.data
+
                 }
             }
         }
     }
 
-    fun deleteCartItem(position: Int, id: String) {
-        adapterPosition = position
+    private fun deleteCartItem(id: String) {
         appViewModel.deleteCartItem(this, true, id)
     }
 

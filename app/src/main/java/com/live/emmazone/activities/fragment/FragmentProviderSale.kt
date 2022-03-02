@@ -12,65 +12,73 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Notifications
+import com.live.emmazone.databinding.FragmentSaleProviderBinding
 
 class FragmentProviderSale : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-       val view : View = LayoutInflater.from(context).inflate(R.layout.fragment_sale_provider, container, false)
+    private lateinit var binding: FragmentSaleProviderBinding
 
-        val imgNotify : ImageView = view.findViewById(R.id.image_notifications)
-        val tvNewsale : TextView = view.findViewById(R.id.NewSale)
-        val tvongoingSale : TextView = view.findViewById(R.id.OnGoingSale)
-        val tvPastSale : TextView = view.findViewById(R.id.pastSale)
-        val salesLayout : LinearLayout = view.findViewById(R.id.salesLayout)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSaleProviderBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        clicksHandle()
         openSalesFragment(NewSalesProviderFragment())
+    }
 
-        tvNewsale.setOnClickListener {
-            openSalesFragment(NewSalesProviderFragment())
-            tvNewsale.setBackgroundResource(R.drawable.bg_fill_earning)
-            tvNewsale.setTextColor(Color.WHITE)
-            tvongoingSale.setTextColor(Color.BLACK)
-            tvongoingSale.setBackgroundColor(Color.TRANSPARENT)
-            tvPastSale.setTextColor(Color.BLACK)
-            tvPastSale.setBackgroundColor(Color.TRANSPARENT)
-            salesLayout.setBackgroundResource(R.drawable.bg_earning)
-        }
-
-        tvongoingSale.setOnClickListener {
-            openSalesFragment(OnGoingSalesProviderFragment())
-            tvongoingSale.setTextColor(Color.WHITE)
-            tvongoingSale.setBackgroundResource(R.drawable.bg_fill_earning)
-            tvNewsale.setTextColor(Color.BLACK)
-            tvNewsale.setBackgroundColor(Color.TRANSPARENT)
-            salesLayout.setBackgroundResource(R.drawable.bg_earning)
-            tvPastSale.setTextColor(Color.BLACK)
-            tvPastSale.setBackgroundColor(Color.TRANSPARENT)
-        }
-
-        tvPastSale.setOnClickListener {
-            openSalesFragment(PastSalesProviderFragment())
-            tvongoingSale.setTextColor(Color.BLACK)
-            tvongoingSale.setBackgroundColor(Color.TRANSPARENT)
-            tvNewsale.setTextColor(Color.BLACK)
-            salesLayout.setBackgroundResource(R.drawable.bg_earning)
-            tvNewsale.setBackgroundColor(Color.TRANSPARENT)
-            tvPastSale.setTextColor(Color.WHITE)
-            tvPastSale.setBackgroundResource(R.drawable.bg_fill_earning)
-        }
-
-        imgNotify.setOnClickListener {
+    private fun clicksHandle() {
+        binding.imageNotifications.setOnClickListener {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
 
-        return view
+        binding.newSale.setOnClickListener {
+            openSalesFragment(NewSalesProviderFragment())
+            binding.newSale.setBackgroundResource(R.drawable.bg_fill_earning)
+            binding.newSale.setTextColor(Color.WHITE)
+            binding.onGoingSale.setTextColor(Color.BLACK)
+            binding.onGoingSale.setBackgroundColor(Color.TRANSPARENT)
+            binding.pastSale.setTextColor(Color.BLACK)
+            binding.pastSale.setBackgroundColor(Color.TRANSPARENT)
+            binding.salesLayout.setBackgroundResource(R.drawable.bg_earning)
+        }
+
+        binding.onGoingSale.setOnClickListener {
+            openSalesFragment(OnGoingSalesProviderFragment())
+            binding.onGoingSale.setTextColor(Color.WHITE)
+            binding.onGoingSale.setBackgroundResource(R.drawable.bg_fill_earning)
+            binding.newSale.setTextColor(Color.BLACK)
+            binding.newSale.setBackgroundColor(Color.TRANSPARENT)
+            binding.salesLayout.setBackgroundResource(R.drawable.bg_earning)
+            binding.pastSale.setTextColor(Color.BLACK)
+            binding.pastSale.setBackgroundColor(Color.TRANSPARENT)
+        }
+
+        binding.pastSale.setOnClickListener {
+            openSalesFragment(PastSalesProviderFragment())
+            binding.onGoingSale.setTextColor(Color.BLACK)
+            binding.onGoingSale.setBackgroundColor(Color.TRANSPARENT)
+            binding.newSale.setTextColor(Color.BLACK)
+            binding.salesLayout.setBackgroundResource(R.drawable.bg_earning)
+            binding.newSale.setBackgroundColor(Color.TRANSPARENT)
+            binding.pastSale.setTextColor(Color.WHITE)
+            binding.pastSale.setBackgroundResource(R.drawable.bg_fill_earning)
+        }
+
     }
 
-    private fun openSalesFragment(fragment : Fragment) {
+
+    private fun openSalesFragment(fragment: Fragment) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         transaction?.replace(R.id.fragmentProviderSalesContainer, fragment)
-        //  transaction?.addToBackStack("My Orders")
         transaction?.commit()
     }
 

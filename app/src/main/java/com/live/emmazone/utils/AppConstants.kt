@@ -71,10 +71,12 @@ object AppConstants {
     const val FAQ = "faq"
     const val EDIT_SHOP_PRODUCT = "edit_shop_product"
     const val PRODUCT_DETAIl = "product_detail"
-    const val ADD_CART_ITEMS ="addCartItem"
-    const val CART_LISTING ="cartItemsListing"
-    const val DELETE_CART_ITEM ="deleteCartItem"
-    const val EDIT_SHOP_DETAIL ="edit_shop_details"
+    const val ADD_CART_ITEMS = "addCartItem"
+    const val CART_LISTING = "cartItemsListing"
+    const val DELETE_CART_ITEM = "deleteCartItem"
+    const val EDIT_SHOP_DETAIL = "edit_shop_details"
+    const val SALES = "sales"
+    const val UPDATE_CART_ITEM = "updateCartItem"
 
 
 }

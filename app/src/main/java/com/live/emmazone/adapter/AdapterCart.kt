@@ -16,9 +16,12 @@ import com.live.emmazone.model.*
 
 class AdapterCart(
     private var mContext: Context, private
-    val list: ArrayList<CartResponsModel.Body.CartItem>, var cart: Cart
+    val list: ArrayList<CartResponsModel.Body.CartItem>
 ) :
     RecyclerView.Adapter<AdapterCart.ViewHolder>() {
+
+    var onDeleteClick: ((pos: Int) -> Unit)? = null
+    var onPlusMinusClick: ((pos: Int, clickOn: String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -32,7 +35,7 @@ class AdapterCart(
 
         // holder.imageDelete.setImageResource(modelCart.imgDelete)
         holder.tvproductItemName.text = modelCart.product.name
-        holder.tvproductPrice.text = modelCart.product.product_price
+        holder.tvproductPrice.text = modelCart.product.productPrice
         holder.productQty.text = modelCart.qty.toString()
         holder.imageDelete.setOnClickListener {
             val dialog = Dialog(mContext)
@@ -52,7 +55,7 @@ class AdapterCart(
 
             yesBtn.setOnClickListener {
                 dialog.dismiss()
-                cart.deleteCartItem(position, modelCart.id.toString())
+                onDeleteClick?.invoke(position)
             }
 
             noBtn.setOnClickListener { dialog.dismiss() }

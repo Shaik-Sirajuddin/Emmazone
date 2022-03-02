@@ -15,6 +15,6 @@ data class FaqListResponse(
         val title: String,
         val updated: Int,
         val updatedAt: String,
-        var isSelected: String="false"
+        var isSelected: Boolean=false
     )
 }

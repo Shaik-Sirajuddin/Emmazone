@@ -36,7 +36,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val list = ArrayList<ShopListingResponse.Body>()
+    private val list = ArrayList<ShopListingResponse.Body.Shop>()
     lateinit var nearShopAdapter: AdapterNearbyShops
     private var selectedPos: Int? = null
 
@@ -73,8 +73,8 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     private fun clicksHandle() {
         if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
             binding.tvUserName.text = "Guest"
-        }else{
-            binding.tvUserName.text= getPreference(AppConstants.NAME,"").toString()
+        } else {
+            binding.tvUserName.text = getPreference(AppConstants.NAME, "").toString()
         }
 
         binding.btnClickHereHome.setOnClickListener {
@@ -182,7 +182,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     }
 
-    private fun favUnFavApiHit(shopResponse: ShopListingResponse.Body) {
+    private fun favUnFavApiHit(shopResponse: ShopListingResponse.Body.Shop) {
         val hashMap = HashMap<String, String>()
         hashMap["vendorId"] = shopResponse.id.toString()
 
@@ -203,10 +203,23 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                     val response: ShopListingResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
-                        list.removeAll(t.data.body)
-                        list.addAll(t.data.body)
+                        list.clear()
+                        list.addAll(t.data.body.shopList)
 
                         setShopAdapter()
+
+                        if (response.body.notificationCount == 0) {
+                            binding.notifyRedBG.visibility = View.GONE
+                        } else {
+                            binding.notifyRedBG.visibility = View.VISIBLE
+                        }
+
+                        if (response.body.cartCount == 0) {
+                            binding.ivRedCart.visibility = View.GONE
+                        } else {
+                            binding.ivRedCart.visibility = View.VISIBLE
+                        }
+
                     }
 
                 } else if (t.data is AddFavouriteResponse) {

@@ -1,7 +1,7 @@
 package com.live.emmazone.activities.provider
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.*
@@ -23,19 +23,23 @@ class ProviderMainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.addProduct -> {
-                    loadFragment(FragmentProviderAddProduct())
+                    if (currentFragment() !is FragmentProviderAddProduct)
+                        loadFragment(FragmentProviderAddProduct())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.sale -> {
-                    loadFragment(FragmentProviderSale())
+                    if (currentFragment() !is FragmentProviderSale)
+                        loadFragment(FragmentProviderSale())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.account_provider -> {
-                    loadFragment(ProviderAccountFragment())
+                    if (currentFragment() !is ProviderAccountFragment)
+                        loadFragment(ProviderAccountFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.home_provider -> {
-                    loadFragment(FragmentProviderHome())
+                    if (currentFragment() !is FragmentProviderHome)
+                        loadFragment(FragmentProviderHome())
                     return@setOnNavigationItemSelectedListener true
                 }
             }
@@ -46,11 +50,11 @@ class ProviderMainActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentProviderContainer, fragment)
-        //   transaction.addToBackStack(null)
         transaction.commit()
     }
 
-    override fun onBackPressed() {
-        finishAffinity()
+    private fun currentFragment(): Fragment? {
+        return supportFragmentManager.findFragmentById(R.id.fragmentProviderContainer)
     }
+
 }
