@@ -195,7 +195,7 @@ interface RestApiInterface {
 
 
     @FormUrlEncoded
-    @POST(AppConstants.SALES)
+    @PUT(AppConstants.UPDATE_CART_ITEM)
     fun cartUpdate(@FieldMap hashMap: HashMap<String, String>): Call<CartUpdateResponse>
 
 

@@ -83,6 +83,7 @@
                 android:id="@+id/notifyRedBG"
                 android:layout_width="@dimen/dp10"
                 android:layout_height="@dimen/dp10"
+                android:visibility="gone"
                 android:background="@drawable/notification_red_color"
                 app:layout_constraintEnd_toStartOf="@+id/cart"
                 app:layout_constraintStart_toStartOf="@+id/image_notifications"
@@ -107,6 +108,7 @@
                 android:background="@drawable/notification_red_color"
                 app:layout_constraintEnd_toEndOf="@+id/cart"
                 android:layout_marginStart="5dp"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="@+id/cart" />
 
 

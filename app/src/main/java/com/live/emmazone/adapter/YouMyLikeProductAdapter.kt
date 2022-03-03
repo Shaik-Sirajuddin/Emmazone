@@ -15,6 +15,7 @@ import com.live.emmazone.activities.main.ProductDetailActivity
 import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
+import com.schunts.extensionfuncton.loadImage
 
 
 class YouMyLikeProductAdapter(
@@ -31,16 +32,9 @@ class YouMyLikeProductAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val data = list[position]
-        if (data.product_images?.isNotEmpty()!!) {
-            Glide.with(mContext).load(data.product_images[0].image)
-                .placeholder(R.drawable.placeholder).into(holder.imageProductSD)
-
-        } else {
-            holder.imageProductSD.setImageResource(R.drawable.placeholder)
-
-        }
+        holder.imageProductSD.loadImage(data.mainImage)
         holder.productItemNameSD.text = data.name
-        holder.productItemPriceSD.text = data.product_price
+        holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol,data.productPrice)
         holder.tvShopDetailProductBrandSD.text = data.description
         //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 

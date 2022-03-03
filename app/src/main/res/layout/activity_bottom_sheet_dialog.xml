@@ -63,46 +63,78 @@
         app:layout_constraintStart_toStartOf="@+id/tvDeliveryDate"
         app:layout_constraintTop_toBottomOf="@+id/tvDeliveryDate" />
 
-    <TextView
-        android:id="@+id/tvOrderPersonName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/llAddress"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp15"
         android:layout_marginTop="@dimen/dp20"
-        android:text="@string/john_marker"
-        android:textColor="@color/black"
-        android:textSize="@dimen/sp18"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tvDeliveryAddress"
-        app:layout_constraintTop_toBottomOf="@+id/tvDeliveryAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDeliveryAddress">
 
-    <TextView
-        android:id="@+id/tvOrderDeliveryAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp15"
-        android:layout_marginTop="8dp"
-        android:text="@string/_260_c_north_ei_camino_real"
-        android:textColor="@color/normalBlack"
-        android:textSize="@dimen/sp15"
-        app:layout_constraintEnd_toEndOf="@+id/tvOrderPersonName"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintStart_toStartOf="@+id/tvOrderPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/tvOrderPersonName" />
 
-    <TextView
-        android:id="@+id/tvChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/underline_green"
-        android:text="@string/Change"
-        android:textColor="@color/green"
-        android:textSize="@dimen/sp15"
-        app:layout_constraintBottom_toBottomOf="@+id/tvOrderDeliveryAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDeliveryAddress" />
+        <RelativeLayout
+            android:id="@+id/rlAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/tvChange"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvOrderPersonName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp15"
+                    android:text="@string/john_marker"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp18" />
+
+                <TextView
+                    android:id="@+id/tvOrderDeliveryAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp15"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/_260_c_north_ei_camino_real"
+                    android:textColor="@color/normalBlack"
+                    android:textSize="@dimen/sp15" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/underline_green"
+                android:text="@string/Change"
+                android:textColor="@color/green"
+                android:textSize="@dimen/sp15" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvSelectAddress"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/dp15"
+            android:gravity="center_vertical"
+            android:text="@string/please_select_address"
+            android:textColor="@color/green"
+            android:textSize="@dimen/sp18"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tvPaymentMethod"
@@ -117,7 +149,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOrderDeliveryAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/llAddress" />
 
     <LinearLayout
         android:id="@+id/paymentMethodLayout"

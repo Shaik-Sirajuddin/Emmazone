@@ -32,7 +32,7 @@ class AdapterProShopProducts(
         ModelProShopDetailProducts.mainImage?.let { holder.imageProductSD.loadImage(it) }
         holder.productItemNameSD.setText(ModelProShopDetailProducts.name)
         holder.productItemPriceSD.text = context.getString(
-            R.string.euro_symblol,
+            R.string.euro_symbol,
             ModelProShopDetailProducts.product_price.toDouble().toString()
         )
         holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.shortDescription)

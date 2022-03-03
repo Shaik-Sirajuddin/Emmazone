@@ -35,7 +35,8 @@ class AdapterCart(
 
         // holder.imageDelete.setImageResource(modelCart.imgDelete)
         holder.tvproductItemName.text = modelCart.product.name
-        holder.tvproductPrice.text = modelCart.product.productPrice
+        holder.tvproductPrice.text =
+            mContext.getString(R.string.euro_symbol, modelCart.product.productPrice)
         holder.productQty.text = modelCart.qty.toString()
         holder.imageDelete.setOnClickListener {
             val dialog = Dialog(mContext)
@@ -63,15 +64,18 @@ class AdapterCart(
         }
 
         holder.tvMins.setOnClickListener {
-            if (modelCart.qty > 1) {
+            /*if (modelCart.qty > 1) {
                 modelCart.qty = modelCart.qty - 1
                 notifyDataSetChanged()
-            }
+            }*/
+            onPlusMinusClick?.invoke(position, "minus")
         }
 
         holder.tvAdd.setOnClickListener {
-            modelCart.qty = modelCart.qty + 1
-            notifyDataSetChanged()
+            /*modelCart.qty = modelCart.qty + 1
+            notifyDataSetChanged()*/
+
+            onPlusMinusClick?.invoke(position, "plus")
 
         }
 

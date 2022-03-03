@@ -12,14 +12,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
-import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.adapter.AdapterCart
-import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.adapter.YouMyLikeProductAdapter
 import com.live.emmazone.databinding.ActivityCartBinding
 import com.live.emmazone.model.CartResponsModel
@@ -27,9 +23,10 @@ import com.live.emmazone.net.CartUpdateResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
-import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
+import com.schunts.extensionfuncton.toast
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -44,6 +41,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
     private var selectedDate: Date? = null
     var tvDeliveryDate: TextView? = null
     var adapterPosition: Int? = null
+    var response: CartResponsModel? = null
     private val appViewModel: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,6 +116,8 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
     private fun showBottomDialog() {
         val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
+        dialog.setCancelable(true)
+        dialog.setContentView(view)
 
         tvDeliveryDate = view.findViewById(R.id.tvDeliveryDate)
         val tvChangeDateTime = view.findViewById<TextView>(R.id.tvChangeDateTime)
@@ -125,6 +125,24 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         val tvChangePaymentMethod = view.findViewById<TextView>(R.id.tvPaymentMethodChange)
         val tvTerms = view.findViewById<TextView>(R.id.btnTerms)
         val buy = view.findViewById<TextView>(R.id.btnBuy)
+        val tvCountItem = view.findViewById<TextView>(R.id.tvItemCount)
+        val tvSubTotalPrice = view.findViewById<TextView>(R.id.tvSubTotalPrice)
+        val tvDeliveryChargesPrice = view.findViewById<TextView>(R.id.tvDeliveryChargesPrice)
+        val tvTaxPrice = view.findViewById<TextView>(R.id.tvTaxPrice)
+        val tvTotalPrice = view.findViewById<TextView>(R.id.tvTotalPrice)
+
+        tvCountItem.text = response!!.body.cartItems.size.toString()
+        tvSubTotalPrice.text =
+            getString(R.string.euro_symbol, response!!.body.subTotal.toDouble().toString())
+        tvDeliveryChargesPrice.text =
+            getString(
+                R.string.euro_symbol,
+                response!!.body.deliveryCharge.toDouble().toString()
+            )
+        tvTaxPrice.text = response!!.body.tax.toString() + "%"
+        tvTotalPrice.text =
+            getString(R.string.euro_symbol, response!!.body.total.toDouble().toString())
+
 
         tvDeliveryDate?.text = DateHelper.getFormattedDate(Date())
 
@@ -137,16 +155,16 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         buy.setOnClickListener {
             val alertDialog = AlertDialog.Builder(this)
             val factory = LayoutInflater.from(this)
-            val view: View = factory.inflate(R.layout.dialog_order_placed, null)
+            val placeOrder: View = factory.inflate(R.layout.dialog_order_placed, null)
 
-            val dialogOrderPlaced = view.findViewById<Button>(R.id.done)
+            val dialogOrderPlaced = placeOrder.findViewById<Button>(R.id.done)
 
             dialogOrderPlaced.setOnClickListener {
                 onBackPressed()
             }
             alertDialog.setCancelable(true)
 
-            alertDialog.setView(view)
+            alertDialog.setView(placeOrder)
             alertDialog.show()
         }
 
@@ -160,8 +178,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
             startActivity(intent)
         }
 
-        dialog.setCancelable(true)
-        dialog.setContentView(view)
+
         dialog.show()
     }
 
@@ -214,17 +231,27 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is CartResponsModel) {
-                    t.data.body.apply {
-                        binding.tvSubTotalPrice.text = this.subTotal.toDouble().toString()
-                        binding.tvDeliveryChargesPrice.text =
-                            this.deliveryCharge.toDouble().toString()
-                        binding.tvTaxPrice.text = this.tax.toString() + "%"
-                        binding.tvTotalPrice.text = this.total.toDouble().toString()
-                        list.addAll(t.data.body.cartItems)
+                    response = t.data
+                        list.clear()
+                        list.addAll(response!!.body.cartItems)
                         cartAdapter.notifyDataSetChanged()
 
-                        for (i in 0 until t.data.body.youMayLikeProducts.size) {
-                            t.data.body.youMayLikeProducts[i].apply {
+                        binding.tvSubTotalPrice.text =
+                            getString(R.string.euro_symbol, response!!.body.subTotal.toDouble().toString())
+                        binding.tvDeliveryChargesPrice.text =
+                            getString(
+                                R.string.euro_symbol,
+                                response!!.body.deliveryCharge.toDouble().toString()
+                            )
+                        binding.tvTaxPrice.text = response!!.body.tax.toString() + "%"
+                        binding.tvTotalPrice.text =
+                            getString(R.string.euro_symbol, response!!.body.total.toDouble().toString())
+                        binding.tvItemCount.text = response!!.body.cartItems.size.toString()
+
+
+
+                        for (i in 0 until response!!.body.youMayLikeProducts.size) {
+                            response!!.body.youMayLikeProducts[i].apply {
                                 listMayLike.add(
                                     CartResponsModel.Body.CartItem.Product(
                                         this.categoryColorId,
@@ -236,10 +263,10 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                                         this.id,
                                         this.mainImage,
                                         this.name,
-                                        this.productReview.toInt(),
-                                        this.productHighlight.toString(),
-                                        this.productPrice.toInt(),
-                                        this.productQuantity.toString(),
+                                        this.productHighlight,
+                                        this.productPrice,
+                                        this.productQuantity,
+                                        this.productReview,
                                         this.status,
                                         this.userId
                                     )
@@ -248,15 +275,20 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                             }
                         }
                         noDataVisible()
-                    }
+
 
 
                 } else if (t.data is CommonResponse) {
                     list.removeAt(adapterPosition!!)
                     cartAdapter.notifyDataSetChanged()
                     noDataVisible()
-                }else if (t.data is CartUpdateResponse){
-                    val response:CartUpdateResponse = t.data
+                } else if (t.data is CartUpdateResponse) {
+                    val response: CartUpdateResponse = t.data
+
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        toast(response.message)
+                        getCartListing()
+                    }
 
                 }
             }

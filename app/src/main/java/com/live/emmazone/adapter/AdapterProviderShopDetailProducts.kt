@@ -44,7 +44,7 @@ class AdapterProviderShopDetailProducts(
             model.mainImage?.let { holder.imageProductSD.loadImage(it) }
             holder.productItemNameSD.setText(model.name)
             holder.productItemPriceSD.text =
-                context.getString(R.string.euro_symblol, model.product_price.toDouble().toString())
+                context.getString(R.string.euro_symbol, model.product_price.toDouble().toString())
             holder.tvShopDetailProductBrandSD.setText(model.shortDescription)
 
             holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
