@@ -77,6 +77,7 @@ object AppConstants {
     const val EDIT_SHOP_DETAIL = "edit_shop_details"
     const val SALES = "sales"
     const val UPDATE_CART_ITEM = "updateCartItem"
+    const val ADD_ORDER = "addOrder"
 
 
 }

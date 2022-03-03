@@ -1562,6 +1562,40 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun addOrderApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addOrder(hashMap)
+                .enqueue(object : Callback<AddOrderResponse> {
+                    override fun onResponse(
+                        call: Call<AddOrderResponse>,
+                        response: Response<AddOrderResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<AddOrderResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        cartUpdateApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
 
 
 }

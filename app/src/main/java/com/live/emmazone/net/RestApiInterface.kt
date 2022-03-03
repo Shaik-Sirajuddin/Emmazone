@@ -1,7 +1,6 @@
 package com.live.emmazone.net
 
 
-import com.google.android.gms.common.internal.service.Common
 import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
@@ -198,5 +197,7 @@ interface RestApiInterface {
     @PUT(AppConstants.UPDATE_CART_ITEM)
     fun cartUpdate(@FieldMap hashMap: HashMap<String, String>): Call<CartUpdateResponse>
 
-
+    @FormUrlEncoded
+    @POST(AppConstants.ADD_ORDER)
+    fun addOrder(@FieldMap hashMap: HashMap<String, String>): Call<AddOrderResponse>
 }

@@ -12,7 +12,7 @@ object Validator {
     var errorMessage = ""
 
     fun signUpValidation(
-       name: String, email: String, mobileNo: String,
+        name: String, email: String, mobileNo: String,
         password: String, confirmPass: String, termsCondition: Boolean
     ): Boolean {
 
@@ -343,6 +343,29 @@ object Validator {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_category)
             false
         } else return true
+    }
+
+    fun selectCard(selectedType: String, cardId: String, cvv: String?): Boolean {
+        return if (TextUtils.isEmpty(selectedType)) {
+            errorMessage = AppController.instance!!.getString(R.string.please_select_payment_type)
+            false
+        } else if (TextUtils.isEmpty(cardId)) {
+            errorMessage = AppController.instance!!.getString(R.string.please_select_card)
+            false
+        } else if (cvv.isNullOrEmpty()) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_cvv)
+            false
+        } else return true
+    }
+
+    fun buyProduct(selectedAddressId: String, selectCardId: String): Boolean {
+        return if (TextUtils.isEmpty(selectedAddressId)) {
+            errorMessage = AppController.instance!!.getString(R.string.pls_select_address)
+            false
+        } else if (TextUtils.isEmpty(selectCardId)) {
+            errorMessage = AppController.instance!!.getString(R.string.please_select_card)
+            false
+        }else return true
     }
 
 }

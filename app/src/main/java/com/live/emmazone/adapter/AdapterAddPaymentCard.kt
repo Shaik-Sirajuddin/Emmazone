@@ -1,6 +1,8 @@
 package com.live.emmazone.adapter
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +49,40 @@ class AdapterAddPaymentCard(val cardList: ArrayList<CardListResponse.Body>) :
 
                 val expDate = cardResponse.month.toString() + "/" + cardResponse.year.toString()
                 binding.tvExpiry.text = mContext.getString(R.string.expired, expDate)
+
+                if (cardResponse.isSelected) {
+                    binding.ivTick.visibility = View.VISIBLE
+                    binding.edtCVV.visibility = View.VISIBLE
+                } else {
+                    binding.ivTick.visibility = View.GONE
+                    binding.edtCVV.visibility = View.GONE
+                }
+
+
+                binding.edtCVV.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+
+                    }
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
+                        cardResponse.cvvCode = s.toString()
+                    }
+
+                })
 
             } else {
                 binding.llAddCard.visibility = View.VISIBLE

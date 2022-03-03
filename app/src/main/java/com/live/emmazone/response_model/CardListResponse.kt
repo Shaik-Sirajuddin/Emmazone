@@ -37,6 +37,8 @@ data class CardListResponse(
         @SerializedName("userId")
         var userId: Int, // 267
         @SerializedName("year")
-        var year: Int // 2024
+        var year: Int, // 2024
+        var cvvCode: String = "",
+        var isSelected: Boolean = false
     )
 }

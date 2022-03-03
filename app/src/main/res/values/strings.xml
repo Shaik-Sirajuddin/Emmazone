@@ -247,6 +247,7 @@
     <string name="msg_enter_otp">Please enter OTP</string>
     <string name="msg_enter_shop_name">Please enter shop name</string>
     <string name="msg_enter_shop_year">Please enter year of foundation</string>
+    <string name="msg_enter_cvv">Please enter cvv</string>
     <string name="msg_enter_address">Please enter address</string>
     <string name="msg_enter_shot_desc">Please enter shot description</string>
     <string name="msg_enter_description">Please enter description</string>
@@ -273,5 +274,11 @@
     <string name="shot_description">Shot Description</string>
     <string name="only_25_characters">only 25 characters</string>
     <string name="please_select_address">Please select address</string>
+    <string name="please_select_payment">Please select payment type</string>
+    <string name="please_select_card">Please select card</string>
+    <string name="please_select_payment_type">Please select payment type</string>
+    <string name="pls_enter_cvv">Please enter CVV</string>
+    <string name="enter_cvv">Enter CVV</string>
+    <string name="pls_select_address">Please select address</string>
 
 </resources>

@@ -6,14 +6,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.live.emmazone.R
 import com.live.emmazone.activities.AddCardActivity
 import com.live.emmazone.adapter.AdapterAddPaymentCard
 import com.live.emmazone.databinding.ActivityPaymentMethodBinding
+import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CardListResponse
 import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
+import okio.Okio
 
 class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
 
@@ -22,6 +26,7 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
     private var addPaymentAdapter: AdapterAddPaymentCard? = null
     private val cardList = ArrayList<CardListResponse.Body>()
 
+    private var selectedPaymentType = "" //0=>Wallet 1=>Card 2=>cash
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -44,6 +49,7 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
     private fun clicksHandle() {
         binding.rbWallet.setOnClickListener {
             if (binding.rbWallet.isChecked) {
+                selectedPaymentType = "0"
                 binding.rbPayPal.isChecked = false
                 binding.rbCredit.isChecked = false
                 binding.rbCOD.isChecked = false
@@ -52,18 +58,21 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
 
         binding.rbPayPal.setOnClickListener {
             if (binding.rbPayPal.isChecked) {
+                selectedPaymentType = "3"
                 binding.rbWallet.isChecked = false
             }
         }
 
         binding.rbCredit.setOnClickListener {
             if (binding.rbCredit.isChecked) {
+                selectedPaymentType = "1"
                 binding.rbWallet.isChecked = false
             }
         }
 
         binding.rbCOD.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
+                selectedPaymentType = "2"
                 binding.rbWallet.isChecked = false
             }
         }
@@ -74,8 +83,35 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
         }
 
         binding.btnNext.setOnClickListener {
-            onBackPressed()
+            validateData()
         }
+    }
+
+    private fun validateData() {
+        var cardId = ""
+        var cardCVV:String? = ""
+
+        cardList.forEach {
+            if (it.isSelected) {
+                cardId = it.id.toString()
+                cardCVV = it.cvvCode
+            }
+        }
+
+
+        if (Validator.selectCard(selectedPaymentType, cardId, cardCVV)) {
+
+            val intent = Intent()
+            intent.putExtra("paymentType", selectedPaymentType)
+            intent.putExtra("cardId", cardId)
+            intent.putExtra("cardCVV", cardCVV)
+
+            setResult(RESULT_OK, intent)
+            onBackPressed()
+        } else {
+            AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+        }
+
     }
 
     private fun setPaymentAdapter() {
@@ -86,6 +122,12 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
             if (clickOn == "addCard") {
                 val intent = Intent(this, AddCardActivity::class.java)
                 launcher.launch(intent)
+            } else if (clickOn == "selectCard") {
+                cardList.forEachIndexed { index, body ->
+                    body.isSelected = index == pos
+                }
+
+                addPaymentAdapter?.notifyDataSetChanged()
             }
         }
     }

@@ -19,6 +19,7 @@ import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddressListResponse
 import com.live.emmazone.response_model.DeleteAddressResponse
 import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
 
 class DeliveryAddress : AppCompatActivity(), Observer<RestObservable> {
@@ -58,7 +59,7 @@ class DeliveryAddress : AppCompatActivity(), Observer<RestObservable> {
         }
 
         binding.btnNext.setOnClickListener {
-            nextBtnClick()
+            validateData()
         }
 
         binding.back.setOnClickListener {
@@ -66,7 +67,7 @@ class DeliveryAddress : AppCompatActivity(), Observer<RestObservable> {
         }
     }
 
-    private fun nextBtnClick() {
+    private fun validateData() {
         var addressResponse: AddressListResponse.Body? = null
         list.forEach {
             if (it.isSelected) {
@@ -74,8 +75,16 @@ class DeliveryAddress : AppCompatActivity(), Observer<RestObservable> {
             }
         }
 
-        setResult(RESULT_OK, intent.putExtra(AppConstants.Address_LIST_RESPONSE, addressResponse))
-        finish()
+        if (addressResponse != null) {
+            setResult(
+                RESULT_OK,
+                intent.putExtra(AppConstants.Address_LIST_RESPONSE, addressResponse)
+            )
+            finish()
+        } else {
+            AppUtils.showMsgOnlyWithoutClick(this,getString(R.string.pls_select_address))
+        }
+
     }
 
     private fun setAddressAdapter() {

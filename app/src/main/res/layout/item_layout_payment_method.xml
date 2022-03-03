@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_125sdp"
     android:layout_height="@dimen/_170sdp"
     android:orientation="vertical">
@@ -67,6 +68,24 @@
                 android:textSize="@dimen/_11sdp" />
 
 
+            <EditText
+                android:id="@+id/edtCVV"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/login_bg"
+                android:fontFamily="@font/avenir_book"
+                android:hint="@string/enter_cvv"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="numberPassword"
+                android:maxLength="3"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dp10"
+                android:textSize="@dimen/sp14"
+                tools:ignore="RtlSymmetry" />
+
         </LinearLayout>
 
         <TextView
@@ -89,7 +108,8 @@
         android:layout_marginEnd="@dimen/_5sdp"
         android:background="@drawable/bg_add_card"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="wrap_content"
