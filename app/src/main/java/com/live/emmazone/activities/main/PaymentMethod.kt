@@ -21,6 +21,9 @@ import okio.Okio
 
 class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
 
+    var cardId = ""
+    var cardCVV:String? = ""
+
     private val appViewModel: AppViewModel by viewModels()
     private lateinit var binding: ActivityPaymentMethodBinding
     private var addPaymentAdapter: AdapterAddPaymentCard? = null
@@ -83,13 +86,21 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
         }
 
         binding.btnNext.setOnClickListener {
-            validateData()
+            if(selectedPaymentType=="2"){
+                val intent = Intent()
+                intent.putExtra("paymentType", selectedPaymentType)
+                intent.putExtra("cardId", cardId)
+                intent.putExtra("cardCVV", cardCVV)
+
+                setResult(RESULT_OK, intent)
+                onBackPressed()
+            }else if(selectedPaymentType=="1"){
+                validateData()
+            }
         }
     }
 
     private fun validateData() {
-        var cardId = ""
-        var cardCVV:String? = ""
 
         cardList.forEach {
             if (it.isSelected) {

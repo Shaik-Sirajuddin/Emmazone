@@ -60,7 +60,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
     private var selectedCardId = ""
     private var selectedCardCvv = ""
     private var selectedAddressId = ""
-
+    val hashMap = HashMap<String, String>()
     private val launcherAddress =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -258,21 +258,30 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
     }
 
     private fun validateData() {
+
+
         if (Validator.buyProduct(selectedAddressId, selectedCardId)) {
-            val hashMap = HashMap<String, String>()
-            hashMap["deliveryType"] = "2"  //0=>click&collect 1=>lifernado 2=>ownDelivery
-            hashMap["userAddressId"] = selectedAddressId
-            hashMap["paymentMethod"] = selectedPaymentType
-            hashMap["cardId"] = selectedCardId
-            hashMap["cvv"] = selectedCardCvv
+            if (selectedPaymentType == "1") {
+                hashMap["cardId"] = selectedCardId
+                hashMap["cvv"] = selectedCardCvv
+                addOderApi()
 
-            appViewModel.addOrderApi(this, true, hashMap)
-            appViewModel.getResponse().observe(this, this)
-
+            } else {
+                addOderApi()
+            }
         } else {
-            AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
-        }
+                AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+            }
     }
+
+    fun addOderApi() {
+        hashMap["deliveryType"] = "2"  //0=>click&collect 1=>lifernado 2=>ownDelivery
+        hashMap["userAddressId"] = selectedAddressId
+        hashMap["paymentMethod"] = selectedPaymentType  //0=>Wallet 1=>Card 2=>cash
+        appViewModel.addOrderApi(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+    }
+
 
     private fun thankYouDialog() {
         val alertDialog = AlertDialog.Builder(this)

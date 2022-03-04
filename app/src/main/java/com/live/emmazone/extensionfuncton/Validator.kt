@@ -363,7 +363,7 @@ object Validator {
             errorMessage = AppController.instance!!.getString(R.string.pls_select_address)
             false
         } else if (TextUtils.isEmpty(selectCardId)) {
-            errorMessage = AppController.instance!!.getString(R.string.please_select_card)
+            errorMessage = AppController.instance!!.getString(R.string.please_select_payment)
             false
         }else return true
     }
