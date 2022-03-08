@@ -5,25 +5,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnActionListenerNew
 import com.live.emmazone.activities.main.Cart
-import com.live.emmazone.activities.main.OrderCancelled
-import com.live.emmazone.activities.main.OrderDeliveredDetail
-import com.live.emmazone.adapter.AdapterOnGoingOrders
+import com.live.emmazone.adapter.AdapterOnGoingUserOrders
 import com.live.emmazone.adapter.AdapterOrderCancel
-import com.live.emmazone.model.ModelOnGoingOrders
+import com.live.emmazone.databinding.PastFragmentBinding
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.response_model.SalesResponse
+import com.live.emmazone.view_models.AppViewModel
 
-class PastFragment : Fragment() {
-    var list = ArrayList<ModelOnGoingOrders>()
-    lateinit var adapter: AdapterOnGoingOrders
+class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> {
+    private val appViewModel: AppViewModel by viewModels()
+
+    lateinit var adapter: AdapterOnGoingUserOrders
     lateinit var adapterOrderCancel: AdapterOrderCancel
-    var listPastOrders = ArrayList<ModelOnGoingOrders>()
+    var listPastOrders = ArrayList<SalesResponse.SaleResponseBody>()
+
+    private lateinit var binding: PastFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,74 +36,54 @@ class PastFragment : Fragment() {
 
         val view = LayoutInflater.from(context).inflate(R.layout.past_fragment, container, false)
 
-        val rvPastDelivered: RecyclerView = view.findViewById(R.id.rvMyPastDelivered)
-        val rvCancelledOrder: RecyclerView = view.findViewById(R.id.rvMyOrderPastCancelled)
-        val imageStatusDelivered: ImageView = view.findViewById(R.id.imgStatusDelivered)
-        val imageStatusCancel: ImageView = view.findViewById(R.id.imgStatusCancel)
-        val buttonBuyAgain: Button = view.findViewById(R.id.btnBuyAgain)
+        binding = PastFragmentBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        buttonBuyAgain.setOnClickListener {
-            val intent = Intent(activity, Cart::class.java)
-            startActivity(intent)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        imageStatusDelivered.setOnClickListener {
-            val intent = Intent(activity, OrderDeliveredDetail::class.java)
-            startActivity(intent)
-        }
-
-        imageStatusCancel.setOnClickListener {
-            val intent = Intent(activity, OrderCancelled::class.java)
-            startActivity(intent)
-        }
-
-
-        rvPastDelivered.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rvCancelledOrder.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        list.clear()
-        list.add(
-            ModelOnGoingOrders(
-                R.drawable.shoes_square, "Brend Shoe",
-                "02", "90.00€", status = "delivered"
-            )
-        )
-        list.add(
-            ModelOnGoingOrders(
-                R.drawable.winter, "Winter Sweeters",
-                "02", "30.00€", status = "delivered"
-            )
-        )
-
-        val onActionListenerNew = object : OnActionListenerNew {
-            override fun notifyOnClick() {
-                imageStatusDelivered.performClick()
-            }
-        }
-        rvPastDelivered.adapter =
-            context?.let { AdapterOnGoingOrders(it, list, onActionListenerNew) }
-
-        rvCancelledOrder.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        listPastOrders.clear()
-        listPastOrders.add(
-            ModelOnGoingOrders(
-                R.drawable.shoes_square,
-                "Brend Shoe", "02", "30.00€", status = "cancel"
-            )
-        )
+        setOnClicks()
 
         val onActionListenerCancel = object : OnActionListenerNew {
             override fun notifyOnClick() {
-                imageStatusCancel.performClick()
+              //  imageStatusCancel.performClick()
             }
         }
-        rvCancelledOrder.adapter = AdapterOrderCancel(listPastOrders, onActionListenerCancel)
+        setAdapter(onActionListenerCancel)
 
+        getPastOrdersApi()
 
-        return view
+    }
+
+    private fun getPastOrdersApi() {
+        val hashMap= HashMap<String,String>()
+        hashMap["type"]="2"
+        appViewModel.orderListingApi(requireActivity(),hashMap,true)
+        appViewModel.mResponse.observe(this,this)
+    }
+
+    private fun setAdapter(onActionListenerCancel: OnActionListenerNew) {
+        adapter= AdapterOnGoingUserOrders(requireContext(), listPastOrders,onActionListenerCancel)
+        binding.rvMyPastDelivered.adapter = adapter
+    }
+
+    private fun setOnClicks() {
+        binding.btnBuyAgain.setOnClickListener(this)
+
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.btnBuyAgain ->{
+                val intent = Intent(activity, Cart::class.java)
+                startActivity(intent)
+            }
+        }
+
+    }
+
+    override fun onChanged(t: RestObservable?) {
+
     }
 }

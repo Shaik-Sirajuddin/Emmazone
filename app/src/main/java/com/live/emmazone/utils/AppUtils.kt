@@ -218,8 +218,31 @@ class AppUtils {
             return date
         }
 
+        // get date and time according to GMT
+        fun getTimeTest(timeStamp: Long): String? {
+            return try {
+                val sdf = SimpleDateFormat("hh:mm a")
+                sdf.timeZone= TimeZone.getTimeZone("GMT")
+                val netDate = Date(timeStamp * 1000L)
+                sdf.format(netDate)
+            } catch (ex: java.lang.Exception) {
+                "xx"
+            }
+        }
 
+        fun getDateTime(timestamp: Long):String{
+            return try {
+                val sdf = SimpleDateFormat("dd-MMM-yyyy")
+                sdf.timeZone= TimeZone.getTimeZone("GMT")
+                val netDate = Date(timestamp * 1000L)
+                sdf.format(netDate)
+            } catch (ex: java.lang.Exception) {
+                "xx"
+            }
+        }
 
     }
+
+
 
 }

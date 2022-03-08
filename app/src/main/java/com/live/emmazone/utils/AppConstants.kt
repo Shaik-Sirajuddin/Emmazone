@@ -78,6 +78,6 @@ object AppConstants {
     const val SALES = "sales"
     const val UPDATE_CART_ITEM = "updateCartItem"
     const val ADD_ORDER = "addOrder"
-
+    const val ORDER_LISTING = "user_sales"
 
 }

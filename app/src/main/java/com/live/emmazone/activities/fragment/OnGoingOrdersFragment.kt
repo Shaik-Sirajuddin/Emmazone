@@ -7,158 +7,131 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnActionListenerNew
 import com.live.emmazone.activities.main.OrderDetail
-import com.live.emmazone.activities.main.ReservedDeliveredDetail
-import com.live.emmazone.adapter.AdapterOnGoPickCollect
-import com.live.emmazone.adapter.AdapterOnGoingOrders
-import com.live.emmazone.model.ModelOnGoingOrders
+import com.live.emmazone.adapter.AdapterOnGoingUserOrders
+import com.live.emmazone.databinding.OnGoingOrdersFragmentBinding
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.SalesResponse
+import com.live.emmazone.response_model.UserOrderListing
+import com.live.emmazone.view_models.AppViewModel
 
-class OnGoingOrdersFragment : Fragment() {
+class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObservable> {
 
-    var list = ArrayList<ModelOnGoingOrders>()
-    var listPickupCollectOrder = ArrayList<ModelOnGoingOrders>()
+    private val appViewModel: AppViewModel by viewModels()
+    val list = ArrayList<UserOrderListing.OrderListBody>()
 
-    lateinit var adapter: AdapterOnGoingOrders
-    lateinit var adapterpickCollect: AdapterOnGoPickCollect
+    lateinit var adapter: AdapterOnGoingUserOrders
+
+    private lateinit var binding: OnGoingOrdersFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = LayoutInflater.from(context)
-            .inflate(R.layout.on_going_orders_fragment, container, false)
+        container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        binding = OnGoingOrdersFragmentBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.rvMyOrderOnGoing)
-        val recyclerViewPastOrders: RecyclerView =
-            view.findViewById(R.id.rvMyOrderOnGoingPickCollect)
-        val imageStatusOnTheWay: Button = view.findViewById(R.id.btnStatusOnTheWay)
-        val imageStatusPickCollect: ImageView = view.findViewById(R.id.imgStatusPickCollect)
-        val scannerOnWay: ImageView = view.findViewById(R.id.imgCodeScanner)
-        val scannerPickCollect: ImageView = view.findViewById(R.id.imgCodeScanner1)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        scannerOnWay.setOnClickListener {
-            val dialog = Dialog(requireContext())
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setCancelable(true)
-            dialog.setCanceledOnTouchOutside(true)
-
-            dialog.setContentView(R.layout.dialog_scan_qr_code)
-
-            dialog.window?.apply {
-
-                setLayout(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-
-                setBackgroundDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        android.R.color.transparent
-                    )
-                )
-            }
-
-            val backIcon = dialog.findViewById<ImageView>(R.id.crossImage)
-
-            backIcon.setOnClickListener { dialog.dismiss() }
-
-            dialog.show()
-
-        }
-
-        scannerPickCollect.setOnClickListener {
-
-            val dialog = Dialog(requireContext())
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setCancelable(true)
-            dialog.setCanceledOnTouchOutside(true)
-
-            dialog.setContentView(R.layout.dialog_scan_qr_code)
-
-            dialog.window?.apply {
-
-                setLayout(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-
-                setBackgroundDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        android.R.color.transparent
-                    )
-                )
-            }
-
-            val backIcon = dialog.findViewById<ImageView>(R.id.crossImage)
-
-            backIcon.setOnClickListener { dialog.dismiss() }
-
-            dialog.show()
-        }
-
-        imageStatusPickCollect.setOnClickListener {
-            val intent = Intent(activity, ReservedDeliveredDetail::class.java)
-            startActivity(intent)
-        }
-
-        imageStatusOnTheWay.setOnClickListener {
-            val intent = Intent(activity, OrderDetail::class.java)
-            startActivity(intent)
-        }
-
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerViewPastOrders.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        list.clear()
-        list.add(
-            ModelOnGoingOrders(
-                R.drawable.shoes_square, "Brend Shoe",
-                "02", "90.00€", status = "ontheway"
-            )
-        )
-        list.add(
-            ModelOnGoingOrders(
-                R.drawable.winter, "Winter Sweeters",
-                "02", "30.00€", status = "ontheway"
-            )
-        )
+        setOnClicks()
 
         val onActionListenerNew = object : OnActionListenerNew {
             override fun notifyOnClick() {
-                imageStatusOnTheWay.performClick()
+                //binding.imgCodeScanner.performClick()
             }
         }
-        recyclerView.adapter = context?.let { AdapterOnGoingOrders(it, list, onActionListenerNew) }
+        setAdapter(onActionListenerNew)
+        getMyOrdersApi()
 
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    }
 
-        listPickupCollectOrder.clear()
-        listPickupCollectOrder.add(
-            ModelOnGoingOrders(
-                R.drawable.shoes_square, "Brend Shoe",
-                "02", "30.00€", status = "pickupCollect"
-            )
-        )
+    private fun getMyOrdersApi() {  // 1 => past orders, 2 => ongoing orders
+        val hashMap= HashMap<String,String>()
+        hashMap["status"]="1"
+        appViewModel.orderListingApi(requireActivity(),hashMap,true)
+        appViewModel.mResponse.observe(this,this)
+    }
 
-        recyclerViewPastOrders.adapter =
-            context?.let { AdapterOnGoPickCollect(it, listPickupCollectOrder) }
+    private fun setOnClicks() {
 
-        return view
+    }
+
+    private fun setAdapter(onActionListenerNew: OnActionListenerNew) {
+        adapter= AdapterOnGoingUserOrders(requireContext(), list,onActionListenerNew)
+        binding.rvOnGoingOrders.adapter = adapter
+    }
+
+    override fun onClick(v: View?) {
+
+        when(v?.id){
+            R.id.imgCodeScanner ->{
+                val dialog = Dialog(requireContext())
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.setCancelable(true)
+                dialog.setCanceledOnTouchOutside(true)
+
+                dialog.setContentView(R.layout.dialog_scan_qr_code)
+
+                dialog.window?.apply {
+
+                    setLayout(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+
+                    setBackgroundDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            android.R.color.transparent
+                        )
+                    )
+                }
+
+                val backIcon = dialog.findViewById<ImageView>(R.id.crossImage)
+
+                backIcon.setOnClickListener { dialog.dismiss() }
+
+                dialog.show()
+            }
+
+            R.id.btnStatusOnTheWay ->{
+                val intent = Intent(activity, OrderDetail::class.java)
+                startActivity(intent)
+            }
+        }
+
+    }
+
+    override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is UserOrderListing) {
+                    list.clear()
+                    list.addAll(t.data.body)
+                    if(list.size>0){
+                        binding.tvNoData.visibility= View.GONE
+                        binding.rvOnGoingOrders.visibility= View.VISIBLE
+                        adapter.notifyDataSetChanged()
+                    }else{
+                        binding.tvNoData.visibility= View.VISIBLE
+                        binding.rvOnGoingOrders.visibility= View.GONE
+                    }
+
+                }
+            }
+        }
     }
 
 }

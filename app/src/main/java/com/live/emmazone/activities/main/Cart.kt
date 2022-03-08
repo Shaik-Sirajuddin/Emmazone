@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -17,6 +18,7 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.adapter.AdapterCart
 import com.live.emmazone.adapter.YouMyLikeProductAdapter
+import com.live.emmazone.base.AppController
 import com.live.emmazone.databinding.ActivityCartBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.model.CartResponsModel
@@ -259,9 +261,13 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
     private fun validateData() {
 
-
-        if (Validator.buyProduct(selectedAddressId, selectedCardId)) {
+        if (Validator.buyProduct(selectedAddressId, selectedPaymentType)) {
             if (selectedPaymentType == "1") {
+                if (TextUtils.isEmpty(selectedCardId)) {
+                    Validator.errorMessage =
+                        AppController.instance!!.getString(R.string.please_select_card)
+                    return
+                }
                 hashMap["cardId"] = selectedCardId
                 hashMap["cvv"] = selectedCardCvv
                 addOderApi()
@@ -270,8 +276,8 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                 addOderApi()
             }
         } else {
-                AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
-            }
+            AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+        }
     }
 
     fun addOderApi() {

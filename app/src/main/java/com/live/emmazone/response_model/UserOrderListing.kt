@@ -1,48 +1,39 @@
 package com.live.emmazone.response_model
 
-import java.io.Serializable
-
-data class SalesResponse(
-    val body: ArrayList<SaleResponseBody>,
+data class UserOrderListing(
+    val body: ArrayList<OrderListBody>,
     val code: Int,
     val message: String,
     val success: Boolean
-):Serializable {
-    data class SaleResponseBody(
+) {
+    data class OrderListBody(
         val adminCommission: String,
         val created: Long,
         val createdAt: String,
-        val customer: Customer,
         val customerId: Int,
         val deliveryType: Int,
         val id: Int,
         val netAmount: String,
-        val orderJson: OrderJson,
+        val orderJson: SalesResponse.SaleResponseBody.OrderJson,
         val orderNo: String,
         val orderStatus: Int,
         val paymentMethod: Int,
         val productName: String,
+        val qrCode: String,
         val shippingCharges: String,
         val taxCharged: String,
         val total: String,
         val updated: Int,
         val updatedAt: String,
         val userAddressId: Int,
-        val vendor: Vendor,
         val vendorId: Int
-    ):Serializable {
-        data class Customer(
-            val id: Int,
-            val image: String,
-            val username: String
-        ):Serializable
-
+    ) /*{
         data class OrderJson(
             val orderItems: ArrayList<OrderItem>,
             val payment: Payment,
             val paymentMethod: String,
             val userAddress: UserAddress
-        ):Serializable {
+        ) {
             data class OrderItem(
                 val categoryColorId: Int,
                 val categoryId: Int,
@@ -61,13 +52,14 @@ data class SalesResponse(
                 val product_quantity: Int,
                 val status: Int,
                 val userId: Int,
-                val vendor: Vendor
-            ) :Serializable{
+                val vendor: Vendor,
+                val vendorId: Int
+            ) {
                 data class Vendor(
                     val id: Int,
                     val image: String,
                     val username: String
-                ):Serializable
+                )
             }
 
             data class Payment(
@@ -93,11 +85,9 @@ data class SalesResponse(
                 val id: String,
                 val invoice: Any,
                 val livemode: Boolean,
-                val metadata: Metadata,
                 val `object`: String,
                 val on_behalf_of: Any,
                 val order: Any,
-
                 val outcome: Outcome,
                 val paid: Boolean,
                 val payment_intent: Any,
@@ -117,13 +107,13 @@ data class SalesResponse(
                 val status: String,
                 val transfer_data: Any,
                 val transfer_group: Any
-            ) :Serializable{
+            ) {
                 data class BillingDetails(
                     val address: Address,
                     val email: Any,
                     val name: Any,
                     val phone: Any
-                ):Serializable {
+                ) {
                     data class Address(
                         val city: Any,
                         val country: Any,
@@ -131,10 +121,8 @@ data class SalesResponse(
                         val line2: Any,
                         val postal_code: Any,
                         val state: Any
-                    ):Serializable
+                    )
                 }
-
-
                 data class Outcome(
                     val network_status: String,
                     val reason: Any,
@@ -142,12 +130,12 @@ data class SalesResponse(
                     val risk_score: Int,
                     val seller_message: String,
                     val type: String
-                ):Serializable
+                )
 
                 data class PaymentMethodDetails(
                     val card: Card,
                     val type: String
-                ):Serializable {
+                ) {
                     data class Card(
                         val brand: String,
                         val checks: Checks,
@@ -161,12 +149,12 @@ data class SalesResponse(
                         val network: String,
                         val three_d_secure: Any,
                         val wallet: Any
-                    ):Serializable {
+                    ) {
                         data class Checks(
                             val address_line1_check: Any,
                             val address_postal_code_check: Any,
                             val cvc_check: String
-                        ):Serializable
+                        )
                     }
                 }
 
@@ -176,7 +164,7 @@ data class SalesResponse(
                     val `object`: String,
                     val total_count: Int,
                     val url: String
-                ):Serializable
+                )
 
                 data class Source(
                     val address_city: Any,
@@ -198,11 +186,10 @@ data class SalesResponse(
                     val funding: String,
                     val id: String,
                     val last4: String,
-                    val metadata: Metadata,
                     val name: Any,
                     val `object`: String,
                     val tokenization_method: Any
-                ) :Serializable
+                )
             }
 
             data class UserAddress(
@@ -217,13 +204,7 @@ data class SalesResponse(
                 val updatedAt: String,
                 val userId: Int,
                 val zipcode: String
-            ):Serializable
+            )
         }
-
-        data class Vendor(
-            val id: Int,
-            val image: String,
-            val username: String
-        ):Serializable
-    }
+    }*/
 }

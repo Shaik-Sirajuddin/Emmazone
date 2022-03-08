@@ -25,9 +25,12 @@ class AdapterFaqs(private val list: ArrayList<FaqListResponse.Body>) :
         holder.tvAnswer.text = list[position].answer
 
         if (list[position].isSelected) {
-            holder.ivDropDown.visibility = View.GONE
             holder.tvAnswer.visibility = View.VISIBLE
+            holder.ivDropDown.visibility = View.VISIBLE
+            holder.ivDropDown.setImageResource(R.drawable.arrow_down)
+
         } else {
+            holder.ivDropDown.setImageResource(R.drawable.arrow_right)
             holder.ivDropDown.visibility = View.VISIBLE
             holder.tvAnswer.visibility = View.GONE
         }

@@ -116,8 +116,10 @@ class DeliveryAddress : AppCompatActivity(), Observer<RestObservable> {
     private fun noDataVisibility() {
         if (list.isEmpty()) {
             binding.tvNoData.visibility = View.VISIBLE
+            binding.btnNext.visibility=View.GONE
             binding.recyclerDeliveryAddress.visibility = View.GONE
         } else {
+            binding.btnNext.visibility=View.VISIBLE
             binding.tvNoData.visibility = View.GONE
             binding.recyclerDeliveryAddress.visibility = View.VISIBLE
         }

@@ -33,14 +33,15 @@
 
         <ImageView
             android:id="@+id/ivDropDown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/_16sdp"
             android:contentDescription="@string/app_name"
             android:padding="5dp"
-            android:src="@drawable/arrow_right" />
+            android:src="@drawable/arrow_right"
+            app:tint="@color/green" />
 
 
     </RelativeLayout>

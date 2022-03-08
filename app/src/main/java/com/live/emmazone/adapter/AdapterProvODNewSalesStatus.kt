@@ -27,7 +27,7 @@ class AdapterProvODNewSalesStatus(private val context : Context, private val lis
         holder.imgStatus.setText(ModelNewSaleOrderDetail.tvUsername)
         holder.imgChat.setImageResource(ModelNewSaleOrderDetail.imgChat)
         holder.recyclerODChildNewSales.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
-        holder.recyclerODChildNewSales.adapter = AdapterOnGoingOrders(context, ModelNewSaleOrderDetail.list)
+       // holder.recyclerODChildNewSales.adapter = AdapterOnGoingOrders(context, ModelNewSaleOrderDetail.list)
 
     }
 

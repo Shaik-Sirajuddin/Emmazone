@@ -338,9 +338,22 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imagePayPalOD"
                 android:src="@drawable/paypal"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="@+id/layoutPaymentMethodOD"
                 app:layout_constraintStart_toStartOf="@+id/layoutPaymentMethodOD"
                 />
+
+            <TextView
+                android:id="@+id/tvPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="order :"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@+id/layoutPaymentMethodOD"
+                app:layout_constraintStart_toStartOf="@+id/layoutPaymentMethodOD"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -376,12 +389,15 @@
             app:layout_constraintStart_toStartOf="@+id/tvODDeliveryType"
             app:layout_constraintTop_toBottomOf="@+id/tvODDeliveryType" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/tvOrderStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnOnTheWay"
-            android:background="@drawable/pending_red"
+            android:background="@drawable/bg_fill_earning"
             android:layout_marginStart="@dimen/dp8"
+            android:text="dscdsvfds"
+            android:padding="6dp"
+            android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="@+id/tvODStatus"
             app:layout_constraintBottom_toBottomOf="@+id/tvODStatus"
             app:layout_constraintStart_toEndOf="@+id/tvODStatus"

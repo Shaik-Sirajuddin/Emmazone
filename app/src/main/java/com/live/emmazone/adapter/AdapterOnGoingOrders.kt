@@ -4,14 +4,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnActionListenerNew
 import com.live.emmazone.databinding.ItemLayoutOngoingMyordersBinding
-import com.live.emmazone.model.ModelOnGoingOrders
+import com.live.emmazone.response_model.SalesResponse
 
 class AdapterOnGoingOrders(
     private val context: Context,
-    private val list: ArrayList<ModelOnGoingOrders>,
-    private val onActionListenerNew: OnActionListenerNew? = null
+    private val list: ArrayList<SalesResponse.SaleResponseBody.OrderJson.OrderItem>,
+    private val onActionListenerNew: OnActionListenerNew? = null,
+    private val type: String
 ) :
     RecyclerView.Adapter<AdapterOnGoingOrders.ViewHolder>() {
 
@@ -31,10 +34,10 @@ class AdapterOnGoingOrders(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = list[position]
         with(holder.binding) {
-            onGoingItem.setImageResource(model.onGoingItem)
-            onGoingItemName.text = model.onGoingItemName
-            onGoingItemQuantity.text = model.onGoingItemQuantity
-            productPrice.text = model.productPrice
+            Glide.with(context).load(model.mainImage).into(onGoingItem)
+            onGoingItemName.text = model.name
+            onGoingItemQuantity.text = model.product_quantity.toString()
+            productPrice.text = context.getString(R.string.euro_symbol,model.product_price)
         }
 
         holder.itemView.setOnClickListener {
@@ -43,6 +46,14 @@ class AdapterOnGoingOrders(
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        if(type=="list"){
+            if(list.size>=2){
+                return 2
+            }else{
+                return list.size
+            }
+        }else{
+            return list.size
+        }
     }
 }

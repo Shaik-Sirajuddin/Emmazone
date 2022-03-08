@@ -7,13 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.adapter.AdapterProviderNewSales
 import com.live.emmazone.databinding.FragmentNewSalesProviderBinding
 import com.live.emmazone.model.ModelOnGoingOrders
-import com.live.emmazone.model.ModelProviderNewSale
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.SalesResponse
@@ -23,7 +20,7 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
 
-    val list = ArrayList<ModelProviderNewSale>()
+    val list = ArrayList<SalesResponse.SaleResponseBody>()
     lateinit var adapter: AdapterProviderNewSales
 
     private lateinit var binding: FragmentNewSalesProviderBinding
@@ -55,58 +52,9 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
     }
 
     private fun setNewSalesAdapter() {
+        adapter= AdapterProviderNewSales(requireContext(), list)
 
-        val listChildRecycler = ArrayList<ModelOnGoingOrders>()
-
-        listChildRecycler.add(
-            ModelOnGoingOrders(
-                R.drawable.shoes_square, "Brend Shoe",
-                "03", "90.00€", status = "pending"
-            )
-        )
-        listChildRecycler.add(
-            ModelOnGoingOrders(
-                R.drawable.shoes_square, "Brend Shoe",
-                "03", "90.00€", status = "pending"
-            )
-        )
-
-        list.add(
-            ModelProviderNewSale(
-                "Order ID:",
-                "PLU9540572",
-                R.drawable.avtarr_girl,
-                "Allen Chandler",
-                "Delivery Type",
-                " Home Delivery",
-                listChildRecycler,
-                R.drawable.pendding_g,
-                "29-march-2021",
-                status = "pending"
-            )
-        )
-
-        val items = ArrayList<ModelOnGoingOrders>()
-
-        items.add(
-            ModelOnGoingOrders(
-                R.drawable.shoes_square,
-                "Brend Shoe",
-                "03",
-                "90.00€",
-                status = "pending"
-            )
-        )
-
-        list.add(
-            ModelProviderNewSale(
-                "Order ID:", "PLU9540572", R.drawable.avtarr_girl, "Allen Chandler",
-                "Delivery Type", " Home Delivery", items, R.drawable.pendding_g, "29-march-2021",
-                status = "pending"
-            )
-        )
-
-        binding.rvNewSales.adapter = AdapterProviderNewSales(requireContext(), list)
+        binding.rvNewSales.adapter = adapter
 
     }
 
@@ -114,7 +62,18 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is SalesResponse) {
+                    list.clear()
+                    list.addAll(t.data.body)
+                    if(list.size>0){
+                        binding.tvNoData.visibility= View.GONE
+                        binding.rvNewSales.visibility= View.VISIBLE
+                        adapter.notifyDataSetChanged()
+                    }else{
+                        binding.tvNoData.visibility= View.VISIBLE
+                        binding.rvNewSales.visibility= View.GONE
+                    }
 
+                    adapter.notifyDataSetChanged()
                 }
             }
         }

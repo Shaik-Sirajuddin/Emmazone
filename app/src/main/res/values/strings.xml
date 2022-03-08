@@ -165,6 +165,7 @@
     <string name="edit_image">Edit Image</string>
     <string name="choose_your_services">Choose your Services</string>
     <string name="click_and_collect">Click And Collect</string>
+    <string name="lifernado">Liferando</string>
     <string name="own_delivery">Own Delivery</string>
     <string name="delivery_type">Delivery Type</string>
     <string name="home_delivery">Home Delivery</string>
@@ -182,6 +183,8 @@
     <string name="order_type">Order Type</string>
     <string name="customer_reviews">Customer Reviews</string>
     <string name="on_the_way">On the way</string>
+    <string name="pending">Pending</string>
+    <string name="delivered">Delivered</string>
     <string name="buy_again">Buy Again</string>
     <string name="forgot_passwordac">Forgot Password</string>
     <string name="enter_your_email_and_we_ll_send_you">Enter your email and we\'ll send you</string>
@@ -218,7 +221,7 @@
     <string name="add_new_card">Add New Card</string>
     <string name="add_card">Add Card</string>
     <string name="enter_name">Enter Name</string>
-    <string name="exp_date">Exp. Date</string>
+    <string name="exp_date">Expiry Date</string>
     <string name="cvv">CVV</string>
     <string name="expired">Expired: %s</string>
 

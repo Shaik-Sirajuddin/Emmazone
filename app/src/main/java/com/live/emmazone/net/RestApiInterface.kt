@@ -200,4 +200,9 @@ interface RestApiInterface {
     @FormUrlEncoded
     @POST(AppConstants.ADD_ORDER)
     fun addOrder(@FieldMap hashMap: HashMap<String, String>): Call<AddOrderResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.ORDER_LISTING)
+    fun orderListingApi(@FieldMap hashMap: HashMap<String, String>): Call<UserOrderListing>
+
 }

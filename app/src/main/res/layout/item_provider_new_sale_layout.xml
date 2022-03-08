@@ -162,12 +162,19 @@
                 app:layout_constraintStart_toStartOf="@+id/tvDeliveryType"
                 app:layout_constraintTop_toBottomOf="@+id/tvDeliveryType" />
 
-            <ImageView
-                android:id="@+id/imgStatus"
+            <TextView
+                android:id="@+id/tvOrderStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp5"
-                android:src="@drawable/ontheway"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+                android:text="Pending"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingBottom="@dimen/_2sdp"
+                android:paddingStart="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_4sdp"
+                android:background="@drawable/rounded_fill_bg_myorders"
                 app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
                 app:layout_constraintStart_toEndOf="@+id/tvStatus"
                 app:layout_constraintTop_toTopOf="@+id/tvStatus" />

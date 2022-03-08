@@ -11,10 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.ReservedDeliveredDetail
 import com.live.emmazone.model.ModelOnGoingOrders
+import com.live.emmazone.response_model.SalesResponse
 
 class AdapterOnGoPickCollect(
     private val context: Context,
-    private val list: ArrayList<ModelOnGoingOrders>
+    private val list: ArrayList<SalesResponse.SaleResponseBody.OrderJson.OrderItem>
 ) :
     RecyclerView.Adapter<AdapterOnGoPickCollect.ViewHolder>() {
 
@@ -25,11 +26,11 @@ class AdapterOnGoPickCollect(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ModelOnGoingOrders = list[position]
-        holder.imgOnGoingItem.setImageResource(ModelOnGoingOrders.onGoingItem)
-        holder.tvonGoingItemName.setText(ModelOnGoingOrders.onGoingItemName)
-        holder.tvonGoingItemQuantity.setText(ModelOnGoingOrders.onGoingItemQuantity)
-        holder.tvproductPrice.setText(ModelOnGoingOrders.productPrice)
+        val data = list[position]
+       // holder.imgOnGoingItem.setImageResource(ModelOnGoingOrders.onGoingItem)
+        holder.tvonGoingItemName.text = data.name
+        holder.tvonGoingItemQuantity.text = data.product_quantity.toString()
+        holder.tvproductPrice.text = data.product_price
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ReservedDeliveredDetail::class.java)
