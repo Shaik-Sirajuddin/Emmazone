@@ -50,6 +50,94 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+        <TextView
+            android:id="@+id/tvOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp8"
+            android:text="Order ID -"
+            android:textAllCaps="true"
+            android:textColor="@color/green"
+            android:textSize="@dimen/sp12"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutMain" />
+
+
+        <TextView
+            android:id="@+id/tvOrderID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp5"
+            android:layout_marginEnd="@dimen/dp24"
+            android:text="PLU9540572"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp12"
+            app:layout_constraintBottom_toBottomOf="@+id/tvOrder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/tvOrder"
+            app:layout_constraintTop_toTopOf="@+id/tvOrder" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_marginEnd="@dimen/dp8"
+            android:background="@color/normalBlack1"
+            app:layout_constraintEnd_toEndOf="@+id/tvOrderID"
+            app:layout_constraintStart_toStartOf="@+id/tvOrder"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrder" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageSales"
+            android:layout_width="@dimen/dp50"
+            android:layout_height="@dimen/dp50"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp20"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avtarr_girl"
+            app:layout_constraintStart_toStartOf="@+id/tvOrder"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrder"
+            app:riv_border_color="@color/normalBlack"
+            app:riv_corner_radius="30dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true"
+            app:riv_tile_mode="clamp" />
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp5"
+            android:layout_marginEnd="@dimen/dp24"
+            android:text="Allen Chandler"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageSales"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintStart_toEndOf="@+id/imageSales"
+            app:layout_constraintTop_toTopOf="@+id/imageSales" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp8"
+            android:background="@color/normalBlack1"
+            app:layout_constraintEnd_toEndOf="@+id/tvUsername"
+            app:layout_constraintStart_toStartOf="@+id/imageSales"
+            app:layout_constraintTop_toBottomOf="@+id/imageSales" />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvOrderDetailNewSale"
             android:layout_width="0dp"
@@ -59,7 +147,7 @@
             app:layout_constraintBottom_toTopOf="@+id/cardOrderDeatil"
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutMain" />
+            app:layout_constraintTop_toBottomOf="@+id/view1" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardOrderDeatil"
@@ -175,7 +263,7 @@
                     <TextView
                         android:id="@+id/tvDeliveryChargesPrice"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="29dp"
                         android:layout_marginStart="@dimen/dp10"
                         android:layout_marginEnd="@dimen/dp24"
                         android:text="10.00€"
@@ -397,6 +485,9 @@
             android:layout_marginStart="@dimen/dp8"
             android:text="dscdsvfds"
             android:padding="6dp"
+            android:textSize="10dp"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_4sdp"
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="@+id/tvODStatus"
             app:layout_constraintBottom_toBottomOf="@+id/tvODStatus"

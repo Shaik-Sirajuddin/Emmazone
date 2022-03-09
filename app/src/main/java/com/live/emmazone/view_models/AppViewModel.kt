@@ -1609,10 +1609,10 @@ class AppViewModel : ViewModel() {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.orderListingApi(hashMap)
-                .enqueue(object : Callback<AddOrderResponse> {
+                .enqueue(object : Callback<UserOrderListing> {
                     override fun onResponse(
-                        call: Call<AddOrderResponse>,
-                        response: Response<AddOrderResponse>
+                        call: Call<UserOrderListing>,
+                        response: Response<UserOrderListing>
                     ) {
                         if (response.isSuccessful) {
                             mResponse.value = RestObservable.success(response.body()!!)
@@ -1625,7 +1625,7 @@ class AppViewModel : ViewModel() {
                         }
                     }
 
-                    override fun onFailure(call: Call<AddOrderResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<UserOrderListing>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
 

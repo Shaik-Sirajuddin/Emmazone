@@ -47,19 +47,14 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
 
         setOnClicks()
 
-        val onActionListenerNew = object : OnActionListenerNew {
-            override fun notifyOnClick() {
-                //binding.imgCodeScanner.performClick()
-            }
-        }
-        setAdapter(onActionListenerNew)
+        setAdapter()
         getMyOrdersApi()
 
     }
 
     private fun getMyOrdersApi() {  // 1 => past orders, 2 => ongoing orders
         val hashMap= HashMap<String,String>()
-        hashMap["status"]="1"
+        hashMap["status"]= "1"
         appViewModel.orderListingApi(requireActivity(),hashMap,true)
         appViewModel.mResponse.observe(this,this)
     }
@@ -68,8 +63,8 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
 
     }
 
-    private fun setAdapter(onActionListenerNew: OnActionListenerNew) {
-        adapter= AdapterOnGoingUserOrders(requireContext(), list,onActionListenerNew)
+    private fun setAdapter() {
+        adapter= AdapterOnGoingUserOrders(requireContext(), list)
         binding.rvOnGoingOrders.adapter = adapter
     }
 
@@ -106,10 +101,10 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
                 dialog.show()
             }
 
-            R.id.btnStatusOnTheWay ->{
+            /*R.id.btnStatusOnTheWay ->{
                 val intent = Intent(activity, OrderDetail::class.java)
                 startActivity(intent)
-            }
+            }*/
         }
 
     }

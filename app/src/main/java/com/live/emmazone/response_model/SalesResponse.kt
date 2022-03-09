@@ -93,11 +93,8 @@ data class SalesResponse(
                 val id: String,
                 val invoice: Any,
                 val livemode: Boolean,
-                val metadata: Metadata,
-                val `object`: String,
                 val on_behalf_of: Any,
                 val order: Any,
-
                 val outcome: Outcome,
                 val paid: Boolean,
                 val payment_intent: Any,
@@ -133,7 +130,6 @@ data class SalesResponse(
                         val state: Any
                     ):Serializable
                 }
-
 
                 data class Outcome(
                     val network_status: String,
@@ -173,7 +169,6 @@ data class SalesResponse(
                 data class Refunds(
                     val `data`: List<Any>,
                     val has_more: Boolean,
-                    val `object`: String,
                     val total_count: Int,
                     val url: String
                 ):Serializable
@@ -198,9 +193,7 @@ data class SalesResponse(
                     val funding: String,
                     val id: String,
                     val last4: String,
-                    val metadata: Metadata,
                     val name: Any,
-                    val `object`: String,
                     val tokenization_method: Any
                 ) :Serializable
             }
