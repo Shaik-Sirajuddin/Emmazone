@@ -8,23 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
-import com.live.emmazone.activities.listeners.OnActionListenerNew
 import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.adapter.AdapterOnGoingUserOrders
 import com.live.emmazone.adapter.AdapterOrderCancel
 import com.live.emmazone.databinding.PastFragmentBinding
 import com.live.emmazone.net.RestObservable
-import com.live.emmazone.response_model.SalesResponse
+import com.live.emmazone.response_model.UserOrderListing
 import com.live.emmazone.view_models.AppViewModel
 
 class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
 
     lateinit var adapter: AdapterOnGoingUserOrders
-    lateinit var adapterOrderCancel: AdapterOrderCancel
-    var listPastOrders = ArrayList<SalesResponse.SaleResponseBody>()
+    var listPastOrders = ArrayList<UserOrderListing.OrderListBody>()
 
     private lateinit var binding: PastFragmentBinding
 
@@ -45,12 +42,7 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
 
         setOnClicks()
 
-        val onActionListenerCancel = object : OnActionListenerNew {
-            override fun notifyOnClick() {
-              //  imageStatusCancel.performClick()
-            }
-        }
-        setAdapter(onActionListenerCancel)
+        setAdapter()
 
         getPastOrdersApi()
 
@@ -63,8 +55,8 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
         appViewModel.mResponse.observe(this,this)
     }
 
-    private fun setAdapter(onActionListenerCancel: OnActionListenerNew) {
-        adapter= AdapterOnGoingUserOrders(requireContext(), listPastOrders,onActionListenerCancel)
+    private fun setAdapter() {
+        adapter= AdapterOnGoingUserOrders(requireContext(), listPastOrders)
         binding.rvMyPastDelivered.adapter = adapter
     }
 

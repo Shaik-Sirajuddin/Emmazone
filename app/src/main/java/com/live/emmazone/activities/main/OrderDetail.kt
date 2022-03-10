@@ -71,7 +71,7 @@ class OrderDetail : AppCompatActivity() {
         list.add(ModelOrderDetail(R.drawable.winter, "Winter Sweeters",
             "1", "30.00€"))
 
-        binding.recyclerOrderDetail.adapter = AdapterOrderDetail(list)
+     //   binding.recyclerOrderDetail.adapter = AdapterOrderDetail(list)
 
     }
 }

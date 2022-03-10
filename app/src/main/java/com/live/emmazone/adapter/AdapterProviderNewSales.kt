@@ -12,12 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnActionListenerNew
-import com.live.emmazone.activities.provider.OrderDetailDeliveredStatusActivity
 import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
-import com.live.emmazone.activities.provider.OrderDetailPendingActivity
-import com.live.emmazone.activities.provider.OrderDetailProOngoingActivity
 import com.live.emmazone.response_model.SalesResponse
 import com.live.emmazone.utils.AppUtils
+import android.os.Bundle
 
 class AdapterProviderNewSales(
     private val context: Context,
@@ -64,7 +62,7 @@ class AdapterProviderNewSales(
 
         val onActionListenerNew = object : OnActionListenerNew {
             override fun notifyOnClick() {
-                //openDetailScreen(model, holder.adapterPosition)
+                openDetailScreen(model, holder.adapterPosition)
             }
         }
 

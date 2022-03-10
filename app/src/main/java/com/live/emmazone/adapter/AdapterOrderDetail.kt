@@ -1,5 +1,6 @@
 package com.live.emmazone.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,13 +8,15 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.model.ModelDeliveryAddress
 import com.live.emmazone.model.ModelNotifications
 import com.live.emmazone.model.ModelOrderDetail
 import com.live.emmazone.model.ModelWishList
+import com.live.emmazone.response_model.UserOrderListing
 
-class AdapterOrderDetail(private val list: ArrayList<ModelOrderDetail>) :
+class AdapterOrderDetail(val context: Context,private val list: ArrayList<UserOrderListing.OrderListBody.OrderJson.OrderItem>) :
     RecyclerView.Adapter<AdapterOrderDetail.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,11 +25,11 @@ class AdapterOrderDetail(private val list: ArrayList<ModelOrderDetail>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val ModelOrderDetail = list[position]
-        holder.imageOD.setImageResource(ModelOrderDetail.imageOrder)
-        holder.productItemNameOD.setText(ModelOrderDetail.productItemName)
-        holder.tvOrderQuantityNumberOD.setText(ModelOrderDetail.tvOrderQuantityNumber)
-        holder.productPriceOD.setText(ModelOrderDetail.productPrice)
+      val data = list[position]
+        Glide.with(context).load(data.mainImage).into(holder.imageOD)
+        holder.productItemNameOD.text = data.name
+        holder.tvOrderQuantityNumberOD.text = data.product_quantity.toString()
+        holder.productPriceOD.text= context.getString(R.string.euro_symbol,data.product_price)
     }
 
     override fun getItemCount(): Int {

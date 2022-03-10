@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -21,7 +20,6 @@ import com.live.emmazone.adapter.AdapterEditShop
 import com.live.emmazone.adapter.CategoriesAdapter
 import com.live.emmazone.databinding.ActivityEditShopDetailBinding
 import com.live.emmazone.extensionfuncton.Validator
-import com.live.emmazone.model.ModelEditShopCategory
 import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
@@ -242,7 +240,8 @@ class EditShopDetailActivity : ImagePickerUtility(),
         val buttonOk = view.findViewById<Button>(R.id.ok)
 
         buttonOk.setOnClickListener {
-            onBackPressed()
+            setResult(RESULT_OK)
+            finish()
         }
         alertDialog.setView(view)
         alertDialog.show()
