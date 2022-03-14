@@ -53,14 +53,15 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
     }
 
     private fun clicksHandle() {
-        binding.pickImage.setOnClickListener {
+
+        binding.clProfile.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)
             startActivity(intent)
         }
-        binding.rlProfile.setOnClickListener {
+        /*binding.rlProfile.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
         binding.cart.setOnClickListener {
             val intent = Intent(activity, Cart::class.java)

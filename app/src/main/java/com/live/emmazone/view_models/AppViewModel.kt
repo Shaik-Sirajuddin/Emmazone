@@ -1605,7 +1605,8 @@ class AppViewModel : ViewModel() {
     fun orderListingApi(
         activity: Activity,
         hashMap: HashMap<String, String>,
-        isDialogShow: Boolean) {
+        isDialogShow: Boolean
+    ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.orderListingApi(hashMap)
@@ -1634,7 +1635,51 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        orderListingApi(activity,hashMap,isDialogShow)
+                        orderListingApi(activity, hashMap, isDialogShow)
+                    }
+                })
+        }
+    }
+
+
+    /**
+     * update order status api call
+     */
+
+    fun orderStatusApi(
+        activity: Activity,
+        hashMap: HashMap<String, String>,
+        isDialogShow: Boolean
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.orderStatusApi(hashMap)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        orderListingApi(activity, hashMap, isDialogShow)
                     }
                 })
         }

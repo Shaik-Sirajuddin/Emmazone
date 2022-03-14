@@ -68,55 +68,52 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/pickImage"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clProfile"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/layoutMain"
-            app:layout_constraintEnd_toEndOf="@+id/layoutMain"
-            app:layout_constraintStart_toStartOf="@+id/layoutMain"
-            app:layout_constraintTop_toBottomOf="@+id/layoutMain"
-            app:riv_border_color="@color/white"
-            app:riv_border_width="@dimen/dp5"
-            app:riv_corner_radius="30dip"
-            app:riv_mutate_background="true"
-            app:riv_oval="true"
-            app:riv_tile_mode="clamp" />
-
-        <RelativeLayout
-            android:id="@+id/rlProfile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/no_image_bg"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/layoutMain"
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"
             app:layout_constraintStart_toStartOf="@+id/layoutMain"
             app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
-            <TextView
-                android:id="@+id/profile_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text=""
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="50dp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/pickImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder"
+                android:visibility="visible"
+                app:riv_border_color="@color/white"
+                app:riv_border_width="@dimen/dp5"
+                app:riv_corner_radius="30dip"
+                app:riv_mutate_background="true"
+                app:riv_oval="true"
+                app:riv_tile_mode="clamp" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/profileAccountLayout"
-            app:layout_constraintGuide_begin="170dp" />
+            <RelativeLayout
+                android:id="@+id/rlProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/no_image_bg"
+                android:visibility="gone"
+               >
+
+                <TextView
+                    android:id="@+id/profile_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="50dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <LinearLayout
             android:id="@+id/profileAccountLayout"
@@ -124,9 +121,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
+            android:layout_marginTop="@dimen/dp10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline5">
+            app:layout_constraintTop_toBottomOf="@+id/clProfile">
 
             <TextView
                 android:id="@+id/tvName"

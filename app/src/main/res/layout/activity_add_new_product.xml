@@ -158,6 +158,7 @@
             android:autofillHints="false"
             android:background="@drawable/login_bg"
             android:gravity="top"
+            android:maxLength="25"
             android:inputType="textMultiLine"
             android:hint="@string/only_25_characters"
             android:paddingStart="8dp"

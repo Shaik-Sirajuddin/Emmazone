@@ -112,6 +112,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         imageList.addAll(productData.product_images)
         productData.mainImage?.let { binding.ivShop.loadImage(it) }
         binding.edtShopName.setText(productData.name)
+        binding.edtShotDesc.setText(productData.shortDescription)
         binding.edtDesc.setText(productData.description)
         binding.edtProductPrice.setText(productData.product_price)
         binding.edtProductQ.setText(productData.product_quantity.toString())
@@ -162,6 +163,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         val description = binding.edtDesc.text.toString().trim()
         val productPrice = binding.edtProductPrice.text.toString().trim()
         val productQuantity = binding.edtProductQ.text.toString().trim()
+        val shotDesc = binding.edtShotDesc.text.toString().trim()
 
         if (Validator.editProductValidation(
                 productName, description, productPrice, productQuantity, selectedCategoryId,
@@ -178,6 +180,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["product_name"] = toBody(productName)
             hashMap["price"] = toBody(productPrice)
             hashMap["product_quantity"] = toBody(productQuantity)
+            hashMap["shortDescription"] = toBody(shotDesc)
             hashMap["description"] = toBody(description)
             hashMap["categoryId"] = toBody(selectedCategoryId)
             hashMap["colorId"] = toBody(selectedColorId)

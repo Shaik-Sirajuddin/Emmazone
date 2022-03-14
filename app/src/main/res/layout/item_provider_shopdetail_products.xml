@@ -31,8 +31,9 @@
                 android:id="@+id/imageProductShopDetail"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp120"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/shoes2"
+                android:adjustViewBounds="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,16 +42,17 @@
 
             <TextView
                 android:id="@+id/productItemName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/bernd"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                app:layout_constraintEnd_toEndOf="@+id/imageProductShopDetail"
-                app:layout_constraintHorizontal_bias="0.07"
-                app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
-                app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
+                android:textSize="@dimen/sp12"
+                android:layout_marginEnd="@dimen/dp10"
+                android:layout_marginStart="@dimen/dp10"
+                app:layout_constraintEnd_toStartOf="@+id/productItemPrice"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"                app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
 
             <TextView
                 android:id="@+id/productItemPrice"
@@ -70,7 +72,6 @@
                 style="?android:ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp10"
                 android:numStars="5"
                 android:progressTint="@color/yellow"
                 android:rating="0"

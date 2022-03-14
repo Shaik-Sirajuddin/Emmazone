@@ -42,20 +42,18 @@ class AdapterProviderShopDetailProducts(
             holder.layoutAddProduct.visibility = View.GONE
 
             model.mainImage?.let { holder.imageProductSD.loadImage(it) }
-            holder.productItemNameSD.setText(model.name)
+            holder.productItemNameSD.text = model.name
             holder.productItemPriceSD.text =
                 context.getString(R.string.euro_symbol, model.product_price.toDouble().toString())
-            holder.tvShopDetailProductBrandSD.setText(model.shortDescription)
+            holder.tvShopDetailProductBrandSD.text = model.shortDescription
 
-            holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
+            holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
 
             if (!model.productReview.isNullOrEmpty()){
                 holder.ratingBar.rating = model.productReview.toFloat()
-                holder.tvShopDetailProductText.setText(model.productReview)
+                holder.tvShopDetailProductText.text = model.productReview
             }
         }
-
-
 
 
         holder.itemView.setOnClickListener {
