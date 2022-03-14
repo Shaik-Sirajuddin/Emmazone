@@ -45,8 +45,6 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private val sizeList = ArrayList<CategoryColorSizeResponse.Body.CategorySize>()
     private lateinit var colorAdapter: ColorAdapter
     private lateinit var sizeAdapter: SizeAdapter
-
-
     private val list: ArrayList<CategoryListResponse.Body> = ArrayList()
     var deleteImageArrayId = ArrayList<String>()
     var adapterPosition = 0
@@ -97,7 +95,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
 
     fun highlightSwitchListener() {
-        binding.switchNotification.setOnCheckedChangeListener({ buttonView, isChecked ->
+        binding.switchNotification.setOnCheckedChangeListener { buttonView, isChecked ->
             // do something, the isChecked will be
             // true if the switch is in the On position
             if (isChecked) {
@@ -105,7 +103,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             } else {
                 highlightValue = 0
             }
-        })
+        }
     }
 
     private fun setData(productData: ShopDetailResponse.Body.Product) {
