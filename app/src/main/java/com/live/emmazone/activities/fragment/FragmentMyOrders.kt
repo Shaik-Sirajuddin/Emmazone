@@ -15,6 +15,12 @@ import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
 
 class FragmentMyOrders : Fragment() {
+
+    companion object{
+        lateinit var notifyRedBG:ImageView
+        lateinit var ivRedCartDot:ImageView
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = LayoutInflater.from(context).inflate( R.layout.fragment_my_orders, container, false)
 
@@ -22,6 +28,8 @@ class FragmentMyOrders : Fragment() {
         val tvPastOrders : TextView = view.findViewById(R.id.tvPastMyOrders)
         val imgNotifications : ImageView = view.findViewById(R.id.image_notifications)
         val imgCart : ImageView = view.findViewById(R.id.cart)
+         notifyRedBG  = view.findViewById(R.id.notifyRedBG)
+        ivRedCartDot  = view.findViewById(R.id.ivRedCart)
         val layoutSwitch : LinearLayout = view.findViewById(R.id.layoutMyOrders)
 
         imgNotifications.setOnClickListener {

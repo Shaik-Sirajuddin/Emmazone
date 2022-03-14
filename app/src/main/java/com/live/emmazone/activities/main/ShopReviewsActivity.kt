@@ -41,7 +41,7 @@ class ShopReviewsActivity : AppCompatActivity(),
 
         } else if (intent.getSerializableExtra(AppConstants.WISH_LIST_RESPONSE) != null) {
             val wishListResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
-                    as WishListResponse.Body
+                    as WishListResponse.Body.Wish
 
 
             shopId = wishListResponse.id.toString()

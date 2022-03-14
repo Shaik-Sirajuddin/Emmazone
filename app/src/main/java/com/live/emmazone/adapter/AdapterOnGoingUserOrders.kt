@@ -7,20 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnActionListenerNew
 import com.live.emmazone.activities.main.ReservedDeliveredDetail
-import com.live.emmazone.activities.provider.OrderDetailNewSaleActivity
-import com.live.emmazone.databinding.ItemLayoutOngoingMyordersBinding
 import com.live.emmazone.databinding.ItemLayoutOngoingUserLayoutBinding
-import com.live.emmazone.response_model.SalesResponse
 import com.live.emmazone.response_model.UserOrderListing
 import com.live.emmazone.utils.AppUtils
 
 class AdapterOnGoingUserOrders(
     private val context: Context,
-    private val list: ArrayList<UserOrderListing.OrderListBody>
+    private val list: ArrayList<UserOrderListing.Body.Response>
 ) :
     RecyclerView.Adapter<AdapterOnGoingUserOrders.ViewHolder>() {
 
@@ -41,21 +37,21 @@ class AdapterOnGoingUserOrders(
         val model = list[position]
         with(holder.binding) {
             tvOrderID.text = model.orderNo
-            tvODOrderDate.text = AppUtils.getDateTime(model.created)
-            if(model.deliveryType==0){
-                imgCodeScanner.visibility= View.VISIBLE
-            }else{
-                imgCodeScanner.visibility=View.GONE
+            tvODOrderDate.text = AppUtils.getDateTime(model.created.toLong())
+            if (model.deliveryType == 0) {
+                imgCodeScanner.visibility = View.VISIBLE
+            } else {
+                imgCodeScanner.visibility = View.GONE
             }
             when (model.orderStatus) {
                 0 -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
-                    tvOrderStatus.text= context.getString(R.string.pending)
+                    tvOrderStatus.text = context.getString(R.string.pending)
                 }
                 1 -> {
-                    tvOrderStatus.text= context.getString(R.string.on_the_way)
+                    tvOrderStatus.text = context.getString(R.string.on_the_way)
                 }
                 2 -> {
-                    tvOrderStatus.text= context.getString(R.string.delivered)
+                    tvOrderStatus.text = context.getString(R.string.delivered)
                 }
             }
 
@@ -68,21 +64,26 @@ class AdapterOnGoingUserOrders(
             rvMyOrderOnGoing.layoutManager =
                 LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
             rvMyOrderOnGoing.adapter =
-                AdapterOnGoingProducts(context, model.orderJson.orderItems, onActionListenerNew,"list")
+                AdapterOnGoingProducts(
+                    context,
+                    model.orderJson.orderItems,
+                    onActionListenerNew,
+                    "list"
+                )
             rvMyOrderOnGoing.isNestedScrollingEnabled = false
 
 
         }
     }
 
-    private fun openDetailScreen(model: UserOrderListing.OrderListBody, position: Int) {
+    private fun openDetailScreen(model: UserOrderListing.Body.Response, position: Int) {
         val intent = Intent(context, ReservedDeliveredDetail::class.java)
         intent.putExtra("data", model)
         context.startActivity(intent)
     }
 
-        override fun getItemCount(): Int {
-            return list.size
+    override fun getItemCount(): Int {
+        return list.size
 
     }
 }

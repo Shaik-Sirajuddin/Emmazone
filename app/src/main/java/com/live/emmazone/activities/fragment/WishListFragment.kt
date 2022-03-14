@@ -33,7 +33,7 @@ import com.live.emmazone.view_models.AppViewModel
 class WishListFragment : Fragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
-    private val wishList = ArrayList<WishListResponse.Body>()
+    private val wishList = ArrayList<WishListResponse.Body.Wish>()
     lateinit var wishListAdapter: AdapterWishList
     private var selectedPos: Int? = null
 
@@ -99,7 +99,7 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
     }
 
 
-    private fun favUnFavApiHit(wishListResponse: WishListResponse.Body) {
+    private fun favUnFavApiHit(wishListResponse: WishListResponse.Body.Wish) {
         val hashMap = HashMap<String, String>()
         hashMap["vendorId"] = wishListResponse.id.toString()
 
@@ -120,8 +120,15 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
                     val response: WishListResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
-                        wishList.removeAll(t.data.body)
-                        wishList.addAll(t.data.body)
+
+                        if (response.body.notificationCount == 0) {
+                            binding.notifyRedBG.visibility = View.GONE
+                        } else {
+                            binding.notifyRedBG.visibility = View.VISIBLE
+                        }
+
+                        wishList.clear()
+                        wishList.addAll(t.data.body.wishList)
                         setWishListAdapter()
                     }
 

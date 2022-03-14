@@ -63,11 +63,11 @@ class ProfileActivity : AppCompatActivity(), Observer<RestObservable> {
                 if (t.data is ProfileResponse) {
                     val response: ProfileResponse = t.data
                     profileDetails = response
-                    binding.ivProfile.loadImage(AppConstants.IMAGE_USER_URL+response.body.image)
+                    binding.ivProfile.loadImage(AppConstants.IMAGE_USER_URL+response.body.user.image)
 
-                    binding.tvUserName.text = response.body.username
-                    binding.tvUserEmail.text = response.body.email
-                    binding.tvUserPhone.text = response.body.countryCode+response.body.phone
+                    binding.tvUserName.text = response.body.user.username
+                    binding.tvUserEmail.text = response.body.user.email
+                    binding.tvUserPhone.text = response.body.user.countryCode+response.body.user.phone
 
                 }
             }

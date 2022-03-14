@@ -1,13 +1,17 @@
 package com.live.emmazone.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import androidx.viewpager.widget.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.live.emmazone.R
+import com.live.emmazone.activities.ImageZoomActivity
 import com.live.emmazone.model.ShopProductDetailResponse
+import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
 import java.util.ArrayList
 
@@ -16,7 +20,7 @@ import java.util.ArrayList
  */
 class ImageSliderCustomeAdapter(
     private val context: Context,
-    private val imagesArrayList: List<ShopProductDetailResponse.Body.ProductImage>
+    private val imagesArrayList: ArrayList<ShopProductDetailResponse.Body.ProductImage>
 ) : PagerAdapter() {
     private val inflater: LayoutInflater
     var big_image: ImageView? = null
@@ -35,6 +39,13 @@ class ImageSliderCustomeAdapter(
 
         myImage.loadImage(imagesArrayList[position].image)
 
+
+        myImage.setOnClickListener {
+            val intent = Intent(context, ImageZoomActivity::class.java)
+            intent.putExtra(AppConstants.IMAGES_ARRAYLIST, imagesArrayList)
+            context.startActivity(intent)
+
+        }
 
         view.addView(myImageLayout, 0)
         return myImageLayout

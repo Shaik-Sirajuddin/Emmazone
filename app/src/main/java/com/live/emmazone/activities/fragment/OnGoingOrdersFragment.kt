@@ -1,7 +1,6 @@
 package com.live.emmazone.activities.fragment
 
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,22 +12,18 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
-import com.live.emmazone.activities.listeners.OnActionListenerNew
-import com.live.emmazone.activities.main.OrderDetail
 import com.live.emmazone.adapter.AdapterOnGoingUserOrders
 import com.live.emmazone.databinding.OnGoingOrdersFragmentBinding
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
-import com.live.emmazone.response_model.SalesResponse
 import com.live.emmazone.response_model.UserOrderListing
 import com.live.emmazone.view_models.AppViewModel
 
 class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
-    val list = ArrayList<UserOrderListing.OrderListBody>()
+    val list = ArrayList<UserOrderListing.Body.Response>()
 
     lateinit var adapter: AdapterOnGoingUserOrders
 
@@ -52,11 +47,12 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
 
     }
 
-    private fun getMyOrdersApi() {  // 1 => past orders, 2 => ongoing orders
-        val hashMap= HashMap<String,String>()
-        hashMap["status"]= "1"
-        appViewModel.orderListingApi(requireActivity(),hashMap,true)
-        appViewModel.mResponse.observe(this,this)
+    private fun getMyOrdersApi() {
+        // 1 => past orders, 2 => ongoing orders
+        val hashMap = HashMap<String, String>()
+        hashMap["status"] = "1"
+        appViewModel.orderListingApi(requireActivity(), hashMap, true)
+        appViewModel.mResponse.observe(this, this)
     }
 
     private fun setOnClicks() {
@@ -64,14 +60,14 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
     }
 
     private fun setAdapter() {
-        adapter= AdapterOnGoingUserOrders(requireContext(), list)
+        adapter = AdapterOnGoingUserOrders(requireContext(), list)
         binding.rvOnGoingOrders.adapter = adapter
     }
 
     override fun onClick(v: View?) {
 
-        when(v?.id){
-            R.id.imgCodeScanner ->{
+        when (v?.id) {
+            R.id.imgCodeScanner -> {
                 val dialog = Dialog(requireContext())
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 dialog.setCancelable(true)
@@ -113,15 +109,31 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is UserOrderListing) {
+
+
+                    if (t.data.body.notificationCount == 0) {
+                        FragmentMyOrders.notifyRedBG.visibility = View.GONE
+                    } else {
+                        FragmentMyOrders.notifyRedBG.visibility = View.VISIBLE
+                    }
+
+
+                    if (t.data.body.cartCount == 0) {
+                        FragmentMyOrders.ivRedCartDot.visibility = View.GONE
+                    } else {
+                        FragmentMyOrders.ivRedCartDot.visibility = View.VISIBLE
+                    }
+
+
                     list.clear()
-                    list.addAll(t.data.body)
-                    if(list.size>0){
-                        binding.tvNoData.visibility= View.GONE
-                        binding.rvOnGoingOrders.visibility= View.VISIBLE
+                    list.addAll(t.data.body.response)
+                    if (list.size > 0) {
+                        binding.tvNoData.visibility = View.GONE
+                        binding.rvOnGoingOrders.visibility = View.VISIBLE
                         adapter.notifyDataSetChanged()
-                    }else{
-                        binding.tvNoData.visibility= View.VISIBLE
-                        binding.rvOnGoingOrders.visibility= View.GONE
+                    } else {
+                        binding.tvNoData.visibility = View.VISIBLE
+                        binding.rvOnGoingOrders.visibility = View.GONE
                     }
 
                 }

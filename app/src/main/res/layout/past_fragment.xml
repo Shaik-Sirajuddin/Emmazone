@@ -1,135 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:scrollbars="none">
+    android:background="@color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMyPastDelivered"
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutOnGoing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
-            android:background="@drawable/bg_my_order"
-            android:paddingBottom="@dimen/dp32"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tvOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp16"
-                android:layout_marginTop="@dimen/dp16"
-                android:text="Order ID -"
-                android:textAllCaps="true"
-                android:textColor="@color/green"
-                android:textSize="@dimen/sp12"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/layoutOnGoing"
-                app:layout_constraintTop_toTopOf="@+id/layoutOnGoing" />
-
-            <TextView
-                android:id="@+id/tvOrderID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp5"
-                android:layout_marginEnd="@dimen/dp24"
-                android:text="PLU9540572"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintBottom_toBottomOf="@+id/tvOrder"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toEndOf="@+id/tvOrder"
-                app:layout_constraintTop_toTopOf="@+id/tvOrder" />
-
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp16"
-                android:text="@string/status"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintBottom_toBottomOf="@+id/layoutOnGoing"
-                app:layout_constraintStart_toStartOf="@+id/rvMyPastDelivered" />
-
-            <ImageView
-                android:id="@+id/imgStatusDelivered"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp5"
-                android:background="@drawable/delivered"
-                android:padding="@dimen/dp10"
-                app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
-                app:layout_constraintStart_toEndOf="@+id/tvStatus"
-                app:layout_constraintTop_toTopOf="@+id/tvStatus" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-                android:id="@+id/tvODOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp5"
-                android:text="Order :"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintBottom_toBottomOf="@+id/tvODOrderDate"
-                app:layout_constraintEnd_toStartOf="@+id/tvODOrderDate"
-                app:layout_constraintTop_toTopOf="@+id/tvODOrderDate" />
+    <TextView
+        android:id="@+id/tvNoData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_data_found"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        />
 
-            <TextView
-                android:id="@+id/tvODOrderDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp16"
-                android:text="29-Mar-2021"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintBottom_toBottomOf="@+id/layoutOnGoing"
-                app:layout_constraintEnd_toEndOf="@+id/rvMyPastDelivered" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMyPastDelivered"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="@dimen/dp16"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvStatus"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/tvOrder"
-                app:layout_constraintTop_toBottomOf="@+id/tvOrder"
-                app:layout_constraintVertical_bias="0.0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <android.widget.Button
-            android:id="@+id/btnBuyAgain"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
-            android:background="@drawable/bg_fill_sqaure"
-            android:text="@string/buy_again"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp15"
-            app:layout_constraintBottom_toBottomOf="@+id/layoutOnGoing"
-            app:layout_constraintEnd_toEndOf="@+id/layoutOnGoing"
-            app:layout_constraintStart_toStartOf="@+id/layoutOnGoing"
-            app:layout_constraintTop_toBottomOf="@+id/layoutOnGoing" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

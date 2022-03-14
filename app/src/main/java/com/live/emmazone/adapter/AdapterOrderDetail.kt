@@ -13,7 +13,7 @@ import com.live.emmazone.response_model.UserOrderListing
 
 class AdapterOrderDetail(
     val context: Context,
-    private val list: ArrayList<UserOrderListing.OrderListBody.OrderJson.OrderItem>
+    private val list: ArrayList<UserOrderListing.Body.Response.OrderJson.OrderItem>
 ) :
     RecyclerView.Adapter<AdapterOrderDetail.ViewHolder>() {
 
@@ -27,8 +27,8 @@ class AdapterOrderDetail(
         val data = list[position]
         Glide.with(context).load(data.mainImage).into(holder.imageOD)
         holder.productItemNameOD.text = data.name
-        holder.tvOrderQuantityNumberOD.text = data.product_quantity.toString()
-        holder.productPriceOD.text = context.getString(R.string.euro_symbol, data.product_price)
+        holder.tvOrderQuantityNumberOD.text = data.productQuantity.toString()
+        holder.productPriceOD.text = context.getString(R.string.euro_symbol, data.productPrice)
     }
 
     override fun getItemCount(): Int {

@@ -151,8 +151,7 @@
     <string name="added">Added!</string>
     <string name="your_product_has_been_added">Your product has been added</string>
     <string name="delete_product">Delete Product</string>
-    <string name="are_you_sure_you_want_to_delete">Are you sure you want to Delete</string>
-    <string name="this_product">this product?</string>
+    <string name="are_you_sure_you_want_to_delete">Are you sure you want to Delete this product?</string>
     <string name="your_product_detail_has_been">Your product detail has been</string>
     <string name="add_product">Add Product</string>
     <string name="sales">Sales</string>
@@ -224,7 +223,6 @@
     <string name="exp_date">Expiry Date</string>
     <string name="cvv">CVV</string>
     <string name="expired">Expired: %s</string>
-
 
 
     <string name="enter_your_name">Enter your name</string>
