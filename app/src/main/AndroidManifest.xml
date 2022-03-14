@@ -24,6 +24,9 @@
         android:theme="@style/Theme.EmmaZone"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.ImageZoomActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.AddCardActivity"
             android:exported="true" />
 
@@ -34,7 +37,7 @@
         <activity
             android:name=".activities.provider.AddShopDetailActivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.provider.QrScannerActivity"
             android:exported="true"

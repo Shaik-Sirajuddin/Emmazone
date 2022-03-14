@@ -375,11 +375,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/paypal"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/layoutPaymentMethodOD"
                 app:layout_constraintTop_toTopOf="@+id/layoutPaymentMethodOD" />
 
             <TextView
-                android:id="@+id/tvODPayPal"
+                android:id="@+id/tvPaymentType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"

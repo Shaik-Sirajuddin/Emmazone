@@ -11,16 +11,20 @@ import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.adapter.AdapterOnGoingUserOrders
-import com.live.emmazone.adapter.AdapterOrderCancel
 import com.live.emmazone.databinding.PastFragmentBinding
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.response_model.UserOrderListing
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.ShopListingResponse
+import com.live.emmazone.response_model.UserOrderListing
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.view_models.AppViewModel
 
 class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
 
     lateinit var adapter: AdapterOnGoingUserOrders
+    var listPastOrders = ArrayList<UserOrderListing.Body.Response>()
     var listPastOrders = ArrayList<UserOrderListing.OrderListBody>()
 
     private lateinit var binding: PastFragmentBinding
@@ -49,25 +53,27 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
     }
 
     private fun getPastOrdersApi() {
-        val hashMap= HashMap<String,String>()
-        hashMap["type"]="2"
-        appViewModel.orderListingApi(requireActivity(),hashMap,true)
-        appViewModel.mResponse.observe(this,this)
+        val hashMap = HashMap<String, String>()
+        hashMap["type"] = "2"
+        appViewModel.orderListingApi(requireActivity(), hashMap, true)
+        appViewModel.mResponse.observe(this, this)
     }
 
     private fun setAdapter() {
         adapter= AdapterOnGoingUserOrders(requireContext(), listPastOrders)
+    private fun setAdapter() {
+        adapter = AdapterOnGoingUserOrders(requireContext(), listPastOrders)
         binding.rvMyPastDelivered.adapter = adapter
     }
 
     private fun setOnClicks() {
-        binding.btnBuyAgain.setOnClickListener(this)
+//        binding.btnBuyAgain.setOnClickListener(this)
 
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.btnBuyAgain ->{
+        when (v?.id) {
+            R.id.btnBuyAgain -> {
                 val intent = Intent(activity, Cart::class.java)
                 startActivity(intent)
             }
@@ -76,6 +82,40 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
     }
 
     override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is UserOrderListing) {
+                    val response:UserOrderListing = t.data
 
+                    if (response.code ==AppConstants.SUCCESS_CODE){
+                        if (t.data.body.notificationCount == 0) {
+                            FragmentMyOrders.notifyRedBG.visibility = View.GONE
+                        } else {
+                            FragmentMyOrders.notifyRedBG.visibility = View.VISIBLE
+                        }
+
+
+                        if (t.data.body.cartCount == 0) {
+                            FragmentMyOrders.ivRedCartDot.visibility = View.GONE
+                        } else {
+                            FragmentMyOrders.ivRedCartDot.visibility = View.VISIBLE
+                        }
+
+
+                        listPastOrders.clear()
+                        listPastOrders.addAll(t.data.body.response)
+                        if (listPastOrders.size > 0) {
+                            binding.tvNoData.visibility = View.GONE
+                            binding.rvMyPastDelivered.visibility = View.VISIBLE
+                            adapter.notifyDataSetChanged()
+                        } else {
+                            binding.tvNoData.visibility = View.VISIBLE
+                            binding.rvMyPastDelivered.visibility = View.GONE
+                        }
+                    }
+
+                }
+            }
+        }
     }
 }

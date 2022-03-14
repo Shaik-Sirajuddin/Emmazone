@@ -64,14 +64,15 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
             }
         }
 
-        binding.ivProfile.loadImage(AppConstants.IMAGE_USER_URL + profileDetail!!.body.image)
+        binding.ivProfile.loadImage(AppConstants.IMAGE_USER_URL + profileDetail!!.body.user.image)
 
-        binding.edtName.setText(profileDetail!!.body.username)
-        binding.edtEditEmail.setText(profileDetail!!.body.email)
-        binding.ccp.setCountryForNameCode(profileDetail!!.body.countryCode)
-        binding.edtMobile.setText(profileDetail!!.body.phone)
+        binding.edtName.setText(profileDetail!!.body.user.username)
+        binding.edtEditEmail.setText(profileDetail!!.body.user.email)
+        binding.ccp.setCountryForNameCode(profileDetail!!.body.user.countryCode)
+        binding.edtMobile.setText(profileDetail!!.body.user.phone)
         binding.ccp.registerCarrierNumberEditText(binding.edtMobile)
-        binding.ccp.fullNumber = profileDetail!!.body.countryCode+profileDetail!!.body.phone
+        binding.ccp.fullNumber =
+            profileDetail!!.body.user.countryCode + profileDetail!!.body.user.phone
     }
 
     private fun alertDialog() {

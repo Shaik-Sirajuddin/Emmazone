@@ -18,7 +18,7 @@ import com.live.emmazone.response_model.WishListResponse
 import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
 
-class AdapterWishList(private val list: ArrayList<WishListResponse.Body>) :
+class AdapterWishList(private val list: ArrayList<WishListResponse.Body.Wish>) :
     RecyclerView.Adapter<AdapterWishList.WishListViewHolder>() {
 
     private lateinit var mContext: Context

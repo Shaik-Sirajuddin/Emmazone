@@ -65,6 +65,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.19" />
 
+            <ImageView
+                android:id="@+id/ivRedCart"
+                android:layout_width="@dimen/dp10"
+                android:layout_height="@dimen/dp10"
+                android:background="@drawable/notification_red_color"
+                app:layout_constraintEnd_toEndOf="@+id/cart"
+                android:layout_marginStart="5dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="@+id/cart" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

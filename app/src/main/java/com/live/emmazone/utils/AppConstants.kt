@@ -28,6 +28,7 @@ object AppConstants {
     const val WISH_LIST_RESPONSE = "wishListResponse"
     const val SHOP_DETAIL_RESPONSE = "shopDetailResponse"
     const val SHOP_ID = "shopId"
+    const val IMAGES_ARRAYLIST = "imagesList"
 
 
     /*******URLs*****/

@@ -1671,6 +1671,7 @@ class AppViewModel : ViewModel() {
                     }
 
                     override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<UserOrderListing>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
 
