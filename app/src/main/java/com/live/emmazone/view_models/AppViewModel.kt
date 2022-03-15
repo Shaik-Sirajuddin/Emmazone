@@ -1671,7 +1671,6 @@ class AppViewModel : ViewModel() {
                     }
 
                     override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
-                    override fun onFailure(call: Call<UserOrderListing>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
 
@@ -1680,11 +1679,11 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        orderListingApi(activity, hashMap, isDialogShow)
+                        orderStatusApi(activity, hashMap, isDialogShow)
                     }
                 })
         }
+
+
     }
-
-
 }

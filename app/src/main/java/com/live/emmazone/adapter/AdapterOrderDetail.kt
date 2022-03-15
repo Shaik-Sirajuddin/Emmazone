@@ -9,14 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.live.emmazone.R
-import com.live.emmazone.model.ModelDeliveryAddress
-import com.live.emmazone.model.ModelNotifications
-import com.live.emmazone.model.ModelOrderDetail
-import com.live.emmazone.model.ModelWishList
-import com.live.emmazone.response_model.UserOrderListing
 import com.live.emmazone.response_model.UserOrderListing
 
-class AdapterOrderDetail(val context: Context,private val list: ArrayList<UserOrderListing.OrderListBody.OrderJson.OrderItem>) :
 class AdapterOrderDetail(
     val context: Context,
     private val list: ArrayList<UserOrderListing.Body.Response.OrderJson.OrderItem>
@@ -35,11 +29,6 @@ class AdapterOrderDetail(
         holder.productItemNameOD.text = data.name
         holder.tvOrderQuantityNumberOD.text = data.productQuantity.toString()
         holder.productPriceOD.text = context.getString(R.string.euro_symbol, data.productPrice)
-      val data = list[position]
-        Glide.with(context).load(data.mainImage).into(holder.imageOD)
-        holder.productItemNameOD.text = data.name
-        holder.tvOrderQuantityNumberOD.text = data.product_quantity.toString()
-        holder.productPriceOD.text= context.getString(R.string.euro_symbol,data.product_price)
     }
 
     override fun getItemCount(): Int {

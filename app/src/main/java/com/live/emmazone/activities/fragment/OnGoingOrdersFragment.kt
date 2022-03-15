@@ -47,11 +47,6 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
 
     }
 
-    private fun getMyOrdersApi() {  // 1 => past orders, 2 => ongoing orders
-        val hashMap= HashMap<String,String>()
-        hashMap["status"]= "1"
-        appViewModel.orderListingApi(requireActivity(),hashMap,true)
-        appViewModel.mResponse.observe(this,this)
     private fun getMyOrdersApi() {
         // 1 => past orders, 2 => ongoing orders
         val hashMap = HashMap<String, String>()
@@ -66,8 +61,6 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
 
     private fun setAdapter() {
         adapter = AdapterOnGoingUserOrders(requireContext(), list)
-    private fun setAdapter() {
-        adapter= AdapterOnGoingUserOrders(requireContext(), list)
         binding.rvOnGoingOrders.adapter = adapter
     }
 

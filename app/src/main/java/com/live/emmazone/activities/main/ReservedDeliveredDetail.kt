@@ -14,14 +14,9 @@ import com.live.emmazone.response_model.UserOrderListing
 import com.live.emmazone.utils.AppUtils
 
 class ReservedDeliveredDetail : AppCompatActivity() {
-    lateinit var binding : ActivityReservedDeliveredDetailBinding
-    val list = ArrayList<UserOrderListing.OrderListBody.OrderJson.OrderItem>()
-    lateinit var adapter : AdapterOrderDetail
     lateinit var binding: ActivityReservedDeliveredDetailBinding
     val list = ArrayList<UserOrderListing.Body.Response.OrderJson.OrderItem>()
     lateinit var adapter: AdapterOrderDetail
-
-    var userData: UserOrderListing.OrderListBody?=null
 
     var userData: UserOrderListing.Body.Response? = null
 
@@ -31,10 +26,6 @@ class ReservedDeliveredDetail : AppCompatActivity() {
         setContentView(binding.root)
 
         userData = intent.extras!!.get("data") as UserOrderListing.Body.Response
-
-        setData(userData!!)
-
-        userData= intent.extras!!.get("data") as UserOrderListing.OrderListBody
 
         setData(userData!!)
 
@@ -59,10 +50,8 @@ class ReservedDeliveredDetail : AppCompatActivity() {
         binding.recyclerOrderDetail.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        binding.recyclerOrderDetail.adapter = AdapterOrderDetail(this,list)
         binding.recyclerOrderDetail.adapter = AdapterOrderDetail(this, list)
 
-    }
     }
 
     private fun setData(data: UserOrderListing.Body.Response) {
@@ -102,29 +91,5 @@ class ReservedDeliveredDetail : AppCompatActivity() {
             }
         }
 
-    private fun setData(data: UserOrderListing.OrderListBody) {
-        list.addAll(data.orderJson.orderItems)
-        adapter.notifyDataSetChanged()
-        binding.tvOrderID.text= data.orderNo
-        binding.tvSubTotalPrice.text= data.netAmount
-        binding.tvDeliveryChargesPrice.text= data.shippingCharges
-        binding.tvTaxPrice.text= data.taxCharged
-        binding.tvTotalPrice.text= data.total
-        binding.tvODOrderDate.text= AppUtils.getDateTime(data.created)
-        data.orderJson.userAddress.apply {
-            binding.tvOrderPersonName.text= this.name
-            binding.tvOrderDeliveryAddress.text= this.address+","+this.city+","+this.state+","+this.zipcode
-        }
-        when (data.orderStatus) {
-            0 -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
-                binding.tvOrderStatus.text= getString(R.string.pending)
-            }
-            1 -> {
-                binding.tvOrderStatus.text= getString(R.string.on_the_way)
-            }
-            2 -> {
-                binding.tvOrderStatus.text= getString(R.string.delivered)
-            }
-        }
     }
 }

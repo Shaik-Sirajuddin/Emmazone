@@ -13,7 +13,6 @@ import com.live.emmazone.response_model.UserOrderListing
 
 class AdapterOnGoingProducts(
     private val context: Context,
-    private val list: ArrayList<UserOrderListing.OrderListBody.OrderJson.OrderItem>,
     private val list: ArrayList<UserOrderListing.Body.Response.OrderJson.OrderItem>,
     private val onActionListenerNew: OnActionListenerNew? = null,
     private val type: String
@@ -38,8 +37,8 @@ class AdapterOnGoingProducts(
         with(holder.binding) {
             Glide.with(context).load(model.mainImage).into(onGoingItem)
             onGoingItemName.text = model.name
-            onGoingItemQuantity.text = model.product_quantity.toString()
-            productPrice.text = context.getString(R.string.euro_symbol,model.product_price)
+            onGoingItemQuantity.text = model.productQuantity.toString()
+            productPrice.text = context.getString(R.string.euro_symbol,model.productPrice)
             onGoingItemQuantity.text = model.productQuantity.toString()
             productPrice.text = context.getString(R.string.euro_symbol,model.productPrice)
         }
