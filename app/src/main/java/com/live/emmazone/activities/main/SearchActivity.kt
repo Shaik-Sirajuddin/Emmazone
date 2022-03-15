@@ -17,11 +17,12 @@ import com.live.emmazone.databinding.ActivitySearchBinding
 import com.live.emmazone.model.ModelShopDetailProducts
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 
 class SearchActivity : AppCompatActivity(), OnItemClick {
     lateinit var binding: ActivitySearchBinding
-    val list = ArrayList<ShopDetailResponse.Body.Product>()
+    val list = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
     lateinit var adapter: AdapterShopDetailProducts
 
     override fun onCreate(savedInstanceState: Bundle?) {

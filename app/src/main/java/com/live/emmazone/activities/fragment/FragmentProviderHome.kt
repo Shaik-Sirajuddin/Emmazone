@@ -15,12 +15,10 @@ import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.EditShopDetailActivity
 import com.live.emmazone.adapter.AdapterProShopProducts
 import com.live.emmazone.adapter.AdapterShopDetailCategory
-import com.live.emmazone.model.sellerShopDetails.Category
-import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
-import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.ToastUtils
 import com.live.emmazone.view_models.AppViewModel
@@ -29,11 +27,11 @@ import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 
 class FragmentProviderHome : Fragment(), Observer<RestObservable> {
     var productAdapter: AdapterProShopProducts? = null
-    val list = ArrayList<Category>()
-    val listProSDProducts = ArrayList<ShopDetailResponse.Body.Product>()
+    val list = ArrayList<SellerShopDetailResponse.Body.ShopDetails.ShopCategory>()
+    val listProSDProducts = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
     lateinit var adapter: AdapterShopDetailCategory
     private val appViewModel: AppViewModel by viewModels()
-    private lateinit var response: SellerShopDetailsResponse
+    private lateinit var response: SellerShopDetailResponse
 
 
     private val launcher =
@@ -80,7 +78,7 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
-                if (t.data is SellerShopDetailsResponse) {
+                if (t.data is SellerShopDetailResponse) {
                     response = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         setDetailData(response)
@@ -104,19 +102,19 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         }
     }
 
-    fun setDetailData(response: SellerShopDetailsResponse) {
-        if (response.body.image != null) {
-            requireView().imageShopDetail.loadImage(response.body.image)
+    fun setDetailData(response: SellerShopDetailResponse) {
+        if (response.body.shopDetails.image != null) {
+            requireView().imageShopDetail.loadImage(response.body.shopDetails.image)
         }
-        requireView().tvWishListStoreName.text = response.body.shopName
-        requireView().tvDesc.text = response.body.shopDescription
-        requireView().tvFYear.text = response.body.year.toString()
-        requireView().tvShopAddress.text = response.body.shopAddress
-        requireView().tvHeartsCount.text = response.body.likesCount
+        requireView().tvWishListStoreName.text = response.body.shopDetails.shopName
+        requireView().tvDesc.text = response.body.shopDetails.shopDescription
+        requireView().tvFYear.text = response.body.shopDetails.year.toString()
+        requireView().tvShopAddress.text = response.body.shopDetails.shopAddress
+        requireView().tvHeartsCount.text = response.body.shopDetails.likesCount.toString()
         list.clear()
         listProSDProducts.clear()
-        listProSDProducts.addAll(response.body.products)
-        list.addAll(response.body.shop_categories)
+        listProSDProducts.addAll(response.body.shopDetails.products)
+        list.addAll(response.body.shopDetails.shopCategories)
         productAdapter = AdapterProShopProducts(requireContext(), listProSDProducts, this)
         requireView().recyclerProviderSDProducts.adapter = productAdapter
         requireView().recyclerProviderShopDetailCategory.adapter = AdapterShopDetailCategory(list)

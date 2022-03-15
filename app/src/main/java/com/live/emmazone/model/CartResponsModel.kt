@@ -1,7 +1,5 @@
 package com.live.emmazone.model
 
-import com.live.emmazone.model.sellerShopDetailNew.ProductImage
-import com.live.emmazone.response_model.ShopDetailResponse
 import com.google.gson.annotations.SerializedName
 
 

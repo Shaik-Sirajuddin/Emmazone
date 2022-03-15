@@ -3,7 +3,6 @@ package com.live.emmazone.net
 
 import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.model.ShopProductDetailResponse
-import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import okhttp3.MultipartBody
@@ -53,7 +52,7 @@ interface RestApiInterface {
     fun categoryList(): Call<CategoryListResponse>
 
     @GET(AppConstants.SELLER_SHOP_DETAILS)
-    fun sellerShopDetails(): Call<SellerShopDetailsResponse>
+    fun sellerShopDetails(): Call<SellerShopDetailResponse>
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = AppConstants.DELETE_PRODUCT, hasBody = true)

@@ -20,11 +20,11 @@ import com.live.emmazone.adapter.AdapterEditShop
 import com.live.emmazone.adapter.CategoriesAdapter
 import com.live.emmazone.databinding.ActivityEditShopDetailBinding
 import com.live.emmazone.extensionfuncton.Validator
-import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CategoryListResponse
 import com.live.emmazone.response_model.EditShopDeatilResponse
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.ImagePickerUtility
@@ -51,7 +51,7 @@ class EditShopDetailActivity : ImagePickerUtility(),
     private var latitude = ""
     private var longitude = ""
     private var mImagePath = ""
-    private lateinit var sellerShopDetail: SellerShopDetailsResponse
+    private lateinit var sellerShopDetail: SellerShopDetailResponse
 
     private var fields =
         Arrays.asList(Place.Field.LAT_LNG, Place.Field.ADDRESS, Place.Field.ID, Place.Field.NAME)
@@ -91,13 +91,13 @@ class EditShopDetailActivity : ImagePickerUtility(),
         appViewModel.getResponse().observe(this, this)
 
         sellerShopDetail = intent.getParcelableExtra(AppConstants.SHOP_DETAIL_RESPONSE)!!
-        binding.imgEditShop.loadImage(sellerShopDetail.body.image)
-        binding.edtShopName.setText(sellerShopDetail.body.shopName)
-        binding.edtShopYearFoundation.setText(sellerShopDetail.body.year.toString())
-        binding.edtShopAddress.setText(sellerShopDetail.body.shopAddress)
-        binding.edtShopDesc.setText(sellerShopDetail.body.shopDescription)
-        latitude = sellerShopDetail.body.latitude
-        longitude = sellerShopDetail.body.longitude
+        binding.imgEditShop.loadImage(sellerShopDetail.body.shopDetails.image)
+        binding.edtShopName.setText(sellerShopDetail.body.shopDetails.shopName)
+        binding.edtShopYearFoundation.setText(sellerShopDetail.body.shopDetails.year.toString())
+        binding.edtShopAddress.setText(sellerShopDetail.body.shopDetails.shopAddress)
+        binding.edtShopDesc.setText(sellerShopDetail.body.shopDetails.shopDescription)
+        latitude = sellerShopDetail.body.shopDetails.latitude
+        longitude = sellerShopDetail.body.shopDetails.longitude
 
     }
 
@@ -128,7 +128,7 @@ class EditShopDetailActivity : ImagePickerUtility(),
 
 
     private fun setCategoryAdapter() {
-        val shopCategoryList = sellerShopDetail.body.shop_categories
+        val shopCategoryList = sellerShopDetail.body.shopDetails.shopCategories
 
         list.forEach { category ->
             shopCategoryList.forEach { selectedCategory ->

@@ -23,6 +23,7 @@ import com.live.emmazone.model.ModelShopDetailCategory
 import com.live.emmazone.model.ModelShopDetailProducts
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.view_models.AppViewModel
@@ -35,7 +36,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
 
 
     lateinit var binding: ActivityShopDetailBinding
-    var listSDProduct = ArrayList<ShopDetailResponse.Body.Product>()
+    var listSDProduct = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
     lateinit var adapter: AdapterShopDetailCategory
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,25 +156,25 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
     }
 
     private fun setData() {
-        binding.imageShopDetail.loadImage(AppConstants.IMAGE_USER_URL + response!!.body.image)
-        binding.tvWishListStoreName.text = response!!.body.shopName
-        binding.tvDesc.text = response!!.body.shopDescription
+        binding.imageShopDetail.loadImage(AppConstants.IMAGE_USER_URL + response!!.body.shopDetails.image)
+        binding.tvWishListStoreName.text = response!!.body.shopDetails.shopName
+        binding.tvDesc.text = response!!.body.shopDetails.shopDescription
         binding.tvShopFY.text = getString(R.string.since, "2022")
-        binding.tvShopAddress.text = response!!.body.shopAddress
-        binding.tvWishListRatingText.text = response!!.body.ratings.toString() + "/" + "5"
-        binding.tvWishListDistance.text = response!!.body.distance.toString() + " " +
+        binding.tvShopAddress.text = response!!.body.shopDetails.shopAddress
+        binding.tvWishListRatingText.text = response!!.body.shopDetails.ratings.toString() + "/" + "5"
+        binding.tvWishListDistance.text = response!!.body.shopDetails.distance.toString() + " " +
                 getString(R.string.miles_away)
 
-        if (response!!.body.ratings.isNotEmpty()) {
-            binding.ratingBarWishList.rating = response!!.body.ratings.toFloat()
+        if (response!!.body.shopDetails.ratings.isNotEmpty()) {
+            binding.ratingBarWishList.rating = response!!.body.shopDetails.ratings.toFloat()
         }
-        if (response!!.body.isLiked == 1) {
+        if (response!!.body.shopDetails.isLiked == 1) {
             binding.itemHeartShopDetail.setImageResource(R.drawable.heart)
         } else {
             binding.itemHeartShopDetail.setImageResource(R.drawable.heart_unselect)
         }
-        if(response!!.body.products.isNotEmpty()){
-            listSDProduct=response!!.body.products
+        if(response!!.body.shopDetails.products.isNotEmpty()){
+            listSDProduct=response!!.body.shopDetails.products
             binding.recyclerShopDetailProducts.adapter = AdapterShopDetailProducts(this,listSDProduct, this)
 
         }

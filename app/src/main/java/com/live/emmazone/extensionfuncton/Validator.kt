@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Patterns
 import com.live.emmazone.R
 import com.live.emmazone.base.AppController
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.stripe.android.view.CardNumberEditText
 
@@ -186,7 +187,7 @@ object Validator {
         categories: String,
         color: String,
         size: String,
-        imageList: ArrayList<ShopDetailResponse.Body.Product.ProductImage>
+        imageList: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>
     ): Boolean {
 
         return if (imageList.size == 0) {
@@ -227,7 +228,7 @@ object Validator {
         categories: String,
         color: String,
         size: String,
-        imageList: ArrayList<ShopDetailResponse.Body.Product.ProductImage>,
+        imageList: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>,
         mainImagePath: String? = null
     ): Boolean {
 

@@ -18,10 +18,7 @@ import com.live.emmazone.databinding.ActivityEditProductBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.model.ImageModel
 import com.live.emmazone.net.RestObservable
-import com.live.emmazone.response_model.AddProductResponse
-import com.live.emmazone.response_model.CategoryColorSizeResponse
-import com.live.emmazone.response_model.CategoryListResponse
-import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.ImagePickerUtility
@@ -51,13 +48,13 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var arrStringMultipleImagesUploadable: ArrayList<String> = ArrayList()
     private val appViewModel: AppViewModel by viewModels()
 
-    var productData: ShopDetailResponse.Body.Product? = null
+    var productData: SellerShopDetailResponse.Body.ShopDetails.Product? = null
 
 
     lateinit var binding: ActivityEditProductBinding
 
     private lateinit var imageAdapter: ImageAdapter
-    private var imageList = ArrayList<ShopDetailResponse.Body.Product.ProductImage>()
+    private var imageList = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>()
     var mainImagePath = ""
     var id = ""
 
@@ -68,7 +65,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 mainImagePath = imagePath
                 binding.ivShop.loadImage(imagePath)
             } else {
-                imageList.add(ShopDetailResponse.Body.Product.ProductImage(0, imagePath, 0, 0))
+                imageList.add(SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage(0, imagePath, 0, 0))
                 imageAdapter.notifyDataSetChanged()
             }
         }
@@ -79,7 +76,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding = ActivityEditProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        productData = intent.extras?.get("productData") as ShopDetailResponse.Body.Product
+        productData = intent.extras?.get("productData") as SellerShopDetailResponse.Body.ShopDetails.Product
 
         setData(productData!!)
 
@@ -106,16 +103,16 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         }
     }
 
-    private fun setData(productData: ShopDetailResponse.Body.Product) {
+    private fun setData(productData: SellerShopDetailResponse.Body.ShopDetails.Product) {
         productData.mainImage?.let { mainImage = it }
         id = productData.id.toString()
-        imageList.addAll(productData.product_images)
+        imageList.addAll(productData.productImages)
         productData.mainImage?.let { binding.ivShop.loadImage(it) }
         binding.edtShopName.setText(productData.name)
-        binding.edtShotDesc.setText(productData.shortDescription)
+      //  binding.edtShotDesc.setText(productData.shortDescription)
         binding.edtDesc.setText(productData.description)
-        binding.edtProductPrice.setText(productData.product_price)
-        binding.edtProductQ.setText(productData.product_quantity.toString())
+        binding.edtProductPrice.setText(productData.productPrice)
+        binding.edtProductQ.setText(productData.productQuantity.toString())
         selectedCategoryId = productData.categoryId.toString()
         selectedColorId = productData.categoryColorId.toString()
         selectedSizeId = productData.categorySizeId.toString()

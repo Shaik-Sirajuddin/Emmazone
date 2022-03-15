@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.FragmentProviderHome
 import com.live.emmazone.activities.provider.EditProductActivity
-import com.live.emmazone.model.sellerShopDetails.Product
-import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProShopProducts(
     private val context: Context,
-    val list: ArrayList<ShopDetailResponse.Body.Product>,
+    val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>,
     val fragmentProviderHome: FragmentProviderHome
 ) :
     RecyclerView.Adapter<AdapterProShopProducts.ViewHolder>() {
@@ -33,9 +32,9 @@ class AdapterProShopProducts(
         holder.productItemNameSD.setText(ModelProShopDetailProducts.name)
         holder.productItemPriceSD.text = context.getString(
             R.string.euro_symbol,
-            ModelProShopDetailProducts.product_price.toDouble().toString()
+            ModelProShopDetailProducts.productPrice.toDouble().toString()
         )
-        holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.shortDescription)
+  //      holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.description)   //short description
 
         holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
 

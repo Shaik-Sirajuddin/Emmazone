@@ -14,11 +14,10 @@ import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
 import com.live.emmazone.databinding.FragmentAddProductProviderBinding
-import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
-import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.ToastUtils
 import com.live.emmazone.view_models.AppViewModel
@@ -26,7 +25,7 @@ import com.live.emmazone.view_models.AppViewModel
 class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
     private lateinit var binding: FragmentAddProductProviderBinding
-    private val list = ArrayList<ShopDetailResponse.Body.Product>()
+    private val list = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
     private var isChecked = true
     private val appViewModel: AppViewModel by viewModels()
 
@@ -98,8 +97,8 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
-                if (t.data is SellerShopDetailsResponse) {
-                    val response: SellerShopDetailsResponse = t.data
+                if (t.data is SellerShopDetailResponse) {
+                    val response: SellerShopDetailResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         setDetailData(response)
                     }
@@ -128,17 +127,17 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
     var productAdapter: AdapterProviderShopDetailProducts? = null
 
-    fun setDetailData(response: SellerShopDetailsResponse) {
-        val category = ShopDetailResponse.Body.Product.Category("", "")
-        val product_images: List<ShopDetailResponse.Body.Product.ProductImage> = ArrayList()
+    fun setDetailData(response: SellerShopDetailResponse) {
+        val category = SellerShopDetailResponse.Body.ShopDetails.Product.Category("", "")
+        val product_images: List<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage> = ArrayList()
         list.clear()
         list.add(
-            ShopDetailResponse.Body.Product(
-                category, 0, 0, 0, 0, "", "", 0, "", "", "", 0,
-                product_images, "", 0, 0, 0, ""
+            SellerShopDetailResponse.Body.ShopDetails.Product(
+                category, 0, 0, 0, 0, "", "", 0, "", "", 0,
+                product_images, "","", 0, "", 0, 0
             )
         )
-        list.addAll(response.body.products)
+        list.addAll(response.body.shopDetails.products)
         productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)
         binding.rvAdProductProvider.adapter = productAdapter
 

@@ -13,13 +13,12 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.FragmentProviderAddProduct
 import com.live.emmazone.activities.provider.AddNewProductActivity
 import com.live.emmazone.activities.provider.EditProductActivity
-import com.live.emmazone.model.sellerShopDetails.Product
-import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProviderShopDetailProducts(
     private val context: Context,
-    val list: ArrayList<ShopDetailResponse.Body.Product>,
+    val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>,
     val fragmentProviderAddProduct: FragmentProviderAddProduct
 ) :
     RecyclerView.Adapter<AdapterProviderShopDetailProducts.ViewHolder>() {
@@ -44,8 +43,8 @@ class AdapterProviderShopDetailProducts(
             model.mainImage?.let { holder.imageProductSD.loadImage(it) }
             holder.productItemNameSD.text = model.name
             holder.productItemPriceSD.text =
-                context.getString(R.string.euro_symbol, model.product_price.toDouble().toString())
-            holder.tvShopDetailProductBrandSD.text = model.shortDescription
+                context.getString(R.string.euro_symbol, model.productPrice.toDouble().toString())
+         //   holder.tvShopDetailProductBrandSD.text = model.shortDescription  //short description
 
             holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
 

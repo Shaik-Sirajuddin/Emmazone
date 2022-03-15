@@ -12,12 +12,13 @@ import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.activities.main.ProductDetailActivity
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 
 
 class AdapterShopDetailProducts(
-    val mContext: Context, private val list: ArrayList<ShopDetailResponse.Body.Product>,
+    val mContext: Context, private val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>,
     private val cellClickListener: OnItemClick
 ) :
     RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
@@ -31,8 +32,8 @@ class AdapterShopDetailProducts(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val data = list[position]
-        if (data.product_images.isNotEmpty()) {
-            Glide.with(mContext).load(AppConstants.PRODUCT_IMAGE_URL + data.product_images[0].image)
+        if (data.productImages.isNotEmpty()) {
+            Glide.with(mContext).load(AppConstants.PRODUCT_IMAGE_URL + data.productImages[0].image)
                 .placeholder(R.drawable.placeholder).into(holder.imageProductSD)
 
         } else {
@@ -40,7 +41,7 @@ class AdapterShopDetailProducts(
 
         }
         holder.productItemNameSD.text = data.name
-        holder.productItemPriceSD.text = data.product_price
+        holder.productItemPriceSD.text = data.productPrice
         holder.tvShopDetailProductBrandSD.text = data.shortDescription
         //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 

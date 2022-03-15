@@ -3,19 +3,13 @@ package com.live.emmazone.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ItemLayoutShopdetailCategoryBinding
-import com.live.emmazone.model.ModelShopDetailCategory
-import com.live.emmazone.model.sellerShopDetails.Category
-import com.live.emmazone.response_model.ShopDetailResponse
-import com.live.emmazone.utils.AppConstants
-import com.schunts.extensionfuncton.loadImage
+import com.live.emmazone.response_model.SellerShopDetailResponse
 
-class AdapterShopDetailCategory(private val list: ArrayList<Category>) :
+class AdapterShopDetailCategory(private val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.ShopCategory>) :
     RecyclerView.Adapter<AdapterShopDetailCategory.CategoryViewHolder>() {
 
     private lateinit var mContext: Context

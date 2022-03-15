@@ -8,7 +8,6 @@ import com.live.emmazone.R
 import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.model.ShopProductDetailResponse
-import com.live.emmazone.model.sellerShopDetails.SellerShopDetailsResponse
 import com.live.emmazone.net.CartUpdateResponse
 import com.live.emmazone.net.RestApiInterface
 import com.live.emmazone.net.RestObservable
@@ -347,10 +346,10 @@ class AppViewModel : ViewModel() {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.sellerShopDetails()
-                .enqueue(object : Callback<SellerShopDetailsResponse> {
+                .enqueue(object : Callback<SellerShopDetailResponse> {
                     override fun onResponse(
-                        call: Call<SellerShopDetailsResponse>,
-                        response: Response<SellerShopDetailsResponse>
+                        call: Call<SellerShopDetailResponse>,
+                        response: Response<SellerShopDetailResponse>
                     ) {
                         if (response.isSuccessful) {
                             mResponse.value = RestObservable.success(response.body()!!)
@@ -365,7 +364,7 @@ class AppViewModel : ViewModel() {
 
                     }
 
-                    override fun onFailure(call: Call<SellerShopDetailsResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<SellerShopDetailResponse>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
 
