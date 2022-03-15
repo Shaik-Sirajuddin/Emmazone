@@ -1,222 +1,178 @@
 package com.live.emmazone.response_model
 
 import java.io.Serializable
+import com.google.gson.annotations.SerializedName
+
 
 data class SalesResponse(
-    val body: ArrayList<SaleResponseBody>,
-    val code: Int,
-    val message: String,
-    val success: Boolean
-):Serializable {
-    data class SaleResponseBody(
-        val adminCommission: String,
-        val created: Long,
-        val createdAt: String,
-        val customer: Customer,
-        val customerId: Int,
-        val deliveryType: Int,
-        val id: Int,
-        val netAmount: String,
-        val orderJson: OrderJson,
-        val orderNo: String,
-        val orderStatus: Int,
-        val paymentMethod: Int,
-        val productName: String,
-        val shippingCharges: String,
-        val taxCharged: String,
-        val total: String,
-        val updated: Int,
-        val updatedAt: String,
-        val userAddressId: Int,
-        val vendor: Vendor,
-        val vendorId: Int
+    @SerializedName("body")
+    var body: Body,
+    @SerializedName("code")
+    var code: Int, // 200
+    @SerializedName("message")
+    var message: String, // Status fetched successfully
+    @SerializedName("success")
+    var success: Boolean // true
+) :Serializable{
+    data class Body(
+        @SerializedName("notificationCount")
+        var notificationCount: Int, // 3
+        @SerializedName("response")
+        var response: List<Response>
     ):Serializable {
-        data class Customer(
-            val id: Int,
-            val image: String,
-            val username: String
-        ):Serializable
+        data class Response(
+            @SerializedName("adminCommission")
+            var adminCommission: String, // 0.00
+            @SerializedName("created")
+            var created: Int, // 1647337716
+            @SerializedName("createdAt")
+            var createdAt: String, // 2022-03-15T09:48:36.000Z
+            @SerializedName("customer")
+            var customer: Customer,
+            @SerializedName("customerId")
+            var customerId: Int, // 267
+            @SerializedName("deliveryType")
+            var deliveryType: Int, // 2
+            @SerializedName("id")
+            var id: Int, // 23
+            @SerializedName("netAmount")
+            var netAmount: String, // 1224.00
+            @SerializedName("orderJson")
+            var orderJson: OrderJson,
+            @SerializedName("orderNo")
+            var orderNo: String, // 1647-337716-4631
+            @SerializedName("orderStatus")
+            var orderStatus: Int, // 0
+            @SerializedName("paymentMethod")
+            var paymentMethod: Int, // 2
+            @SerializedName("productName")
+            var productName: String,
+            @SerializedName("qrCode")
+            var qrCode: String, // https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=23
+            @SerializedName("shippingCharges")
+            var shippingCharges: String, // 10.00
+            @SerializedName("taxCharged")
+            var taxCharged: String, // 61.70
+            @SerializedName("total")
+            var total: String, // 1295.70
+            @SerializedName("updated")
+            var updated: Int, // 1647337716
+            @SerializedName("updatedAt")
+            var updatedAt: String, // 2022-03-15T09:48:36.000Z
+            @SerializedName("userAddressId")
+            var userAddressId: Int, // 19
+            @SerializedName("vendor")
+            var vendor: Vendor,
+            @SerializedName("vendorId")
+            var vendorId: Int // 299
+        ) :Serializable{
+            data class Customer(
+                @SerializedName("id")
+                var id: Int, // 267
+                @SerializedName("image")
+                var image: String, // http://202.164.42.227:8188/uploads/user/f4859e2f-e933-4a98-a122-c263f9e99b2a.jpg
+                @SerializedName("username")
+                var username: String // test user
+            ):Serializable
 
-        data class OrderJson(
-            val orderItems: ArrayList<OrderItem>,
-            val payment: Payment,
-            val paymentMethod: String,
-            val userAddress: UserAddress
-        ):Serializable {
-            data class OrderItem(
-                val categoryColorId: Int,
-                val categoryId: Int,
-                val categorySizeId: Int,
-                val created: Int,
-                val createdAt: String,
-                val description: String,
-                val id: Int,
-                val mainImage: String,
-                val name: String,
-                val orderedQty: Int,
-                val orderedQtyPrice: Int,
-                val productReview: String,
-                val product_highlight: Int,
-                val product_price: String,
-                val product_quantity: Int,
-                val status: Int,
-                val userId: Int,
-                val vendor: Vendor
+            data class OrderJson(
+                @SerializedName("orderItems")
+                var orderItems: ArrayList<OrderItem>,
+                @SerializedName("payment")
+                var payment: Payment,
+                @SerializedName("paymentMethod")
+                var paymentMethod: String, // 2
+                @SerializedName("userAddress")
+                var userAddress: UserAddress
             ) :Serializable{
-                data class Vendor(
-                    val id: Int,
-                    val image: String,
-                    val username: String
-                ):Serializable
-            }
-
-            data class Payment(
-                val amount: Int,
-                val amount_captured: Int,
-                val amount_refunded: Int,
-                val application: Any,
-                val application_fee: Any,
-                val application_fee_amount: Any,
-                val balance_transaction: String,
-                val billing_details: BillingDetails,
-                val calculated_statement_descriptor: String,
-                val captured: Boolean,
-                val created: Int,
-                val currency: String,
-                val customer: Any,
-                val description: String,
-                val destination: Any,
-                val dispute: Any,
-                val disputed: Boolean,
-                val failure_code: Any,
-                val failure_message: Any,
-                val id: String,
-                val invoice: Any,
-                val livemode: Boolean,
-                val on_behalf_of: Any,
-                val order: Any,
-                val outcome: Outcome,
-                val paid: Boolean,
-                val payment_intent: Any,
-                val payment_method: String,
-                val payment_method_details: PaymentMethodDetails,
-                val receipt_email: Any,
-                val receipt_number: Any,
-                val receipt_url: String,
-                val refunded: Boolean,
-                val refunds: Refunds,
-                val review: Any,
-                val shipping: Any,
-                val source: Source,
-                val source_transfer: Any,
-                val statement_descriptor: Any,
-                val statement_descriptor_suffix: Any,
-                val status: String,
-                val transfer_data: Any,
-                val transfer_group: Any
-            ) :Serializable{
-                data class BillingDetails(
-                    val address: Address,
-                    val email: Any,
-                    val name: Any,
-                    val phone: Any
-                ):Serializable {
-                    data class Address(
-                        val city: Any,
-                        val country: Any,
-                        val line1: Any,
-                        val line2: Any,
-                        val postal_code: Any,
-                        val state: Any
+                data class OrderItem(
+                    @SerializedName("categoryColorId")
+                    var categoryColorId: Int, // 33
+                    @SerializedName("categoryId")
+                    var categoryId: Int, // 20
+                    @SerializedName("categorySizeId")
+                    var categorySizeId: Int, // 42
+                    @SerializedName("created")
+                    var created: Int, // 1647233913
+                    @SerializedName("createdAt")
+                    var createdAt: String, // 2022-03-14T04:58:32.000Z
+                    @SerializedName("description")
+                    var description: String, // vzhzh zjzisbakabzzjnsbzhskabhishsushbsusns izjshoabduebisisybd
+                    @SerializedName("id")
+                    var id: Int, // 144
+                    @SerializedName("mainImage")
+                    var mainImage: String, // http://202.164.42.227:8188/uploads/product/d2d464d7-73bb-4c54-abc9-11113babe0fb.jpg
+                    @SerializedName("name")
+                    var name: String, // test short description
+                    @SerializedName("orderedQty")
+                    var orderedQty: Int, // 2
+                    @SerializedName("orderedQtyPrice")
+                    var orderedQtyPrice: Int, // 24
+                    @SerializedName("product_highlight")
+                    var productHighlight: Int, // 1
+                    @SerializedName("product_price")
+                    var productPrice: String, // 12.00
+                    @SerializedName("product_quantity")
+                    var productQuantity: Int, // 25
+                    @SerializedName("productReview")
+                    var productReview: String, // 0.0
+                    @SerializedName("status")
+                    var status: Int, // 1
+                    @SerializedName("userId")
+                    var userId: Int, // 299
+                    @SerializedName("vendor")
+                    var vendor: Vendor,
+                    @SerializedName("vendorId")
+                    var vendorId: Int // 299
+                ) :Serializable{
+                    data class Vendor(
+                        @SerializedName("id")
+                        var id: Int, // 299
+                        @SerializedName("image")
+                        var image: String, // http://202.164.42.227:8188/uploads/user/bf2ab579-f34d-4d5c-9469-fafb00b9e882.jpg
+                        @SerializedName("username")
+                        var username: String // new user
                     ):Serializable
                 }
 
-                data class Outcome(
-                    val network_status: String,
-                    val reason: Any,
-                    val risk_level: String,
-                    val risk_score: Int,
-                    val seller_message: String,
-                    val type: String
-                ):Serializable
+                class Payment():Serializable{
 
-                data class PaymentMethodDetails(
-                    val card: Card,
-                    val type: String
-                ):Serializable {
-                    data class Card(
-                        val brand: String,
-                        val checks: Checks,
-                        val country: String,
-                        val exp_month: Int,
-                        val exp_year: Int,
-                        val fingerprint: String,
-                        val funding: String,
-                        val installments: Any,
-                        val last4: String,
-                        val network: String,
-                        val three_d_secure: Any,
-                        val wallet: Any
-                    ):Serializable {
-                        data class Checks(
-                            val address_line1_check: Any,
-                            val address_postal_code_check: Any,
-                            val cvc_check: String
-                        ):Serializable
-                    }
                 }
 
-                data class Refunds(
-                    val `data`: List<Any>,
-                    val has_more: Boolean,
-                    val total_count: Int,
-                    val url: String
+                data class UserAddress(
+                    @SerializedName("address")
+                    var address: String, // abcdefh jdjd
+                    @SerializedName("city")
+                    var city: String, // Sahibzada Ajit Singh Nagar
+                    @SerializedName("createdAt")
+                    var createdAt: String, // 2022-02-11T05:24:10.000Z
+                    @SerializedName("id")
+                    var id: Int, // 19
+                    @SerializedName("latitude")
+                    var latitude: Int, // 31
+                    @SerializedName("longitude")
+                    var longitude: Int, // 77
+                    @SerializedName("name")
+                    var name: String, // Mani
+                    @SerializedName("state")
+                    var state: String, // Punjab
+                    @SerializedName("updatedAt")
+                    var updatedAt: String, // 2022-02-11T05:24:10.000Z
+                    @SerializedName("userId")
+                    var userId: Int, // 267
+                    @SerializedName("zipcode")
+                    var zipcode: String // 160071
                 ):Serializable
-
-                data class Source(
-                    val address_city: Any,
-                    val address_country: Any,
-                    val address_line1: Any,
-                    val address_line1_check: Any,
-                    val address_line2: Any,
-                    val address_state: Any,
-                    val address_zip: Any,
-                    val address_zip_check: Any,
-                    val brand: String,
-                    val country: String,
-                    val customer: Any,
-                    val cvc_check: String,
-                    val dynamic_last4: Any,
-                    val exp_month: Int,
-                    val exp_year: Int,
-                    val fingerprint: String,
-                    val funding: String,
-                    val id: String,
-                    val last4: String,
-                    val name: Any,
-                    val tokenization_method: Any
-                ) :Serializable
             }
 
-            data class UserAddress(
-                val address: String,
-                val city: String,
-                val createdAt: String,
-                val id: Int,
-                val latitude: Int,
-                val longitude: Int,
-                val name: String,
-                val state: String,
-                val updatedAt: String,
-                val userId: Int,
-                val zipcode: String
+            data class Vendor(
+                @SerializedName("id")
+                var id: Int, // 299
+                @SerializedName("image")
+                var image: String, // http://202.164.42.227:8188/uploads/user/bf2ab579-f34d-4d5c-9469-fafb00b9e882.jpg
+                @SerializedName("username")
+                var username: String // new user
             ):Serializable
         }
-
-        data class Vendor(
-            val id: Int,
-            val image: String,
-            val username: String
-        ):Serializable
     }
-}
+} 

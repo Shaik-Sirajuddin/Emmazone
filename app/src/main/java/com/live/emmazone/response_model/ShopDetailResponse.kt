@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ShopDetailResponse(
-    val body: SellerShopDetailResponse.Body,
+    val body: SellerShopDetailResponse.Body.ShopDetails,
     val code: Int,
     val message: String,
     val success: Boolean

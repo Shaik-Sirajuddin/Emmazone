@@ -20,7 +20,7 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
 
-    val list = ArrayList<SalesResponse.SaleResponseBody>()
+    val list = ArrayList<SalesResponse.Body.Response>()
     lateinit var adapter: AdapterProviderNewSales
 
     private lateinit var binding: FragmentNewSalesProviderBinding
@@ -47,7 +47,7 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
         hashMap["status"] = "1" //1=>New Orders, 2=> On going Orders, 3=> Past Orders
 
         appViewModel.salesListApi(requireActivity(), true, hashMap)
-        appViewModel.getResponse().observe(this, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
 
     }
 
@@ -63,7 +63,7 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
             Status.SUCCESS -> {
                 if (t.data is SalesResponse) {
                     list.clear()
-                    list.addAll(t.data.body)
+                    list.addAll(t.data.body.response)
                     if(list.size>0){
                         binding.tvNoData.visibility= View.GONE
                         binding.rvNewSales.visibility= View.VISIBLE

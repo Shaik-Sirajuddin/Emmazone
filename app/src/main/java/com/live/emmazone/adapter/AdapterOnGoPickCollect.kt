@@ -15,7 +15,7 @@ import com.live.emmazone.response_model.SalesResponse
 
 class AdapterOnGoPickCollect(
     private val context: Context,
-    private val list: ArrayList<SalesResponse.SaleResponseBody.OrderJson.OrderItem>
+    private val list: ArrayList<SalesResponse.Body.Response.OrderJson.OrderItem>
 ) :
     RecyclerView.Adapter<AdapterOnGoPickCollect.ViewHolder>() {
 
@@ -29,8 +29,8 @@ class AdapterOnGoPickCollect(
         val data = list[position]
        // holder.imgOnGoingItem.setImageResource(ModelOnGoingOrders.onGoingItem)
         holder.tvonGoingItemName.text = data.name
-        holder.tvonGoingItemQuantity.text = data.product_quantity.toString()
-        holder.tvproductPrice.text = data.product_price
+        holder.tvonGoingItemQuantity.text = data.productQuantity.toString()
+        holder.tvproductPrice.text = data.productPrice
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ReservedDeliveredDetail::class.java)

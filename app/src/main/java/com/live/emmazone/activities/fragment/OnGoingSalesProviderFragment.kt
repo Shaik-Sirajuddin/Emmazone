@@ -17,7 +17,7 @@ import com.live.emmazone.view_models.AppViewModel
 class OnGoingSalesProviderFragment : Fragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
-    val list = ArrayList<SalesResponse.SaleResponseBody>()
+    val list = ArrayList<SalesResponse.Body.Response>()
     lateinit var adapter: AdapterProviderNewSales
 
     private lateinit var binding: FragmentOnGoingSaleProviderBinding
@@ -35,7 +35,7 @@ class OnGoingSalesProviderFragment : Fragment(), Observer<RestObservable> {
         super.onViewCreated(view, savedInstanceState)
 
         setonGoingAdapter()
-        apiHitSales()
+
     }
 
     private fun apiHitSales() {
@@ -43,12 +43,12 @@ class OnGoingSalesProviderFragment : Fragment(), Observer<RestObservable> {
         hashMap["status"] = "2" //1=>New Orders, 2=> On going Orders, 3=> Past Orders
 
         appViewModel.salesListApi(requireActivity(), true, hashMap)
-        appViewModel.getResponse().observe(this, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
 
     }
 
     private fun setonGoingAdapter() {
-        adapter= AdapterProviderNewSales(requireContext(), list)
+        adapter = AdapterProviderNewSales(requireContext(), list)
         binding.rvOnGoingSalesPro.adapter = adapter
 
     }
@@ -58,19 +58,26 @@ class OnGoingSalesProviderFragment : Fragment(), Observer<RestObservable> {
             Status.SUCCESS -> {
                 if (t.data is SalesResponse) {
                     list.clear()
-                    list.addAll(t.data.body)
-                    if(list.size>0){
-                        binding.tvNoData.visibility= View.GONE
-                        binding.rvOnGoingSalesPro.visibility= View.VISIBLE
+                    list.addAll(t.data.body.response)
+                    if (list.size > 0) {
+                        binding.tvNoData.visibility = View.GONE
+                        binding.rvOnGoingSalesPro.visibility = View.VISIBLE
                         adapter.notifyDataSetChanged()
-                    }else{
-                        binding.tvNoData.visibility= View.VISIBLE
-                        binding.rvOnGoingSalesPro.visibility= View.GONE
+                    } else {
+                        binding.tvNoData.visibility = View.VISIBLE
+                        binding.rvOnGoingSalesPro.visibility = View.GONE
                     }
 
                 }
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        apiHitSales()
+    }
+
 
 }

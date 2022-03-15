@@ -34,7 +34,7 @@ class AdapterProShopProducts(
             R.string.euro_symbol,
             ModelProShopDetailProducts.productPrice.toDouble().toString()
         )
-  //      holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.description)   //short description
+        holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.shortDescription)   //short description
 
         holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
 

@@ -81,7 +81,6 @@ data class SellerShopDetailResponse(
                 @SerializedName("product_price")
                 val productPrice: String,
                 @SerializedName("shortDescription")
-
                 val shortDescription: String,
                 @SerializedName("product_quantity")
                 val productQuantity: Int,

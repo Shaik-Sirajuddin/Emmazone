@@ -19,7 +19,7 @@ import android.os.Bundle
 
 class AdapterProviderNewSales(
     private val context: Context,
-    private val list: ArrayList<SalesResponse.SaleResponseBody>,
+    private val list: ArrayList<SalesResponse.Body.Response>,
 ) : RecyclerView.Adapter<AdapterProviderNewSales.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,7 +34,7 @@ class AdapterProviderNewSales(
         Glide.with(context).load(model.customer.image).into(holder.imageSales)
         holder.tvOrderID.text = model.orderNo
         holder.tvUsername.text = model.customer.username
-        holder.tvODOrderDate.text= AppUtils.getDateTime(model.created)
+        holder.tvODOrderDate.text= AppUtils.getDateTime(model.created.toLong())
         when (model.deliveryType) {
             0 -> {   //   0-> click & collect 1-> Lifernado 2-> Own Delivery
                 holder.tvHomeDelivery.text = context.getString(R.string.click_and_collect)
@@ -77,7 +77,7 @@ class AdapterProviderNewSales(
         }
     }
 
-    private fun openDetailScreen(model: SalesResponse.SaleResponseBody, position: Int) {
+    private fun openDetailScreen(model: SalesResponse.Body.Response, position: Int) {
         val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
         intent.putExtra("data",model)
         context.startActivity(intent)
