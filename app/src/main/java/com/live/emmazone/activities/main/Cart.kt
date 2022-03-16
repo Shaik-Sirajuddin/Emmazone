@@ -264,8 +264,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         if (Validator.buyProduct(selectedAddressId, selectedPaymentType)) {
             if (selectedPaymentType == "1") {
                 if (TextUtils.isEmpty(selectedCardId)) {
-                    Validator.errorMessage =
-                        AppController.instance!!.getString(R.string.please_select_card)
+                    Validator.errorMessage = AppController.instance!!.getString(R.string.please_select_card)
                     return
                 }
                 hashMap["cardId"] = selectedCardId

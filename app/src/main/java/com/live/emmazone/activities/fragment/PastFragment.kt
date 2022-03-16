@@ -46,7 +46,7 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
 
         setAdapter()
 
-        getPastOrdersApi()
+//        getPastOrdersApi()
 
     }
 
@@ -54,7 +54,7 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
         val hashMap = HashMap<String, String>()
         hashMap["type"] = "2"
         appViewModel.orderListingApi(requireActivity(), hashMap, true)
-        appViewModel.mResponse.observe(this, this)
+        appViewModel.mResponse.observe(requireActivity(), this)
     }
 
     private fun setAdapter() {

@@ -2,6 +2,7 @@ package com.live.emmazone.activities.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -56,6 +57,8 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
                 binding.rbPayPal.isChecked = false
                 binding.rbCredit.isChecked = false
                 binding.rbCOD.isChecked = false
+                binding.tvChooseCard.visibility = View.GONE
+                binding.recyclerChooseCard.visibility = View.GONE
             }
         }
 
@@ -63,6 +66,8 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
             if (binding.rbPayPal.isChecked) {
                 selectedPaymentType = "3"
                 binding.rbWallet.isChecked = false
+                binding.tvChooseCard.visibility = View.GONE
+                binding.recyclerChooseCard.visibility = View.GONE
             }
         }
 
@@ -70,6 +75,8 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
             if (binding.rbCredit.isChecked) {
                 selectedPaymentType = "1"
                 binding.rbWallet.isChecked = false
+                binding.tvChooseCard.visibility = View.VISIBLE
+                binding.recyclerChooseCard.visibility = View.VISIBLE
             }
         }
 
@@ -77,6 +84,8 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
             if (isChecked) {
                 selectedPaymentType = "2"
                 binding.rbWallet.isChecked = false
+                binding.tvChooseCard.visibility = View.GONE
+                binding.recyclerChooseCard.visibility = View.GONE
             }
         }
 

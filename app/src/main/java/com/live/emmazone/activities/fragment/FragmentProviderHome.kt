@@ -67,7 +67,6 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
             launcher.launch(intent)
         }
 
-        getSellerShopDetails()
     }
 
     private fun getSellerShopDetails() {
@@ -102,10 +101,17 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         }
     }
 
-    fun setDetailData(response: SellerShopDetailResponse) {
+    private fun setDetailData(response: SellerShopDetailResponse) {
         if (response.body.shopDetails.image != null) {
             requireView().imageShopDetail.loadImage(response.body.shopDetails.image)
         }
+
+        if (response.body.notificationCount == 0) {
+            requireView().notifyRedBG.visibility = View.GONE
+        } else {
+            requireView().notifyRedBG.visibility = View.VISIBLE
+        }
+
         requireView().tvWishListStoreName.text = response.body.shopDetails.shopName
         requireView().tvDesc.text = response.body.shopDetails.shopDescription
         requireView().tvFYear.text = response.body.shopDetails.year.toString()
@@ -128,4 +134,8 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         appViewModel.mResponse.observe(requireActivity(), this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        getSellerShopDetails()
+    }
 }

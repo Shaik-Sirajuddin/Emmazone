@@ -163,16 +163,12 @@ data class UserOrderListing(
                     var failureCode: Any, // null
                     @SerializedName("failure_message")
                     var failureMessage: Any, // null
-                    @SerializedName("fraud_details")
-                    var fraudDetails: FraudDetails,
                     @SerializedName("id")
                     var id: String, // ch_1KZT5uIZXks92CWPQQwlTPxK
                     @SerializedName("invoice")
                     var invoice: Any, // null
                     @SerializedName("livemode")
                     var livemode: Boolean, // false
-                    @SerializedName("metadata")
-                    var metadata: Metadata,
                     @SerializedName("object")
                     var objectX: String, // charge
                     @SerializedName("on_behalf_of")
@@ -244,9 +240,6 @@ data class UserOrderListing(
                         ):Serializable
                     }
 
-                    class FraudDetails
-
-                    class Metadata
 
                     data class Outcome(
                         @SerializedName("network_status")
@@ -358,8 +351,6 @@ data class UserOrderListing(
                         var id: String, // card_1KZT5tIZXks92CWPJjPyZoM7
                         @SerializedName("last4")
                         var last4: String, // 5556
-                        @SerializedName("metadata")
-                        var metadata: Metadata,
                         @SerializedName("name")
                         var name: Any, // null
                         @SerializedName("object")
@@ -367,7 +358,7 @@ data class UserOrderListing(
                         @SerializedName("tokenization_method")
                         var tokenizationMethod: Any // null
                     ) :Serializable{
-                        class Metadata
+
                     }
                 }
 

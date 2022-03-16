@@ -90,8 +90,7 @@
                 android:layout_marginEnd="@dimen/dp24"
                 android:text="@string/name"
                 android:textColor="@color/light_black"
-                android:textSize="@dimen/sp12"
-               />
+                android:textSize="@dimen/sp12" />
 
             <EditText
                 android:id="@+id/edtName"
@@ -101,12 +100,11 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/login_bg"
-                android:hint="Jhonson Marker"
+                android:hint="@string/enter_name"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/dp8"
-                android:textColorHint="@color/black"
                 android:textSize="@dimen/sp15"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/tvname"
@@ -135,12 +133,12 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/login_bg"
-                android:hint="jhonsonmarker@gmail.com"
+                android:hint="@string/enter_email"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/dp8"
-                android:textColorHint="@color/black"
+
                 android:textSize="@dimen/sp15"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/tv_email"
@@ -166,9 +164,9 @@
                 android:id="@+id/llPhoneNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp25"
                 android:layout_marginStart="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp25"
                 android:background="@drawable/login_bg"
                 android:orientation="horizontal">
 
@@ -192,12 +190,12 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/login_bg"
                     android:fontFamily="@font/avenir_book"
-                    android:hint="456-789-456"
+                    android:hint="@string/enter_phone_number"
                     android:imeOptions="actionNext"
                     android:inputType="number"
+                    android:maxLength="12"
                     android:maxLines="1"
                     android:paddingLeft="@dimen/dp8"
-                    android:textColorHint="@color/black"
                     android:textSize="@dimen/sp15"
                     android:textStyle="bold" />
 
@@ -211,8 +209,7 @@
                 android:layout_marginTop="@dimen/dp25"
                 android:layout_marginEnd="@dimen/dp16"
                 android:layout_marginBottom="@dimen/dp16"
-                android:background="@drawable/update"
-               />
+                android:background="@drawable/update" />
 
 
         </LinearLayout>

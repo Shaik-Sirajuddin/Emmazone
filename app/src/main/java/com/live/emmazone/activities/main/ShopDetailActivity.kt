@@ -3,6 +3,7 @@ package com.live.emmazone.activities.main
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
@@ -23,9 +24,12 @@ import com.live.emmazone.model.ModelShopDetailCategory
 import com.live.emmazone.model.ModelShopDetailProducts
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.AddFavouriteResponse
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.response_model.ShopListingResponse
 import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
 
@@ -84,6 +88,10 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
             startActivity(intent)
         }
 
+        binding.itemHeartShopDetail.setOnClickListener {
+            favUnFavApiHit()
+        }
+
     }
 
     override fun onCellClickListener() {
@@ -130,6 +138,21 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
 
     }
 
+
+    private fun favUnFavApiHit() {
+        val hashMap = HashMap<String, String>()
+        hashMap["vendorId"] = response!!.body.id.toString()
+
+        if (response!!.body.isLiked == 1)
+            hashMap["status"] = "0"
+        else {
+            hashMap["status"] = "1"
+        }
+
+        appViewModel.addFavApi(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+    }
+
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
@@ -140,6 +163,18 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
                         setData()
                         setCategoryAdapter()
                     }
+                } else if (t.data is AddFavouriteResponse) {
+                    val response: AddFavouriteResponse = t.data
+
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+
+                        if (response.body.status == 1) {
+                            binding.itemHeartShopDetail.setImageResource(R.drawable.heart)
+                        } else {
+                            binding.itemHeartShopDetail.setImageResource(R.drawable.heart_unselect)
+                        }
+                    }
+
                 }
             }
         }
@@ -159,7 +194,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
         binding.imageShopDetail.loadImage(AppConstants.IMAGE_USER_URL + response!!.body.image)
         binding.tvWishListStoreName.text = response!!.body.shopName
         binding.tvDesc.text = response!!.body.shopDescription
-        binding.tvShopFY.text = getString(R.string.since, "2022")
+        binding.tvShopFY.text = getString(R.string.since, response!!.body.year.toString())
         binding.tvShopAddress.text = response!!.body.shopAddress
         binding.tvWishListRatingText.text = response!!.body.ratings.toString() + "/" + "5"
         binding.tvWishListDistance.text = response!!.body.distance.toString() + " " +
@@ -173,11 +208,21 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
         } else {
             binding.itemHeartShopDetail.setImageResource(R.drawable.heart_unselect)
         }
-        if(response!!.body.products.isNotEmpty()){
-            listSDProduct=response!!.body.products
-            binding.recyclerShopDetailProducts.adapter = AdapterShopDetailProducts(this,listSDProduct, this)
+        if (response!!.body.products.isNotEmpty()) {
+            listSDProduct = response!!.body.products
+            binding.recyclerShopDetailProducts.adapter =
+                AdapterShopDetailProducts(this, listSDProduct, this)
 
+        } else {
+            binding.tvNoProduct.visibility = View.VISIBLE
         }
+
+        if (response!!.body.cartCount == 0) {
+            binding.ivRedCart.visibility = View.GONE
+        } else {
+            binding.ivRedCart.visibility = View.VISIBLE
+        }
+
     }
 
 }

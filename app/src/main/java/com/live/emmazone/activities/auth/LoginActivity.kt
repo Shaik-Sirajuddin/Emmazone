@@ -113,8 +113,10 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                                 if (response.body.isShopAdd == 1) {
                                     savePreference(AppConstants.IS_LOGIN, true)
                                     startActivity(Intent(this, ProviderMainActivity::class.java))
+                                    finishAffinity()
                                 } else {
                                     startActivity(Intent(this, AddShopDetailActivity::class.java))
+                                    finishAffinity()
                                 }
 
                             } else {

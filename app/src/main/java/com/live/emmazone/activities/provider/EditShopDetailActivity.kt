@@ -90,7 +90,8 @@ class EditShopDetailActivity : ImagePickerUtility(),
         appViewModel.categoryListApi(this, true)
         appViewModel.getResponse().observe(this, this)
 
-        sellerShopDetail = intent.getParcelableExtra(AppConstants.SHOP_DETAIL_RESPONSE)!!
+        sellerShopDetail =
+            intent.getSerializableExtra(AppConstants.SHOP_DETAIL_RESPONSE)!! as SellerShopDetailResponse
         binding.imgEditShop.loadImage(sellerShopDetail.body.shopDetails.image)
         binding.edtShopName.setText(sellerShopDetail.body.shopDetails.shopName)
         binding.edtShopYearFoundation.setText(sellerShopDetail.body.shopDetails.year.toString())
@@ -218,10 +219,10 @@ class EditShopDetailActivity : ImagePickerUtility(),
             hashMap["longitude"] = toBody(longitude)
             hashMap["category"] = toBody(selectedCategories.substring(0, selectedCategories.length))
 
-            val image:MultipartBody.Part
-            if (mImagePath.isNotEmpty()){
+            val image: MultipartBody.Part
+            if (mImagePath.isNotEmpty()) {
                 image = prepareMultiPart("image", File(mImagePath))
-            }else{
+            } else {
                 image = prepareMultiPart("image", "")
             }
 

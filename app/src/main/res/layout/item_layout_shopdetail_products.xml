@@ -32,14 +32,14 @@
             android:id="@+id/productItemName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toStartOf="@+id/productItemPrice"
             app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
-            app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
+            app:layout_constraintTop_toTopOf="@+id/productItemPrice"
+            app:layout_constraintBottom_toBottomOf="@+id/productItemPrice"/>
 
         <TextView
             android:id="@+id/productItemPrice"

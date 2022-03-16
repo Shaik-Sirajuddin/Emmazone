@@ -109,7 +109,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         imageList.addAll(productData.productImages)
         productData.mainImage?.let { binding.ivShop.loadImage(it) }
         binding.edtShopName.setText(productData.name)
-      //  binding.edtShotDesc.setText(productData.shortDescription)
+        binding.edtShotDesc.setText(productData.shortDescription)
         binding.edtDesc.setText(productData.description)
         binding.edtProductPrice.setText(productData.productPrice)
         binding.edtProductQ.setText(productData.productQuantity.toString())

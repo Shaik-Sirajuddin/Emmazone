@@ -81,7 +81,12 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                 startActivity(Intent(activity, UserLoginChoice::class.java))
             } else {
-                startActivity(Intent(activity, LoginActivity::class.java))
+                startActivity(
+                    Intent(
+                        activity,
+                        LoginActivity::class.java
+                    ).putExtra(AppConstants.USER_CHOICE, "3")
+                )
             }
         }
 

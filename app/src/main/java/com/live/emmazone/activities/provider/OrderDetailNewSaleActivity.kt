@@ -105,7 +105,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
             }
         }
 
-        when (model.deliveryType) {
+        /*when (model.deliveryType) {
             0 -> {   //   0-> click & collect 1-> Lifernado 2-> Own Delivery
                 binding.tvPayment.text = getString(R.string.click_and_collect)
             }
@@ -114,6 +114,17 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
             }
             2 -> {
                 binding.tvPayment.text = getString(R.string.own_delivery)
+            }
+        }*/
+        when (model.paymentMethod) {
+            0 -> {   //  0=>Wallet 1=>Card 2=>cash
+                binding.tvPayment.text = getString(R.string.wallet)
+            }
+            1 -> {
+                binding.tvPayment.text = getString(R.string.card)
+            }
+            2 -> {
+                binding.tvPayment.text = getString(R.string.cash_on_delivery)
             }
         }
 

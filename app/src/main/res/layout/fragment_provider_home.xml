@@ -47,10 +47,10 @@
 
             <ImageView
                 android:id="@+id/imgNotify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/notifications"
+                android:src="@drawable/bell"
                 app:layout_constraintBottom_toBottomOf="@+id/image_editShop"
                 app:layout_constraintEnd_toStartOf="@+id/image_editShop"
                 app:layout_constraintTop_toTopOf="@+id/image_editShop" />

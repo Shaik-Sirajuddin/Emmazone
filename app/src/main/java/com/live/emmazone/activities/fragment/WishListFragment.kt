@@ -5,14 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.MainActivity
-import com.live.emmazone.R
 import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.main.ShopDetailActivity
@@ -20,11 +16,9 @@ import com.live.emmazone.activities.main.ShopReviewsActivity
 import com.live.emmazone.adapter.AdapterWishList
 import com.live.emmazone.databinding.FragmentWishlistBinding
 import com.live.emmazone.extensionfuncton.getPreference
-import com.live.emmazone.model.ModelWishList
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddFavouriteResponse
-import com.live.emmazone.response_model.ShopListingResponse
 import com.live.emmazone.response_model.WishListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
@@ -54,7 +48,7 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
         clickHandle()
 
         appViewModel.wishListApi(requireActivity(), true)
-        appViewModel.getResponse().observe(this, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
     }
 
     private fun setWishListAdapter() {
@@ -72,7 +66,7 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
                     favUnFavApiHit(wishList[pos])
                 } else if (clickOn == "itemClick") {
                     val intent = Intent(requireContext(), ShopDetailActivity::class.java)
-                    intent.putExtra(AppConstants.SHOP_ID,wishList[pos].id.toString())
+                    intent.putExtra(AppConstants.SHOP_ID, wishList[pos].id.toString())
                     startActivity(intent)
                 } else if (clickOn == "rating") {
                     val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
@@ -125,6 +119,12 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
                             binding.notifyRedBG.visibility = View.GONE
                         } else {
                             binding.notifyRedBG.visibility = View.VISIBLE
+                        }
+
+                        if (response.body.cartCount == 0) {
+                            binding.ivRedCart.visibility = View.GONE
+                        } else {
+                            binding.ivRedCart.visibility = View.VISIBLE
                         }
 
                         wishList.clear()

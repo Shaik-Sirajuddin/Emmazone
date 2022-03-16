@@ -9,9 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -44,14 +42,61 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     lateinit var binding: ActivityProductDetailBinding
 
     private var selectedDate: Date? = null
-    private var tvDeliveryDate: TextView? = null
-    private var tvOrderPersonName: TextView? = null
-    private var tvOrderDeliveryAddress: TextView? = null
+
     private val appViewModel: AppViewModel by viewModels()
     var qty = 0
     var totalQty = 0
 
     var productId = ""
+    private var selectedPaymentType = "" // 0=>Wallet 1=>Card 2=>cash
+    private var selectedCardId = ""
+    private var selectedCardCvv = ""
+
+    private var tvDeliveryDate: TextView? = null
+    private var tvOrderPersonName: TextView? = null
+    private var tvOrderDeliveryAddress: TextView? = null
+    private var tvSelectAddress: TextView? = null
+    private var tvSelectPayment: TextView? = null
+    private var textPaymentMethod: TextView? = null
+    private var imagePaymentMethod: ImageView? = null
+    private var llPaymentMethod: LinearLayout? = null
+    private var rlAddress: RelativeLayout? = null
+
+    private var shopProductDetailResponse: ShopProductDetailResponse? = null
+
+    private val launcherPayment =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
+            if (result.resultCode == RESULT_OK) {
+                llPaymentMethod?.visibility = View.VISIBLE
+                tvSelectPayment?.visibility = View.GONE
+
+                val data = result.data
+                val paymentType = data?.getStringExtra("paymentType")
+                selectedCardId = data?.getStringExtra("cardId")!!
+                selectedCardCvv = data.getStringExtra("cardCVV")!!
+                selectedPaymentType = paymentType!!
+
+                if (paymentType == "0") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.wallet)
+                    textPaymentMethod?.text = getString(R.string.wallet)
+                } else if (paymentType == "1") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.credit)
+                    textPaymentMethod?.text = getString(R.string.credit_card_debit_card)
+                } else if (paymentType == "2") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.wallet)
+                    textPaymentMethod?.text = getString(R.string.cash_on_delivery)
+                } else if (paymentType == "3") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.paypal)
+                    textPaymentMethod?.text = getString(R.string.paypal)
+                }
+
+
+            }
+
+        }
+
+
     private val addressLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -82,6 +127,10 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             onBackPressed()
         }
 
+        binding.imageCart.setOnClickListener {
+            startActivity(Intent(this, Cart::class.java))
+        }
+
         val hashMap = HashMap<String, String>()
         hashMap["id"] = productId!!
 
@@ -97,7 +146,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         binding.btnBuyDeliver.setOnClickListener(this)
         binding.btnClickCollect.setOnClickListener(this)
         binding.imageAskExpert.setOnClickListener(this)
-        binding.btnClickCollect.setOnClickListener(this)
 
     }
 
@@ -110,25 +158,43 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     }
 
     private fun showBottomDialog() {
-        if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
-            showLoginDialog()
-            return
-        }
-
         val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
-
         dialog.setCancelable(true)
         dialog.setContentView(view)
 
         tvDeliveryDate = view.findViewById(R.id.tvDeliveryDate)
         val tvChangeDateTime = view.findViewById<TextView>(R.id.tvChangeDateTime)
         val tvChangeDeliveryAdd = view.findViewById<TextView>(R.id.tvChange)
-        tvOrderPersonName = view.findViewById(R.id.tvOrderPersonName)
-        tvOrderDeliveryAddress = view.findViewById(R.id.tvOrderDeliveryAddress)
         val tvChangePaymentMethod = view.findViewById<TextView>(R.id.tvPaymentMethodChange)
         val tvTerms = view.findViewById<TextView>(R.id.btnTerms)
         val buy = view.findViewById<TextView>(R.id.btnBuy)
+        val tvCountItem = view.findViewById<TextView>(R.id.tvItemCount)
+        val tvSubTotalPrice = view.findViewById<TextView>(R.id.tvSubTotalPrice)
+        val tvDeliveryChargesPrice = view.findViewById<TextView>(R.id.tvDeliveryChargesPrice)
+        val tvTaxPrice = view.findViewById<TextView>(R.id.tvTaxPrice)
+        val tvTotalPrice = view.findViewById<TextView>(R.id.tvTotalPrice)
+        tvSelectAddress = view.findViewById<TextView>(R.id.tvSelectAddress)
+        tvSelectPayment = view.findViewById<TextView>(R.id.tvSelectPayment)
+        tvOrderPersonName = view.findViewById(R.id.tvOrderPersonName)
+        tvOrderDeliveryAddress = view.findViewById(R.id.tvOrderDeliveryAddress)
+        textPaymentMethod = view.findViewById(R.id.textPaymentMethod)
+        imagePaymentMethod = view.findViewById(R.id.imagePaymentMethod)
+        llPaymentMethod = view.findViewById(R.id.paymentMethodLayout)
+        rlAddress = view.findViewById(R.id.rlAddress)
+
+//        tvCountItem.text = response!!.body.cartItems.size.toString()
+//        tvSubTotalPrice.text =
+//            getString(R.string.euro_symbol, response!!.body.subTotal.toDouble().toString())
+//        tvDeliveryChargesPrice.text =
+//            getString(
+//                R.string.euro_symbol,
+//                response!!.body.deliveryCharge.toDouble().toString()
+//            )
+//        tvTaxPrice.text = response!!.body.tax.toString() + "%"
+//        tvTotalPrice.text =
+//            getString(R.string.euro_symbol, response!!.body.total.toDouble().toString())
+
 
         tvDeliveryDate?.text = DateHelper.getFormattedDate(Date())
 
@@ -139,29 +205,27 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             startActivity(intent)
         }
         buy.setOnClickListener {
-            val alertDialog = AlertDialog.Builder(this)
-            val factory = LayoutInflater.from(this)
-            val view: View = factory.inflate(R.layout.dialog_order_placed, null)
-
-            val dialogOrderPlaced = view.findViewById<Button>(R.id.done)
-
-            dialogOrderPlaced.setOnClickListener {
-                onBackPressed()
-            }
-            alertDialog.setCancelable(true)
-
-            alertDialog.setView(view)
-            alertDialog.show()
+//            validateData()
         }
 
-        tvChangeDeliveryAdd.setOnClickListener {
-            val intent = Intent(this, DeliveryAddress::class.java)
-            addressLauncher.launch(intent)
+//        tvSelectAddress?.setOnClickListener {
+//            val intent = Intent(this, DeliveryAddress::class.java)
+//            launcherAddress.launch(intent)
+//        }
+
+//        tvChangeDeliveryAdd.setOnClickListener {
+//            val intent = Intent(this, DeliveryAddress::class.java)
+//            launcherAddress.launch(intent)
+//        }
+
+        tvSelectPayment?.setOnClickListener {
+            val intent = Intent(this, PaymentMethod::class.java)
+            launcherPayment.launch(intent)
         }
 
         tvChangePaymentMethod.setOnClickListener {
             val intent = Intent(this, PaymentMethod::class.java)
-            startActivity(intent)
+            launcherPayment.launch(intent)
         }
 
 
@@ -241,10 +305,20 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     }
 
+    private fun addOderApi() {
+        val hashMap = HashMap<String, String>()
+        hashMap["deliveryType"] = "0"  //0=>click&collect 1=>lifernado 2=>ownDelivery
+
+        hashMap["paymentMethod"] = selectedPaymentType  //0=>Wallet 1=>Card 2=>cash
+        appViewModel.addOrderApi(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+    }
+
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is ShopProductDetailResponse) {
+                    shopProductDetailResponse = t.data
                     val model = t.data.body
                     binding.productItemName.text = model.name
                     try {
@@ -257,7 +331,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                     binding.tvDesc.text = model.description
                     binding.tvSize.text = model.product_size.size
                     binding.tvColor.text = model.productColor.color
-                    binding.tvQty.text = getString(R.string.of,model.product_quantity.toString())
+                    binding.tvQty.text = getString(R.string.of, model.product_quantity.toString())
                     totalQty = model.product_quantity
 
                     binding.itemImageProductDetail.setAdapter(
@@ -271,14 +345,21 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
                     binding.tvPriceInteger.text = "${model.product_price} €"
 
-                    if (model.product_quantity == 0){
+                    if (model.product_quantity == 0) {
                         binding.tvOutOfStock.visibility = View.VISIBLE
                         binding.btnBuyDeliver.visibility = View.GONE
                         binding.btnClickCollect.visibility = View.GONE
-                    }else{
+                    } else {
                         binding.tvOutOfStock.visibility = View.GONE
                         binding.btnBuyDeliver.visibility = View.VISIBLE
                         binding.btnClickCollect.visibility = View.VISIBLE
+                    }
+
+
+                    if (model.cartCount == 0) {
+                        binding.ivRedCart.visibility = View.GONE
+                    } else {
+                        binding.ivRedCart.visibility = View.VISIBLE
                     }
 
                 }

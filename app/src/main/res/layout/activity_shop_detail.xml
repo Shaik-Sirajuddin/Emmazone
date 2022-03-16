@@ -57,6 +57,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/changePassword" />
 
+
+            <ImageView
+                android:id="@+id/ivRedCart"
+                android:layout_width="@dimen/dp10"
+                android:layout_height="@dimen/dp10"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/notification_red_color"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/image_cart"
+                app:layout_constraintTop_toTopOf="@+id/image_cart" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -318,6 +329,19 @@
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailProducts"
             app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProducts"
             app:spanCount="2" />
+
+
+        <TextView
+            android:id="@+id/tvNoProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_products_available"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/tvShopDetailProducts"
+            app:layout_constraintStart_toStartOf="@+id/tvShopDetailProducts"
+            app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProducts" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

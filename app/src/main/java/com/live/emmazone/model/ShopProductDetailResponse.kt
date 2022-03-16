@@ -25,6 +25,8 @@ data class ShopProductDetailResponse(
         val product_images: ArrayList<ProductImage>,
         val product_price: String,
         val product_quantity: Int,
+        val notificationCount: Int,
+        val cartCount: Int,
         val product_size: ProductSize,
         val status: Int,
         val userId: Int

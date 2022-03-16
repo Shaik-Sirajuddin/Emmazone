@@ -31,10 +31,10 @@
 
         <ImageView
             android:id="@+id/image_notifications"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginEnd="@dimen/dp10"
-            android:src="@drawable/notifications"
+            android:src="@drawable/bell"
             app:layout_constraintBottom_toBottomOf="@+id/cart"
             app:layout_constraintEnd_toStartOf="@+id/cart"
             app:layout_constraintTop_toTopOf="@+id/cart" />
@@ -59,6 +59,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="@id/layoutMain"
             app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+        <ImageView
+            android:id="@+id/ivRedCart"
+            android:layout_width="@dimen/dp10"
+            android:layout_height="@dimen/dp10"
+            android:background="@drawable/notification_red_color"
+            app:layout_constraintEnd_toEndOf="@+id/cart"
+            android:layout_marginStart="5dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/cart" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

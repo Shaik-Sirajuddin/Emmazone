@@ -56,7 +56,7 @@ class ReservedDeliveredDetail : AppCompatActivity() {
 
     private fun setData(data: UserOrderListing.Body.Response) {
         list.addAll(data.orderJson.orderItems)
-        adapter?.notifyDataSetChanged()
+        adapter = AdapterOrderDetail(this,list)
         binding.tvOrderID.text = data.orderNo
         binding.tvSubTotalPrice.text = data.netAmount
         binding.tvDeliveryChargesPrice.text = data.shippingCharges

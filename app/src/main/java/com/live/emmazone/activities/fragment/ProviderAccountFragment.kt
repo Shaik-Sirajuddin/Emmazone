@@ -54,7 +54,7 @@ class ProviderAccountFragment : Fragment(), Observer<RestObservable> {
         clicksHandle()
 
         appViewModel.profileApi(requireActivity(), true)
-        appViewModel.getResponse().observe(this, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
     }
 
     private fun clicksHandle() {
@@ -94,7 +94,7 @@ class ProviderAccountFragment : Fragment(), Observer<RestObservable> {
             dialog.show(requireActivity().supportFragmentManager, "logoutDialog")
         }
 
-        binding.proAccountImage.setOnClickListener {
+        binding.layoutProfile.setOnClickListener {
             val intent = Intent(activity, ProfileActivity::class.java)
             startActivity(intent)
         }
@@ -117,7 +117,7 @@ class ProviderAccountFragment : Fragment(), Observer<RestObservable> {
         hashMap["notification_status"] = type
 
         appViewModel.notificationStatusApi(requireActivity(), true, hashMap)
-        appViewModel.getResponse().observe(this, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
     }
 
     override fun onResume() {

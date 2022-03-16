@@ -52,7 +52,7 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
         val hashMap = HashMap<String, String>()
         hashMap["status"] = "1"
         appViewModel.orderListingApi(requireActivity(), hashMap, true)
-        appViewModel.mResponse.observe(this, this)
+        appViewModel.mResponse.observe(requireActivity(), this)
     }
 
     private fun setOnClicks() {

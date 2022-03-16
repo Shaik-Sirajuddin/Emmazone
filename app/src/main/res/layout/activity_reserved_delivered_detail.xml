@@ -365,7 +365,6 @@
             android:layout_marginTop="@dimen/dp8"
             android:background="@drawable/faq_bg"
             android:padding="@dimen/dp20"
-            android:paddingLeft="@dimen/dp20"
             app:layout_constraintEnd_toEndOf="@+id/tvODPaymentMethod"
             app:layout_constraintStart_toStartOf="@+id/tvODPaymentMethod"
             app:layout_constraintTop_toBottomOf="@+id/tvODPaymentMethod">
@@ -381,15 +380,15 @@
 
             <TextView
                 android:id="@+id/tvPaymentType"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:text="PayPal"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12"
-                app:layout_constraintBottom_toBottomOf="@+id/imagePayPalOD"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imagePayPalOD"
-                app:layout_constraintTop_toTopOf="@+id/imagePayPalOD" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

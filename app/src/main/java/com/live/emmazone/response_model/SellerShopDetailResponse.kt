@@ -1,4 +1,5 @@
 package com.live.emmazone.response_model
+
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -12,13 +13,13 @@ data class SellerShopDetailResponse(
     val message: String,
     @SerializedName("success")
     val success: Boolean
-):Serializable {
+) : Serializable {
     data class Body(
         @SerializedName("notificationCount")
         val notificationCount: Int,
         @SerializedName("ShopDetails")
         val shopDetails: ShopDetails
-    ):Serializable {
+    ) : Serializable {
         data class ShopDetails(
             @SerializedName("id")
             val id: Int,
@@ -32,6 +33,8 @@ data class SellerShopDetailResponse(
             val longitude: String,
             @SerializedName("notificationCount")
             val notificationCount: Int,
+            @SerializedName("cartCount")
+            val cartCount: Int?,
             @SerializedName("products")
             val products: ArrayList<Product>,
             @SerializedName("shopAddress")
@@ -49,10 +52,10 @@ data class SellerShopDetailResponse(
             @SerializedName("isLiked")
             val isLiked: Int,
             @SerializedName("ratings")
-            val ratings: String ,
+            val ratings: String,
             @SerializedName("distance")
             val distance: Int
-        ) :Serializable{
+        ) : Serializable {
             data class Product(
                 @SerializedName("category")
                 val category: Category,
@@ -90,13 +93,13 @@ data class SellerShopDetailResponse(
                 val status: Int,
                 @SerializedName("userId")
                 val userId: Int
-            ):Serializable {
+            ) : Serializable {
                 data class Category(
                     @SerializedName("image")
                     val image: String,
                     @SerializedName("name")
                     val name: String
-                ):Serializable
+                ) : Serializable
 
                 data class ProductImage(
                     @SerializedName("id")
@@ -107,7 +110,7 @@ data class SellerShopDetailResponse(
                     val isMainImage: Int,
                     @SerializedName("product_id")
                     val productId: Int
-                ):Serializable
+                ) : Serializable
             }
 
             data class ShopCategory(
@@ -127,7 +130,7 @@ data class SellerShopDetailResponse(
                 val updatedAt: String,
                 @SerializedName("vendorDetailId")
                 val vendorDetailId: Int
-            ):Serializable
+            ) : Serializable
         }
     }
 }

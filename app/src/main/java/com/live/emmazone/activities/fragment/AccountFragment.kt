@@ -111,7 +111,7 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
         hashMap["notification_status"] = type
 
         appViewModel.notificationStatusApi(requireActivity(), true, hashMap)
-        appViewModel.getResponse().observe(this, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
     }
 
     override fun onResume() {
