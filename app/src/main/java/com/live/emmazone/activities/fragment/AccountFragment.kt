@@ -48,7 +48,7 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
         super.onViewCreated(view, savedInstanceState)
 
         appViewModel.profileApi(requireActivity(), true)
-        appViewModel.getResponse().observe(this, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
         clicksHandle()
     }
 
