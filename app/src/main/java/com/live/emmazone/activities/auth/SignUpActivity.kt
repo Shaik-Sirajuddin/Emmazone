@@ -28,6 +28,14 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
+/*
+*
+************************Google and Firebase credentials********
+************************email - cqlsys27@gmail.com*************
+************************password - system1234@******************
+*
+*/
+
 class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     lateinit var binding: ActivitySignUpBinding

@@ -534,10 +534,10 @@ class AppViewModel : ViewModel() {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.notificationList()
-                .enqueue(object : Callback<NotificatioListingResponse> {
+                .enqueue(object : Callback<NotificationListingResponse> {
                     override fun onResponse(
-                        call: Call<NotificatioListingResponse>,
-                        response: Response<NotificatioListingResponse>
+                        call: Call<NotificationListingResponse>,
+                        response: Response<NotificationListingResponse>
                     ) {
                         if (response.isSuccessful) {
                             mResponse.value = RestObservable.success(response.body()!!)
@@ -552,7 +552,7 @@ class AppViewModel : ViewModel() {
 
                     }
 
-                    override fun onFailure(call: Call<NotificatioListingResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<NotificationListingResponse>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
 

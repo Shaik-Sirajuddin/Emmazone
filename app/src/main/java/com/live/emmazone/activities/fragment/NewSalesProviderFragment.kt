@@ -74,6 +74,13 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
                     }
 
                     adapter.notifyDataSetChanged()
+
+
+                    if (t.data.body.notificationCount ==0){
+                        FragmentProviderSale.imageRedDot.visibility = View.GONE
+                    }else{
+                        FragmentProviderSale.imageRedDot.visibility = View.VISIBLE
+                    }
                 }
             }
         }

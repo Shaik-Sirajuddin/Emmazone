@@ -68,6 +68,12 @@ class OnGoingSalesProviderFragment : Fragment(), Observer<RestObservable> {
                         binding.rvOnGoingSalesPro.visibility = View.GONE
                     }
 
+                    if (t.data.body.notificationCount ==0){
+                        FragmentProviderSale.imageRedDot.visibility = View.GONE
+                    }else{
+                        FragmentProviderSale.imageRedDot.visibility = View.VISIBLE
+                    }
+
                 }
             }
         }

@@ -72,7 +72,7 @@ interface RestApiInterface {
     fun changePassword(@FieldMap hashMap: HashMap<String, String>): Call<ChangePasswordResponse>
 
     @GET(AppConstants.NOTIFICATION_LIST)
-    fun notificationList(): Call<NotificatioListingResponse>
+    fun notificationList(): Call<NotificationListingResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.NOTIFICATION_STATUS)

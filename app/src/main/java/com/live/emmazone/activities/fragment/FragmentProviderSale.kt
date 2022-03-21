@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Notifications
@@ -13,7 +14,13 @@ import com.live.emmazone.databinding.FragmentSaleProviderBinding
 
 class FragmentProviderSale : Fragment() {
 
+    companion object{
+        lateinit var imageRedDot:ImageView
+    }
+
     private lateinit var binding: FragmentSaleProviderBinding
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +39,9 @@ class FragmentProviderSale : Fragment() {
     }
 
     private fun clicksHandle() {
+
+        imageRedDot = binding.notifyRedBG
+
         binding.imageNotifications.setOnClickListener {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)

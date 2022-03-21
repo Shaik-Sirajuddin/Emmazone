@@ -1,6 +1,6 @@
 package com.live.emmazone.response_model
 
-data class NotificatioListingResponse(
+data class NotificationListingResponse(
     var body: ArrayList<Body>,
     var code: Int, // 200
     var message: String, // Notification List

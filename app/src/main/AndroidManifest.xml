@@ -24,11 +24,17 @@
         android:theme="@style/Theme.EmmaZone"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".utils.SimpleScannerActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.ImageZoomActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.AddCardActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

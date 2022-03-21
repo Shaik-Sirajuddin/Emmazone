@@ -10,7 +10,7 @@ import com.live.emmazone.adapter.AdapterNotifications
 import com.live.emmazone.databinding.ActivityNotificationsBinding
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
-import com.live.emmazone.response_model.NotificatioListingResponse
+import com.live.emmazone.response_model.NotificationListingResponse
 import com.live.emmazone.view_models.AppViewModel
 
 class Notifications : AppCompatActivity(), Observer<RestObservable> {
@@ -18,7 +18,7 @@ class Notifications : AppCompatActivity(), Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
 
     lateinit var binding : ActivityNotificationsBinding
-    var list = ArrayList<NotificatioListingResponse.Body>()
+    var list = ArrayList<NotificationListingResponse.Body>()
     lateinit var adapter: AdapterNotifications
     lateinit var recyclerView: RecyclerView
 
@@ -38,7 +38,7 @@ class Notifications : AppCompatActivity(), Observer<RestObservable> {
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
-                if (t.data is NotificatioListingResponse) {
+                if (t.data is NotificationListingResponse) {
                     list.clear()
                     list.addAll(t.data.body)
                     if(list.size>0){

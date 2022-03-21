@@ -29,6 +29,7 @@ object AppConstants {
     const val SHOP_DETAIL_RESPONSE = "shopDetailResponse"
     const val SHOP_ID = "shopId"
     const val IMAGES_ARRAYLIST = "imagesList"
+    const val ORDER_ID = "orderId"
 
 
     /*******URLs*****/

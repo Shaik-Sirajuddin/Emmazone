@@ -23,6 +23,14 @@ class AppUtils {
 
     companion object {
 
+        private const val SECOND_MILLIS = 1000
+        private const val MINUTE_MILLIS = 60 * SECOND_MILLIS
+        private const val HOUR_MILLIS = 60 * MINUTE_MILLIS
+        private const val DAY_MILLIS = 24 * HOUR_MILLIS
+        private const val WEEK_MILLIS = 7 * DAY_MILLIS
+        private const val MONTH_MILLIS = 4 * WEEK_MILLIS.toLong()
+        private const val YEAR_MILLIS = 12 * MONTH_MILLIS
+
 
         @SuppressLint("ClickableViewAccessibility")
         fun scrollOff(v: View) {
@@ -241,6 +249,60 @@ class AppUtils {
             }
         }
 
+        fun getNotificationTimeAgo(timeMillis: Long): String? {
+            var time = timeMillis
+            if (time < 1000000000000L) {
+                time *= 1000
+            }
+
+            val now = System.currentTimeMillis()
+
+            val diff = now - time
+            when {
+                diff < 2 * SECOND_MILLIS -> {
+                    return "Just now"
+                }
+                diff < 60 * SECOND_MILLIS -> {
+                    return (diff / SECOND_MILLIS).toString() + " sec"
+                }
+                diff < 2 * MINUTE_MILLIS -> {
+                    return "1 min"
+                }
+                diff < 50 * MINUTE_MILLIS -> {
+                    return (diff / MINUTE_MILLIS).toString() + " min"
+                }
+                diff < 90 * MINUTE_MILLIS -> {
+                    return "an hour"
+                }
+                diff < 24 * HOUR_MILLIS -> {
+                    return (diff / HOUR_MILLIS).toString() + " hours"
+                }
+                diff < 48 * HOUR_MILLIS -> {
+                    return "1 day"
+                }
+                diff < 7 * DAY_MILLIS -> {
+                    return (diff / DAY_MILLIS).toString() + " days";
+                }
+                diff < 2 * WEEK_MILLIS.toLong() -> {
+                    return "1 week"
+                }
+                diff < 4 * WEEK_MILLIS.toLong() -> {
+                    return (diff / WEEK_MILLIS.toLong()).toString() + " week"
+                }
+                diff < 2 * MONTH_MILLIS -> {
+                    return "1 month"
+                }
+                diff < 12 * MONTH_MILLIS -> {
+                    return (diff / MONTH_MILLIS).toString() + " month"
+                }
+                diff < 2 * YEAR_MILLIS -> {
+                    return "a year"
+                }
+                else -> {
+                    return (diff / YEAR_MILLIS).toString() + " years"
+                }
+            }
+        }
     }
 
 

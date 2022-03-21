@@ -40,24 +40,19 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setOnClicks()
-
         setAdapter()
-        getMyOrdersApi()
+
 
     }
 
     private fun getMyOrdersApi() {
-        // 1 => past orders, 2 => ongoing orders
+        // 1 =>ongoing orders , 2 => past orders
         val hashMap = HashMap<String, String>()
         hashMap["status"] = "1"
         appViewModel.orderListingApi(requireActivity(), hashMap, true)
         appViewModel.mResponse.observe(requireActivity(), this)
     }
 
-    private fun setOnClicks() {
-
-    }
 
     private fun setAdapter() {
         adapter = AdapterOnGoingUserOrders(requireContext(), list)
@@ -141,4 +136,8 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getMyOrdersApi()
+    }
 }

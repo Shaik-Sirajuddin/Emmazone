@@ -189,7 +189,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     private fun favUnFavApiHit(shopResponse: ShopListingResponse.Body.Shop) {
         val hashMap = HashMap<String, String>()
-        hashMap["vendorId"] = shopResponse.id.toString()
+        hashMap["vendorId"] = shopResponse.userId.toString()
 
         if (shopResponse.isLiked == 1)
             hashMap["status"] = "0"

@@ -37,9 +37,8 @@ class AdapterOnGoingProducts(
         with(holder.binding) {
             Glide.with(context).load(model.mainImage).into(onGoingItem)
             onGoingItemName.text = model.name
-            onGoingItemQuantity.text = model.productQuantity.toString()
+            onGoingItemQuantity.text = model.orderedQty.toString()
             productPrice.text = context.getString(R.string.euro_symbol,model.productPrice)
-            onGoingItemQuantity.text = model.productQuantity.toString()
             productPrice.text = context.getString(R.string.euro_symbol,model.productPrice)
         }
 

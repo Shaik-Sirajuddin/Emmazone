@@ -53,16 +53,8 @@ class AdapterOnGoingUserOrders(
                 2 -> {
                     tvOrderStatus.text = context.getString(R.string.delivered)
                 }
-            }
-            when (model.orderStatus) {
-                0 -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
-                    tvOrderStatus.text = context.getString(R.string.pending)
-                }
-                1 -> {
-                    tvOrderStatus.text = context.getString(R.string.on_the_way)
-                }
-                2 -> {
-                    tvOrderStatus.text = context.getString(R.string.delivered)
+                3 -> {
+                    tvOrderStatus.text = context.getString(R.string.cancel)
                 }
             }
 
@@ -72,8 +64,7 @@ class AdapterOnGoingUserOrders(
                     openDetailScreen(model, holder.adapterPosition)
                 }
             }
-            rvMyOrderOnGoing.layoutManager =
-                LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
+
             rvMyOrderOnGoing.adapter =
                 AdapterOnGoingProducts(
                     context,
@@ -81,14 +72,6 @@ class AdapterOnGoingUserOrders(
                     onActionListenerNew,
                     "list"
                 )
-            AdapterOnGoingProducts(
-                context,
-                model.orderJson.orderItems,
-                onActionListenerNew,
-                "list"
-            )
-            rvMyOrderOnGoing.isNestedScrollingEnabled = false
-
 
         }
     }

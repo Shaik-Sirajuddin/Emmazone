@@ -141,7 +141,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
 
     private fun favUnFavApiHit() {
         val hashMap = HashMap<String, String>()
-        hashMap["vendorId"] = response!!.body.id.toString()
+        hashMap["vendorId"] = response!!.body.userId.toString()
 
         if (response!!.body.isLiked == 1)
             hashMap["status"] = "0"

@@ -23,6 +23,14 @@ import com.live.emmazone.utils.AppConstants.USER_CHOICE
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
 
+/*
+*
+************************Google and Firebase credentials********
+************************email - cqlsys27@gmail.com*************
+************************password - system1234@******************
+*
+*/
+
 class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
 
     lateinit var binding: ActivityLoginBinding
@@ -141,7 +149,6 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
 
     override fun onResume() {
         super.onResume()
-
         getDeviceToken()
     }
 }

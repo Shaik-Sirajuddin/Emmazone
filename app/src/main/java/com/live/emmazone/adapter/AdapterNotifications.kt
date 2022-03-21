@@ -7,10 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
-import com.live.emmazone.response_model.NotificatioListingResponse
+import com.live.emmazone.response_model.NotificationListingResponse
+import com.live.emmazone.utils.AppUtils
 import com.schunts.extensionfuncton.loadImage
 
-class AdapterNotifications(private val list: ArrayList<NotificatioListingResponse.Body>) :
+class AdapterNotifications(private val list: ArrayList<NotificationListingResponse.Body>) :
     RecyclerView.Adapter<AdapterNotifications.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,18 +22,11 @@ class AdapterNotifications(private val list: ArrayList<NotificatioListingRespons
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-//      val ModelNotifications = list[position]
-//        holder.image.setImageResource(ModelNotifications.image)
-//        holder.tvOrderPerson.setText(ModelNotifications.tvOrderPersonName)
-//        holder.tvDeliveryAddress.setText(ModelNotifications.tvOrderDeliveryAddress)
-//        holder.tvnotifyTime.setText(ModelNotifications.tvNotificationTime)
-
         holder.tvOrderPerson.text = list[position].username
         holder.tvDeliveryAddress.text = list[position].message
-        holder.tvnotifyTime.text = list[position].createdAt
+        holder.tvnotifyTime.text = AppUtils.getNotificationTimeAgo(list[position].created.toLong())
 
         holder.image.loadImage(list[position].user_image)
-
 
     }
 

@@ -10,7 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/_20sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
@@ -26,8 +27,8 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="24dp"
-                android:src="@drawable/arrow_back"
                 android:padding="8dp"
+                android:src="@drawable/arrow_back"
                 app:layout_constraintBottom_toBottomOf="@+id/changePassword"
                 app:layout_constraintEnd_toStartOf="@+id/changePassword"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -107,9 +108,9 @@
             android:id="@+id/cardOrderDeatil"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
             android:elevation="@dimen/dp8"
             app:cardCornerRadius="@dimen/dp8"
-            android:layout_marginTop="@dimen/dp16"
             app:layout_constraintEnd_toEndOf="@+id/recyclerOrderDetail"
             app:layout_constraintStart_toStartOf="@+id/recyclerOrderDetail"
             app:layout_constraintTop_toBottomOf="@+id/recyclerOrderDetail">
@@ -117,20 +118,20 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardLayout"
                 android:layout_width="match_parent"
-                android:paddingBottom="@dimen/dp8"
+                android:layout_height="match_parent"
                 android:paddingTop="@dimen/dp8"
-                android:layout_height="match_parent">
+                android:paddingBottom="@dimen/dp8">
 
                 <TextView
                     android:id="@+id/tvPriceDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/dp5"
                     android:text="@string/price_details"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp18"
                     android:textStyle="bold"
-                    android:layout_marginTop="@dimen/dp5"
                     app:layout_constraintEnd_toEndOf="@+id/cardLayout"
                     app:layout_constraintStart_toStartOf="@+id/cardLayout"
                     app:layout_constraintTop_toTopOf="@+id/cardLayout" />
@@ -287,17 +288,17 @@
             android:id="@+id/tvDeliveryAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/bg_delivery_address"
             android:gravity="center_vertical"
             android:padding="@dimen/dp8"
-            app:layout_constraintTop_toBottomOf="@+id/cardOrderDeatil"
-            app:layout_constraintEnd_toEndOf="@+id/cardOrderDeatil"
-            app:layout_constraintStart_toStartOf="@+id/cardOrderDeatil"
-            android:layout_marginTop="@dimen/dp16"
             android:text="@string/delivery_address"
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/cardOrderDeatil"
+            app:layout_constraintStart_toStartOf="@+id/cardOrderDeatil"
+            app:layout_constraintTop_toBottomOf="@+id/cardOrderDeatil"
             tools:layout_editor_absoluteY="570dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -398,6 +399,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp5"
             android:layout_marginTop="@dimen/dp8"
+            android:layout_marginBottom="10dp"
             android:text="Status"
             android:textColor="@color/black"
             android:textSize="@dimen/sp12"
@@ -409,14 +411,15 @@
             android:id="@+id/tvOrderStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_fill_earning"
             android:layout_marginStart="@dimen/dp8"
+            android:background="@drawable/bg_fill_earning"
+            android:paddingStart="10dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="6dp"
             android:text="dscdsvfds"
-            android:padding="6dp"
-            android:textSize="10dp"
-            android:paddingStart="@dimen/_4sdp"
-            android:paddingEnd="@dimen/_4sdp"
             android:textColor="@color/white"
+            android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvODStatus"
             app:layout_constraintStart_toEndOf="@+id/tvODStatus"
             app:layout_constraintTop_toTopOf="@+id/tvODStatus" />
@@ -449,34 +452,45 @@
 
             />
 
-        <android.widget.Button
-            android:id="@+id/btnQRScanner"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="8dp"
-            android:padding="@dimen/dp16"
-            android:layout_marginBottom="@dimen/dp16"
-            android:background="@drawable/qr_code_scanner"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvODStatus" />
+            app:layout_constraintTop_toBottomOf="@+id/tvODStatus">
 
-        <TextView
-            android:id="@+id/tvQRCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginBottom="@dimen/dp32"
-            android:background="@drawable/underline_green"
-            android:text="QR Code"
-            android:textColor="@color/green"
-            android:textSize="@dimen/sp18"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/btnQRScanner"
-            app:layout_constraintStart_toStartOf="@+id/btnQRScanner"
-            app:layout_constraintTop_toBottomOf="@+id/btnQRScanner" />
+            <android.widget.Button
+                android:id="@+id/btnQRScanner"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/dp16"
+                android:background="@drawable/qr_code_scanner"
+                android:padding="@dimen/dp16" />
+
+            <TextView
+                android:id="@+id/tvQRCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:background="@drawable/underline_green"
+                android:text="QR Code"
+                android:textColor="@color/green"
+                android:textSize="@dimen/sp18"
+                android:textStyle="bold" />
+
+            <android.widget.Button
+                android:id="@+id/btnCancel"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/cancel"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
