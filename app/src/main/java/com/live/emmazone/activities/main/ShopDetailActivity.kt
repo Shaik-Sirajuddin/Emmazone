@@ -49,7 +49,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
         setContentView(binding.root)
 
         clicksHandle()
-        shopDetailApiHit()
+
 
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
 
@@ -181,14 +181,26 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
     }
 
     private fun setCategoryAdapter() {
+        val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.ShopCategory> = ArrayList()
+        response!!.body.shopCategories.forEach {
+            val shopCategory = SellerShopDetailResponse.Body.ShopDetails.ShopCategory(
+                it.categoryId,
+                it.image,
+                it.categoryName,
+                "",
+                0,
+                0,
+                "",
+                0
+            )
 
-        /*val shopCategory = AdapterShopDetailCategory(response!!.body.shop_categories)
-        binding.recyclerShopDetailCategory.adapter = shopCategory*/
+            list.add(shopCategory)
+        }
+
+        val shopCategory = AdapterShopDetailCategory(list)
+        binding.recyclerShopDetailCategory.adapter = shopCategory
     }
 
-    private fun setProductAdapter() {
-
-    }
 
     private fun setData() {
         binding.imageShopDetail.loadImage(AppConstants.IMAGE_USER_URL + response!!.body.image)
@@ -225,4 +237,9 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
 
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        shopDetailApiHit()
+    }
 }

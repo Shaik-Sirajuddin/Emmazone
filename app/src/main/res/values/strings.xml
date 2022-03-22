@@ -213,7 +213,7 @@
     <string name="permission_rationale">Location permission needed for core functionality</string>
     <string name="permission_denied_explanation">Permission was denied, but is needed for core functionality.</string>
     <string name="gps_required">GPS is required you be turned on</string>
-    <string name="miles_away">Miles Away</string>
+    <string name="miles_away">KM Away</string>
     <string name="notification_status_update">Notification status changed successfully</string>
     <string name="visa">Visa</string>
     <string name="card_number">Card Number</string>
@@ -283,5 +283,6 @@
     <string name="pls_select_address">Please select address</string>
     <string name="card">Card</string>
     <string name="no_products_available">No Products available</string>
+    <string name="no_shops_serving_near_you">No shops serving near you</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.live.emmazone.activities.provider
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
+import com.live.emmazone.activities.ImageZoomActivity
 import com.live.emmazone.adapter.CategoriesAdapter
 import com.live.emmazone.adapter.ColorAdapter
 import com.live.emmazone.adapter.ImageAdapter
@@ -26,6 +28,8 @@ import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
 import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
+import com.yanzhenjie.album.Album
+import com.yanzhenjie.album.api.widget.Widget
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -91,7 +95,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
 
 
-    fun highlightSwitchListener() {
+    private fun highlightSwitchListener() {
         binding.switchNotification.setOnCheckedChangeListener { buttonView, isChecked ->
             // do something, the isChecked will be
             // true if the switch is in the On position
@@ -126,8 +130,15 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         imageAdapter = ImageAdapter(imageList)
         binding.recyclerImages.adapter = imageAdapter
 
-        imageAdapter.onItemClickListener = { pos ->
-            getImage(1, false)
+        imageAdapter.onItemClickListener = { pos,clickOn ->
+            if (clickOn == "addImage"){
+//                getImage(1, false)
+                selectImage()
+            }else if (clickOn == "viewImage"){
+                val intent = Intent(this@EditProductActivity,ImageZoomActivity::class.java)
+                intent.putExtra(AppConstants.IMAGE_USER_URL,imageList[pos].image)
+                startActivity(intent)
+            }
         }
         imageAdapter.onDeleteImage = { pos, data ->
             if (data.id != 0) {
@@ -149,10 +160,48 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 //showProductUpdateDialog()
             }
 
-            ivShop.setOnClickListener {
+            ivAdd.setOnClickListener {
                 getImage(0, false)
             }
+
+            ivShop.setOnClickListener {
+                if (mainImagePath.isNotEmpty()){
+                    val intent = Intent(this@EditProductActivity,ImageZoomActivity::class.java)
+                    intent.putExtra(AppConstants.IMAGE_USER_URL,mainImagePath)
+                    startActivity(intent)
+                }else if (mainImage.isNotEmpty()){
+                    val intent = Intent(this@EditProductActivity,ImageZoomActivity::class.java)
+                    intent.putExtra(AppConstants.IMAGE_USER_URL,mainImage)
+                    startActivity(intent)
+                }
+            }
         }
+    }
+
+    private fun selectImage() {
+        Album.image(this)
+            .multipleChoice()
+            .camera(true)
+            .columnCount(4)
+            .widget(Widget.newDarkBuilder(this).title(getString(R.string.app_name)).build())
+            .onResult { result ->
+                /*mAlbumFiles.clear()
+                mAlbumFiles.addAll(result)*/
+
+                result.forEach {
+                    imageList.add(
+                        SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage(
+                            0,
+                            it.path,
+                            0,
+                            0
+                        )
+                    )
+                }
+                imageAdapter.notifyDataSetChanged()
+
+            }.onCancel {
+            }.start()
     }
 
     private fun validateAddProduct() {

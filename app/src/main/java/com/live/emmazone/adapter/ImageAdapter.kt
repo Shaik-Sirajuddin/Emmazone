@@ -15,8 +15,9 @@ class ImageAdapter(
 ) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
 
-    var onItemClickListener: ((pos: Int) -> Unit)? = null
-    var onDeleteImage: ((pos:Int,data:SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage) -> Unit)? = null
+    var onItemClickListener: ((pos: Int, clickOn: String) -> Unit)? = null
+    var onDeleteImage: ((pos: Int, data: SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage) -> Unit)? =
+        null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,22 +38,26 @@ class ImageAdapter(
         fun bind(pos: Int) {
 
             if (pos != list.size) {
-                binding.ivDeletePhoto.visibility=View.VISIBLE
+                binding.ivDeletePhoto.visibility = View.VISIBLE
                 binding.ivAdd.visibility = View.GONE
                 binding.rivProduct.loadImage(list[pos].image)
             } else {
-                binding.ivDeletePhoto.visibility=View.GONE
+                binding.ivDeletePhoto.visibility = View.GONE
                 binding.ivAdd.visibility = View.VISIBLE
                 binding.rivProduct.setImageResource(R.drawable.sqaure_dotted)
             }
 
 
             itemView.setOnClickListener {
-                onItemClickListener?.invoke(pos)
+                if (pos == list.size) {
+                    onItemClickListener?.invoke(pos,"addImage")
+                }else{
+                    onItemClickListener?.invoke(pos,"viewImage")
+                }
             }
 
             binding.ivDeletePhoto.setOnClickListener {
-                onDeleteImage?.invoke(pos,list[pos])
+                onDeleteImage?.invoke(pos, list[pos])
             }
         }
     }

@@ -65,7 +65,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
 
         clicksHandle()
-        getLiveLocation(requireActivity())
+
 
 
     }
@@ -142,6 +142,12 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     }
 
     private fun setShopAdapter() {
+        if (list.size > 0){
+            binding.tvNoShop.visibility = View.GONE
+        }else{
+            binding.tvNoShop.visibility = View.VISIBLE
+        }
+
         nearShopAdapter = AdapterNearbyShops(list)
         binding.rvHomeNearbyShops.adapter = nearShopAdapter
 
@@ -246,5 +252,9 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        getLiveLocation(requireActivity())
+    }
 
 }

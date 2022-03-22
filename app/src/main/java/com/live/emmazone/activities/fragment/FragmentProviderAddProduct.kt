@@ -120,14 +120,20 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
         }
     }
 
-    fun getSellerShopDetails() {
+   private fun getSellerShopDetails() {
         appViewModel.sellerShopDetailsApi(requireActivity(), true)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
 
     var productAdapter: AdapterProviderShopDetailProducts? = null
 
-    fun setDetailData(response: SellerShopDetailResponse) {
+    private fun setDetailData(response: SellerShopDetailResponse) {
+        if (response.body.notificationCount == 0){
+            binding.notifyRedBG.visibility = View.GONE
+        }else{
+            binding.notifyRedBG.visibility = View.VISIBLE
+        }
+
         val category = SellerShopDetailResponse.Body.ShopDetails.Product.Category("", "")
         val product_images: List<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage> = ArrayList()
         list.clear()

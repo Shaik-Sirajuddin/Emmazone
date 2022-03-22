@@ -49,6 +49,7 @@
                 android:id="@+id/notifyRedBG"
                 android:layout_width="@dimen/dp10"
                 android:layout_height="@dimen/dp10"
+                android:visibility="gone"
                 android:background="@drawable/notification_red_color"
                 app:layout_constraintBottom_toBottomOf="@+id/imgNotify"
                 app:layout_constraintEnd_toEndOf="@+id/imgNotify"

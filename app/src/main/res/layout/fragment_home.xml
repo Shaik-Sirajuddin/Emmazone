@@ -224,17 +224,21 @@
             app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
             app:layout_constraintTop_toBottomOf="@+id/tvNearByShop" />
 
-        <!-- <android.widget.Button
-             android:id="@+id/btnSeeAll"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="5dp"
-             android:layout_marginBottom="@dimen/dp15"
-             android:background="@drawable/seeall"
-             app:layout_constraintBottom_toBottomOf="parent"
-             app:layout_constraintEnd_toEndOf="@+id/rvHomeNearbyShops"
-             app:layout_constraintStart_toStartOf="@+id/rvHomeNearbyShops"
-             app:layout_constraintTop_toBottomOf="@+id/rvHomeNearbyShops" />
- -->
+
+        <TextView
+            android:id="@+id/tvNoShop"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@string/no_shops_serving_near_you"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvNearByShop"
+            app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
+            app:layout_constraintTop_toBottomOf="@+id/tvNearByShop" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

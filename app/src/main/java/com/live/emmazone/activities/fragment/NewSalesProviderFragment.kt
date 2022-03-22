@@ -39,7 +39,7 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
         super.onViewCreated(view, savedInstanceState)
 
         setNewSalesAdapter()
-        apiHitSales()
+
     }
 
     private fun apiHitSales() {
@@ -86,4 +86,9 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        apiHitSales()
+    }
 }

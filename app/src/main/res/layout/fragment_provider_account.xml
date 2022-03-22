@@ -52,6 +52,7 @@
                 android:layout_width="@dimen/dp10"
                 android:layout_height="@dimen/dp10"
                 android:background="@drawable/notification_red_color"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/image_notifications"
                 app:layout_constraintEnd_toEndOf="@+id/image_notifications"
                 app:layout_constraintHorizontal_bias="0.88"

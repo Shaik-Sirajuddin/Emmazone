@@ -46,7 +46,7 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
 
         setAdapter()
 
-        getPastOrdersApi()
+
 
     }
 
@@ -113,5 +113,10 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getPastOrdersApi()
     }
 }

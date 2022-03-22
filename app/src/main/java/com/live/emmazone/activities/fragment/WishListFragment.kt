@@ -47,6 +47,10 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
 
         clickHandle()
 
+
+    }
+
+    private fun wishListApiHit() {
         appViewModel.wishListApi(requireActivity(), true)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
@@ -149,6 +153,11 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        wishListApiHit()
     }
 
 }

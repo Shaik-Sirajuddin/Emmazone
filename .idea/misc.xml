@@ -79,7 +79,7 @@
         <entry key="app/src/main/res/layout/activity_faq.xml" value="0.21" />
         <entry key="app/src/main/res/layout/activity_filter.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/activity_image_zoom.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/activity_image_zoom.xml" value="0.14722222222222223" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/activity_message.xml" value="0.1" />
@@ -134,7 +134,7 @@
         <entry key="app/src/main/res/layout/dialog_shop_profile_updated.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_add_product_provider.xml" value="0.17399473881999247" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.14722222222222223" />
         <entry key="app/src/main/res/layout/fragment_home_provider.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home_provider11.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/fragment_my_orders.xml" value="0.19" />

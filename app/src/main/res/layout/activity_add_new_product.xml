@@ -59,8 +59,10 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_shop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
                 android:scaleType="centerCrop"
                 android:src="#232323"
                 app:shapeAppearanceOverlay="@style/roundedImageView1" />
@@ -84,13 +86,19 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp15" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_shop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+
+            <ImageView
+                android:id="@+id/ivAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/roundedImageView1" />
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/plus" />
 
         </RelativeLayout>
 

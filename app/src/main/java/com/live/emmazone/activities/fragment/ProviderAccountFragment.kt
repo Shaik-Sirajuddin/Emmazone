@@ -165,6 +165,12 @@ class ProviderAccountFragment : Fragment(), Observer<RestObservable> {
                             binding.rlProfile.visibility = View.VISIBLE
                         }
 
+                        if (response.body.notificationCount == 0) {
+                            binding.notifyRedBG.visibility = View.GONE
+                        } else {
+                            binding.notifyRedBG.visibility = View.VISIBLE
+                        }
+
                     }
 
 

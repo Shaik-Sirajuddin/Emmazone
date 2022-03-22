@@ -148,7 +148,7 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
                     if (response.code == AppConstants.SUCCESS_CODE) {
 
                         savePreference(AppConstants.AUTHORIZATION, response.body.token)
-
+                        savePreference(AppConstants.NAME, response.body.username)
 
                         savePreference(
                             AppConstants.NOTIFICATION_TYPE,

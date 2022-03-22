@@ -2,6 +2,7 @@ package com.live.emmazone.activities.provider
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
+import com.live.emmazone.activities.ImageZoomActivity
 import com.live.emmazone.adapter.CategoriesAdapter
 import com.live.emmazone.adapter.ColorAdapter
 import com.live.emmazone.adapter.ImageAdapter
@@ -30,6 +32,8 @@ import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
 import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
+import com.yanzhenjie.album.Album
+import com.yanzhenjie.album.api.widget.Widget
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -192,8 +196,15 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         imageAdapter = ImageAdapter(imageList)
         binding.recyclerImages.adapter = imageAdapter
 
-        imageAdapter.onItemClickListener = { pos ->
-            getImage(1, false)
+        imageAdapter.onItemClickListener = { pos,clickOn ->
+            if (clickOn == "addImage"){
+//                getImage(1, false)
+                selectImage()
+            }else if (clickOn == "viewImage"){
+                val intent = Intent(this, ImageZoomActivity::class.java)
+                intent.putExtra(AppConstants.IMAGE_USER_URL,imageList[pos].image)
+                startActivity(intent)
+            }
         }
 
         imageAdapter.onDeleteImage =
@@ -217,11 +228,21 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             validateAddProduct()
         }
 
-        binding.ivShop.setOnClickListener {
+        binding.ivAdd.setOnClickListener {
             getImage(0, false)
         }
 
-
+        binding.ivShop.setOnClickListener {
+            if (mainImagePath.isNotEmpty()){
+                val intent = Intent(this,ImageZoomActivity::class.java)
+                intent.putExtra(AppConstants.IMAGE_USER_URL,mainImagePath)
+                startActivity(intent)
+            }else if (mainImage.isNotEmpty()){
+                val intent = Intent(this,ImageZoomActivity::class.java)
+                intent.putExtra(AppConstants.IMAGE_USER_URL,mainImage)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun validateAddProduct() {
@@ -360,6 +381,34 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         )
         myPopupWindow.showAsDropDown(it, 0, -180)
     }
+
+
+    private fun selectImage() {
+        Album.image(this)
+            .multipleChoice()
+            .camera(true)
+            .columnCount(4)
+            .widget(Widget.newDarkBuilder(this).title(getString(R.string.app_name)).build())
+            .onResult { result ->
+                /*mAlbumFiles.clear()
+                mAlbumFiles.addAll(result)*/
+
+                result.forEach {
+                    imageList.add(
+                        SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage(
+                            0,
+                            it.path,
+                            0,
+                            0
+                        )
+                    )
+                }
+                imageAdapter.notifyDataSetChanged()
+
+            }.onCancel {
+            }.start()
+    }
+
 
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
