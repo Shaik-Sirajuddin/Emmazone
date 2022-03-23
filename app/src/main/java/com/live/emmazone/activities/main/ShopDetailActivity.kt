@@ -181,23 +181,7 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
     }
 
     private fun setCategoryAdapter() {
-        val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.ShopCategory> = ArrayList()
-        response!!.body.shopCategories.forEach {
-            val shopCategory = SellerShopDetailResponse.Body.ShopDetails.ShopCategory(
-                it.categoryId,
-                it.image,
-                it.categoryName,
-                "",
-                0,
-                0,
-                "",
-                0
-            )
-
-            list.add(shopCategory)
-        }
-
-        val shopCategory = AdapterShopDetailCategory(list)
+        val shopCategory = AdapterShopDetailCategory(response!!.body.shopCategories)
         binding.recyclerShopDetailCategory.adapter = shopCategory
     }
 

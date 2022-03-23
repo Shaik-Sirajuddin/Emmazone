@@ -11,6 +11,7 @@ object AppConstants {
     const val SELLER_ROLE = "3"
     const val GUEST = "guest"
     const val YEAR_FORMAT = "yyyy"
+    const val DATE_FORMAT = "dd-MMM-yyyy, hh:mm a"
 
 
     const val PROFILE_TYPE = "profileType"

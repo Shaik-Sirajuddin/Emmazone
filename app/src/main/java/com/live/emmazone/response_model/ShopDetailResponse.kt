@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-
 @Parcelize
 data class ShopDetailResponse(
     @SerializedName("body")
@@ -15,7 +14,7 @@ data class ShopDetailResponse(
     var message: String, // Shop Details
     @SerializedName("success")
     var success: Boolean // true
-) : Parcelable {
+) :Parcelable{
     @Parcelize
     data class Body(
         @SerializedName("cartCount")
@@ -41,7 +40,7 @@ data class ShopDetailResponse(
         @SerializedName("shopAddress")
         var shopAddress: String, // D-199, 5th Floor Phase, 8-B, Industrial Area, Sector 74, Sahibzada Ajit Singh Nagar, Punjab 160071, India
         @SerializedName("shop_categories")
-        var shopCategories: List<ShopCategory>,
+        var shopCategories: ArrayList<SellerShopDetailResponse.Body.ShopDetails.ShopCategory>,
         @SerializedName("shopDescription")
         var shopDescription: String, // All type garment available
         @SerializedName("shopName")
@@ -50,7 +49,7 @@ data class ShopDetailResponse(
         var userId: Int, // 336
         @SerializedName("year")
         var year: Int // 2010
-    ) : Parcelable {
+    ) :Parcelable{
         @Parcelize
         data class Product(
             @SerializedName("barcodeImage")
@@ -105,7 +104,7 @@ data class ShopDetailResponse(
             var userId: Int, // 336
             @SerializedName("vendorId")
             var vendorId: Int // 0
-        ) : Parcelable {
+        ) :Parcelable{
             @Parcelize
             data class ProductImage(
                 @SerializedName("createdAt")
@@ -122,16 +121,27 @@ data class ShopDetailResponse(
                 var status: Int, // 1
                 @SerializedName("updatedAt")
                 var updatedAt: Int // 0
-            ) : Parcelable
+            ):Parcelable
         }
+
         @Parcelize
         data class ShopCategory(
             @SerializedName("categoryId")
             var categoryId: Int, // 32
-            @SerializedName("category_name")
+            @SerializedName("categoryImage")
+            var categoryImage: String, // http://202.164.42.227:8188/uploads/category/3813de02-87bd-4229-b3e8-b1f3d4b92643.jpg
+            @SerializedName("categoryName")
             var categoryName: String, // Shoes
-            @SerializedName("image")
-            var image: String // 3813de02-87bd-4229-b3e8-b1f3d4b92643.jpg
-        ) : Parcelable
+            @SerializedName("createdAt")
+            var createdAt: String, // 2022-03-22T11:13:53.000Z
+            @SerializedName("id")
+            var id: Int, // 335
+            @SerializedName("shopId")
+            var shopId: Int, // 336
+            @SerializedName("updatedAt")
+            var updatedAt: String, // 2022-03-22T11:13:53.000Z
+            @SerializedName("vendorDetailId")
+            var vendorDetailId: Int // 121
+        ):Parcelable
     }
 }

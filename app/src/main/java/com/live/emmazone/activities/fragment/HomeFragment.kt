@@ -4,7 +4,11 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
@@ -26,6 +30,10 @@ import com.live.emmazone.response_model.ShopListingResponse
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.LocationUpdateUtilityFragment
 import com.live.emmazone.view_models.AppViewModel
+import java.io.IOException
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
@@ -47,6 +55,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
             shopListingApi()
             stopLocationUpdates()
+            binding.tvLocation.text = completedAddress(lat, lng)
         }
     }
 
@@ -65,7 +74,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
 
         clicksHandle()
-
 
 
     }
@@ -113,9 +121,24 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             startActivity(intent)
         }
 
-        binding.imageLocationHome.setOnClickListener {
+        binding.edtSearchWishList.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                searchShopsFilter(s.toString())
+            }
+
+        })
+
+        /*binding.imageLocationHome.setOnClickListener {
             locationEnableDialog()
-        }
+        }*/
     }
 
     private fun locationEnableDialog() {
@@ -142,9 +165,9 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     }
 
     private fun setShopAdapter() {
-        if (list.size > 0){
+        if (list.size > 0) {
             binding.tvNoShop.visibility = View.GONE
-        }else{
+        } else {
             binding.tvNoShop.visibility = View.VISIBLE
         }
 
@@ -179,14 +202,23 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         }
     }
 
+    private fun searchShopsFilter(text: String) {
+        val filterList = ArrayList<ShopListingResponse.Body.Shop>()
+
+        list.forEach {
+            if (it.shopName.contains(text, true)) {
+                filterList.add(it)
+            }
+        }
+        nearShopAdapter.notifyData(filterList)
+    }
 
     private fun shopListingApi() {
         val hashMap = HashMap<String, String>()
-        hashMap["latitude"] = "30.7333" //for testing
-        hashMap["longitude"] = "76.7794" //for testing
-        /*hashMap["latitude"] = mLatitude
-        hashMap["longitude"] = mLongitude*/
-
+//        hashMap["latitude"] = "30.7333" //for testing
+//        hashMap["longitude"] = "76.7794" //for testing
+        hashMap["latitude"] = mLatitude
+        hashMap["longitude"] = mLongitude
 
         appViewModel.shopListApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(requireActivity(), this)
@@ -255,6 +287,49 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     override fun onResume() {
         super.onResume()
         getLiveLocation(requireActivity())
+    }
+
+    private fun completedAddress(latitude: Double, longitude: Double): String {
+        var addresses: List<Address>? = null
+        var city: String? = ""
+        val geoCoder = Geocoder(requireContext(), Locale.getDefault())
+        var location = ""
+
+        try {
+            addresses = geoCoder.getFromLocation(latitude, longitude, 1)
+            if (addresses != null && addresses.isNotEmpty()) {
+                val countryName = addresses[0].countryName
+                val state = addresses[0].subAdminArea
+                val address = addresses[0].featureName
+                val island = addresses[0].adminArea
+// val city = addresses[0].locality
+
+
+                try {
+                    city = addresses[0].locality
+                    if (city == null) city = addresses[0].subLocality
+                    if (city == null) city = addresses[0].subAdminArea
+                    if (city == null) city = addresses[0].adminArea
+// addressCity = city
+                } catch (e: Exception) {
+// addressCity = ""
+                }
+
+                val pinCode = addresses[0].postalCode
+                val latitudeAddress = addresses[0].latitude
+                val longitudeAddress = addresses[0].longitude
+
+// If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                location = addresses[0].getAddressLine(0)
+
+
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            location = ""
+        }
+
+        return location
     }
 
 }

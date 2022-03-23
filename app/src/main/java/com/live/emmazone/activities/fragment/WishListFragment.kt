@@ -2,6 +2,8 @@ package com.live.emmazone.activities.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddFavouriteResponse
+import com.live.emmazone.response_model.ShopListingResponse
 import com.live.emmazone.response_model.WishListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
@@ -94,6 +97,22 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
             val intent = Intent(activity, Cart::class.java)
             startActivity(intent)
         }
+
+        binding.edtSearchWishList.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                searchShopsFilter(s.toString())
+            }
+
+        })
+
     }
 
 
@@ -110,6 +129,18 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
         appViewModel.addFavApi(requireActivity(), true, hashMap)
 //        appViewModel.getResponse().observe(requireActivity(), this)
     }
+
+    private fun searchShopsFilter(text: String) {
+        val filterList = ArrayList<WishListResponse.Body.Wish>()
+
+        wishList.forEach {
+            if (it.shopName.contains(text, true)) {
+                filterList.add(it)
+            }
+        }
+        wishListAdapter.notifyData(filterList)
+    }
+
 
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {

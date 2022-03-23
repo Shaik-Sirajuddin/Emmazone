@@ -131,6 +131,11 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             startActivity(Intent(this, Cart::class.java))
         }
 
+        productDetailApiHit()
+
+    }
+
+    private fun productDetailApiHit(){
         val hashMap = HashMap<String, String>()
         hashMap["id"] = productId!!
 
@@ -328,7 +333,8 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
                     binding.tvShopDetailProductText.text =
                         "${binding.ratingBarProductDetail.rating}/5"
-                    binding.tvDesc.text = model.description
+                    binding.tvDesc.text = model.shortDescription
+                    binding.tvDelivery.text = model.description
                     binding.tvSize.text = model.product_size.size
                     binding.tvColor.text = model.productColor.color
                     binding.tvQty.text = getString(R.string.of, model.product_quantity.toString())

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.adapter.AdapterCart
@@ -34,8 +35,6 @@ import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toast
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class Cart : AppCompatActivity(), Observer<RestObservable> {
 
@@ -222,7 +221,12 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
             getString(R.string.euro_symbol, response!!.body.total.toDouble().toString())
 
 
-        tvDeliveryDate?.text = DateHelper.getFormattedDate(Date())
+        val milliSeconds = System.currentTimeMillis() + 604800000L //after 7 days
+        tvDeliveryDate?.text =  AppUtils.milliSecondsToTime(milliSeconds,AppConstants.DATE_FORMAT)
+//        tvDeliveryDate?.text = DateHelper.getFormattedDate(Date())
+
+
+
 
         tvChangeDateTime.setOnClickListener { openDateTimerPicker() }
 
@@ -264,7 +268,8 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         if (Validator.buyProduct(selectedAddressId, selectedPaymentType)) {
             if (selectedPaymentType == "1") {
                 if (TextUtils.isEmpty(selectedCardId)) {
-                    Validator.errorMessage = AppController.instance!!.getString(R.string.please_select_card)
+                    Validator.errorMessage =
+                        AppController.instance!!.getString(R.string.please_select_card)
                     return
                 }
                 hashMap["cardId"] = selectedCardId
@@ -439,4 +444,13 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         }
     }
 
+
+    override fun onBackPressed() {
+        if (list.isEmpty()) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finishAffinity()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

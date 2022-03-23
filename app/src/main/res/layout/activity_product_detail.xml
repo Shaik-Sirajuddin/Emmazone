@@ -305,7 +305,7 @@
                 android:layout_marginStart="@dimen/dp16"
                 android:layout_marginTop="@dimen/dp8"
                 android:layout_marginEnd="@dimen/dp16"
-                android:text="2  delivery in 30 min or collect it from the shop. Delivery is free for members."
+                android:text=""
                 android:textAlignment="viewStart"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp12" />

@@ -29,6 +29,7 @@ data class ShopProductDetailResponse(
         val cartCount: Int,
         val product_size: ProductSize,
         val status: Int,
+        val shortDescription: String,
         val userId: Int
     ) :Serializable{
         data class Category(

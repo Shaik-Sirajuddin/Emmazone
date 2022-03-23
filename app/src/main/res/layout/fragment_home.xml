@@ -59,13 +59,16 @@
 
             <TextView
                 android:id="@+id/tv_location"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp5"
-                android:text="@string/_207_mazekin_street_new_york_usa"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="5dp"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12"
                 app:layout_constraintBottom_toBottomOf="@+id/image_location"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image_location"
                 app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
@@ -128,7 +131,7 @@
 
             <EditText
                 android:id="@+id/edtSearchWishList"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp10"
@@ -145,12 +148,12 @@
                 app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
                 app:layout_constraintTop_toTopOf="@+id/searchHomeLayout" />
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/imageLocationHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/location_black" />
+                android:src="@drawable/location_black" />-->
 
             <ImageView
                 android:id="@+id/imageFilterHome"

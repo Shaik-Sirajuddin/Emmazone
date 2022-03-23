@@ -34,7 +34,7 @@ class AdapterProviderNewSales(
         Glide.with(context).load(model.customer.image).into(holder.imageSales)
         holder.tvOrderID.text = model.orderNo
         holder.tvUsername.text = model.customer.username
-        holder.tvODOrderDate.text= AppUtils.getDateTime(model.created.toLong())
+        holder.tvODOrderDate.text = AppUtils.getDateTime(model.created.toLong())
         when (model.deliveryType) {
             0 -> {   //   0-> click & collect 1-> Lifernado 2-> Own Delivery
                 holder.tvHomeDelivery.text = context.getString(R.string.click_and_collect)
@@ -49,13 +49,16 @@ class AdapterProviderNewSales(
 
         when (model.orderStatus) {
             0 -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
-                holder.tvOrderStatus.text= context.getString(R.string.pending)
+                holder.tvOrderStatus.text = context.getString(R.string.pending)
             }
             1 -> {
-                holder.tvOrderStatus.text= context.getString(R.string.on_the_way)
+                holder.tvOrderStatus.text = context.getString(R.string.on_the_way)
             }
             2 -> {
-                holder.tvOrderStatus.text= context.getString(R.string.delivered)
+                holder.tvOrderStatus.text = context.getString(R.string.delivered)
+            }
+            3 -> {
+                holder.tvOrderStatus.text = context.getString(R.string.cancel)
             }
         }
 
@@ -69,7 +72,7 @@ class AdapterProviderNewSales(
         holder.recyclerChildNewsale.layoutManager =
             LinearLayoutManager(holder.itemView.context, LinearLayoutManager.VERTICAL, false)
         holder.recyclerChildNewsale.adapter =
-            AdapterOnGoingOrders(context, model.orderJson.orderItems, onActionListenerNew,"list")
+            AdapterOnGoingOrders(context, model.orderJson.orderItems, onActionListenerNew, "list")
         holder.recyclerChildNewsale.isNestedScrollingEnabled = false
 
         holder.itemView.setOnClickListener {
@@ -79,31 +82,31 @@ class AdapterProviderNewSales(
 
     private fun openDetailScreen(model: SalesResponse.Body.Response, position: Int) {
         val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
-        intent.putExtra("data",model)
+        intent.putExtra("data", model)
         context.startActivity(intent)
 
-       // when (model.status.toString()) {
-          /*  "pending" -> {
-                if (position == 0) {
-                    val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
-                    context.startActivity(intent)
-                } else if (position == 1) {
-                    val intent = Intent(context, OrderDetailPendingActivity::class.java)
-                    context.startActivity(intent)
-                }
-            }
-            "ongoing" -> {
-                val intent = Intent(context, OrderDetailProOngoingActivity::class.java)
-                context.startActivity(intent)
-            }
-            "past" -> {
-                val intent = Intent(context, OrderDetailDeliveredStatusActivity::class.java)
-                context.startActivity(intent)
-            }
-            else -> {
-                // do nothing
-            }*/
-      //  }
+        // when (model.status.toString()) {
+        /*  "pending" -> {
+              if (position == 0) {
+                  val intent = Intent(context, OrderDetailNewSaleActivity::class.java)
+                  context.startActivity(intent)
+              } else if (position == 1) {
+                  val intent = Intent(context, OrderDetailPendingActivity::class.java)
+                  context.startActivity(intent)
+              }
+          }
+          "ongoing" -> {
+              val intent = Intent(context, OrderDetailProOngoingActivity::class.java)
+              context.startActivity(intent)
+          }
+          "past" -> {
+              val intent = Intent(context, OrderDetailDeliveredStatusActivity::class.java)
+              context.startActivity(intent)
+          }
+          else -> {
+              // do nothing
+          }*/
+        //  }
     }
 
 //    private fun openScreen(model: ModelProviderNewSale) {
