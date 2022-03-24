@@ -10,63 +10,122 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
+import com.live.emmazone.databinding.FragmentMyOrdersBinding
+import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.CommonResponse
+import com.live.emmazone.response_model.NotificationListingResponse
+import com.live.emmazone.view_models.AppViewModel
+import java.util.*
+import kotlin.collections.HashMap
 
-class FragmentMyOrders : Fragment() {
+class FragmentMyOrders(private val notificationResponse: NotificationListingResponse.Body?) :
+    Fragment(), Observer<RestObservable> {
 
-    companion object{
-        lateinit var notifyRedBG:ImageView
-        lateinit var ivRedCartDot:ImageView
+    companion object {
+        lateinit var notifyRedBG: ImageView
+        lateinit var ivRedCartDot: ImageView
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = LayoutInflater.from(context).inflate( R.layout.fragment_my_orders, container, false)
+    private lateinit var binding: FragmentMyOrdersBinding
+    private val appViewModel: AppViewModel by viewModels()
 
-        val tvOnGoing : TextView = view.findViewById(R.id.tvOnGoingMyOrders)
-        val tvPastOrders : TextView = view.findViewById(R.id.tvPastMyOrders)
-        val imgNotifications : ImageView = view.findViewById(R.id.image_notifications)
-        val imgCart : ImageView = view.findViewById(R.id.cart)
-         notifyRedBG  = view.findViewById(R.id.notifyRedBG)
-        ivRedCartDot  = view.findViewById(R.id.ivRedCart)
-        val layoutSwitch : LinearLayout = view.findViewById(R.id.layoutMyOrders)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        imgNotifications.setOnClickListener {
+        binding = FragmentMyOrdersBinding.inflate(layoutInflater)
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        notifyRedBG = view.findViewById(R.id.notifyRedBG)
+        ivRedCartDot = view.findViewById(R.id.ivRedCart)
+
+        binding.imageNotifications.setOnClickListener {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
 
-        imgCart.setOnClickListener {
+        binding.cart.setOnClickListener {
             val intent = Intent(activity, Cart::class.java)
             startActivity(intent)
         }
 
-        openOnGoingOrdersFragment(OnGoingOrdersFragment())
-
-        tvOnGoing.setOnClickListener {
-            openOnGoingOrdersFragment(OnGoingOrdersFragment())
-            tvOnGoing.setBackgroundResource(R.drawable.bg_fill_earning)
-            tvOnGoing.setTextColor(Color.WHITE)
-            tvPastOrders.setTextColor(Color.BLACK)
-            tvPastOrders.setBackgroundColor(Color.TRANSPARENT)
+        if (notificationResponse != null) {
+            //  orderStatus  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
+            notificationReadApiHit()
+            if (notificationResponse.orderStatus == 0 || notificationResponse.orderStatus == 1) {
+                onGoingClick()
+            } else if (notificationResponse.orderStatus == 2 || notificationResponse.orderStatus == 3) {
+                pastClick()
+            }
+        } else {
+            onGoingClick()
         }
 
-        tvPastOrders.setOnClickListener {
-            openOnGoingOrdersFragment(PastFragment())
-            tvOnGoing.setBackgroundColor(Color.TRANSPARENT)
-            tvOnGoing.setTextColor(Color.BLACK)
-            tvPastOrders.setTextColor(Color.WHITE)
-            tvPastOrders.setBackgroundResource(R.drawable.bg_fill_earning)
+
+        binding.tvOnGoingMyOrders.setOnClickListener {
+            onGoingClick()
         }
-        return view
+
+        binding.tvPastMyOrders.setOnClickListener {
+            pastClick()
+        }
+
+
     }
 
-    private fun openOnGoingOrdersFragment(fragment : Fragment) {
+    private fun notificationReadApiHit() {
+        val hashMap = HashMap<String, String>()
+        hashMap["id"] = notificationResponse!!.id.toString()
+
+        appViewModel.readNotificationApi(requireActivity(), hashMap, true)
+        appViewModel.getResponse().observe(requireActivity(), this)
+    }
+
+    private fun pastClick() {
+        openOnGoingOrdersFragment(PastFragment())
+        binding.tvOnGoingMyOrders.setBackgroundColor(Color.TRANSPARENT)
+        binding.tvOnGoingMyOrders.setTextColor(Color.BLACK)
+        binding.tvPastMyOrders.setTextColor(Color.WHITE)
+        binding.tvPastMyOrders.setBackgroundResource(R.drawable.bg_fill_earning)
+    }
+
+    private fun onGoingClick() {
+        openOnGoingOrdersFragment(OnGoingOrdersFragment())
+        binding.tvOnGoingMyOrders.setBackgroundResource(R.drawable.bg_fill_earning)
+        binding.tvOnGoingMyOrders.setTextColor(Color.WHITE)
+        binding.tvPastMyOrders.setTextColor(Color.BLACK)
+        binding.tvPastMyOrders.setBackgroundColor(Color.TRANSPARENT)
+    }
+
+    private fun openOnGoingOrdersFragment(fragment: Fragment) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         transaction?.replace(R.id.fragmentContainerMyOrders, fragment)
-      //  transaction?.addToBackStack("My Orders")
+        //  transaction?.addToBackStack("My Orders")
         transaction?.commit()
+    }
+
+    override fun onChanged(t: RestObservable?) {
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is CommonResponse) {
+
+                }
+            }
+        }
     }
 
 }

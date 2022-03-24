@@ -15,19 +15,20 @@
         <entry key="app/src/main/res/drawable/arrow_drop_down_black.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/bg_add_bank.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/bg_add_card.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/drawable/bg_black_corner_white_solid.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable/bg_cart_items.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/drawable/bg_delivery_address.xml" value="0.1035" />
-        <entry key="app/src/main/res/drawable/bg_earning.xml" value="0.17" />
+        <entry key="app/src/main/res/drawable/bg_earning.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable/bg_fill_earning.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable/bg_fill_light_green.xml" value="0.2101851851851852" />
-        <entry key="app/src/main/res/drawable/bg_fill_sqaure.xml" value="0.20277777777777778" />
+        <entry key="app/src/main/res/drawable/bg_fill_sqaure.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable/bg_green_15dp.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/bg_light_gray_15dp.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/drawable/bg_my_earning_rv.xml" value="0.2101851851851852" />
         <entry key="app/src/main/res/drawable/bg_my_order.xml" value="0.23333333333333334" />
         <entry key="app/src/main/res/drawable/bg_profile.xml" value="0.25333333333333335" />
-        <entry key="app/src/main/res/drawable/bg_shop_detail_product.xml" value="0.22037037037037038" />
-        <entry key="app/src/main/res/drawable/bg_spinner.xml" value="0.2324074074074074" />
+        <entry key="app/src/main/res/drawable/bg_shop_detail_product.xml" value="0.1035" />
+        <entry key="app/src/main/res/drawable/bg_spinner.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable/bg_withdrawal.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/drawable/bottom_selector.xml" value="0.20925925925925926" />
         <entry key="app/src/main/res/drawable/bottom_selector_bg.xml" value="0.22407407407407406" />
@@ -160,7 +161,7 @@
         <entry key="app/src/main/res/layout/item_layout_choose_card.xml" value="0.19" />
         <entry key="app/src/main/res/layout/item_layout_home_nearby_shop.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/item_layout_my_earnings.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/item_layout_notifications.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/item_layout_notifications.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_layout_ongoing_myorders.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_layout_ongoing_user_layout.xml" value="0.15677083333333333" />
         <entry key="app/src/main/res/layout/item_layout_order_detail.xml" value="0.11979166666666667" />

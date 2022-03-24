@@ -4,8 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.live.emmazone.R
-import com.live.emmazone.activities.fragment.*
+import com.live.emmazone.activities.fragment.FragmentProviderAddProduct
+import com.live.emmazone.activities.fragment.FragmentProviderHome
+import com.live.emmazone.activities.fragment.FragmentProviderSale
+import com.live.emmazone.activities.fragment.ProviderAccountFragment
 import com.live.emmazone.databinding.ActivityProviderMainBinding
+import com.live.emmazone.response_model.NotificationListingResponse
+import com.live.emmazone.utils.AppConstants
 
 class ProviderMainActivity : AppCompatActivity() {
     lateinit var binding: ActivityProviderMainBinding
@@ -15,8 +20,8 @@ class ProviderMainActivity : AppCompatActivity() {
         binding = ActivityProviderMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        getNotificationClick()
 
-        loadFragment(FragmentProviderHome())
         binding.bottomNavigationView.itemIconTintList = null
         //   binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
 
@@ -29,7 +34,7 @@ class ProviderMainActivity : AppCompatActivity() {
                 }
                 R.id.sale -> {
                     if (currentFragment() !is FragmentProviderSale)
-                        loadFragment(FragmentProviderSale())
+                        loadFragment(FragmentProviderSale(null))
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.account_provider -> {
@@ -44,6 +49,21 @@ class ProviderMainActivity : AppCompatActivity() {
                 }
             }
             false
+        }
+
+
+    }
+
+    private fun getNotificationClick() {
+        if (intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE) != null) {
+            val notificationResponse =
+                intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE)
+                        as NotificationListingResponse.Body
+
+            binding.bottomNavigationView.selectedItemId = R.id.sale
+            loadFragment(FragmentProviderSale(notificationResponse))
+        } else {
+            loadFragment(FragmentProviderHome())
         }
     }
 

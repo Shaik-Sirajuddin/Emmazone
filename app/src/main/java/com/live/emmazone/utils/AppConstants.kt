@@ -31,6 +31,7 @@ object AppConstants {
     const val SHOP_ID = "shopId"
     const val IMAGES_ARRAYLIST = "imagesList"
     const val ORDER_ID = "orderId"
+    const val NOTIFICATION_RESPONSE = "notificationResponse"
 
 
     /*******URLs*****/
@@ -83,5 +84,6 @@ object AppConstants {
     const val ADD_ORDER = "addOrder"
     const val ORDER_LISTING = "user_sales"
     const val ORDER_STATUS = "orderStatus"
+    const val NOTIFICATION_READ = "isRead"
 
 }

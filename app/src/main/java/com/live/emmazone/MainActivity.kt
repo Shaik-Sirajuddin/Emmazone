@@ -11,12 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.fragment.AccountFragment
-import com.live.emmazone.activities.fragment.HomeFragment
 import com.live.emmazone.activities.fragment.FragmentMyOrders
+import com.live.emmazone.activities.fragment.HomeFragment
 import com.live.emmazone.activities.fragment.WishListFragment
-import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.databinding.ActivityMainBinding
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.response_model.NotificationListingResponse
+import com.live.emmazone.utils.AppConstants
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,9 +28,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadFragment(HomeFragment())
+        getNotificationClick()
 
-        binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
+//        binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
         binding.bottomNavigationView.itemIconTintList = null
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                         showLoginDialog()
                     } else {
                         if (currentFragment() !is FragmentMyOrders)
-                            loadFragment(FragmentMyOrders())
+                            loadFragment(FragmentMyOrders(null))
                     }
 
                 }
@@ -69,6 +70,22 @@ class MainActivity : AppCompatActivity() {
             }
 
             true
+        }
+
+
+    }
+
+    private fun getNotificationClick() {
+        if (intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE) != null) {
+            val notificationResponse =
+                intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE)
+                        as NotificationListingResponse.Body
+            binding.bottomNavigationView.menu.findItem(R.id.myOrders).isChecked = true
+            loadFragment(FragmentMyOrders(notificationResponse))
+
+        } else {
+            loadFragment(HomeFragment())
+
         }
     }
 

@@ -332,4 +332,8 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         return location
     }
 
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
 }

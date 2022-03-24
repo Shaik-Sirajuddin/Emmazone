@@ -208,4 +208,8 @@ interface RestApiInterface {
     @POST(AppConstants.ORDER_STATUS)
     fun orderStatusApi(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.NOTIFICATION_READ)
+    fun notificationRead(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
 }
