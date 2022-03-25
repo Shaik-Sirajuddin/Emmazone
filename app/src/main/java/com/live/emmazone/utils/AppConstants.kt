@@ -32,6 +32,10 @@ object AppConstants {
     const val IMAGES_ARRAYLIST = "imagesList"
     const val ORDER_ID = "orderId"
     const val NOTIFICATION_RESPONSE = "notificationResponse"
+    const val SAVED_ADDRESS_RESPONSE = "saveAddress"
+    const val PAYMENT_TYPE = "paymentType"
+    const val SAVED_CARD_ID = "saveCardId"
+    const val SAVED_CVV = "saveCvv"
 
 
     /*******URLs*****/

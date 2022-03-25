@@ -369,4 +369,11 @@ object Validator {
         }else return true
     }
 
+    fun buyProduct(selectCardId: String): Boolean {
+        return if (TextUtils.isEmpty(selectCardId)) {
+            errorMessage = AppController.instance!!.getString(R.string.please_select_payment)
+            false
+        }else return true
+    }
+
 }

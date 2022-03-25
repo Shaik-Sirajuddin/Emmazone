@@ -14,6 +14,7 @@ import com.live.emmazone.activities.AddNewAddress
 import com.live.emmazone.activities.listeners.OnActionListener
 import com.live.emmazone.adapter.AdapterDeliveryAddress
 import com.live.emmazone.databinding.ActivityDeliveryAddressBinding
+import com.live.emmazone.extensionfuncton.getPrefObject
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddressListResponse
@@ -133,6 +134,16 @@ class DeliveryAddress : AppCompatActivity(), Observer<RestObservable> {
                     val response: AddressListResponse = t.data
                     list.clear()
                     list.addAll(response.body)
+
+                    val savedAddress: AddressListResponse.Body? =
+                        getPrefObject(AppConstants.SAVED_ADDRESS_RESPONSE) as AddressListResponse.Body
+
+                    if (savedAddress != null) {
+                        list.forEach {
+                            it.isSelected = it.id == savedAddress.id
+                        }
+                    }
+
 
                     setAddressAdapter()
 

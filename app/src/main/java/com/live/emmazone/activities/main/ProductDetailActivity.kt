@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
@@ -20,20 +21,21 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.adapter.ImageSliderCustomeAdapter
+import com.live.emmazone.base.AppController
 import com.live.emmazone.databinding.ActivityProductDetailBinding
+import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
-import com.live.emmazone.response_model.AddressListResponse
+import com.live.emmazone.response_model.AddOrderResponse
 import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnPopupClick,
@@ -63,6 +65,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private var rlAddress: RelativeLayout? = null
 
     private var shopProductDetailResponse: ShopProductDetailResponse? = null
+    val hashMap = HashMap<String, String>()
 
     private val launcherPayment =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -97,17 +100,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         }
 
 
-    private val addressLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val address = result.data?.getSerializableExtra(AppConstants.Address_LIST_RESPONSE)
-                        as AddressListResponse.Body
-                tvOrderPersonName?.text = address.name
-                tvOrderDeliveryAddress?.text = address.address + " , ".plus(address.city)
-
-            }
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
@@ -131,11 +123,10 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             startActivity(Intent(this, Cart::class.java))
         }
 
-        productDetailApiHit()
 
     }
 
-    private fun productDetailApiHit(){
+    private fun productDetailApiHit() {
         val hashMap = HashMap<String, String>()
         hashMap["id"] = productId!!
 
@@ -176,9 +167,11 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         val buy = view.findViewById<TextView>(R.id.btnBuy)
         val tvCountItem = view.findViewById<TextView>(R.id.tvItemCount)
         val tvSubTotalPrice = view.findViewById<TextView>(R.id.tvSubTotalPrice)
+        val tvDeliveryCharges = view.findViewById<TextView>(R.id.tvDeliveryCharges)
         val tvDeliveryChargesPrice = view.findViewById<TextView>(R.id.tvDeliveryChargesPrice)
         val tvTaxPrice = view.findViewById<TextView>(R.id.tvTaxPrice)
         val tvTotalPrice = view.findViewById<TextView>(R.id.tvTotalPrice)
+        val tvDeliveryAddress = view.findViewById<TextView>(R.id.tvDeliveryAddress)
         tvSelectAddress = view.findViewById<TextView>(R.id.tvSelectAddress)
         tvSelectPayment = view.findViewById<TextView>(R.id.tvSelectPayment)
         tvOrderPersonName = view.findViewById(R.id.tvOrderPersonName)
@@ -188,29 +181,35 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         llPaymentMethod = view.findViewById(R.id.paymentMethodLayout)
         rlAddress = view.findViewById(R.id.rlAddress)
 
-//        tvCountItem.text = response!!.body.cartItems.size.toString()
-//        tvSubTotalPrice.text =
-//            getString(R.string.euro_symbol, response!!.body.subTotal.toDouble().toString())
-//        tvDeliveryChargesPrice.text =
-//            getString(
-//                R.string.euro_symbol,
-//                response!!.body.deliveryCharge.toDouble().toString()
-//            )
-//        tvTaxPrice.text = response!!.body.tax.toString() + "%"
-//        tvTotalPrice.text =
-//            getString(R.string.euro_symbol, response!!.body.total.toDouble().toString())
+        tvDeliveryChargesPrice.visibility = View.GONE
+        tvDeliveryCharges.visibility = View.GONE
+        tvDeliveryAddress.visibility = View.GONE
+        tvSelectAddress?.visibility = View.GONE
+
+        val subTotal = shopProductDetailResponse!!.body.productPrice.toFloat() * qty
+        val tax = shopProductDetailResponse!!.body.taxValue!!.value.toInt()
+        val taxCharged = ((subTotal / 100) * tax)
+        val totalPrice = taxCharged + subTotal
+
+        tvCountItem.text = "1"
+        tvSubTotalPrice.text = subTotal.toString()
+        tvTaxPrice.text = taxCharged.toString()
+        tvTotalPrice.text = totalPrice.toString()
 
 
-        tvDeliveryDate?.text = DateHelper.getFormattedDate(Date())
+        val milliSeconds = System.currentTimeMillis() + 604800000L //after 7 days
+        tvDeliveryDate?.text = AppUtils.milliSecondsToTime(milliSeconds, AppConstants.DATE_FORMAT)
 
-        tvChangeDateTime.setOnClickListener { openDateTimerPicker() }
+        /*tvChangeDateTime.setOnClickListener { openDateTimerPicker() }*/
+
+        getSavedPaymentType()
 
         tvTerms.setOnClickListener {
             val intent = Intent(this, TermsCondition::class.java)
             startActivity(intent)
         }
         buy.setOnClickListener {
-//            validateData()
+            validateData()
         }
 
 //        tvSelectAddress?.setOnClickListener {
@@ -310,11 +309,34 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     }
 
-    private fun addOderApi() {
-        val hashMap = HashMap<String, String>()
-        hashMap["deliveryType"] = "0"  //0=>click&collect 1=>lifernado 2=>ownDelivery
 
+    private fun validateData() {
+
+        if (Validator.buyProduct(selectedPaymentType)) {
+            if (selectedPaymentType == "1") {
+                if (TextUtils.isEmpty(selectedCardId)) {
+                    Validator.errorMessage =
+                        AppController.instance!!.getString(R.string.please_select_card)
+                    return
+                }
+                hashMap["cardId"] = selectedCardId
+                hashMap["cvv"] = selectedCardCvv
+                addOderApi()
+
+            } else {
+                addOderApi()
+            }
+        } else {
+            AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+        }
+    }
+
+
+    private fun addOderApi() {
+        hashMap["deliveryType"] = "0"  //0=>click&collect 1=>lifernado 2=>ownDelivery
         hashMap["paymentMethod"] = selectedPaymentType  //0=>Wallet 1=>Card 2=>cash
+        hashMap["productId"] = shopProductDetailResponse!!.body.id.toString()
+        hashMap["qty"] = qty.toString()
         appViewModel.addOrderApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
     }
@@ -335,23 +357,23 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                         "${binding.ratingBarProductDetail.rating}/5"
                     binding.tvDesc.text = model.shortDescription
                     binding.tvDelivery.text = model.description
-                    binding.tvSize.text = model.product_size.size
+                    binding.tvSize.text = model.productSize.size
                     binding.tvColor.text = model.productColor.color
-                    binding.tvQty.text = getString(R.string.of, model.product_quantity.toString())
-                    totalQty = model.product_quantity
+                    binding.tvQty.text = getString(R.string.of, model.productQuantity.toString())
+                    totalQty = model.productQuantity
 
                     binding.itemImageProductDetail.setAdapter(
                         ImageSliderCustomeAdapter(
                             this@ProductDetailActivity,
-                            model.product_images
+                            model.productImages
                         )
                     )
                     binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
 
 
-                    binding.tvPriceInteger.text = "${model.product_price} €"
+                    binding.tvPriceInteger.text = "${model.productPrice} €"
 
-                    if (model.product_quantity == 0) {
+                    if (model.productQuantity == 0) {
                         binding.tvOutOfStock.visibility = View.VISIBLE
                         binding.btnBuyDeliver.visibility = View.GONE
                         binding.btnClickCollect.visibility = View.GONE
@@ -368,10 +390,57 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                         binding.ivRedCart.visibility = View.VISIBLE
                     }
 
-                }
-                if (t.data is CommonResponse) {
+                } else if (t.data is CommonResponse) {
                     AppUtils.showMsgOnlyWithClick(this, "Item add to cart successfully", this)
+                } else if (t.data is AddOrderResponse) {
+                    val response: AddOrderResponse = t.data
+
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        thankYouDialog()
+                    }
                 }
+            }
+        }
+
+    }
+
+
+    private fun thankYouDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+        val factory = LayoutInflater.from(this)
+        val placeOrder: View = factory.inflate(R.layout.dialog_order_placed, null)
+
+        val dialogOrderPlaced = placeOrder.findViewById<Button>(R.id.done)
+
+        dialogOrderPlaced.setOnClickListener {
+            onBackPressed()
+        }
+        alertDialog.setCancelable(true)
+
+        alertDialog.setView(placeOrder)
+        alertDialog.show()
+    }
+
+    private fun getSavedPaymentType() {
+        selectedCardId = getPreference(AppConstants.SAVED_CARD_ID, "")
+        selectedCardCvv = getPreference(AppConstants.SAVED_CVV, "")
+        selectedPaymentType = getPreference(AppConstants.PAYMENT_TYPE, "")
+
+        if (selectedPaymentType.isNotEmpty()) {
+            llPaymentMethod?.visibility = View.VISIBLE
+            tvSelectPayment?.visibility = View.GONE
+            if (selectedPaymentType == "0") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.wallet)
+                textPaymentMethod?.text = getString(R.string.wallet)
+            } else if (selectedPaymentType == "1") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.credit)
+                textPaymentMethod?.text = getString(R.string.credit_card_debit_card)
+            } else if (selectedPaymentType == "2") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.wallet)
+                textPaymentMethod?.text = getString(R.string.cash_on_delivery)
+            } else if (selectedPaymentType == "3") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.paypal)
+                textPaymentMethod?.text = getString(R.string.paypal)
             }
         }
 
@@ -381,6 +450,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         startActivity(Intent(this, Cart::class.java))
 
     }
+
 
     override fun onClick(v: View?) {
         when (v?.id!!) {
@@ -419,4 +489,10 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         }
     }
 
+
+    override fun onResume() {
+        super.onResume()
+
+        productDetailApiHit()
+    }
 }

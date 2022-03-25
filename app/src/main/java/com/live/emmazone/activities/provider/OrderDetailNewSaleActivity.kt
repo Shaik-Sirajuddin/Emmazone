@@ -71,7 +71,9 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val orderId = result.data!!.getStringExtra(AppConstants.ORDER_ID)
-                orderStatusApiHit("2")
+                if (model!!.id.toString()==orderId){
+                    orderStatusApiHit("2")
+                }
             }
         }
 

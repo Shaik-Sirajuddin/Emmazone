@@ -7,30 +7,29 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.live.emmazone.R
 import com.live.emmazone.activities.AddCardActivity
 import com.live.emmazone.adapter.AdapterAddPaymentCard
 import com.live.emmazone.databinding.ActivityPaymentMethodBinding
 import com.live.emmazone.extensionfuncton.Validator
+import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CardListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
-import okio.Okio
 
 class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
 
     var cardId = ""
-    var cardCVV:String? = ""
+    var cardCVV: String? = ""
 
     private val appViewModel: AppViewModel by viewModels()
     private lateinit var binding: ActivityPaymentMethodBinding
     private var addPaymentAdapter: AdapterAddPaymentCard? = null
     private val cardList = ArrayList<CardListResponse.Body>()
 
-    private var selectedPaymentType = "" //0=>Wallet 1=>Card 2=>cash
+    private var selectedPaymentType = "" //0=>Wallet 1=>Card 2=>cash 3=>PayPal
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -47,6 +46,28 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
         clicksHandle()
         setPaymentAdapter()
         getCardListApiHit()
+        getSelectedType()
+    }
+
+    private fun getSelectedType() {
+        selectedPaymentType = getPreference(AppConstants.PAYMENT_TYPE, "")
+        cardId = getPreference(AppConstants.SAVED_CARD_ID, "")
+        cardCVV = getPreference(AppConstants.SAVED_CVV, "")
+
+        if (selectedPaymentType.isNotEmpty()) {
+
+            if (selectedPaymentType == "0") {
+                binding.rbWallet.isChecked = true
+            } else if (selectedPaymentType == "1") {
+                binding.rbCredit.isChecked = true
+                binding.tvChooseCard.visibility = View.VISIBLE
+                binding.recyclerChooseCard.visibility = View.VISIBLE
+            } else if (selectedPaymentType == "2") {
+                binding.rbCOD.isChecked = true
+            } else if (selectedPaymentType == "3") {
+                binding.rbPayPal.isChecked = true
+            }
+        }
 
     }
 
@@ -95,7 +116,7 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
         }
 
         binding.btnNext.setOnClickListener {
-            if(selectedPaymentType=="2"){
+            if (selectedPaymentType == "2") {
                 val intent = Intent()
                 intent.putExtra("paymentType", selectedPaymentType)
                 intent.putExtra("cardId", cardId)
@@ -103,7 +124,7 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
 
                 setResult(RESULT_OK, intent)
                 onBackPressed()
-            }else if(selectedPaymentType=="1"){
+            } else if (selectedPaymentType == "1") {
                 validateData()
             }
         }
@@ -168,6 +189,16 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
 
                         cardList.clear()
                         cardList.addAll(response.body)
+
+                        if (selectedPaymentType.isNotEmpty() && selectedPaymentType == "1") {
+                            cardList.forEach {
+                                if (it.id.toString() == cardId) {
+                                    it.cvvCode = cardCVV.toString()
+                                    it.isSelected = true
+                                }
+                            }
+                        }
+
                         addPaymentAdapter?.notifyDataSetChanged()
                     }
                 }

@@ -21,7 +21,7 @@ import com.live.emmazone.adapter.AdapterCart
 import com.live.emmazone.adapter.YouMyLikeProductAdapter
 import com.live.emmazone.base.AppController
 import com.live.emmazone.databinding.ActivityCartBinding
-import com.live.emmazone.extensionfuncton.Validator
+import com.live.emmazone.extensionfuncton.*
 import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.net.CartUpdateResponse
 import com.live.emmazone.net.RestObservable
@@ -76,6 +76,8 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
                 rlAddress?.visibility = View.VISIBLE
                 tvSelectAddress?.visibility = View.GONE
+
+                savePrefObject(AppConstants.SAVED_ADDRESS_RESPONSE, data)
             }
 
         }
@@ -108,6 +110,9 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                     textPaymentMethod?.text = getString(R.string.paypal)
                 }
 
+                savePreference(AppConstants.PAYMENT_TYPE, paymentType)
+                savePreference(AppConstants.SAVED_CARD_ID, selectedCardId)
+                savePreference(AppConstants.SAVED_CVV, selectedCardCvv)
 
             }
 
@@ -123,7 +128,10 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         setCartAdapter()
         setLikeProductAdapter()
         clicksHandle()
+
     }
+
+
 
     private fun clicksHandle() {
         binding.back.setOnClickListener {
@@ -222,11 +230,10 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
 
         val milliSeconds = System.currentTimeMillis() + 604800000L //after 7 days
-        tvDeliveryDate?.text =  AppUtils.milliSecondsToTime(milliSeconds,AppConstants.DATE_FORMAT)
+        tvDeliveryDate?.text = AppUtils.milliSecondsToTime(milliSeconds, AppConstants.DATE_FORMAT)
 //        tvDeliveryDate?.text = DateHelper.getFormattedDate(Date())
-
-
-
+        getSavedAddress()
+        getSavedPaymentType()
 
         tvChangeDateTime.setOnClickListener { openDateTimerPicker() }
 
@@ -261,6 +268,46 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
 
         dialog.show()
+    }
+
+    private fun getSavedPaymentType() {
+        selectedCardId = getPreference(AppConstants.SAVED_CARD_ID, "")
+        selectedCardCvv = getPreference(AppConstants.SAVED_CVV, "")
+        selectedPaymentType = getPreference(AppConstants.PAYMENT_TYPE, "")
+
+        if (selectedPaymentType.isNotEmpty()) {
+            llPaymentMethod?.visibility = View.VISIBLE
+            tvSelectPayment?.visibility = View.GONE
+            if (selectedPaymentType == "0") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.wallet)
+                textPaymentMethod?.text = getString(R.string.wallet)
+            } else if (selectedPaymentType == "1") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.credit)
+                textPaymentMethod?.text = getString(R.string.credit_card_debit_card)
+            } else if (selectedPaymentType == "2") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.wallet)
+                textPaymentMethod?.text = getString(R.string.cash_on_delivery)
+            } else if (selectedPaymentType == "3") {
+//                    imagePaymentMethod?.setImageResource(R.drawable.paypal)
+                textPaymentMethod?.text = getString(R.string.paypal)
+            }
+        }
+
+    }
+
+    private fun getSavedAddress() {
+        val savedAddress: AddressListResponse.Body? =
+            getPrefObject(AppConstants.SAVED_ADDRESS_RESPONSE) as AddressListResponse.Body
+
+        if (savedAddress != null) {
+            selectedAddressId = savedAddress.id.toString()
+            tvOrderPersonName?.text = savedAddress.name
+            tvOrderDeliveryAddress?.text = savedAddress.address + " , ".plus(savedAddress.city)
+
+            rlAddress?.visibility = View.VISIBLE
+            tvSelectAddress?.visibility = View.GONE
+        }
+
     }
 
     private fun validateData() {

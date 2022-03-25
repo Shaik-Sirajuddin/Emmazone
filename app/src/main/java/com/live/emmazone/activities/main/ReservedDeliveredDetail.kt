@@ -76,6 +76,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         adapter = AdapterOrderDetail(this, list)
         binding.tvOrderID.text = data.orderNo
         binding.tvSubTotalPrice.text = data.netAmount
+        binding.tvItemCount.text = data.orderJson.orderItems.size.toString()
         binding.tvDeliveryChargesPrice.text = data.shippingCharges
         binding.tvTaxPrice.text = data.taxCharged
         binding.tvTotalPrice.text = data.total

@@ -27,7 +27,7 @@ class AdapterOrderDetail(
         val data = list[position]
         Glide.with(context).load(data.mainImage).into(holder.imageOD)
         holder.productItemNameOD.text = data.name
-        holder.tvOrderQuantityNumberOD.text = data.productQuantity.toString()
+        holder.tvOrderQuantityNumberOD.text = data.orderedQty.toString()
         holder.productPriceOD.text = context.getString(R.string.euro_symbol, data.productPrice)
     }
 
