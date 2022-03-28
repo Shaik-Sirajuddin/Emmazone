@@ -284,5 +284,6 @@
     <string name="card">Card</string>
     <string name="no_products_available">No Products available</string>
     <string name="no_shops_serving_near_you">No shops serving near you</string>
+    <string name="search_location">Search Location</string>
 
 </resources>

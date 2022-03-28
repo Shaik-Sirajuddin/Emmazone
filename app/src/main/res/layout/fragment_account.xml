@@ -48,6 +48,7 @@
                 android:layout_width="@dimen/dp10"
                 android:layout_height="@dimen/dp10"
                 android:background="@drawable/notification_red_color"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/cart"
                 app:layout_constraintHorizontal_bias="0.58"
                 app:layout_constraintStart_toStartOf="@+id/image_notifications"
@@ -69,10 +70,10 @@
                 android:id="@+id/ivRedCart"
                 android:layout_width="@dimen/dp10"
                 android:layout_height="@dimen/dp10"
-                android:background="@drawable/notification_red_color"
-                app:layout_constraintEnd_toEndOf="@+id/cart"
                 android:layout_marginStart="5dp"
+                android:background="@drawable/notification_red_color"
                 android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/cart"
                 app:layout_constraintTop_toTopOf="@+id/cart" />
 
 
@@ -128,9 +129,9 @@
             android:id="@+id/profileAccountLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
             android:gravity="center"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/dp10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/clProfile">

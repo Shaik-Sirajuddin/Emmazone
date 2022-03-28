@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,12 +8,13 @@
     android:fillViewport="true"
     tools:context=".activities.main.FilterActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutMain"
+        <RelativeLayout
+            android:id="@+id/rlTop"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:background="@drawable/header"
@@ -25,322 +26,133 @@
                 android:id="@+id/back"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:padding="8dp"
+                android:layout_alignParentStart="true"
                 android:layout_marginStart="24dp"
-                android:src="@drawable/arrow_back"
-                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
-                app:layout_constraintStart_toStartOf="@+id/layoutMain"
-                app:layout_constraintTop_toTopOf="@+id/changePassword" />
+                android:layout_marginTop="22dp"
+                android:contentDescription="@string/app_name"
+                android:padding="8dp"
+                android:src="@drawable/arrow_back" />
 
             <TextView
-                android:id="@+id/changePassword"
+                android:id="@+id/tvFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="24dp"
                 android:text="@string/filter"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp20"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.42"
-                app:layout_constraintStart_toEndOf="@+id/back"
-                app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+                android:textStyle="bold" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+
 
         <LinearLayout
-            android:id="@+id/priceLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginEnd="@dimen/dp20"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/layoutMain"
-            app:layout_constraintStart_toStartOf="@+id/layoutMain"
-            app:layout_constraintTop_toBottomOf="@+id/layoutMain">
+            android:layout_above="@id/btnApply"
+            android:layout_below="@id/rlTop"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/idAge"
+
+            <LinearLayout
+                android:id="@+id/distanceLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/price"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                android:textStyle="bold" />
-
-            <com.google.android.material.slider.RangeSlider
-                android:id="@+id/range_slider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:valueFrom="0"
-                android:valueTo="1500"
-                app:values="@array/initial_slider_values" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/priceLayoutDollarValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginEnd="@dimen/dp20"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/priceLayout"
-            app:layout_constraintStart_toStartOf="@+id/priceLayout"
-            app:layout_constraintTop_toBottomOf="@+id/priceLayout">
-
-            <TextView
-                android:id="@+id/id1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="0Є"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/id2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp10"
-                android:text="1500Є"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/distanceLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginEnd="@dimen/dp20"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/priceLayoutDollarValue"
-            app:layout_constraintStart_toStartOf="@+id/priceLayoutDollarValue"
-            app:layout_constraintTop_toBottomOf="@+id/priceLayoutDollarValue">
-
-            <TextView
-                android:id="@+id/idDistance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/distance"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                android:textStyle="bold" />
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:value="50"
-                android:valueFrom="0"
-                android:valueTo="200" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/distanceLayoutValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-
-            android:layout_marginEnd="@dimen/dp20"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/distanceLayout"
-            app:layout_constraintStart_toStartOf="@+id/distanceLayout"
-            app:layout_constraintTop_toBottomOf="@+id/distanceLayout">
-
-            <TextView
-                android:id="@+id/idmiles1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="0 kilometer"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/idmiles2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp10"
-                android:text="200 kilometer"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/currentLocLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_marginEnd="@dimen/dp20"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/distanceLayoutValue"
-            app:layout_constraintStart_toStartOf="@+id/distanceLayoutValue"
-            app:layout_constraintTop_toBottomOf="@+id/distanceLayoutValue">
-
-            <TextView
-                android:id="@+id/tvCurrentLoc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp5"
-                android:text="@string/current_location"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvCurrentLoc2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp20"
                 android:layout_marginTop="@dimen/dp10"
-                android:background="@drawable/login_bg"
-                android:drawablePadding="@dimen/dp10"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/dp20"
-                android:text="@string/nw_tower_new_york_usa"
-                android:textColor="@color/light_black"
-                android:textSize="@dimen/sp12"
-                app:drawableLeftCompat="@drawable/location_green" />
-        </LinearLayout>
+                android:layout_marginEnd="@dimen/dp20"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/colorLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_marginEnd="@dimen/dp20"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/currentLocLayout"
-            app:layout_constraintStart_toStartOf="@+id/currentLocLayout"
-            app:layout_constraintTop_toBottomOf="@+id/currentLocLayout">
+                <TextView
+                    android:id="@+id/idDistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/distance"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvColour"
-                android:layout_width="0dp"
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slDistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:value="0"
+                    android:valueFrom="0"
+                    android:valueTo="200" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/distanceLayoutValue"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/colour"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                android:textStyle="bold" />
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp20"
+                android:orientation="horizontal">
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageAddColour"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/idmiles1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0 Km"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/idmiles2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:text="200 Km"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/currentLocLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/plus"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp18" />
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp20"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:text="@string/current_location"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp15"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/selectColourLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginEnd="@dimen/dp20"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/colorLayout"
-            app:layout_constraintStart_toStartOf="@+id/colorLayout"
-            app:layout_constraintTop_toBottomOf="@+id/colorLayout">
+                <EditText
+                    android:id="@+id/edtLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/login_bg"
+                    android:clickable="false"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:focusable="false"
+                    android:hint="@string/search_location"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:longClickable="false"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/sp12"
+                    app:drawableLeftCompat="@drawable/location_green" />
 
-            <TextView
-                android:id="@+id/tvColourSelected"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/colour1"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12" />
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageSelectedColour"
-                android:layout_width="@dimen/dp50"
-                android:layout_height="@dimen/dp25"
-                android:src="@drawable/otp_bg"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp18" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/sizeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_marginEnd="@dimen/dp20"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/selectColourLayout"
-            app:layout_constraintStart_toStartOf="@+id/selectColourLayout"
-            app:layout_constraintTop_toBottomOf="@+id/selectColourLayout">
-
-            <TextView
-                android:id="@+id/tvSize"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/size"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15"
-                android:textStyle="bold" />
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/plus"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp18" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/selectSizeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_marginEnd="@dimen/dp25"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/sizeLayout"
-            app:layout_constraintStart_toStartOf="@+id/sizeLayout"
-            app:layout_constraintTop_toBottomOf="@+id/sizeLayout">
-
-            <TextView
-                android:id="@+id/tvSizeSelected"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/size1"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp15" />
-
-            <TextView
-                android:id="@+id/tvSizeType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp30"
-                android:text="@string/x"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -348,28 +160,24 @@
             android:id="@+id/btnApply"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@id/btnCancel"
             android:layout_marginStart="@dimen/dp20"
             android:layout_marginTop="@dimen/dp30"
             android:layout_marginEnd="@dimen/dp20"
-            android:background="@drawable/apply"
-            app:layout_constraintEnd_toEndOf="@+id/selectSizeLayout"
-            app:layout_constraintStart_toStartOf="@+id/selectSizeLayout"
-            app:layout_constraintTop_toBottomOf="@+id/selectSizeLayout" />
+            android:background="@drawable/apply" />
 
         <android.widget.Button
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/dp20"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/dp20"
             android:layout_marginBottom="@dimen/dp20"
-            android:background="@drawable/cancel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/btnApply"
-            app:layout_constraintStart_toStartOf="@+id/btnApply"
-            app:layout_constraintTop_toBottomOf="@+id/btnApply" />
+            android:background="@drawable/cancel" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

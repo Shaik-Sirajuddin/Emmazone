@@ -46,6 +46,7 @@
             android:background="@drawable/notification_red_color"
             app:layout_constraintEnd_toStartOf="@+id/cart"
             app:layout_constraintHorizontal_bias="0.58"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/image_notifications"
             app:layout_constraintTop_toTopOf="@+id/image_notifications" />
 

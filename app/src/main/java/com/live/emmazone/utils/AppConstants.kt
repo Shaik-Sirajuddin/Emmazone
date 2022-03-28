@@ -36,6 +36,11 @@ object AppConstants {
     const val PAYMENT_TYPE = "paymentType"
     const val SAVED_CARD_ID = "saveCardId"
     const val SAVED_CVV = "saveCvv"
+    const val DISTANCE = "distance"
+    const val LATITUDE = "latitude"
+    const val LONGITUDE = "longitude"
+    const val LOCATION = "location"
+    const val FILTER = "filter"
 
 
     /*******URLs*****/

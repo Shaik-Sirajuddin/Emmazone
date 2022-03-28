@@ -1,5 +1,6 @@
 package com.live.emmazone.activities.fragment
 
+import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -12,6 +13,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.live.emmazone.MainActivity
@@ -39,14 +41,33 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
 
-    var mLatitude = ""
-    var mLongitude = ""
+    private var mLatitude = ""
+    private var mLongitude = ""
+    private var mDistance = ""
 
     private lateinit var binding: FragmentHomeBinding
 
     private val list = ArrayList<ShopListingResponse.Body.Shop>()
     lateinit var nearShopAdapter: AdapterNearbyShops
     private var selectedPos: Int? = null
+
+
+    private val filterLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                mDistance = result.data?.getStringExtra(AppConstants.DISTANCE)!!
+                mLatitude = result.data?.getStringExtra(AppConstants.LATITUDE)!!
+                mLongitude = result.data?.getStringExtra(AppConstants.LONGITUDE)!!
+                binding.tvLocation.text = result.data?.getStringExtra(AppConstants.LOCATION)!!
+
+                if (mLatitude.isNotEmpty() && mLongitude.isNotEmpty()) {
+                    shopListingApi()
+                } else {
+                    getLiveLocation(requireActivity())
+                }
+
+            }
+        }
 
     override fun updatedLatLng(lat: Double?, lng: Double?) {
         if (lat != null && lng != null) {
@@ -74,7 +95,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
 
         clicksHandle()
-
+        getLiveLocation(requireActivity())
 
     }
 
@@ -109,7 +130,11 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
         binding.imageFilterHome.setOnClickListener {
             val intent = Intent(activity, FilterActivity::class.java)
-            startActivity(intent)
+            intent.putExtra(AppConstants.DISTANCE, mDistance)
+            intent.putExtra(AppConstants.LATITUDE, mLatitude)
+            intent.putExtra(AppConstants.LONGITUDE, mLongitude)
+            intent.putExtra(AppConstants.LOCATION, binding.tvLocation.text)
+            filterLauncher.launch(intent)
         }
 
         binding.imageNotifications.setOnClickListener {
@@ -219,6 +244,8 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 //        hashMap["longitude"] = "76.7794" //for testing
         hashMap["latitude"] = mLatitude
         hashMap["longitude"] = mLongitude
+        hashMap["min_distance"] = "0"
+        hashMap["max_distance"] = mDistance
 
         appViewModel.shopListApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(requireActivity(), this)
@@ -279,6 +306,13 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 }
 
             }
+            Status.ERROR->{
+                if (list.size > 0) {
+                    binding.tvNoShop.visibility = View.GONE
+                } else {
+                    binding.tvNoShop.visibility = View.VISIBLE
+                }
+            }
         }
 
 
@@ -286,7 +320,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     override fun onResume() {
         super.onResume()
-        getLiveLocation(requireActivity())
+//        getLiveLocation(requireActivity())
     }
 
     private fun completedAddress(latitude: Double, longitude: Double): String {
