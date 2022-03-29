@@ -15,6 +15,7 @@ import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CardListResponse
+import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
@@ -30,6 +31,9 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
     private val cardList = ArrayList<CardListResponse.Body>()
 
     private var selectedPaymentType = "" //0=>Wallet 1=>Card 2=>cash 3=>PayPal
+
+    private var deletePos: Int? = null
+
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -169,8 +173,20 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
                 }
 
                 addPaymentAdapter?.notifyDataSetChanged()
+            } else if (clickOn == "deleteCard") {
+                deletePos = pos
+
+                deleteCardApiHit(cardList[pos].id)
             }
         }
+    }
+
+    private fun deleteCardApiHit(id: Int) {
+        val hashMap = HashMap<String, String>()
+        hashMap["id"] = id.toString()
+
+        appViewModel.deleteCard(this, hashMap, true)
+        appViewModel.getResponse().observe(this, this)
     }
 
 
@@ -200,6 +216,16 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
                         }
 
                         addPaymentAdapter?.notifyDataSetChanged()
+
+                    }
+                } else if (t.data is CommonResponse) {
+                    val response: CommonResponse = t.data
+
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        AppUtils.showMsgOnlyWithoutClick(this, response.message)
+                        cardList.removeAt(deletePos!!)
+                        addPaymentAdapter?.notifyDataSetChanged()
+
                     }
                 }
             }

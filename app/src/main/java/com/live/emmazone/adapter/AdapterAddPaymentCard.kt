@@ -100,6 +100,11 @@ class AdapterAddPaymentCard(val cardList: ArrayList<CardListResponse.Body>) :
             }
 
 
+            binding.ivDelete.setOnClickListener {
+                onItemClickListener?.invoke((pos - 1), "deleteCard")
+            }
+
+
             itemView.setOnClickListener {
                 if (pos == 0) {
                     onItemClickListener?.invoke(pos, "addCard")

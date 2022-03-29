@@ -35,6 +35,7 @@ import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
+import java.text.DecimalFormat
 import java.util.*
 
 
@@ -192,9 +193,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         val totalPrice = taxCharged + subTotal
 
         tvCountItem.text = "1"
-        tvSubTotalPrice.text = subTotal.toString()
+        tvSubTotalPrice.text = DecimalFormat("##.##").format(subTotal.toDouble())
         tvTaxPrice.text = taxCharged.toString()
-        tvTotalPrice.text = totalPrice.toString()
+        tvTotalPrice.text = DecimalFormat("##.##").format(totalPrice.toDouble())
 
 
         val milliSeconds = System.currentTimeMillis() + 604800000L //after 7 days

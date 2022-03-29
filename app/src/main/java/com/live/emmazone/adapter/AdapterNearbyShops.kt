@@ -14,7 +14,7 @@ class AdapterNearbyShops(private var list: ArrayList<ShopListingResponse.Body.Sh
     RecyclerView.Adapter<AdapterNearbyShops.NearByShopViewHolder>() {
 
     private lateinit var mContext: Context
-    var onClickListener: ((pos: Int, clickOn: String) -> Unit)? = null
+    var onClickListener: ((shopModel:ShopListingResponse.Body.Shop, clickOn: String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NearByShopViewHolder {
         mContext = parent.context
@@ -57,19 +57,19 @@ class AdapterNearbyShops(private var list: ArrayList<ShopListingResponse.Body.Sh
             }
 
             binding.itemHeartWishList.setOnClickListener {
-                onClickListener?.invoke(pos, "favourite")
+                onClickListener?.invoke(list[pos], "favourite")
             }
 
             binding.itemImageHome.setOnClickListener {
-                onClickListener?.invoke(pos, "itemClick")
+                onClickListener?.invoke(list[pos], "itemClick")
             }
 
             binding.ratingBarWishList.setOnClickListener {
-                onClickListener?.invoke(pos, "rating")
+                onClickListener?.invoke(list[pos], "rating")
             }
 
             binding.tvWishListRatingText.setOnClickListener {
-                onClickListener?.invoke(pos, "rating")
+                onClickListener?.invoke(list[pos], "rating")
             }
 
         }

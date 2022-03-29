@@ -51,7 +51,7 @@ class AdapterOnGoingUserOrders(
                     tvOrderStatus.text = context.getString(R.string.on_the_way)
                 }
                 2 -> {
-                    tvOrderStatus.text = context.getString(R.string.delivered)
+                    tvOrderStatus.text = context.getString(R.string.completed)
                 }
                 3 -> {
                     tvOrderStatus.text = context.getString(R.string.cancel)

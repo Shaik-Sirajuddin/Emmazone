@@ -16,7 +16,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.live.emmazone.utils.SimpleScannerActivity
 import com.bumptech.glide.Glide
 import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
@@ -29,6 +28,7 @@ import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.SalesResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.SimpleScannerActivity
 import com.live.emmazone.view_models.AppViewModel
 
 class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable> {
@@ -71,7 +71,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val orderId = result.data!!.getStringExtra(AppConstants.ORDER_ID)
-                if (model!!.id.toString()==orderId){
+                if (model!!.id.toString() == orderId) {
                     orderStatusApiHit("2")
                 }
             }
@@ -102,12 +102,17 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
             orderStatusApiHit("1")
         }
 
+        binding.btnReadyPickup.setOnClickListener {
+            //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
+            orderStatusApiHit("1")
+        }
+
         binding.btnDelivered.setOnClickListener {
             orderStatusApiHit("2")
         }
 
         binding.btnScan.setOnClickListener {
-           checkCameraPermission()
+            checkCameraPermission()
         }
 
         binding.rvOrderDetailNewSale.layoutManager =
@@ -131,8 +136,6 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
         adapter = AdapterOnGoingOrders(this, list, onActionListenerNew, "detail")
         binding.rvOrderDetailNewSale.adapter = adapter
     }
-
-
 
 
     private fun requestPermission() {
@@ -238,6 +241,15 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
             0 -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
                 binding.tvOrderStatus.text = getString(R.string.pending)
                 binding.btnReadyDelivery.visibility = View.VISIBLE
+
+                if (model.deliveryType == 0) {
+                    binding.btnReadyDelivery.visibility = View.GONE
+                    binding.btnReadyPickup.visibility = View.VISIBLE
+                } else {
+                    binding.btnReadyDelivery.visibility = View.VISIBLE
+                    binding.btnReadyPickup.visibility = View.GONE
+                }
+
             }
             1 -> {
                 binding.tvOrderStatus.text = getString(R.string.on_the_way)
@@ -245,7 +257,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
                 binding.btnDelivered.visibility = View.VISIBLE
             }
             2 -> {
-                binding.tvOrderStatus.text = getString(R.string.delivered)
+                binding.tvOrderStatus.text = getString(R.string.completed)
                 binding.btnReadyDelivery.visibility = View.GONE
             }
             3 -> {
@@ -285,9 +297,6 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
         }
 
     }
-
-
-
 
 
     override fun onChanged(t: RestObservable?) {

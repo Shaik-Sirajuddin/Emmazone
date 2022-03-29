@@ -21,7 +21,6 @@ import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddFavouriteResponse
-import com.live.emmazone.response_model.ShopListingResponse
 import com.live.emmazone.response_model.WishListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
@@ -63,21 +62,21 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
         binding.recyclerWishList.adapter = wishListAdapter
 
 
-        wishListAdapter.onClickListener = { pos, clickOn ->
+        wishListAdapter.onClickListener = { wishListModel, clickOn ->
 
             if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                 (context as MainActivity).showLoginDialog()
             } else {
                 if (clickOn == "favourite") {
-                    selectedPos = pos
-                    favUnFavApiHit(wishList[pos])
+                    selectedPos = wishList.indexOf(wishListModel)
+                    favUnFavApiHit(wishListModel)
                 } else if (clickOn == "itemClick") {
                     val intent = Intent(requireContext(), ShopDetailActivity::class.java)
-                    intent.putExtra(AppConstants.SHOP_ID, wishList[pos].id.toString())
+                    intent.putExtra(AppConstants.SHOP_ID, wishListModel.id.toString())
                     startActivity(intent)
                 } else if (clickOn == "rating") {
                     val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
-                    intent.putExtra(AppConstants.WISH_LIST_RESPONSE, wishList[pos])
+                    intent.putExtra(AppConstants.WISH_LIST_RESPONSE, wishListModel)
                     startActivity(intent)
                 }
             }
@@ -165,6 +164,7 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
                         wishList.clear()
                         wishList.addAll(t.data.body.wishList)
                         setWishListAdapter()
+                        noDataVisibility()
                     }
 
                 } else if (t.data is AddFavouriteResponse) {
@@ -175,7 +175,7 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
                         wishList[selectedPos!!].isLiked = response.body.status
                         wishListAdapter.notifyDataSetChanged()
                         AppUtils.showMsgOnlyWithoutClick(requireActivity(), response.message)
-
+                        noDataVisibility()
                     }
 
                 }
@@ -191,4 +191,14 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
         wishListApiHit()
     }
 
+
+    private fun noDataVisibility() {
+        if (wishList.isEmpty()) {
+            binding.tvNoData.visibility = View.VISIBLE
+            binding.llData.visibility = View.GONE
+        } else {
+            binding.tvNoData.visibility = View.GONE
+            binding.llData.visibility = View.VISIBLE
+        }
+    }
 }

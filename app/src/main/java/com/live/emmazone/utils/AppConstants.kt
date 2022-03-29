@@ -17,6 +17,7 @@ object AppConstants {
     const val PROFILE_TYPE = "profileType"
     const val USER_CHOICE = "userChoice"
 
+    const val OPEN_BY_CART = "openByCart"
     const val USER_ID = "userId"
     const val USER = "user"
     const val SELLER = "seller"
@@ -41,6 +42,7 @@ object AppConstants {
     const val LONGITUDE = "longitude"
     const val LOCATION = "location"
     const val FILTER = "filter"
+    const val SELECTED_BANK_ACCOUNT = "selectedBankAcc"
 
 
     /*******URLs*****/
@@ -94,5 +96,8 @@ object AppConstants {
     const val ORDER_LISTING = "user_sales"
     const val ORDER_STATUS = "orderStatus"
     const val NOTIFICATION_READ = "isRead"
+    const val GET_BANK_ACCOUNT = "get_bank_account"
+    const val DELETE_BANK = "delete_bank"
+    const val DELETE_CARD = "deleteCard"
 
 }

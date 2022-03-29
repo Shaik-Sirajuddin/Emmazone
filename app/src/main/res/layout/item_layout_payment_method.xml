@@ -45,7 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/tvExpiry"
+            android:layout_above="@id/rlExpiry"
             android:layout_below="@+id/rlTop"
             android:layout_marginStart="@dimen/_5sdp"
             android:gravity="center_vertical"
@@ -88,16 +88,36 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvExpiry"
+        <RelativeLayout
+            android:id="@+id/rlExpiry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:text="Expired: 04/21"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_11sdp" />
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp">
+
+            <TextView
+                android:id="@+id/tvExpiry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/ivDelete"
+                android:text="Expired: 04/21"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp" />
+
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/bin" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

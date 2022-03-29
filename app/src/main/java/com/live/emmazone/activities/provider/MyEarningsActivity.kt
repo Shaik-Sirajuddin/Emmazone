@@ -26,7 +26,7 @@ class MyEarningsActivity : AppCompatActivity() {
         }
 
         binding.btnWithdraw.setOnClickListener {
-            val intent = Intent(this, WithdrawalActivity::class.java)
+            val intent = Intent(this, Withdrawal2Activity::class.java)
             startActivity(intent)
         }
 

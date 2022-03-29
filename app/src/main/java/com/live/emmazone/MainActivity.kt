@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity() {
             binding.bottomNavigationView.menu.findItem(R.id.myOrders).isChecked = true
             loadFragment(FragmentMyOrders(notificationResponse))
 
+        } else if (intent.getBooleanExtra(AppConstants.OPEN_BY_CART, false)) {
+            binding.bottomNavigationView.menu.findItem(R.id.myOrders).isChecked = true
+            loadFragment(FragmentMyOrders(null))
         } else {
             loadFragment(HomeFragment())
 
@@ -98,10 +101,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun currentFragment(): Fragment? {
         return supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-    }
-
-    override fun onBackPressed() {
-        finishAffinity()
     }
 
     fun showLoginDialog() {
@@ -131,6 +130,17 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
 
     }
+
+    override fun onBackPressed() {
+        if (currentFragment() !is HomeFragment) {
+            loadFragment(HomeFragment())
+            binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
+        } else {
+            super.onBackPressed()
+        }
+
+    }
+
 }
 
 

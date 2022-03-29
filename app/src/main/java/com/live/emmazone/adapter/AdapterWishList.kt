@@ -22,7 +22,7 @@ class AdapterWishList(private var list: ArrayList<WishListResponse.Body.Wish>) :
     RecyclerView.Adapter<AdapterWishList.WishListViewHolder>() {
 
     private lateinit var mContext: Context
-    var onClickListener: ((pos: Int, clickOn: String) -> Unit)? = null
+    var onClickListener: ((wishListModel: WishListResponse.Body.Wish, clickOn: String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishListViewHolder {
         mContext = parent.context
@@ -60,19 +60,19 @@ class AdapterWishList(private var list: ArrayList<WishListResponse.Body.Wish>) :
             }
 
             binding.itemHeartWishList.setOnClickListener {
-                onClickListener?.invoke(pos, "favourite")
+                onClickListener?.invoke(list[pos], "favourite")
             }
 
             binding.itemImageHome.setOnClickListener {
-                onClickListener?.invoke(pos, "itemClick")
+                onClickListener?.invoke(list[pos], "itemClick")
             }
 
             binding.ratingBarWishList.setOnClickListener {
-                onClickListener?.invoke(pos, "rating")
+                onClickListener?.invoke(list[pos], "rating")
             }
 
             binding.tvWishListRatingText.setOnClickListener {
-                onClickListener?.invoke(pos, "rating")
+                onClickListener?.invoke(list[pos], "rating")
             }
 
         }

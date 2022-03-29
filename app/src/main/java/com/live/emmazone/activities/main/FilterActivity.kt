@@ -69,7 +69,9 @@ class FilterActivity : AppCompatActivity() {
 
     private fun clicksHandle() {
         binding.btnApply.setOnClickListener {
-            mDistance = binding.slDistance.value.toString()
+            if (binding.slDistance.value != 0.0f){
+                mDistance = binding.slDistance.value.toString()
+            }
             val intent = Intent()
             intent.putExtra(AppConstants.DISTANCE, mDistance)
             intent.putExtra(AppConstants.LATITUDE, mLatitude)

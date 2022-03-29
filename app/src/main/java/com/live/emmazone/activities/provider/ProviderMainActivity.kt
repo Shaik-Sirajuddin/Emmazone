@@ -77,4 +77,15 @@ class ProviderMainActivity : AppCompatActivity() {
         return supportFragmentManager.findFragmentById(R.id.fragmentProviderContainer)
     }
 
+    override fun onBackPressed() {
+
+        if (currentFragment() !is FragmentProviderHome) {
+            loadFragment(FragmentProviderHome())
+            binding.bottomNavigationView.menu.findItem(R.id.home_provider).isChecked = true
+        } else {
+            super.onBackPressed()
+
+        }
+    }
+
 }

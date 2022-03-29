@@ -97,7 +97,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
                 binding.btnCancel.visibility = View.GONE
             }
             2 -> {
-                binding.tvOrderStatus.text = getString(R.string.delivered)
+                binding.tvOrderStatus.text = getString(R.string.completed)
                 binding.btnCancel.visibility = View.GONE
             }
             3 -> {
@@ -105,19 +105,19 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
                 binding.btnCancel.visibility = View.GONE
             }
         }
-        when (data.deliveryType) {
-            0 -> {   //   0-> click & collect 1-> Lifernado 2-> Own Delivery
-                binding.tvPaymentType.text = getString(R.string.click_and_collect)
+        when (data.paymentMethod) {
+            0 -> {   //  0=>Wallet 1=>Card 2=>cash
+                binding.tvPaymentType.text =getString(R.string.wallet)
                 binding.tvDeliveryAddress.visibility = View.GONE
                 binding.layoutItemDeliveryAdrs.visibility = View.GONE
             }
             1 -> {
-                binding.tvPaymentType.text = getString(R.string.lifernado)
+                binding.tvPaymentType.text =  getString(R.string.card)
                 binding.btnQRScanner.visibility = View.GONE
                 binding.tvQRCode.visibility = View.GONE
             }
             2 -> {
-                binding.tvPaymentType.text = getString(R.string.own_delivery)
+                binding.tvPaymentType.text = getString(R.string.cash_on_delivery)
                 binding.btnQRScanner.visibility = View.GONE
                 binding.tvQRCode.visibility = View.GONE
             }

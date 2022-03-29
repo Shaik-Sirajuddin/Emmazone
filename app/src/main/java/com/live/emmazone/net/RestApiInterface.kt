@@ -212,4 +212,16 @@ interface RestApiInterface {
     @POST(AppConstants.NOTIFICATION_READ)
     fun notificationRead(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 
+
+    @GET(AppConstants.GET_BANK_ACCOUNT)
+    fun getBankAccount(): Call<GetBankResponse>
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = AppConstants.DELETE_BANK, hasBody = true)
+    fun deleteBank(@FieldMap hashMap: HashMap<String, String>): Call<DeleteBankResponse>
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = AppConstants.DELETE_CARD, hasBody = true)
+    fun deleteCard(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
 }

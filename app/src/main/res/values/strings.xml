@@ -285,5 +285,15 @@
     <string name="no_products_available">No Products available</string>
     <string name="no_shops_serving_near_you">No shops serving near you</string>
     <string name="search_location">Search Location</string>
+    <string name="_0_00">€0.00</string>
+    <string name="transfer_into">Transfer into</string>
+    <string name="select_account">Select account</string>
+    <string name="transactions">Transactions</string>
+    <string name="view_all">View all</string>
+    <string name="my_bank_accounts">My Bank Accounts</string>
+    <string name="pls_select_bank">Please select bank account</string>
+    <string name="send_to">Send to</string>
+    <string name="confirmed">confirmed</string>
+    <string name="ready_for_pickup">Ready for pickup</string>
 
 </resources>

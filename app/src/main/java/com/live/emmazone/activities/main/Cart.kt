@@ -34,6 +34,7 @@ import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toast
+import java.text.DecimalFormat
 import java.util.*
 
 class Cart : AppCompatActivity(), Observer<RestObservable> {
@@ -132,7 +133,6 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
     }
 
 
-
     private fun clicksHandle() {
         binding.back.setOnClickListener {
             onBackPressed()
@@ -218,7 +218,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
         tvCountItem.text = response!!.body.cartItems.size.toString()
         tvSubTotalPrice.text =
-            getString(R.string.euro_symbol, response!!.body.subTotal.toDouble().toString())
+            getString(R.string.euro_symbol, DecimalFormat("##.##").format(response!!.body.subTotal))
         tvDeliveryChargesPrice.text =
             getString(
                 R.string.euro_symbol,
@@ -226,7 +226,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
             )
         tvTaxPrice.text = response!!.body.tax.toString() + "%"
         tvTotalPrice.text =
-            getString(R.string.euro_symbol, response!!.body.total.toDouble().toString())
+            getString(R.string.euro_symbol, DecimalFormat("##.##").format(response!!.body.total))
 
 
         val milliSeconds = System.currentTimeMillis() + 604800000L //after 7 days
@@ -349,6 +349,10 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
         dialogOrderPlaced.setOnClickListener {
             onBackPressed()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra(AppConstants.OPEN_BY_CART, true)
+            startActivity(intent)
+            finishAffinity()
         }
         alertDialog.setCancelable(true)
 
@@ -413,7 +417,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                     binding.tvSubTotalPrice.text =
                         getString(
                             R.string.euro_symbol,
-                            response!!.body.subTotal.toDouble().toString()
+                            DecimalFormat("##.##").format(response!!.body.subTotal)
                         )
                     binding.tvDeliveryChargesPrice.text =
                         getString(
@@ -422,7 +426,10 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                         )
                     binding.tvTaxPrice.text = response!!.body.tax.toString() + "%"
                     binding.tvTotalPrice.text =
-                        getString(R.string.euro_symbol, response!!.body.total.toDouble().toString())
+                        getString(
+                            R.string.euro_symbol,
+                            DecimalFormat("##.##").format(response!!.body.total)
+                        )
                     binding.tvItemCount.text = response!!.body.cartItems.size.toString()
 
 
@@ -445,7 +452,8 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                                     this.productQuantity,
                                     this.productReview,
                                     this.status,
-                                    this.userId
+                                    this.userId,
+                                    null
                                 )
                             )
 
@@ -455,8 +463,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
 
                 } else if (t.data is CommonResponse) {
-                    list.removeAt(adapterPosition!!)
-                    cartAdapter.notifyDataSetChanged()
+                    getCartListing()
                     noDataVisible()
                 } else if (t.data is CartUpdateResponse) {
                     val response: CartUpdateResponse = t.data

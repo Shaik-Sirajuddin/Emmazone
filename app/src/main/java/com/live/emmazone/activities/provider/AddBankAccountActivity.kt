@@ -1,18 +1,14 @@
 package com.live.emmazone.activities.provider
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityAddBankAccountBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddBankResponse
-import com.live.emmazone.response_model.CardListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
@@ -69,8 +65,8 @@ class AddBankAccountActivity : AppCompatActivity(), Observer<RestObservable> {
                     val response: AddBankResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
-                        val intent = Intent(this, WithDrawBankInfoActivity::class.java)
-                        startActivity(intent)
+                        setResult(RESULT_OK)
+                        finish()
                     }
                 }
             }

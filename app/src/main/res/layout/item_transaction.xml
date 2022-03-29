@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp10"
+    android:background="@drawable/bg_my_earning_rv"
+    android:padding="@dimen/dp5">
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="Jul,11,2020"
+        android:textSize="@dimen/sp10" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_toStartOf="@id/tvPrice"
+        android:layout_toEndOf="@id/tvDate"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="12:00am"
+        android:textSize="@dimen/sp10" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp5"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="$300.00"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp12" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPrice"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvSendTo"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp10"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/send_to"
+            android:textSize="9sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCardName"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Afican Bank Ending **09"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tvAddDate"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="XXXX XXXX XXXX 6789"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp5"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/confirmed"
+            android:textSize="9sp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
