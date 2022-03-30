@@ -73,6 +73,8 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
                 } else if (clickOn == "itemClick") {
                     val intent = Intent(requireContext(), ShopDetailActivity::class.java)
                     intent.putExtra(AppConstants.SHOP_ID, wishListModel.id.toString())
+                    intent.putExtra(AppConstants.LATITUDE, wishListModel.latitude)
+                    intent.putExtra(AppConstants.LONGITUDE, wishListModel.longitude)
                     startActivity(intent)
                 } else if (clickOn == "rating") {
                     val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
@@ -117,7 +119,7 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
 
     private fun favUnFavApiHit(wishListResponse: WishListResponse.Body.Wish) {
         val hashMap = HashMap<String, String>()
-        hashMap["vendorId"] = wishListResponse.id.toString()
+        hashMap["vendorId"] = wishListResponse.userId.toString()
 
         if (wishListResponse.isLiked == 1)
             hashMap["status"] = "0"
@@ -172,7 +174,7 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
 
-                        wishList[selectedPos!!].isLiked = response.body.status
+                        wishList.removeAt(selectedPos!!)
                         wishListAdapter.notifyDataSetChanged()
                         AppUtils.showMsgOnlyWithoutClick(requireActivity(), response.message)
                         noDataVisibility()

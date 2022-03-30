@@ -224,4 +224,8 @@ interface RestApiInterface {
     @HTTP(method = "DELETE", path = AppConstants.DELETE_CARD, hasBody = true)
     fun deleteCard(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.ORDER_STATUS)
+    fun cancelOrderApi(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
 }

@@ -99,27 +99,40 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
             2 -> {
                 binding.tvOrderStatus.text = getString(R.string.completed)
                 binding.btnCancel.visibility = View.GONE
+                binding.btnQRScanner.visibility = View.GONE
+                binding.tvQRCode.visibility = View.GONE
             }
             3 -> {
                 binding.tvOrderStatus.text = getString(R.string.cancel)
                 binding.btnCancel.visibility = View.GONE
+                binding.btnQRScanner.visibility = View.GONE
+                binding.tvQRCode.visibility = View.GONE
             }
         }
-        when (data.paymentMethod) {
-            0 -> {   //  0=>Wallet 1=>Card 2=>cash
-                binding.tvPaymentType.text =getString(R.string.wallet)
+        when (data.deliveryType) {
+            0 -> {   //   0-> click & collect 1-> Lifernado 2-> Own Delivery
                 binding.tvDeliveryAddress.visibility = View.GONE
                 binding.layoutItemDeliveryAdrs.visibility = View.GONE
             }
             1 -> {
-                binding.tvPaymentType.text =  getString(R.string.card)
                 binding.btnQRScanner.visibility = View.GONE
                 binding.tvQRCode.visibility = View.GONE
             }
             2 -> {
-                binding.tvPaymentType.text = getString(R.string.cash_on_delivery)
                 binding.btnQRScanner.visibility = View.GONE
                 binding.tvQRCode.visibility = View.GONE
+            }
+        }
+
+        when (data.paymentMethod) {
+            0 -> {   //  0=>Wallet 1=>Card 2=>cash
+                binding.tvPaymentType.text = getString(R.string.wallet)
+            }
+            1 -> {
+                binding.tvPaymentType.text = getString(R.string.card)
+            }
+            2 -> {
+                binding.tvPaymentType.text = getString(R.string.cash_on_delivery)
             }
         }
 
@@ -130,7 +143,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         hashMap["id"] = userData!!.id.toString()
         hashMap["orderStatus"] = "3" // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
 
-        appViewModel.orderStatusApi(this, hashMap, true)
+        appViewModel.cancelOrderApi(this, hashMap, true)
         appViewModel.getResponse().observe(this, this)
 
     }

@@ -210,6 +210,8 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 } else if (clickOn == "itemClick") {
                     val intent = Intent(requireContext(), ShopDetailActivity::class.java)
                     intent.putExtra(AppConstants.SHOP_ID, shopModel.id.toString())
+                    intent.putExtra(AppConstants.LATITUDE, shopModel.latitude)
+                    intent.putExtra(AppConstants.LONGITUDE, shopModel.longitude)
                     startActivity(intent)
                 } else if (clickOn == "rating") {
                     if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {

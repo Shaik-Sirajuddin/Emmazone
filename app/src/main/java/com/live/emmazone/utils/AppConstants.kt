@@ -46,6 +46,7 @@ object AppConstants {
 
 
     /*******URLs*****/
+//    const val BASE_URL = "http://192.168.1.153:8188/api/" //LOCAL URLs
     const val BASE_URL = "http://202.164.42.227:8188/api/"
     const val IMAGE_CATEGORY_URL = "http://202.164.42.227:8188/uploads/category/"
     const val IMAGE_USER_URL = "http://202.164.42.227:8188/uploads/user/"
@@ -99,5 +100,6 @@ object AppConstants {
     const val GET_BANK_ACCOUNT = "get_bank_account"
     const val DELETE_BANK = "delete_bank"
     const val DELETE_CARD = "deleteCard"
+    const val CANCEL_ORDER = "cancelOrder"
 
 }

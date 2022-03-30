@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.LoginActivity
@@ -25,6 +26,7 @@ import com.live.emmazone.base.AppController
 import com.live.emmazone.databinding.ActivityProductDetailBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.net.RestObservable
@@ -67,6 +69,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     private var shopProductDetailResponse: ShopProductDetailResponse? = null
     val hashMap = HashMap<String, String>()
+    private var bottomDialog: BottomSheetDialog? = null
 
     private val launcherPayment =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -95,6 +98,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                     textPaymentMethod?.text = getString(R.string.paypal)
                 }
 
+                savePreference(AppConstants.PAYMENT_TYPE, paymentType)
+                savePreference(AppConstants.SAVED_CARD_ID, selectedCardId)
+                savePreference(AppConstants.SAVED_CVV, selectedCardCvv)
 
             }
 
@@ -129,7 +135,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     private fun productDetailApiHit() {
         val hashMap = HashMap<String, String>()
-        hashMap["id"] = productId!!
+        hashMap["id"] = productId
 
         appViewModel.shopProductDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
@@ -155,14 +161,13 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     }
 
     private fun showBottomDialog() {
-        val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
+        bottomDialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
-        dialog.setCancelable(true)
-        dialog.setContentView(view)
+        bottomDialog?.setCancelable(true)
+        bottomDialog?.setContentView(view)
 
         tvDeliveryDate = view.findViewById(R.id.tvDeliveryDate)
-        val tvChangeDateTime = view.findViewById<TextView>(R.id.tvChangeDateTime)
-        val tvChangeDeliveryAdd = view.findViewById<TextView>(R.id.tvChange)
+        val tvEstimateDeliveryTime = view.findViewById<TextView>(R.id.estimateDeliveryTime)
         val tvChangePaymentMethod = view.findViewById<TextView>(R.id.tvPaymentMethodChange)
         val tvTerms = view.findViewById<TextView>(R.id.btnTerms)
         val buy = view.findViewById<TextView>(R.id.btnBuy)
@@ -186,6 +191,10 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         tvDeliveryCharges.visibility = View.GONE
         tvDeliveryAddress.visibility = View.GONE
         tvSelectAddress?.visibility = View.GONE
+        tvEstimateDeliveryTime?.visibility = View.GONE
+        tvDeliveryDate?.visibility = View.GONE
+
+        getSavedPaymentType()
 
         val subTotal = shopProductDetailResponse!!.body.productPrice.toFloat() * qty
         val tax = shopProductDetailResponse!!.body.taxValue!!.value.toInt()
@@ -203,7 +212,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
         /*tvChangeDateTime.setOnClickListener { openDateTimerPicker() }*/
 
-        getSavedPaymentType()
+
 
         tvTerms.setOnClickListener {
             val intent = Intent(this, TermsCondition::class.java)
@@ -234,7 +243,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         }
 
 
-        dialog.show()
+        bottomDialog?.show()
     }
 
     private fun openDateTimerPicker() {
@@ -414,7 +423,11 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         val dialogOrderPlaced = placeOrder.findViewById<Button>(R.id.done)
 
         dialogOrderPlaced.setOnClickListener {
-            onBackPressed()
+            bottomDialog?.dismiss()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra(AppConstants.OPEN_BY_CART, true)
+            startActivity(intent)
+            finishAffinity()
         }
         alertDialog.setCancelable(true)
 
@@ -471,7 +484,11 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                 }
             }
             R.id.btnClickCollect -> {
-                showBottomDialog()
+                if (qty > 0) {
+                    showBottomDialog()
+                } else {
+                    AppUtils.showMsgOnlyWithoutClick(this, "Please select atleast one item")
+                }
             }
             R.id.ivPlus -> {
                 if (qty < totalQty) {

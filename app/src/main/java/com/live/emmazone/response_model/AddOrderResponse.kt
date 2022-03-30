@@ -17,49 +17,53 @@ data class AddOrderResponse(
         @SerializedName("adminCommission")
         var adminCommission: String, // 0.00
         @SerializedName("created")
-        var created: Int, // 1646313704
+        var created: Int, // 1648617620
         @SerializedName("createdAt")
-        var createdAt: String, // 2022-03-03T13:21:44.000Z
+        var createdAt: String, // 2022-03-30T05:20:20.000Z
         @SerializedName("customer")
         var customer: Customer,
         @SerializedName("customerId")
-        var customerId: Int, // 267
+        var customerId: Int, // 335
         @SerializedName("deliveryType")
         var deliveryType: Int, // 2
         @SerializedName("id")
-        var id: Int, // 4
+        var id: Int, // 70
         @SerializedName("netAmount")
-        var netAmount: String, // 173.00
+        var netAmount: String, // 600.00
         @SerializedName("orderJson")
         var orderJson: OrderJson,
         @SerializedName("orderNo")
-        var orderNo: String, // 1646-313704-0661
+        var orderNo: String, // 1648-617620-4821
         @SerializedName("orderStatus")
         var orderStatus: Int, // 0
         @SerializedName("paymentMethod")
         var paymentMethod: Int, // 1
         @SerializedName("productName")
         var productName: String,
+        @SerializedName("qrCode")
+        var qrCode: String, // https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=70
+        @SerializedName("qty")
+        var qty: Int, // 0
         @SerializedName("shippingCharges")
         var shippingCharges: String, // 10.00
         @SerializedName("taxCharged")
-        var taxCharged: String, // 9.15
+        var taxCharged: String, // 30.50
         @SerializedName("total")
-        var total: String, // 192.15
+        var total: String, // 640.50
         @SerializedName("updated")
-        var updated: Int, // 1646313704
+        var updated: Int, // 1648617620
         @SerializedName("updatedAt")
-        var updatedAt: String, // 2022-03-03T13:21:44.000Z
+        var updatedAt: String, // 2022-03-30T05:20:20.000Z
         @SerializedName("userAddressId")
-        var userAddressId: Int, // 19
+        var userAddressId: Int, // 31
         @SerializedName("vendorId")
-        var vendorId: Int // 0
+        var vendorId: Int // 336
     ) {
         data class Customer(
             @SerializedName("email")
-            var email: String, // user@gmail.com
+            var email: String, // user@yopmail.com
             @SerializedName("id")
-            var id: Int // 267
+            var id: Int // 335
         )
 
         data class OrderJson(
@@ -74,59 +78,61 @@ data class AddOrderResponse(
         ) {
             data class OrderItem(
                 @SerializedName("categoryColorId")
-                var categoryColorId: Int, // 27
+                var categoryColorId: Int, // 80
                 @SerializedName("categoryId")
-                var categoryId: Int, // 22
+                var categoryId: Int, // 34
                 @SerializedName("categorySizeId")
-                var categorySizeId: Int, // 35
+                var categorySizeId: Int, // 77
                 @SerializedName("created")
-                var created: Int, // 1645706977
+                var created: Int, // 1647928878
                 @SerializedName("createdAt")
-                var createdAt: String, // 2022-02-24T12:49:36.000Z
+                var createdAt: String, // 2022-03-22T06:01:18.000Z
                 @SerializedName("description")
-                var description: String, // helloo
+                var description: String, // Good quality, Light weight
                 @SerializedName("id")
-                var id: Int, // 113
+                var id: Int, // 150
                 @SerializedName("mainImage")
-                var mainImage: String, // http://202.164.42.227:8188/uploads/product/621d5597-77f6-4179-8978-4670e1217bf7.jpg
+                var mainImage: String, // http://202.164.42.227:8188/uploads/product/db8ee817-18f0-454b-b74b-ce399f13ceb4.jpg
                 @SerializedName("name")
-                var name: String, // Product Name
+                var name: String, // Shoes
                 @SerializedName("orderedQty")
                 var orderedQty: Int, // 1
                 @SerializedName("orderedQtyPrice")
-                var orderedQtyPrice: Int, // 11
+                var orderedQtyPrice: Double, // 600
                 @SerializedName("product_highlight")
                 var productHighlight: Int, // 1
                 @SerializedName("product_price")
-                var productPrice: String, // 11.00
+                var productPrice: String, // 600.00
                 @SerializedName("product_quantity")
-                var productQuantity: Int, // 67667
+                var productQuantity: Int, // 10
                 @SerializedName("productReview")
                 var productReview: String, // 0.0
                 @SerializedName("status")
-                var status: Int, // 0
+                var status: Int, // 1
                 @SerializedName("userId")
-                var userId: Int, // 299
+                var userId: Int, // 336
                 @SerializedName("vendor")
-                var vendor: Vendor
+                var vendor: Vendor,
+                @SerializedName("vendorId")
+                var vendorId: Int // 336
             ) {
                 data class Vendor(
                     @SerializedName("id")
-                    var id: Int, // 299
+                    var id: Int, // 336
                     @SerializedName("image")
-                    var image: String, // http://202.164.42.227:8188/uploads/user/bf2ab579-f34d-4d5c-9469-fafb00b9e882.jpg
+                    var image: String, // http://202.164.42.227:8188/uploads/user/e4440279-0b7e-4de3-9bff-68905a951de4.jpg
                     @SerializedName("username")
-                    var username: String // new user
+                    var username: String // Seller
                 )
             }
 
             data class Payment(
                 @SerializedName("amount")
-                var amount: Int, // 19215
+                var amount: String, // 64050
                 @SerializedName("amount_captured")
-                var amountCaptured: Int, // 19215
+                var amountCaptured: Int, // 64050
                 @SerializedName("amount_refunded")
-                var amountRefunded: Int, // 0
+                var amountRefunded: String, // 0
                 @SerializedName("application")
                 var application: Any, // null
                 @SerializedName("application_fee")
@@ -134,7 +140,7 @@ data class AddOrderResponse(
                 @SerializedName("application_fee_amount")
                 var applicationFeeAmount: Any, // null
                 @SerializedName("balance_transaction")
-                var balanceTransaction: String, // txn_1KZEbDIZXks92CWPxtG8fWTS
+                var balanceTransaction: String, // txn_1KitxAIZXks92CWP8vNXPLxQ
                 @SerializedName("billing_details")
                 var billingDetails: BillingDetails,
                 @SerializedName("calculated_statement_descriptor")
@@ -142,7 +148,7 @@ data class AddOrderResponse(
                 @SerializedName("captured")
                 var captured: Boolean, // true
                 @SerializedName("created")
-                var created: Int, // 1646313702
+                var created: Int, // 1648617619
                 @SerializedName("currency")
                 var currency: String, // inr
                 @SerializedName("customer")
@@ -155,6 +161,8 @@ data class AddOrderResponse(
                 var dispute: Any, // null
                 @SerializedName("disputed")
                 var disputed: Boolean, // false
+                @SerializedName("failure_balance_transaction")
+                var failureBalanceTransaction: Any, // null
                 @SerializedName("failure_code")
                 var failureCode: Any, // null
                 @SerializedName("failure_message")
@@ -162,7 +170,7 @@ data class AddOrderResponse(
                 @SerializedName("fraud_details")
                 var fraudDetails: FraudDetails,
                 @SerializedName("id")
-                var id: String, // ch_1KZEbCIZXks92CWP6vKR5XI7
+                var id: String, // ch_1Kitx9IZXks92CWPaqDCf5nW
                 @SerializedName("invoice")
                 var invoice: Any, // null
                 @SerializedName("livemode")
@@ -182,7 +190,7 @@ data class AddOrderResponse(
                 @SerializedName("payment_intent")
                 var paymentIntent: Any, // null
                 @SerializedName("payment_method")
-                var paymentMethod: String, // card_1KZEbCIZXks92CWPjwpVPiJ9
+                var paymentMethod: String, // card_1Kitx8IZXks92CWP7XyZ6uSU
                 @SerializedName("payment_method_details")
                 var paymentMethodDetails: PaymentMethodDetails,
                 @SerializedName("receipt_email")
@@ -190,7 +198,7 @@ data class AddOrderResponse(
                 @SerializedName("receipt_number")
                 var receiptNumber: Any, // null
                 @SerializedName("receipt_url")
-                var receiptUrl: String, // https://pay.stripe.com/receipts/acct_1DT5HDIZXks92CWP/ch_1KZEbCIZXks92CWP6vKR5XI7/rcpt_LFk5lyr7uezirKkpwB2GzBk2bWVJTUh
+                var receiptUrl: String, // https://pay.stripe.com/receipts/acct_1DT5HDIZXks92CWP/ch_1Kitx9IZXks92CWPaqDCf5nW/rcpt_LPjPnUnyAaUjtR7CLsHXzHRgkwIjGKP
                 @SerializedName("refunded")
                 var refunded: Boolean, // false
                 @SerializedName("refunds")
@@ -252,7 +260,7 @@ data class AddOrderResponse(
                     @SerializedName("risk_level")
                     var riskLevel: String, // normal
                     @SerializedName("risk_score")
-                    var riskScore: Int, // 40
+                    var riskScore: Int, // 23
                     @SerializedName("seller_message")
                     var sellerMessage: String, // Payment complete.
                     @SerializedName("type")
@@ -284,6 +292,8 @@ data class AddOrderResponse(
                         var installments: Any, // null
                         @SerializedName("last4")
                         var last4: String, // 5556
+                        @SerializedName("mandate")
+                        var mandate: Any, // null
                         @SerializedName("network")
                         var network: String, // visa
                         @SerializedName("three_d_secure")
@@ -312,7 +322,7 @@ data class AddOrderResponse(
                     @SerializedName("total_count")
                     var totalCount: Int, // 0
                     @SerializedName("url")
-                    var url: String // /v1/charges/ch_1KZEbCIZXks92CWP6vKR5XI7/refunds
+                    var url: String // /v1/charges/ch_1Kitx9IZXks92CWPaqDCf5nW/refunds
                 )
 
                 data class Source(
@@ -351,7 +361,7 @@ data class AddOrderResponse(
                     @SerializedName("funding")
                     var funding: String, // debit
                     @SerializedName("id")
-                    var id: String, // card_1KZEbCIZXks92CWPjwpVPiJ9
+                    var id: String, // card_1Kitx8IZXks92CWP7XyZ6uSU
                     @SerializedName("last4")
                     var last4: String, // 5556
                     @SerializedName("metadata")
@@ -369,27 +379,27 @@ data class AddOrderResponse(
 
             data class UserAddress(
                 @SerializedName("address")
-                var address: String, // abcdefh jdjd
+                var address: String, // Phase8
                 @SerializedName("city")
-                var city: String, // Sahibzada Ajit Singh Nagar
+                var city: String, // Mohali
                 @SerializedName("createdAt")
-                var createdAt: String, // 2022-02-11T05:24:10.000Z
+                var createdAt: String, // 2022-03-23T06:43:57.000Z
                 @SerializedName("id")
-                var id: Int, // 19
+                var id: Int, // 31
                 @SerializedName("latitude")
-                var latitude: Int, // 31
+                var latitude: Double, // 31
                 @SerializedName("longitude")
-                var longitude: Int, // 77
+                var longitude: Double, // 77
                 @SerializedName("name")
-                var name: String, // Mani
+                var name: String, // user
                 @SerializedName("state")
                 var state: String, // Punjab
                 @SerializedName("updatedAt")
-                var updatedAt: String, // 2022-02-11T05:24:10.000Z
+                var updatedAt: String, // 2022-03-23T06:43:57.000Z
                 @SerializedName("userId")
-                var userId: Int, // 267
+                var userId: Int, // 335
                 @SerializedName("zipcode")
-                var zipcode: String // 160071
+                var zipcode: String // 143001
             )
         }
     }

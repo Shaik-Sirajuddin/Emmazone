@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "204121089542-ldaegcih5kk16skl4qlptjhrmlj32t7a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.live.emmazone",
+            "certificate_hash": "f5c2f5b5f3f00a4c50f8d4c078d096e85af502a4"
+          }
+        },
+        {
           "client_id": "204121089542-dulkvqf3naomh22c30vst28hljldgf4j.apps.googleusercontent.com",
           "client_type": 3
         }

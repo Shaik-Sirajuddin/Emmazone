@@ -57,9 +57,13 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
 
     private fun shopDetailApiHit() {
         val shopId = intent.getStringExtra(AppConstants.SHOP_ID)
+        val latitude = intent.getStringExtra(AppConstants.LATITUDE)
+        val longitude = intent.getStringExtra(AppConstants.LONGITUDE)
 
         val hashMap = HashMap<String, String>()
         hashMap["shopId"] = shopId!!
+        hashMap["latitude"] = latitude!!
+        hashMap["longitude"] = longitude!!
 
         appViewModel.shopDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)

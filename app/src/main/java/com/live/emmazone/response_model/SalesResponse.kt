@@ -107,7 +107,7 @@ data class SalesResponse(
                     @SerializedName("orderedQty")
                     var orderedQty: Int, // 2
                     @SerializedName("orderedQtyPrice")
-                    var orderedQtyPrice: Int, // 24
+                    var orderedQtyPrice: Double, // 24
                     @SerializedName("product_highlight")
                     var productHighlight: Int, // 1
                     @SerializedName("product_price")

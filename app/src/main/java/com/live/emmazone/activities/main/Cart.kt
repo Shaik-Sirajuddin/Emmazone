@@ -63,6 +63,8 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
     private var selectedCardCvv = ""
     private var selectedAddressId = ""
     val hashMap = HashMap<String, String>()
+    private var deleteClick = false
+
     private val launcherAddress =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -348,7 +350,6 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         val dialogOrderPlaced = placeOrder.findViewById<Button>(R.id.done)
 
         dialogOrderPlaced.setOnClickListener {
-            onBackPressed()
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(AppConstants.OPEN_BY_CART, true)
             startActivity(intent)
@@ -485,6 +486,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
     }
 
     private fun deleteCartItem(id: String) {
+        deleteClick = true
         appViewModel.deleteCartItem(this, true, id)
     }
 
@@ -492,6 +494,11 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         if (list.isEmpty()) {
             binding.tvNoData.visibility = View.VISIBLE
             binding.clData.visibility = View.GONE
+
+            if (deleteClick) {
+                onBackPressed()
+            }
+
         } else {
             binding.tvNoData.visibility = View.GONE
             binding.clData.visibility = View.VISIBLE

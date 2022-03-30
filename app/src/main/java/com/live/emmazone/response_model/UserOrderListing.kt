@@ -96,7 +96,7 @@ data class UserOrderListing(
                     @SerializedName("orderedQty")
                     var orderedQty: Int, // 1
                     @SerializedName("orderedQtyPrice")
-                    var orderedQtyPrice: Int, // 1200
+                    var orderedQtyPrice: Double, // 1200
                     @SerializedName("product_highlight")
                     var productHighlight: Int, // 1
                     @SerializedName("product_price")

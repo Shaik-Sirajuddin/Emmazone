@@ -55,7 +55,7 @@ class AdapterProviderNewSales(
                 holder.tvOrderStatus.text = context.getString(R.string.on_the_way)
             }
             2 -> {
-                holder.tvOrderStatus.text = context.getString(R.string.delivered)
+                holder.tvOrderStatus.text = context.getString(R.string.completed)
             }
             3 -> {
                 holder.tvOrderStatus.text = context.getString(R.string.cancel)
