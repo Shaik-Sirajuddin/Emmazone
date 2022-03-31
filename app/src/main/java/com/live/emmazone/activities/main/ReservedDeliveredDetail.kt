@@ -77,9 +77,9 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         binding.tvOrderID.text = data.orderNo
         binding.tvSubTotalPrice.text = data.netAmount
         binding.tvItemCount.text = data.orderJson.orderItems.size.toString()
-        binding.tvDeliveryChargesPrice.text = data.shippingCharges
-        binding.tvTaxPrice.text = data.taxCharged
-        binding.tvTotalPrice.text = data.total
+        binding.tvDeliveryChargesPrice.text = getString(R.string.euro_symbol, data.shippingCharges)
+        binding.tvTaxPrice.text = getString(R.string.euro_symbol, data.taxCharged)
+        binding.tvTotalPrice.text = getString(R.string.euro_symbol, data.total)
         binding.tvODOrderDate.text = AppUtils.getDateTime(data.created.toLong())
 
         data.orderJson.userAddress.apply {

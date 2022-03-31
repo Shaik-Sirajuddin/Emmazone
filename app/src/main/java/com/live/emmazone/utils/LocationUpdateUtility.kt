@@ -247,5 +247,5 @@ abstract class LocationUpdateUtility : AppCompatActivity() {
         Log.e(TAG, "Get Live Location Stop")
     }
 
-    abstract fun updatedLatLng(lat: Double, lng: Double)
+    abstract fun updatedLatLng(lat: Double?, lng: Double?)
 }

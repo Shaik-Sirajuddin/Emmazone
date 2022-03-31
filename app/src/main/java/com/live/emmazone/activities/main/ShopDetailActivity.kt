@@ -30,10 +30,11 @@ import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.response_model.ShopListingResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.LocationUpdateUtility
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
 
-class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObservable> {
+class ShopDetailActivity : LocationUpdateUtility(), OnItemClick, Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
     private var response: ShopDetailResponse? = null
@@ -42,6 +43,13 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
     lateinit var binding: ActivityShopDetailBinding
     var listSDProduct = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
     lateinit var adapter: AdapterShopDetailCategory
+
+    override fun updatedLatLng(lat: Double?, lng: Double?) {
+        if (lat != null && lng != null) {
+            stopLocationUpdates()
+            shopDetailApiHit(lat.toString(), lng.toString())
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,15 +63,13 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
 
     }
 
-    private fun shopDetailApiHit() {
+    private fun shopDetailApiHit(latitude: String, longitude: String) {
         val shopId = intent.getStringExtra(AppConstants.SHOP_ID)
-        val latitude = intent.getStringExtra(AppConstants.LATITUDE)
-        val longitude = intent.getStringExtra(AppConstants.LONGITUDE)
 
         val hashMap = HashMap<String, String>()
         hashMap["shopId"] = shopId!!
-        hashMap["latitude"] = latitude!!
-        hashMap["longitude"] = longitude!!
+        hashMap["latitude"] = latitude
+        hashMap["longitude"] = longitude
 
         appViewModel.shopDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
@@ -228,6 +234,6 @@ class ShopDetailActivity : AppCompatActivity(), OnItemClick, Observer<RestObserv
 
     override fun onResume() {
         super.onResume()
-        shopDetailApiHit()
+        getLiveLocation(this)
     }
 }

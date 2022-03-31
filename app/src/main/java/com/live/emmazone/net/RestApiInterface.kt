@@ -141,8 +141,9 @@ interface RestApiInterface {
     @POST(AppConstants.ADD_ACCOUNT)
     fun addAccount(@FieldMap hashMap: HashMap<String, String>): Call<AddBankResponse>
 
-    @GET(AppConstants.WISH_LIST)
-    fun wishList(): Call<WishListResponse>
+    @FormUrlEncoded
+    @POST(AppConstants.WISH_LIST)
+    fun wishList(@FieldMap hashMap: HashMap<String, String>): Call<WishListResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.SHOP_DETAIL)

@@ -1,116 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:paddingBottom="@dimen/dp8">
 
+
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageCart"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
         android:src="@drawable/shoes2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="@dimen/dp15"
         app:riv_mutate_background="true"
         app:riv_tile_mode="clamp" />
 
-    <TextView
-        android:id="@+id/productItemName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp8"
-        android:text="@string/bernd_shoes"
-        android:textColor="@color/black"
-        android:textSize="@dimen/sp15"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageCart"
-        app:layout_constraintStart_toEndOf="@+id/imageCart"
-        app:layout_constraintTop_toTopOf="@+id/imageCart"
-        app:layout_constraintVertical_bias="0.26" />
-
-    <TextView
-        android:id="@+id/productPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="30.00$"
-        android:textColor="@color/black"
-        android:textSize="@dimen/sp15"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/productItemName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/productItemName"
-        app:layout_constraintTop_toBottomOf="@+id/productItemName" />
-
-    <ImageView
-        android:id="@+id/imgDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:paddingStart="@dimen/_5sdp"
-        android:paddingEnd="@dimen/_5sdp"
-        android:paddingBottom="10dp"
-        android:src="@drawable/bin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toEndOf="@+id/productItemName"
-        app:layout_constraintTop_toTopOf="@+id/productItemName" />
-
     <LinearLayout
-        android:id="@+id/layoutPlusMinusItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/bg_cart_items"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/dp8"
-        app:layout_constraintEnd_toEndOf="@+id/imgDelete"
-        app:layout_constraintStart_toStartOf="@+id/imgDelete"
-        app:layout_constraintTop_toBottomOf="@+id/imgDelete">
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_toStartOf="@id/llDelete"
+        android:layout_toEndOf="@+id/imageCart"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/imgMinus"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="@dimen/dp8"
-            android:gravity="center"
-            android:text="-"
+            android:id="@+id/productItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/productItemName" />
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/productQty"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="@dimen/dp8"
-            android:background="@drawable/cart_text_bg"
-            android:gravity="center"
-            android:text="3"
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="30.00$"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp12"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/productItemName"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/productItemName"
             app:layout_constraintTop_toBottomOf="@+id/productItemName" />
 
-        <TextView
-            android:id="@+id/imgAdd"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="+"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/productItemName" />
-
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/llDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imgDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/bin" />
+
+        <LinearLayout
+            android:id="@+id/layoutPlusMinusItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_cart_items"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp8">
+
+            <TextView
+                android:id="@+id/imgMinus"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="@dimen/dp8"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/productQty"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="@dimen/dp8"
+                android:background="@drawable/cart_text_bg"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:id="@+id/imgAdd"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

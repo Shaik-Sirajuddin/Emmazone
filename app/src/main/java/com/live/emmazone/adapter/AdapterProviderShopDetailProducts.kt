@@ -18,7 +18,7 @@ import com.schunts.extensionfuncton.loadImage
 
 class AdapterProviderShopDetailProducts(
     private val context: Context,
-    val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>,
+    var list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>,
     val fragmentProviderAddProduct: FragmentProviderAddProduct
 ) :
     RecyclerView.Adapter<AdapterProviderShopDetailProducts.ViewHolder>() {
@@ -31,12 +31,13 @@ class AdapterProviderShopDetailProducts(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val model = list[position]
 
         if (position == 0) {
             holder.cardView.visibility = View.GONE
             holder.layoutAddProduct.visibility = View.VISIBLE
         } else {
+            val model = list[position-1]
+
             holder.cardView.visibility = View.VISIBLE
             holder.layoutAddProduct.visibility = View.GONE
 
@@ -48,7 +49,7 @@ class AdapterProviderShopDetailProducts(
 
             holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
 
-            if (!model.productReview.isNullOrEmpty()){
+            if (!model.productReview.isNullOrEmpty()) {
                 holder.ratingBar.rating = model.productReview.toFloat()
                 holder.tvShopDetailProductText.text = model.productReview
             }
@@ -63,6 +64,8 @@ class AdapterProviderShopDetailProducts(
         }
 
         holder.imageEditSDProduct.setOnClickListener {
+            val model = list[position-1]
+
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
             intent.putExtra("productData", model)
             holder.itemView.context.startActivity(intent)
@@ -87,6 +90,8 @@ class AdapterProviderShopDetailProducts(
 
             yesBtn.setOnClickListener {
                 dialog.dismiss()
+                val model = list[position-1]
+
                 fragmentProviderAddProduct.deleteProductAPIMethod(position, model.id.toString())
 
             }
@@ -97,7 +102,7 @@ class AdapterProviderShopDetailProducts(
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return list.size+1
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -124,4 +129,8 @@ class AdapterProviderShopDetailProducts(
         notifyItemRangeChanged(position, list.size)
     }
 
+    fun notifyData(arrayList: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>) {
+        list = arrayList
+        notifyDataSetChanged()
+    }
 }

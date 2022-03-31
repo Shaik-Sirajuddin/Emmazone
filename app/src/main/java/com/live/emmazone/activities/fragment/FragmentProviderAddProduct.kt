@@ -2,13 +2,14 @@ package com.live.emmazone.activities.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.ProviderMainActivity
@@ -28,6 +29,7 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
     private val list = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
     private var isChecked = true
     private val appViewModel: AppViewModel by viewModels()
+    var productAdapter: AdapterProviderShopDetailProducts? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,9 +85,32 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
-        binding.rvAdProductProvider.layoutManager = GridLayoutManager(context, 2)
 
+        binding.edtSearchAddProduct.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                filterProduct(s.toString())
+            }
+
+        })
+
+    }
+
+    private fun filterProduct(text: String) {
+        val filterList = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
+
+        list.forEach {
+            if (it.name.contains(text, true)) {
+                filterList.add(it)
+            }
+        }
+        productAdapter?.notifyData(filterList)
     }
 
     override fun onResume() {
@@ -120,29 +145,30 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
         }
     }
 
-   private fun getSellerShopDetails() {
+    private fun getSellerShopDetails() {
         appViewModel.sellerShopDetailsApi(requireActivity(), true)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
 
-    var productAdapter: AdapterProviderShopDetailProducts? = null
+
 
     private fun setDetailData(response: SellerShopDetailResponse) {
-        if (response.body.notificationCount == 0){
+        if (response.body.notificationCount == 0) {
             binding.notifyRedBG.visibility = View.GONE
-        }else{
+        } else {
             binding.notifyRedBG.visibility = View.VISIBLE
         }
 
         val category = SellerShopDetailResponse.Body.ShopDetails.Product.Category("", "")
-        val product_images: List<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage> = ArrayList()
+        val product_images: List<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage> =
+            ArrayList()
         list.clear()
-        list.add(
+        /*list.add(0,
             SellerShopDetailResponse.Body.ShopDetails.Product(
                 category, 0, 0, 0, 0, "", "", 0, "", "", 0,
-                product_images, "","", 0, "", 0, 0
+                product_images, "", "", 0, "", 0, 0
             )
-        )
+        )*/
         list.addAll(response.body.shopDetails.products)
         productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)
         binding.rvAdProductProvider.adapter = productAdapter

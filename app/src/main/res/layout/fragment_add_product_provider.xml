@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,8 +49,8 @@
                 android:id="@+id/notifyRedBG"
                 android:layout_width="@dimen/dp10"
                 android:layout_height="@dimen/dp10"
-                android:visibility="gone"
                 android:background="@drawable/notification_red_color"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/imgNotify"
                 app:layout_constraintEnd_toEndOf="@+id/imgNotify"
                 app:layout_constraintHorizontal_bias="0.88"
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/search_bg"
-                android:drawableRight="@drawable/search"
+                android:drawableEnd="@drawable/search"
                 android:hint="Search"
                 android:imeOptions="actionDone"
                 android:maxLines="1"
@@ -110,6 +110,7 @@
             android:layout_marginTop="5dp"
             android:padding="@dimen/dp5"
             android:src="@drawable/sort"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/searchLayout"
             app:layout_constraintTop_toBottomOf="@+id/searchLayout" />
 
@@ -117,11 +118,13 @@
             android:id="@+id/cardView"
             android:layout_width="0dp"
             android:layout_height="150dp"
+            android:layout_marginStart="@dimen/dp16"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/dp16"
+            android:visibility="gone"
             app:cardCornerRadius="@dimen/dp16"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imgSort"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgSort">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -222,13 +225,15 @@
             android:id="@+id/tvProducts"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp16"
             android:layout_marginTop="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp16"
             android:text="@string/products"
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/cardView"
-            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -238,10 +243,12 @@
             android:layout_marginTop="8dp"
             android:nestedScrollingEnabled="false"
             android:paddingBottom="16dp"
-            tools:listitem="@layout/item_provider_shopdetail_products"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="@+id/tvProducts"
             app:layout_constraintStart_toStartOf="@+id/tvProducts"
-            app:layout_constraintTop_toBottomOf="@+id/tvProducts" />
+            app:layout_constraintTop_toBottomOf="@+id/tvProducts"
+            app:spanCount="2"
+            tools:listitem="@layout/item_provider_shopdetail_products" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

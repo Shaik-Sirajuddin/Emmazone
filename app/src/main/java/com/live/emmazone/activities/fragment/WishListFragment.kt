@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.live.emmazone.MainActivity
@@ -24,9 +23,10 @@ import com.live.emmazone.response_model.AddFavouriteResponse
 import com.live.emmazone.response_model.WishListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.LocationUpdateUtilityFragment
 import com.live.emmazone.view_models.AppViewModel
 
-class WishListFragment : Fragment(), Observer<RestObservable> {
+class WishListFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
     private val wishList = ArrayList<WishListResponse.Body.Wish>()
@@ -34,6 +34,12 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
     private var selectedPos: Int? = null
 
     private lateinit var binding: FragmentWishlistBinding
+    override fun updatedLatLng(lat: Double?, lng: Double?) {
+        if (lat != null && lng != null) {
+            stopLocationUpdates()
+            wishListApiHit(lat.toString(), lng.toString())
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,8 +58,11 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
 
     }
 
-    private fun wishListApiHit() {
-        appViewModel.wishListApi(requireActivity(), true)
+    private fun wishListApiHit(latitude: String, longitude: String) {
+        val hashMap = HashMap<String, String>()
+        hashMap["latitude"] = latitude
+        hashMap["longitude"] = longitude
+        appViewModel.wishListApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
 
@@ -73,8 +82,6 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
                 } else if (clickOn == "itemClick") {
                     val intent = Intent(requireContext(), ShopDetailActivity::class.java)
                     intent.putExtra(AppConstants.SHOP_ID, wishListModel.id.toString())
-                    intent.putExtra(AppConstants.LATITUDE, wishListModel.latitude)
-                    intent.putExtra(AppConstants.LONGITUDE, wishListModel.longitude)
                     startActivity(intent)
                 } else if (clickOn == "rating") {
                     val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
@@ -188,12 +195,6 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        wishListApiHit()
-    }
-
-
     private fun noDataVisibility() {
         if (wishList.isEmpty()) {
             binding.tvNoData.visibility = View.VISIBLE
@@ -202,5 +203,15 @@ class WishListFragment : Fragment(), Observer<RestObservable> {
             binding.tvNoData.visibility = View.GONE
             binding.llData.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getLiveLocation(requireActivity())
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopLocationUpdates()
     }
 }

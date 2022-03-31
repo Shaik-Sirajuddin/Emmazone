@@ -23,19 +23,17 @@ import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.*
 import com.live.emmazone.adapter.AdapterNearbyShops
 import com.live.emmazone.databinding.FragmentHomeBinding
-import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddFavouriteResponse
 import com.live.emmazone.response_model.ShopListingResponse
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.LocationUpdateUtilityFragment
 import com.live.emmazone.view_models.AppViewModel
 import java.io.IOException
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
@@ -210,8 +208,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 } else if (clickOn == "itemClick") {
                     val intent = Intent(requireContext(), ShopDetailActivity::class.java)
                     intent.putExtra(AppConstants.SHOP_ID, shopModel.id.toString())
-                    intent.putExtra(AppConstants.LATITUDE, shopModel.latitude)
-                    intent.putExtra(AppConstants.LONGITUDE, shopModel.longitude)
                     startActivity(intent)
                 } else if (clickOn == "rating") {
                     if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
@@ -308,7 +304,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 }
 
             }
-            Status.ERROR->{
+            Status.ERROR -> {
                 if (list.size > 0) {
                     binding.tvNoShop.visibility = View.GONE
                 } else {
