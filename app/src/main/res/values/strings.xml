@@ -295,5 +295,7 @@
     <string name="send_to">Send to</string>
     <string name="confirmed">confirmed</string>
     <string name="ready_for_pickup">Ready for pickup</string>
+    <string name="weekly">Weekly</string>
+    <string name="today">Today</string>
 
 </resources>

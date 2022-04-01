@@ -25,11 +25,9 @@ interface RestApiInterface {
         @FieldMap hashMap: HashMap<String, String>
     ): Call<OtpVerifyResponse>
 
-
     @POST(AppConstants.RESEND_OTP)
     fun resendOtp(
     ): Call<OtpResendResponse>
-
 
     @FormUrlEncoded
     @POST(AppConstants.LOGIN)
@@ -152,7 +150,6 @@ interface RestApiInterface {
     @GET(AppConstants.FAQ)
     fun faq(): Call<FaqListResponse>
 
-
     @Multipart
     @PUT(AppConstants.EDIT_SHOP_PRODUCT)
     fun editShopProduct(
@@ -161,16 +158,13 @@ interface RestApiInterface {
         @Part mainImage: MultipartBody.Part?
     ): Call<AddProductResponse>
 
-
     @FormUrlEncoded
     @POST(AppConstants.PRODUCT_DETAIl)
     fun shopProductDetail(@FieldMap hashMap: HashMap<String, String>): Call<ShopProductDetailResponse>
 
-
     @FormUrlEncoded
     @POST(AppConstants.ADD_CART_ITEMS)
     fun addCartItems(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
-
 
     @GET(AppConstants.CART_LISTING)
     fun cartItemListing(): Call<CartResponsModel>
@@ -192,7 +186,6 @@ interface RestApiInterface {
     @POST(AppConstants.SALES)
     fun sales(@FieldMap hashMap: HashMap<String, String>): Call<SalesResponse>
 
-
     @FormUrlEncoded
     @PUT(AppConstants.UPDATE_CART_ITEM)
     fun cartUpdate(@FieldMap hashMap: HashMap<String, String>): Call<CartUpdateResponse>
@@ -213,7 +206,6 @@ interface RestApiInterface {
     @POST(AppConstants.NOTIFICATION_READ)
     fun notificationRead(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 
-
     @GET(AppConstants.GET_BANK_ACCOUNT)
     fun getBankAccount(): Call<GetBankResponse>
 
@@ -226,7 +218,11 @@ interface RestApiInterface {
     fun deleteCard(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 
     @FormUrlEncoded
-    @POST(AppConstants.ORDER_STATUS)
+    @POST(AppConstants.CANCEL_ORDER)
     fun cancelOrderApi(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.MY_EARNING)
+    fun myEarningApi(@FieldMap hashMap: HashMap<String, String>): Call<MyEarningResponse>
 
 }

@@ -101,5 +101,6 @@ object AppConstants {
     const val DELETE_BANK = "delete_bank"
     const val DELETE_CARD = "deleteCard"
     const val CANCEL_ORDER = "cancelOrder"
+    const val MY_EARNING = "myEarnings"
 
 }

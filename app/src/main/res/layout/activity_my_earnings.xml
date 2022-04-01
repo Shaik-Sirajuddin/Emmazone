@@ -57,21 +57,23 @@
         app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
         <TextView
+            android:id="@+id/tvToday"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Today"
-            android:textColor="@color/black" />
+            android:background="@drawable/bg_fill_earning"
+            android:text="@string/today"
+            android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/tvWeekly"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_fill_earning"
             android:gravity="center"
-            android:text="Weekly"
-            android:textColor="@color/white" />
+            android:text="@string/weekly"
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <TextView
@@ -80,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="480€"
+        android:text="0€"
         android:textColor="@color/black"
         android:textSize="@dimen/sp18"
         android:textStyle="bold"
@@ -108,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="08"
+        android:text="00"
         android:textColor="@color/black"
         android:textSize="@dimen/sp18"
         android:textStyle="bold"
@@ -138,6 +140,7 @@
         android:layout_marginTop="@dimen/dp16"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="@dimen/dp16"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/btnWithdraw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -153,8 +156,8 @@
         android:background="@drawable/btn_withdraw"
         android:text="@string/withdrawal"
         android:textAllCaps="false"
-        android:textSize="@dimen/sp18"
         android:textColor="@color/white"
+        android:textSize="@dimen/sp18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

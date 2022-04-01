@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-   android:paddingBottom="@dimen/dp8"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="@dimen/dp8">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/onGoingItem"
@@ -15,17 +14,17 @@
         android:scaleType="centerCrop"
         android:src="@drawable/shoes_square"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="@dimen/dp5"
         app:riv_mutate_background="true"
-        app:layout_constraintTop_toTopOf="parent"
         app:riv_tile_mode="clamp" />
 
     <TextView
         android:id="@+id/onGoingItemName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp8"
-        android:text="@string/bernd_shoes"
+        android:text="@string/app_name"
         android:textColor="@color/black"
         android:textSize="@dimen/sp15"
         android:textStyle="bold"
@@ -50,30 +49,29 @@
 
     <TextView
         android:id="@+id/onGoingItemQuantity"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp2"
         android:text="@string/_02"
         android:textColor="@color/green"
         android:textSize="@dimen/sp10"
-        app:layout_constraintTop_toTopOf="@+id/productItemName"
         app:layout_constraintBottom_toBottomOf="@+id/productItemName"
+        app:layout_constraintEnd_toStartOf="@+id/productPrice"
         app:layout_constraintStart_toEndOf="@+id/productItemName"
-        android:layout_marginStart="@dimen/dp2"
-        />
+        app:layout_constraintTop_toTopOf="@+id/productItemName" />
 
     <TextView
         android:id="@+id/productPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp8"
         android:text="90.00€"
         android:textColor="@color/black"
         android:textSize="@dimen/sp15"
-        android:layout_marginEnd="@dimen/dp8"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/productItemName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/onGoingItemName"
         app:layout_constraintTop_toTopOf="@+id/onGoingItemName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

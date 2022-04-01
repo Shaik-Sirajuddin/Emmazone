@@ -21,14 +21,15 @@
 
     <TextView
         android:id="@+id/productItemName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp8"
-        android:text="@string/bernd_shoes"
+        android:text="@string/app_name"
         android:textColor="@color/black"
         android:textSize="@dimen/sp18"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvOrderQuantity"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageOrder"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
