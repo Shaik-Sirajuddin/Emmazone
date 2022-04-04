@@ -473,8 +473,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                     showLoginDialog()
                     return
                 }
-                val intent = Intent(this, Message::class.java)
-                startActivity(intent)
+                openChatScreen()
             }
             R.id.btnBuyDeliver -> {
                 if (qty > 0) {
@@ -505,6 +504,20 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             }
 
         }
+    }
+
+    private fun openChatScreen() {
+        val shopName = intent.getStringExtra(AppConstants.USER2_NAME)!!
+        val shopImage = intent.getStringExtra(AppConstants.USER2_IMAGE)!!
+
+        val intent = Intent(this, ChatActivity::class.java)
+        intent.putExtra(AppConstants.USER2_NAME, shopName)
+        intent.putExtra(AppConstants.USER2_IMAGE, shopImage)
+        intent.putExtra(
+            AppConstants.USER2_ID,
+            shopProductDetailResponse!!.body.userId.toString()
+        )
+        startActivity(intent)
     }
 
 

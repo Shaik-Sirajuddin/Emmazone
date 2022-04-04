@@ -94,36 +94,55 @@
             app:layout_constraintStart_toStartOf="@+id/tvOrder"
             app:layout_constraintTop_toBottomOf="@+id/tvOrder" />
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imageSales"
-            android:layout_width="@dimen/dp50"
-            android:layout_height="@dimen/dp50"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_marginEnd="@dimen/dp20"
-            android:scaleType="centerCrop"
-            android:src="@drawable/avtarr_girl"
-            app:layout_constraintStart_toStartOf="@+id/tvOrder"
-            app:layout_constraintTop_toBottomOf="@+id/tvOrder"
-            app:riv_border_color="@color/normalBlack"
-            app:riv_corner_radius="30dip"
-            app:riv_mutate_background="true"
-            app:riv_oval="true"
-            app:riv_tile_mode="clamp" />
-
-        <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:id="@+id/rlName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp5"
-            android:layout_marginEnd="@dimen/dp24"
-            android:text="Allen Chandler"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageSales"
-            app:layout_constraintEnd_toEndOf="@+id/view"
-            app:layout_constraintStart_toEndOf="@+id/imageSales"
-            app:layout_constraintTop_toTopOf="@+id/imageSales" />
+            android:layout_marginStart="@dimen/dp8"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageSales"
+                android:layout_width="@dimen/dp50"
+                android:layout_height="@dimen/dp50"
+                android:layout_marginTop="@dimen/dp16"
+                android:layout_marginEnd="@dimen/dp20"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avtarr_girl"
+                app:riv_border_color="@color/normalBlack"
+                app:riv_corner_radius="30dip"
+                app:riv_mutate_background="true"
+                app:riv_oval="true"
+                app:riv_tile_mode="clamp" />
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp5"
+                android:layout_marginEnd="@dimen/dp24"
+                android:layout_toStartOf="@id/ivChat"
+                android:layout_toEndOf="@+id/imageSales"
+                android:text="Allen Chandler"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp15"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:id="@+id/ivChat"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/chat" />
+
+        </RelativeLayout>
+
 
         <View
             android:id="@+id/view1"
@@ -133,9 +152,9 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp8"
             android:background="@color/normalBlack1"
-            app:layout_constraintEnd_toEndOf="@+id/tvUsername"
-            app:layout_constraintStart_toStartOf="@+id/imageSales"
-            app:layout_constraintTop_toBottomOf="@+id/imageSales" />
+            app:layout_constraintEnd_toEndOf="@+id/rlName"
+            app:layout_constraintStart_toStartOf="@+id/rlName"
+            app:layout_constraintTop_toBottomOf="@+id/rlName" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -144,6 +163,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/cardOrderDeatil"
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"
             app:layout_constraintStart_toStartOf="parent"
@@ -548,12 +569,12 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:visibility="gone"
             android:layout_marginBottom="@dimen/dp24"
             android:background="@drawable/bg_fill_earning"
             android:text="@string/ready_for_pickup"
             android:textAllCaps="false"
             android:textColor="@color/white"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

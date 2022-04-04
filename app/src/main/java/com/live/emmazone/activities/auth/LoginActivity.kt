@@ -12,6 +12,7 @@ import com.live.emmazone.MainActivity
 import com.live.emmazone.activities.VerificationCode
 import com.live.emmazone.activities.provider.AddShopDetailActivity
 import com.live.emmazone.activities.provider.ProviderMainActivity
+import com.live.emmazone.base.SocketManager
 import com.live.emmazone.databinding.ActivityLoginBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.savePreference
@@ -42,6 +43,9 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Socket Disconnect
+        SocketManager.onDisConnect()
 
         binding.tvForgotPwd.setOnClickListener {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
@@ -107,12 +111,18 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                     val response: LoginResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         savePreference(AppConstants.ROLE, response.body.role.toString())
+                        savePreference(AppConstants.USER_ID, response.body.id.toString())
                         savePreference(AppConstants.NAME, response.body.username)
                         savePreference(AppConstants.AUTHORIZATION, response.body.token)
                         savePreference(
                             AppConstants.NOTIFICATION_TYPE,
                             response.body.notificationStatus.toString()
                         )
+
+                        Log.d(AppConstants.USER_ID, response.body.id.toString())
+
+                        //Socket init
+                        SocketManager.initSocket()
 
                         if (response.body.verified == 1) {
 

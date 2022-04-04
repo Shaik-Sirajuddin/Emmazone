@@ -20,7 +20,7 @@ import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 
-class SearchActivity : AppCompatActivity(), OnItemClick {
+class SearchActivity : AppCompatActivity() {
     lateinit var binding: ActivitySearchBinding
     val list = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
     lateinit var adapter: AdapterShopDetailProducts
@@ -87,11 +87,11 @@ class SearchActivity : AppCompatActivity(), OnItemClick {
             )
         )*/
 
-        binding.recyclerSearch.adapter = AdapterShopDetailProducts(this,list, this)
+        binding.recyclerSearch.adapter = AdapterShopDetailProducts(this,list)
 
     }
 
-    override fun onCellClickListener() {
+   /* override fun onCellClickListener() {
         val intent = Intent(this, ProductDetailActivity::class.java)
         startActivity(intent)
     }
@@ -106,7 +106,7 @@ class SearchActivity : AppCompatActivity(), OnItemClick {
 
     override fun onOrderCancelled() {
         TODO("Not yet implemented")
-    }
+    }*/
 
     private fun showLoginDialog() {
         val dialog = Dialog(this)

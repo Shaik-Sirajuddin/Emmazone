@@ -36,12 +36,12 @@ class AppController : MultiDexApplication(), AppLifecycleHandler.AppLifecycleDel
     }
 
     override fun onAppForegrounded() {
-//        if (!SocketManager.isConnected()) {
-//            SocketManager.initSocket()
-//        }
+        if (!SocketManager.isConnected()) {
+            SocketManager.initSocket()
+        }
     }
 
     override fun onAppBackgrounded() {
-//        SocketManager.onDisConnect()
+        SocketManager.onDisConnect()
     }
 }

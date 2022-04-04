@@ -10,6 +10,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.VerificationCode
+import com.live.emmazone.base.SocketManager
 import com.live.emmazone.databinding.ActivitySignUpBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.getPreference
@@ -59,6 +60,8 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
         setContentView(binding.root)
 
         clicksHandle()
+        //Socket Disconnect
+        SocketManager.onDisConnect()
     }
 
     private fun clicksHandle() {
@@ -147,6 +150,7 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
 
+                        savePreference(AppConstants.USER_ID, response.body.id.toString())
                         savePreference(AppConstants.AUTHORIZATION, response.body.token)
                         savePreference(AppConstants.NAME, response.body.username)
 
@@ -155,6 +159,8 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
                             response.body.notificationStatus.toString()
                         )
 
+                        //Socket init
+                        SocketManager.initSocket()
 
                         val intent = Intent(this, VerificationCode::class.java)
                         startActivity(intent)

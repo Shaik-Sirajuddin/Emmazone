@@ -276,6 +276,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/faq"
                 android:padding="@dimen/dp16"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/changePwdLayout"
                 app:layout_constraintStart_toStartOf="@+id/changePwdLayout"
                 app:layout_constraintTop_toBottomOf="@+id/changePwdLayout"

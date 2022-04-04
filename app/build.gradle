@@ -62,7 +62,7 @@ dependencies {
     implementation 'me.dm7.barcodescanner:zbar:1.9.13'
 
     //socket
-    implementation 'io.socket:socket.io-client:2.0.1'
+    implementation 'io.socket:socket.io-client:1.0.0'
 
     //Retrofit, and Gson
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'

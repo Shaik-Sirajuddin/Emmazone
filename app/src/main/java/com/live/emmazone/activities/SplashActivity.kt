@@ -2,12 +2,11 @@ package com.live.emmazone.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.auth.UserLoginChoice
@@ -21,11 +20,12 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-       Log.e("authKey","Bearer " + getPreference(AppConstants.AUTHORIZATION, ""))
+        Log.e("authKey", "Bearer " + getPreference(AppConstants.AUTHORIZATION, ""))
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (getPreference(AppConstants.IS_LOGIN, false)) {
 
+                Log.d(AppConstants.USER_ID, getPreference(AppConstants.USER_ID, ""))
                 if (getPreference(AppConstants.ROLE, "") == AppConstants.SELLER_ROLE) {
                     startActivity(Intent(this, ProviderMainActivity::class.java))
                     finish()

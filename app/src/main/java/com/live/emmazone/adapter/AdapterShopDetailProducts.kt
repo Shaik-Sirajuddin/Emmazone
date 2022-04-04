@@ -15,13 +15,16 @@ import com.live.emmazone.activities.main.ProductDetailActivity
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
+import com.schunts.extensionfuncton.loadImage
 
 
 class AdapterShopDetailProducts(
-    val mContext: Context, private val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>,
-    private val cellClickListener: OnItemClick
+    val mContext: Context,
+    private val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>
 ) :
     RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
+
+    var onItemClick:((productId:String)->Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -33,23 +36,22 @@ class AdapterShopDetailProducts(
 
         val data = list[position]
         if (data.productImages.isNotEmpty()) {
-            Glide.with(mContext).load(AppConstants.PRODUCT_IMAGE_URL + data.productImages[0].image)
-                .placeholder(R.drawable.placeholder).into(holder.imageProductSD)
-
+            holder.imageProductSD.loadImage(AppConstants.PRODUCT_IMAGE_URL + data.productImages[0].image)
         } else {
             holder.imageProductSD.setImageResource(R.drawable.placeholder)
 
         }
         holder.productItemNameSD.text = data.name
-        holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol,data.productPrice)
+        holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol, data.productPrice)
         holder.tvShopDetailProductBrandSD.text = data.shortDescription
         //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 
         holder.itemView.setOnClickListener {
             // cellClickListener.onCellClickListener()
-            val intent = Intent(mContext, ProductDetailActivity::class.java)
-            intent.putExtra("productId", list[position].id.toString())
-            mContext.startActivity(intent)
+
+            onItemClick?.invoke(list[position].id.toString())
+
+
         }
     }
 

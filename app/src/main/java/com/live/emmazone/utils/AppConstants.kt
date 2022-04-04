@@ -19,6 +19,9 @@ object AppConstants {
 
     const val OPEN_BY_CART = "openByCart"
     const val USER_ID = "userId"
+    const val USER2_ID = "user2Id"
+    const val USER2_NAME = "user2Name"
+    const val USER2_IMAGE = "user2Image"
     const val USER = "user"
     const val SELLER = "seller"
     const val NAME = "name"

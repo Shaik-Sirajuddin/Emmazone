@@ -297,5 +297,6 @@
     <string name="ready_for_pickup">Ready for pickup</string>
     <string name="weekly">Weekly</string>
     <string name="today">Today</string>
+    <string name="type_your_message_here">Type your message here...</string>
 
 </resources>

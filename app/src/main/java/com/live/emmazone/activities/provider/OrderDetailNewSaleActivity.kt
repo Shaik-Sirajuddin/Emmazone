@@ -15,11 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnActionListenerNew
+import com.live.emmazone.activities.main.ChatActivity
 import com.live.emmazone.adapter.AdapterOnGoingOrders
 import com.live.emmazone.databinding.ActivityOrderDetailNewSaleBinding
 import com.live.emmazone.net.RestObservable
@@ -115,9 +115,13 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
             checkCameraPermission()
         }
 
-        binding.rvOrderDetailNewSale.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
+        binding.ivChat.setOnClickListener {
+            val intent = Intent(this, ChatActivity::class.java)
+            intent.putExtra(AppConstants.USER2_NAME, model!!.customer.username)
+            intent.putExtra(AppConstants.USER2_IMAGE, model!!.customer.image)
+            intent.putExtra(AppConstants.USER2_ID, model!!.customer.id.toString())
+            startActivity(intent)
+        }
 
     }
 

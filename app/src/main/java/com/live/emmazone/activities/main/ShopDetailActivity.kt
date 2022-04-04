@@ -9,32 +9,25 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.activities.auth.LoginActivity
-import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivityShopDetailBinding
 import com.live.emmazone.extensionfuncton.getPreference
-import com.live.emmazone.model.ModelShopDetailCategory
-import com.live.emmazone.model.ModelShopDetailProducts
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddFavouriteResponse
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
-import com.live.emmazone.response_model.ShopListingResponse
 import com.live.emmazone.utils.AppConstants
-import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.LocationUpdateUtility
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
 
-class ShopDetailActivity : LocationUpdateUtility(), OnItemClick, Observer<RestObservable> {
+class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
     private var response: ShopDetailResponse? = null
@@ -94,7 +87,13 @@ class ShopDetailActivity : LocationUpdateUtility(), OnItemClick, Observer<RestOb
                 showLoginDialog()
                 return@setOnClickListener
             }
-            val intent = Intent(this, Message::class.java)
+            val intent = Intent(this, ChatActivity::class.java)
+            intent.putExtra(AppConstants.USER2_NAME, response!!.body.shopName)
+            intent.putExtra(
+                AppConstants.USER2_IMAGE,
+                AppConstants.IMAGE_USER_URL + response!!.body.image
+            )
+            intent.putExtra(AppConstants.USER2_ID, response!!.body.userId.toString())
             startActivity(intent)
         }
 
@@ -104,22 +103,22 @@ class ShopDetailActivity : LocationUpdateUtility(), OnItemClick, Observer<RestOb
 
     }
 
-    override fun onCellClickListener() {
-        val intent = Intent(this, ProductDetailActivity::class.java)
-        startActivity(intent)
-    }
+    /* override fun onCellClickListener() {
+         val intent = Intent(this, ProductDetailActivity::class.java)
+         startActivity(intent)
+     }
 
-    override fun onClick() {
+     override fun onClick() {
 
-    }
+     }
 
-    override fun onClickPickCollect() {
+     override fun onClickPickCollect() {
 
-    }
+     }
 
-    override fun onOrderCancelled() {
+     override fun onOrderCancelled() {
 
-    }
+     }*/
 
     private fun showLoginDialog() {
         val dialog = Dialog(this)
@@ -216,8 +215,20 @@ class ShopDetailActivity : LocationUpdateUtility(), OnItemClick, Observer<RestOb
         }
         if (response!!.body.products.isNotEmpty()) {
             listSDProduct = response!!.body.products
-            binding.recyclerShopDetailProducts.adapter =
-                AdapterShopDetailProducts(this, listSDProduct, this)
+
+            val productAdapter = AdapterShopDetailProducts(this, listSDProduct)
+            binding.recyclerShopDetailProducts.adapter = productAdapter
+
+            productAdapter.onItemClick={productId: String ->
+                val intent = Intent(this, ProductDetailActivity::class.java)
+                intent.putExtra(AppConstants.USER2_NAME, response!!.body.shopName)
+                intent.putExtra(
+                    AppConstants.USER2_IMAGE,
+                    AppConstants.IMAGE_USER_URL + response!!.body.image
+                )
+                intent.putExtra("productId", productId)
+                startActivity(intent)
+            }
 
         } else {
             binding.tvNoProduct.visibility = View.VISIBLE
@@ -229,11 +240,19 @@ class ShopDetailActivity : LocationUpdateUtility(), OnItemClick, Observer<RestOb
             binding.ivRedCart.visibility = View.VISIBLE
         }
 
+        binding.nestedScroll.visibility = View.VISIBLE
+        binding.tvNoData.visibility = View.GONE
+
     }
 
 
     override fun onResume() {
         super.onResume()
         getLiveLocation(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopLocationUpdates()
     }
 }

@@ -10,7 +10,6 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import org.json.JSONObject
 import java.net.URISyntaxException
-import java.util.ArrayList
 
 object SocketManager {
 
@@ -22,11 +21,14 @@ object SocketManager {
 
     //**************************EVENT*************************
     private const val CONNECT_USER = "connect_user"  //event
-
+     const val SEND_MSG = "send_message"
+     const val GET_MSG = "get_message"
 
 
     //**************************LISTENER*************************
     private const val CONNECT_LISTENER = "connect_listener"  //listener
+     const val NEW_MSG_LISTENER = "new_message"
+     const val GET_DATA_MSG_LISTENER = "get_data_message"
 
 
     init {
@@ -69,6 +71,8 @@ object SocketManager {
             mSocket!!.on(Socket.EVENT_CONNECT_ERROR, onConnectError)
 //            mSocket!!.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError)
             mSocket!!.on(CONNECT_LISTENER, onConnectUserListener)
+            mSocket!!.on(NEW_MSG_LISTENER, onNewMsgListener)
+            mSocket!!.on(GET_DATA_MSG_LISTENER, onDataMsgListener)
 
 
             mSocket!!.connect()
@@ -89,7 +93,8 @@ object SocketManager {
         mSocket!!.off(Socket.EVENT_DISCONNECT, onDisConnect)
         mSocket!!.off(Socket.EVENT_CONNECT_ERROR, onConnectError)
         mSocket!!.off(CONNECT_LISTENER, onConnectUserListener)
-
+        mSocket!!.off(NEW_MSG_LISTENER, onNewMsgListener)
+        mSocket!!.off(GET_DATA_MSG_LISTENER, onDataMsgListener)
         mSocket!!.disconnect()
     }
 
@@ -194,7 +199,21 @@ object SocketManager {
     }
 
 
+    private val onDataMsgListener = Emitter.Listener { args ->
+        Handler(Looper.getMainLooper()).post {
+            for (observer in observerList!!) {
+                observer.onSocketCall(GET_DATA_MSG_LISTENER, args)
+            }
+        }
+    }
 
+    private val onNewMsgListener = Emitter.Listener { args ->
+        Handler(Looper.getMainLooper()).post {
+            for (observer in observerList!!) {
+                observer.onSocketCall(NEW_MSG_LISTENER, args)
+            }
+        }
+    }
 
     interface SocketInterface {
         fun onSocketCall(event: String?, vararg args: Any?)
