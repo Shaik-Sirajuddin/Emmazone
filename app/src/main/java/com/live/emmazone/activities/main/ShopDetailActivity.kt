@@ -39,8 +39,10 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
 
     override fun updatedLatLng(lat: Double?, lng: Double?) {
         if (lat != null && lng != null) {
-            stopLocationUpdates()
-            shopDetailApiHit(lat.toString(), lng.toString())
+            if (this.baseContext != null) {
+                stopLocationUpdates()
+                shopDetailApiHit(lat.toString(), lng.toString())
+            }
         }
     }
 
@@ -219,7 +221,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
             val productAdapter = AdapterShopDetailProducts(this, listSDProduct)
             binding.recyclerShopDetailProducts.adapter = productAdapter
 
-            productAdapter.onItemClick={productId: String ->
+            productAdapter.onItemClick = { productId: String ->
                 val intent = Intent(this, ProductDetailActivity::class.java)
                 intent.putExtra(AppConstants.USER2_NAME, response!!.body.shopName)
                 intent.putExtra(

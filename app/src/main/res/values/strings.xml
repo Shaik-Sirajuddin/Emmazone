@@ -298,5 +298,7 @@
     <string name="weekly">Weekly</string>
     <string name="today">Today</string>
     <string name="type_your_message_here">Type your message here...</string>
+    <string name="delete">Delete</string>
+    <string name="search_here">Search Here</string>
 
 </resources>

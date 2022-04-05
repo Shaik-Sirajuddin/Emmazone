@@ -1,5 +1,6 @@
 package com.live.emmazone.push
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -113,4 +114,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         mNotificationManager.notify(uniqueId.toInt(), mNotificationBuilder.build())
     }
 
+   /* @SuppressLint("ObsoleteSdkInt")
+    private fun getNotificationIcon(): Int {
+        val useWhiteIcon = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+// return if (useWhiteIcon) R.drawable.ic_noti_trans else R.mipmap.ic_launcher
+        return if (useWhiteIcon) R.drawable.app_icon else R.mipmap.app_icon
+    }*/
 }

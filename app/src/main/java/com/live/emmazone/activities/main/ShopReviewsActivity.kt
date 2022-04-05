@@ -57,7 +57,7 @@ class ShopReviewsActivity : AppCompatActivity(),
     }
 
     private fun setDataOnView(image: String, shopName: String, ratings: String) {
-        binding.imageShopDetail.loadImage(AppConstants.SHOP_IMAGE_URL + image)
+        binding.imageShopDetail.loadImage(AppConstants.IMAGE_USER_URL + image)
         binding.tvWishListStoreName.text = shopName
         binding.tvWishListRatingText.text = "$ratings/5"
 
@@ -67,8 +67,6 @@ class ShopReviewsActivity : AppCompatActivity(),
     }
 
     private fun clicksHandle() {
-        binding.ratingBarWishList.setIsIndicator(false)
-
         binding.back.setOnClickListener {
             onBackPressed()
         }

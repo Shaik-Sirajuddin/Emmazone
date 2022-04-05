@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp8"
         android:orientation="horizontal"
-        android:weightSum="2"
         app:layout_constraintEnd_toEndOf="@+id/itemImageHome"
         app:layout_constraintStart_toStartOf="@+id/itemImageHome"
         app:layout_constraintTop_toBottomOf="@+id/itemImageHome">
@@ -41,8 +40,8 @@
         <TextView
             android:id="@+id/tvWishListStoreName"
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_weight="1.25"
             android:text="@string/berserka_store"
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"
@@ -51,32 +50,23 @@
             app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
             app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
 
-        <com.willy.ratingbar.ScaleRatingBar
+        <RatingBar
+            style="@style/Widget.AppCompat.RatingBar.Small"
             android:id="@+id/ratingBarWishList"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/dp5"
-            android:layout_weight="0.5"
             app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
             app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore"
-            app:srb_clickable="false"
-            app:srb_drawableEmpty="@drawable/star"
-            app:srb_drawableFilled="@drawable/star_fill"
-            app:srb_isIndicator="false"
-            app:srb_numStars="5"
-            app:srb_scrollable="false"
-            app:srb_starHeight="10dp"
-            app:srb_starPadding="2dp"
-            app:srb_starWidth="10dp" />
+             />
 
 
         <TextView
             android:id="@+id/tvWishListRatingText"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight=".25"
             android:text="4.5/5"
             android:textColor="@color/black"
             android:textSize="@dimen/sp12"

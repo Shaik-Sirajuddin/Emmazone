@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llParentView"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+
+    <RelativeLayout
+        android:id="@id/smContentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dp15"
+        android:layout_marginEnd="@dimen/dp15"
+        android:layout_marginBottom="@dimen/dp10"
+        android:background="@drawable/bg_shop_detail_product"
+        android:elevation="@dimen/_5sdp"
+        android:padding="@dimen/dp10">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civProfile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/user" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_toStartOf="@id/tvTime"
+            android:layout_toEndOf="@id/civProfile"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dp16" />
+
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvName"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_marginEnd="@dimen/dp15"
+            android:layout_toStartOf="@id/tvMessageCount"
+            android:layout_toEndOf="@id/civProfile"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp5"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="2/2/2022"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:id="@+id/tvMessageCount"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_below="@id/tvName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp10"
+            android:background="@drawable/bg_circle"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="2"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp12"
+            android:visibility="visible" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

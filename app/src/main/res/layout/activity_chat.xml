@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activities.main.ChatActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginTop="@dimen/dp24"
+            android:padding="8dp"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civUser"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/placeholder"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="3dp" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/civUser"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/sp15"
+        android:textStyle="bold" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/llSend"
+        android:layout_below="@+id/tvUserName"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="20dp" />
+
+    <LinearLayout
+        android:id="@+id/llSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/login_bg"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/edtMsg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/login_bg"
+            android:digits="qwertyuiopasdfghjklzxcvbnm 1234567890 QWERTYUIOPASDFGHJKLZXCVBNM"
+            android:hint="@string/type_your_message_here"
+            android:inputType="textMultiLine"
+            android:maxHeight="@dimen/_120sdp"
+            android:paddingLeft="@dimen/dp8"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:textSize="@dimen/sp12" />
+
+        <android.widget.Button
+            android:id="@+id/btnSend"
+            android:layout_width="@dimen/dp25"
+            android:layout_height="@dimen/dp25"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/arrow_send_message"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutMessage"
+            app:layout_constraintEnd_toEndOf="@+id/layoutMessage"
+            app:layout_constraintTop_toTopOf="@+id/layoutMessage" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

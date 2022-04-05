@@ -72,7 +72,7 @@
 
         <TextView
             android:id="@+id/tvWishListStoreName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/berserka_store"
@@ -83,25 +83,17 @@
             app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
             app:layout_constraintTop_toBottomOf="@+id/searchWishListLayout" />
 
-        <com.willy.ratingbar.ScaleRatingBar
+        <RatingBar
             android:id="@+id/ratingBarWishList"
-            android:layout_width="0dp"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/dp5"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintStart_toStartOf="@+id/layoutWishListStore"
-            app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore"
-            app:srb_clickable="true"
-            app:srb_drawableEmpty="@drawable/star"
-            app:srb_drawableFilled="@drawable/star_fill"
-            app:srb_isIndicator="false"
-            app:srb_numStars="5"
-            app:srb_scrollable="true"
-            app:srb_starHeight="10dp"
-            app:srb_starPadding="2dp"
-            app:srb_starWidth="10dp"
-            app:srb_stepSize="0.5" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutWishListStore" />
 
 
         <TextView

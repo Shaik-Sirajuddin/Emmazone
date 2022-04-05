@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.live.emmazone.adapter.ChatAdapter
 import com.live.emmazone.base.SocketManager
+import com.live.emmazone.databinding.ActivityChatBinding
 import com.live.emmazone.databinding.ActivityMessageBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.socket_response.ChatModel
@@ -18,7 +19,7 @@ import org.json.JSONObject
 
 class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
 
-    private lateinit var binding: ActivityMessageBinding
+    private lateinit var binding: ActivityChatBinding
     private var user2Id: String? = null
 
     private var chatAdapter: ChatAdapter? = null
@@ -27,7 +28,7 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMessageBinding.inflate(layoutInflater)
+        binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         clicksHandle()
@@ -69,13 +70,15 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
     private fun sendMsg() {
         val msg = binding.edtMsg.text.toString().trim()
 
+        if (msg.isNotEmpty()) {
+            val jsonObject = JSONObject()
+            jsonObject.put("senderId", getPreference(AppConstants.USER_ID, ""))
+            jsonObject.put("receiverId", user2Id)
+            jsonObject.put("messageType", "1") // 1=> text Msg
+            jsonObject.put("message", msg)
+            SocketManager.sendDataToServer(SocketManager.SEND_MSG, jsonObject)
+        }
 
-        val jsonObject = JSONObject()
-        jsonObject.put("senderId", getPreference(AppConstants.USER_ID, ""))
-        jsonObject.put("receiverId", user2Id)
-        jsonObject.put("messageType", "1") // 1=> text Msg
-        jsonObject.put("message", msg)
-        SocketManager.sendDataToServer(SocketManager.SEND_MSG, jsonObject)
     }
 
     private fun getChat() {
@@ -108,6 +111,7 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
                     chatList.add(chatModel)
                 }
                 chatAdapter?.notifyDataSetChanged()
+                binding.rvChat.scrollToPosition(chatList.size - 1)
             }
             SocketManager.NEW_MSG_LISTENER -> {
                 binding.edtMsg.text.clear()

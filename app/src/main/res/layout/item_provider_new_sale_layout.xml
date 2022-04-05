@@ -131,7 +131,7 @@
 
             <TextView
                 android:id="@+id/tvDeliveryType"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp8"
                 android:layout_marginTop="8dp"
@@ -139,6 +139,7 @@
                 android:textColor="@color/green"
                 android:textSize="@dimen/sp12"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvHomeDelivery"
                 app:layout_constraintStart_toStartOf="@+id/recyclerChildNewSales"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerChildNewSales" />
 
@@ -146,14 +147,13 @@
                 android:id="@+id/tvHomeDelivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:text="@string/home_delivery"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp12"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tvDeliveryType"
-                app:layout_constraintEnd_toEndOf="@+id/recyclerChildNewSales"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvDeliveryType"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvDeliveryType" />
 
             <TextView

@@ -36,8 +36,10 @@ class WishListFragment : LocationUpdateUtilityFragment(), Observer<RestObservabl
     private lateinit var binding: FragmentWishlistBinding
     override fun updatedLatLng(lat: Double?, lng: Double?) {
         if (lat != null && lng != null) {
-            stopLocationUpdates()
-            wishListApiHit(lat.toString(), lng.toString())
+            if (activity != null){
+                stopLocationUpdates()
+                wishListApiHit(lat.toString(), lng.toString())
+            }
         }
     }
 

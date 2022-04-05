@@ -69,12 +69,15 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     override fun updatedLatLng(lat: Double?, lng: Double?) {
         if (lat != null && lng != null) {
-            mLatitude = lat.toString()
-            mLongitude = lng.toString()
+            if (activity != null) {
+                mLatitude = lat.toString()
+                mLongitude = lng.toString()
 
-            shopListingApi()
-            stopLocationUpdates()
-            binding.tvLocation.text = completedAddress(lat, lng)
+                shopListingApi()
+                stopLocationUpdates()
+                binding.tvLocation.text = completedAddress(lat, lng)
+
+            }
         }
     }
 

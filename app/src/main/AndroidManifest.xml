@@ -24,22 +24,31 @@
         android:theme="@style/Theme.EmmaZone"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.provider.MessageActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activities.provider.Withdrawal2Activity"
             android:exported="true"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activities.provider.MyBankAccountActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
+
         <activity
             android:name=".utils.SimpleScannerActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activities.ImageZoomActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activities.AddCardActivity"
             android:exported="true"

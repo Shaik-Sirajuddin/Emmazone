@@ -43,7 +43,7 @@ class AdapterProviderNewSales(
                 holder.tvHomeDelivery.text = context.getString(R.string.lifernado)
             }
             2 -> {
-                holder.tvHomeDelivery.text = context.getString(R.string.own_delivery)
+                holder.tvHomeDelivery.text = context.getString(R.string.home_delivery)
             }
         }
 

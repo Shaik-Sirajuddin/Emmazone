@@ -16,6 +16,7 @@ import com.live.emmazone.activities.auth.ChangePassword
 import com.live.emmazone.activities.auth.ProfileActivity
 import com.live.emmazone.activities.main.ChatActivity
 import com.live.emmazone.activities.main.Notifications
+import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.activities.provider.MyEarningsActivity
 import com.live.emmazone.databinding.FragmentProviderAccountBinding
 import com.live.emmazone.extensionfuncton.getPreference
@@ -70,7 +71,7 @@ class ProviderAccountFragment : Fragment(), Observer<RestObservable> {
         }
 
         binding.messageLayout.setOnClickListener {
-            val intent = Intent(activity, ChatActivity::class.java)
+            val intent = Intent(activity, MessageActivity::class.java)
             startActivity(intent)
         }
 
