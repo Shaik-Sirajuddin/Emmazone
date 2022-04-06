@@ -429,7 +429,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             startActivity(intent)
             finishAffinity()
         }
-        alertDialog.setCancelable(true)
+        alertDialog.setCancelable(false)
 
         alertDialog.setView(placeOrder)
         alertDialog.show()

@@ -13,11 +13,12 @@
     <RelativeLayout
         android:id="@+id/rlReceiver"
         android:layout_width="@dimen/_200sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/civUser"
-        android:background="@drawable/bg_chat_left_top"
+        android:background="@drawable/bg_chat_left_bottom"
         android:padding="@dimen/dp5">
 
         <androidx.appcompat.widget.AppCompatTextView

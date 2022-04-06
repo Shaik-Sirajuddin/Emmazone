@@ -81,7 +81,7 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/sp12"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
 
     </RelativeLayout>

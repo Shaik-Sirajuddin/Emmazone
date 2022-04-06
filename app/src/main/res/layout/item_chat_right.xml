@@ -15,9 +15,10 @@
         android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@+id/civUser"
-        android:background="@drawable/bg_chat_right_top"
+        android:background="@drawable/bg_chat_right_bottom"
         android:padding="@dimen/dp5">
 
         <androidx.appcompat.widget.AppCompatTextView

@@ -252,7 +252,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
         monthPicker.value = cal.get(Calendar.MONTH) + 1
 
         val year = cal.get(Calendar.YEAR)
-        yearPicker.minValue = 1900
+        yearPicker.minValue = 1500
         yearPicker.maxValue = cal.get(Calendar.YEAR)
         yearPicker.value = year
 

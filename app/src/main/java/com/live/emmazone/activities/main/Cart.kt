@@ -355,7 +355,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
             startActivity(intent)
             finishAffinity()
         }
-        alertDialog.setCancelable(true)
+        alertDialog.setCancelable(false)
 
         alertDialog.setView(placeOrder)
         alertDialog.show()

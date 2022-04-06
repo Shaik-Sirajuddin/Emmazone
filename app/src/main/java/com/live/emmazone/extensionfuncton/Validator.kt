@@ -7,6 +7,8 @@ import com.live.emmazone.base.AppController
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.stripe.android.view.CardNumberEditText
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 object Validator {
 
@@ -35,7 +37,10 @@ object Validator {
         } else if (TextUtils.isEmpty(password)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_password)
             false
-        } else if (password.length < 6) {
+        } else if (!isValidPassword(password)) {
+            errorMessage = AppController.instance!!.getString(R.string.msg_enter_password_sp)
+            false
+        } else if (password.length < 8) {
             errorMessage = AppController.instance!!.getString(R.string.msg_password_6_character)
             false
         } else if (password != confirmPass) {
@@ -46,6 +51,16 @@ object Validator {
             false
         } else true
 
+    }
+
+
+    fun isValidPassword(password: String?): Boolean {
+        val pattern: Pattern
+        val matcher: Matcher
+        val PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"
+        pattern = Pattern.compile(PASSWORD_PATTERN)
+        matcher = pattern.matcher(password)
+        return matcher.matches()
     }
 
     fun validateOtp(otp: String): Boolean {

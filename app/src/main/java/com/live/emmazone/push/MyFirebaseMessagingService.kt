@@ -47,11 +47,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 //            val pushResponse = Gson().fromJson(mObject, PushResponse::class.java)
 
             if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
-                val notificationIntent = Intent(this, MainActivity::class.java)
+//                val notificationIntent = Intent(this, MainActivity::class.java)
+                val notificationIntent = Intent(this, Notification::class.java)
                 notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 createNotification(title, msg, notificationIntent)
             } else {
-                val notificationIntent = Intent(this, ProviderMainActivity::class.java)
+//                val notificationIntent = Intent(this, ProviderMainActivity::class.java)
+                val notificationIntent = Intent(this, Notification::class.java)
                 notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 createNotification(title, msg, notificationIntent)
             }

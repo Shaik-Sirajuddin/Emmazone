@@ -29,7 +29,7 @@ class AdapterMyEarnings(private val list: ArrayList<MyEarningResponse.Body.FindO
         holder.tvMyEarningDate.text =
             AppUtils.secondsToTime(modelMyEarnings.created.toLong(), AppConstants.DATE_FORMAT)
         holder.tvearningsDollar.text =
-            mContext.getString(R.string.euro_symbol, modelMyEarnings.total)
+            mContext.getString(R.string.euro_symbol, modelMyEarnings.netAmount)
     }
 
     override fun getItemCount(): Int {
