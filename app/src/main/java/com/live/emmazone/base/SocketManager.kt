@@ -227,6 +227,7 @@ object SocketManager {
         }
     }
 
+
     interface SocketInterface {
         fun onSocketCall(event: String?, vararg args: Any?)
         fun onSocketConnect(vararg args: Any?)

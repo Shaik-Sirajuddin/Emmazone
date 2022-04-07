@@ -1,6 +1,5 @@
 package com.live.emmazone.push
 
-import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -15,6 +14,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
+import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.utils.AppConstants
@@ -43,27 +43,31 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 //            val mObject = JSONObject(remoteMessage.data["title"]).toString()
             val title = JSONObject(remoteMessage.data["title"]).get("title").toString()
             val msg = JSONObject(remoteMessage.data["title"]).get("msg").toString()
+            val type = remoteMessage.data["type"].toString()
 
 //            val pushResponse = Gson().fromJson(mObject, PushResponse::class.java)
 
-            if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
-//                val notificationIntent = Intent(this, MainActivity::class.java)
-                val notificationIntent = Intent(this, Notification::class.java)
-                notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                createNotification(title, msg, notificationIntent)
+            if (type == "1") {
+                if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
+                    val notificationIntent = Intent(this, Notifications::class.java)
+                    notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    createNotification(title, msg, notificationIntent)
+                } else {
+                    val notificationIntent = Intent(this, Notifications::class.java)
+                    notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    createNotification(title, msg, notificationIntent)
+                }
             } else {
-//                val notificationIntent = Intent(this, ProviderMainActivity::class.java)
-                val notificationIntent = Intent(this, Notification::class.java)
-                notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                createNotification(title, msg, notificationIntent)
+                if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
+                    val notificationIntent = Intent(this, MainActivity::class.java)
+                    notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    createNotification(title, msg, notificationIntent)
+                } else {
+                    val notificationIntent = Intent(this, ProviderMainActivity::class.java)
+                    notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    createNotification(title, msg, notificationIntent)
+                }
             }
-
-
-            /* if (pushResponse.type == 1){
-                 createNotification("titleee", "message", notificationIntent)
-             }else{
-                 createNotification("titleee", "message", notificationIntent)
-             }*/
 
         }
     }
@@ -116,10 +120,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         mNotificationManager.notify(uniqueId.toInt(), mNotificationBuilder.build())
     }
 
-   /* @SuppressLint("ObsoleteSdkInt")
-    private fun getNotificationIcon(): Int {
-        val useWhiteIcon = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-// return if (useWhiteIcon) R.drawable.ic_noti_trans else R.mipmap.ic_launcher
-        return if (useWhiteIcon) R.drawable.app_icon else R.mipmap.app_icon
-    }*/
+    /* @SuppressLint("ObsoleteSdkInt")
+     private fun getNotificationIcon(): Int {
+         val useWhiteIcon = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+ // return if (useWhiteIcon) R.drawable.ic_noti_trans else R.mipmap.ic_launcher
+         return if (useWhiteIcon) R.drawable.app_icon else R.mipmap.app_icon
+     }*/
 }

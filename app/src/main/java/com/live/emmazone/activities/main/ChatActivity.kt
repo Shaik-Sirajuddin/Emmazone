@@ -14,6 +14,7 @@ import com.live.emmazone.response_model.socket_response.ChatResponse
 import com.live.emmazone.response_model.socket_response.NewMsgResopnse
 import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
+import com.schunts.extensionfuncton.toast
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -34,7 +35,9 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
         clicksHandle()
         setChatAdapter()
         getChat()
+
     }
+
 
     private fun setChatAdapter() {
         chatAdapter = ChatAdapter(chatList)
@@ -132,6 +135,7 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
                 chatAdapter?.notifyDataSetChanged()
                 binding.rvChat.scrollToPosition(chatList.size - 1)
             }
+
         }
     }
 

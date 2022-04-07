@@ -225,4 +225,15 @@ interface RestApiInterface {
     @POST(AppConstants.MY_EARNING)
     fun myEarningApi(@FieldMap hashMap: HashMap<String, String>): Call<MyEarningResponse>
 
+
+    @GET(AppConstants.TRANSACTION_LIST)
+    fun transactionList(): Call<AllTransactionsResponse>
+
+
+    @FormUrlEncoded
+    @POST(AppConstants.WITHDRAW_REQUEST)
+    fun withdrawRequest(
+        @FieldMap hashMap: HashMap<String, String>
+    ): Call<WithdrawRequestResponse>
+
 }

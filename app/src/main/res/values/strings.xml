@@ -239,7 +239,7 @@
     <string name="msg_valid_email">Please enter valid email</string>
     <string name="msg_enter_contact">Please enter contact no.</string>
     <string name="msg_enter_password">Please enter password</string>
-    <string name="msg_enter_password_sp">Please enter special character, a capital letter</string>
+    <string name="msg_enter_password_sp">Please enter special character, a capital letter,small letter,numerical and at least 8 characters in your password </string>
     <string name="msg_enter_old_password">Please enter old password</string>
     <string name="msg_enter_new_password">Please enter new password</string>
     <string name="msg_enter_confirm_password">Please enter confirm password</string>
@@ -301,5 +301,11 @@
     <string name="type_your_message_here">Type your message here...</string>
     <string name="delete">Delete</string>
     <string name="search_here">Search Here</string>
+    <string name="accepted">Accepted</string>
+    <string name="rejected">Rejected</string>
+    <string name="pls_enter_amount">Please enter amount</string>
+    <string name="not_sufficient_balance">Not a sufficient balance for Withdraw</string>
+    <string name="pls_enter_sufficient_balance">Withdrawal amount should not be greater than current balance</string>
+
 
 </resources>

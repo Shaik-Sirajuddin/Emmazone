@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.response_model.AllTransactionsResponse
+import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
+import kotlinx.android.synthetic.main.item_transaction.view.*
 
-class AllTransactionAdapter(/*val list: ArrayList<AllTransactionsResponse.Body.Transaction>*/) :
+class AllTransactionAdapter(val list: ArrayList<AllTransactionsResponse.Body.Withdrawlist>) :
     RecyclerView.Adapter<AllTransactionAdapter.AllTransactionViewHolder>() {
 
     lateinit var mContext: Context
@@ -21,44 +25,44 @@ class AllTransactionAdapter(/*val list: ArrayList<AllTransactionsResponse.Body.T
     }
 
     override fun onBindViewHolder(holder: AllTransactionViewHolder, position: Int) {
-//        holder.bind(position)
+        holder.bind(position)
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return list.size
     }
 
     inner class AllTransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
-//        fun bind(pos: Int) {
-//            val transaction = list[pos]
-//
-//            itemView.tvDate.text = AppUtils.longToTime(
-//                transaction.created_at.toLong(),
-//                AppConstant.DATE_FORMAT
-//            )
-//
-//            itemView.tvTime.text = AppUtils.longToTime(
-//                transaction.created_at.toLong(),
-//                AppConstant.TIME_FORMAT
-//            )
-//
-//            itemView.tvPrice.text = transaction.amount
-//            itemView.tvCardName.text = transaction.user_bank.bank_branch
-//            itemView.tvAddDate.text =
-//                "xxxx xxxx xxxx" + transaction.user_bank.account_number.subSequence(
-//                    (transaction.user_bank.account_number.length - 4),
-//                    transaction.user_bank.account_number.length
-//                )
-//
-//            if (transaction.status == 0){
-//                itemView.tvStatus.text = mContext.getString(R.string.pending)
-//            }else if (transaction.status == 1){
-//                itemView.tvStatus.text = mContext.getString(R.string.accepted)
-//            }else if (transaction.status == 2){
-//                itemView.tvStatus.text = mContext.getString(R.string.rejected)
-//            }
-//        }
+        fun bind(pos: Int) {
+            val transaction = list[pos]
+
+            itemView.tvDate.text = AppUtils.secondsToTime(
+                transaction.created.toLong(),
+                AppConstants.DATE_FORMAT
+            )
+
+            /*  itemView.tvTime.text = AppUtils.secondsToTime(
+                  transaction.created.toLong(),
+                  AppConstants.TIME_FORMAT
+              )*/
+
+            itemView.tvPrice.text = "€"+transaction.amount.toString()
+            itemView.tvCardName.text = transaction.bank?.bankBranch
+            itemView.tvAddDate.text =
+                "xxxx xxxx xxxx" + transaction.bank?.accountNumber?.subSequence(
+                    (transaction.bank?.accountNumber?.length!! - 4),
+                    transaction.bank?.accountNumber?.length!!
+                )
+
+            if (transaction.status == 0) {
+                itemView.tvStatus.text = mContext.getString(R.string.pending)
+            } else if (transaction.status == 1) {
+                itemView.tvStatus.text = mContext.getString(R.string.accepted)
+            } else if (transaction.status == 2) {
+                itemView.tvStatus.text = mContext.getString(R.string.rejected)
+            }
+        }
     }
 }

@@ -12,9 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.live.emmazone.adapter.AllTransactionAdapter
 import com.live.emmazone.databinding.ActivityWithdrawal2Binding
+import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.AllTransactionsResponse
 import com.live.emmazone.response_model.GetBankResponse
+import com.live.emmazone.response_model.WithdrawRequestResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
@@ -24,11 +28,13 @@ class Withdrawal2Activity : AppCompatActivity(),
 
     private lateinit var binding: ActivityWithdrawal2Binding
 
-    //    private var list = ArrayList<AllTransactionsResponse.Body.Transaction>()
+    private var list = ArrayList<AllTransactionsResponse.Body.Withdrawlist>()
     private lateinit var allTransactionAdapter: AllTransactionAdapter
     private var selectedBank: GetBankResponse.Body? = null
 
     private val appViewModel: AppViewModel by viewModels()
+
+    private var balance = "0.0"
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -62,9 +68,8 @@ class Withdrawal2Activity : AppCompatActivity(),
 
         clicksHandle()
 
-        /*allTransactionAdapter = AllTransactionAdapter(list)
-        binding.rvAllTransaction.adapter = allTransactionAdapter*/
-
+        allTransactionAdapter = AllTransactionAdapter(list)
+        binding.rvAllTransaction.adapter = allTransactionAdapter
         allTransactionApiHit()
     }
 
@@ -100,54 +105,57 @@ class Withdrawal2Activity : AppCompatActivity(),
     }*/
 
     private fun withdrawApiHit() {
-        /* val amount = binding.edtAmount.text.toString().trim()
+        val amount = binding.edtAmount.text.toString().trim()
 
-         if (Validator.getInstance()!!.validateWithdraw(
-                 binding.tvBalance.text.toString().toDouble(),
-                 amount,
-                 selectedBank
-             )
-         ) {
+        if (Validator.validateWithdraw(
+                balance.toDouble(),
+                amount,
+                selectedBank
+            )
+        ) {
 
-             val hashMap = HashMap<String, String>()
-             hashMap["amount"] = binding.edtAmount.text.toString().trim()
-             hashMap["bank_id"] = selectedBank!!.id.toString()
+            val hashMap = HashMap<String, String>()
+            hashMap["amount"] = binding.edtAmount.text.toString().trim()
+            hashMap["bankId"] = selectedBank!!.id.toString()
 
-             appViewModel.withdrawRequestApi(this, true, hashMap)
-             appViewModel.getResponse().observe(this, this)
-         } else {
-             AppUtils.showMsgOnlyWithoutClick(this, Validator.ErrorMessage)
-         }*/
+            appViewModel.withdrawRequestApi(this, hashMap, true)
+            appViewModel.getResponse().observe(this, this)
+        } else {
+            AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+        }
     }
 
     private fun allTransactionApiHit() {
-        /*appViewModel.transactionApi(this, true)
-        appViewModel.getResponse().observe(this, this)*/
+        appViewModel.transactionApi(this, true)
+        appViewModel.getResponse().observe(this, this)
     }
 
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
-            /*Status.SUCCESS -> {
+            Status.SUCCESS -> {
                 if (t.data is WithdrawRequestResponse) {
                     val response: WithdrawRequestResponse = t.data
 
-                    if (response.code == AppConstant.CODE) {
-                        AppUtils.showMsgOnlyWithClick(this, response.message, this)
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        AppUtils.showMsgOnlyWithClick(this, "Withdraw request send", this)
                     }
                 } else if (t.data is AllTransactionsResponse) {
                     val response: AllTransactionsResponse = t.data
 
-                    if (response.code == AppConstant.CODE) {
+                    if (response.code == AppConstants.SUCCESS_CODE) {
 
-                        if (response.body.Earning.isNotEmpty()) {
-                            binding.tvBalance.text = String.format("%.02f", response.body.Earning.toDouble())
+                        if (response.body.balance.walletBalance.isNotEmpty()) {
+                            balance = response.body.balance.walletBalance
+
+                            binding.tvCtBalanceDollar.text =
+                                "€" + String.format("%.02f", balance.toDouble())
                         } else {
-                            binding.tvBalance.text = "0"
+                            binding.tvCtBalanceDollar.text = balance
                         }
 
 
                         list.clear()
-                        list.addAll(response.body.transactions)
+                        list.addAll(response.body.withdrawlist)
                         allTransactionAdapter.notifyDataSetChanged()
 
                         if (list.size > 0) {
@@ -159,7 +167,7 @@ class Withdrawal2Activity : AppCompatActivity(),
                         }
                     }
                 }
-            }*/
+            }
         }
     }
 

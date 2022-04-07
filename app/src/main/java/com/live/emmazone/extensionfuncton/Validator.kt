@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Patterns
 import com.live.emmazone.R
 import com.live.emmazone.base.AppController
+import com.live.emmazone.response_model.GetBankResponse
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.stripe.android.view.CardNumberEditText
@@ -389,6 +390,29 @@ object Validator {
             errorMessage = AppController.instance!!.getString(R.string.please_select_payment)
             false
         }else return true
+    }
+
+
+    fun validateWithdraw(
+        totalAmount: Double,
+        amount: String,
+        bank: GetBankResponse.Body?
+    ): Boolean {
+        return if (totalAmount.equals(0.0)) {
+            errorMessage = AppController.instance!!.getString(R.string.not_sufficient_balance)
+            false
+        } else if (TextUtils.isEmpty(amount)) {
+            errorMessage = AppController.instance!!.getString(R.string.pls_enter_amount)
+            false
+        } else if (amount.toDouble() > totalAmount) {
+            errorMessage = AppController.instance!!.getString(R.string.pls_enter_sufficient_balance)
+            false
+        } else if (bank == null) {
+            errorMessage = AppController.instance!!.getString(R.string.pls_select_bank)
+            false
+        } else {
+            true
+        }
     }
 
 }

@@ -53,8 +53,16 @@ class MessageAdapter(val listMsg: ArrayList<ChatListResponse.ChatListResponseIte
             civProfile.loadImage(AppConstants.IMAGE_USER_URL + model.image)
             tvName.text = model.userName
             tvMessage.text = model.lastMessage
+            tvMessageCount.text = model.count.toString()
             tvMessageTime.text =
                 AppUtils.secondsToTime(model.created.toLong(), AppConstants.DATE_FORMAT)
+
+            if (model.count == 0) {
+                tvMessageCount.visibility = View.GONE
+            } else {
+                tvMessageCount.visibility = View.VISIBLE
+
+            }
 
         }
     }

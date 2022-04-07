@@ -1933,4 +1933,87 @@ class AppViewModel : ViewModel() {
 
     }
 
+    fun transactionApi(
+        activity: Activity,
+        isDialogShow: Boolean
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.transactionList()
+                .enqueue(object : Callback<AllTransactionsResponse> {
+                    override fun onResponse(
+                        call: Call<AllTransactionsResponse>,
+                        response: Response<AllTransactionsResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<AllTransactionsResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        transactionApi(activity, isDialogShow)
+                    }
+                })
+        }
+
+
+    }
+
+
+    fun withdrawRequestApi(
+        activity: Activity,
+        hashMap: HashMap<String, String>,
+        isDialogShow: Boolean
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.withdrawRequest(hashMap)
+                .enqueue(object : Callback<WithdrawRequestResponse> {
+                    override fun onResponse(
+                        call: Call<WithdrawRequestResponse>,
+                        response: Response<WithdrawRequestResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<WithdrawRequestResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        withdrawRequestApi(activity, hashMap, isDialogShow)
+                    }
+                })
+        }
+
+
+    }
+
+
 }

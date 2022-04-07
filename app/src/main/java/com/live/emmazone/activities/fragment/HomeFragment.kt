@@ -201,30 +201,34 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         binding.rvHomeNearbyShops.adapter = nearShopAdapter
 
         nearShopAdapter.onClickListener = { shopModel, clickOn ->
-
             if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                 (context as MainActivity).showLoginDialog()
             } else {
-                if (clickOn == "favourite") {
+
+            if (clickOn == "favourite") {
+                if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                    (context as MainActivity).showLoginDialog()
+                } else {
                     selectedPos = list.indexOf(shopModel)
                     favUnFavApiHit(shopModel)
-                } else if (clickOn == "itemClick") {
-                    val intent = Intent(requireContext(), ShopDetailActivity::class.java)
-                    intent.putExtra(AppConstants.SHOP_ID, shopModel.id.toString())
-                    startActivity(intent)
-                } else if (clickOn == "rating") {
-                    if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
-                        (requireContext().applicationContext as MainActivity).showLoginDialog()
-                    } else {
-                        val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
-                        intent.putExtra(AppConstants.SHOP_LISTING_RESPONSE, shopModel)
-                        startActivity(intent)
-                    }
-
                 }
+
+            } else if (clickOn == "itemClick") {
+                val intent = Intent(requireContext(), ShopDetailActivity::class.java)
+                intent.putExtra(AppConstants.SHOP_ID, shopModel.id.toString())
+                startActivity(intent)
+            } else if (clickOn == "rating") {
+                if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
+                    (requireContext().applicationContext as MainActivity).showLoginDialog()
+                } else {
+                    val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
+                    intent.putExtra(AppConstants.SHOP_LISTING_RESPONSE, shopModel)
+                    startActivity(intent)
+                }
+
             }
 
-
+        }
         }
     }
 

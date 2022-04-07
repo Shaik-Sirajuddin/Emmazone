@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fillViewport="true"
+    android:scrollbars="vertical"
     tools:context=".activities.provider.AddNewProductActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -166,9 +167,9 @@
             android:autofillHints="false"
             android:background="@drawable/login_bg"
             android:gravity="top"
-            android:maxLength="25"
-            android:inputType="textMultiLine"
             android:hint="@string/only_25_characters"
+            android:inputType="textMultiLine"
+            android:maxLength="25"
             android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvShotDesc"
             app:layout_constraintStart_toStartOf="@+id/tvShotDesc"

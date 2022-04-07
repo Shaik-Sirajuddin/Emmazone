@@ -8,18 +8,17 @@
 
     <TextView
         android:id="@+id/tvDate"
-        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:ellipsize="end"
         android:lines="1"
         android:text="Jul,11,2020"
-        android:textSize="@dimen/sp10" />
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp12" />
 
     <TextView
         android:id="@+id/tvTime"
-        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp10"
@@ -28,7 +27,9 @@
         android:ellipsize="end"
         android:lines="1"
         android:text="12:00am"
-        android:textSize="@dimen/sp10" />
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp10"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvPrice"
@@ -41,7 +42,7 @@
         android:lines="1"
         android:text="$300.00"
         android:textColor="@color/green"
-        android:textSize="@dimen/sp12" />
+        android:textSize="@dimen/sp14" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +53,6 @@
 
         <TextView
             android:id="@+id/tvSendTo"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -60,7 +60,8 @@
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/send_to"
-            android:textSize="9sp" />
+            android:textColor="@color/black"
+            android:textSize="11sp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -72,25 +73,24 @@
 
             <TextView
                 android:id="@+id/tvCardName"
-                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Afican Bank Ending **09"
-                android:textSize="13sp" />
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvAddDate"
-                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="XXXX XXXX XXXX 6789"
-                android:textSize="11sp" />
+                android:textColor="@color/black"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvStatus"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -99,7 +99,8 @@
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/confirmed"
-            android:textSize="9sp" />
+            android:textColor="@color/black"
+            android:textSize="11sp" />
 
 
     </LinearLayout>

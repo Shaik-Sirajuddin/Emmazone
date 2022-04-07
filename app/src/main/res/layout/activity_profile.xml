@@ -48,8 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="@dimen/dp30"
-            android:scaleType="centerCrop"
-            android:src="@drawable/profile_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/changePassword"
@@ -87,23 +85,24 @@
 
         <TextView
             android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
             android:layout_marginTop="@dimen/dp5"
             android:layout_weight="1"
-            android:text="Jhonson Marker"
+            android:text=""
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tvname"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/tvname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvname" />
 
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
             android:layout_marginTop="@dimen/dp24"
             android:layout_weight="1"
             android:text="@string/email"
@@ -111,28 +110,29 @@
             android:textSize="@dimen/sp12"
             app:layout_constraintEnd_toEndOf="@+id/tvUserName"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/tvUserName"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
         <TextView
             android:id="@+id/tvUserEmail"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
             android:layout_marginTop="@dimen/dp5"
             android:layout_weight="1"
-            android:text="jhonsonmarker@gmail.com"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_email"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/tv_email"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
             android:layout_marginTop="@dimen/dp24"
             android:layout_weight="1"
             android:text="Phone Number"
@@ -140,22 +140,20 @@
             android:textSize="@dimen/sp12"
             app:layout_constraintEnd_toEndOf="@+id/tvUserEmail"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/tvUserEmail"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUserEmail" />
 
         <TextView
             android:id="@+id/tvUserPhone"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="@dimen/dp5"
-            android:layout_weight="1"
-            android:text="+12-456-789-456"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_phone"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/tv_phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
         <android.widget.Button

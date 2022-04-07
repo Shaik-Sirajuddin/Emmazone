@@ -105,23 +105,6 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
 
     }
 
-    /* override fun onCellClickListener() {
-         val intent = Intent(this, ProductDetailActivity::class.java)
-         startActivity(intent)
-     }
-
-     override fun onClick() {
-
-     }
-
-     override fun onClickPickCollect() {
-
-     }
-
-     override fun onOrderCancelled() {
-
-     }*/
-
     private fun showLoginDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

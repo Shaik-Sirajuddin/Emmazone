@@ -11,6 +11,7 @@ object AppConstants {
     const val SELLER_ROLE = "3"
     const val GUEST = "guest"
     const val YEAR_FORMAT = "yyyy"
+    const val TIME_FORMAT = "hh:mm a"
     const val DATE_FORMAT = "dd-MMM-yyyy, hh:mm a"
 
 
@@ -105,5 +106,7 @@ object AppConstants {
     const val DELETE_CARD = "deleteCard"
     const val CANCEL_ORDER = "cancelOrder"
     const val MY_EARNING = "myEarnings"
+    const val TRANSACTION_LIST = "transaction_list"
+    const val WITHDRAW_REQUEST = "withdrawl"
 
 }

@@ -476,18 +476,28 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                 openChatScreen()
             }
             R.id.btnBuyDeliver -> {
-                if (qty > 0) {
-                    addToCart()
+                if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                    showLoginDialog()
                 } else {
-                    AppUtils.showMsgOnlyWithoutClick(this, "Please select atleast one item")
+                    if (qty > 0) {
+                        addToCart()
+                    } else {
+                        AppUtils.showMsgOnlyWithoutClick(this, "Please select atleast one item")
+                    }
                 }
+
             }
             R.id.btnClickCollect -> {
-                if (qty > 0) {
-                    showBottomDialog()
+                if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                    showLoginDialog()
                 } else {
-                    AppUtils.showMsgOnlyWithoutClick(this, "Please select atleast one item")
+                    if (qty > 0) {
+                        showBottomDialog()
+                    } else {
+                        AppUtils.showMsgOnlyWithoutClick(this, "Please select atleast one item")
+                    }
                 }
+
             }
             R.id.ivPlus -> {
                 if (qty < totalQty) {

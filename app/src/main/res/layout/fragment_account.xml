@@ -88,19 +88,14 @@
             app:layout_constraintStart_toStartOf="@+id/layoutMain"
             app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
-            <com.makeramen.roundedimageview.RoundedImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/pickImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/placeholder"
                 android:visibility="visible"
-                app:riv_border_color="@color/white"
-                app:riv_border_width="@dimen/dp5"
-                app:riv_corner_radius="30dip"
-                app:riv_mutate_background="true"
-                app:riv_oval="true"
-                app:riv_tile_mode="clamp" />
+                app:civ_border_color="@color/white"
+                app:civ_border_width="@dimen/dp5" />
 
             <RelativeLayout
                 android:id="@+id/rlProfile"
