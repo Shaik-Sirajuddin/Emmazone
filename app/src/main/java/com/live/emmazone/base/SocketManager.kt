@@ -24,6 +24,7 @@ object SocketManager {
     const val SEND_MSG = "send_message"
     const val GET_MSG = "get_message"
     const val CHAT_LISTING = "chat_listing"
+    const val READ_UNREAD = "read_unread"
 
 
     //**************************LISTENER*************************
@@ -31,6 +32,7 @@ object SocketManager {
     const val NEW_MSG_LISTENER = "new_message"
     const val GET_DATA_MSG_LISTENER = "get_data_message"
     const val CHAT_MSG_LISTENER = "chat_message"
+    const val READ_STATUS_LISTENER = "read_status"
 
 
     init {
@@ -76,6 +78,7 @@ object SocketManager {
             mSocket!!.on(NEW_MSG_LISTENER, onNewMsgListener)
             mSocket!!.on(GET_DATA_MSG_LISTENER, onDataMsgListener)
             mSocket!!.on(CHAT_MSG_LISTENER, onMsgListListener)
+            mSocket!!.on(READ_STATUS_LISTENER, readUnreadListener)
 
 
             mSocket!!.connect()
@@ -99,6 +102,7 @@ object SocketManager {
         mSocket!!.off(NEW_MSG_LISTENER, onNewMsgListener)
         mSocket!!.off(GET_DATA_MSG_LISTENER, onDataMsgListener)
         mSocket!!.off(CHAT_MSG_LISTENER, onMsgListListener)
+        mSocket!!.off(READ_STATUS_LISTENER, readUnreadListener)
         mSocket!!.disconnect()
     }
 
@@ -226,7 +230,13 @@ object SocketManager {
             }
         }
     }
-
+    private val readUnreadListener = Emitter.Listener { args ->
+        Handler(Looper.getMainLooper()).post {
+            for (observer in observerList!!) {
+                observer.onSocketCall(READ_STATUS_LISTENER, args)
+            }
+        }
+    }
 
     interface SocketInterface {
         fun onSocketCall(event: String?, vararg args: Any?)

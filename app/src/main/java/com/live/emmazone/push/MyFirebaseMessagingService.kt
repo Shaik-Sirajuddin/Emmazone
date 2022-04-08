@@ -48,6 +48,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 //            val pushResponse = Gson().fromJson(mObject, PushResponse::class.java)
 
             if (type == "1") {
+                //type 1 = order,,, 2 = Chat
                 if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
                     val notificationIntent = Intent(this, Notifications::class.java)
                     notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -58,15 +59,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     createNotification(title, msg, notificationIntent)
                 }
             } else {
-                if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
-                    val notificationIntent = Intent(this, MainActivity::class.java)
-                    notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    createNotification(title, msg, notificationIntent)
-                } else {
-                    val notificationIntent = Intent(this, ProviderMainActivity::class.java)
-                    notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    createNotification(title, msg, notificationIntent)
+                if (AppConstants.SEND_CHAT_PUSH) {
+                    if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
+                        val notificationIntent = Intent(this, MainActivity::class.java)
+                        notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        createNotification(title, msg, notificationIntent)
+                    } else {
+                        val notificationIntent = Intent(this, ProviderMainActivity::class.java)
+                        notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        createNotification(title, msg, notificationIntent)
+                    }
                 }
+
             }
 
         }

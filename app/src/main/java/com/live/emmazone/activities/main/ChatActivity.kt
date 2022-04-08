@@ -7,7 +7,6 @@ import com.google.gson.Gson
 import com.live.emmazone.adapter.ChatAdapter
 import com.live.emmazone.base.SocketManager
 import com.live.emmazone.databinding.ActivityChatBinding
-import com.live.emmazone.databinding.ActivityMessageBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.socket_response.ChatModel
 import com.live.emmazone.response_model.socket_response.ChatResponse
@@ -31,11 +30,19 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        AppConstants.SEND_CHAT_PUSH = false
         clicksHandle()
         setChatAdapter()
         getChat()
+        chatReadUnread()
 
+    }
+
+    private fun chatReadUnread() {
+        val jsonObject = JSONObject()
+        jsonObject.put("senderId", user2Id)
+        jsonObject.put("receiverId", getPreference(AppConstants.USER_ID, ""))
+        SocketManager.sendDataToServer(SocketManager.READ_UNREAD, jsonObject)
     }
 
 
@@ -136,6 +143,7 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
                 binding.rvChat.scrollToPosition(chatList.size - 1)
             }
 
+
         }
     }
 
@@ -158,7 +166,7 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
 
     override fun onStop() {
         super.onStop()
-
+        AppConstants.SEND_CHAT_PUSH = true
         SocketManager.unRegister(this)
     }
 }

@@ -113,4 +113,7 @@ dependencies {
     //SwipeMenu
     implementation 'com.tubb.smrv:swipemenu-recyclerview:5.4.5'
 
+    //Crop image
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+
 }

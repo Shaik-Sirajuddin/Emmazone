@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
@@ -31,6 +32,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
     private var mVideoDialog: Boolean = false
     private var mCode = 0
     private lateinit var mImageFile: File
+    private val CAMERA_REQUEST_CODE = 1001
 
 
     private val videoCameraLauncher =
@@ -139,7 +141,8 @@ abstract class ImagePickerUtility : AppCompatActivity() {
             if (mVideoDialog) {
                 captureVideo()
             } else {
-                captureImage()
+                /* captureImage()*/
+                ImagePicker.with(this).cameraOnly().crop().start(CAMERA_REQUEST_CODE)
             }
         }
 
@@ -211,6 +214,16 @@ abstract class ImagePickerUtility : AppCompatActivity() {
         )
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST_CODE) {
+            val contentURI = data?.data
+            val selectedImagePath = getAbsolutePath(contentURI!!)
+            selectedImage(selectedImagePath, mCode)
+
+        }
+    }
 
     //------------------------Return Uri file to String Path ------------------//
     @SuppressLint("Recycle")

@@ -1,7 +1,7 @@
 package com.live.emmazone.utils
 
 object AppConstants {
-
+    var SEND_CHAT_PUSH = true
     const val SHARED_NAME = "emmaZone"
     const val AUTHORIZATION = "Authorization"
     const val SECURITY_KEY = "emmazone12@"
