@@ -51,10 +51,12 @@ class Notifications : AppCompatActivity(), Observer<RestObservable> {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra(AppConstants.NOTIFICATION_RESPONSE, list[pos])
                 startActivity(intent)
+                finishAffinity()
             } else if (getPreference(AppConstants.ROLE, "") == AppConstants.SELLER_ROLE) {
                 val intent = Intent(this, ProviderMainActivity::class.java)
                 intent.putExtra(AppConstants.NOTIFICATION_RESPONSE, list[pos])
                 startActivity(intent)
+                finishAffinity()
             }
         }
 

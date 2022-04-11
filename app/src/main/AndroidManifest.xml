@@ -24,31 +24,28 @@
         android:theme="@style/Theme.EmmaZone"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.main.SearchProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.provider.MessageActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.provider.Withdrawal2Activity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.provider.MyBankAccountActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".utils.SimpleScannerActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.ImageZoomActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.AddCardActivity"
             android:exported="true"
@@ -62,7 +59,7 @@
             android:name=".activities.provider.AddShopDetailActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.provider.QrScannerActivity"
             android:exported="true"
@@ -231,8 +228,8 @@
         <activity
             android:name=".activities.auth.SignUpActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.auth.UserLoginChoice"
             android:exported="true"
@@ -256,7 +253,6 @@
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
 
         <service
             android:name=".push.MyFirebaseMessagingService"

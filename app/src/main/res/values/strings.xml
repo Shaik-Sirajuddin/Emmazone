@@ -306,6 +306,7 @@
     <string name="pls_enter_amount">Please enter amount</string>
     <string name="not_sufficient_balance">Not a sufficient balance for Withdraw</string>
     <string name="pls_enter_sufficient_balance">Withdrawal amount should not be greater than current balance</string>
+    <string name="search_products">Search Products</string>
 
 
 </resources>

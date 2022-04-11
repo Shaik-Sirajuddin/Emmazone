@@ -148,12 +148,12 @@
                 app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
                 app:layout_constraintTop_toTopOf="@+id/searchHomeLayout" />
 
-            <!--<ImageView
-                android:id="@+id/imageLocationHome"
+            <ImageView
+                android:id="@+id/ivMyOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/location_black" />-->
+                android:src="@drawable/my_orderg" />
 
             <ImageView
                 android:id="@+id/imageFilterHome"
