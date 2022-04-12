@@ -100,7 +100,11 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         }
 
         binding.itemHeartShopDetail.setOnClickListener {
-            favUnFavApiHit()
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                showLoginDialog()
+            } else {
+                favUnFavApiHit()
+            }
         }
 
     }

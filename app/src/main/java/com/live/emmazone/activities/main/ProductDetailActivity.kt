@@ -127,7 +127,12 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         }
 
         binding.imageCart.setOnClickListener {
-            startActivity(Intent(this, Cart::class.java))
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                showLoginDialog()
+            } else {
+                startActivity(Intent(this, Cart::class.java))
+            }
+
         }
 
 

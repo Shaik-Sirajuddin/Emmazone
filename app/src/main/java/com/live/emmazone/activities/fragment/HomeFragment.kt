@@ -202,9 +202,9 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         binding.rvHomeNearbyShops.adapter = nearShopAdapter
 
         nearShopAdapter.onClickListener = { shopModel, clickOn ->
-            if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+          /*  if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                 (context as MainActivity).showLoginDialog()
-            } else {
+            } else {*/
 
                 if (clickOn == "favourite") {
                     if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
@@ -229,7 +229,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
                 }
 
-            }
+            /*}*/
         }
     }
 

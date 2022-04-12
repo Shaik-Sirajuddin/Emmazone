@@ -236,4 +236,10 @@ interface RestApiInterface {
         @FieldMap hashMap: HashMap<String, String>
     ): Call<WithdrawRequestResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.SEARCH_PRODUCT)
+    fun searchProduct(
+        @FieldMap hashMap: HashMap<String, String>
+    ): Call<SearchProductResponse>
+
 }

@@ -108,5 +108,6 @@ object AppConstants {
     const val MY_EARNING = "myEarnings"
     const val TRANSACTION_LIST = "transaction_list"
     const val WITHDRAW_REQUEST = "withdrawl"
+    const val SEARCH_PRODUCT = "searchProduct"
 
 }
