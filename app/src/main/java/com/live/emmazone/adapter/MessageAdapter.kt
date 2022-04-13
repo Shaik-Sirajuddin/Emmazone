@@ -9,6 +9,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.socket_response.ChatListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
@@ -50,8 +51,15 @@ class MessageAdapter(val listMsg: ArrayList<ChatListResponse.ChatListResponseIte
 
             }
 
-            civProfile.loadImage(AppConstants.IMAGE_USER_URL + model.image)
-            tvName.text = model.userName
+            if (getPreference(AppConstants.ROLE ,"")== AppConstants.USER_ROLE){
+                civProfile.loadImage(AppConstants.IMAGE_USER_URL + model.shopImage)
+                tvName.text = model.shopName
+            }else{
+                civProfile.loadImage(AppConstants.IMAGE_USER_URL + model.image)
+                tvName.text = model.userName
+            }
+
+
             tvMessage.text = model.lastMessage
             tvMessageCount.text = model.count.toString()
             tvMessageTime.text =

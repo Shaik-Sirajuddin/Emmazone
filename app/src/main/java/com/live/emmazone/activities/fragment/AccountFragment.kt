@@ -16,6 +16,7 @@ import com.live.emmazone.activities.auth.ChangePassword
 import com.live.emmazone.activities.auth.ProfileActivity
 import com.live.emmazone.activities.main.Cart
 import com.live.emmazone.activities.main.Notifications
+import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.databinding.FragmentAccountBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.extensionfuncton.savePreference
@@ -58,10 +59,11 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
             val intent = Intent(activity, ProfileActivity::class.java)
             startActivity(intent)
         }
-        /*binding.rlProfile.setOnClickListener {
-            val intent = Intent(activity, ProfileActivity::class.java)
+
+        binding.messageLayout.setOnClickListener {
+            val intent = Intent(activity, MessageActivity::class.java)
             startActivity(intent)
-        }*/
+        }
 
         binding.cart.setOnClickListener {
             val intent = Intent(activity, Cart::class.java)

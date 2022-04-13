@@ -55,7 +55,7 @@ class MessageActivity : AppCompatActivity(), SocketManager.SocketInterface {
                 AppConstants.USER2_IMAGE,
                 AppConstants.IMAGE_USER_URL + listMsg[pos].image
             )
-            intent.putExtra(AppConstants.USER2_ID, listMsg[pos].senderId.toString())
+            intent.putExtra(AppConstants.USER2_ID, listMsg[pos].otherUserId.toString())
             startActivity(intent)
         }
     }

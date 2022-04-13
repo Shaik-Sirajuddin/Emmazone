@@ -208,7 +208,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
         tvCountItem.text = "1"
         tvSubTotalPrice.text = DecimalFormat("##.##").format(subTotal.toDouble())
-        tvTaxPrice.text = taxCharged.toString()
+        tvTaxPrice.text = DecimalFormat("##.##").format(taxCharged.toDouble())
         tvTotalPrice.text = DecimalFormat("##.##").format(totalPrice.toDouble())
 
 

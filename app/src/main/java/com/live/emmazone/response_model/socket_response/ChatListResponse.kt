@@ -36,6 +36,10 @@ class ChatListResponse : ArrayList<ChatListResponse.ChatListResponseItem>() {
         @SerializedName("updatedAt")
         var updatedAt: String, // 2022-04-06T05:29:11.000Z
         @SerializedName("userName")
-        var userName: String // User
+        var userName: String, // User
+        @SerializedName("shopName")
+        var shopName: String, // Cqlsys
+        @SerializedName("shopImage")
+        var shopImage: String // Cqlsys
     )
 }

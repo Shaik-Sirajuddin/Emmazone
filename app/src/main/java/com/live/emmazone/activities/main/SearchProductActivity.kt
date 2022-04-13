@@ -65,7 +65,7 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         val hashMap = HashMap<String, String>()
         hashMap["keyword"] = s
 
-        appViewModel.searchProductApi(this, hashMap, true)
+        appViewModel.searchProductApi(this, hashMap, false)
         appViewModel.getResponse().observe(this, this)
     }
 

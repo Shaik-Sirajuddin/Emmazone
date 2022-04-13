@@ -62,10 +62,10 @@
                 android:id="@+id/ivRedCart"
                 android:layout_width="@dimen/dp10"
                 android:layout_height="@dimen/dp10"
-                android:background="@drawable/notification_red_color"
-                app:layout_constraintEnd_toEndOf="@+id/image_cart"
                 android:layout_marginStart="5dp"
+                android:background="@drawable/notification_red_color"
                 android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/image_cart"
                 app:layout_constraintTop_toTopOf="@+id/image_cart" />
 
 
@@ -371,13 +371,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp5"
             android:layout_marginEnd="@dimen/dp16"
             android:text="@string/product_out_of_stock"
             android:textAlignment="viewStart"
             android:textColor="@color/red"
-            android:textSize="@dimen/sp15" />
-
+            android:textSize="@dimen/sp15"
+            android:visibility="gone" />
 
 
         <android.widget.Button
@@ -398,8 +397,8 @@
             android:id="@+id/btnClickCollect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sp20"
             android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/sp20"
             android:layout_marginEnd="@dimen/_50sdp"
             android:layout_marginBottom="@dimen/dp10"
             android:background="@drawable/click_collect" />

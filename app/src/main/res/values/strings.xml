@@ -272,7 +272,7 @@
     <string name="euro_symbol">%s €</string>
     <string name="no_items_in_shopping_cart">No items in shopping cart</string>
     <string name="of">maximum quantity: %s</string>
-    <string name="product_out_of_stock">This time product out of stock.</string>
+    <string name="product_out_of_stock">Out of stock.</string>
     <string name="shot_description">Short Description</string>
     <string name="only_25_characters">only 25 characters</string>
     <string name="please_select_address">Please select address</string>

@@ -142,7 +142,7 @@
         <entry key="app/src/main/res/layout/dialog_scan_qr_code.xml" value="0.17" />
         <entry key="app/src/main/res/layout/dialog_select_photo.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/dialog_shop_profile_updated.xml" value="0.24114583333333334" />
-        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_add_product_provider.xml" value="0.17399473881999247" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.14722222222222223" />
         <entry key="app/src/main/res/layout/fragment_home_provider.xml" value="0.25" />
