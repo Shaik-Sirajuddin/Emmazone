@@ -1,18 +1,12 @@
 package com.live.emmazone.activities.fragment
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.live.emmazone.R
 import com.live.emmazone.adapter.AdapterOnGoingUserOrders
 import com.live.emmazone.databinding.OnGoingOrdersFragmentBinding
 import com.live.emmazone.net.RestObservable
@@ -20,7 +14,7 @@ import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.UserOrderListing
 import com.live.emmazone.view_models.AppViewModel
 
-class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObservable> {
+class OnGoingOrdersFragment : Fragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
     val list = ArrayList<UserOrderListing.Body.Response>()
@@ -55,49 +49,8 @@ class OnGoingOrdersFragment : Fragment(), View.OnClickListener, Observer<RestObs
 
 
     private fun setAdapter() {
-        adapter = AdapterOnGoingUserOrders(requireContext(), list)
+        adapter = AdapterOnGoingUserOrders(requireContext(), list, true)
         binding.rvOnGoingOrders.adapter = adapter
-    }
-
-    override fun onClick(v: View?) {
-
-        when (v?.id) {
-            R.id.imgCodeScanner -> {
-                val dialog = Dialog(requireContext())
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                dialog.setCancelable(true)
-                dialog.setCanceledOnTouchOutside(true)
-
-                dialog.setContentView(R.layout.dialog_scan_qr_code)
-
-                dialog.window?.apply {
-
-                    setLayout(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-
-                    setBackgroundDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            android.R.color.transparent
-                        )
-                    )
-                }
-
-                val backIcon = dialog.findViewById<ImageView>(R.id.crossImage)
-
-                backIcon.setOnClickListener { dialog.dismiss() }
-
-                dialog.show()
-            }
-
-            /*R.id.btnStatusOnTheWay ->{
-                val intent = Intent(activity, OrderDetail::class.java)
-                startActivity(intent)
-            }*/
-        }
-
     }
 
     override fun onChanged(t: RestObservable?) {

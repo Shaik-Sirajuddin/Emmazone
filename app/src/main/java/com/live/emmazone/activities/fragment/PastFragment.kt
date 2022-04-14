@@ -58,7 +58,7 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
     }
 
     private fun setAdapter() {
-        adapter = AdapterOnGoingUserOrders(requireContext(), listPastOrders)
+        adapter = AdapterOnGoingUserOrders(requireContext(), listPastOrders,false)
         binding.rvMyPastDelivered.adapter = adapter
     }
 

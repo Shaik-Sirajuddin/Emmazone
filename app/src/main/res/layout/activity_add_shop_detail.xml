@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fillViewport="true"
+    android:scrollbars="vertical"
     tools:context=".activities.provider.AddShopDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -159,13 +160,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
             android:background="@drawable/login_bg"
+            android:clickable="false"
+            android:focusable="false"
             android:imeOptions="actionDone"
             android:inputType="number"
+            android:longClickable="false"
             android:maxLines="1"
             android:paddingStart="8dp"
-            android:focusable="false"
-            android:clickable="false"
-            android:longClickable="false"
             app:layout_constraintEnd_toEndOf="@+id/tvYearFoundation"
             app:layout_constraintStart_toStartOf="@+id/tvYearFoundation"
             app:layout_constraintTop_toBottomOf="@+id/tvYearFoundation" />

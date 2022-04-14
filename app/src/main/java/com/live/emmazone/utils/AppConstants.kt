@@ -23,6 +23,7 @@ object AppConstants {
     const val USER2_ID = "user2Id"
     const val USER2_NAME = "user2Name"
     const val USER2_IMAGE = "user2Image"
+    const val SHOP_NAME_VISIBLE = "shopNameVisible"
     const val USER = "user"
     const val SELLER = "seller"
     const val NAME = "name"

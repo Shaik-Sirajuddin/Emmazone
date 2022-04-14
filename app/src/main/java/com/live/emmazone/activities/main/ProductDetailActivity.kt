@@ -53,6 +53,8 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     var totalQty = 0
 
     var productId = ""
+    var shopName = ""
+    var shopImage = ""
     private var selectedPaymentType = "" // 0=>Wallet 1=>Card 2=>cash
     private var selectedCardId = ""
     private var selectedCardCvv = ""
@@ -112,10 +114,24 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         qty = binding.tvCount.text.toString().toInt()
+
         if (intent.getStringExtra("productId") != null) {
             productId = intent.getStringExtra("productId")!!
 
         }
+
+        if (intent.getStringExtra(AppConstants.USER2_NAME) != null &&
+            intent.getStringExtra(AppConstants.USER2_IMAGE) != null
+        ) {
+            shopName = intent.getStringExtra(AppConstants.USER2_NAME)!!
+            shopImage = intent.getStringExtra(AppConstants.USER2_IMAGE)!!
+        }
+
+        if (intent.getBooleanExtra(AppConstants.SHOP_NAME_VISIBLE, false)) {
+            binding.tvShopName.text = shopName
+            binding.tvShopName.visibility = View.VISIBLE
+        }
+
 
         setOnClicks()
 
@@ -522,8 +538,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     }
 
     private fun openChatScreen() {
-        val shopName = intent.getStringExtra(AppConstants.USER2_NAME)!!
-        val shopImage = intent.getStringExtra(AppConstants.USER2_IMAGE)!!
+
 
         val intent = Intent(this, ChatActivity::class.java)
         intent.putExtra(AppConstants.USER2_NAME, shopName)

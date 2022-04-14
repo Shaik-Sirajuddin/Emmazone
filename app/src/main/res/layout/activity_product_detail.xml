@@ -86,11 +86,24 @@
             tools:layout_editor_absoluteX="42dp"
             tools:layout_editor_absoluteY="225dp" />
 
+        <TextView
+            android:id="@+id/tvShopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/berserka_store"
+            android:textColor="@color/green"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="15dp">
 
             <TextView
@@ -98,7 +111,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp18"
                 android:textStyle="bold" />
@@ -111,7 +123,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_toRightOf="@+id/productItemName"
                 android:padding="@dimen/dp5"
-                android:src="@drawable/ask_expert" />
+                android:src="@drawable/ask_expert"
+                android:visibility="gone" />
 
         </RelativeLayout>
 

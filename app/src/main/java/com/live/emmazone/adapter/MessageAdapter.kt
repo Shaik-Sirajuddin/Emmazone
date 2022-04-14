@@ -51,10 +51,10 @@ class MessageAdapter(val listMsg: ArrayList<ChatListResponse.ChatListResponseIte
 
             }
 
-            if (getPreference(AppConstants.ROLE ,"")== AppConstants.USER_ROLE){
+            if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
                 civProfile.loadImage(AppConstants.IMAGE_USER_URL + model.shopImage)
                 tvName.text = model.shopName
-            }else{
+            } else {
                 civProfile.loadImage(AppConstants.IMAGE_USER_URL + model.image)
                 tvName.text = model.userName
             }

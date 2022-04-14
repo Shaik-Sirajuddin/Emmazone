@@ -77,6 +77,7 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             val intent = Intent(this, ProductDetailActivity::class.java)
             intent.putExtra(AppConstants.USER2_NAME, arrayList[pos].vendorDetail.shopName)
             intent.putExtra(AppConstants.USER2_IMAGE, arrayList[pos].vendorDetail.image)
+            intent.putExtra(AppConstants.SHOP_NAME_VISIBLE, true)
             intent.putExtra("productId", arrayList[pos].id.toString())
             startActivity(intent)
         }

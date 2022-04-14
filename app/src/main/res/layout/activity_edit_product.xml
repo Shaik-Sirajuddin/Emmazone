@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fillViewport="true"
+    android:scrollbars="vertical"
     tools:context=".activities.provider.EditProductActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
