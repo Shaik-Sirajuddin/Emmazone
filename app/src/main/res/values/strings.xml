@@ -307,6 +307,8 @@
     <string name="not_sufficient_balance">Not a sufficient balance for Withdraw</string>
     <string name="pls_enter_sufficient_balance">Withdrawal amount should not be greater than current balance</string>
     <string name="search_products">Search Products</string>
+    <string name="save_close"><![CDATA[Save & Close]]></string>
+    <string name="save_continue"><![CDATA[Save & Continue]]></string>
 
 
 </resources>

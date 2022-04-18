@@ -12,6 +12,7 @@ import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.activities.ImageZoomActivity
@@ -24,7 +25,10 @@ import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.model.ImageModel
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
-import com.live.emmazone.response_model.*
+import com.live.emmazone.response_model.AddProductResponse
+import com.live.emmazone.response_model.CategoryColorSizeResponse
+import com.live.emmazone.response_model.CategoryListResponse
+import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.ImagePickerUtility
@@ -52,6 +56,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private lateinit var sizeAdapter: SizeAdapter
 
     private val list: ArrayList<CategoryListResponse.Body> = ArrayList()
+    private var categoryAdapter: CategoriesAdapter? = null
 
     private var selectedCategoryId = ""
     private var selectedSizeId = ""
@@ -59,10 +64,12 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var highlightValue = 1
 
     private lateinit var imageAdapter: ImageAdapter
-    private val imageList = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>()
+    private val imageList =
+        ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>()
     private var mainImagePath = ""
     var mainImage = ""
     private var imageslist: ArrayList<File> = ArrayList()
+    private var btnSaveCloseClick = false
 
 
     override fun selectedImage(imagePath: String?, code: Int) {
@@ -117,10 +124,10 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
 
     private fun setCategoryAdapter() {
-        val categoryAdapter = CategoriesAdapter(list)
+        categoryAdapter = CategoriesAdapter(list)
         binding.rvCategories.adapter = categoryAdapter
 
-        categoryAdapter.onClickListener = { pos ->
+        categoryAdapter?.onClickListener = { pos ->
             list.forEachIndexed { index, body ->
 
                 if (pos == index) {
@@ -133,7 +140,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                     body.isSelected = false
                 }
             }
-            categoryAdapter.notifyDataSetChanged()
+            categoryAdapter?.notifyDataSetChanged()
         }
 
     }
@@ -196,13 +203,13 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         imageAdapter = ImageAdapter(imageList)
         binding.recyclerImages.adapter = imageAdapter
 
-        imageAdapter.onItemClickListener = { pos,clickOn ->
-            if (clickOn == "addImage"){
+        imageAdapter.onItemClickListener = { pos, clickOn ->
+            if (clickOn == "addImage") {
 //                getImage(1, false)
                 selectImage()
-            }else if (clickOn == "viewImage"){
+            } else if (clickOn == "viewImage") {
                 val intent = Intent(this, ImageZoomActivity::class.java)
-                intent.putExtra(AppConstants.IMAGE_USER_URL,imageList[pos].image)
+                intent.putExtra(AppConstants.IMAGE_USER_URL, imageList[pos].image)
                 startActivity(intent)
             }
         }
@@ -224,7 +231,13 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             onBackPressed()
         }
 
-        binding.btnSave.setOnClickListener {
+        binding.btnSaveContinue.setOnClickListener {
+            btnSaveCloseClick = false
+            validateAddProduct()
+        }
+
+        binding.btnSaveClose.setOnClickListener {
+            btnSaveCloseClick = true
             validateAddProduct()
         }
 
@@ -233,13 +246,13 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         }
 
         binding.ivShop.setOnClickListener {
-            if (mainImagePath.isNotEmpty()){
-                val intent = Intent(this,ImageZoomActivity::class.java)
-                intent.putExtra(AppConstants.IMAGE_USER_URL,mainImagePath)
+            if (mainImagePath.isNotEmpty()) {
+                val intent = Intent(this, ImageZoomActivity::class.java)
+                intent.putExtra(AppConstants.IMAGE_USER_URL, mainImagePath)
                 startActivity(intent)
-            }else if (mainImage.isNotEmpty()){
-                val intent = Intent(this,ImageZoomActivity::class.java)
-                intent.putExtra(AppConstants.IMAGE_USER_URL,mainImage)
+            } else if (mainImage.isNotEmpty()) {
+                val intent = Intent(this, ImageZoomActivity::class.java)
+                intent.putExtra(AppConstants.IMAGE_USER_URL, mainImage)
                 startActivity(intent)
             }
         }
@@ -449,7 +462,43 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                     val response: AddProductResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
-                        showAddProductDialog()
+                        if (btnSaveCloseClick) {
+                            showAddProductDialog()
+                        } else {
+                            mainImagePath = ""
+                            selectedCategoryId = ""
+                            selectedSizeId = ""
+                            selectedColorId = ""
+                            binding.ivShop.setImageResource(R.color.black)
+                            imageList.clear()
+                            imageAdapter.notifyDataSetChanged()
+                            binding.edtShopName.setText("")
+                            binding.edtShotDesc.setText("")
+                            binding.edtDesc.setText("")
+                            binding.edtProductPrice.setText("")
+                            binding.edtProductQ.setText("")
+
+                            list.forEach {
+                                it.isSelected = false
+                            }
+                            categoryAdapter?.notifyDataSetChanged()
+
+                            colorList.forEach {
+                                it.isSelected = false
+                            }
+                            colorAdapter?.notifyDataSetChanged()
+
+                            sizeList.forEach {
+                                it.isSelected = false
+                            }
+                            sizeAdapter?.notifyDataSetChanged()
+
+                            binding.nestedScrollView.post {
+                                binding.nestedScrollView.fullScroll(NestedScrollView.FOCUS_UP)
+                            }
+
+                        }
+
                     }
                 }
 
