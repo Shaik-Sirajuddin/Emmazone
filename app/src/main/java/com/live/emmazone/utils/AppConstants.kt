@@ -48,6 +48,9 @@ object AppConstants {
     const val LOCATION = "location"
     const val FILTER = "filter"
     const val SELECTED_BANK_ACCOUNT = "selectedBankAcc"
+    const val CATEGORY_DROP_DOWN =1
+    const val COLOUR_DROP_DOWN =2
+    const val SIZE_DROP_DOWN =3
 
 
     /*******URLs*****/

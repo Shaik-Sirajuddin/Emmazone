@@ -114,6 +114,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                         savePreference(AppConstants.USER_ID, response.body.id.toString())
                         savePreference(AppConstants.NAME, response.body.username)
                         savePreference(AppConstants.AUTHORIZATION, response.body.token)
+                        Log.d("tAuth" ,response.body.token)
                         savePreference(
                             AppConstants.NOTIFICATION_TYPE,
                             response.body.notificationStatus.toString()

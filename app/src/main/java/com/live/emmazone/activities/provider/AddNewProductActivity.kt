@@ -433,7 +433,8 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                         list.addAll(response.body)
                         setCategoryAdapter()
                     }
-                } else if (t.data is CategoryColorSizeResponse) {
+                }
+                else if (t.data is CategoryColorSizeResponse) {
                     val response: CategoryColorSizeResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
 

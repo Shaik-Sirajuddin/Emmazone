@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.util.Log
+import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.live.emmazone.R
 import com.live.emmazone.activities.auth.LoginActivity
@@ -49,6 +50,7 @@ class RestObservable(
             if (progressDialog != null && progressDialog!!.isShowing) {
                 progressDialog!!.dismiss()
             }
+            Log.e("Response", Gson().toJson(data))
             return RestObservable(Status.SUCCESS, data, null)
             /* val response: BaseResponse = data as BaseResponse
              if (response.code == 200) {

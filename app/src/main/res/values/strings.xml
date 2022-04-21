@@ -88,6 +88,9 @@
     <string name="current_location">Current Location</string>
     <string name="nw_tower_new_york_usa">Nw tower, New york, USA</string>
     <string name="colour">Colour</string>
+    <string name="low_to_high">Low to High</string>
+    <string name="high_to_low">High to Low</string>
+    <string name="price_range">Price Range</string>
     <string name="colour1">Colour1</string>
     <string name="size1">Size1</string>
     <string name="x">X</string>
@@ -263,6 +266,7 @@
     <string name="msg_enter_quantity">Please enter quantity</string>
     <string name="msg_select_color">Please select color</string>
     <string name="msg_select_size">Please select size</string>
+    <string name="select_size">Select size</string>
     <string name="msg_select_category_1">Please select category</string>
     <string name="msg_select_rating">Please select ratings</string>
     <string name="msg_pls_add_comment">Please add a comment</string>
@@ -276,6 +280,8 @@
     <string name="shot_description">Short Description</string>
     <string name="only_25_characters">only 25 characters</string>
     <string name="please_select_address">Please select address</string>
+    <string name="select_category">Select Category</string>
+    <string name="please_select_color">Select color</string>
     <string name="please_select_payment">Please select payment type</string>
     <string name="please_select_card">Please select card</string>
     <string name="please_select_payment_type">Please select payment type</string>
@@ -309,6 +315,7 @@
     <string name="search_products">Search Products</string>
     <string name="save_close"><![CDATA[Save & Close]]></string>
     <string name="save_continue"><![CDATA[Save & Continue]]></string>
+    <string name="category">Category</string>
 
 
 </resources>
