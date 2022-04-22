@@ -1,11 +1,8 @@
 package com.live.emmazone.adapter
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
@@ -14,7 +11,6 @@ import com.live.emmazone.response_model.socket_response.ChatListResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.schunts.extensionfuncton.loadImage
-import com.tubb.smrv.SwipeHorizontalMenuLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.item_message.view.*
 

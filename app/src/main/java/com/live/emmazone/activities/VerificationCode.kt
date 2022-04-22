@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.live.emmazone.MainActivity
-import com.live.emmazone.activities.auth.SignUpActivity
 import com.live.emmazone.activities.provider.AddShopDetailActivity
 import com.live.emmazone.databinding.ActivityVerificationCodeBinding
 import com.live.emmazone.extensionfuncton.Validator

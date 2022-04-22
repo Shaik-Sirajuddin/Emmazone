@@ -11,14 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.activities.auth.LoginActivity
-import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.adapter.AdapterShopDetailProducts
 import com.live.emmazone.databinding.ActivitySearchBinding
-import com.live.emmazone.model.ModelShopDetailProducts
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.SellerShopDetailResponse
-import com.live.emmazone.response_model.ShopDetailResponse
 
 class SearchActivity : AppCompatActivity() {
     lateinit var binding: ActivitySearchBinding

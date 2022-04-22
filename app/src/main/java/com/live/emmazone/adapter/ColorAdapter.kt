@@ -30,7 +30,6 @@ class ColorAdapter(val list: ArrayList<CategoryColorSizeResponse.Body.CategoryCo
 
     inner class ColorViewHolder(val binding: ItemColorBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(pos: Int) {
             val colorResponse = list[pos]
 

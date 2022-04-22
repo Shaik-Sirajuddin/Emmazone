@@ -32,8 +32,8 @@
         android:id="@+id/seekBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:value="0"
         app:thumbColor="@color/green"
+        android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="@id/tvPrice"
         app:layout_constraintStart_toStartOf="@id/tvPrice"
         app:layout_constraintTop_toBottomOf="@id/tvPrice"
@@ -45,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
+        android:includeFontPadding="false"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/seekBar"
         app:layout_constraintTop_toBottomOf="@id/seekBar"/>
@@ -54,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2000"
+        android:includeFontPadding="false"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/seekBar"
         app:layout_constraintTop_toBottomOf="@id/seekBar"/>
@@ -163,7 +165,7 @@
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
-        android:layout_height="90dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="@id/tvPrice"
         app:layout_constraintTop_toBottomOf="@id/tvPriceRange">
@@ -183,10 +185,19 @@
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:checked="false"
             android:padding="@dimen/_5sdp"
             android:text="@string/high_to_low"
+            android:textColor="@color/green"
+            android:textSize="@dimen/sp18" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:padding="@dimen/_5sdp"
+            android:text="None"
             android:textColor="@color/green"
             android:textSize="@dimen/sp18" />
     </RadioGroup>

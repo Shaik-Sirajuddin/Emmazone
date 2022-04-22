@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.provider.SyncStateContract
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -18,16 +17,18 @@ import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.appcompat.widget.ThemedSpinnerAdapter
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.slider.Slider
 import com.live.emmazone.R
 import com.live.emmazone.adapter.CategoriesAdapter
 import com.live.emmazone.adapter.ColorAdapter
 import com.live.emmazone.adapter.SearchProductAdapter
 import com.live.emmazone.adapter.SizeAdapter
 import com.live.emmazone.databinding.BottomSheetFilterProductDialogBinding
+import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CategoryColorSizeResponse
@@ -37,7 +38,6 @@ import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
 import kotlinx.android.synthetic.main.activity_search_product.*
-import kotlinx.android.synthetic.main.activity_withdrawal2.*
 import kotlinx.android.synthetic.main.bottom_sheet_filter_product_dialog.*
 import kotlinx.android.synthetic.main.dialog_category.*
 
@@ -51,7 +51,9 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     var colorID = ""
     var sizeID = ""
     var categoryName = ""
-    var dropDownType=0
+    var priceRangeValue: Boolean? = null
+    var priceSort = ""
+    var dropDownType = 0
     private val colorList = ArrayList<CategoryColorSizeResponse.Body.CategoryColor>()
     private val sizeList = ArrayList<CategoryColorSizeResponse.Body.CategorySize>()
     private lateinit var colorAdapter: ColorAdapter
@@ -109,6 +111,19 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         appViewModel.getResponse().observe(this, this)
     }
 
+    private fun filterApiHit(s: String) {
+        val hashMap = HashMap<String, String>()
+        hashMap["keyword"] = s
+        hashMap["categoryId"] = categoryID
+        hashMap["categoryColorId"] = colorID
+        hashMap["categorySizeId"] = sizeID
+        hashMap["max_price"] = bottomDialog!!.seekBar.value.toString().trim()
+        hashMap["price_sort"] = priceSort
+
+        appViewModel.filterProductApi(this, hashMap, false)
+        appViewModel.getResponse().observe(this, this)
+    }
+
     private fun setSearchAdapter() {
         searchAdapter = SearchProductAdapter(arrayList)
         rvSearchProduct.adapter = searchAdapter
@@ -126,8 +141,8 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     private fun showBottomDialog() {
         AppUtils.hideSoftKeyboard(this)
         bottomDialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
-        // binding = BottomSheetFilterProductDialogBinding.inflate(layoutInflater)
-        //    setContentView(binding.root)
+//         binding = BottomSheetFilterProductDialogBinding.inflate(layoutInflater)
+//            setContentView(binding.root)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_filter_product_dialog, null)
         bottomDialog?.setCancelable(true)
         bottomDialog?.setContentView(view)
@@ -136,12 +151,68 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         var tvSelectCategory = view.findViewById<AppCompatTextView>(R.id.tvSelectCategory)
         val tvSelectColor = view.findViewById<AppCompatTextView>(R.id.tvSelectColor)
         val tvSelectSize = view.findViewById<AppCompatTextView>(R.id.tvSelectSize)
+        val seekBar = view.findViewById<Slider>(R.id.seekBar)
         val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
         val radioButton = view.findViewById<RadioButton>(R.id.radioButton)
         val radioButton2 = view.findViewById<RadioButton>(R.id.radioButton2)
+        val radioButton3 = view.findViewById<RadioButton>(R.id.radioButton3)
         val btnDone = view.findViewById<Button>(R.id.btnDone)
 
 
+
+        if (getPreference(AppConstants.IS_FILTER, false)) {
+            tvSelectCategory.text = getPreference(AppConstants.CATEGORY_NAME, "").toString()
+            categoryID = getPreference(AppConstants.CATEGORY_ID, "").toString()
+            colorID = getPreference(AppConstants.COLOUR_ID, "").toString()
+            tvSelectColor.text = getPreference(AppConstants.COLOUR_NAME, "").toString()
+            tvSelectSize.text = getPreference(AppConstants.SIZE_NAME, "").toString()
+            sizeID = getPreference(AppConstants.SIZE_ID, "").toString()
+
+            when {
+                getPreference(AppConstants.PRICE_RANGE, "") == "1" -> {
+                    radioButton.isChecked = true
+                    priceSort = "1"
+                }
+                getPreference(AppConstants.PRICE_RANGE, "") == "2" -> {
+                    radioButton2.isChecked = true
+                    priceSort = "2"
+                }
+                else -> {
+                    radioButton3.isChecked = true
+                    priceSort = ""
+                }
+            }
+            fun onRadioButtonClicked(view: View) {
+                if (view is RadioButton) {
+                    // Is the button now checked?
+                    val checked = view.isChecked
+
+                    // Check which radio button was clicked
+                    when (view.getId()) {
+                        R.id.radioButton ->
+                            if (checked) {
+                                priceRangeValue = true
+                                priceSort = "1"
+                            }
+                        R.id.radioButton2 ->
+                            if (checked) {
+                                priceRangeValue = false
+                                priceSort = "2"
+                            }
+                    }
+                    priceSort = ""
+                }
+            }
+            if(getPreference(AppConstants.PRICE, "")!="0.0f"){
+                seekBar.value = getPreference(AppConstants.PRICE, "").toFloat()
+            }
+            else{
+                seekBar.value = 0.0f
+            }
+
+
+
+        }
 
         tvSelectCategory.setOnClickListener {
             dropDownType = AppConstants.CATEGORY_DROP_DOWN
@@ -150,22 +221,20 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         }
 
         tvSelectColor.setOnClickListener {
-            if(categoryID.isNotEmpty()){
+            if (categoryID.isNotEmpty() && categoryID != "0") {
                 dropDownType = AppConstants.COLOUR_DROP_DOWN
                 getColorSizeApiHit()
-            }
-            else{
+            } else {
                 Toast.makeText(applicationContext, "Please select category", Toast.LENGTH_SHORT)
                     .show();
             }
 
         }
         tvSelectSize.setOnClickListener {
-            if(colorID.isNotEmpty()){
+            if (colorID.isNotEmpty() && colorID != "0") {
                 dropDownType = AppConstants.SIZE_DROP_DOWN
                 showCategoryDialog()
-            }
-            else{
+            } else {
                 Toast.makeText(applicationContext, "Please select colour", Toast.LENGTH_SHORT)
                     .show();
             }
@@ -173,9 +242,47 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         }
 
 
-
-
         btnDone.setOnClickListener {
+            filterApiHit(edtSearch.text.toString().trim())
+            savePreference(AppConstants.IS_FILTER, true)
+            if (tvSelectCategory.text.toString().trim().isNotEmpty()) {
+                savePreference(AppConstants.CATEGORY_NAME, tvSelectCategory.text.toString().trim())
+                savePreference(AppConstants.CATEGORY_ID, categoryID)
+            }
+
+            if (tvSelectColor.text.toString().trim().isNotEmpty()) {
+                savePreference(AppConstants.COLOUR_NAME, tvSelectColor.text.toString().trim())
+                savePreference(AppConstants.COLOUR_ID, colorID)
+            }
+
+            if (tvSelectSize.text.toString().trim().isNotEmpty()) {
+                savePreference(AppConstants.SIZE_NAME, tvSelectSize.text.toString().trim())
+                savePreference(AppConstants.SIZE_ID, sizeID)
+            }
+            if (seekBar.value != 0.0f) {
+                savePreference(AppConstants.PRICE, seekBar.value.toString())
+
+
+            }
+            else{
+                savePreference(AppConstants.PRICE, 0.0f.toString())
+            }
+            Log.d("seekBar.value",seekBar.value.toString())
+            if (radioButton.isChecked || radioButton2.isChecked) {
+                if (radioButton.isChecked) {
+                    savePreference(AppConstants.PRICE_RANGE, "1")
+                    priceSort = "1"
+                } else if (radioButton2.isChecked) {
+                    savePreference(AppConstants.PRICE_RANGE, "2")
+                    priceSort = "2"
+
+                }
+            } else {
+                priceSort = ""
+                savePreference(AppConstants.PRICE_RANGE, "")
+            }
+
+
             bottomDialog!!.dismiss()
         }
 
@@ -199,27 +306,24 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
-        dialog!!.setCancelable(true)
-        dialog!!.setCanceledOnTouchOutside(true)
-        dialog!!.window!!.setGravity(Gravity.CENTER)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val recycle: RecyclerView = dialog!!.findViewById(R.id.rvAvatars)!!
-        val titleTV: TextView = dialog!!.findViewById(R.id.titleTV)!!
-        if(dropDownType == AppConstants.CATEGORY_DROP_DOWN){
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.window!!.setGravity(Gravity.CENTER)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val recycle: RecyclerView = dialog.findViewById(R.id.rvAvatars)!!
+        val titleTV: TextView = dialog.findViewById(R.id.titleTV)!!
+        if (dropDownType == AppConstants.CATEGORY_DROP_DOWN) {
             titleTV.text = "Choose Category"
             setCategoryAdapter(recycle)
-        }
-      else  if(dropDownType == AppConstants.COLOUR_DROP_DOWN){
+        } else if (dropDownType == AppConstants.COLOUR_DROP_DOWN) {
             titleTV.text = "Choose Colour"
             setColorAdapter(recycle)
-        }
-
-        else  if(dropDownType == AppConstants.SIZE_DROP_DOWN){
+        } else if (dropDownType == AppConstants.SIZE_DROP_DOWN) {
             titleTV.text = "Choose Size"
-           setSizeAdapter()
+            setSizeAdapter()
         }
 
-        dialog!!.show()
+        dialog.show()
     }
 
     private fun setCategoryAdapter(recyclerView: RecyclerView) {
@@ -234,9 +338,15 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             }
             dialog.dismiss()
             categoryID = list[pos].id.toString()
+            if (categoryID == "0") {
+                bottomDialog!!.tvSelectColor.text = "Select Color"
+                colorID = ""
+                bottomDialog!!.tvSelectSize.text = "Select Size"
+                sizeID = ""
+            }
             categoryName = list[pos].name
             bottomDialog!!.tvSelectCategory.text = categoryName
-           
+
 
         }
 
@@ -247,15 +357,13 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         recyclerView.adapter = colorAdapter
 
         colorAdapter.onClickListener = { pos ->
-
-                colorList.forEachIndexed { index, body ->
-                    body.isSelected = pos == index
-                }
-                dialog.dismiss()
-                colorID = colorList[pos].id.toString()
-                bottomDialog!!.tvSelectColor.text = colorList[pos].color
+            colorList.forEachIndexed { index, body ->
+                body.isSelected = pos == index
             }
-
+            dialog.dismiss()
+            colorID = colorList[pos].id.toString()
+            bottomDialog!!.tvSelectColor.text = colorList[pos].color
+        }
 
 
     }
@@ -298,16 +406,15 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
 
                     }
 
-                }
-                else if (t.data is CategoryListResponse) {
+                } else if (t.data is CategoryListResponse) {
                     val response: CategoryListResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         list.clear()
                         list.addAll(response.body)
+                        list.add(0, CategoryListResponse.Body(0, "", "Select Category", false))
                         showCategoryDialog()
                     }
-                }
-                else if (t.data is CategoryColorSizeResponse) {
+                } else if (t.data is CategoryColorSizeResponse) {
                     val response: CategoryColorSizeResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
 
@@ -315,21 +422,16 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                         sizeList.clear()
 
                         colorList.addAll(response.body.categoryColors)
+                        colorList.add(
+                            0,
+                            CategoryColorSizeResponse.Body.CategoryColor(0, "Select Colour", 0)
+                        )
                         sizeList.addAll(response.body.categorySizes)
-
-//                        if (colorList.size > 0) {
-//                            binding.tvProColor.visibility = View.VISIBLE
-//                        } else {
-//                            binding.tvProColor.visibility = View.GONE
-//                        }
-//                        if (sizeList.size > 0) {
-//                            binding.tvProdSize.visibility = View.VISIBLE
-//                        } else {
-//                            binding.tvProdSize.visibility = View.GONE
-//                        }
-
+                        sizeList.add(
+                            0,
+                            CategoryColorSizeResponse.Body.CategorySize(0, 0, "Select Size")
+                        )
                         showCategoryDialog()
-                     //   setSizeAdapter()
 
                     }
                 }

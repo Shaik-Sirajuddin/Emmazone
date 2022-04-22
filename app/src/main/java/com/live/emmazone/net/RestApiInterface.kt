@@ -242,4 +242,10 @@ interface RestApiInterface {
         @FieldMap hashMap: HashMap<String, String>
     ): Call<SearchProductResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.SEARCH_PRODUCT)
+    fun filterProduct(
+        @FieldMap hashMap: HashMap<String, String>
+    ): Call<SearchProductResponse>
+
 }

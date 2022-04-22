@@ -51,6 +51,16 @@ object AppConstants {
     const val CATEGORY_DROP_DOWN =1
     const val COLOUR_DROP_DOWN =2
     const val SIZE_DROP_DOWN =3
+    const val IS_FILTER ="isFilter"
+    const val CATEGORY_NAME ="categoryName"
+    const val CATEGORY_ID ="categoryID"
+    const val COLOUR_NAME ="colourName"
+    const val COLOUR_ID ="colourID"
+    const val SIZE_NAME="sizeName"
+    const val SIZE_ID="sizeID"
+    const val PRICE_RANGE="priceRange"
+    const val PRICE="price"
+
 
 
     /*******URLs*****/
@@ -113,5 +123,7 @@ object AppConstants {
     const val TRANSACTION_LIST = "transaction_list"
     const val WITHDRAW_REQUEST = "withdrawl"
     const val SEARCH_PRODUCT = "searchProduct"
+
+
 
 }

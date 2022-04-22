@@ -2,11 +2,8 @@ package com.live.emmazone.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.live.emmazone.R
 import com.live.emmazone.databinding.ItemChatLeftBinding
 import com.live.emmazone.databinding.ItemChatRightBinding
 import com.live.emmazone.extensionfuncton.getPreference
