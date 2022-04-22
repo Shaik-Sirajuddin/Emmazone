@@ -305,6 +305,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
                         list[selectedPos!!].isLiked = response.body.status
                         nearShopAdapter.notifyDataSetChanged()
+//                        setShopAdapter()
                         AppUtils.showMsgOnlyWithoutClick(requireActivity(), response.message)
 
                     }

@@ -50,6 +50,9 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     var categoryID = ""
     var colorID = ""
     var sizeID = ""
+    var catid = ""
+    var colId = ""
+    var sizId = ""
     var categoryName = ""
     var priceRangeValue: Boolean? = null
     var priceSort = ""
@@ -112,13 +115,29 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     }
 
     private fun filterApiHit(s: String) {
+        catid = if (categoryID == "0") {
+            ""
+        } else {
+            categoryID
+        }
+        colId = if (colorID == "0") {
+            ""
+        } else {
+            colorID
+        }
+        sizId = if (sizeID == "0") {
+            ""
+        } else {
+            sizeID
+        }
         val hashMap = HashMap<String, String>()
         hashMap["keyword"] = s
-        hashMap["categoryId"] = categoryID
-        hashMap["categoryColorId"] = colorID
-        hashMap["categorySizeId"] = sizeID
-        hashMap["max_price"] = bottomDialog!!.seekBar.value.toString().trim()
+        hashMap["categoryId"] = catid
+        hashMap["categoryColorId"] = colId
+        hashMap["categorySizeId"] = sizId
+        hashMap["max_price"] = bottomDialog!!.seekBar.value.toInt().toString().trim()
         hashMap["price_sort"] = priceSort
+
 
         appViewModel.filterProductApi(this, hashMap, false)
         appViewModel.getResponse().observe(this, this)
@@ -141,8 +160,6 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     private fun showBottomDialog() {
         AppUtils.hideSoftKeyboard(this)
         bottomDialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
-//         binding = BottomSheetFilterProductDialogBinding.inflate(layoutInflater)
-//            setContentView(binding.root)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_filter_product_dialog, null)
         bottomDialog?.setCancelable(true)
         bottomDialog?.setContentView(view)
@@ -157,7 +174,6 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         val radioButton2 = view.findViewById<RadioButton>(R.id.radioButton2)
         val radioButton3 = view.findViewById<RadioButton>(R.id.radioButton3)
         val btnDone = view.findViewById<Button>(R.id.btnDone)
-
 
 
         if (getPreference(AppConstants.IS_FILTER, false)) {
@@ -182,34 +198,12 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                     priceSort = ""
                 }
             }
-            fun onRadioButtonClicked(view: View) {
-                if (view is RadioButton) {
-                    // Is the button now checked?
-                    val checked = view.isChecked
 
-                    // Check which radio button was clicked
-                    when (view.getId()) {
-                        R.id.radioButton ->
-                            if (checked) {
-                                priceRangeValue = true
-                                priceSort = "1"
-                            }
-                        R.id.radioButton2 ->
-                            if (checked) {
-                                priceRangeValue = false
-                                priceSort = "2"
-                            }
-                    }
-                    priceSort = ""
-                }
-            }
-            if(getPreference(AppConstants.PRICE, "")!="0.0f"){
+            if (getPreference(AppConstants.PRICE, "") != "0.0f") {
                 seekBar.value = getPreference(AppConstants.PRICE, "").toFloat()
-            }
-            else{
+            } else {
                 seekBar.value = 0.0f
             }
-
 
 
         }
@@ -224,26 +218,24 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             if (categoryID.isNotEmpty() && categoryID != "0") {
                 dropDownType = AppConstants.COLOUR_DROP_DOWN
                 getColorSizeApiHit()
+
+            } else {
+                Toast.makeText(applicationContext, "Please select category", Toast.LENGTH_SHORT)
+                    .show();
+            }
+        }
+        tvSelectSize.setOnClickListener {
+            if (categoryID.isNotEmpty() && categoryID != "0") {
+                dropDownType = AppConstants.SIZE_DROP_DOWN
+                getColorSizeApiHit()
             } else {
                 Toast.makeText(applicationContext, "Please select category", Toast.LENGTH_SHORT)
                     .show();
             }
 
         }
-        tvSelectSize.setOnClickListener {
-            if (colorID.isNotEmpty() && colorID != "0") {
-                dropDownType = AppConstants.SIZE_DROP_DOWN
-                showCategoryDialog()
-            } else {
-                Toast.makeText(applicationContext, "Please select colour", Toast.LENGTH_SHORT)
-                    .show();
-            }
-
-        }
-
 
         btnDone.setOnClickListener {
-            filterApiHit(edtSearch.text.toString().trim())
             savePreference(AppConstants.IS_FILTER, true)
             if (tvSelectCategory.text.toString().trim().isNotEmpty()) {
                 savePreference(AppConstants.CATEGORY_NAME, tvSelectCategory.text.toString().trim())
@@ -263,26 +255,26 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                 savePreference(AppConstants.PRICE, seekBar.value.toString())
 
 
-            }
-            else{
+            } else {
                 savePreference(AppConstants.PRICE, 0.0f.toString())
             }
-            Log.d("seekBar.value",seekBar.value.toString())
-            if (radioButton.isChecked || radioButton2.isChecked) {
-                if (radioButton.isChecked) {
-                    savePreference(AppConstants.PRICE_RANGE, "1")
-                    priceSort = "1"
-                } else if (radioButton2.isChecked) {
-                    savePreference(AppConstants.PRICE_RANGE, "2")
-                    priceSort = "2"
+            Log.d("seekBar.value", seekBar.value.toString())
+            //   if (radioButton.isChecked || radioButton2.isChecked) {
+            if (radioButton.isChecked) {
+                savePreference(AppConstants.PRICE_RANGE, "1")
+                priceSort = "1"
+            } else if (radioButton2.isChecked) {
+                savePreference(AppConstants.PRICE_RANGE, "2")
+                priceSort = "2"
 
-                }
-            } else {
+            } else if (radioButton3.isChecked) {
+                savePreference(AppConstants.PRICE_RANGE, " ")
                 priceSort = ""
-                savePreference(AppConstants.PRICE_RANGE, "")
+
             }
+            //  }
 
-
+            filterApiHit(edtSearch.text.toString().trim())
             bottomDialog!!.dismiss()
         }
 
@@ -331,21 +323,17 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         recyclerView.adapter = categoryAdapter
 
         categoryAdapter.onClickListener = { pos ->
-
-
             list.forEachIndexed { index, body ->
                 body.isSelected = pos == index
             }
             dialog.dismiss()
             categoryID = list[pos].id.toString()
-            if (categoryID == "0") {
-                bottomDialog!!.tvSelectColor.text = "Select Color"
-                colorID = ""
-                bottomDialog!!.tvSelectSize.text = "Select Size"
-                sizeID = ""
-            }
             categoryName = list[pos].name
             bottomDialog!!.tvSelectCategory.text = categoryName
+            bottomDialog!!.tvSelectColor.text = "Select Color"
+            colorID = ""
+            bottomDialog!!.tvSelectSize.text = "Select Size"
+            sizeID = ""
 
 
         }

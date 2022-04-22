@@ -50,7 +50,7 @@ class RestObservable(
             if (progressDialog != null && progressDialog!!.isShowing) {
                 progressDialog!!.dismiss()
             }
-            Log.e("Response", Gson().toJson(data))
+       //     Log.e("Response", Gson().toJson(data))
             return RestObservable(Status.SUCCESS, data, null)
             /* val response: BaseResponse = data as BaseResponse
              if (response.code == 200) {
