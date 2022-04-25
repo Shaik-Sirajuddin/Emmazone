@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.live.emmazone.R
+import com.live.emmazone.activities.ImageZoomActivity
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.adapter.AdapterShopDetailProducts
@@ -105,6 +106,15 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
             } else {
                 favUnFavApiHit()
             }
+        }
+
+        binding.imageShopDetail.setOnClickListener {
+            val intent = Intent(this, ImageZoomActivity::class.java)
+            intent.putExtra(
+                AppConstants.IMAGE_USER_URL,
+                AppConstants.IMAGE_USER_URL + response!!.body.image
+            )
+            startActivity(intent)
         }
 
     }
