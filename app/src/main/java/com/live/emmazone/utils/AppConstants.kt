@@ -65,12 +65,13 @@ object AppConstants {
 
     /*******URLs*****/
 //    const val BASE_URL = "http://192.168.1.153:8188/api/" //LOCAL URLs
-    const val BASE_URL = "http://202.164.42.227:8188/api/"
-    const val IMAGE_CATEGORY_URL = "http://202.164.42.227:8188/uploads/category/"
-    const val IMAGE_USER_URL = "http://202.164.42.227:8188/uploads/user/"
-    const val SHOP_IMAGE_URL = "http://202.164.42.8188/uploads/shop_images/"
-    const val PRODUCT_IMAGE_URL = "http://202.164.42.227:8188/uploads/product/"
-    const val SOCKET_BASE_URL = "http://202.164.42.227:8188/"
+//    const val BASE_URL = "http://202.164.42.227:8188/api/"
+    const val BASE_URL = "https://app.emmazn.de/api/" //Client Server
+    const val IMAGE_CATEGORY_URL = "https://app.emmazn.de/uploads/category/"
+    const val IMAGE_USER_URL = "https://app.emmazn.de/uploads/user/"
+    const val SHOP_IMAGE_URL = "https://app.emmazn.de/uploads/shop_images/"
+    const val PRODUCT_IMAGE_URL = "https://app.emmazn.de/uploads/product/"
+    const val SOCKET_BASE_URL = "https://app.emmazn.de/"
     const val SIGN_UP = "signup_user"
     const val OTP_VERIFY = "otp_verify"
     const val RESEND_OTP = "resend_otp"
