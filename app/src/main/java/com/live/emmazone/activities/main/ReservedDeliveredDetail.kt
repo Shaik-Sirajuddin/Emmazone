@@ -155,6 +155,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
                     onBackPressed()
                 }
             }
+            else -> {}
         }
     }
 }

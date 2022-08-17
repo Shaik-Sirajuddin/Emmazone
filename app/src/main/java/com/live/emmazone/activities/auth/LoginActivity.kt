@@ -155,6 +155,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 

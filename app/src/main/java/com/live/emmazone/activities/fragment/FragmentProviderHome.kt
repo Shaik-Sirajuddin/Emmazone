@@ -98,6 +98,7 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
                 ToastUtils.showLongToast(t.error.toString())
 
             }
+            else -> {}
         }
     }
 

@@ -125,6 +125,7 @@ class FragmentMyOrders(private val notificationResponse: NotificationListingResp
 
                 }
             }
+            else -> {}
         }
     }
 

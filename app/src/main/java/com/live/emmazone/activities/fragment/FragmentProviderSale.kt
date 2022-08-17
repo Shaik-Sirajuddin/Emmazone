@@ -140,6 +140,7 @@ class FragmentProviderSale(val notificationResponse: NotificationListingResponse
 
                 }
             }
+            else -> {}
         }
     }
 }

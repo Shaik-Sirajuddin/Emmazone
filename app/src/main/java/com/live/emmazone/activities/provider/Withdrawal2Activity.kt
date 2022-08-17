@@ -168,6 +168,7 @@ class Withdrawal2Activity : AppCompatActivity(),
                     }
                 }
             }
+            else -> {}
         }
     }
 

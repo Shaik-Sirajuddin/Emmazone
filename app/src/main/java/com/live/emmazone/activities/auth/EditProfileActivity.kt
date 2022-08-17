@@ -131,6 +131,7 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
 
             }
 
+            else -> {}
         }
     }
 

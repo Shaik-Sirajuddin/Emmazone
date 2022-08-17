@@ -179,6 +179,7 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
             }
 
 
+            else -> {}
         }
 
 

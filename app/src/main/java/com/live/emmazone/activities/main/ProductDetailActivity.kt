@@ -431,6 +431,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                     }
                 }
             }
+            else -> {}
         }
 
     }

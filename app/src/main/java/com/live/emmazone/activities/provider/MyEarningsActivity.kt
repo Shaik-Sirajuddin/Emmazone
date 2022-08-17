@@ -95,6 +95,7 @@ class MyEarningsActivity : AppCompatActivity(), Observer<RestObservable> {
 
                 }
             }
+            else -> {}
         }
     }
 }

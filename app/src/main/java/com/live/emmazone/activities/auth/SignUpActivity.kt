@@ -167,6 +167,7 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 

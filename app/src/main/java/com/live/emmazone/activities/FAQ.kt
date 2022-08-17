@@ -50,6 +50,7 @@ class FAQ : AppCompatActivity(), Observer<RestObservable> {
 
                 }
             }
+            else -> {}
         }
 
     }

@@ -76,6 +76,7 @@ class OnGoingSalesProviderFragment : Fragment(), Observer<RestObservable> {
 
                 }
             }
+            else -> {}
         }
     }
 

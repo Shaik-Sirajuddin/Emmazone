@@ -77,6 +77,7 @@ class PastSalesProviderFragment : Fragment(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     } 
 }

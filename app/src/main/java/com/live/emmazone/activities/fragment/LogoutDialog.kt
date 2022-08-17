@@ -62,6 +62,7 @@ class LogoutDialog : DialogFragment(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 }

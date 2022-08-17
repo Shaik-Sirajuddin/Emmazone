@@ -18,7 +18,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
 import com.permissionx.guolindev.PermissionX
 import java.io.File
@@ -179,7 +178,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
         }
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val fileUri = FileProvider.getUriForFile(
-            Objects.requireNonNull(this), BuildConfig.APPLICATION_ID + ".provider",
+            Objects.requireNonNull(this),"com.live.emmazone"+ ".provider",
             mImageFile
         )
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
@@ -215,6 +214,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
     }
 
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST_CODE) {

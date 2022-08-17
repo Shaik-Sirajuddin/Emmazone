@@ -215,6 +215,7 @@ class AddCardActivity : AppCompatActivity(),Observer<RestObservable>,OnPopupClic
                     }
                 }
             }
+            else -> {}
         }
     }
 

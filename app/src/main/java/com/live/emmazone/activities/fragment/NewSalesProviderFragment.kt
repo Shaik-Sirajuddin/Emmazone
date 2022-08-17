@@ -83,6 +83,7 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 

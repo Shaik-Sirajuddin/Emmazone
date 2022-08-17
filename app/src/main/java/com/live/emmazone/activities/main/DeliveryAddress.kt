@@ -154,6 +154,7 @@ class DeliveryAddress : AppCompatActivity(), Observer<RestObservable> {
 
                 }
             }
+            else -> {}
         }
     }
 

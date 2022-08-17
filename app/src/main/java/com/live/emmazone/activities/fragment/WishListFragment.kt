@@ -192,6 +192,7 @@ class WishListFragment : LocationUpdateUtilityFragment(), Observer<RestObservabl
                 }
 
             }
+            else -> {}
         }
 
 

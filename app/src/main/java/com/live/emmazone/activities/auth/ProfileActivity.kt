@@ -71,6 +71,7 @@ class ProfileActivity : AppCompatActivity(), Observer<RestObservable> {
 
                 }
             }
+            else -> {}
         }
 
     }

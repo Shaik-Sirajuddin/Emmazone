@@ -172,6 +172,7 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
 
             }
 
+            else -> {}
         }
 
     }

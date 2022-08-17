@@ -86,6 +86,7 @@ class OnGoingOrdersFragment : Fragment(), Observer<RestObservable> {
 
                 }
             }
+            else -> {}
         }
     }
 

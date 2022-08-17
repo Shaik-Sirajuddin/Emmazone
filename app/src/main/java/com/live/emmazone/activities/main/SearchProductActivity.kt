@@ -424,6 +424,7 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 }

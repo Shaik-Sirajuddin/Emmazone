@@ -81,6 +81,7 @@ class Notifications : AppCompatActivity(), Observer<RestObservable> {
 
                 }
             }
+            else -> {}
         }
 
     }

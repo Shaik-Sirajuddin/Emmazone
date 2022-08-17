@@ -146,6 +146,7 @@ class MyBankAccountActivity : AppCompatActivity(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 

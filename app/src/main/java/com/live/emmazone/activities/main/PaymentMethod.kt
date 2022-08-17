@@ -229,6 +229,7 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 }

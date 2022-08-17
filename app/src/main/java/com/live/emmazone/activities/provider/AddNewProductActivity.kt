@@ -504,6 +504,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 }
 
             }
+            else -> {}
         }
     }
 }

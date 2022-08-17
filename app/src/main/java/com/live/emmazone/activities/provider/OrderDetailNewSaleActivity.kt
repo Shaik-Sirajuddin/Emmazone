@@ -310,6 +310,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
                     onBackPressed()
                 }
             }
+            else -> {}
         }
     }
 

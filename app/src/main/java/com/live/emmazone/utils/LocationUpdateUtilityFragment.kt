@@ -88,7 +88,7 @@ abstract class LocationUpdateUtilityFragment : Fragment() {
 
         checkLocationPermissions()
         locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
+            override fun onLocationResult(locationResult: LocationResult) {
                 locationResult ?: return
                 for (location in locationResult.locations) {
                     // Update UI with location data
@@ -237,11 +237,13 @@ abstract class LocationUpdateUtilityFragment : Fragment() {
             return
         }
 
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
+        locationRequest?.let {
+            fusedLocationClient.requestLocationUpdates(
+                it,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        }
         Log.e(TAG, "Get Live Location Start")
     }
 

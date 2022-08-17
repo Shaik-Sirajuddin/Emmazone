@@ -70,6 +70,7 @@ class AddBankAccountActivity : AppCompatActivity(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 }

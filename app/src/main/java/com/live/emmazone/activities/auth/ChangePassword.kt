@@ -74,6 +74,7 @@ class ChangePassword : AppCompatActivity(), Observer<RestObservable>, OnPopupCli
             Status.ERROR ->{
 //                ToastUtils.showLongToast(t.data.)
             }
+            else -> {}
         }
 
     }

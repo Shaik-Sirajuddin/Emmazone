@@ -104,6 +104,7 @@ class ShopReviewsActivity : AppCompatActivity(),
                     }
                 }
             }
+            else -> {}
         }
     }
 

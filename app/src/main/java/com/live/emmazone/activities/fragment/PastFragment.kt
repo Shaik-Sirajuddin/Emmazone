@@ -112,6 +112,7 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
 
                 }
             }
+            else -> {}
         }
     }
 

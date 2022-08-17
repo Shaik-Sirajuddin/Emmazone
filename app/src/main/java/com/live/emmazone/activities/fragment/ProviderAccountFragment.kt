@@ -178,6 +178,7 @@ class ProviderAccountFragment : Fragment(), Observer<RestObservable> {
             }
 
 
+            else -> {}
         }
 
 

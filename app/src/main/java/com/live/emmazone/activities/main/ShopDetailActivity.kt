@@ -185,6 +185,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
 
                 }
             }
+            else -> {}
         }
     }
 

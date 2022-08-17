@@ -482,6 +482,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                     }
                 }
             }
+            else -> {}
         }
     }
 

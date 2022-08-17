@@ -320,6 +320,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                     binding.tvNoShop.visibility = View.VISIBLE
                 }
             }
+            else -> {}
         }
 
 
