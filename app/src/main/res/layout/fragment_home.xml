@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -163,7 +164,37 @@
                 android:src="@drawable/filter" />
 
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_marginVertical="5dp"
+            android:id="@+id/search_type_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/searchHomeLayout"
+            app:layout_constraintEnd_toEndOf="@+id/searchHomeLayout"
+            app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <TextView
+                android:text="Search Type : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioGroup android:id="@+id/searchRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <RadioButton android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioShop"
+                    android:text="Shop" android:checked="true">
+                </RadioButton>
+                <RadioButton android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioProduct" android:text="Product">
+                </RadioButton>
+            </RadioGroup>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/search"
             android:layout_width="match_parent"
@@ -173,7 +204,7 @@
             android:padding="@dimen/dp5"
             app:layout_constraintEnd_toEndOf="@+id/searchHomeLayout"
             app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
-            app:layout_constraintTop_toBottomOf="@+id/searchHomeLayout">
+            app:layout_constraintTop_toBottomOf="@+id/search_type_layout">
 
             <ImageView
                 android:id="@+id/imgHome"
@@ -217,31 +248,71 @@
             app:layout_constraintStart_toStartOf="@+id/search"
             app:layout_constraintTop_toBottomOf="@+id/search" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvHomeNearbyShops"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="@+id/tvNearByShop"
-            app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
-            app:layout_constraintTop_toBottomOf="@+id/tvNearByShop" />
+        <RelativeLayout
+            android:id="@+id/shopsLayout"
 
-
-        <TextView
-            android:id="@+id/tvNoShop"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center"
-            android:text="@string/no_shops_serving_near_you"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp18"
-            android:textStyle="bold"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tvNearByShop"
             app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
-            app:layout_constraintTop_toBottomOf="@+id/tvNearByShop" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNearByShop">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHomeNearbyShops"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+            <TextView
+                android:id="@+id/tvNoShop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/no_shops_serving_near_you"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp18"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/productsLayout"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvNearByShop"
+            app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
+            app:layout_constraintTop_toBottomOf="@+id/tvNearByShop">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSearchProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_white_top"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp16"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingEnd="@dimen/dp16"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/item_provider_shopdetail_products" />
+
+            <TextView
+                android:id="@+id/tvNoData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/no_data_found"
+                android:textColor="@color/black" />
+
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

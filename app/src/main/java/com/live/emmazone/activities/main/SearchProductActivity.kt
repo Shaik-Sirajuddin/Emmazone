@@ -67,7 +67,6 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_product)
-
         setSearchAdapter()
         clicksHandle()
     }
@@ -79,7 +78,6 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         }
         edtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
 
             }
 
@@ -109,7 +107,6 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     private fun searchApiHit(s: String) {
         val hashMap = HashMap<String, String>()
         hashMap["keyword"] = s
-
         appViewModel.searchProductApi(this, hashMap, false)
         appViewModel.getResponse().observe(this, this)
     }
@@ -146,7 +143,6 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     private fun setSearchAdapter() {
         searchAdapter = SearchProductAdapter(arrayList)
         rvSearchProduct.adapter = searchAdapter
-
         searchAdapter?.onItemClick = { pos ->
             val intent = Intent(this, ProductDetailActivity::class.java)
             intent.putExtra(AppConstants.USER2_NAME, arrayList[pos].vendorDetail.shopName)

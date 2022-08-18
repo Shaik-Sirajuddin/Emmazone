@@ -28,8 +28,6 @@ class VerificationCode : AppCompatActivity(), Observer<RestObservable> {
         super.onCreate(savedInstanceState)
         binding = ActivityVerificationCodeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
         clicksHandle()
 
     }

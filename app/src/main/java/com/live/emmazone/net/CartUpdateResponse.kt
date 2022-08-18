@@ -39,6 +39,7 @@ data class CartUpdateResponse(
             var categoryColorId: Int, // 28
             @SerializedName("categoryId")
             var categoryId: Int, // 22
+
             @SerializedName("categorySizeId")
             var categorySizeId: Int, // 36
             @SerializedName("created")
