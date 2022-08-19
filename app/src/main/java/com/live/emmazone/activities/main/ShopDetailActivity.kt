@@ -61,7 +61,6 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
 
     private fun shopDetailApiHit(latitude: String, longitude: String) {
         val shopId = intent.getStringExtra(AppConstants.SHOP_ID)
-
         val hashMap = HashMap<String, String>()
         hashMap["shopId"] = shopId!!
         hashMap["latitude"] = latitude
@@ -202,8 +201,8 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         binding.tvShopFY.text = getString(R.string.since, response!!.body.year.toString())
         binding.tvShopAddress.text = response!!.body.shopAddress
         binding.tvWishListRatingText.text = response!!.body.ratings.toString() + "/" + "5"
-        binding.tvWishListDistance.text = response!!.body.distance.toString() + " " +
-                getString(R.string.miles_away)
+        val distance = intent.getIntExtra("distance",0)
+        binding.tvWishListDistance.text = distance.toString() + " " + getString(R.string.miles_away)
 
         if (response!!.body.ratings.isNotEmpty()) {
             binding.ratingBarWishList.rating = response!!.body.ratings.toFloat()

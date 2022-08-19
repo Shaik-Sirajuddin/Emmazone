@@ -1,11 +1,15 @@
 package com.live.emmazone.activities.auth
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityEditProfileBinding
@@ -23,8 +27,10 @@ import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
+
 
 class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
     lateinit var binding: ActivityEditProfileBinding
@@ -32,6 +38,7 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
 
     private var mImagePath = ""
+    private var byteArray:ByteArray? = null
     private var profileDetail: ProfileResponse? = null
 
 
@@ -39,6 +46,7 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
         if (imagePath != null) {
             mImagePath = imagePath
             binding.ivProfile.loadImage(imagePath)
+            byteArray = null
         }
     }
 
@@ -73,6 +81,17 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding.ccp.registerCarrierNumberEditText(binding.edtMobile)
         binding.ccp.fullNumber =
             profileDetail!!.body.user.countryCode + profileDetail!!.body.user.phone
+
+        binding.imageDelete.setOnClickListener {
+            val profile =  AppCompatResources.getDrawable(this,R.drawable.default_profile)
+            val bitmap = (profile as BitmapDrawable).bitmap
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            byteArray = stream.toByteArray()
+            mImagePath = ""
+            binding.ivProfile.loadImage(profile)
+
+        }
     }
 
     private fun alertDialog() {
@@ -98,6 +117,8 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
         val mobileNo = binding.edtMobile.text.toString().trim()
         if (mImagePath.isNotEmpty())
             image = prepareMultiPart("image", File(mImagePath))
+        else if (byteArray!=null)
+            image = prepareMultiPart("image",byteArray)
         else
             image = prepareMultiPart("image", "")
 

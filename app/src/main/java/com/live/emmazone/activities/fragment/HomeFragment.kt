@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.slider.Slider
 import com.live.emmazone.MainActivity
@@ -24,10 +25,7 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.*
-import com.live.emmazone.adapter.AdapterNearbyShops
-import com.live.emmazone.adapter.ColorAdapter
-import com.live.emmazone.adapter.SearchProductAdapter
-import com.live.emmazone.adapter.SizeAdapter
+import com.live.emmazone.adapter.*
 import com.live.emmazone.databinding.BottomSheetFilterProductDialogBinding
 import com.live.emmazone.databinding.FragmentHomeBinding
 import com.live.emmazone.extensionfuncton.getPreference
@@ -41,6 +39,7 @@ import com.live.emmazone.utils.LocationUpdateUtilityFragment
 import com.live.emmazone.view_models.AppViewModel
 import kotlinx.android.synthetic.main.activity_search_product.*
 import kotlinx.android.synthetic.main.bottom_sheet_filter_product_dialog.*
+import kotlinx.android.synthetic.main.dialog_category.*
 import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 import java.io.IOException
 import java.util.*
@@ -120,8 +119,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        setSearchAdapter()
         clicksHandle()
         getLiveLocation(requireActivity())
 
@@ -189,7 +187,24 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                searchShopsFilter(s.toString())
+                if(isShopSearch){
+                    searchShopsFilter(s.toString())
+                }
+                else{
+                    if (!s.isNullOrEmpty()) {
+                        searchApiHit(s.toString())
+                    } else {
+                        arrayList.clear()
+                        searchAdapter?.notifyDataSetChanged()
+                        if (arrayList.isEmpty()) {
+                            binding.tvNoData.visibility = View.VISIBLE
+                            binding.imageFilterHome.visibility = View.GONE
+                        } else {
+                            binding.tvNoData.visibility = View.GONE
+                            binding.imageFilterHome.visibility = View.VISIBLE
+                        }
+                    }
+                }
             }
 
         })
@@ -254,6 +269,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 } else if (clickOn == "itemClick") {
                     val intent = Intent(requireContext(), ShopDetailActivity::class.java)
                     intent.putExtra(AppConstants.SHOP_ID, shopModel.id.toString())
+                    intent.putExtra("distance",shopModel.distance)
                     startActivity(intent)
                 } else if (clickOn == "rating") {
                     if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
@@ -347,7 +363,55 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                         AppUtils.showMsgOnlyWithoutClick(requireActivity(), response.message)
 
                     }
+                }
+                else if (t.data is SearchProductResponse) {
+                    val response: SearchProductResponse = t.data
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        arrayList.clear()
+                        arrayList.addAll(response.body)
+                        searchAdapter?.notifyDataSetChanged()
 
+
+                        if (arrayList.isEmpty()) {
+                            binding.tvNoData.visibility = View.VISIBLE
+                            binding.imageFilterHome.visibility = View.GONE
+                        } else {
+                            binding.imageFilterHome.visibility = View.VISIBLE
+                            binding.tvNoData.visibility = View.GONE
+                        }
+                        if(isShopSearch){
+                            binding.imageFilterHome.visibility = View.VISIBLE
+                        }
+                    }
+
+                } else if (t.data is CategoryListResponse) {
+                    val response: CategoryListResponse = t.data
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        categoryList.clear()
+                        categoryList.addAll(response.body)
+                        categoryList.add(0, CategoryListResponse.Body(0, "", "Select Category", false))
+                        showCategoryDialog()
+                    }
+                } else if (t.data is CategoryColorSizeResponse) {
+                    val response: CategoryColorSizeResponse = t.data
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+
+                        colorList.clear()
+                        sizeList.clear()
+
+                        colorList.addAll(response.body.categoryColors)
+                        colorList.add(
+                            0,
+                            CategoryColorSizeResponse.Body.CategoryColor(0, "Select Colour", 0)
+                        )
+                        sizeList.addAll(response.body.categorySizes)
+                        sizeList.add(
+                            0,
+                            CategoryColorSizeResponse.Body.CategorySize(0, 0, "Select Size")
+                        )
+                        showCategoryDialog()
+
+                    }
                 }
 
             }
@@ -356,6 +420,12 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                     binding.tvNoShop.visibility = View.GONE
                 } else {
                     binding.tvNoShop.visibility = View.VISIBLE
+                }
+                if(categoryList.size > 0){
+                    binding.tvNoData.visibility = View.GONE
+                }
+                else{
+                    binding.tvNoData.visibility = View.VISIBLE
                 }
             }
             else -> {}
@@ -416,22 +486,30 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         super.onPause()
         stopLocationUpdates()
     }
+
     // Feature : Switch Search Type
     private fun switchSearchType(){
         if(isShopSearch){
             binding.shopsLayout.visibility = View.VISIBLE
             binding.productsLayout.visibility = View.GONE
+            binding.imageFilterHome.visibility = View.VISIBLE
         }
         else {
             binding.shopsLayout.visibility = View.GONE
             binding.productsLayout.visibility = View.VISIBLE
+            if(binding.edtSearchWishList.text.toString().trim().isEmpty()){
+                binding.imageFilterHome.visibility = View.GONE
+            }
+            else{
+                binding.imageFilterHome.visibility = View.VISIBLE
+            }
         }
     }
     private fun searchApiHit(s: String) {
         val hashMap = HashMap<String, String>()
         hashMap["keyword"] = s
         appViewModel.searchProductApi(requireActivity(), hashMap, false)
-        appViewModel.getResponse().observe(this, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
     }
 
     private fun filterApiHit(s: String) {
@@ -458,7 +536,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         hashMap["max_price"] = bottomDialog!!.seekBar.value.toInt().toString().trim()
         hashMap["price_sort"] = priceSort
         appViewModel.filterProductApi(requireActivity(), hashMap, false)
-        appViewModel.getResponse().observe(viewLifecycleOwner, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
     }
     private fun setSearchAdapter() {
         searchAdapter = SearchProductAdapter(arrayList)
@@ -527,7 +605,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         tvSelectCategory.setOnClickListener {
             dropDownType = AppConstants.CATEGORY_DROP_DOWN
             appViewModel.categoryListApi(requireActivity(), true)
-            appViewModel.getResponse().observe(viewLifecycleOwner, this)
+            appViewModel.getResponse().observe(requireActivity(), this)
         }
 
         tvSelectColor.setOnClickListener {
@@ -552,6 +630,9 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         }
 
         btnDone.setOnClickListener {
+            if(binding.edtSearchWishList.text.toString().trim().isEmpty()){
+                bottomDialog!!.dismiss()
+            }
             savePreference(AppConstants.IS_FILTER, true)
             if (tvSelectCategory.text.toString().trim().isNotEmpty()) {
                 savePreference(AppConstants.CATEGORY_NAME, tvSelectCategory.text.toString().trim())
@@ -590,7 +671,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             }
             //  }
 
-            filterApiHit(edtSearch.text.toString().trim())
+            filterApiHit(binding.edtSearchWishList.text.toString().trim())
             bottomDialog!!.dismiss()
         }
 
@@ -601,8 +682,90 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         val hashMap = HashMap<String, String>()
         hashMap["categoryId"] = categoryID
         appViewModel.categoryColorSizeApi(requireActivity(), true, hashMap)
-        appViewModel.getResponse().observe(viewLifecycleOwner, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
     }
 
     lateinit var dialog: Dialog
+
+    private fun showCategoryDialog() {
+        dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_category)
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.window!!.setGravity(Gravity.CENTER)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val recycle: RecyclerView = dialog.findViewById(R.id.rvAvatars)!!
+        val titleTV: TextView = dialog.findViewById(R.id.titleTV)!!
+        if (dropDownType == AppConstants.CATEGORY_DROP_DOWN) {
+            titleTV.text = "Choose Category"
+            setCategoryAdapter(recycle)
+        } else if (dropDownType == AppConstants.COLOUR_DROP_DOWN) {
+            titleTV.text = "Choose Colour"
+            setColorAdapter(recycle)
+        } else if (dropDownType == AppConstants.SIZE_DROP_DOWN) {
+            titleTV.text = "Choose Size"
+            setSizeAdapter()
+        }
+
+        dialog.show()
+    }
+
+    private fun setCategoryAdapter(recyclerView: RecyclerView) {
+        val categoryAdapter = CategoriesAdapter(categoryList)
+        recyclerView.adapter = categoryAdapter
+
+        categoryAdapter.onClickListener = { pos ->
+            categoryList.forEachIndexed { index, body ->
+                body.isSelected = pos == index
+            }
+            dialog.dismiss()
+            categoryID = categoryList[pos].id.toString()
+            categoryName = categoryList[pos].name
+            bottomDialog!!.tvSelectCategory.text = categoryName
+            bottomDialog!!.tvSelectColor.text = "Select Color"
+            colorID = ""
+            bottomDialog!!.tvSelectSize.text = "Select Size"
+            sizeID = ""
+
+
+        }
+
+    }
+
+    private fun setColorAdapter(recyclerView: RecyclerView) {
+        colorAdapter = ColorAdapter(colorList)
+        recyclerView.adapter = colorAdapter
+
+        colorAdapter.onClickListener = { pos ->
+            colorList.forEachIndexed { index, body ->
+                body.isSelected = pos == index
+            }
+            dialog.dismiss()
+            colorID = colorList[pos].id.toString()
+            bottomDialog!!.tvSelectColor.text = colorList[pos].color
+        }
+
+    }
+
+    private fun setSizeAdapter() {
+        sizeAdapter = SizeAdapter(sizeList)
+        dialog.rvAvatars.adapter = sizeAdapter
+
+
+        sizeAdapter.onClickListener = { pos ->
+            sizeList.forEachIndexed { index, body ->
+                body.isSelected = pos == index
+            }
+            dialog.dismiss()
+            sizeID = sizeList[pos].id.toString()
+            bottomDialog!!.tvSelectSize.text = sizeList[pos].size
+        }
+
+    }
+
 }

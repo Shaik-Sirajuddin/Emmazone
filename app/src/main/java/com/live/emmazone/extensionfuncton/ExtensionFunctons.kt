@@ -60,8 +60,10 @@ fun prepareMultiPart(partName: String, image: Any?): MultipartBody.Part {
     if (image is String) {
         val attachmentEmpty = "".toRequestBody("text/plain".toMediaTypeOrNull());
         return MultipartBody.Part.createFormData(partName, "", attachmentEmpty);
-    } else
-        return MultipartBody.Part.createFormData(partName, (image as File).name, requestFile!!)
+    } else if(image is File)
+        return MultipartBody.Part.createFormData(partName, (image).name, requestFile!!)
+    else
+        return MultipartBody.Part.createFormData(partName, "profile", requestFile!!)
 }
 
 fun toast(message: String) {
