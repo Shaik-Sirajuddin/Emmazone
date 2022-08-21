@@ -107,10 +107,8 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
         when (event) {
             SocketManager.GET_DATA_MSG_LISTENER -> {
                 val mObject = (JSONArray(args[0]).get(0)) as JSONArray
-
                 val getChatModel =
                     Gson().fromJson(mObject.toString(), ChatResponse::class.java)
-
 
                 getChatModel.forEach {
                     val chatModel = ChatModel(
@@ -123,7 +121,6 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
                 binding.rvChat.scrollToPosition(chatList.size - 1)
             }
             SocketManager.NEW_MSG_LISTENER -> {
-                binding.edtMsg.text.clear()
                 val mObject = (JSONArray(args[0]).get(0)) as JSONObject
 
                 val newMsg =
@@ -137,11 +134,13 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
                     newMsg.senderId.toString(),
                     newMsg.receiverId.toString()
                 )
+                if(chatModel.senderId == getPreference(AppConstants.USER_ID, "")){
+                    binding.edtMsg.text.clear()
+                }
                 chatList.add(chatModel)
                 chatAdapter?.notifyDataSetChanged()
                 binding.rvChat.scrollToPosition(chatList.size - 1)
             }
-
 
         }
     }

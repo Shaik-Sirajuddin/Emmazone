@@ -99,7 +99,6 @@
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp10"
                 android:src="@drawable/filter"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

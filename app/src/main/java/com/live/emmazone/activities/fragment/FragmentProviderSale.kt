@@ -12,11 +12,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Notifications
+import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.databinding.FragmentSaleProviderBinding
+import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.NotificationListingResponse
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.view_models.AppViewModel
 
 class FragmentProviderSale(val notificationResponse: NotificationListingResponse.Body?) :
@@ -42,8 +45,8 @@ class FragmentProviderSale(val notificationResponse: NotificationListingResponse
         super.onViewCreated(view, savedInstanceState)
 
         clicksHandle()
-
-
+        savePreference(AppConstants.NEW_SALE,false)
+        (requireActivity() as ProviderMainActivity).hideBadge()
         if (notificationResponse != null) {
             //  orderStatus  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
                 notificationReadApiHit()

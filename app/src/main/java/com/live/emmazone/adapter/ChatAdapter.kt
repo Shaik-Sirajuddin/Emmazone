@@ -48,7 +48,7 @@ class ChatAdapter(val list: ArrayList<ChatModel>) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (list[position].senderId.toString() == getPreference(AppConstants.USER_ID, "")) {
+        return if (list[position].senderId == getPreference(AppConstants.USER_ID, "")) {
             RIGHT_LAYOUT
         } else {
             LEFT_LAYOUT

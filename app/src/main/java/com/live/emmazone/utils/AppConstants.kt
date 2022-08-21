@@ -125,6 +125,8 @@ object AppConstants {
     const val WITHDRAW_REQUEST = "withdrawl"
     const val SEARCH_PRODUCT = "searchProduct"
 
-
+    //My changes :
+    const val IS_FIREBASE_NOTIFICATION = "firebase_notification"
+    const val NEW_SALE = "new_sale"
 
 }

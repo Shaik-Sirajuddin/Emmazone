@@ -20,7 +20,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.slider.Slider
 import com.live.emmazone.R
 import com.live.emmazone.adapter.CategoriesAdapter
 import com.live.emmazone.adapter.ColorAdapter
@@ -92,10 +91,10 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                     searchAdapter?.notifyDataSetChanged()
                     if (arrayList.isEmpty()) {
                         tvNoData.visibility = View.VISIBLE
-                        ivFilter.visibility = View.GONE
+                        //ivFilter.visibility = View.GONE
                     } else {
                         tvNoData.visibility = View.GONE
-                        ivFilter.visibility = View.VISIBLE
+                        //ivFilter.visibility = View.VISIBLE
                     }
                 }
 
@@ -128,11 +127,12 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             sizeID
         }
         val hashMap = HashMap<String, String>()
+        val maxPrice = bottomDialog!!.maxPrice.text.toString().trim().toIntOrNull() ?: 2000
         hashMap["keyword"] = s
         hashMap["categoryId"] = catid
         hashMap["categoryColorId"] = colId
         hashMap["categorySizeId"] = sizId
-        hashMap["max_price"] = bottomDialog!!.seekBar.value.toInt().toString().trim()
+        hashMap["max_price"] = maxPrice.toString()
         hashMap["price_sort"] = priceSort
 
 
@@ -164,7 +164,8 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         var tvSelectCategory = view.findViewById<AppCompatTextView>(R.id.tvSelectCategory)
         val tvSelectColor = view.findViewById<AppCompatTextView>(R.id.tvSelectColor)
         val tvSelectSize = view.findViewById<AppCompatTextView>(R.id.tvSelectSize)
-        val seekBar = view.findViewById<Slider>(R.id.seekBar)
+        val minPrice = view.findViewById<EditText>(R.id.minPrice)
+        val maxPrice = view.findViewById<EditText>(R.id.maxPrice)
         val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
         val radioButton = view.findViewById<RadioButton>(R.id.radioButton)
         val radioButton2 = view.findViewById<RadioButton>(R.id.radioButton2)
@@ -194,13 +195,7 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                     priceSort = ""
                 }
             }
-
-            if (getPreference(AppConstants.PRICE, "") != "0.0f") {
-                seekBar.value = getPreference(AppConstants.PRICE, "").toFloat()
-            } else {
-                seekBar.value = 0.0f
-            }
-
+            maxPrice.setText(getPreference(AppConstants.PRICE, "2000"))
 
         }
 
@@ -232,6 +227,7 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         }
 
         btnDone.setOnClickListener {
+
             savePreference(AppConstants.IS_FILTER, true)
             if (tvSelectCategory.text.toString().trim().isNotEmpty()) {
                 savePreference(AppConstants.CATEGORY_NAME, tvSelectCategory.text.toString().trim())
@@ -247,14 +243,10 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                 savePreference(AppConstants.SIZE_NAME, tvSelectSize.text.toString().trim())
                 savePreference(AppConstants.SIZE_ID, sizeID)
             }
-            if (seekBar.value != 0.0f) {
-                savePreference(AppConstants.PRICE, seekBar.value.toString())
+            val maxPrice = bottomDialog!!.maxPrice.text.toString().trim().toIntOrNull() ?: 2000
 
+            savePreference(AppConstants.PRICE, maxPrice.toString())
 
-            } else {
-                savePreference(AppConstants.PRICE, 0.0f.toString())
-            }
-            Log.d("seekBar.value", seekBar.value.toString())
             //   if (radioButton.isChecked || radioButton2.isChecked) {
             if (radioButton.isChecked) {
                 savePreference(AppConstants.PRICE_RANGE, "1")
@@ -382,9 +374,9 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
 
                         if (arrayList.isEmpty()) {
                             tvNoData.visibility = View.VISIBLE
-                            ivFilter.visibility = View.GONE
+                            //ivFilter.visibility = View.GONE
                         } else {
-                            ivFilter.visibility = View.VISIBLE
+                            //ivFilter.visibility = View.VISIBLE
                             tvNoData.visibility = View.GONE
                         }
 
@@ -422,5 +414,9 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             }
             else -> {}
         }
+    }
+    override fun onDestroy() {
+        savePreference(AppConstants.IS_FILTER, false)
+        super.onDestroy()
     }
 }

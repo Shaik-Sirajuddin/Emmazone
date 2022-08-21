@@ -14,6 +14,7 @@ import com.live.emmazone.activities.fragment.AccountFragment
 import com.live.emmazone.activities.fragment.FragmentMyOrders
 import com.live.emmazone.activities.fragment.HomeFragment
 import com.live.emmazone.activities.fragment.WishListFragment
+import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.databinding.ActivityMainBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.NotificationListingResponse
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         getNotificationClick()
-
+        openMessagesOnFirebaseNotification()
 //        binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
         binding.bottomNavigationView.itemIconTintList = null
 
@@ -140,7 +141,14 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
+    //Open MessagesActivity on pop up firebase notification click
+    private fun openMessagesOnFirebaseNotification(){
+        val isFirebaseNotificationClick = intent.getBooleanExtra(AppConstants.IS_FIREBASE_NOTIFICATION,false)
+        if(isFirebaseNotificationClick){
+            val intent = Intent(this, MessageActivity::class.java)
+            startActivity(intent)
+        }
+    }
 }
 
 

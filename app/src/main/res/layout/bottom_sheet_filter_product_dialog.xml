@@ -28,33 +28,40 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.slider.Slider
+    <View
         android:id="@+id/seekBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:thumbColor="@color/green"
+        android:layout_width="341dp"
+        android:layout_height="18dp"
         android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="@id/tvPrice"
         app:layout_constraintStart_toStartOf="@id/tvPrice"
         app:layout_constraintTop_toBottomOf="@id/tvPrice"
-        android:valueFrom="0"
-        android:valueTo="2000"
-        android:stepSize="1"/>
+        app:thumbColor="@color/green" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/minPrice"
+        android:background="@drawable/bg_edit_text"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:padding="7dp"
+        android:inputType="number"
         android:text="0"
+        android:textAlignment="center"
+        android:maxLines="1"
         android:includeFontPadding="false"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/seekBar"
         app:layout_constraintTop_toBottomOf="@id/seekBar"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvMax"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/maxPrice"
+        android:background="@drawable/bg_edit_text"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:padding="7dp"
+        android:inputType="number"
         android:text="2000"
+        android:textAlignment="center"
         android:includeFontPadding="false"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/seekBar"
@@ -72,7 +79,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/tvPrice"
         app:layout_constraintStart_toStartOf="@id/tvPrice"
-        app:layout_constraintTop_toBottomOf="@id/tvMax" />
+        app:layout_constraintTop_toBottomOf="@id/maxPrice" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvSelectCategory"

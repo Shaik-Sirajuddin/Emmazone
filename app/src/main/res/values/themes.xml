@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.EmmaZone" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.EmmaZone" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/status_color</item>
         <item name="colorPrimaryVariant">@color/status_bar_color</item>
@@ -20,6 +20,7 @@
         <item name="editTextStyle">@style/customEditTextTheme</item>
 
     </style>
+
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/normalBlack</item>
         <item name="colorControlActivated">@color/yellow</item>

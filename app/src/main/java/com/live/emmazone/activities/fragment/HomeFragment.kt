@@ -25,6 +25,7 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.*
+import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.adapter.*
 import com.live.emmazone.databinding.BottomSheetFilterProductDialogBinding
 import com.live.emmazone.databinding.FragmentHomeBinding
@@ -98,11 +99,9 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             if (activity != null) {
                 mLatitude = lat.toString()
                 mLongitude = lng.toString()
-
                 shopListingApi()
                 stopLocationUpdates()
                 binding.tvLocation.text = completedAddress(lat, lng)
-
             }
         }
     }
@@ -131,7 +130,10 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         } else {
             binding.tvUserName.text = getPreference(AppConstants.NAME, "").toString()
         }
-
+        binding.messagesIcon.setOnClickListener {
+            val intent = Intent(requireContext(),MessageActivity::class.java)
+            startActivity(intent)
+        }
         binding.btnClickHereHome.setOnClickListener {
             if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                 startActivity(Intent(activity, UserLoginChoice::class.java))
@@ -197,11 +199,11 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                         arrayList.clear()
                         searchAdapter?.notifyDataSetChanged()
                         if (arrayList.isEmpty()) {
+                            //binding.imageFilterHome.visibility = View.GONE
                             binding.tvNoData.visibility = View.VISIBLE
-                            binding.imageFilterHome.visibility = View.GONE
                         } else {
+                            // binding.imageFilterHome.visibility = View.VISIBLE
                             binding.tvNoData.visibility = View.GONE
-                            binding.imageFilterHome.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -373,14 +375,14 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
 
                         if (arrayList.isEmpty()) {
+                            //binding.imageFilterHome.visibility = View.GONE
                             binding.tvNoData.visibility = View.VISIBLE
-                            binding.imageFilterHome.visibility = View.GONE
                         } else {
-                            binding.imageFilterHome.visibility = View.VISIBLE
+                           // binding.imageFilterHome.visibility = View.VISIBLE
                             binding.tvNoData.visibility = View.GONE
                         }
                         if(isShopSearch){
-                            binding.imageFilterHome.visibility = View.VISIBLE
+                           // binding.imageFilterHome.visibility = View.VISIBLE
                         }
                     }
 
@@ -498,10 +500,10 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             binding.shopsLayout.visibility = View.GONE
             binding.productsLayout.visibility = View.VISIBLE
             if(binding.edtSearchWishList.text.toString().trim().isEmpty()){
-                binding.imageFilterHome.visibility = View.GONE
+               // binding.imageFilterHome.visibility = View.GONE
             }
             else{
-                binding.imageFilterHome.visibility = View.VISIBLE
+                //binding.imageFilterHome.visibility = View.VISIBLE
             }
         }
     }
@@ -529,12 +531,15 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             sizeID
         }
         val hashMap = HashMap<String, String>()
+        val maxPrice = bottomDialog!!.maxPrice.text.toString().trim().toIntOrNull() ?: 2000
         hashMap["keyword"] = s
         hashMap["categoryId"] = catid
         hashMap["categoryColorId"] = colId
         hashMap["categorySizeId"] = sizId
-        hashMap["max_price"] = bottomDialog!!.seekBar.value.toInt().toString().trim()
+        hashMap["max_price"] = maxPrice.toString()
         hashMap["price_sort"] = priceSort
+
+
         appViewModel.filterProductApi(requireActivity(), hashMap, false)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
@@ -562,7 +567,8 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         var tvSelectCategory = view.findViewById<AppCompatTextView>(R.id.tvSelectCategory)
         val tvSelectColor = view.findViewById<AppCompatTextView>(R.id.tvSelectColor)
         val tvSelectSize = view.findViewById<AppCompatTextView>(R.id.tvSelectSize)
-        val seekBar = view.findViewById<Slider>(R.id.seekBar)
+        val minPrice = view.findViewById<EditText>(R.id.minPrice)
+        val maxPrice = view.findViewById<EditText>(R.id.maxPrice)
         val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
         val radioButton = view.findViewById<RadioButton>(R.id.radioButton)
         val radioButton2 = view.findViewById<RadioButton>(R.id.radioButton2)
@@ -592,13 +598,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                     priceSort = ""
                 }
             }
-
-            if (getPreference(AppConstants.PRICE, "") != "0.0f") {
-                seekBar.value = getPreference(AppConstants.PRICE, "").toFloat()
-            } else {
-                seekBar.value = 0.0f
-            }
-
+            maxPrice.setText(getPreference(AppConstants.PRICE, "2000"))
 
         }
 
@@ -630,9 +630,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         }
 
         btnDone.setOnClickListener {
-            if(binding.edtSearchWishList.text.toString().trim().isEmpty()){
-                bottomDialog!!.dismiss()
-            }
+
             savePreference(AppConstants.IS_FILTER, true)
             if (tvSelectCategory.text.toString().trim().isNotEmpty()) {
                 savePreference(AppConstants.CATEGORY_NAME, tvSelectCategory.text.toString().trim())
@@ -648,14 +646,10 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 savePreference(AppConstants.SIZE_NAME, tvSelectSize.text.toString().trim())
                 savePreference(AppConstants.SIZE_ID, sizeID)
             }
-            if (seekBar.value != 0.0f) {
-                savePreference(AppConstants.PRICE, seekBar.value.toString())
+            val maxPrice = bottomDialog!!.maxPrice.text.toString().trim().toIntOrNull() ?: 2000
 
+            savePreference(AppConstants.PRICE, maxPrice.toString())
 
-            } else {
-                savePreference(AppConstants.PRICE, 0.0f.toString())
-            }
-            Log.d("seekBar.value", seekBar.value.toString())
             //   if (radioButton.isChecked || radioButton2.isChecked) {
             if (radioButton.isChecked) {
                 savePreference(AppConstants.PRICE_RANGE, "1")
@@ -752,6 +746,10 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     }
 
+    override fun onDestroy() {
+        savePreference(AppConstants.IS_FILTER, false)
+        super.onDestroy()
+    }
     private fun setSizeAdapter() {
         sizeAdapter = SizeAdapter(sizeList)
         dialog.rvAvatars.adapter = sizeAdapter

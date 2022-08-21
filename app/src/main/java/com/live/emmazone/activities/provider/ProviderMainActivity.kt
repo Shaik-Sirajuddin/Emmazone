@@ -1,5 +1,6 @@
 package com.live.emmazone.activities.provider
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import com.live.emmazone.activities.fragment.FragmentProviderHome
 import com.live.emmazone.activities.fragment.FragmentProviderSale
 import com.live.emmazone.activities.fragment.ProviderAccountFragment
 import com.live.emmazone.databinding.ActivityProviderMainBinding
+import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.NotificationListingResponse
 import com.live.emmazone.utils.AppConstants
 
@@ -19,9 +21,8 @@ class ProviderMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProviderMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         getNotificationClick()
-
+        openMessagesOnFirebaseNotification()
         binding.bottomNavigationView.itemIconTintList = null
         //   binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
 
@@ -50,10 +51,18 @@ class ProviderMainActivity : AppCompatActivity() {
             }
             false
         }
+        val isNewSale = getPreference(AppConstants.NEW_SALE,false)
 
-
+        if(isNewSale){
+            binding.bottomNavigationView.getOrCreateBadge(R.id.sale).number
+        }
+        else{
+            binding.bottomNavigationView.removeBadge(R.id.sale)
+        }
     }
-
+    fun hideBadge(){
+        binding.bottomNavigationView.removeBadge(R.id.sale)
+    }
     private fun getNotificationClick() {
         if (intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE) != null) {
             val notificationResponse =
@@ -87,5 +96,12 @@ class ProviderMainActivity : AppCompatActivity() {
 
         }
     }
-
+    //Open MessagesActivity on pop up firebase notification click
+    private fun openMessagesOnFirebaseNotification(){
+        val isFirebaseNotificationClick = intent.getBooleanExtra(AppConstants.IS_FIREBASE_NOTIFICATION,false)
+        if(isFirebaseNotificationClick){
+              val intent = Intent(this,MessageActivity::class.java)
+              startActivity(intent)
+        }
+    }
 }
