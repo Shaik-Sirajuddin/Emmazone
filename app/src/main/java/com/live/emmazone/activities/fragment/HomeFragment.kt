@@ -120,6 +120,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         super.onViewCreated(view, savedInstanceState)
         setSearchAdapter()
         clicksHandle()
+        Log.d("mLifeCycle","onViewCreated")
         getLiveLocation(requireActivity())
 
     }
@@ -438,6 +439,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     override fun onResume() {
         super.onResume()
+        Log.d("mLifeCycle","onResume")
 //        getLiveLocation(requireActivity())
     }
 
@@ -747,6 +749,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     }
 
     override fun onDestroy() {
+        Log.d("mLifeCycle","onDestroy")
         savePreference(AppConstants.IS_FILTER, false)
         super.onDestroy()
     }

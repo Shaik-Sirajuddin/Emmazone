@@ -52,7 +52,7 @@
                 android:id="@+id/image_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp2"
+                android:layout_marginTop="@dimen/_13sdp"
                 android:layout_marginEnd="@dimen/dp10"
                 android:src="@drawable/location"
                 app:layout_constraintStart_toStartOf="@+id/textView"
@@ -63,8 +63,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp5"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_13sdp"
                 android:layout_marginEnd="5dp"
+                android:layout_marginBottom="4dp"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12"
@@ -165,6 +166,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:visibility="gone"
             android:layout_marginVertical="5dp"
             android:id="@+id/search_type_layout"
             android:layout_width="match_parent"
@@ -258,6 +260,7 @@
             app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
             app:layout_constraintTop_toBottomOf="@+id/tvNearByShop">
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvHomeNearbyShops"
                 android:layout_width="match_parent"
@@ -265,7 +268,6 @@
                 android:layout_marginHorizontal="5dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
 
             <TextView
                 android:id="@+id/tvNoShop"

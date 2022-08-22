@@ -32,13 +32,19 @@ class WishListFragment : LocationUpdateUtilityFragment(), Observer<RestObservabl
     private val wishList = ArrayList<WishListResponse.Body.Wish>()
     lateinit var wishListAdapter: AdapterWishList
     private var selectedPos: Int? = null
-
+    private var locationLoaded = false
+    private var listLoaded = false
+    private var lat:String = ""
+    private var lng:String = ""
     private lateinit var binding: FragmentWishlistBinding
     override fun updatedLatLng(lat: Double?, lng: Double?) {
         if (lat != null && lng != null) {
             if (activity != null){
+                locationLoaded = true
+                this.lat = lat.toString()
+                this.lng = lng.toString()
                 stopLocationUpdates()
-                wishListApiHit(lat.toString(), lng.toString())
+                wishListApiHit(this.lat, this.lng)
             }
         }
     }
@@ -47,17 +53,14 @@ class WishListFragment : LocationUpdateUtilityFragment(), Observer<RestObservabl
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentWishlistBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         clickHandle()
-
-
     }
 
     private fun wishListApiHit(latitude: String, longitude: String) {
@@ -174,6 +177,7 @@ class WishListFragment : LocationUpdateUtilityFragment(), Observer<RestObservabl
 
                         wishList.clear()
                         wishList.addAll(t.data.body.wishList)
+                        listLoaded = true
                         setWishListAdapter()
                         noDataVisibility()
                     }
@@ -182,7 +186,6 @@ class WishListFragment : LocationUpdateUtilityFragment(), Observer<RestObservabl
                     val response: AddFavouriteResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
-
                         wishList.removeAt(selectedPos!!)
                         wishListAdapter.notifyDataSetChanged()
                         AppUtils.showMsgOnlyWithoutClick(requireActivity(), response.message)
@@ -194,7 +197,6 @@ class WishListFragment : LocationUpdateUtilityFragment(), Observer<RestObservabl
             }
             else -> {}
         }
-
 
     }
 
@@ -210,7 +212,14 @@ class WishListFragment : LocationUpdateUtilityFragment(), Observer<RestObservabl
 
     override fun onResume() {
         super.onResume()
-        getLiveLocation(requireActivity())
+        if(locationLoaded){
+            if(!listLoaded){
+                wishListApiHit(lat,lng)
+            }
+        }
+        else{
+            getLiveLocation(requireActivity())
+        }
     }
 
     override fun onStop() {

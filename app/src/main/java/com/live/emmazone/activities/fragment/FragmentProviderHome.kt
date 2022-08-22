@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.EditShopDetailActivity
+import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.adapter.AdapterProShopProducts
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.net.RestObservable
@@ -59,8 +60,10 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
-
-
+        requireView().messagesIcon.setOnClickListener {
+            val intent = Intent(requireContext(), MessageActivity::class.java)
+            startActivity(intent)
+        }
         requireView().image_editShop.setOnClickListener {
             val intent = Intent(activity, EditShopDetailActivity::class.java)
             intent.putExtra(AppConstants.SHOP_DETAIL_RESPONSE, response)

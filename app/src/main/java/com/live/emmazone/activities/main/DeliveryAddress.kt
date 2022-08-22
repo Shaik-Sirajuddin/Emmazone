@@ -136,7 +136,7 @@ class DeliveryAddress : AppCompatActivity(), Observer<RestObservable> {
                     list.addAll(response.body)
 
                     val savedAddress: AddressListResponse.Body? =
-                        getPrefObject(AppConstants.SAVED_ADDRESS_RESPONSE) as AddressListResponse.Body
+                        getPrefObject(AppConstants.SAVED_ADDRESS_RESPONSE) as AddressListResponse.Body?
 
                     if (savedAddress != null) {
                         list.forEach {

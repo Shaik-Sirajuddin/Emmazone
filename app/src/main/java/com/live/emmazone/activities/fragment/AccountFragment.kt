@@ -32,22 +32,20 @@ import com.schunts.extensionfuncton.loadImage
 class AccountFragment : Fragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
-
     private lateinit var binding: FragmentAccountBinding
-
-
+    private var profileLoaded = false
+    private var updatedProfiie = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAccountBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         appViewModel.profileApi(requireActivity(), true)
         appViewModel.getResponse().observe(requireActivity(), this)
         clicksHandle()
@@ -56,6 +54,7 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
     private fun clicksHandle() {
 
         binding.clProfile.setOnClickListener {
+            updatedProfiie = true
             val intent = Intent(activity, ProfileActivity::class.java)
             startActivity(intent)
         }
@@ -111,18 +110,19 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
     private fun hitNotificationUpdateApi(type: String) {
         val hashMap = HashMap<String, String>()
         hashMap["notification_status"] = type
-
         appViewModel.notificationStatusApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
 
     override fun onResume() {
         super.onResume()
-        appViewModel.profileApi(requireActivity(), true)
+        if(!profileLoaded || updatedProfiie){
+            updatedProfiie = false
+            appViewModel.profileApi(requireActivity(), true)
+        }
     }
 
     override fun onChanged(t: RestObservable?) {
-
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is NotificationStatusResponse) {
@@ -144,6 +144,8 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
                     val response: ProfileResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
+
+                        profileLoaded = true
 
                         if (response.body.notificationCount == 0) {
                             binding.notifyRedBG.visibility = View.GONE
@@ -177,11 +179,7 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
 
                 }
             }
-
-
             else -> {}
         }
-
-
     }
 }

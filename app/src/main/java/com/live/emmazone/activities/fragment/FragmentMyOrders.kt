@@ -39,11 +39,8 @@ class FragmentMyOrders(private val notificationResponse: NotificationListingResp
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         binding = FragmentMyOrdersBinding.inflate(layoutInflater)
-
-
         return binding.root
     }
 
@@ -114,7 +111,6 @@ class FragmentMyOrders(private val notificationResponse: NotificationListingResp
     private fun openOnGoingOrdersFragment(fragment: Fragment) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
         transaction?.replace(R.id.fragmentContainerMyOrders, fragment)
-        //  transaction?.addToBackStack("My Orders")
         transaction?.commit()
     }
 

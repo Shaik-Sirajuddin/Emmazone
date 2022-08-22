@@ -299,7 +299,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
     private fun getSavedAddress() {
         val savedAddress: AddressListResponse.Body? =
-            getPrefObject(AppConstants.SAVED_ADDRESS_RESPONSE) as AddressListResponse.Body
+            getPrefObject(AppConstants.SAVED_ADDRESS_RESPONSE) as AddressListResponse.Body?
 
         if (savedAddress != null) {
             selectedAddressId = savedAddress.id.toString()

@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.fragment.AccountFragment
 import com.live.emmazone.activities.fragment.FragmentMyOrders
@@ -18,30 +19,35 @@ import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.databinding.ActivityMainBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.NotificationListingResponse
+import com.live.emmazone.response_model.WishListResponse
 import com.live.emmazone.utils.AppConstants
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
+    lateinit var homeFragment: HomeFragment
+    lateinit var ordersFragment: FragmentMyOrders
+    lateinit var accountFragment: AccountFragment
+    lateinit var wishListFragment: WishListFragment
+    lateinit var currentFragment: Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        initializeFragments()
         getNotificationClick()
         openMessagesOnFirebaseNotification()
 //        binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
         binding.bottomNavigationView.itemIconTintList = null
-
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+        binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.wishList -> {
                     if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
                         showLoginDialog()
                     } else {
                         if (currentFragment() !is WishListFragment)
-                            loadFragment(WishListFragment())
+                            loadFragment(wishListFragment)
                     }
                 }
                 R.id.myOrders -> {
@@ -49,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                         showLoginDialog()
                     } else {
                         if (currentFragment() !is FragmentMyOrders)
-                            loadFragment(FragmentMyOrders(null))
+                            loadFragment(ordersFragment)
                     }
 
                 }
@@ -59,49 +65,78 @@ class MainActivity : AppCompatActivity() {
                         showLoginDialog()
                     } else {
                         if (currentFragment() !is AccountFragment)
-                            loadFragment(AccountFragment())
+                            loadFragment(accountFragment)
                     }
 
                 }
                 R.id.home -> {
                     if (currentFragment() !is HomeFragment)
-                        loadFragment(HomeFragment())
+                        loadFragment(homeFragment)
                     //   binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(R.drawable.home_selected)
                 }
             }
-
             true
         }
-
-
     }
 
+    private fun initializeFragments() {
+        wishListFragment = WishListFragment()
+        homeFragment = HomeFragment()
+        ordersFragment = FragmentMyOrders(null)
+        accountFragment = AccountFragment()
+
+        //ordersFragment
+        addAndHideFragment(ordersFragment)
+        //wishListFragment
+        addAndHideFragment(wishListFragment)
+        //accountFragment
+        addAndHideFragment(accountFragment)
+        //HomeFragment
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragmentContainer, homeFragment)
+            .commit()
+
+        currentFragment = homeFragment
+    }
+    private fun addAndHideFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragmentContainer, fragment)
+            .setMaxLifecycle(fragment, Lifecycle.State.CREATED)
+            .hide(fragment).commit()
+        currentFragment = fragment
+    }
     private fun getNotificationClick() {
         if (intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE) != null) {
             val notificationResponse =
                 intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE)
                         as NotificationListingResponse.Body
             binding.bottomNavigationView.menu.findItem(R.id.myOrders).isChecked = true
-            loadFragment(FragmentMyOrders(notificationResponse))
+            ordersFragment = FragmentMyOrders(notificationResponse)
+            addAndHideFragment(ordersFragment)
+            loadFragment(ordersFragment)
 
         } else if (intent.getBooleanExtra(AppConstants.OPEN_BY_CART, false)) {
             binding.bottomNavigationView.menu.findItem(R.id.myOrders).isChecked = true
-            loadFragment(FragmentMyOrders(null))
+            ordersFragment = FragmentMyOrders(null)
+            addAndHideFragment(ordersFragment)
+            loadFragment(ordersFragment)
         } else {
-            loadFragment(HomeFragment())
-
+            loadFragment(homeFragment)
         }
     }
 
     private fun loadFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, fragment)
-        //   transaction.addToBackStack(null)
-        transaction.commit()
+        val currentFrag = currentFragment()
+        val manager = supportFragmentManager
+        manager.beginTransaction().hide(currentFrag).show(fragment).commit()
+        manager.beginTransaction().setMaxLifecycle(currentFrag, Lifecycle.State.STARTED)
+            .commit()
+        manager.beginTransaction().setMaxLifecycle(fragment, Lifecycle.State.RESUMED).commit()
+        currentFragment = fragment
     }
 
-    private fun currentFragment(): Fragment? {
-        return supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+    private fun currentFragment(): Fragment {
+        return currentFragment
     }
 
     fun showLoginDialog() {
@@ -134,17 +169,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (currentFragment() !is HomeFragment) {
-            loadFragment(HomeFragment())
+            loadFragment(homeFragment)
             binding.bottomNavigationView.menu.findItem(R.id.home).isChecked = true
         } else {
             super.onBackPressed()
         }
-
     }
+
     //Open MessagesActivity on pop up firebase notification click
-    private fun openMessagesOnFirebaseNotification(){
-        val isFirebaseNotificationClick = intent.getBooleanExtra(AppConstants.IS_FIREBASE_NOTIFICATION,false)
-        if(isFirebaseNotificationClick){
+    private fun openMessagesOnFirebaseNotification() {
+        val isFirebaseNotificationClick =
+            intent.getBooleanExtra(AppConstants.IS_FIREBASE_NOTIFICATION, false)
+        if (isFirebaseNotificationClick) {
             val intent = Intent(this, MessageActivity::class.java)
             startActivity(intent)
         }

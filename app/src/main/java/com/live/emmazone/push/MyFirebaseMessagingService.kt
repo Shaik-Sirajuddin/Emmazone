@@ -55,23 +55,26 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     createNotification(title, msg, notificationIntent)
                 } else {
-                    savePreference(AppConstants.NEW_SALE,true)
+                    savePreference(AppConstants.NEW_SALE, true)
                     val notificationIntent = Intent(this, Notifications::class.java)
                     notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     createNotification(title, msg, notificationIntent)
                 }
             } else {
-                if (AppConstants.SEND_CHAT_PUSH) {
-                    if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
-                        val notificationIntent = Intent(this, MainActivity::class.java)
-                        notificationIntent.putExtra(AppConstants.IS_FIREBASE_NOTIFICATION,true)
-                        notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        createNotification(title, msg, notificationIntent)
-                    } else {
-                        val notificationIntent = Intent(this, ProviderMainActivity::class.java)
-                        notificationIntent.putExtra(AppConstants.IS_FIREBASE_NOTIFICATION,true)
-                        notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        createNotification(title, msg, notificationIntent)
+                val notificationsEnabled = getPreference(AppConstants.NOTIFICATION_TYPE, "1") == "1"
+                if (notificationsEnabled) {
+                    if (AppConstants.SEND_CHAT_PUSH) {
+                        if (getPreference(AppConstants.ROLE, "") == AppConstants.USER_ROLE) {
+                            val notificationIntent = Intent(this, MainActivity::class.java)
+                            notificationIntent.putExtra(AppConstants.IS_FIREBASE_NOTIFICATION, true)
+                            notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            createNotification(title, msg, notificationIntent)
+                        } else {
+                            val notificationIntent = Intent(this, ProviderMainActivity::class.java)
+                            notificationIntent.putExtra(AppConstants.IS_FIREBASE_NOTIFICATION, true)
+                            notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            createNotification(title, msg, notificationIntent)
+                        }
                     }
                 }
 
