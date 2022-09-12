@@ -238,11 +238,10 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             }
 
             for (i in 0 until imageList.size) {
-                if (imageList[i].image.contains(AppConstants.PRODUCT_IMAGE_URL)) {
+                if (imageList[i].image.contains(AppConstants.PRODUCT_IMAGE_URL) || imageList[i].image.contains("http")) {
                     arrStringMultipleImagesUploadable.remove(imageList[i].image)
                 } else {
                     arrStringMultipleImagesUploadable.add(imageList[i].image)
-
                 }
             }
 

@@ -5,6 +5,7 @@ object AppConstants {
     const val SHARED_NAME = "emmaZone"
     const val AUTHORIZATION = "Authorization"
     const val SECURITY_KEY = "emmazone12@"
+   // const val SECURITY_KEY = ""
     const val SUCCESS_CODE = 200
     const val DEVICE_TYPE = "1"    //1 ->Android, 2->iOS
     const val USER_ROLE = "1"
@@ -64,14 +65,16 @@ object AppConstants {
 
 
     /*******URLs*****/
-//    const val BASE_URL = "http://192.168.1.153:8188/api/" //LOCAL URLs
-//    const val BASE_URL = "http://202.164.42.227:8188/api/"
-    const val BASE_URL = "https://app.emmazn.de/api/" //Client Server
-    const val IMAGE_CATEGORY_URL = "https://app.emmazn.de/uploads/category/"
-    const val IMAGE_USER_URL = "https://app.emmazn.de/uploads/user/"
-    const val SHOP_IMAGE_URL = "https://app.emmazn.de/uploads/shop_images/"
-    const val PRODUCT_IMAGE_URL = "https://app.emmazn.de/uploads/product/"
-    const val SOCKET_BASE_URL = "https://app.emmazn.de/"
+    //const val BASE_URL = "https://app.emmazn.de/api/" //Client Server
+    const val BASE_URL = "http://192.168.137.54:8101/api/"
+    //const val BASE_DOMAIN = "https://app.emmazn.de"
+    const val BASE_DOMAIN = "http://192.168.137.54:8101/"
+   //const val SOCKET_BASE_URL = "https://app.emmazn.de/"
+    const val SOCKET_BASE_URL = BASE_DOMAIN
+    const val IMAGE_CATEGORY_URL = "${BASE_DOMAIN}/uploads/category/"
+    const val IMAGE_USER_URL = "${BASE_DOMAIN}/uploads/user/"
+    const val SHOP_IMAGE_URL = "${BASE_DOMAIN}/uploads/shop_images/"
+    const val PRODUCT_IMAGE_URL = "${BASE_DOMAIN}/uploads/product/"
     const val SIGN_UP = "signup_user"
     const val OTP_VERIFY = "otp_verify"
     const val RESEND_OTP = "resend_otp"

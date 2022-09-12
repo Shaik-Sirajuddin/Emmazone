@@ -4,13 +4,16 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.live.emmazone.R
 import com.live.emmazone.interfaces.OnAcceptRejectListener
@@ -303,11 +306,16 @@ class AppUtils {
                 }
             }
         }
-
-
-
+        fun Activity.showToast(message : String){
+            Toast.makeText( this,message, Toast.LENGTH_SHORT).show()
+        }
+        fun Activity.openGoogleMaps(latitude : String , longitude : String){
+            val gmmIntentUri =
+                Uri.parse("google.navigation:q=${latitude},${longitude}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }
     }
-
-
 
 }

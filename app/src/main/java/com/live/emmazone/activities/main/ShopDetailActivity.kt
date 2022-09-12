@@ -2,12 +2,14 @@ package com.live.emmazone.activities.main
 
 import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,6 +26,8 @@ import com.live.emmazone.response_model.AddFavouriteResponse
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils.Companion.openGoogleMaps
+import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.utils.LocationUpdateUtility
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
@@ -35,7 +39,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
 
 
     lateinit var binding: ActivityShopDetailBinding
-    var listSDProduct = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
+    private var listSDProduct = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
     lateinit var adapter: AdapterShopDetailCategory
 
     override fun updatedLatLng(lat: Double?, lng: Double?) {
@@ -115,9 +119,20 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
             )
             startActivity(intent)
         }
+        binding.tvShopAddress.setOnClickListener {
+            response?.let {
+                it.body.let { details->
+                    try {
+                        openGoogleMaps(details.latitude,details.longitude)
+                    }
+                    catch (e : Exception){
+                        showToast("Google Maps is not installed in the device.")
+                    }
+                }
+            }
+        }
 
     }
-
     private fun showLoginDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

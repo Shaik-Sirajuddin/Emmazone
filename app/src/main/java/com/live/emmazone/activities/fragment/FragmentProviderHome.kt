@@ -3,6 +3,7 @@ package com.live.emmazone.activities.fragment
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -107,6 +108,7 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
 
     private fun setDetailData(response: SellerShopDetailResponse) {
         if (response.body.shopDetails.image != null) {
+            Log.e("image",response.body.shopDetails.image)
             requireView().imageShopDetail.loadImage(response.body.shopDetails.image)
         }
 

@@ -85,7 +85,9 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
             appViewModel.loginApi(this, true, hashMap)
             appViewModel.getResponse().observe(this, this)
 
-        } else AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+        } else {
+            AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
+        }
     }
 
     private fun getDeviceToken() {
@@ -108,6 +110,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is LoginResponse) {
+                    Log.e("login",t.data.message.toString())
                     val response: LoginResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         savePreference(AppConstants.ROLE, response.body.role.toString())

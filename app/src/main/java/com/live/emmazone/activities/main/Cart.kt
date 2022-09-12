@@ -333,7 +333,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         }
     }
 
-    fun addOderApi() {
+    private fun addOderApi() {
         hashMap["deliveryType"] = "2"  //0=>click&collect 1=>lifernado 2=>ownDelivery
         hashMap["userAddressId"] = selectedAddressId
         hashMap["paymentMethod"] = selectedPaymentType  //0=>Wallet 1=>Card 2=>cash

@@ -1,6 +1,7 @@
 package com.live.emmazone.view_models
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -177,6 +178,7 @@ class AppViewModel : ViewModel() {
 
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
+                        Log.e("loginFail",mResponse.value?.error.toString())
                     }
 
                 })
@@ -1414,6 +1416,7 @@ class AppViewModel : ViewModel() {
         mainImage: MultipartBody.Part?
     ) {
         if (activity.checkIfHasNetwork()) {
+            Log.e("edit","entered")
             RestObservable.loading(activity, isDialogShow)
             service.editShopProduct(hashMap, images, mainImage)
                 .enqueue(object : Callback<AddProductResponse> {
@@ -1424,6 +1427,7 @@ class AppViewModel : ViewModel() {
                         if (response.isSuccessful) {
                             mResponse.value = RestObservable.success(response.body()!!)
                         } else {
+                            Log.e("edit",response.errorBody().toString())
                             mResponse.value = RestObservable.errorWithSuccess(
                                 activity,
                                 response.code(),
@@ -1457,6 +1461,7 @@ class AppViewModel : ViewModel() {
         image: MultipartBody.Part
     ) {
         if (activity.checkIfHasNetwork()) {
+            Log.e("image",image.body.toString())
             RestObservable.loading(activity, isDialogShow)
             service.editShopDetail(hashMap, image)
                 .enqueue(object : Callback<EditShopDeatilResponse> {
