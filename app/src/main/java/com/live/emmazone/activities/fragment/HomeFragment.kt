@@ -34,6 +34,7 @@ import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.*
+import com.live.emmazone.utils.App
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.LocationUpdateUtilityFragment
@@ -52,7 +53,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     private var mLatitude = ""
     private var mLongitude = ""
     private var mDistance = ""
-
+    private var searchTypeProduct = true
     private lateinit var binding: FragmentHomeBinding
 
     private val list = ArrayList<ShopListingResponse.Body.Shop>()
@@ -71,7 +72,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 } else {
                     getLiveLocation(requireActivity())
                 }
-
             }
         }
     //Switch Search Type
@@ -99,10 +99,18 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             if (activity != null) {
                 mLatitude = lat.toString()
                 mLongitude = lng.toString()
+                savePreference(AppConstants.LATITUDE,mLatitude)
+                savePreference(AppConstants.LONGITUDE,mLongitude)
                 shopListingApi()
                 stopLocationUpdates()
                 binding.tvLocation.text = completedAddress(lat, lng)
+                savePreference(AppConstants.LOCATION,binding.tvLocation.text)
             }
+        }
+        else{
+            mLatitude = getPreference(AppConstants.LATITUDE,"")
+            mLongitude = getPreference(AppConstants.LONGITUDE,"")
+            binding.tvLocation.text = getPreference(AppConstants.LOCATION,"")
         }
     }
 
@@ -179,7 +187,15 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
-
+        binding.edtSearchWishList.setOnFocusChangeListener { view, focus ->
+            if(focus){
+                if(searchTypeProduct){
+                    binding.edtSearchWishList.clearFocus()
+                    val intent = Intent(requireContext(), SearchProductActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
         binding.edtSearchWishList.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -212,14 +228,18 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
         })
 
-        binding.ivMyOrder.setOnClickListener {
-            val intent = Intent(requireContext(), SearchProductActivity::class.java)
-            startActivity(intent)
-        }
         //Radio Group
         binding.searchRadioGroup.setOnCheckedChangeListener { radioGroup, id->
             isShopSearch = ( id == binding.radioShop.id )
             switchSearchType()
+        }
+        binding.switchSearch.setOnClickListener {
+            searchTypeProduct = !searchTypeProduct
+            if(binding.edtSearchWishList.hasFocus() && searchTypeProduct){
+                binding.edtSearchWishList.clearFocus()
+                val intent = Intent(requireContext(), SearchProductActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -557,7 +577,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             startActivity(intent)
         }
     }
-
     private fun showBottomDialog() {
         AppUtils.hideSoftKeyboard(requireActivity())
         bottomDialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)

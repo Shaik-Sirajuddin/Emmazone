@@ -14,16 +14,10 @@ data class SearchProductResponse(
     var success: Boolean // true
 ) {
     data class Body(
-        @SerializedName("barcodeImage")
-        var barcodeImage: String,
         @SerializedName("brandName")
         var brandName: String,
-        @SerializedName("categoryColorId")
-        var categoryColorId: Int, // 73
         @SerializedName("categoryId")
         var categoryId: Int, // 33
-        @SerializedName("categorySizeId")
-        var categorySizeId: Int, // 69
         @SerializedName("created")
         var created: Int, // 1648026658
         @SerializedName("createdAt")
@@ -38,16 +32,12 @@ data class SearchProductResponse(
         var isApproved: Int, // 1
         @SerializedName("name")
         var name: String, // TV
-        @SerializedName("product_color")
-        var productColor: String, // 0
         @SerializedName("product_highlight")
         var productHighlight: Int, // 0
         @SerializedName("product_images")
         var productImages: List<ProductImage>,
-        @SerializedName("product_price")
-        var productPrice: String, // 2000.00
-        @SerializedName("product_quantity")
-        var productQuantity: Int, // 50
+        @SerializedName("minPrice")
+        val minPrice : String , //2000.00
         @SerializedName("productReview")
         var productReview: String, // 0.0
         @SerializedName("product_type")
@@ -69,7 +59,9 @@ data class SearchProductResponse(
         @SerializedName("vendorDetail")
         var vendorDetail: VendorDetail,
         @SerializedName("vendorId")
-        var vendorId: Int // 0
+        var vendorId: Int, // 0
+        @SerializedName("distance")
+        var distance:String
     ) {
         data class ProductImage(
             @SerializedName("id")

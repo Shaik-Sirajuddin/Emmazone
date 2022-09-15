@@ -142,6 +142,7 @@ class RestObservable(
                     arrayOfNulls<Annotation>(0)
                 )
             return try {
+                Log.d("gb",responseBody.toString())
                 val errorResponse = converter.convert(responseBody!!)
                 val errorMessage = errorResponse!!.message
                 errorMessage!!

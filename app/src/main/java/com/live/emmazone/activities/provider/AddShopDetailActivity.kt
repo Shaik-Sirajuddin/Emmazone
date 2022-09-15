@@ -102,6 +102,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
     }
 
     private fun clicksHandle() {
+
         binding.imgEditShop.setOnClickListener {
             getImage(0, false)
         }
@@ -126,7 +127,6 @@ class AddShopDetailActivity : ImagePickerUtility(),
         }
 
         binding.edtShopYearFoundation.setOnClickListener {
-
             createDialogWithoutDateField()
         }
     }

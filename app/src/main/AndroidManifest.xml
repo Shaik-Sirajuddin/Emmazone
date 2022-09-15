@@ -26,8 +26,11 @@
         android:theme="@style/Theme.EmmaZone"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.provider.AddNewProductVariant"
+            android:exported="false" />
+        <activity
             android:name=".activities.main.SearchProductActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activities.provider.MessageActivity"
             android:exported="true"

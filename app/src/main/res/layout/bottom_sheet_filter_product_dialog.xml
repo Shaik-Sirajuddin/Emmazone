@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_profile"
     android:paddingStart="@dimen/_10sdp"
     android:paddingEnd="@dimen/_10sdp"
     android:paddingBottom="@dimen/_20sdp"
-    android:background="@drawable/bg_profile"
     tools:context=".activities.main.BottomSheetDialog">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -40,33 +40,62 @@
 
     <EditText
         android:id="@+id/minPrice"
-        android:background="@drawable/bg_edit_text"
         android:layout_width="70dp"
         android:layout_height="40dp"
-        android:padding="7dp"
+        android:background="@drawable/bg_edit_text"
+        android:includeFontPadding="false"
         android:inputType="number"
+        android:maxLines="1"
+        android:padding="7dp"
         android:text="0"
         android:textAlignment="center"
-        android:maxLines="1"
-        android:includeFontPadding="false"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/seekBar"
-        app:layout_constraintTop_toBottomOf="@id/seekBar"/>
+        app:layout_constraintTop_toBottomOf="@id/seekBar" />
 
     <EditText
         android:id="@+id/maxPrice"
-        android:background="@drawable/bg_edit_text"
         android:layout_width="70dp"
         android:layout_height="40dp"
-        android:padding="7dp"
+        android:background="@drawable/bg_edit_text"
+        android:includeFontPadding="false"
         android:inputType="number"
+        android:padding="7dp"
         android:text="2000"
         android:textAlignment="center"
-        android:includeFontPadding="false"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/seekBar"
-        app:layout_constraintTop_toBottomOf="@id/seekBar"/>
+        app:layout_constraintTop_toBottomOf="@id/seekBar" />
 
+    <LinearLayout
+        app:layout_constraintEnd_toEndOf="@id/tvPrice"
+        app:layout_constraintStart_toStartOf="@id/tvPrice"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:id="@+id/linearLayout"
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/maxPrice"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distance"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDistance"
+            android:layout_width="70dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/underline_green"
+            android:textColor="@color/green"
+            android:textSize="@dimen/sp18"
+            />
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCategory"
@@ -79,7 +108,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/tvPrice"
         app:layout_constraintStart_toStartOf="@id/tvPrice"
-        app:layout_constraintTop_toBottomOf="@id/maxPrice" />
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvSelectCategory"
@@ -181,12 +210,11 @@
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="false"
             android:padding="@dimen/_5sdp"
             android:text="@string/low_to_high"
             android:textColor="@color/green"
-            android:textSize="@dimen/sp18"
-            android:checked="false"
-            />
+            android:textSize="@dimen/sp18" />
 
         <RadioButton
             android:id="@+id/radioButton2"

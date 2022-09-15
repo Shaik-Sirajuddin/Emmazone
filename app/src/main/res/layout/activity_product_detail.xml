@@ -192,7 +192,7 @@
                 android:layout_marginStart="@dimen/dp16"
                 android:layout_marginTop="@dimen/dp16"
                 android:layout_marginEnd="@dimen/dp16"
-                android:scaleType="centerCrop"
+                android:scaleType="center"
                 android:src="@drawable/placeholder"
 
                 app:riv_corner_radius="@dimen/dp10" />
@@ -324,7 +324,37 @@
                 android:textSize="@dimen/sp12" />
 
         </LinearLayout>
+     <LinearLayout
+         android:id="@+id/variantPickerLayout"
+         app:layout_constraintTop_toBottomOf="@+id/llPlusMinus"
+         android:layout_width="match_parent"
+         android:orientation="vertical"
+         android:layout_marginHorizontal="15dp"
+         android:layout_height="wrap_content">
+         <TextView
+             android:text="Size :"
+             android:textColor="@color/black"
+             android:textStyle="bold"
+             android:textSize="16sp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/sizeRecyclerView"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content" />
+         <TextView
+             android:text="Color :"
+             android:textColor="@color/black"
+             android:textStyle="bold"
+             android:textSize="16sp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/colorRecyclerView"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>
 
+     </LinearLayout>
         <LinearLayout
             android:id="@+id/spinnerLayout"
             android:layout_width="match_parent"
@@ -334,7 +364,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@+id/llPlusMinus"
             app:layout_constraintStart_toStartOf="@+id/llPlusMinus"
-            app:layout_constraintTop_toBottomOf="@+id/llPlusMinus">
+            app:layout_constraintTop_toBottomOf="@+id/variantPickerLayout">
 
             <LinearLayout
                 android:id="@+id/sizeSpinLayout"

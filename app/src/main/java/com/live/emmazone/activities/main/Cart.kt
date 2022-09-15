@@ -126,7 +126,6 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         getCartListing()
         setCartAdapter()
         setLikeProductAdapter()

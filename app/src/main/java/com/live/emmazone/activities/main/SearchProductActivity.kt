@@ -14,6 +14,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
@@ -33,6 +34,7 @@ import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CategoryColorSizeResponse
 import com.live.emmazone.response_model.CategoryListResponse
 import com.live.emmazone.response_model.SearchProductResponse
+import com.live.emmazone.utils.App
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
@@ -62,7 +64,20 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     private lateinit var sizeAdapter: SizeAdapter
     private val list: java.util.ArrayList<CategoryListResponse.Body> = java.util.ArrayList()
     private val appViewModel: AppViewModel by viewModels()
-
+    private var mDistance = ""
+    private var mLatitude = ""
+    private var mLongitude = ""
+    private var mLocation = ""
+    private val filterLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                mDistance = result.data?.getStringExtra(AppConstants.DISTANCE)!!
+                mLatitude = result.data?.getStringExtra(AppConstants.LATITUDE)!!
+                mLongitude = result.data?.getStringExtra(AppConstants.LONGITUDE)!!
+                mLocation = result.data?.getStringExtra(AppConstants.LOCATION)!!
+                showBottomDialog()
+            }
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_product)
@@ -71,6 +86,9 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     }
 
     private fun clicksHandle() {
+        mLongitude = getPreference(AppConstants.LONGITUDE,"")
+        mLatitude = getPreference(AppConstants.LATITUDE,"")
+        mLocation = getPreference(AppConstants.LOCATION,"")
         rlBack.setOnClickListener { onBackPressed() }
         ivFilter.setOnClickListener {
             showBottomDialog()
@@ -127,6 +145,7 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             sizeID
         }
         val hashMap = HashMap<String, String>()
+        val minPrice = bottomDialog!!.minPrice.text.toString().trim().toIntOrNull() ?: 0
         val maxPrice = bottomDialog!!.maxPrice.text.toString().trim().toIntOrNull() ?: 2000
         hashMap["keyword"] = s
         hashMap["categoryId"] = catid
@@ -134,7 +153,10 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         hashMap["categorySizeId"] = sizId
         hashMap["max_price"] = maxPrice.toString()
         hashMap["price_sort"] = priceSort
-
+        hashMap["min_price"] = minPrice.toString()
+        hashMap["latitude"] = mLatitude
+        hashMap["longitude"] = mLongitude
+        hashMap["distance"] = mDistance
 
         appViewModel.filterProductApi(this, hashMap, false)
         appViewModel.getResponse().observe(this, this)
@@ -171,8 +193,10 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         val radioButton2 = view.findViewById<RadioButton>(R.id.radioButton2)
         val radioButton3 = view.findViewById<RadioButton>(R.id.radioButton3)
         val btnDone = view.findViewById<Button>(R.id.btnDone)
+        val tvDistance = view.findViewById<AppCompatTextView>(R.id.tvDistance)
 
 
+        tvDistance.text = mDistance
         if (getPreference(AppConstants.IS_FILTER, false)) {
             tvSelectCategory.text = getPreference(AppConstants.CATEGORY_NAME, "").toString()
             categoryID = getPreference(AppConstants.CATEGORY_ID, "").toString()
@@ -196,9 +220,17 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                 }
             }
             maxPrice.setText(getPreference(AppConstants.PRICE, "2000"))
-
+            minPrice.setText(getPreference(AppConstants.MIN_PRICE,"0"))
         }
-
+        tvDistance.setOnClickListener {
+            bottomDialog!!.dismiss()
+            val intent = Intent(this, FilterActivity::class.java)
+            intent.putExtra(AppConstants.DISTANCE, mDistance)
+            intent.putExtra(AppConstants.LATITUDE, mLatitude)
+            intent.putExtra(AppConstants.LONGITUDE, mLongitude)
+            intent.putExtra(AppConstants.LOCATION,mLocation)
+            filterLauncher.launch(intent)
+        }
         tvSelectCategory.setOnClickListener {
             dropDownType = AppConstants.CATEGORY_DROP_DOWN
             appViewModel.categoryListApi(this, true)
@@ -243,9 +275,11 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                 savePreference(AppConstants.SIZE_NAME, tvSelectSize.text.toString().trim())
                 savePreference(AppConstants.SIZE_ID, sizeID)
             }
-            val maxPrice = bottomDialog!!.maxPrice.text.toString().trim().toIntOrNull() ?: 2000
+            val maxP = bottomDialog!!.maxPrice.text.toString().trim().toIntOrNull() ?: 2000
+            val minP = bottomDialog!!.minPrice.text.toString().trim().toIntOrNull() ?: 0
 
-            savePreference(AppConstants.PRICE, maxPrice.toString())
+            savePreference(AppConstants.PRICE, maxP.toString())
+            savePreference(AppConstants.MIN_PRICE,minP.toString())
 
             //   if (radioButton.isChecked || radioButton2.isChecked) {
             if (radioButton.isChecked) {
@@ -258,7 +292,6 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             } else if (radioButton3.isChecked) {
                 savePreference(AppConstants.PRICE_RANGE, " ")
                 priceSort = ""
-
             }
             //  }
 

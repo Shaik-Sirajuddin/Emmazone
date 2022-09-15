@@ -1,6 +1,7 @@
 package com.live.emmazone.response_model
 
 import com.google.gson.annotations.SerializedName
+import com.live.emmazone.model.ProductVariant
 import java.io.Serializable
 
 
@@ -43,6 +44,8 @@ data class SellerShopDetailResponse(
             val shopCategories: ArrayList<ShopCategory>,
             @SerializedName("shopDescription")
             val shopDescription: String,
+            @SerializedName("product_variants")
+            val productVariants : ArrayList<ProductVariant>,
             @SerializedName("shopName")
             val shopName: String,
             @SerializedName("userId")
@@ -59,12 +62,8 @@ data class SellerShopDetailResponse(
             data class Product(
                 @SerializedName("category")
                 val category: Category,
-                @SerializedName("categoryColorId")
-                val categoryColorId: Int,
                 @SerializedName("categoryId")
                 val categoryId: Int,
-                @SerializedName("categorySizeId")
-                val categorySizeId: Int,
                 @SerializedName("created")
                 val created: Int,
                 @SerializedName("createdAt")
@@ -77,22 +76,22 @@ data class SellerShopDetailResponse(
                 val mainImage: String,
                 @SerializedName("name")
                 val name: String,
+                @SerializedName("minPrice")
+                val minPrice : String,
                 @SerializedName("product_ highlight")
                 val productHighlight: Int,
                 @SerializedName("product_images")
                 val productImages: List<ProductImage>,
-                @SerializedName("product_price")
-                val productPrice: String,
                 @SerializedName("shortDescription")
                 val shortDescription: String,
-                @SerializedName("product_quantity")
-                val productQuantity: Int,
                 @SerializedName("productReview")
                 val productReview: String,
                 @SerializedName("status")
                 val status: Int,
                 @SerializedName("userId")
-                val userId: Int
+                val userId: Int,
+                @SerializedName("product_variants")
+                val productVariants : ArrayList<ProductVariant>
             ) : Serializable {
                 data class Category(
                     @SerializedName("image")
@@ -131,6 +130,7 @@ data class SellerShopDetailResponse(
                 @SerializedName("vendorDetailId")
                 val vendorDetailId: Int
             ) : Serializable
+
         }
     }
 }

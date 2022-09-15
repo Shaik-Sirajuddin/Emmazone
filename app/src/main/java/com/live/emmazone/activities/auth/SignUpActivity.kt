@@ -1,10 +1,16 @@
 package com.live.emmazone.activities.auth
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
+import com.amulyakhare.textdrawable.TextDrawable
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.live.emmazone.R
@@ -22,12 +28,12 @@ import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.ImagePickerUtility
 import com.live.emmazone.view_models.AppViewModel
-import com.schunts.extensionfuncton.loadImage
-import com.schunts.extensionfuncton.prepareMultiPart
-import com.schunts.extensionfuncton.toBody
+import com.schunts.extensionfuncton.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
+
 
 /*
 *
@@ -65,6 +71,11 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
 
     private fun clicksHandle() {
+        binding.edtName.doAfterTextChanged {
+            val text = it.toString().trim()
+            if(text.length !=1 )return@doAfterTextChanged
+            binding.pickImage.loadImage(letterByteArray(text))
+        }
         binding.checkBox.setOnClickListener {
 
             if (termsConditionCheck) {
@@ -110,8 +121,14 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
         if (mImagePath.isNotEmpty()) {
             mainImage = prepareMultiPart("image", File(mImagePath))
         }
-
-
+        else{
+            var firstLetter = "U"
+            if(name.isNotEmpty()){
+                firstLetter = name.subSequence(0, 1).toString()
+            }
+            val data = letterByteArray(firstLetter)
+            mainImage = prepareMultiPart("image",data)
+        }
         if (Validator.signUpValidation(
                 name,
                 email,

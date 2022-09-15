@@ -2,12 +2,14 @@ package com.live.emmazone.activities.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.amulyakhare.textdrawable.TextDrawable
 import com.live.emmazone.R
 import com.live.emmazone.activities.FAQ
 import com.live.emmazone.activities.PrivacyPolicy
@@ -165,13 +167,11 @@ class AccountFragment : Fragment(), Observer<RestObservable> {
                         binding.tvEmail.text = response.body.user.email
                         binding.tvPhone.text = response.body.user.countryCode + response.body.user.phone
 
-                        if (!response.body.user.image.isNullOrEmpty()) {
+                        if (response.body.user.image.isNotEmpty()) {
                             binding.pickImage.visibility = View.VISIBLE
                             binding.rlProfile.visibility = View.GONE
+                            Log.e("Image",response.body.user.image)
                             binding.pickImage.loadImage(AppConstants.IMAGE_USER_URL + response.body.user.image)
-                        } else {
-                            binding.pickImage.visibility = View.GONE
-                            binding.rlProfile.visibility = View.VISIBLE
                         }
 
                     }

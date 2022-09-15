@@ -5,64 +5,65 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
         android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:background="@drawable/alert_dialog_shape"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alert"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:text="Alert"
             android:textColor="@color/black"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/tv_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:layout_marginTop="2dp"
-            android:layout_gravity="center_horizontal"
-            android:textSize="12dp"
             android:textColor="@color/black"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="12dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginTop="20dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-             <RelativeLayout
+            <RelativeLayout
 
 
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
 
-                 <TextView
-                     android:id="@+id/tv_ok"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:layout_centerInParent="true"
-                     android:layout_gravity="center_horizontal"
-                     android:gravity="center"
-                     android:includeFontPadding="false"
-                     android:padding="10dp"
-                     android:text="OK"
-                     android:textColor="@color/skyBlue"
-                     android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/tv_ok"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:padding="10dp"
+                    android:text="OK"
+                    android:textColor="@color/skyBlue"
+                    android:textSize="16dp" />
 
             </RelativeLayout>
         </LinearLayout>

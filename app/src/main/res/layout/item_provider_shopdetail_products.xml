@@ -31,7 +31,7 @@
                 android:id="@+id/imageProductShopDetail"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp120"
-                android:scaleType="fitXY"
+                android:scaleType="center"
                 android:src="@drawable/shoes2"
                 android:adjustViewBounds="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -156,7 +156,6 @@
         android:layout_margin="@dimen/dp8"
         android:background="@drawable/dotted_stoke"
         android:gravity="center"
-
         android:orientation="vertical"
         android:visibility="gone"
         tools:ignore="MissingConstraints">

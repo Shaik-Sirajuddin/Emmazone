@@ -42,7 +42,7 @@ class AdapterShopDetailProducts(
 
         }
         holder.productItemNameSD.text = data.name
-        holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol, data.productPrice)
+//        holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol, data.productPrice)
         holder.tvShopDetailProductBrandSD.text = data.shortDescription
         //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 

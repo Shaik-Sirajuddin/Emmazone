@@ -61,15 +61,16 @@ object AppConstants {
     const val SIZE_ID="sizeID"
     const val PRICE_RANGE="priceRange"
     const val PRICE="price"
+    const val MIN_PRICE = "filter_min_price"
 
 
 
-    /*******URLs*****/
-    //const val BASE_URL = "https://app.emmazn.de/api/" //Client Server
-    const val BASE_URL = "http://192.168.137.54:8101/api/"
-    //const val BASE_DOMAIN = "https://app.emmazn.de"
-    const val BASE_DOMAIN = "http://192.168.137.54:8101/"
-   //const val SOCKET_BASE_URL = "https://app.emmazn.de/"
+   /*******URLs*****/
+   //const val BASE_URL = "https://app.emmazn.de/api/" //Client Server
+   //const val BASE_DOMAIN = "https://app.emmazn.de"
+    const val BASE_DOMAIN = "http://192.168.135.78:8101/"
+    const val BASE_URL = "${BASE_DOMAIN}api/"
+ //const val SOCKET_BASE_URL = "https://app.emmazn.de/"l
     const val SOCKET_BASE_URL = BASE_DOMAIN
     const val IMAGE_CATEGORY_URL = "${BASE_DOMAIN}/uploads/category/"
     const val IMAGE_USER_URL = "${BASE_DOMAIN}/uploads/user/"
@@ -128,8 +129,11 @@ object AppConstants {
     const val WITHDRAW_REQUEST = "withdrawl"
     const val SEARCH_PRODUCT = "searchProduct"
 
+    const val ADD_PRODUCT_VARIANT = "add_product_variant"
+    const val EDIT_PRODUCT_VARIANT = "edit_product_variant"
     //My changes :
     const val IS_FIREBASE_NOTIFICATION = "firebase_notification"
     const val NEW_SALE = "new_sale"
+
 
 }

@@ -198,11 +198,7 @@ object Validator {
     fun editProductValidation(
         name: String,
         desc: String,
-        price: String,
-        quantity: String,
         categories: String,
-        color: String,
-        size: String,
         imageList: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>
     ): Boolean {
 
@@ -215,20 +211,8 @@ object Validator {
         } else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
             false
-        } else if (TextUtils.isEmpty(price)) {
-            errorMessage = AppController.instance!!.getString(R.string.msg_enter_price)
-            false
-        } else if (TextUtils.isEmpty(quantity)) {
-            errorMessage = AppController.instance!!.getString(R.string.msg_enter_quantity)
-            false
-        } else if (TextUtils.isEmpty(categories)) {
+        }  else if (TextUtils.isEmpty(categories)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_category_1)
-            false
-        } else if (TextUtils.isEmpty(color)) {
-            errorMessage = AppController.instance!!.getString(R.string.msg_select_color)
-            false
-        } else if (TextUtils.isEmpty(size)) {
-            errorMessage = AppController.instance!!.getString(R.string.msg_select_size)
             false
         } else true
 

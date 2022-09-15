@@ -72,15 +72,16 @@
         android:background="@drawable/login_bg"
         android:orientation="horizontal">
 
+<!--        android:digits="qwertyuiopasdfghjklzxcvbnm 1234567890 QWERTYUIOPASDFGHJKLZXCVBNM"-->
 
         <EditText
+
             android:id="@+id/edtMsg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:background="@drawable/login_bg"
-            android:digits="qwertyuiopasdfghjklzxcvbnm 1234567890 QWERTYUIOPASDFGHJKLZXCVBNM"
             android:hint="@string/type_your_message_here"
             android:inputType="textMultiLine"
             android:maxHeight="@dimen/_120sdp"

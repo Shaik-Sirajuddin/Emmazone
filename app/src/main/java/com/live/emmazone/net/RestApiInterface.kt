@@ -65,6 +65,20 @@ interface RestApiInterface {
         @Part image: MultipartBody.Part
     ): Call<AddShopResponse>
 
+    //New Routes
+    @FormUrlEncoded
+    @POST(AppConstants.ADD_PRODUCT_VARIANT)
+    fun addProductVariant(
+        @FieldMap hashMap: HashMap<String, String>,
+    ): Call<AddProductVariantResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.EDIT_PRODUCT_VARIANT)
+    fun editProductVariant(
+        @FieldMap hashMap: HashMap<String, String>,
+    ): Call<AddProductVariantResponse>
+
+    //
     @FormUrlEncoded
     @POST(AppConstants.CHANGE_PASSWORD)
     fun changePassword(@FieldMap hashMap: HashMap<String, String>): Call<ChangePasswordResponse>

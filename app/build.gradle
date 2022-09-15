@@ -116,4 +116,7 @@ dependencies {
     //Crop image
     implementation 'com.github.dhaval2404:imagepicker:2.1'
 
+    //Letter Image
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
 }

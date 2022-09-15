@@ -204,7 +204,9 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
     }
 
     private fun setCategoryAdapter() {
-        val shopCategory = AdapterShopDetailCategory(response!!.body.shopCategories)
+        val shopCategory = AdapterShopDetailCategory(response!!.body.shopCategories){
+
+        }
         binding.recyclerShopDetailCategory.adapter = shopCategory
     }
 

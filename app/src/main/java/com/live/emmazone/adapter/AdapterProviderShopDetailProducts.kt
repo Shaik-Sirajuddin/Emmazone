@@ -43,8 +43,8 @@ class AdapterProviderShopDetailProducts(
 
             model.mainImage?.let { holder.imageProductSD.loadImage(it) }
             holder.productItemNameSD.text = model.name
-            holder.productItemPriceSD.text =
-                context.getString(R.string.euro_symbol, model.productPrice.toDouble().toString())
+//            holder.productItemPriceSD.text =
+//                context.getString(R.string.euro_symbol, model.productPrice.toDouble().toString())
             holder.tvShopDetailProductBrandSD.text = model.shortDescription  //short description
 
             holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"

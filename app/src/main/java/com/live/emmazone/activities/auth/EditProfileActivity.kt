@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityEditProfileBinding
@@ -20,8 +21,10 @@ import com.live.emmazone.response_model.EditProfileResponse
 import com.live.emmazone.response_model.ProfileResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.utils.ImagePickerUtility
 import com.live.emmazone.view_models.AppViewModel
+import com.schunts.extensionfuncton.letterByteArray
 import com.schunts.extensionfuncton.loadImage
 import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
@@ -62,11 +65,9 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
 
         binding.btnUpdate.setOnClickListener {
             editProfileApi()
-
         }
 
         binding.apply {
-
             camera.setOnClickListener {
                 getImage(0, false)
             }
@@ -83,14 +84,28 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
             profileDetail!!.body.user.countryCode + profileDetail!!.body.user.phone
 
         binding.imageDelete.setOnClickListener {
-            val profile =  AppCompatResources.getDrawable(this,R.drawable.default_profile)
-            val bitmap = (profile as BitmapDrawable).bitmap
-            val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-            byteArray = stream.toByteArray()
+//            val profile =  AppCompatResources.getDrawable(this,R.drawable.default_profile)
+//            val bitmap = (profile as BitmapDrawable).bitmap
+//            val stream = ByteArrayOutputStream()
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+//            byteArray = stream.toByteArray()
+//            mImagePath = ""
+//            binding.ivProfile.loadImage(profile)
+//
+            val name = binding.edtName.text.toString().trim()
+            if(name.isEmpty()){
+                showToast("Name must not be empty!")
+                return@setOnClickListener
+            }
+            byteArray = letterByteArray(name.substring(0,1))
             mImagePath = ""
-            binding.ivProfile.loadImage(profile)
-
+            binding.ivProfile.loadImage(byteArray!!)
+        }
+        binding.edtName.doAfterTextChanged {
+            val text = it.toString().trim()
+            if (text.length != 1) return@doAfterTextChanged
+            byteArray = letterByteArray(text)
+            binding.ivProfile.loadImage(byteArray!!)
         }
     }
 

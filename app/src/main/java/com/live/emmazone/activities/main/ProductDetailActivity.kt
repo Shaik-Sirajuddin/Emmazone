@@ -6,6 +6,8 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
@@ -16,29 +18,36 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.adapter.ImageSliderCustomeAdapter
+import com.live.emmazone.adapter.ProductSizeAndColorAdapter
 import com.live.emmazone.base.AppController
 import com.live.emmazone.databinding.ActivityProductDetailBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.interfaces.OnPopupClick
+import com.live.emmazone.model.ProductVariant
 import com.live.emmazone.model.ShopProductDetailResponse
+import com.live.emmazone.model.SizeAndColorItem
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddOrderResponse
 import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.AppUtils.Companion.openGoogleMaps
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import java.text.DecimalFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnPopupClick,
@@ -72,6 +81,17 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private var shopProductDetailResponse: ShopProductDetailResponse? = null
     val hashMap = HashMap<String, String>()
     private var bottomDialog: BottomSheetDialog? = null
+    private var latitude = ""
+    private var longitude = ""
+
+    //variant data
+    private var selectedColor = 0
+    private var selectedSize = 0
+    private lateinit var sizeAdapter:ProductSizeAndColorAdapter
+    private lateinit var colorAdapter: ProductSizeAndColorAdapter
+    private val sizeList = ArrayList<SizeAndColorItem>()
+    private val colorList = ArrayList<SizeAndColorItem>()
+
 
     private val launcherPayment =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -132,10 +152,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             binding.tvShopName.visibility = View.VISIBLE
         }
 
-
         setOnClicks()
-
-
 
 
         binding.back.setOnClickListener {
@@ -150,10 +167,50 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             }
 
         }
-
+        initAdapters()
 
     }
 
+    private fun initAdapters() {
+        sizeAdapter = ProductSizeAndColorAdapter(this,sizeList){
+            selectedSize = it
+            updateVariant()
+        }
+        colorAdapter = ProductSizeAndColorAdapter(this,colorList){
+            selectedColor = it
+            updateVariant()
+        }
+        binding.sizeRecyclerView.adapter = sizeAdapter
+        binding.colorRecyclerView.adapter = colorAdapter
+        binding.sizeRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        binding.colorRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+    }
+    private fun updateVariant(){
+        try{
+            val model = shopProductDetailResponse!!.body.productVariants.find {
+                it.categoryColorId == colorList[selectedColor].id &&
+                        it.categorySizeId == sizeList[selectedSize].id
+            } ?: return
+            binding.tvPriceInteger.text = "${model.price} €"
+            binding.tvSize.text = model.size
+            binding.tvColor.text = model.color
+            binding.tvQty.text = getString(R.string.of, model.quantity.toString())
+            totalQty = model.quantity
+
+            if (model.quantity == 0) {
+                binding.tvOutOfStock.visibility = View.VISIBLE
+                binding.btnBuyDeliver.visibility = View.GONE
+                binding.btnClickCollect.visibility = View.GONE
+            } else {
+                binding.tvOutOfStock.visibility = View.GONE
+                binding.btnBuyDeliver.visibility = View.VISIBLE
+                binding.btnClickCollect.visibility = View.VISIBLE
+            }
+        }catch (e:Exception){
+            Log.e("variantFindError",e.message.toString())
+        }
+
+    }
     private fun productDetailApiHit() {
         val hashMap = HashMap<String, String>()
         hashMap["id"] = productId
@@ -199,8 +256,8 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         val tvTaxPrice = view.findViewById<TextView>(R.id.tvTaxPrice)
         val tvTotalPrice = view.findViewById<TextView>(R.id.tvTotalPrice)
         val tvDeliveryAddress = view.findViewById<TextView>(R.id.tvDeliveryAddress)
-        tvSelectAddress = view.findViewById<TextView>(R.id.tvSelectAddress)
-        tvSelectPayment = view.findViewById<TextView>(R.id.tvSelectPayment)
+        tvSelectAddress = view.findViewById(R.id.tvSelectAddress)
+        tvSelectPayment = view.findViewById(R.id.tvSelectPayment)
         tvOrderPersonName = view.findViewById(R.id.tvOrderPersonName)
         tvOrderDeliveryAddress = view.findViewById(R.id.tvOrderDeliveryAddress)
         textPaymentMethod = view.findViewById(R.id.textPaymentMethod)
@@ -371,50 +428,67 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         appViewModel.addOrderApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
     }
-
+    private fun createSizeList(variants : ArrayList<ProductVariant>): ArrayList<SizeAndColorItem> {
+        val list = ArrayList<SizeAndColorItem>()
+        for(variant in variants){
+            val item = SizeAndColorItem(
+                variant.categorySizeId,
+                variant.size,
+                false
+            )
+            if(!list.contains(item)){
+                list.add(item)
+            }
+        }
+        return list
+    }
+    private fun createColorList(variants : ArrayList<ProductVariant>): ArrayList<SizeAndColorItem> {
+        val list = ArrayList<SizeAndColorItem>()
+        for(variant in variants){
+            val item = SizeAndColorItem(
+                variant.categoryColorId,
+                variant.color,
+                true
+            )
+            if(!list.contains(item)){
+                list.add(item)
+            }
+        }
+        return list
+    }
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is ShopProductDetailResponse) {
+
                     shopProductDetailResponse = t.data
                     val model = t.data.body
+
                     binding.productItemName.text = model.name
                     try {
                         binding.ratingBarProductDetail.rating = model.productReview.toFloat()
                     } catch (e: Exception) {
                     }
-
+                    latitude = model.latitude
+                    longitude = model.longitude
                     binding.tvShopDetailProductText.text =
                         "${binding.ratingBarProductDetail.rating}/5"
                     binding.tvDesc.text = model.shortDescription
                     binding.tvDelivery.text = model.description
-                    binding.tvSize.text = model.productSize.size
-                    binding.tvColor.text = model.productColor.color
-                    binding.tvQty.text = getString(R.string.of, model.productQuantity.toString())
-                    totalQty = model.productQuantity
 
-                    binding.itemImageProductDetail.setAdapter(
-                        ImageSliderCustomeAdapter(
-                            this@ProductDetailActivity,
-                            model.productImages
-                        )
+                    binding.itemImageProductDetail.adapter = ImageSliderCustomeAdapter(
+                        this@ProductDetailActivity,
+                        model.productImages
                     )
                     binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
 
-
-                    binding.tvPriceInteger.text = "${model.productPrice} €"
-
-                    if (model.productQuantity == 0) {
-                        binding.tvOutOfStock.visibility = View.VISIBLE
-                        binding.btnBuyDeliver.visibility = View.GONE
-                        binding.btnClickCollect.visibility = View.GONE
-                    } else {
-                        binding.tvOutOfStock.visibility = View.GONE
-                        binding.btnBuyDeliver.visibility = View.VISIBLE
-                        binding.btnClickCollect.visibility = View.VISIBLE
-                    }
-
-
+                    sizeList.clear()
+                    colorList.clear()
+                    sizeList.addAll(createSizeList(model.productVariants))
+                    colorList.addAll(createColorList(model.productVariants))
+                    sizeAdapter.notifyDataSetChanged()
+                    colorAdapter.notifyDataSetChanged()
+                    updateVariant()
                     if (model.cartCount == 0) {
                         binding.ivRedCart.visibility = View.GONE
                     } else {
@@ -446,12 +520,14 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
         dialogOrderPlaced.setOnClickListener {
             bottomDialog?.dismiss()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(AppConstants.OPEN_BY_CART, true)
-            startActivity(intent)
-            finishAffinity()
+            openGoogleMaps(latitude,longitude)
+//
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra(AppConstants.OPEN_BY_CART, true)
+//            startActivity(intent)
+//            finishAffinity()
         }
-        alertDialog.setCancelable(false)
+        alertDialog.setCancelable(true)
 
         alertDialog.setView(placeOrder)
         alertDialog.show()

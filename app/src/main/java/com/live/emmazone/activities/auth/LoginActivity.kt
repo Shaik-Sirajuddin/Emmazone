@@ -92,8 +92,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
 
     private fun getDeviceToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.e("DEVICE TOKEN", "Fetching FCM registration token failed", task.exception)
+            if (!task.isSuccessful) { Log.e("DEVICE TOKEN", "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
 

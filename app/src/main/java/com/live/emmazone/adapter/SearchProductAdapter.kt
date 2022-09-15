@@ -45,7 +45,7 @@ class SearchProductAdapter(val list: ArrayList<SearchProductResponse.Body>) :
 
             itemView.productItemName.text = model.name
             itemView.productItemPrice.text =
-                mContext.getString(R.string.euro_symbol, model.productPrice)
+                mContext.getString(R.string.euro_symbol, model.minPrice)
             itemView.tvShopDetailProductBrand.text = model.shortDescription
             //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 

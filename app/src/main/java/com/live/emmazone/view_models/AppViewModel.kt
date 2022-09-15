@@ -171,7 +171,6 @@ class AppViewModel : ViewModel() {
                                 response.code(),
                                 response.errorBody()!!
                             )
-
                         }
 
                     }
@@ -1452,7 +1451,88 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+    // New Function for product
+    fun addProductVariant(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addProductVariant(hashMap)
+                .enqueue(object : Callback<AddProductVariantResponse> {
+                    override fun onResponse(
+                        call: Call<AddProductVariantResponse>,
+                        response: Response<AddProductVariantResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
 
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<AddProductVariantResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addProductVariant(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+    fun editProductVariant(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.editProductVariant(hashMap)
+                .enqueue(object : Callback<AddProductVariantResponse> {
+                    override fun onResponse(
+                        call: Call<AddProductVariantResponse>,
+                        response: Response<AddProductVariantResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<AddProductVariantResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        editProductVariant(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+    ///
 
     fun editShopDetail(
         activity: Activity,

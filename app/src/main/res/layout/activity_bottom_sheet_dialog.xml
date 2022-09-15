@@ -43,7 +43,6 @@
         android:text="@string/Change"
         android:textColor="@color/green"
         android:textSize="@dimen/sp15"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/tvDeliveryDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"

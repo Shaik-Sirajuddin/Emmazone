@@ -190,155 +190,21 @@
             app:layout_constraintStart_toStartOf="@+id/edtShopName"
             app:layout_constraintTop_toBottomOf="@+id/edtShotDesc" />
 
+
         <EditText
             android:id="@+id/edtDesc"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_marginTop="@dimen/dp5"
+            android:layout_marginTop="4dp"
             android:background="@drawable/login_bg"
             android:gravity="top|start"
             android:hint="@string/lorem_ipsum_dolor_sit_amet_consectetur_edipscing_elit_sed_to_mode_tempor_incidedunt_ut_lebore_et_dolor_magna_aliqua_quis_ipsum_suspendisse"
             android:paddingStart="@dimen/dp8"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/tvDescP"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tvDescP"
             app:layout_constraintTop_toBottomOf="@+id/tvDescP" />
-
-        <TextView
-            android:id="@+id/tvProcutPrice"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:text="@string/product_price"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/edtDesc"
-            app:layout_constraintStart_toStartOf="@+id/edtDesc"
-            app:layout_constraintTop_toBottomOf="@+id/edtDesc" />
-
-        <EditText
-            android:id="@+id/edtProductPrice"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp5"
-            android:background="@drawable/login_bg"
-            android:hint="$30.00"
-            android:inputType="number"
-            android:maxLines="1"
-            android:paddingStart="@dimen/dp8"
-            android:textSize="@dimen/sp15"
-            app:layout_constraintEnd_toEndOf="@+id/tvProcutPrice"
-            app:layout_constraintStart_toStartOf="@+id/tvProcutPrice"
-            app:layout_constraintTop_toBottomOf="@+id/tvProcutPrice" />
-
-        <TextView
-            android:id="@+id/tvPq"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:text="@string/product_quality"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/edtProductPrice"
-            app:layout_constraintStart_toStartOf="@+id/edtProductPrice"
-            app:layout_constraintTop_toBottomOf="@+id/edtProductPrice" />
-
-        <EditText
-            android:id="@+id/edtProductQ"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
-            android:background="@drawable/login_bg"
-            android:hint="25"
-            android:inputType="number"
-            android:maxLines="1"
-            android:paddingStart="@dimen/dp8"
-            android:textSize="@dimen/sp15"
-            app:layout_constraintEnd_toEndOf="@+id/tvPq"
-            app:layout_constraintStart_toStartOf="@+id/tvPq"
-            app:layout_constraintTop_toBottomOf="@+id/tvPq" />
-
-
-        <TextView
-            android:id="@+id/tvCat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp24"
-            android:text="@string/categories"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/edtProductQ"
-            app:layout_constraintTop_toBottomOf="@+id/edtProductQ" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCategories"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:nestedScrollingEnabled="false"
-            android:orientation="vertical"
-            android:visibility="visible"
-
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvCat"
-            app:layout_constraintTop_toBottomOf="@+id/tvCat" />
-
-
-        <TextView
-            android:id="@+id/tvProColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp24"
-            android:text="@string/product_colour"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/edtProductQ"
-            app:layout_constraintTop_toBottomOf="@+id/rvCategories" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvColor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp24"
-            android:nestedScrollingEnabled="false"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvProColor"
-            app:layout_constraintTop_toBottomOf="@+id/tvProColor" />
-
-
-        <TextView
-            android:id="@+id/tvProdSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/product_size"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/sp15"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/rvColor"
-            app:layout_constraintTop_toBottomOf="@+id/rvColor" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSize"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp24"
-            android:nestedScrollingEnabled="false"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvProdSize"
-            app:layout_constraintTop_toBottomOf="@+id/tvProdSize" />
 
 
         <TextView
@@ -350,8 +216,8 @@
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/rvSize"
-            app:layout_constraintTop_toBottomOf="@+id/rvSize" />
+            app:layout_constraintStart_toStartOf="@+id/edtDesc"
+            app:layout_constraintTop_toBottomOf="@+id/edtDesc" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_notification"
@@ -364,12 +230,19 @@
             android:thumb="@drawable/switch_thumb"
             android:track="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/tvProductHighLight"
-            app:layout_constraintEnd_toEndOf="@+id/rvSize"
+            app:layout_constraintEnd_toEndOf="@+id/edtDesc"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
             app:layout_constraintTop_toTopOf="@+id/tvProductHighLight"
             app:track="@android:color/transparent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/variantRecyclerView"
+            android:layout_marginTop="@dimen/dp32"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            app:layout_constraintTop_toBottomOf="@id/switch_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <android.widget.Button
             android:id="@+id/btnUpdate"
@@ -381,7 +254,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductHighLight" />
+            app:layout_constraintTop_toBottomOf="@+id/variantRecyclerView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

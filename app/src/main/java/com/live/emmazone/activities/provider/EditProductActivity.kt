@@ -3,22 +3,21 @@ package com.live.emmazone.activities.provider
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.activities.ImageZoomActivity
-import com.live.emmazone.adapter.CategoriesAdapter
-import com.live.emmazone.adapter.ColorAdapter
 import com.live.emmazone.adapter.ImageAdapter
-import com.live.emmazone.adapter.SizeAdapter
+import com.live.emmazone.adapter.ProductVariantAdapter
 import com.live.emmazone.databinding.ActivityEditProductBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.model.ImageModel
+import com.live.emmazone.model.ProductVariant
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
@@ -39,24 +38,17 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var mainImage = ""
     private lateinit var images: ArrayList<ImageModel>
     private var selectedCategoryId = ""
-    private var selectedSizeId = ""
-    private var selectedColorId = ""
     private var highlightValue = 1
-    private val colorList = ArrayList<CategoryColorSizeResponse.Body.CategoryColor>()
-    private val sizeList = ArrayList<CategoryColorSizeResponse.Body.CategorySize>()
-    private lateinit var colorAdapter: ColorAdapter
-    private lateinit var sizeAdapter: SizeAdapter
-    private val list: ArrayList<CategoryListResponse.Body> = ArrayList()
     var deleteImageArrayId = ArrayList<String>()
-    var adapterPosition = 0
     private var arrStringMultipleImagesUploadable: ArrayList<String> = ArrayList()
     private val appViewModel: AppViewModel by viewModels()
+    private lateinit var adapter: ProductVariantAdapter
+
 
     var productData: SellerShopDetailResponse.Body.ShopDetails.Product? = null
 
-
     lateinit var binding: ActivityEditProductBinding
-
+    val list  = ArrayList<ProductVariant>()
     private lateinit var imageAdapter: ImageAdapter
     private var imageList = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>()
     var mainImagePath = ""
@@ -81,19 +73,44 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         setContentView(binding.root)
 
         productData = intent.extras?.get("productData") as SellerShopDetailResponse.Body.ShopDetails.Product
+        list.add(ProductVariant(0,0,0,"",0,"","",""))
+        list.addAll(productData!!.productVariants)
+        adapter = ProductVariantAdapter(list,this,{
+            editVariant(it)
+        },{
+            deleteVariant(it)
+        },{
+            addVariant()
+        })
+        binding.variantRecyclerView.adapter = adapter
+        binding.variantRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
 
         setData(productData!!)
 
         images = arrayListOf()
 
         initListener()
-//        initAdapter()
         highlightSwitchListener()
         appViewModel.selectedCategoryListApi(this, true)
         appViewModel.getResponse().observe(this, this)
 
     }
+    private fun editVariant(pos:Int){
+        val intent = Intent(this,AddNewProductVariant::class.java)
+        intent.putExtra(AddNewProductVariant.PRODUCT_VARIANT,productData!!.productVariants[pos-1])
+        intent.putExtra(AddNewProductVariant.CATEGORY_ID,productData!!.categoryId)
+        intent.putExtra(AddNewProductVariant.PRODUCT_ID,productData!!.id)
+        startActivity(intent)
+    }
+    private fun deleteVariant(pos:Int){
 
+    }
+    private fun addVariant(){
+        val intent = Intent(this,AddNewProductVariant::class.java)
+        intent.putExtra(AddNewProductVariant.CATEGORY_ID,productData!!.categoryId)
+        intent.putExtra(AddNewProductVariant.PRODUCT_ID,productData!!.id)
+        startActivity(intent)
+    }
 
     private fun highlightSwitchListener() {
         binding.switchNotification.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -108,21 +125,14 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
 
     private fun setData(productData: SellerShopDetailResponse.Body.ShopDetails.Product) {
-        productData.mainImage?.let { mainImage = it }
+        productData.mainImage.let { mainImage = it }
         id = productData.id.toString()
         imageList.addAll(productData.productImages)
-        productData.mainImage?.let { binding.ivShop.loadImage(it) }
+        productData.mainImage.let { binding.ivShop.loadImage(it) }
         binding.edtShopName.setText(productData.name)
         binding.edtShotDesc.setText(productData.shortDescription)
         binding.edtDesc.setText(productData.description)
-        binding.edtProductPrice.setText(productData.productPrice)
-        binding.edtProductQ.setText(productData.productQuantity.toString())
         selectedCategoryId = productData.categoryId.toString()
-        selectedColorId = productData.categoryColorId.toString()
-        selectedSizeId = productData.categorySizeId.toString()
-
-        getColorSizeApiHit()
-
         setImageAdapter()
     }
 
@@ -207,13 +217,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private fun validateAddProduct() {
         val productName = binding.edtShopName.text.toString().trim()
         val description = binding.edtDesc.text.toString().trim()
-        val productPrice = binding.edtProductPrice.text.toString().trim()
-        val productQuantity = binding.edtProductQ.text.toString().trim()
         val shotDesc = binding.edtShotDesc.text.toString().trim()
 
         if (Validator.editProductValidation(
-                productName, description, productPrice, productQuantity, selectedCategoryId,
-                selectedColorId, selectedSizeId, imageList
+                productName, description,selectedCategoryId,
+                imageList
             )
         ) {
 
@@ -224,13 +232,9 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             val hashMap = HashMap<String, RequestBody>()
             hashMap["id"] = toBody(id)
             hashMap["product_name"] = toBody(productName)
-            hashMap["price"] = toBody(productPrice)
-            hashMap["product_quantity"] = toBody(productQuantity)
             hashMap["shortDescription"] = toBody(shotDesc)
             hashMap["description"] = toBody(description)
             hashMap["categoryId"] = toBody(selectedCategoryId)
-            hashMap["colorId"] = toBody(selectedColorId)
-            hashMap["sizeId"] = toBody(selectedSizeId)
             hashMap["product_highlight"] = toBody(highlightValue.toString())
             var mainImage: MultipartBody.Part? = null
             if (mainImagePath.isNotEmpty()) {
@@ -281,130 +285,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
 
     override fun onChanged(t: RestObservable) {
-        if (t.data is CategoryListResponse) {
-            val response: CategoryListResponse = t.data
-            if (response.code == AppConstants.SUCCESS_CODE) {
-                list.clear()
-                list.addAll(response.body)
-                for (i in 0 until list.size) {
-                    if (selectedCategoryId == list[i].id.toString()) {
-                        list[i].isSelected = true
-                    }
-                }
-                setCategoryAdapter()
-            }
-        } else if (t.data is CategoryColorSizeResponse) {
-            val response: CategoryColorSizeResponse = t.data
-            if (response.code == AppConstants.SUCCESS_CODE) {
-
-                colorList.clear()
-                sizeList.clear()
-
-                colorList.addAll(response.body.categoryColors)
-                sizeList.addAll(response.body.categorySizes)
-
-                if (colorList.size > 0) {
-                    binding.tvProColor.visibility = View.VISIBLE
-                } else {
-                    binding.tvProColor.visibility = View.GONE
-                }
-                if (sizeList.size > 0) {
-                    binding.tvProdSize.visibility = View.VISIBLE
-                } else {
-                    binding.tvProdSize.visibility = View.GONE
-                }
-
-                setColorAdapter()
-                setSizeAdapter()
-
-            }
-        } else if (t.data is AddProductResponse) {
+        if (t.data is AddProductResponse) {
             showProductUpdateDialog()
         }
     }
 
-    private fun setColorAdapter() {
-        colorAdapter = ColorAdapter(colorList)
-        binding.rvColor.adapter = colorAdapter
 
-        for (i in 0 until colorList.size) {
-            if (selectedColorId == colorList[i].id.toString()) {
-                colorList[i].isSelected = true
-            }
-        }
-
-        colorAdapter.onClickListener = { pos ->
-            colorList.forEachIndexed { index, body ->
-
-                if (pos == index) {
-                    body.isSelected = true
-                    selectedColorId = body.id.toString()
-                } else {
-                    body.isSelected = false
-                }
-            }
-            Log.d("selectedSizeId", selectedSizeId)
-            // colorList[pos].isSelected = !colorList[pos].isSelected
-
-            colorAdapter.notifyDataSetChanged()
-        }
-    }
-
-    private fun setSizeAdapter() {
-        sizeAdapter = SizeAdapter(sizeList)
-        binding.rvSize.adapter = sizeAdapter
-
-        for (i in 0 until sizeList.size) {
-            if (selectedSizeId == sizeList[i].id.toString()) {
-                sizeList[i].isSelected = true
-            }
-        }
-
-
-        sizeAdapter.onClickListener = { pos ->
-            sizeList.forEachIndexed { index, body ->
-
-                if (pos == index) {
-                    body.isSelected = true
-                    selectedSizeId = body.id.toString()
-                } else {
-                    body.isSelected = false
-                }
-            }
-            Log.d("selectedSizeId", selectedSizeId)
-            // sizeList[pos].isSelected = !sizeList[pos].isSelected
-
-            sizeAdapter.notifyDataSetChanged()
-        }
-
-    }
-
-    private fun getColorSizeApiHit() {
-        val hashMap = HashMap<String, String>()
-        hashMap["categoryId"] = selectedCategoryId
-
-        appViewModel.categoryColorSizeApi(this, true, hashMap)
-        appViewModel.getResponse().observe(this, this)
-    }
-
-    private fun setCategoryAdapter() {
-        val categoryAdapter = CategoriesAdapter(list)
-        binding.rvCategories.adapter = categoryAdapter
-
-        categoryAdapter.onClickListener = { pos ->
-            list.forEachIndexed { index, body ->
-
-                if (pos == index) {
-                    body.isSelected = true
-                    selectedCategoryId = body.id.toString()
-                    getColorSizeApiHit()
-                } else {
-                    body.isSelected = false
-                }
-            }
-            categoryAdapter.notifyDataSetChanged()
-        }
-
-    }
 
 }

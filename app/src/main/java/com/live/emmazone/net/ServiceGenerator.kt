@@ -24,10 +24,11 @@ object ServiceGenerator {
         .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS, ConnectionSpec.CLEARTEXT)).build()
     private val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+        .setLenient()
         .create()
 
     private val builder = Retrofit.Builder()
-        .baseUrl("http://192.168.137.54:8101/")
+        .baseUrl(AppConstants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
 //            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
