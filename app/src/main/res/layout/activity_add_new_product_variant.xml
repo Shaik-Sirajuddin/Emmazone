@@ -189,7 +189,7 @@
             android:background="@drawable/save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productQuantity" />
+            app:layout_constraintTop_toBottomOf="@+id/quantityVariant" />
         <ProgressBar
             android:id="@+id/progressBar"
             app:layout_constraintStart_toStartOf="parent"

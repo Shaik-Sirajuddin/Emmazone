@@ -37,7 +37,7 @@ class SearchProductAdapter(val list: ArrayList<SearchProductResponse.Body>) :
     inner class SearchProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(pos: Int) {
             val model = list[pos]
-            if (model.productImages.isNotEmpty()) {
+            if (!model.productImages.isNullOrEmpty()) {
                 itemView.imageProductShopDetail.loadImage(model.productImages[0].image)
             } else {
                 itemView.imageProductShopDetail.setImageResource(R.drawable.placeholder)

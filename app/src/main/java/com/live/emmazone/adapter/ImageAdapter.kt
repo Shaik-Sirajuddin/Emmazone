@@ -6,17 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ItemImagesBinding
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class ImageAdapter(
-    var list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>
+    var list: ArrayList<Product.ProductImage>
 ) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
 
     var onItemClickListener: ((pos: Int, clickOn: String) -> Unit)? = null
-    var onDeleteImage: ((pos: Int, data: SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage) -> Unit)? =
+    var onDeleteImage: ((pos: Int, data: Product.ProductImage) -> Unit)? =
         null
 
 

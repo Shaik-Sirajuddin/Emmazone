@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.FragmentProviderHome
 import com.live.emmazone.activities.provider.EditProductActivity
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProShopProducts(
     private val context: Context,
-    val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>,
+    val list: ArrayList<Product>,
     val fragmentProviderHome: FragmentProviderHome
 ) :
     RecyclerView.Adapter<AdapterProShopProducts.ViewHolder>() {
@@ -28,18 +29,18 @@ class AdapterProShopProducts(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ModelProShopDetailProducts = list[position]
-        ModelProShopDetailProducts.mainImage?.let { holder.imageProductSD.loadImage(it) }
-        holder.productItemNameSD.setText(ModelProShopDetailProducts.name)
-//        holder.productItemPriceSD.text = context.getString(
-//            R.string.euro_symbol,
-////            ModelProShopDetailProducts.productPrice.toDouble().toString()
-//        )
-        holder.tvShopDetailProductBrandSD.setText(ModelProShopDetailProducts.shortDescription)   //short description
+        ModelProShopDetailProducts.mainImage.let { holder.imageProductSD.loadImage(it) }
+        holder.productItemNameSD.text = ModelProShopDetailProducts.name
+        holder.productItemPriceSD.text = context.getString(
+            R.string.euro_symbol,
+            ModelProShopDetailProducts.minPrice.toDouble().toString()
+        )
+        holder.tvShopDetailProductBrandSD.text = ModelProShopDetailProducts.shortDescription   //short description
 
-        holder.tvSDDeliveryEstimateSD.setText("Delivery Estimate 7 Days")
+        holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
 
         if (!ModelProShopDetailProducts.productReview.isNullOrEmpty()){
-            holder.tvShopDetailProductText.setText(ModelProShopDetailProducts.productReview)
+            holder.tvShopDetailProductText.text = ModelProShopDetailProducts.productReview
             holder.ratingBar.rating = ModelProShopDetailProducts.productReview.toFloat()
         }
 

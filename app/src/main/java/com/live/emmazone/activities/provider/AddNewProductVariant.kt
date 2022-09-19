@@ -144,8 +144,6 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
             Log.e("product",productVariant?.color.toString())
             color = colorNameList.indexOf(productVariant!!.color)
             size = sizeNameList.indexOf(productVariant!!.size)
-            Log.d("col",color.toString())
-            Log.d("listItem",productVariant!!.color)
 
             binding.pickColor.setSelection(color)
             binding.pickSize.setSelection(size)
@@ -167,7 +165,7 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         }
         else if(t.data is AddProductVariantResponse){
             val str = if(isNew)  "added" else "updated"
-            AppUtils.showMsgOnlyWithClick(this,"Product $str successfully.", object : OnPopupClick{
+            AppUtils.showMsgOnlyWithClick(this,"Product variant $str successfully.", object : OnPopupClick{
                 override fun onPopupClickListener() {
                     finish()
                 }

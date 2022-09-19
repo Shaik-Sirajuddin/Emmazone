@@ -23,7 +23,7 @@ import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddFavouriteResponse
-import com.live.emmazone.response_model.SellerShopDetailResponse
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils.Companion.openGoogleMaps
@@ -39,7 +39,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
 
 
     lateinit var binding: ActivityShopDetailBinding
-    private var listSDProduct = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
+    private var listSDProduct = ArrayList<Product>()
     lateinit var adapter: AdapterShopDetailCategory
 
     override fun updatedLatLng(lat: Double?, lng: Double?) {
@@ -231,6 +231,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         }
         if (response!!.body.products.isNotEmpty()) {
             listSDProduct = response!!.body.products
+
 
             val productAdapter = AdapterShopDetailProducts(this, listSDProduct)
             binding.recyclerShopDetailProducts.adapter = productAdapter

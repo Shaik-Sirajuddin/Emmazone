@@ -5,6 +5,7 @@ import android.util.Patterns
 import com.live.emmazone.R
 import com.live.emmazone.base.AppController
 import com.live.emmazone.response_model.GetBankResponse
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.stripe.android.view.CardNumberEditText
@@ -199,7 +200,7 @@ object Validator {
         name: String,
         desc: String,
         categories: String,
-        imageList: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>
+        imageList: ArrayList<Product.ProductImage>
     ): Boolean {
 
         return if (imageList.size == 0) {
@@ -223,12 +224,8 @@ object Validator {
         name: String,
         shotDesc: String,
         desc: String,
-        price: String,
-        quantity: String,
         categories: String,
-        color: String,
-        size: String,
-        imageList: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>,
+        imageList: ArrayList<Product.ProductImage>,
         mainImagePath: String? = null
     ): Boolean {
 
@@ -247,20 +244,8 @@ object Validator {
         } else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
             false
-        } else if (TextUtils.isEmpty(price)) {
-            errorMessage = AppController.instance!!.getString(R.string.msg_enter_price)
-            false
-        } else if (TextUtils.isEmpty(quantity)) {
-            errorMessage = AppController.instance!!.getString(R.string.msg_enter_quantity)
-            false
         } else if (TextUtils.isEmpty(categories)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_category_1)
-            false
-        } else if (TextUtils.isEmpty(color)) {
-            errorMessage = AppController.instance!!.getString(R.string.msg_select_color)
-            false
-        } else if (TextUtils.isEmpty(size)) {
-            errorMessage = AppController.instance!!.getString(R.string.msg_select_size)
             false
         } else true
 

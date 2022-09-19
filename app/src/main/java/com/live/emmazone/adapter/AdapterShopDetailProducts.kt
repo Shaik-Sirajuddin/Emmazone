@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.activities.main.ProductDetailActivity
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
@@ -20,7 +21,7 @@ import com.schunts.extensionfuncton.loadImage
 
 class AdapterShopDetailProducts(
     val mContext: Context,
-    private val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>
+    private val list: ArrayList<Product>
 ) :
     RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
 

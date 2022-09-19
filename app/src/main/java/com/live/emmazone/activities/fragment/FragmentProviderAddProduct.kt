@@ -18,6 +18,7 @@ import com.live.emmazone.databinding.FragmentAddProductProviderBinding
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.ToastUtils
@@ -26,11 +27,11 @@ import com.live.emmazone.view_models.AppViewModel
 class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
     private lateinit var binding: FragmentAddProductProviderBinding
-    private val list = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
+    private val list = ArrayList<Product>()
     private var isChecked = true
     private val appViewModel: AppViewModel by viewModels()
     var productAdapter: AdapterProviderShopDetailProducts? = null
-
+    var pos = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -103,7 +104,7 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
     }
 
     private fun filterProduct(text: String) {
-        val filterList = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>()
+        val filterList = ArrayList<Product>()
 
         list.forEach {
             if (it.name.contains(text, true)) {
@@ -135,7 +136,6 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
                         ToastUtils.showLongToast(response.message)
                         productAdapter!!.deleteItem(pos)
                     }
-
                 }
             }
             Status.ERROR -> {
@@ -160,23 +160,22 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
             binding.notifyRedBG.visibility = View.VISIBLE
         }
 
-        val category = SellerShopDetailResponse.Body.ShopDetails.Product.Category("", "")
-        val product_images: List<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage> =
+        val category = Product.Category("", "")
+        val product_images: List<Product.ProductImage> =
             ArrayList()
         list.clear()
-        /*list.add(0,
-            SellerShopDetailResponse.Body.ShopDetails.Product(
-                category, 0, 0, 0, 0, "", "", 0, "", "", 0,
-                product_images, "", "", 0, "", 0, 0
+        list.add(
+          Product(
+                category, 0, 0, "0", "0", -1, "", "", "", 0,
+               product_images, "", "", 0, 0, arrayListOf()
             )
-        )*/
+        )
         list.addAll(response.body.shopDetails.products)
         productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)
         binding.rvAdProductProvider.adapter = productAdapter
 
     }
 
-    var pos = 0
     fun deleteProductAPIMethod(position: Int, productId: String) {
         pos = position
         appViewModel.deleteProductApi(requireActivity(), true, productId)

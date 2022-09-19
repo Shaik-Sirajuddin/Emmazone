@@ -43,14 +43,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var arrStringMultipleImagesUploadable: ArrayList<String> = ArrayList()
     private val appViewModel: AppViewModel by viewModels()
     private lateinit var adapter: ProductVariantAdapter
-
-
-    var productData: SellerShopDetailResponse.Body.ShopDetails.Product? = null
-
+    var productData: Product? = null
     lateinit var binding: ActivityEditProductBinding
     val list  = ArrayList<ProductVariant>()
     private lateinit var imageAdapter: ImageAdapter
-    private var imageList = ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage>()
+    private var imageList = ArrayList<Product.ProductImage>()
     var mainImagePath = ""
     var id = ""
 
@@ -61,7 +58,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 mainImagePath = imagePath
                 binding.ivShop.loadImage(imagePath)
             } else {
-                imageList.add(SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage(0, imagePath, 0, 0))
+                imageList.add(Product.ProductImage(0, imagePath, 0, 0))
                 imageAdapter.notifyDataSetChanged()
             }
         }
@@ -72,11 +69,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding = ActivityEditProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        productData = intent.extras?.get("productData") as SellerShopDetailResponse.Body.ShopDetails.Product
+        productData = intent.extras?.get("productData") as Product
         list.add(ProductVariant(0,0,0,"",0,"","",""))
         list.addAll(productData!!.productVariants)
         adapter = ProductVariantAdapter(list,this,{
-            editVariant(it)
+            //editVariant(it)
         },{
             deleteVariant(it)
         },{
@@ -124,7 +121,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         }
     }
 
-    private fun setData(productData: SellerShopDetailResponse.Body.ShopDetails.Product) {
+    private fun setData(productData: Product) {
         productData.mainImage.let { mainImage = it }
         id = productData.id.toString()
         imageList.addAll(productData.productImages)
@@ -200,7 +197,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
                 result.forEach {
                     imageList.add(
-                        SellerShopDetailResponse.Body.ShopDetails.Product.ProductImage(
+                        Product.ProductImage(
                             0,
                             it.path,
                             0,

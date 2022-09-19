@@ -13,12 +13,13 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.FragmentProviderAddProduct
 import com.live.emmazone.activities.provider.AddNewProductActivity
 import com.live.emmazone.activities.provider.EditProductActivity
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProviderShopDetailProducts(
     private val context: Context,
-    var list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>,
+    var list: ArrayList<Product>,
     val fragmentProviderAddProduct: FragmentProviderAddProduct
 ) :
     RecyclerView.Adapter<AdapterProviderShopDetailProducts.ViewHolder>() {
@@ -30,21 +31,19 @@ class AdapterProviderShopDetailProducts(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-
-        if (position == 0) {
+        val model = list[position]
+        if (model.id == -1) {
             holder.cardView.visibility = View.GONE
             holder.layoutAddProduct.visibility = View.VISIBLE
         } else {
-            val model = list[position-1]
 
             holder.cardView.visibility = View.VISIBLE
             holder.layoutAddProduct.visibility = View.GONE
 
-            model.mainImage?.let { holder.imageProductSD.loadImage(it) }
+            model.mainImage.let { holder.imageProductSD.loadImage(it) }
             holder.productItemNameSD.text = model.name
-//            holder.productItemPriceSD.text =
-//                context.getString(R.string.euro_symbol, model.productPrice.toDouble().toString())
+            holder.productItemPriceSD.text =
+                context.getString(R.string.euro_symbol, model.minPrice.toDouble().toString())
             holder.tvShopDetailProductBrandSD.text = model.shortDescription  //short description
 
             holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
@@ -57,15 +56,13 @@ class AdapterProviderShopDetailProducts(
 
 
         holder.itemView.setOnClickListener {
-            if (position == 0) {
+            if (model.id == -1) {
                 val intent = Intent(holder.itemView.context, AddNewProductActivity::class.java)
                 holder.itemView.context.startActivity(intent)
             }
         }
 
         holder.imageEditSDProduct.setOnClickListener {
-            val model = list[position-1]
-
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
             intent.putExtra("productData", model)
             holder.itemView.context.startActivity(intent)
@@ -90,19 +87,15 @@ class AdapterProviderShopDetailProducts(
 
             yesBtn.setOnClickListener {
                 dialog.dismiss()
-                val model = list[position-1]
-
                 fragmentProviderAddProduct.deleteProductAPIMethod(position, model.id.toString())
-
             }
-
             noBtn.setOnClickListener { dialog.dismiss() }
             dialog.show()
         }
     }
 
     override fun getItemCount(): Int {
-        return list.size+1
+        return list.size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -129,7 +122,7 @@ class AdapterProviderShopDetailProducts(
         notifyItemRangeChanged(position, list.size)
     }
 
-    fun notifyData(arrayList: ArrayList<SellerShopDetailResponse.Body.ShopDetails.Product>) {
+    fun notifyData(arrayList: ArrayList<Product>) {
         list = arrayList
         notifyDataSetChanged()
     }
