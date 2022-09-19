@@ -9,7 +9,7 @@ import com.live.emmazone.model.ShopProductDetailResponse
 import com.schunts.extensionfuncton.loadImage
 import kotlinx.android.synthetic.main.item_zoom_image.view.*
 
-class ZoomImagesAdapter(val imagesArrayList: ArrayList<ShopProductDetailResponse.Body.ProductImage>) :
+class ZoomImagesAdapter(val imagesArrayList: ArrayList<ShopProductDetailResponse.Body.Product.ProductImage>) :
     RecyclerView.Adapter<ZoomImagesAdapter.ZoomImageViewHolder>() {
 
 

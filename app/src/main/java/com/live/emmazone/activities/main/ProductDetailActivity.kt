@@ -85,6 +85,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private var longitude = ""
 
     //variant data
+    private var selectedPos = 0
     private var selectedColor = 0
     private var selectedSize = 0
     private lateinit var sizeAdapter:ProductSizeAndColorAdapter
@@ -165,8 +166,8 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             } else {
                 startActivity(Intent(this, Cart::class.java))
             }
-
         }
+
         initAdapters()
 
     }
@@ -187,17 +188,44 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     }
     private fun updateVariant(){
         try{
-            val model = shopProductDetailResponse!!.body.productVariants.find {
+            Log.d("this",selectedColor.toString())
+            val model = shopProductDetailResponse!!.body.products.find {
                 it.categoryColorId == colorList[selectedColor].id &&
                         it.categorySizeId == sizeList[selectedSize].id
-            } ?: return
-            binding.tvPriceInteger.text = "${model.price} €"
-            binding.tvSize.text = model.size
-            binding.tvColor.text = model.color
-            binding.tvQty.text = getString(R.string.of, model.quantity.toString())
-            totalQty = model.quantity
+            }
+            if(model == null){
+              binding.tvQty.text =  (0).toString()
+                binding.tvOutOfStock.visibility = View.VISIBLE
+                binding.btnBuyDeliver.visibility = View.GONE
+                binding.btnClickCollect.visibility = View.GONE
+              return
+            }
+            selectedPos = shopProductDetailResponse!!.body.products.indexOf(model)
 
-            if (model.quantity == 0) {
+            binding.productItemName.text = model.name
+            try {
+                binding.ratingBarProductDetail.rating = model.productReview.toFloat()
+            } catch (e: Exception) {
+
+            }
+            binding.tvShopDetailProductText.text =
+                "${binding.ratingBarProductDetail.rating}/5"
+            binding.tvDesc.text = model.shortDescription
+            binding.tvDelivery.text = model.description
+
+            binding.itemImageProductDetail.adapter = ImageSliderCustomeAdapter(
+                this@ProductDetailActivity,
+                model.productImages
+            )
+            binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
+
+            binding.tvPriceInteger.text = "${model.productPrice} €"
+            binding.tvSize.text = model.productSize.size
+            binding.tvColor.text = model.productColor.color
+            binding.tvQty.text = getString(R.string.of, model.productQuantity.toString())
+            totalQty = model.productQuantity
+
+            if (model.productQuantity == 0) {
                 binding.tvOutOfStock.visibility = View.VISIBLE
                 binding.btnBuyDeliver.visibility = View.GONE
                 binding.btnClickCollect.visibility = View.GONE
@@ -214,11 +242,8 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private fun productDetailApiHit() {
         val hashMap = HashMap<String, String>()
         hashMap["id"] = productId
-
         appViewModel.shopProductDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
-
-
     }
 
     private fun setOnClicks() {
@@ -232,10 +257,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     private fun addToCart() {
         val hashMap = HashMap<String, String>()
-        hashMap["productId"] = productId
+        hashMap["productId"] = shopProductDetailResponse!!.body.products[selectedPos].id.toString()
         hashMap["qty"] = binding.tvCount.text.toString()
         appViewModel.addToCart(this, true, hashMap)
-
     }
 
     private fun showBottomDialog() {
@@ -274,7 +298,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
         getSavedPaymentType()
 
-        val subTotal = shopProductDetailResponse!!.body.productPrice.toFloat() * qty
+        val subTotal = shopProductDetailResponse!!.body.products[selectedPos].productPrice.toFloat() * qty
         val tax = shopProductDetailResponse!!.body.taxValue!!.value.toInt()
         val taxCharged = ((subTotal / 100) * tax)
         val totalPrice = taxCharged + subTotal
@@ -423,31 +447,17 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private fun addOderApi() {
         hashMap["deliveryType"] = "0"  //0=>click&collect 1=>lifernado 2=>ownDelivery
         hashMap["paymentMethod"] = selectedPaymentType  //0=>Wallet 1=>Card 2=>cash
-        hashMap["productId"] = shopProductDetailResponse!!.body.id.toString()
+        hashMap["productId"] = shopProductDetailResponse!!.body.products[selectedPos].id.toString()
         hashMap["qty"] = qty.toString()
         appViewModel.addOrderApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
     }
-    private fun createSizeList(variants : ArrayList<ProductVariant>): ArrayList<SizeAndColorItem> {
+    private fun createSizeList(products : ArrayList<ShopProductDetailResponse.Body.Product>): ArrayList<SizeAndColorItem> {
         val list = ArrayList<SizeAndColorItem>()
-        for(variant in variants){
+        for(product in products){
             val item = SizeAndColorItem(
-                variant.categorySizeId,
-                variant.size,
-                false
-            )
-            if(!list.contains(item)){
-                list.add(item)
-            }
-        }
-        return list
-    }
-    private fun createColorList(variants : ArrayList<ProductVariant>): ArrayList<SizeAndColorItem> {
-        val list = ArrayList<SizeAndColorItem>()
-        for(variant in variants){
-            val item = SizeAndColorItem(
-                variant.categoryColorId,
-                variant.color,
+                product.productSize.categorySizeId,
+                product.productSize.size,
                 true
             )
             if(!list.contains(item)){
@@ -456,40 +466,62 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         }
         return list
     }
+    private fun createColorList(products : ArrayList<ShopProductDetailResponse.Body.Product>): ArrayList<SizeAndColorItem> {
+        val list = ArrayList<SizeAndColorItem>()
+        for(product in products){
+            val item = SizeAndColorItem(
+                product.productColor.categoryColorId,
+                product.productColor.color,
+                true
+            )
+            if(!list.contains(item)){
+                list.add(item)
+            }
+        }
+        return list
+    }
+    private fun setSelectedPosition(){
+        val product = shopProductDetailResponse!!.body.products.find {
+            it.id == productId.toInt()
+        }
+        selectedPos =  shopProductDetailResponse!!.body.products.indexOf(product)
+        Log.d("pos",selectedPos.toString())
+        selectedColor = colorList.indexOf(colorList.find {
+            it.id == product!!.productColor.categoryColorId
+        })
+        selectedSize = sizeList.indexOf(sizeList.find {
+            it.id == product!!.productSize.categorySizeId
+        })
+
+        binding.colorRecyclerView.findViewHolderForAdapterPosition(selectedColor)?.itemView?.performClick()
+        binding.sizeRecyclerView.findViewHolderForAdapterPosition(selectedSize)?.itemView?.performClick()
+
+    }
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is ShopProductDetailResponse) {
 
                     shopProductDetailResponse = t.data
-                    val model = t.data.body
 
-                    binding.productItemName.text = model.name
-                    try {
-                        binding.ratingBarProductDetail.rating = model.productReview.toFloat()
-                    } catch (e: Exception) {
-                    }
-                    latitude = model.latitude
-                    longitude = model.longitude
-                    binding.tvShopDetailProductText.text =
-                        "${binding.ratingBarProductDetail.rating}/5"
-                    binding.tvDesc.text = model.shortDescription
-                    binding.tvDelivery.text = model.description
-
-                    binding.itemImageProductDetail.adapter = ImageSliderCustomeAdapter(
-                        this@ProductDetailActivity,
-                        model.productImages
-                    )
-                    binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
+                    val data = t.data.body
 
                     sizeList.clear()
                     colorList.clear()
-                    sizeList.addAll(createSizeList(model.productVariants))
-                    colorList.addAll(createColorList(model.productVariants))
+                    sizeList.addAll(createSizeList(data.products))
+                    colorList.addAll(createColorList(data.products))
                     sizeAdapter.notifyDataSetChanged()
                     colorAdapter.notifyDataSetChanged()
+
+                    setSelectedPosition()
+
+                    latitude = data.latitude
+                    longitude = data.longitude
+
+
                     updateVariant()
-                    if (model.cartCount == 0) {
+
+                    if (data.cartCount == 0) {
                         binding.ivRedCart.visibility = View.GONE
                     } else {
                         binding.ivRedCart.visibility = View.VISIBLE
@@ -507,7 +539,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             }
             else -> {}
         }
-
     }
 
 
@@ -616,13 +647,12 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     private fun openChatScreen() {
 
-
         val intent = Intent(this, ChatActivity::class.java)
         intent.putExtra(AppConstants.USER2_NAME, shopName)
         intent.putExtra(AppConstants.USER2_IMAGE, shopImage)
         intent.putExtra(
             AppConstants.USER2_ID,
-            shopProductDetailResponse!!.body.userId.toString()
+            shopProductDetailResponse!!.body.products[selectedPos].userId.toString()
         )
         startActivity(intent)
     }
@@ -630,7 +660,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     override fun onResume() {
         super.onResume()
-
         productDetailApiHit()
     }
 }

@@ -1242,11 +1242,14 @@ class AppViewModel : ViewModel() {
                                 response.code(),
                                 response.errorBody()!!
                             )
+                            Log.e("error",response.errorBody().toString())
                         }
                     }
 
                     override fun onFailure(call: Call<ShopProductDetailResponse>, t: Throwable) {
+                        Log.e("error",t.message.toString())
                         mResponse.value = RestObservable.error(activity, t)
+
                     }
 
                 })

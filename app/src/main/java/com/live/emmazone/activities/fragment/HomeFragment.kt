@@ -129,7 +129,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         setSearchAdapter()
         clicksHandle()
         Log.d("mLifeCycle","onViewCreated")
-        getLiveLocation(requireActivity())
+        //getLiveLocation(requireActivity())
 
     }
 
@@ -508,7 +508,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     override fun onPause() {
         super.onPause()
-        stopLocationUpdates()
+        //stopLocationUpdates()
     }
 
     // Feature : Switch Search Type

@@ -38,7 +38,7 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(this, UserLoginChoice::class.java))
                 finish()
             }
-        }, 3000)
+        }, 1000)
 
         Log.e("AuthKey", getPreference(AppConstants.AUTHORIZATION, ""))
 

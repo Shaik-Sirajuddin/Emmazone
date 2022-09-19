@@ -68,7 +68,7 @@ object AppConstants {
    /*******URLs*****/
    //const val BASE_URL = "https://app.emmazn.de/api/" //Client Server
    //const val BASE_DOMAIN = "https://app.emmazn.de"
-    const val BASE_DOMAIN = "http://10.42.0.79:8101/"
+    const val BASE_DOMAIN = "http://192.168.24.78:8101/"
     const val BASE_URL = "${BASE_DOMAIN}api/"
  //const val SOCKET_BASE_URL = "https://app.emmazn.de/"l
     const val SOCKET_BASE_URL = BASE_DOMAIN

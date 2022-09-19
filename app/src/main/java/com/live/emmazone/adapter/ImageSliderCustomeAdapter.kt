@@ -20,7 +20,7 @@ import java.util.ArrayList
  */
 class ImageSliderCustomeAdapter(
     private val context: Context,
-    private val imagesArrayList: ArrayList<ShopProductDetailResponse.Body.ProductImage>
+    private val imagesArrayList: ArrayList<ShopProductDetailResponse.Body.Product.ProductImage>
 ) : PagerAdapter() {
     private val inflater: LayoutInflater
     var big_image: ImageView? = null

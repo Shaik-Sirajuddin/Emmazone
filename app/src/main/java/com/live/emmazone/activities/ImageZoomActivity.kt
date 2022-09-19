@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_zoom_image.view.*
 
 class ImageZoomActivity : AppCompatActivity() {
 
-    private var imagesArrayList: ArrayList<ShopProductDetailResponse.Body.ProductImage> =
+    private var imagesArrayList: ArrayList<ShopProductDetailResponse.Body.Product.ProductImage> =
         ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,7 @@ class ImageZoomActivity : AppCompatActivity() {
 
         if (intent.getSerializableExtra(AppConstants.IMAGES_ARRAYLIST) != null) {
             imagesArrayList = intent.getSerializableExtra(AppConstants.IMAGES_ARRAYLIST) as
-                    ArrayList<ShopProductDetailResponse.Body.ProductImage>
+                    ArrayList<ShopProductDetailResponse.Body.Product.ProductImage>
 
             rvZoomImage.visibility = View.VISIBLE
             zoomAgeImage.visibility = View.GONE
