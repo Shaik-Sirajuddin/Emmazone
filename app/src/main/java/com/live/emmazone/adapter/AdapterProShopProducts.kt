@@ -11,12 +11,13 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.FragmentProviderHome
 import com.live.emmazone.activities.provider.EditProductActivity
 import com.live.emmazone.response_model.Product
+import com.live.emmazone.response_model.ProductGroup
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProShopProducts(
     private val context: Context,
-    val list: ArrayList<Product>,
+    val list: ArrayList<ProductGroup>,
     val fragmentProviderHome: FragmentProviderHome
 ) :
     RecyclerView.Adapter<AdapterProShopProducts.ViewHolder>() {
@@ -31,22 +32,22 @@ class AdapterProShopProducts(
         val ModelProShopDetailProducts = list[position]
         ModelProShopDetailProducts.mainImage.let { holder.imageProductSD.loadImage(it) }
         holder.productItemNameSD.text = ModelProShopDetailProducts.name
-        holder.productItemPriceSD.text = context.getString(
-            R.string.euro_symbol,
-            ModelProShopDetailProducts.minPrice.toDouble().toString()
-        )
+//        holder.productItemPriceSD.text = context.getString(
+//            R.string.euro_symbol,
+//            ModelProShopDetailProducts.price.toDouble().toString()
+//        )
         holder.tvShopDetailProductBrandSD.text = ModelProShopDetailProducts.shortDescription   //short description
 
         holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
 
-        if (!ModelProShopDetailProducts.productReview.isNullOrEmpty()){
-            holder.tvShopDetailProductText.text = ModelProShopDetailProducts.productReview
-            holder.ratingBar.rating = ModelProShopDetailProducts.productReview.toFloat()
-        }
+//        if (!ModelProShopDetailProducts.productReview.isNullOrEmpty()){
+//            holder.tvShopDetailProductText.text = ModelProShopDetailProducts.productReview
+//            holder.ratingBar.rating = ModelProShopDetailProducts.productReview.toFloat()
+//        }
 
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
-            intent.putExtra("productData", ModelProShopDetailProducts)
+            intent.putExtra("group", ModelProShopDetailProducts)
             holder.itemView.context.startActivity(intent)
         }
 

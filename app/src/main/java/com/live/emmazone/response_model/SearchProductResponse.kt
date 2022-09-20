@@ -36,7 +36,7 @@ data class SearchProductResponse(
         var productHighlight: Int, // 0
         @SerializedName("product_images")
         var productImages: List<ProductImage>,
-        @SerializedName("minPrice")
+        @SerializedName("product_price")
         val minPrice : String , //2000.00
         @SerializedName("productReview")
         var productReview: String, // 0.0

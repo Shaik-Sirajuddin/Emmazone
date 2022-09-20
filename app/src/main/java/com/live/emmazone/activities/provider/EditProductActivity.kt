@@ -18,6 +18,7 @@ import com.live.emmazone.databinding.ActivityEditProductBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.model.ImageModel
 import com.live.emmazone.model.ProductVariant
+import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
@@ -43,11 +44,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var arrStringMultipleImagesUploadable: ArrayList<String> = ArrayList()
     private val appViewModel: AppViewModel by viewModels()
     private lateinit var adapter: ProductVariantAdapter
-    var productData: Product? = null
+    var productGroup: ProductGroup? = null
     lateinit var binding: ActivityEditProductBinding
-    val list  = ArrayList<ProductVariant>()
+    val list  = ArrayList<Product>()
     private lateinit var imageAdapter: ImageAdapter
-    private var imageList = ArrayList<Product.ProductImage>()
+    private var imageList = ArrayList<ProductImage>()
     var mainImagePath = ""
     var id = ""
 
@@ -58,7 +59,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 mainImagePath = imagePath
                 binding.ivShop.loadImage(imagePath)
             } else {
-                imageList.add(Product.ProductImage(0, imagePath, 0, 0))
+                imageList.add(ProductImage(0, imagePath, 0, 0))
                 imageAdapter.notifyDataSetChanged()
             }
         }
@@ -69,11 +70,12 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding = ActivityEditProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        productData = intent.extras?.get("productData") as Product
-        list.add(ProductVariant(0,0,0,"",0,"","",""))
-        list.addAll(productData!!.productVariants)
+        productGroup = intent.extras?.get("group") as ProductGroup
+        addDummyData()
+        if(!productGroup!!.products.isNullOrEmpty())
+        list.addAll(productGroup!!.products)
         adapter = ProductVariantAdapter(list,this,{
-            //editVariant(it)
+            editVariant(it)
         },{
             deleteVariant(it)
         },{
@@ -82,7 +84,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding.variantRecyclerView.adapter = adapter
         binding.variantRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
 
-        setData(productData!!)
+        setData(productGroup!!)
 
         images = arrayListOf()
 
@@ -92,11 +94,25 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         appViewModel.getResponse().observe(this, this)
 
     }
+    private fun addDummyData(){
+        list.add(
+            Product(
+                Product.Category("",""),0,0,0,0,"","",0,"","",0,
+                Product.ProductColor(0,"","",0,0,""),0, arrayListOf() ,
+                "",0,"",Product.ProductSize(0,"",0,0,"",""),
+                "",0)
+        )
+    }
+    private fun productDetailApiHit() {
+        val hashMap = java.util.HashMap<String, String>()
+        hashMap["groupId"] = productGroup!!.id.toString()
+        appViewModel.shopProductDetailApi(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+    }
     private fun editVariant(pos:Int){
         val intent = Intent(this,AddNewProductVariant::class.java)
-        intent.putExtra(AddNewProductVariant.PRODUCT_VARIANT,productData!!.productVariants[pos-1])
-        intent.putExtra(AddNewProductVariant.CATEGORY_ID,productData!!.categoryId)
-        intent.putExtra(AddNewProductVariant.PRODUCT_ID,productData!!.id)
+        intent.putExtra(AddNewProductVariant.PRODUCT,productGroup!!.products[pos-1])
+        intent.putExtra(AddNewProductVariant.GROUP,productGroup)
         startActivity(intent)
     }
     private fun deleteVariant(pos:Int){
@@ -104,11 +120,14 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
     private fun addVariant(){
         val intent = Intent(this,AddNewProductVariant::class.java)
-        intent.putExtra(AddNewProductVariant.CATEGORY_ID,productData!!.categoryId)
-        intent.putExtra(AddNewProductVariant.PRODUCT_ID,productData!!.id)
+        intent.putExtra(AddNewProductVariant.GROUP,productGroup)
         startActivity(intent)
     }
 
+    override fun onResume() {
+        super.onResume()
+        productDetailApiHit()
+    }
     private fun highlightSwitchListener() {
         binding.switchNotification.setOnCheckedChangeListener { buttonView, isChecked ->
             // do something, the isChecked will be
@@ -121,15 +140,22 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         }
     }
 
-    private fun setData(productData: Product) {
-        productData.mainImage.let { mainImage = it }
-        id = productData.id.toString()
-        imageList.addAll(productData.productImages)
-        productData.mainImage.let { binding.ivShop.loadImage(it) }
-        binding.edtShopName.setText(productData.name)
-        binding.edtShotDesc.setText(productData.shortDescription)
-        binding.edtDesc.setText(productData.description)
-        selectedCategoryId = productData.categoryId.toString()
+    private fun setData(productGroup: ProductGroup) {
+        productGroup.mainImage.let { mainImage = it }
+        id = productGroup.id.toString()
+        imageList.clear()
+        imageList.addAll(productGroup.productImages)
+        productGroup.mainImage.let { binding.ivShop.loadImage(it) }
+        binding.edtShopName.setText(productGroup.name)
+        binding.edtShotDesc.setText(productGroup.shortDescription)
+        binding.edtDesc.setText(productGroup.description)
+        selectedCategoryId = productGroup.categoryId.toString()
+        list.clear()
+        addDummyData()
+        if(!productGroup.products.isNullOrEmpty()){
+            list.addAll(productGroup.products)
+        }
+        adapter.notifyDataSetChanged()
         setImageAdapter()
     }
 
@@ -197,7 +223,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
                 result.forEach {
                     imageList.add(
-                        Product.ProductImage(
+                        ProductImage(
                             0,
                             it.path,
                             0,
@@ -237,7 +263,6 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             if (mainImagePath.isNotEmpty()) {
                 mainImage = prepareMultiPart("mainImage", File(mainImagePath))
             }
-
             for (i in 0 until imageList.size) {
                 if (imageList[i].image.contains(AppConstants.PRODUCT_IMAGE_URL) || imageList[i].image.contains("http")) {
                     arrStringMultipleImagesUploadable.remove(imageList[i].image)
@@ -245,21 +270,18 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                     arrStringMultipleImagesUploadable.add(imageList[i].image)
                 }
             }
-
             val image: ArrayList<MultipartBody.Part> = ArrayList()
             if (arrStringMultipleImagesUploadable.isNotEmpty()) {
                 arrStringMultipleImagesUploadable.forEach {
                     image.add(prepareMultiPart("image", File(it)))
                 }
             }
-
             var strIds = ""
             if (deleteImageArrayId.size > 0) {
                 strIds = TextUtils.join(",", deleteImageArrayId)
                 hashMap["deleteProductImageIds"] = toBody(strIds)
             }
-
-            appViewModel.editShopProductApi(this, true, hashMap, image, mainImage)
+            appViewModel.editProductGroup(this, true, hashMap, image, mainImage)
             appViewModel.getResponse().observe(this, this)
         } else {
             AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
@@ -273,20 +295,24 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
         val buttonOk = view.findViewById<Button>(R.id.ok)
 
-        buttonOk.setOnClickListener {
-            onBackPressed()
-        }
-
         alertBuilder.setView(view)
-        alertBuilder.show()
+
+        val dialog = alertBuilder.create()
+        dialog.show()
+
+        buttonOk.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 
     override fun onChanged(t: RestObservable) {
-        if (t.data is AddProductResponse) {
+        if (t.data is EditProductGroupResponse) {
             showProductUpdateDialog()
         }
+        else if ( t.data is ShopProductDetailResponse){
+            productGroup!!.products = t.data.body.products
+            setData(productGroup!!)
+        }
     }
-
-
 
 }

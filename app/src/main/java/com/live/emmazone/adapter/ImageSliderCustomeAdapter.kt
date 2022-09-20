@@ -11,16 +11,17 @@ import android.widget.ImageView
 import com.live.emmazone.R
 import com.live.emmazone.activities.ImageZoomActivity
 import com.live.emmazone.model.ShopProductDetailResponse
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
 /**
  * Created by Gagan Deep Singh on 9/2/2017.
  */
 class ImageSliderCustomeAdapter(
     private val context: Context,
-    private val imagesArrayList: ArrayList<ShopProductDetailResponse.Body.Product.ProductImage>
+    private val imagesArrayList: ArrayList<Product.ProductImage>
 ) : PagerAdapter() {
     private val inflater: LayoutInflater
     var big_image: ImageView? = null

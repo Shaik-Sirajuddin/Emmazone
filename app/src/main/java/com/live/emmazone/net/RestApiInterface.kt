@@ -78,6 +78,20 @@ interface RestApiInterface {
         @FieldMap hashMap: HashMap<String, String>,
     ): Call<AddProductVariantResponse>
 
+    @Multipart
+    @POST(AppConstants.ADD_PRODUCT_GROUP)
+    fun addProductGroup(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+        @Part images: ArrayList<MultipartBody.Part>,
+        @Part mainImage: MultipartBody.Part
+    ): Call<AddProductGroupResponse>
+    @Multipart
+    @POST(AppConstants.EDIT_PRODUCT_GROUP)
+    fun editProductGroup(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+        @Part images: ArrayList<MultipartBody.Part>?,
+        @Part mainImage: MultipartBody.Part?
+    ): Call<EditProductGroupResponse>
     //
     @FormUrlEncoded
     @POST(AppConstants.CHANGE_PASSWORD)
@@ -123,8 +137,6 @@ interface RestApiInterface {
     @POST(AppConstants.ADD_SHOP_PRODUCT)
     fun addProduct(
         @PartMap hashMap: HashMap<String, RequestBody>,
-        @Part images: ArrayList<MultipartBody.Part>,
-        @Part mainImage: MultipartBody.Part
     ): Call<AddProductResponse>
 
 
@@ -168,8 +180,6 @@ interface RestApiInterface {
     @PUT(AppConstants.EDIT_SHOP_PRODUCT)
     fun editShopProduct(
         @PartMap hashMap: HashMap<String, RequestBody>,
-        @Part images: ArrayList<MultipartBody.Part>?,
-        @Part mainImage: MultipartBody.Part?
     ): Call<AddProductResponse>
 
     @FormUrlEncoded

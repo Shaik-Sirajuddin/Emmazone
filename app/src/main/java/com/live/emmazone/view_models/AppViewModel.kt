@@ -881,12 +881,10 @@ class AppViewModel : ViewModel() {
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>,
-        images: ArrayList<MultipartBody.Part>,
-        mainImage: MultipartBody.Part
     ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
-            service.addProduct(hashMap, images, mainImage)
+            service.addProduct(hashMap)
                 .enqueue(object : Callback<AddProductResponse> {
                     override fun onResponse(
                         call: Call<AddProductResponse>,
@@ -914,7 +912,7 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        addProductApi(activity, isDialogShow, hashMap, images, mainImage)
+                        addProductApi(activity, isDialogShow, hashMap)
                     }
                 })
         }
@@ -1414,13 +1412,11 @@ class AppViewModel : ViewModel() {
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>,
-        images: ArrayList<MultipartBody.Part>?,
-        mainImage: MultipartBody.Part?
     ) {
         if (activity.checkIfHasNetwork()) {
             Log.e("edit","entered")
             RestObservable.loading(activity, isDialogShow)
-            service.editShopProduct(hashMap, images, mainImage)
+            service.editShopProduct(hashMap)
                 .enqueue(object : Callback<AddProductResponse> {
                     override fun onResponse(
                         call: Call<AddProductResponse>,
@@ -1449,7 +1445,90 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        editShopProductApi(activity, isDialogShow, hashMap, images, mainImage)
+                        editShopProductApi(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+    //New function for productGroup
+    fun editProductGroup(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, RequestBody>,
+        images: ArrayList<MultipartBody.Part>?,
+        mainImage: MultipartBody.Part?
+    ){
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.editProductGroup(hashMap,images,mainImage)
+                .enqueue(object : Callback<EditProductGroupResponse> {
+                    override fun onResponse(
+                        call: Call<EditProductGroupResponse>,
+                        response: Response<EditProductGroupResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<EditProductGroupResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        editProductGroup(activity, isDialogShow, hashMap,images,mainImage)
+                    }
+                })
+        }
+    }
+    fun addProductGroup(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, RequestBody>,
+        images: ArrayList<MultipartBody.Part>,
+        mainImage: MultipartBody.Part
+    ){
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addProductGroup(hashMap,images,mainImage)
+                .enqueue(object : Callback<AddProductGroupResponse> {
+                    override fun onResponse(
+                        call: Call<AddProductGroupResponse>,
+                        response: Response<AddProductGroupResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+//                            Log.e("group",response.raw().body.toString())
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<AddProductGroupResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addProductGroup(activity, isDialogShow, hashMap,images,mainImage)
                     }
                 })
         }

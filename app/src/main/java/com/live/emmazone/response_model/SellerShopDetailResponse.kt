@@ -19,7 +19,9 @@ data class SellerShopDetailResponse(
         @SerializedName("notificationCount")
         val notificationCount: Int,
         @SerializedName("ShopDetails")
-        val shopDetails: ShopDetails
+        val shopDetails: ShopDetails,
+        @SerializedName("groups")
+        val groups : ArrayList<ProductGroup>
     ) : Serializable {
         data class ShopDetails(
             @SerializedName("id")
@@ -36,8 +38,6 @@ data class SellerShopDetailResponse(
             val notificationCount: Int,
             @SerializedName("cartCount")
             val cartCount: Int?,
-            @SerializedName("products")
-            val products: ArrayList<Product>,
             @SerializedName("shopAddress")
             val shopAddress: String,
             @SerializedName("shop_categories")

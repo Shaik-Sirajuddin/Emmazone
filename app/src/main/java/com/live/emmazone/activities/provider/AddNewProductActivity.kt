@@ -45,22 +45,20 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
 
     lateinit var binding: ActivityAddNewProductBinding
-    private lateinit var images: ArrayList<ImageModel>
-
-
     private val list: ArrayList<CategoryListResponse.Body> = ArrayList()
-    private var categoryAdapter: CategoriesAdapter? = null
 
+
+    private var categoryAdapter: CategoriesAdapter? = null
     private var selectedCategoryId = ""
     private var highlightValue = 1
-
-    private lateinit var imageAdapter: ImageAdapter
-    private val imageList =
-        ArrayList<Product.ProductImage>()
-    private var mainImagePath = ""
-    var mainImage = ""
-    private var imageslist: ArrayList<File> = ArrayList()
     private var btnSaveCloseClick = false
+
+
+    private lateinit var images: ArrayList<ImageModel>
+    private lateinit var imageAdapter: ImageAdapter
+    private val imageList = ArrayList<ProductImage>()
+    private var mainImagePath = ""
+    private var mainImage = ""
 
 
     override fun selectedImage(imagePath: String?, code: Int) {
@@ -71,7 +69,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 binding.ivShop.loadImage(imagePath)
             } else {
                 imageList.add(
-                    Product.ProductImage(
+                    ProductImage(
                         0,
                         imagePath,
                         0,
@@ -150,7 +148,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         }
 
         imageAdapter.onDeleteImage =
-            { pos: Int, data: Product.ProductImage ->
+            { pos: Int, data: ProductImage ->
                 imageList.removeAt(pos)
                 imageAdapter.notifyDataSetChanged()
             }
@@ -222,7 +220,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["product_highlight"] = toBody(highlightValue.toString())
             val mainImage = prepareMultiPart("mainImage", File(mainImagePath))
 
-            appViewModel.addProductApi(this, true, hashMap, image, mainImage)
+            appViewModel.addProductGroup(this, true, hashMap, image, mainImage)
             appViewModel.getResponse().observe(this, this)
         } else {
             AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
@@ -271,7 +269,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
                 result.forEach {
                     imageList.add(
-                        Product.ProductImage(
+                        ProductImage(
                             0,
                             it.path,
                             0,
@@ -285,9 +283,9 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             }.start()
     }
 
-    private fun launchEdit(product: Product){
+    private fun launchEdit(product: ProductGroup){
         val intent = Intent(this,EditProductActivity::class.java)
-        intent.putExtra("productData",product)
+        intent.putExtra("group",product)
         startActivity(intent)
         finish()
     }
@@ -301,8 +299,8 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                         list.addAll(response.body)
                         setCategoryAdapter()
                     }
-                } else if (t.data is AddProductResponse) {
-                    val response: AddProductResponse = t.data
+                } else if (t.data is AddProductGroupResponse) {
+                    val response: AddProductGroupResponse = t.data
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         if (btnSaveCloseClick) {
@@ -326,7 +324,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                             binding.nestedScrollView.post {
                                 binding.nestedScrollView.fullScroll(NestedScrollView.FOCUS_UP)
                             }
-                            launchEdit(t.data.body.product)
+                            launchEdit(t.data.body.group)
                         }
                     }
                 }

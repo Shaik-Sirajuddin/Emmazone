@@ -4,10 +4,7 @@ import android.text.TextUtils
 import android.util.Patterns
 import com.live.emmazone.R
 import com.live.emmazone.base.AppController
-import com.live.emmazone.response_model.GetBankResponse
-import com.live.emmazone.response_model.Product
-import com.live.emmazone.response_model.SellerShopDetailResponse
-import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.response_model.*
 import com.stripe.android.view.CardNumberEditText
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -200,7 +197,7 @@ object Validator {
         name: String,
         desc: String,
         categories: String,
-        imageList: ArrayList<Product.ProductImage>
+        imageList: ArrayList<ProductImage>
     ): Boolean {
 
         return if (imageList.size == 0) {
@@ -225,7 +222,7 @@ object Validator {
         shotDesc: String,
         desc: String,
         categories: String,
-        imageList: ArrayList<Product.ProductImage>,
+        imageList: ArrayList<ProductImage>,
         mainImagePath: String? = null
     ): Boolean {
 

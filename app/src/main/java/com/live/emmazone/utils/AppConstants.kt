@@ -68,7 +68,7 @@ object AppConstants {
    /*******URLs*****/
    //const val BASE_URL = "https://app.emmazn.de/api/" //Client Server
    //const val BASE_DOMAIN = "https://app.emmazn.de"
-    const val BASE_DOMAIN = "http://192.168.24.78:8101/"
+    const val BASE_DOMAIN = "http://192.168.137.212:8101/"
     const val BASE_URL = "${BASE_DOMAIN}api/"
  //const val SOCKET_BASE_URL = "https://app.emmazn.de/"l
     const val SOCKET_BASE_URL = BASE_DOMAIN
@@ -131,9 +131,10 @@ object AppConstants {
 
     const val ADD_PRODUCT_VARIANT = "add_product_variant"
     const val EDIT_PRODUCT_VARIANT = "edit_product_variant"
+    const val ADD_PRODUCT_GROUP = "add_shop_product_group"
+    const val EDIT_PRODUCT_GROUP = "edit_shop_product_group"
     //My changes :
     const val IS_FIREBASE_NOTIFICATION = "firebase_notification"
     const val NEW_SALE = "new_sale"
-
 
 }

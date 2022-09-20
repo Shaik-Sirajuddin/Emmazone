@@ -15,6 +15,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.EditShopDetailActivity
@@ -25,6 +26,7 @@ import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.Product
+import com.live.emmazone.response_model.ProductGroup
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
@@ -39,8 +41,8 @@ import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 class FragmentProviderHome : Fragment(), Observer<RestObservable> {
     var productAdapter: AdapterProShopProducts? = null
     val list = ArrayList<SellerShopDetailResponse.Body.ShopDetails.ShopCategory>()
-    private val listProSDProducts = ArrayList<Product>()
-    private val cacheProductList = ArrayList<Product>()
+    private val listProSDProducts = ArrayList<ProductGroup>()
+    private val cacheProductList = ArrayList<ProductGroup>()
     lateinit var adapter: AdapterShopDetailCategory
     private val appViewModel: AppViewModel by viewModels()
     private lateinit var response: SellerShopDetailResponse
@@ -144,9 +146,8 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         list.clear()
         listProSDProducts.clear()
         cacheProductList.clear()
-        cacheProductList.addAll(response.body.shopDetails.products)
-
-        listProSDProducts.addAll(response.body.shopDetails.products)
+        cacheProductList.addAll(response.body.groups)
+        listProSDProducts.addAll(response.body.groups)
         list.addAll(response.body.shopDetails.shopCategories)
         list.add(
             SellerShopDetailResponse.Body.ShopDetails.ShopCategory(
@@ -155,6 +156,7 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         )
         productAdapter = AdapterProShopProducts(requireContext(), listProSDProducts, this)
         requireView().recyclerProviderSDProducts.adapter = productAdapter
+//        requireView().recyclerProviderSDProducts.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         requireView().recyclerProviderShopDetailCategory.adapter = AdapterShopDetailCategory(list) {
             Log.e("cat",it.toString())
             when (it) {

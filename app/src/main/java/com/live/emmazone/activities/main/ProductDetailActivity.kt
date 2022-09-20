@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
@@ -19,9 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.LoginActivity
@@ -33,13 +30,13 @@ import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.interfaces.OnPopupClick
-import com.live.emmazone.model.ProductVariant
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.model.SizeAndColorItem
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddOrderResponse
 import com.live.emmazone.response_model.CommonResponse
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.openGoogleMaps
@@ -452,7 +449,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         appViewModel.addOrderApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
     }
-    private fun createSizeList(products : ArrayList<ShopProductDetailResponse.Body.Product>): ArrayList<SizeAndColorItem> {
+    private fun createSizeList(products : ArrayList<Product>): ArrayList<SizeAndColorItem> {
         val list = ArrayList<SizeAndColorItem>()
         for(product in products){
             val item = SizeAndColorItem(
@@ -466,7 +463,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         }
         return list
     }
-    private fun createColorList(products : ArrayList<ShopProductDetailResponse.Body.Product>): ArrayList<SizeAndColorItem> {
+    private fun createColorList(products : ArrayList<Product>): ArrayList<SizeAndColorItem> {
         val list = ArrayList<SizeAndColorItem>()
         for(product in products){
             val item = SizeAndColorItem(

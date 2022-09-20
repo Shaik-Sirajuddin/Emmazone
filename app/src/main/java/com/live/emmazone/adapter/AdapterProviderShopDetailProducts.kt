@@ -14,12 +14,13 @@ import com.live.emmazone.activities.fragment.FragmentProviderAddProduct
 import com.live.emmazone.activities.provider.AddNewProductActivity
 import com.live.emmazone.activities.provider.EditProductActivity
 import com.live.emmazone.response_model.Product
+import com.live.emmazone.response_model.ProductGroup
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProviderShopDetailProducts(
     private val context: Context,
-    var list: ArrayList<Product>,
+    var list: ArrayList<ProductGroup>,
     val fragmentProviderAddProduct: FragmentProviderAddProduct
 ) :
     RecyclerView.Adapter<AdapterProviderShopDetailProducts.ViewHolder>() {
@@ -42,16 +43,16 @@ class AdapterProviderShopDetailProducts(
 
             model.mainImage.let { holder.imageProductSD.loadImage(it) }
             holder.productItemNameSD.text = model.name
-            holder.productItemPriceSD.text =
-                context.getString(R.string.euro_symbol, model.minPrice.toDouble().toString())
             holder.tvShopDetailProductBrandSD.text = model.shortDescription  //short description
 
             holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
 
-            if (!model.productReview.isNullOrEmpty()) {
-                holder.ratingBar.rating = model.productReview.toFloat()
-                holder.tvShopDetailProductText.text = model.productReview
-            }
+//            holder.productItemPriceSD.text =
+//                context.getString(R.string.euro_symbol, model.price.toDoubleOrNull().toString())
+//            if (!model.productReview.isNullOrEmpty()) {
+//                holder.ratingBar.rating = model.productReview.toFloat()
+//                holder.tvShopDetailProductText.text = model.productReview
+//            }
         }
 
 
@@ -64,7 +65,7 @@ class AdapterProviderShopDetailProducts(
 
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
-            intent.putExtra("productData", model)
+            intent.putExtra("group", model)
             holder.itemView.context.startActivity(intent)
         }
 
@@ -122,7 +123,7 @@ class AdapterProviderShopDetailProducts(
         notifyItemRangeChanged(position, list.size)
     }
 
-    fun notifyData(arrayList: ArrayList<Product>) {
+    fun notifyData(arrayList: ArrayList<ProductGroup>) {
         list = arrayList
         notifyDataSetChanged()
     }

@@ -19,6 +19,7 @@ import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.Product
+import com.live.emmazone.response_model.ProductGroup
 import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.ToastUtils
@@ -27,7 +28,7 @@ import com.live.emmazone.view_models.AppViewModel
 class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
     private lateinit var binding: FragmentAddProductProviderBinding
-    private val list = ArrayList<Product>()
+    private val list = ArrayList<ProductGroup>()
     private var isChecked = true
     private val appViewModel: AppViewModel by viewModels()
     var productAdapter: AdapterProviderShopDetailProducts? = null
@@ -104,7 +105,7 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
     }
 
     private fun filterProduct(text: String) {
-        val filterList = ArrayList<Product>()
+        val filterList = ArrayList<ProductGroup>()
 
         list.forEach {
             if (it.name.contains(text, true)) {
@@ -163,14 +164,14 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
         val category = Product.Category("", "")
         val product_images: List<Product.ProductImage> =
             ArrayList()
+
         list.clear()
-        list.add(
-          Product(
-                category, 0, 0, "0", "0", -1, "", "", "", 0,
-               product_images, "", "", 0, 0, arrayListOf()
-            )
-        )
-        list.addAll(response.body.shopDetails.products)
+
+        list.add(ProductGroup(
+            ProductGroup.Category("",""),0,"",-1,"","",0,
+        arrayListOf(),"", arrayListOf()))
+
+        list.addAll(response.body.groups)
         productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)
         binding.rvAdProductProvider.adapter = productAdapter
 

@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.model.ProductVariant
+import com.live.emmazone.response_model.Product
 import kotlinx.android.synthetic.main.item_product_variant.view.*
 
 class ProductVariantAdapter(
-    val list: ArrayList<ProductVariant>,
+    val list: ArrayList<Product>,
     val context: Context,
     val editItem : (pos:Int) -> Unit,
     val deleteItem : (pos:Int) -> Unit,
@@ -48,11 +49,11 @@ class ProductVariantAdapter(
                 itemView.card.visibility = View.VISIBLE
 
                 val model = list[pos]
-                itemView.size.text = model.size
-                itemView.color.text = model.color
+                itemView.size.text = model.productSize.size
+                itemView.color.text = model.productColor.color
                 itemView.no.text = pos.toString()
-                itemView.quantity.text = model.quantity.toString()
-                itemView.price.text = model.price
+                itemView.quantity.text = model.productQuantity.toString()
+                itemView.price.text = model.productPrice
                 itemView.imgEdit.setOnClickListener {
                     editItem(pos)
                 }

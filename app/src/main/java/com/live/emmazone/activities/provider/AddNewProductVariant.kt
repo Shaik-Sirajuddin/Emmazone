@@ -5,28 +5,31 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import androidx.activity.viewModels
 import com.live.emmazone.model.ProductVariant
 import com.live.emmazone.net.RestObservable
-import com.live.emmazone.response_model.CategoryColorSizeResponse
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityAddNewProductVariantBinding
 import com.live.emmazone.interfaces.OnPopupClick
-import com.live.emmazone.response_model.AddProductVariantResponse
+import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
+import com.schunts.extensionfuncton.toBody
+import okhttp3.RequestBody
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+import kotlin.math.roundToInt
 
 class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
 
     lateinit var binding : ActivityAddNewProductVariantBinding
-    private var productVariant : ProductVariant? =  null
+    private var product : Product? =  null
+    private lateinit var group : ProductGroup
     private var categoryId : Int = 0
-    private var productId : Int = 0
     private val colorList = ArrayList<CategoryColorSizeResponse.Body.CategoryColor>()
     private val sizeList = ArrayList<CategoryColorSizeResponse.Body.CategorySize>()
     private val colorNameList = ArrayList<String>()
@@ -38,25 +41,23 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
     private var color = -1
     private var size = -1
     companion object{
-        const val PRODUCT_ID = "productID"
-        const val PRODUCT_VARIANT = "productVariant"
-        const val CATEGORY_ID = "categoryId"
+        const val PRODUCT = "product"
+        const val GROUP  = "group"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewProductVariantBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        productVariant = intent.extras?.get(PRODUCT_VARIANT) as ProductVariant?
-        categoryId = intent.extras?.get(CATEGORY_ID) as Int
-        productId = intent.extras?.get(PRODUCT_ID) as Int
-        isNew = productVariant==null
+        group = intent.extras?.get(GROUP) as ProductGroup
+        categoryId = group.categoryId
+        product = intent.extras?.get(PRODUCT) as Product?
+        isNew = product==null
         initViews()
         setData()
         getColorSizeApiHit()
         binding.saveButton.setOnClickListener{
             validateAndPush()
         }
-
     }
     private fun setData(){
         if(isNew){
@@ -64,9 +65,9 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         }
         else{
             binding.title.text = "Edit variant"
-            productVariant?.let{
-                binding.productPrice.setText(it.price)
-              //  binding.quantityVariant.setText(it.quantity)
+            product?.let{
+                binding.productPrice.setText(it.productPrice.toDouble().roundToInt().toString())
+                binding.proQuantity.setText(it.productQuantity.toString())
             }
         }
     }
@@ -94,34 +95,39 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         appViewModel.getResponse().observe(this, this)
     }
     private fun validateAndPush(){
-        val price = binding.productPrice.text.toString().trim().toIntOrNull()
-        val quantity = binding.quantityVariant.text.toString().trim().toIntOrNull()
+        val price = binding.productPrice.text.toString().trim().toDoubleOrNull()
+        val quantity = binding.proQuantity.text.toString().trim().toIntOrNull()
         var isValid = true
         isValid = price !=null && isValid
         isValid = quantity !=null  && isValid
         isValid = size!=-1  && isValid
-        isValid = color !=-1  && isValid
+        isValid = color!=-1  && isValid
 
         if(!isValid){
             AppUtils.showMsgOnlyWithoutClick(this,"Please fill in all fields.")
             return
         }
 
-        val hashMap = HashMap<String, String>()
-        hashMap["productId"] = productId.toString()
-        hashMap["categoryId"] = categoryId.toString()
-        hashMap["categoryColorId"] = colorList[color].id.toString()
-        hashMap["categorySizeId"] = sizeList[size].id.toString()
-        hashMap["price"] = price.toString()
-        hashMap["quantity"] = quantity.toString()
+        val hashMap = HashMap<String, RequestBody>()
+        hashMap["product_name"] = toBody(group.name)
+        hashMap["shortDescription"] = toBody(group.shortDescription)
+        hashMap["description"] = toBody(group.description)
+        hashMap["categoryId"] = toBody(group.categoryId.toString())
+        hashMap["product_highlight"] = toBody(group.productHighlight.toString())
+        hashMap["groupId"] = toBody(group.id.toString())
+        hashMap["categoryId"] = toBody(categoryId.toString())
+        hashMap["colorId"] = toBody(colorList[color].id.toString())
+        hashMap["sizeId"] = toBody(sizeList[size].id.toString())
+        hashMap["price"] = toBody(price.toString())
+        hashMap["product_quantity"] = toBody(quantity.toString())
 
         if(isNew){
-            appViewModel.addProductVariant(this,true,hashMap)
+            appViewModel.addProductApi(this,true,hashMap)
             appViewModel.getResponse().observe(this,this)
         }
         else{
-            hashMap["id"] = productVariant!!.id.toString()
-            appViewModel.editProductVariant(this,true,hashMap)
+            hashMap["id"] = toBody(product!!.id.toString())
+            appViewModel.editShopProductApi(this,true,hashMap)
             appViewModel.getResponse().observe(this,this)
         }
     }
@@ -138,15 +144,13 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         }
         colorAdapter.notifyDataSetChanged()
         sizeAdapter.notifyDataSetChanged()
-        Log.e("Size",colorNameList.size.toString())
 
         if(!isNew){
-            Log.e("product",productVariant?.color.toString())
-            color = colorNameList.indexOf(productVariant!!.color)
-            size = sizeNameList.indexOf(productVariant!!.size)
-
-            binding.pickColor.setSelection(color)
-            binding.pickSize.setSelection(size)
+            color = colorNameList.indexOf(product!!.productColor.color)
+            size = sizeNameList.indexOf(product!!.productSize.size)
+            Log.d("indez",color.toString())
+            binding.pickColor.setText(colorNameList[color],false)
+            binding.pickSize.setText(sizeNameList[size],false)
         }
     }
     override fun onChanged(t: RestObservable) {
@@ -163,7 +167,7 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
                 updateList()
             }
         }
-        else if(t.data is AddProductVariantResponse){
+        else if(t.data is AddProductResponse){
             val str = if(isNew)  "added" else "updated"
             AppUtils.showMsgOnlyWithClick(this,"Product variant $str successfully.", object : OnPopupClick{
                 override fun onPopupClickListener() {
