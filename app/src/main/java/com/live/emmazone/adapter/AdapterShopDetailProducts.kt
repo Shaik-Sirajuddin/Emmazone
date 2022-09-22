@@ -1,20 +1,14 @@
 package com.live.emmazone.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.live.emmazone.R
-import com.live.emmazone.activities.listeners.OnItemClick
-import com.live.emmazone.activities.main.ProductDetailActivity
 import com.live.emmazone.response_model.Product
-import com.live.emmazone.response_model.SellerShopDetailResponse
-import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
 
@@ -36,8 +30,13 @@ class AdapterShopDetailProducts(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val data = list[position]
-        if (data.productImages.isNotEmpty()) {
-            holder.imageProductSD.loadImage(AppConstants.PRODUCT_IMAGE_URL + data.productImages[0].image)
+        val images = if(data.group != null && !data.group!!.productImages.isNullOrEmpty()){
+            data.group!!.productImages as ArrayList<Product.ProductImage>?
+        } else {
+            data.images as ArrayList<Product.ProductImage>
+        }
+        if (!images.isNullOrEmpty()) {
+            holder.imageProductSD.loadImage(AppConstants.PRODUCT_IMAGE_URL + images[0].image)
         } else {
             holder.imageProductSD.setImageResource(R.drawable.placeholder)
 

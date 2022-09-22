@@ -43,6 +43,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
     lateinit var adapter: AdapterShopDetailCategory
 
     override fun updatedLatLng(lat: Double?, lng: Double?) {
+
         if (lat != null && lng != null) {
             if (this.baseContext != null) {
                 stopLocationUpdates()
@@ -55,11 +56,9 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         super.onCreate(savedInstanceState)
         binding = ActivityShopDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         clicksHandle()
-
-
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
+        getLiveLocation(this)
 
     }
 
@@ -179,6 +178,9 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is ShopDetailResponse) {
+                    binding.progressBar.visibility = View.GONE
+                    binding.tvNoData.visibility = View.GONE
+
                     response = t.data
 
                     if (response!!.code == AppConstants.SUCCESS_CODE) {
@@ -260,12 +262,6 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         binding.nestedScroll.visibility = View.VISIBLE
         binding.tvNoData.visibility = View.GONE
 
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        getLiveLocation(this)
     }
 
     override fun onStop() {

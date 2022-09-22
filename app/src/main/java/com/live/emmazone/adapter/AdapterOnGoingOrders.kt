@@ -33,6 +33,7 @@ class AdapterOnGoingOrders(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = list[position]
+
         with(holder.binding) {
             Glide.with(context).load(model.mainImage).into(onGoingItem)
             onGoingItemName.text = model.name

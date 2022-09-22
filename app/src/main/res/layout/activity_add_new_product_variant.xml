@@ -58,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@id/layoutMain">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -67,49 +67,15 @@
                 app:startIconDrawable="@drawable/ic_baseline_style_24">
 
                 <AutoCompleteTextView
+                    android:editable="false"
                     android:id="@+id/pickSize"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="none"
-                    android:text="Pick Size" />
+                    android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/addColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="4dp"
-                android:src="@drawable/addd" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/inputLayout2"
-            app:layout_constraintTop_toBottomOf="@id/inputLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_marginHorizontal="24dp"
-            android:orientation="horizontal">
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Color"
-                app:startIconDrawable="@drawable/ic_baseline_color_lens_24">
-
-                <AutoCompleteTextView
-                    android:id="@+id/pickColor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="none"
-                    android:text="Pick Color" />
-
-            </com.google.android.material.textfield.TextInputLayout>
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/addSize"
                 android:layout_width="wrap_content"
@@ -118,7 +84,125 @@
                 android:layout_margin="4dp"
                 android:src="@drawable/addd" />
         </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:padding="5dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp"
+            app:cardCornerRadius="7dp"
+            app:layout_constraintEnd_toEndOf="@+id/inputLayout1"
+            app:layout_constraintStart_toStartOf="@+id/inputLayout1"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout1">
+            <LinearLayout
+                android:paddingHorizontal="4dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/newSizeName"
+                    android:hint="Size name"
+                    android:paddingHorizontal="3dp"
+                    android:maxLines="1"
+                    android:maxLength="15"
+                    android:layout_marginHorizontal="7dp"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/addSizeButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/tick"
+                    android:padding="8dp"
+                    />
 
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <LinearLayout
+            android:id="@+id/inputLayout2"
+            app:layout_constraintTop_toBottomOf="@id/cardView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginHorizontal="24dp"
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Color"
+                app:startIconDrawable="@drawable/ic_baseline_color_lens_24">
+
+                <AutoCompleteTextView
+                    android:editable="false"
+                    android:id="@+id/pickColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/addColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:src="@drawable/addd" />
+        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView2"
+            android:layout_width="0dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="5dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp"
+            app:cardCornerRadius="7dp"
+            app:layout_constraintEnd_toEndOf="@+id/inputLayout2"
+            app:layout_constraintStart_toStartOf="@+id/inputLayout2"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout2">
+            <LinearLayout
+                android:paddingHorizontal="4dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/newColorName"
+                    android:hint="Color name"
+                    android:paddingHorizontal="3dp"
+                    android:maxLines="1"
+                    android:layout_marginHorizontal="7dp"
+                    android:maxLength="15"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/addColorButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/tick"
+                    android:padding="8dp"
+                    />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="0dp"
@@ -133,7 +217,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/layoutMain"
-            app:layout_constraintTop_toBottomOf="@+id/inputLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
         <EditText
             android:id="@+id/productPrice"

@@ -289,6 +289,7 @@
                         android:hint="Category name"
                         android:paddingHorizontal="3dp"
                         android:maxLines="1"
+                        android:maxLength="15"
                         android:background="@color/white"
                         android:layout_weight="1"
                         android:layout_width="0dp"

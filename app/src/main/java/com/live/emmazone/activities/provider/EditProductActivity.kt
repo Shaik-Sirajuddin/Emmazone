@@ -51,12 +51,12 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var imageList = ArrayList<ProductImage>()
     var mainImagePath = ""
     var id = ""
-
+    var isRefresh = false
     override fun selectedImage(imagePath: String?, code: Int) {
         if (imagePath != null) {
             if (code == 0) {
                 //0 for Main Pic
-                mainImagePath = imagePath
+                mainImagePath = imagePath.toString()
                 binding.ivShop.loadImage(imagePath)
             } else {
                 imageList.add(ProductImage(0, imagePath, 0, 0))
@@ -92,6 +92,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         highlightSwitchListener()
         appViewModel.selectedCategoryListApi(this, true)
         appViewModel.getResponse().observe(this, this)
+        productDetailApiHit()
 
     }
     private fun addDummyData(){
@@ -100,7 +101,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 Product.Category("",""),0,0,0,0,"","",0,"","",0,
                 Product.ProductColor(0,"","",0,0,""),0, arrayListOf() ,
                 "",0,"",Product.ProductSize(0,"",0,0,"",""),
-                "",0)
+                "",0,SearchProductResponse.Body.Group(0, arrayListOf()))
         )
     }
     private fun productDetailApiHit() {
@@ -110,23 +111,21 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         appViewModel.getResponse().observe(this, this)
     }
     private fun editVariant(pos:Int){
+        isRefresh = true
         val intent = Intent(this,AddNewProductVariant::class.java)
         intent.putExtra(AddNewProductVariant.PRODUCT,productGroup!!.products[pos-1])
         intent.putExtra(AddNewProductVariant.GROUP,productGroup)
         startActivity(intent)
     }
     private fun deleteVariant(pos:Int){
-
+        appViewModel.deleteProductApi(this,true,list[pos].id.toString())
+        appViewModel.getResponse().observe(this,this)
     }
     private fun addVariant(){
+        isRefresh = true
         val intent = Intent(this,AddNewProductVariant::class.java)
         intent.putExtra(AddNewProductVariant.GROUP,productGroup)
         startActivity(intent)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        productDetailApiHit()
     }
     private fun highlightSwitchListener() {
         binding.switchNotification.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -141,11 +140,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
 
     private fun setData(productGroup: ProductGroup) {
-        productGroup.mainImage.let { mainImage = it }
+        productGroup.mainImage?.let { mainImage = it }
         id = productGroup.id.toString()
         imageList.clear()
         imageList.addAll(productGroup.productImages)
-        productGroup.mainImage.let { binding.ivShop.loadImage(it) }
+        productGroup.mainImage?.let { binding.ivShop.loadImage(it) }
         binding.edtShopName.setText(productGroup.name)
         binding.edtShotDesc.setText(productGroup.shortDescription)
         binding.edtDesc.setText(productGroup.description)
@@ -159,6 +158,13 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         setImageAdapter()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(isRefresh){
+            productDetailApiHit()
+        }
+        isRefresh = false
+    }
     private fun setImageAdapter() {
         imageAdapter = ImageAdapter(imageList)
         binding.recyclerImages.adapter = imageAdapter
@@ -304,7 +310,9 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             dialog.dismiss()
         }
     }
-
+    private fun deleteVariant(){
+        productDetailApiHit()
+    }
     override fun onChanged(t: RestObservable) {
         if (t.data is EditProductGroupResponse) {
             showProductUpdateDialog()
@@ -312,6 +320,9 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         else if ( t.data is ShopProductDetailResponse){
             productGroup!!.products = t.data.body.products
             setData(productGroup!!)
+        }
+        else if( t.data is CommonResponse){
+            deleteVariant()
         }
     }
 

@@ -453,8 +453,8 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                                     this.productReview,
                                     this.status,
                                     this.userId,
-                                    null
-                                )
+                                    null,
+                                this.group)
                             )
 
                         }

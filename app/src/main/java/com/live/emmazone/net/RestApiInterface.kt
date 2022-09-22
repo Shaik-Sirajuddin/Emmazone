@@ -58,6 +58,12 @@ interface RestApiInterface {
         @Field("product_id") product_id: String
     ): Call<CommonResponse>
 
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = AppConstants.DELETE_PRODUCT_GROUP, hasBody = true)
+    fun deleteProductGroup(
+        @Field("group_id") group_id: String
+    ): Call<CommonResponse>
+
     @Multipart
     @POST(AppConstants.ADD_SHOP)
     fun addShop(
@@ -66,6 +72,27 @@ interface RestApiInterface {
     ): Call<AddShopResponse>
 
     //New Routes
+
+    @Multipart
+    @POST(AppConstants.ADD_CATEGORY)
+    fun addCategory(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+        @Part image : MultipartBody.Part
+    ) : Call<AddCategoryResponse>
+
+    @Multipart
+    @POST(AppConstants.ADD_SIZE)
+    fun addSize(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+    ) : Call<AddCategoryResponse>
+
+    @Multipart
+    @POST(AppConstants.ADD_COLOR)
+    fun addColor(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+    ) : Call<AddCategoryResponse>
+
+
     @FormUrlEncoded
     @POST(AppConstants.ADD_PRODUCT_VARIANT)
     fun addProductVariant(

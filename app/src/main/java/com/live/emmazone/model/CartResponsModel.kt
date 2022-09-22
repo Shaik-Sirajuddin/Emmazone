@@ -1,6 +1,7 @@
 package com.live.emmazone.model
 
 import com.google.gson.annotations.SerializedName
+import com.live.emmazone.response_model.SearchProductResponse
 
 
 data class CartResponsModel(
@@ -85,7 +86,9 @@ data class CartResponsModel(
                 @SerializedName("userId")
                 var userId: Int, // 336
                 @SerializedName("vendor")
-                var vendor: Vendor?
+                var vendor: Vendor?,
+                @SerializedName("product_group")
+                var group : SearchProductResponse.Body.Group?
             ) {
                 data class Vendor(
                     @SerializedName("id")
@@ -124,7 +127,7 @@ data class CartResponsModel(
             @SerializedName("product_highlight")
             var productHighlight: Int, // 1
             @SerializedName("product_images")
-            var productImages: List<ProductImage>,
+            var productImages: ArrayList<ProductImage>,
             @SerializedName("product_price")
             var productPrice: String, // 599.00
             @SerializedName("product_quantity")
@@ -136,7 +139,9 @@ data class CartResponsModel(
             @SerializedName("status")
             var status: Int, // 1
             @SerializedName("userId")
-            var userId: Int // 334
+            var userId: Int, // 334
+            @SerializedName("product_group")
+            var group : SearchProductResponse.Body.Group?
         ) {
             data class Category(
                 @SerializedName("image")

@@ -128,9 +128,15 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         super.onViewCreated(view, savedInstanceState)
         setSearchAdapter()
         clicksHandle()
-        Log.d("mLifeCycle","onViewCreated")
-        //getLiveLocation(requireActivity())
-
+        getLiveLocation(requireActivity())
+        mLatitude = getPreference(AppConstants.LATITUDE,"")
+        mLongitude = getPreference(AppConstants.LONGITUDE,"")
+        binding.tvLocation.text = getPreference(AppConstants.LOCATION,"")
+        if(mLatitude.isNotEmpty() && mLongitude.isNotEmpty()){
+            binding.tvLocation.text = mLatitude.toDoubleOrNull()?.let { mLongitude.toDoubleOrNull()
+                ?.let { it1 -> completedAddress(it, it1) } }
+            shopListingApi()
+        }
     }
 
     private fun clicksHandle() {
@@ -508,7 +514,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     override fun onPause() {
         super.onPause()
-        //stopLocationUpdates()
+        stopLocationUpdates()
     }
 
     // Feature : Switch Search Type

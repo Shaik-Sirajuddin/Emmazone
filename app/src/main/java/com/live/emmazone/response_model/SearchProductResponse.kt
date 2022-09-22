@@ -2,6 +2,7 @@ package com.live.emmazone.response_model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class SearchProductResponse(
     @SerializedName("body")
@@ -34,8 +35,10 @@ data class SearchProductResponse(
         var name: String, // TV
         @SerializedName("product_highlight")
         var productHighlight: Int, // 0
+        @SerializedName("product_group")
+        var group : Group?,
         @SerializedName("product_images")
-        var productImages: List<ProductImage>,
+        var images : ArrayList<ProductImage>,
         @SerializedName("product_price")
         val minPrice : String , //2000.00
         @SerializedName("productReview")
@@ -62,7 +65,13 @@ data class SearchProductResponse(
         var vendorId: Int, // 0
         @SerializedName("distance")
         var distance:String
-    ) {
+    ):Serializable {
+        data class Group(
+            @SerializedName("id")
+            var id : Int,
+            @SerializedName("product_images")
+            var productImages: ArrayList<Product.ProductImage>,
+        ):Serializable
         data class ProductImage(
             @SerializedName("id")
             var id: Int, // 484
@@ -70,9 +79,9 @@ data class SearchProductResponse(
             var image: String, // http://202.164.42.227:8188/uploads/product/b534158a-aa1f-4b69-b19d-1ca1e8ae46c3.jpg
             @SerializedName("isMainImage")
             var isMainImage: Int, // 0
-            @SerializedName("product_id")
+            @SerializedName("group_id")
             var productId: Int // 152
-        )
+        ):Serializable
 
         data class VendorDetail(
             @SerializedName("id")
@@ -81,6 +90,6 @@ data class SearchProductResponse(
             var image: String, // http://202.164.42.227:8188/uploads/vendorDetail/e4440279-0b7e-4de3-9bff-68905a951de4.jpg
             @SerializedName("shopName")
             var shopName: String // Cqlsys
-        )
+        ):Serializable
     }
 }

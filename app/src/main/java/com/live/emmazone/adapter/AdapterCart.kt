@@ -31,7 +31,14 @@ class AdapterCart(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val modelCart = list[position]
-        Glide.with(mContext).load(modelCart.product.mainImage).into(holder.imgCart)
+        val image = if(modelCart.product.group!=null && !modelCart.product.group!!.productImages.isNullOrEmpty()){
+            modelCart.product.group!!.productImages[0].image
+        }
+        else{
+            modelCart.product.mainImage
+        }
+
+        Glide.with(mContext).load(image).into(holder.imgCart)
 
         // holder.imageDelete.setImageResource(modelCart.imgDelete)
         holder.tvproductItemName.text = modelCart.product.name

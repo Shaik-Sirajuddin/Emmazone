@@ -31,7 +31,7 @@ data class Product(
     @SerializedName("product_highlight")
     var productHighlight: Int, // 1
     @SerializedName("product_images")
-    var productImages: ArrayList<ProductImage>,
+    var images: ArrayList<ProductImage>,
     @SerializedName("product_price")
     var productPrice: String, // 600.00
     @SerializedName("product_quantity")
@@ -43,7 +43,9 @@ data class Product(
     @SerializedName("shortDescription")
     var shortDescription: String, // Good Quality
     @SerializedName("status")
-    var status: Int // 1
+    var status: Int, // 1
+    @SerializedName("product_group")
+    var group : SearchProductResponse.Body.Group?
  ):Serializable{
 
     data class Category(

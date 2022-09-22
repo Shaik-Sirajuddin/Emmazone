@@ -30,7 +30,7 @@ class AdapterProShopProducts(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ModelProShopDetailProducts = list[position]
-        ModelProShopDetailProducts.mainImage.let { holder.imageProductSD.loadImage(it) }
+        ModelProShopDetailProducts.mainImage?.let { holder.imageProductSD.loadImage(it) }
         holder.productItemNameSD.text = ModelProShopDetailProducts.name
 //        holder.productItemPriceSD.text = context.getString(
 //            R.string.euro_symbol,
@@ -69,7 +69,7 @@ class AdapterProShopProducts(
 
             yesBtn.setOnClickListener {
                 dialog.dismiss()
-                fragmentProviderHome.deleteProductAPIMethod(
+                fragmentProviderHome.deleteProductGroup(
                     position,
                     ModelProShopDetailProducts.id.toString()
                 )

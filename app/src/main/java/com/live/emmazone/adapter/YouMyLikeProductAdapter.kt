@@ -32,7 +32,13 @@ class YouMyLikeProductAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val data = list[position]
-        holder.imageProductSD.loadImage(data.mainImage)
+        val image = if(data.group!=null && !data.group!!.productImages.isNullOrEmpty()){
+            data.group!!.productImages[0].image
+        }
+        else{
+            data.mainImage
+        }
+        holder.imageProductSD.loadImage(image)
         holder.productItemNameSD.text = data.name
         holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol,data.productPrice)
         holder.tvShopDetailProductBrandSD.text = data.description

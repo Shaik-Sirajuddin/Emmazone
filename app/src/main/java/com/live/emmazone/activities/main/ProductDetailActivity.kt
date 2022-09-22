@@ -37,6 +37,7 @@ import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddOrderResponse
 import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.Product
+import com.live.emmazone.response_model.ProductImage
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.openGoogleMaps
@@ -210,9 +211,15 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             binding.tvDesc.text = model.shortDescription
             binding.tvDelivery.text = model.description
 
+            val images = if(model.group != null && !model.group!!.productImages.isNullOrEmpty()){
+                 model.group!!.productImages
+            }
+            else{
+                 model.images
+            }
             binding.itemImageProductDetail.adapter = ImageSliderCustomeAdapter(
                 this@ProductDetailActivity,
-                model.productImages
+                images
             )
             binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
 

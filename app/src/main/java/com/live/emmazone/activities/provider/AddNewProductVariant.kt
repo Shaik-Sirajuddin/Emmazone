@@ -1,11 +1,14 @@
 package com.live.emmazone.activities.provider
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Filter
 import androidx.activity.viewModels
 import com.live.emmazone.model.ProductVariant
 import com.live.emmazone.net.RestObservable
@@ -17,8 +20,10 @@ import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.ToastUtils
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toBody
+import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 import okhttp3.RequestBody
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -72,8 +77,8 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         }
     }
     private fun initViews(){
-        colorAdapter = ArrayAdapter(this, R.layout.dropdown_item,colorNameList)
-        sizeAdapter = ArrayAdapter(this, R.layout.dropdown_item,sizeNameList)
+        colorAdapter = MyAdapter(this,android.R.layout.simple_list_item_1,colorNameList)
+        sizeAdapter = MyAdapter(this, android.R.layout.simple_list_item_1,sizeNameList)
         binding.pickColor.setAdapter(colorAdapter)
         binding.pickSize.setAdapter(sizeAdapter)
         binding.pickSize.setDropDownBackgroundResource(R.color.white)
@@ -86,6 +91,54 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
             size = i
             Log.d("sizer",size.toString())
         }
+        binding.addSize.setOnClickListener {
+            if(binding.cardView1.visibility == View.VISIBLE){
+                binding.cardView1.visibility = View.GONE
+            }
+            else{
+                binding.cardView1.visibility = View.VISIBLE
+            }
+        }
+        binding.addColor.setOnClickListener {
+            if(binding.cardView2.visibility == View.VISIBLE){
+                binding.cardView2.visibility = View.GONE
+            }
+            else{
+                binding.cardView2.visibility = View.VISIBLE
+            }
+        }
+        binding.addSizeButton.setOnClickListener {
+            addSize()
+        }
+        binding.addColorButton.setOnClickListener {
+            addColor()
+        }
+    }
+    private fun addColor(){
+        val color = binding.newColorName.text.toString().trim()
+        if(color.isEmpty()){
+            AppUtils.showMsgOnlyWithoutClick(this, "Size name cannot be empty.")
+            return
+        }
+        binding.newColorName.setText("")
+        val hashMap = HashMap<String, RequestBody>()
+        hashMap["categoryId"] = toBody(categoryId.toString())
+        hashMap["color"] = toBody(color)
+        appViewModel.addColor(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+    }
+    private fun addSize(){
+        val size = binding.newSizeName.text.toString().trim()
+        if(size.isEmpty()){
+            AppUtils.showMsgOnlyWithoutClick(this, "Size name cannot be empty.")
+            return
+        }
+        binding.newSizeName.setText("")
+        val hashMap = HashMap<String, RequestBody>()
+        hashMap["categoryId"] = toBody(categoryId.toString())
+        hashMap["size"] = toBody(size)
+        appViewModel.addSize(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
     }
     private fun getColorSizeApiHit() {
         binding.progressBar.visibility = View.VISIBLE
@@ -148,7 +201,6 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         if(!isNew){
             color = colorNameList.indexOf(product!!.productColor.color)
             size = sizeNameList.indexOf(product!!.productSize.size)
-            Log.d("indez",color.toString())
             binding.pickColor.setText(colorNameList[color],false)
             binding.pickSize.setText(sizeNameList[size],false)
         }
@@ -174,6 +226,25 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
                     finish()
                 }
             })
+        }
+        else if(t.data is AddCategoryResponse){
+            val response: AddCategoryResponse = t.data
+            if (response.code == AppConstants.SUCCESS_CODE) {
+                ToastUtils.showLongToast(response.message)
+                getColorSizeApiHit()
+            }
+        }
+    }
+    inner class MyAdapter(context: Context, resource: Int, objects: ArrayList<String>) :
+        ArrayAdapter<String>(context, resource, objects) {
+        override fun getFilter(): Filter {
+            return object:Filter(){
+                override fun performFiltering(p0: CharSequence?): FilterResults {
+                    return FilterResults()
+                }
+                override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
+                }
+            }
         }
     }
 }

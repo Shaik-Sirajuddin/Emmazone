@@ -24,10 +24,7 @@ import com.live.emmazone.adapter.AdapterProShopProducts
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
-import com.live.emmazone.response_model.CommonResponse
-import com.live.emmazone.response_model.Product
-import com.live.emmazone.response_model.ProductGroup
-import com.live.emmazone.response_model.SellerShopDetailResponse
+import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.getURLForResource
@@ -35,7 +32,11 @@ import com.live.emmazone.utils.ToastUtils
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.letterByteArray
 import com.schunts.extensionfuncton.loadImage
+import com.schunts.extensionfuncton.prepareMultiPart
+import com.schunts.extensionfuncton.toBody
 import kotlinx.android.synthetic.main.fragment_provider_home.view.*
+import okhttp3.RequestBody
+import java.io.File
 
 
 class FragmentProviderHome : Fragment(), Observer<RestObservable> {
@@ -108,14 +109,23 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
                     }
 
                 }
-
-                if (t.data is CommonResponse) {
+                else if (t.data is CommonResponse) {
                     val response: CommonResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         ToastUtils.showLongToast(response.message)
                         productAdapter!!.deleteItem(pos)
                     }
-
+                }
+                else if( t.data is AddCategoryResponse){
+                    val response: AddCategoryResponse = t.data
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        ToastUtils.showLongToast(response.message)
+                    }
+                    if(requireView().newCategoryName.hasFocus()){
+                        hideKeyboardFrom(requireContext(),requireView().newCategoryName)
+                    }
+                    requireView().cardView.visibility = View.GONE
+                    getSellerShopDetails()
                 }
             }
             Status.ERROR -> {
@@ -187,6 +197,15 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
             AppUtils.showMsgOnlyWithoutClick(requireContext(), "Name cannot be empty")
             return
         }
+        requireView().newCategoryName.setText("")
+        val hashMap = HashMap<String, RequestBody>()
+        hashMap["name"] = toBody(name)
+        hashMap["vendorId"] = toBody(response.body.shopDetails.id.toString())
+
+        val byteArray = letterByteArray(name.substring(0,1))
+        val image = prepareMultiPart("image", byteArray)
+        appViewModel.addCategory(requireActivity(), true, hashMap, image)
+        appViewModel.getResponse().observe(requireActivity(),this)
     }
     private fun hideKeyboardFrom(context: Context, view: View) {
         val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -203,14 +222,11 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         }
     }
 
-    private fun hideAddCategoryCard() {
-        requireView().cardView.visibility = View.GONE
-    }
 
     var pos = 0
-    fun deleteProductAPIMethod(position: Int, productId: String) {
+    fun deleteProductGroup(position: Int, groupId: String) {
         pos = position
-        appViewModel.deleteProductApi(requireActivity(), true, productId)
+        appViewModel.deleteProductGroupApi(requireActivity(), true, groupId)
         appViewModel.mResponse.observe(requireActivity(), this)
     }
 
