@@ -1,13 +1,13 @@
 package com.live.emmazone.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.response_model.SearchProductResponse
-import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
 import kotlinx.android.synthetic.main.item_layout_shopdetail_products.view.*
 
@@ -48,16 +48,17 @@ class SearchProductAdapter(val list: ArrayList<SearchProductResponse.Body>) :
             }
 
             itemView.productItemName.text = model.name
-            itemView.productItemPrice.text =
-                mContext.getString(R.string.euro_symbol, model.minPrice)
+            itemView.rating.text = model.productReview
+            try{
+                itemView.ratingBar.rating = model.productReview.toFloat()
+            }catch (e : Exception){
+                Log.e("searchProductAdapter:55" , e.message.toString())
+            }
+            itemView.productItemPrice.text = mContext.getString(R.string.euro_symbol, model.minPrice)
             itemView.tvShopDetailProductBrand.text = model.shortDescription
-            //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
 
             itemView.setOnClickListener {
-                // cellClickListener.onCellClickListener()
-
                 onItemClick?.invoke(pos)
-
 
             }
 

@@ -1,6 +1,7 @@
 package com.live.emmazone.model
 
 import com.google.gson.annotations.SerializedName
+import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.SearchProductResponse
 
 
@@ -70,7 +71,7 @@ data class CartResponsModel(
                 @SerializedName("id")
                 var id: Int, // 155
                 @SerializedName("mainImage")
-                var mainImage: String, // http://202.164.42.227:8188/uploads/product/72932e18-f10b-439f-9fa4-853ffd86c7f3.jpg
+                var mainImage: String?, // http://202.164.42.227:8188/uploads/product/72932e18-f10b-439f-9fa4-853ffd86c7f3.jpg
                 @SerializedName("name")
                 var name: String, // New
                 @SerializedName("product_highlight")
@@ -87,6 +88,8 @@ data class CartResponsModel(
                 var userId: Int, // 336
                 @SerializedName("vendor")
                 var vendor: Vendor?,
+                @SerializedName("product_images")
+                var images : ArrayList<SearchProductResponse.Body.ProductImage>?,
                 @SerializedName("product_group")
                 var group : SearchProductResponse.Body.Group?
             ) {
@@ -127,7 +130,7 @@ data class CartResponsModel(
             @SerializedName("product_highlight")
             var productHighlight: Int, // 1
             @SerializedName("product_images")
-            var productImages: ArrayList<ProductImage>,
+            var productImages: ArrayList<Product.ProductImage>,
             @SerializedName("product_price")
             var productPrice: String, // 599.00
             @SerializedName("product_quantity")

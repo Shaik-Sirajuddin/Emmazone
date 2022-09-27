@@ -26,6 +26,9 @@
         android:theme="@style/Theme.EmmaZone"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.AddProductReview"
+            android:exported="false" />
+        <activity
             android:name=".activities.provider.AddNewProductVariant"
             android:exported="false" />
         <activity

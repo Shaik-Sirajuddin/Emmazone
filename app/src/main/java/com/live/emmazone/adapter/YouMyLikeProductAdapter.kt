@@ -8,13 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.live.emmazone.R
-import com.live.emmazone.activities.listeners.OnItemClick
 import com.live.emmazone.activities.main.ProductDetailActivity
 import com.live.emmazone.model.CartResponsModel
-import com.live.emmazone.response_model.ShopDetailResponse
-import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
 
 
@@ -38,7 +34,7 @@ class YouMyLikeProductAdapter(
         else{
             data.mainImage
         }
-        holder.imageProductSD.loadImage(image)
+        image?.let { holder.imageProductSD.loadImage(it) }
         holder.productItemNameSD.text = data.name
         holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol,data.productPrice)
         holder.tvShopDetailProductBrandSD.text = data.description
@@ -64,7 +60,7 @@ class YouMyLikeProductAdapter(
         val tvShopDetailProductBrandSD =
             itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
         val tvShopDetailProductTextSD =
-            itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
+            itemView.findViewById<TextView>(R.id.rating)
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
 
     }

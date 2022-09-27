@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
 import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.LoginActivity
+import com.live.emmazone.adapter.AdapterRatingReviews
 import com.live.emmazone.adapter.ImageSliderCustomeAdapter
 import com.live.emmazone.adapter.ProductSizeAndColorAdapter
 import com.live.emmazone.base.AppController
@@ -34,18 +35,18 @@ import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.model.SizeAndColorItem
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
-import com.live.emmazone.response_model.AddOrderResponse
-import com.live.emmazone.response_model.CommonResponse
-import com.live.emmazone.response_model.Product
-import com.live.emmazone.response_model.ProductImage
+import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.openGoogleMaps
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
+import com.schunts.extensionfuncton.toBody
+import okhttp3.RequestBody
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 
 class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnPopupClick,
@@ -90,6 +91,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private lateinit var colorAdapter: ProductSizeAndColorAdapter
     private val sizeList = ArrayList<SizeAndColorItem>()
     private val colorList = ArrayList<SizeAndColorItem>()
+    //Review Data
+    private lateinit var reviewsAdapter: AdapterRatingReviews
+    private val reviewsList  =  ArrayList<ProductReviewModel>()
 
 
     private val launcherPayment =
@@ -171,6 +175,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     }
 
     private fun initAdapters() {
+        reviewsAdapter = AdapterRatingReviews(reviewsList)
+        binding.reviewsRecyclerView.adapter = reviewsAdapter
+        binding.reviewsRecyclerView.layoutManager = LinearLayoutManager(this)
         sizeAdapter = ProductSizeAndColorAdapter(this,sizeList){
             selectedSize = it
             updateVariant()
@@ -206,7 +213,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             } catch (e: Exception) {
 
             }
-            binding.tvShopDetailProductText.text =
+            binding.rating.text =
                 "${binding.ratingBarProductDetail.rating}/5"
             binding.tvDesc.text = model.shortDescription
             binding.tvDelivery.text = model.description
@@ -222,8 +229,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                 images
             )
             binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
-
-            binding.tvPriceInteger.text = "${model.productPrice} €"
+            val formatter = DecimalFormat("#,###,###,###")
+            val price = formatter.format(model.productPrice.toDouble().roundToInt())
+            binding.tvPriceInteger.text = "$price €"
             binding.tvSize.text = model.productSize.size
             binding.tvColor.text = model.productColor.color
             binding.tvQty.text = getString(R.string.of, model.productQuantity.toString())
@@ -248,6 +256,11 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         hashMap["id"] = productId
         appViewModel.shopProductDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
+
+        val map = HashMap<String, RequestBody>()
+        map["productId"] = toBody(productId)
+        appViewModel.getProductReviews(this,true,map)
+        appViewModel.getResponse().observe(this,this)
     }
 
     private fun setOnClicks() {
@@ -284,6 +297,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         val tvTaxPrice = view.findViewById<TextView>(R.id.tvTaxPrice)
         val tvTotalPrice = view.findViewById<TextView>(R.id.tvTotalPrice)
         val tvDeliveryAddress = view.findViewById<TextView>(R.id.tvDeliveryAddress)
+        val tvChangeDateTime = view.findViewById<TextView>(R.id.tvChangeDateTime)
         tvSelectAddress = view.findViewById(R.id.tvSelectAddress)
         tvSelectPayment = view.findViewById(R.id.tvSelectPayment)
         tvOrderPersonName = view.findViewById(R.id.tvOrderPersonName)
@@ -299,7 +313,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         tvSelectAddress?.visibility = View.GONE
         tvEstimateDeliveryTime?.visibility = View.GONE
         tvDeliveryDate?.visibility = View.GONE
-
+        tvChangeDateTime.visibility = View.GONE
         getSavedPaymentType()
 
         val subTotal = shopProductDetailResponse!!.body.products[selectedPos].productPrice.toFloat() * qty
@@ -317,7 +331,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         tvDeliveryDate?.text = AppUtils.milliSecondsToTime(milliSeconds, AppConstants.DATE_FORMAT)
 
         /*tvChangeDateTime.setOnClickListener { openDateTimerPicker() }*/
-
 
 
         tvTerms.setOnClickListener {
@@ -342,13 +355,10 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             val intent = Intent(this, PaymentMethod::class.java)
             launcherPayment.launch(intent)
         }
-
         tvChangePaymentMethod.setOnClickListener {
             val intent = Intent(this, PaymentMethod::class.java)
             launcherPayment.launch(intent)
         }
-
-
         bottomDialog?.show()
     }
 
@@ -540,9 +550,18 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                         thankYouDialog()
                     }
                 }
+                else if (t.data is ReviewsResponse){
+                    updateReviews(t.data.body)
+                }
             }
             else -> {}
         }
+    }
+
+    private fun updateReviews(data: ArrayList<ProductReviewModel>) {
+        reviewsList.clear()
+        reviewsList.addAll(data)
+        reviewsAdapter.notifyDataSetChanged()
     }
 
 

@@ -176,7 +176,7 @@ abstract class LocationUpdateUtility : AppCompatActivity() {
 
     private fun checkGpsOn() {
         locationRequest = LocationRequest.create()
-        locationRequest?.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        locationRequest?.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest?.interval = 5000
         locationRequest?.fastestInterval = 2000
 

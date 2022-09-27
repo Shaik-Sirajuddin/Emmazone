@@ -34,8 +34,14 @@ class AdapterCart(
         val image = if(modelCart.product.group!=null && !modelCart.product.group!!.productImages.isNullOrEmpty()){
             modelCart.product.group!!.productImages[0].image
         }
-        else{
+        else if(!modelCart.product.mainImage.isNullOrEmpty())
+        {
             modelCart.product.mainImage
+        }
+        else if(modelCart.product.images != null && modelCart.product.images!!.isNotEmpty()){
+            modelCart.product.images!![0].image.toString()
+        } else {
+            ""
         }
 
         Glide.with(mContext).load(image).into(holder.imgCart)

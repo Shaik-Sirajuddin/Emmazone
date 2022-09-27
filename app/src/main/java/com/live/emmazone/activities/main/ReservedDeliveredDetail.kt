@@ -67,13 +67,13 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         binding.recyclerOrderDetail.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        binding.recyclerOrderDetail.adapter = AdapterOrderDetail(this, list)
+        binding.recyclerOrderDetail.adapter = AdapterOrderDetail(this, list,true)
 
     }
 
     private fun setData(data: UserOrderListing.Body.Response) {
         list.addAll(data.orderJson.orderItems)
-        adapter = AdapterOrderDetail(this, list)
+        adapter = AdapterOrderDetail(this, list,true)
         binding.tvOrderID.text = data.orderNo
         binding.tvSubTotalPrice.text = data.netAmount
         binding.tvItemCount.text = data.orderJson.orderItems.size.toString()

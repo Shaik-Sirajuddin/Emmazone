@@ -53,6 +53,7 @@ class AdapterOnGoingUserOrders(
                 } else {
                     imgCodeScanner.visibility = View.GONE
                 }
+
             }else{
                 imgCodeScanner.visibility = View.GONE
             }

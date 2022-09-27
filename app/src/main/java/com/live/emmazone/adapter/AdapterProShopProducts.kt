@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.FragmentProviderHome
 import com.live.emmazone.activities.provider.EditProductActivity
-import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.ProductGroup
-import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProShopProducts(
@@ -93,9 +91,9 @@ class AdapterProShopProducts(
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
         val tvShopDetailProductBrandSD =
             itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
-        val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
+        val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.rating)
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
-        val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBarShopDetailProduct)
+        val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBar)
         val layoutAddProduct = itemView.findViewById<LinearLayout>(R.id.layoutAddProduct)
 
     }

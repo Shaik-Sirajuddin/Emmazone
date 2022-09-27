@@ -24,7 +24,7 @@ data class ShopDetailResponse(
         @SerializedName("id")
         var id: Int, // 121
         @SerializedName("image")
-        var image: String, // e4440279-0b7e-4de3-9bff-68905a951de4.jpg
+        var image: String, // e4440279-0b7e-4de3-9bff]-68905a951de4.jpg
         @SerializedName("isLiked")
         var isLiked: Int, // 1
         @SerializedName("latitude")
@@ -36,6 +36,8 @@ data class ShopDetailResponse(
         @SerializedName("products")
         var products: ArrayList<Product>,
         @SerializedName("ratings")
+        var reviews : ArrayList<ShopReviewModel>,
+        @SerializedName("rating")
         var ratings: String, // 0.0
         @SerializedName("shopAddress")
         var shopAddress: String, // D-199, 5th Floor Phase, 8-B, Industrial Area, Sector 74, Sahibzada Ajit Singh Nagar, Punjab 160071, India

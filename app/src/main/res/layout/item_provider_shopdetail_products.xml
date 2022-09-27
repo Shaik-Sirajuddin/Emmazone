@@ -55,6 +55,7 @@
                 app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"                app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/productItemPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +69,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageProductShopDetail" />
 
             <RatingBar
-                android:id="@+id/ratingBarShopDetailProduct"
+                android:id="@+id/ratingBar"
                 style="?android:ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,17 +105,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/imgEdit" />
 
             <TextView
-                android:id="@+id/tvShopDetailProductText"
+                android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                android:text="4.8"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp10"
-                app:layout_constraintBottom_toBottomOf="@+id/ratingBarShopDetailProduct"
-                app:layout_constraintStart_toEndOf="@+id/ratingBarShopDetailProduct"
-                app:layout_constraintTop_toTopOf="@+id/ratingBarShopDetailProduct"
+                app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+                app:layout_constraintStart_toEndOf="@+id/ratingBar"
+                app:layout_constraintTop_toTopOf="@+id/ratingBar"
                 app:layout_constraintVertical_bias="0.19999999" />
 
             <TextView
@@ -129,8 +129,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 android:lines="3"
-                app:layout_constraintStart_toStartOf="@+id/ratingBarShopDetailProduct"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBarShopDetailProduct" />
+                app:layout_constraintStart_toStartOf="@+id/ratingBar"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
             <TextView
                 android:id="@+id/tvSDDeliveryEstimate"

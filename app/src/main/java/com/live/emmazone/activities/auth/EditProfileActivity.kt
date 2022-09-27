@@ -102,6 +102,7 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
             binding.ivProfile.loadImage(byteArray!!)
         }
         binding.edtName.doAfterTextChanged {
+            if(mImagePath.isNotEmpty())return@doAfterTextChanged
             val text = it.toString().trim()
             if (text.length != 1) return@doAfterTextChanged
             byteArray = letterByteArray(text)

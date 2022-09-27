@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.response_model.Product
-import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
 
 
@@ -30,28 +30,29 @@ class AdapterShopDetailProducts(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val data = list[position]
-        val images = if(data.group != null && !data.group!!.productImages.isNullOrEmpty()){
-            data.group!!.productImages as ArrayList<Product.ProductImage>?
+        val image = if(data.group != null && !data.group!!.productImages.isNullOrEmpty()){
+            data.group!!.productImages[0].image
         } else {
-            data.images as ArrayList<Product.ProductImage>
+            data.images[0].image
         }
-        if (!images.isNullOrEmpty()) {
-            holder.imageProductSD.loadImage(AppConstants.PRODUCT_IMAGE_URL + images[0].image)
+        if (image.isNotEmpty()) {
+            holder.imageProductSD.loadImage(image)
         } else {
             holder.imageProductSD.setImageResource(R.drawable.placeholder)
 
         }
+
+
         holder.productItemNameSD.text = data.name
-//        holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol, data.productPrice)
+        holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol, data.productPrice)
         holder.tvShopDetailProductBrandSD.text = data.shortDescription
-        //  holder.tvSDDeliveryEstimateSD.setText(ModelShopDetailProducts.)
-
+        holder.ratingText.text = data.productReview
+        val rate = data.productReview.toFloatOrNull()
+        rate?.let {
+            holder.ratingBar.rating = it
+        }
         holder.itemView.setOnClickListener {
-            // cellClickListener.onCellClickListener()
-
             onItemClick?.invoke(list[position].id.toString())
-
-
         }
     }
 
@@ -60,15 +61,16 @@ class AdapterShopDetailProducts(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val imageProductSD: ImageView = itemView.findViewById(R.id.imageProductShopDetail)
         val productItemNameSD = itemView.findViewById<TextView>(R.id.productItemName)
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
         val tvShopDetailProductBrandSD =
             itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
-        val tvShopDetailProductTextSD =
-            itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
+        val ratingText=
+            itemView.findViewById<TextView>(R.id.rating)
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
+        val ratingBar : RatingBar = itemView.findViewById(R.id.ratingBar)
+
 
     }
 }

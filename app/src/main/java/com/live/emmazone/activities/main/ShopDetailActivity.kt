@@ -2,22 +2,23 @@ package com.live.emmazone.activities.main
 
 import android.app.Dialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.activities.ImageZoomActivity
 import com.live.emmazone.activities.auth.LoginActivity
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.adapter.AdapterShopDetailProducts
+import com.live.emmazone.adapter.AdapterShopReviews
 import com.live.emmazone.databinding.ActivityShopDetailBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.net.RestObservable
@@ -25,12 +26,16 @@ import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddFavouriteResponse
 import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.ShopDetailResponse
+import com.live.emmazone.response_model.ShopReviewModel
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils.Companion.openGoogleMaps
 import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.utils.LocationUpdateUtility
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_provider_home.view.*
+
 
 class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
 
@@ -41,6 +46,9 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
     lateinit var binding: ActivityShopDetailBinding
     private var listSDProduct = ArrayList<Product>()
     lateinit var adapter: AdapterShopDetailCategory
+    //Reviews
+    private lateinit var reviewsAdapter : AdapterShopReviews
+    private val reviewsList = ArrayList<ShopReviewModel>()
 
     override fun updatedLatLng(lat: Double?, lng: Double?) {
 
@@ -59,6 +67,11 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         clicksHandle()
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
         getLiveLocation(this)
+        val mLatitude = getPreference(AppConstants.LATITUDE,"")
+        val mLongitude = getPreference(AppConstants.LONGITUDE,"")
+        if(mLatitude.isNotEmpty() && mLongitude.isNotEmpty()){
+            shopDetailApiHit(mLatitude,mLongitude)
+        }
 
     }
 
@@ -130,6 +143,9 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
                 }
             }
         }
+        reviewsAdapter = AdapterShopReviews(reviewsList)
+        binding.recyclerViewShopReviews.adapter = reviewsAdapter
+        binding.recyclerViewShopReviews.layoutManager = LinearLayoutManager(this)
 
     }
     private fun showLoginDialog() {
@@ -252,7 +268,24 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         } else {
             binding.tvNoProduct.visibility = View.VISIBLE
         }
+        if(response!!.body.reviews.isNotEmpty()){
+            reviewsList.clear()
+            reviewsList.addAll(response!!.body.reviews)
+            reviewsAdapter.notifyDataSetChanged()
+            binding.recyclerViewShopReviews.visibility = View.VISIBLE
 
+//            val params: ViewGroup.LayoutParams = binding.recyclerViewShopReviews.layoutParams
+//            if(reviewsList.size == 1){
+//                params.height = 150
+//            }
+//            else {
+//                params.height = 300
+//            }
+//            binding.recyclerViewShopReviews.layoutParams = params
+        }
+        else{
+            binding.recyclerViewShopReviews.visibility = View.GONE
+        }
         if (response!!.body.cartCount == 0) {
             binding.ivRedCart.visibility = View.GONE
         } else {

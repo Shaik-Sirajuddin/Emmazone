@@ -146,7 +146,7 @@
 
 
             <TextView
-                android:id="@+id/tvShopDetailProductText"
+                android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="14dp"
                 android:layout_centerVertical="true"
@@ -341,18 +341,24 @@
          <androidx.recyclerview.widget.RecyclerView
              android:id="@+id/sizeRecyclerView"
              android:layout_width="match_parent"
+             tools:listitem="@layout/layout_item_color_or_size"
+             tools:itemCount="1"
              android:layout_height="wrap_content" />
          <TextView
              android:text="Color :"
              android:textColor="@color/black"
              android:textStyle="bold"
              android:textSize="16sp"
+
              android:layout_width="wrap_content"
              android:layout_height="wrap_content" />
          <androidx.recyclerview.widget.RecyclerView
              android:id="@+id/colorRecyclerView"
              android:layout_width="match_parent"
-             android:layout_height="wrap_content"/>
+             android:layout_height="wrap_content"
+             tools:listitem="@layout/layout_item_color_or_size"
+             tools:itemCount="1"
+             />
 
      </LinearLayout>
         <LinearLayout
@@ -445,6 +451,33 @@
             android:layout_marginEnd="@dimen/_50sdp"
             android:layout_marginBottom="@dimen/dp10"
             android:background="@drawable/click_collect" />
+
+
+        <LinearLayout
+            android:id="@+id/reviewsLayout"
+            app:layout_constraintTop_toBottomOf="@+id/llPlusMinus"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Reviews :"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviewsRecyclerView"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/item_layout_rating_reviews"
+                tools:itemCount="1"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

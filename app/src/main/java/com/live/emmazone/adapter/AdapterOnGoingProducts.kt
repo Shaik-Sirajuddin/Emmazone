@@ -10,6 +10,7 @@ import com.live.emmazone.activities.listeners.OnActionListenerNew
 import com.live.emmazone.databinding.ItemLayoutOngoingMyordersBinding
 import com.live.emmazone.response_model.SalesResponse
 import com.live.emmazone.response_model.UserOrderListing
+import com.live.emmazone.utils.AppConstants
 
 class AdapterOnGoingProducts(
     private val context: Context,
@@ -35,7 +36,14 @@ class AdapterOnGoingProducts(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = list[position]
         with(holder.binding) {
-            Glide.with(context).load(model.mainImage).into(onGoingItem)
+            if(model.mainImage!=null){
+                var image = model.mainImage.toString()
+                if(image.contains("http")){
+                    image =  image.replace("192.168.137.43:8101" ,AppConstants.IP)
+                }
+                Glide.with(context).load(image).into(onGoingItem)
+            }
+
             onGoingItemName.text = model.name
             onGoingItemQuantity.text = model.orderedQty.toString()
             productPrice.text = context.getString(R.string.euro_symbol,model.productPrice)

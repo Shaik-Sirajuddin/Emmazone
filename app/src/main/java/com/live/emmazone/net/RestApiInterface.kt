@@ -4,6 +4,7 @@ package com.live.emmazone.net
 import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.response_model.*
+import com.live.emmazone.utils.App
 import com.live.emmazone.utils.AppConstants
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -72,6 +73,23 @@ interface RestApiInterface {
     ): Call<AddShopResponse>
 
     //New Routes
+    @Multipart
+    @POST(AppConstants.ADD_PRODUCT_REVIEW)
+    fun addProductReview(
+        @PartMap hashMap: HashMap<String, RequestBody>
+    ) : Call<CommonResponse>
+
+    @Multipart
+    @POST(AppConstants.GET_PRODUCT_REVIEWS)
+    fun getProductReviews(
+        @PartMap hashMap: HashMap<String, RequestBody>
+    ) : Call<ReviewsResponse>
+
+    @Multipart
+    @POST(AppConstants.GET_MY_PRODUCT_REVIEW)
+    fun getMyProductReview(
+        @PartMap hashMap: HashMap<String, RequestBody>
+    ) : Call<ProductReviewResponse>
 
     @Multipart
     @POST(AppConstants.ADD_CATEGORY)
@@ -213,6 +231,7 @@ interface RestApiInterface {
     @POST(AppConstants.PRODUCT_DETAIl)
     fun shopProductDetail(@FieldMap hashMap: HashMap<String, String>): Call<ShopProductDetailResponse>
 
+
     @FormUrlEncoded
     @POST(AppConstants.ADD_CART_ITEMS)
     fun addCartItems(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
@@ -232,6 +251,8 @@ interface RestApiInterface {
         @PartMap hashMap: HashMap<String, RequestBody>,
         @Part image: MultipartBody.Part
     ): Call<EditShopDeatilResponse>
+
+
 
     @FormUrlEncoded
     @POST(AppConstants.SALES)

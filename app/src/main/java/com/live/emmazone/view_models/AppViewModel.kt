@@ -1108,6 +1108,87 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun addProductReview(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, RequestBody> /* = java.util.HashMap<kotlin.String, okhttp3.RequestBody> */
+    ){
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addProductReview(hashMap)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addProductReview(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+   fun getMyProductReview(
+       activity: Activity,
+       isDialogShow: Boolean,
+       hashMap: HashMap<String, RequestBody> /* = java.util.HashMap<kotlin.String, okhttp3.RequestBody> */
+   ){
+       if (activity.checkIfHasNetwork()) {
+           RestObservable.loading(activity, isDialogShow)
+           service.getMyProductReview(hashMap)
+               .enqueue(object : Callback<ProductReviewResponse> {
+                   override fun onResponse(
+                       call: Call<ProductReviewResponse>,
+                       response: Response<ProductReviewResponse>
+                   ) {
+                       if (response.isSuccessful) {
+                           Log.e("this",response.body().toString())
+                           mResponse.value = RestObservable.success(response.body()!!)
+                       } else {
+                           mResponse.value = RestObservable.errorWithSuccess(
+                               activity,
+                               response.code(),
+                               response.errorBody()!!
+                           )
+
+                       }
+
+                   }
+
+                   override fun onFailure(call: Call<ProductReviewResponse>, t: Throwable) {
+                       mResponse.value = RestObservable.error(activity, t)
+                   }
+
+               })
+       } else {
+           AppUtils.showMsgOnlyWithClick(activity,
+               activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                   override fun onPopupClickListener() {
+                       getMyProductReview(activity, isDialogShow, hashMap)
+                   }
+               })
+       }
+   }
 
     fun ratingApi(
         activity: Activity,
@@ -1765,7 +1846,44 @@ class AppViewModel : ViewModel() {
         }
     }
     ///
+    fun getProductReviews(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, RequestBody>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.getProductReviews(hashMap)
+                .enqueue(object : Callback<ReviewsResponse> {
+                    override fun onResponse(
+                        call: Call<ReviewsResponse>,
+                        response: Response<ReviewsResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
 
+                    override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        getProductReviews(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
     fun editShopDetail(
         activity: Activity,
         isDialogShow: Boolean,

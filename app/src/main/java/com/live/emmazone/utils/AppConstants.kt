@@ -65,15 +65,17 @@ object AppConstants {
 
 
 
-   /*******URLs*****/
-   //const val BASE_URL = "https://app.emmazn.de/api/" //Client Server
-   //const val BASE_DOMAIN = "https://app.emmazn.de"
-    const val BASE_DOMAIN = "http://192.168.137.43:8101/"
-    const val BASE_URL = "${BASE_DOMAIN}api/"
- //const val SOCKET_BASE_URL = "https://app.emmazn.de/"l
+    /*******URLs*****/
+    //const val BASE_DOMAIN = "http://app.emmazn.de:8101/"
+    const val BASE_DOMAIN = "http://192.168.31.78:8101"
+    //const val IP = "app.emmazn.de:8101"
+    const val IP = "192.168.31.78"
+    const val BASE_URL = "${BASE_DOMAIN}/api/"
+   //const val SOCKET_BASE_URL = "https://app.emmazn.de/"l
     const val SOCKET_BASE_URL = BASE_DOMAIN
     const val IMAGE_CATEGORY_URL = "${BASE_DOMAIN}/uploads/category/"
     const val IMAGE_USER_URL = "${BASE_DOMAIN}/uploads/user/"
+    //const val IMAGE_USER_URL = "http:// 192.168.137.171:8101/uploads/user/"
     const val SHOP_IMAGE_URL = "${BASE_DOMAIN}/uploads/shop_images/"
     const val PRODUCT_IMAGE_URL = "${BASE_DOMAIN}/uploads/product/"
     const val SIGN_UP = "signup_user"
@@ -137,6 +139,9 @@ object AppConstants {
     const val ADD_CATEGORY = "add_shop_category"
     const val ADD_SIZE = "add_category_size"
     const val ADD_COLOR = "add_category_color"
+    const val ADD_PRODUCT_REVIEW = "addProductReview"
+    const val GET_PRODUCT_REVIEWS = "productReviews"
+    const val GET_MY_PRODUCT_REVIEW = "productMyReviews"
     //My changes :
     const val IS_FIREBASE_NOTIFICATION = "firebase_notification"
     const val NEW_SALE = "new_sale"

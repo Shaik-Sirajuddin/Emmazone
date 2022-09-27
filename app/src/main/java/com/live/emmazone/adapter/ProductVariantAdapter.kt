@@ -9,6 +9,8 @@ import com.live.emmazone.R
 import com.live.emmazone.model.ProductVariant
 import com.live.emmazone.response_model.Product
 import kotlinx.android.synthetic.main.item_product_variant.view.*
+import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 class ProductVariantAdapter(
     val list: ArrayList<Product>,
@@ -53,7 +55,9 @@ class ProductVariantAdapter(
                 itemView.color.text = model.productColor.color
                 itemView.no.text = pos.toString()
                 itemView.quantity.text = model.productQuantity.toString()
-                itemView.price.text = model.productPrice
+                val formatter = DecimalFormat("#,###,###,###")
+                val price = formatter.format(model.productPrice.toDouble().roundToInt())
+                itemView.price.text = "$price €"
                 itemView.imgEdit.setOnClickListener {
                     editItem(pos)
                 }

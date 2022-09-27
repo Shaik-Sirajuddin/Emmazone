@@ -13,9 +13,7 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.FragmentProviderAddProduct
 import com.live.emmazone.activities.provider.AddNewProductActivity
 import com.live.emmazone.activities.provider.EditProductActivity
-import com.live.emmazone.response_model.Product
 import com.live.emmazone.response_model.ProductGroup
-import com.live.emmazone.response_model.SellerShopDetailResponse
 import com.schunts.extensionfuncton.loadImage
 
 class AdapterProviderShopDetailProducts(
@@ -108,9 +106,9 @@ class AdapterProviderShopDetailProducts(
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
         val tvShopDetailProductBrandSD =
             itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)
-        val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.tvShopDetailProductText)
+        val tvShopDetailProductText = itemView.findViewById<TextView>(R.id.rating)
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
-        val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBarShopDetailProduct)
+        val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBar)
         val layoutAddProduct = itemView.findViewById<LinearLayout>(R.id.layoutAddProduct)
         val layoutConst = itemView.findViewById<ConstraintLayout>(R.id.layoutConst)
         val cardView = itemView.findViewById<CardView>(R.id.cardView)

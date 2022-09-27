@@ -72,6 +72,7 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     private fun clicksHandle() {
         binding.edtName.doAfterTextChanged {
+            if(mImagePath.isNotEmpty())return@doAfterTextChanged
             val text = it.toString().trim()
             if(text.length !=1 )return@doAfterTextChanged
             binding.pickImage.loadImage(letterByteArray(text))

@@ -311,6 +311,31 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvShopDetailCategories" />
 
                 <TextView
+                    android:id="@+id/tvShopReviews"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Reviews"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/sp18"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerShopDetailCategory"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerShopDetailCategory"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerShopDetailCategory" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewShopReviews"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="@+id/tvShopReviews"
+                    app:layout_constraintStart_toStartOf="@+id/tvShopReviews"
+                    app:layout_constraintTop_toBottomOf="@+id/tvShopReviews"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_layout_rating_reviews"
+                     />
+                <TextView
                     android:id="@+id/tvShopDetailProducts"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -319,9 +344,9 @@
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/sp18"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/recyclerShopDetailCategory"
-                    app:layout_constraintStart_toStartOf="@+id/recyclerShopDetailCategory"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerShopDetailCategory" />
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerViewShopReviews"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerViewShopReviews"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewShopReviews" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerShopDetailProducts"

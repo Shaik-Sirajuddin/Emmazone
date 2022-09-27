@@ -29,8 +29,10 @@ import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.AddOrderResponse
 import com.live.emmazone.response_model.AddressListResponse
 import com.live.emmazone.response_model.CommonResponse
+import com.live.emmazone.response_model.SearchProductResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toast
@@ -336,6 +338,9 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         hashMap["deliveryType"] = "2"  //0=>click&collect 1=>lifernado 2=>ownDelivery
         hashMap["userAddressId"] = selectedAddressId
         hashMap["paymentMethod"] = selectedPaymentType  //0=>Wallet 1=>Card 2=>cash
+        selectedDate?.let {
+            hashMap["request_date"] = it.time.toString()
+        }
         appViewModel.addOrderApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
     }
@@ -396,7 +401,16 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
             this, { _, sHour, sMinute ->
                 kotlin.run {
                     val date: Date? = DateHelper.getDate(sHour, sMinute)
-                    selectedDate = DateHelper.combineDateTime(selectedDate!!, date!!)
+                    val milliSeconds = System.currentTimeMillis() + 604800000L
+                    if(date == null)return@run
+                    val tempDate  = DateHelper.combineDateTime(selectedDate!!, date)
+                    if (tempDate != null) {
+                        if(tempDate.time < milliSeconds){
+                            showToast("Date cannot be earlier than estimated date")
+                            return@run
+                        }
+                    }
+                    selectedDate = tempDate
                     tvDeliveryDate?.text = DateHelper.getFormattedDate(selectedDate!!)
                 }
             }, hour, minute, false
@@ -436,6 +450,10 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
                     for (i in 0 until response!!.body.youMayLikeProducts.size) {
                         response!!.body.youMayLikeProducts[i].apply {
+                            if(this.group==null){
+                                this.group = SearchProductResponse.Body.Group(0,
+                                this.productImages)
+                            }
                             listMayLike.add(
                                 CartResponsModel.Body.CartItem.Product(
                                     this.categoryColorId,
@@ -454,6 +472,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                                     this.status,
                                     this.userId,
                                     null,
+                                    arrayListOf(),
                                 this.group)
                             )
 
