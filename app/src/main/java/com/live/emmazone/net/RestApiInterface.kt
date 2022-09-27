@@ -214,6 +214,14 @@ interface RestApiInterface {
     @POST(AppConstants.WISH_LIST)
     fun wishList(@FieldMap hashMap: HashMap<String, String>): Call<WishListResponse>
 
+    @GET(AppConstants.GET_WISHLIST_PRODUCTS)
+    fun getWishProducts() : Call<SearchProductResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.MODIFY_WISHLIST_PRODUCT)
+    fun likeOrDislikeProduct(@FieldMap hashMap: HashMap<String, String>) :Call<CommonResponse>
+
+
     @FormUrlEncoded
     @POST(AppConstants.SHOP_DETAIL)
     fun shopDetail(@FieldMap hashMap: HashMap<String, String>): Call<ShopDetailResponse>
@@ -272,7 +280,7 @@ interface RestApiInterface {
 
     @FormUrlEncoded
     @POST(AppConstants.ORDER_STATUS)
-    fun orderStatusApi(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+    fun orderStatusApi(@FieldMap hashMap: HashMap<String, String>): Call<ScanOrderResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.NOTIFICATION_READ)

@@ -64,7 +64,9 @@ data class SearchProductResponse(
         @SerializedName("vendorId")
         var vendorId: Int, // 0
         @SerializedName("distance")
-        var distance:String
+        var distance:String,
+        @SerializedName("isLiked")
+        var isLiked : Int
     ):Serializable {
         data class Group(
             @SerializedName("id")

@@ -11,7 +11,10 @@ import com.live.emmazone.response_model.SearchProductResponse
 import com.schunts.extensionfuncton.loadImage
 import kotlinx.android.synthetic.main.item_layout_shopdetail_products.view.*
 
-class SearchProductAdapter(val list: ArrayList<SearchProductResponse.Body>) :
+class SearchProductAdapter(
+    val list: ArrayList<SearchProductResponse.Body>,
+    val wishListClick : (pos:Int)->Unit
+    ) :
     RecyclerView.Adapter<SearchProductAdapter.SearchProductViewHolder>() {
 
     private lateinit var mContext: Context
@@ -59,9 +62,16 @@ class SearchProductAdapter(val list: ArrayList<SearchProductResponse.Body>) :
 
             itemView.setOnClickListener {
                 onItemClick?.invoke(pos)
-
             }
-
+            if(model.isLiked == 1){
+                itemView.heart.setImageResource(R.drawable.heart)
+            }
+            else{
+                itemView.heart.setImageResource(R.drawable.heart_unselect)
+            }
+            itemView.heart.setOnClickListener {
+                wishListClick(pos)
+            }
         }
     }
 

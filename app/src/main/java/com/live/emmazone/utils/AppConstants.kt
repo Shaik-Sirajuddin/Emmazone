@@ -142,6 +142,8 @@ object AppConstants {
     const val ADD_PRODUCT_REVIEW = "addProductReview"
     const val GET_PRODUCT_REVIEWS = "productReviews"
     const val GET_MY_PRODUCT_REVIEW = "productMyReviews"
+    const val GET_WISHLIST_PRODUCTS = "get_product_wish_list"
+    const val MODIFY_WISHLIST_PRODUCT = "like_dislike_product"
     //My changes :
     const val IS_FIREBASE_NOTIFICATION = "firebase_notification"
     const val NEW_SALE = "new_sale"

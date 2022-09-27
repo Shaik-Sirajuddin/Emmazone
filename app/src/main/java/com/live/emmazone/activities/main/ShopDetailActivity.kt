@@ -143,6 +143,11 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
                 }
             }
         }
+        binding.rate.setOnClickListener {
+            val intent = Intent(this,ShopReviewsActivity::class.java)
+            intent.putExtra(AppConstants.SHOP_DETAIL_RESPONSE,response!!.body)
+            startActivity(intent)
+        }
         reviewsAdapter = AdapterShopReviews(reviewsList)
         binding.recyclerViewShopReviews.adapter = reviewsAdapter
         binding.recyclerViewShopReviews.layoutManager = LinearLayoutManager(this)
@@ -273,15 +278,6 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
             reviewsList.addAll(response!!.body.reviews)
             reviewsAdapter.notifyDataSetChanged()
             binding.recyclerViewShopReviews.visibility = View.VISIBLE
-
-//            val params: ViewGroup.LayoutParams = binding.recyclerViewShopReviews.layoutParams
-//            if(reviewsList.size == 1){
-//                params.height = 150
-//            }
-//            else {
-//                params.height = 300
-//            }
-//            binding.recyclerViewShopReviews.layoutParams = params
         }
         else{
             binding.recyclerViewShopReviews.visibility = View.GONE
@@ -295,6 +291,13 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         binding.nestedScroll.visibility = View.VISIBLE
         binding.tvNoData.visibility = View.GONE
 
+        val canRate = response!!.body.canRate
+        if(!canRate){
+            binding.rate.visibility = View.VISIBLE
+        }
+        else{
+            binding.rate.visibility = View.GONE
+        }
     }
 
     override fun onStop() {

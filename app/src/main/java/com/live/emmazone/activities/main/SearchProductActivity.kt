@@ -33,14 +33,17 @@ import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CategoryColorSizeResponse
 import com.live.emmazone.response_model.CategoryListResponse
+import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.SearchProductResponse
 import com.live.emmazone.utils.App
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
+import com.schunts.extensionfuncton.toBody
 import kotlinx.android.synthetic.main.activity_search_product.*
 import kotlinx.android.synthetic.main.bottom_sheet_filter_product_dialog.*
 import kotlinx.android.synthetic.main.dialog_category.*
+import okhttp3.RequestBody
 
 class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
 
@@ -68,6 +71,7 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     private var mLatitude = ""
     private var mLongitude = ""
     private var mLocation = ""
+    private var selectedPos:Int? = null
     private val filterLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -161,9 +165,27 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         appViewModel.filterProductApi(this, hashMap, false)
         appViewModel.getResponse().observe(this, this)
     }
-
+    private fun favUnFavApiHit(pos  : Int) {
+        val data = arrayList[pos]
+        val hashMap = HashMap<String, String>()
+        hashMap["productId"] = data.id.toString()
+        if (data.isLiked == 1){
+            hashMap["status"] = "0"
+            data.isLiked = 0
+        }
+        else {
+            hashMap["status"] = "1"
+            data.isLiked = 1
+        }
+//        arrayList[pos] = data
+        appViewModel.likeOrDislikeProduct(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+    }
     private fun setSearchAdapter() {
-        searchAdapter = SearchProductAdapter(arrayList)
+        searchAdapter = SearchProductAdapter(arrayList){
+            selectedPos = it
+            favUnFavApiHit(it)
+        }
         rvSearchProduct.adapter = searchAdapter
         searchAdapter?.onItemClick = { pos ->
             val intent = Intent(this, ProductDetailActivity::class.java)
@@ -443,6 +465,11 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
                         showCategoryDialog()
 
                     }
+                }
+                else if( t.data is CommonResponse){
+                     if(t.data.code == AppConstants.SUCCESS_CODE){
+                         searchAdapter?.notifyItemChanged(selectedPos!!)
+                     }
                 }
             }
             else -> {}

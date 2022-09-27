@@ -1380,6 +1380,74 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun getProductWishList(activity: Activity, isDialogShow: Boolean) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.getWishProducts()
+                .enqueue(object : Callback<SearchProductResponse> {
+                    override fun onResponse(
+                        call: Call<SearchProductResponse>,
+                        response: Response<SearchProductResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SearchProductResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        getProductWishList(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+    fun likeOrDislikeProduct(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.likeOrDislikeProduct(hashMap)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        likeOrDislikeProduct(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
     fun wishListApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
@@ -2088,10 +2156,10 @@ class AppViewModel : ViewModel() {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.orderStatusApi(hashMap)
-                .enqueue(object : Callback<CommonResponse> {
+                .enqueue(object : Callback<ScanOrderResponse> {
                     override fun onResponse(
-                        call: Call<CommonResponse>,
-                        response: Response<CommonResponse>
+                        call: Call<ScanOrderResponse>,
+                        response: Response<ScanOrderResponse>
                     ) {
                         if (response.isSuccessful) {
                             mResponse.value = RestObservable.success(response.body()!!)
@@ -2104,7 +2172,7 @@ class AppViewModel : ViewModel() {
                         }
                     }
 
-                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<ScanOrderResponse>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
 

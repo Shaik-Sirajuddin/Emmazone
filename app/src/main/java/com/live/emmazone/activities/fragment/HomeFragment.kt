@@ -572,7 +572,9 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         appViewModel.getResponse().observe(requireActivity(), this)
     }
     private fun setSearchAdapter() {
-        searchAdapter = SearchProductAdapter(arrayList)
+        searchAdapter = SearchProductAdapter(arrayList){
+
+        }
         rvSearchProduct.adapter = searchAdapter
         searchAdapter?.onItemClick = { pos ->
             val intent = Intent(requireActivity(), ProductDetailActivity::class.java)

@@ -33,10 +33,7 @@ class OnGoingOrdersFragment : Fragment(), Observer<RestObservable> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setAdapter()
-
-
     }
 
     private fun getMyOrdersApi() {

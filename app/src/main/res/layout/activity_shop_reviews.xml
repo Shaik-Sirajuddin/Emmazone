@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Your reviews"
+            android:text="Your review"
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textSize="@dimen/sp20"
@@ -50,7 +50,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/faq_bg"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/img4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +127,7 @@
         app:srb_starHeight="20dp"
         app:srb_starPadding="2dp"
         app:srb_starWidth="20dp"
-        app:srb_stepSize="0.5" />
+        app:srb_stepSize="1" />
 
     <TextView
         android:id="@+id/tvInsertComment1"
@@ -144,7 +144,6 @@
         android:id="@+id/edtInsertCommentShopReview"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="@dimen/dp10"
         android:layout_marginEnd="@dimen/dp16"
         android:background="@drawable/login_bg"
@@ -153,7 +152,7 @@
         android:imeOptions="actionDone"
         android:inputType="textEmailAddress"
         android:maxLines="1"
-        android:paddingLeft="@dimen/dp8"
+        android:padding="10dp"
         android:textSize="@dimen/sp15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvInsertComment1"

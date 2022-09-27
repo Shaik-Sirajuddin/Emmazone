@@ -8,10 +8,12 @@ import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityShopReviewsBinding
 import com.live.emmazone.extensionfuncton.Validator
+import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.RatingResponse
+import com.live.emmazone.response_model.ShopDetailResponse
 import com.live.emmazone.response_model.ShopListingResponse
 import com.live.emmazone.response_model.WishListResponse
 import com.live.emmazone.utils.AppConstants
@@ -32,26 +34,39 @@ class ShopReviewsActivity : AppCompatActivity(),
         binding = ActivityShopReviewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE) != null) {
-            val shopResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
-                    as ShopListingResponse.Body.Shop
-
-            shopId = shopResponse.id.toString()
-            setDataOnView(shopResponse.image, shopResponse.shopName, shopResponse.ratings)
-
-        } else if (intent.getSerializableExtra(AppConstants.WISH_LIST_RESPONSE) != null) {
-            val wishListResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
-                    as WishListResponse.Body.Wish
-
-
-            shopId = wishListResponse.id.toString()
-            setDataOnView(
-                wishListResponse.image, wishListResponse.shopName,
-                wishListResponse.ratings
-            )
-
+//        if (intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE) != null) {
+//
+//            val shopResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
+//                    as ShopListingResponse.Body.Shop
+//
+//            shopId = shopResponse.id.toString()
+//            setDataOnView(shopResponse.image, shopResponse.shopName, shopResponse.ratings)
+//
+//        } else if (intent.getSerializableExtra(AppConstants.WISH_LIST_RESPONSE) != null) {
+//            val wishListResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
+//                    as WishListResponse.Body.Wish
+//
+//            shopId = wishListResponse.id.toString()
+//            setDataOnView(
+//                wishListResponse.image, wishListResponse.shopName,
+//                wishListResponse.ratings
+//            )
+//
+//        }
+        val shopDetails = intent.getParcelableExtra<ShopDetailResponse.Body>(AppConstants.SHOP_DETAIL_RESPONSE) as ShopDetailResponse.Body
+        shopId = shopDetails.userId.toString()
+        setDataOnView(
+            shopDetails.image,
+            shopDetails.shopName,
+            shopDetails.ratings
+        )
+        val obj = shopDetails.reviews.find {
+            it.userId == getPreference(AppConstants.USER_ID,"").toIntOrNull()
         }
-
+        obj?.let {
+            binding.ratingbarShopReviews.rating = it.rating.toFloat()
+            binding.edtInsertCommentShopReview.setText(it.comment)
+        }
         clicksHandle()
 
     }

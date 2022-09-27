@@ -24,7 +24,8 @@ import com.live.emmazone.view_models.AppViewModel
 import java.util.*
 import kotlin.collections.HashMap
 
-class FragmentMyOrders(private val notificationResponse: NotificationListingResponse.Body?) :
+class FragmentMyOrders(
+    private val notificationResponse: NotificationListingResponse.Body?) :
     Fragment(), Observer<RestObservable> {
 
     companion object {

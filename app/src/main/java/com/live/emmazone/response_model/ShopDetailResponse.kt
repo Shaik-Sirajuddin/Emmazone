@@ -31,6 +31,8 @@ data class ShopDetailResponse(
         var latitude: String, // 30.71402850
         @SerializedName("longitude")
         var longitude: String, // 76.69094590
+        @SerializedName("canRate")
+        var canRate : Boolean,
         @SerializedName("notificationCount")
         var notificationCount: Int, // 0
         @SerializedName("products")

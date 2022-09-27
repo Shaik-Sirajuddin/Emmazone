@@ -26,6 +26,7 @@ import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.SalesResponse
+import com.live.emmazone.response_model.ScanOrderResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.SimpleScannerActivity
@@ -306,7 +307,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
-                if (t.data is CommonResponse) {
+                if (t.data is ScanOrderResponse) {
                     onBackPressed()
                 }
             }
