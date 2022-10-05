@@ -3,6 +3,7 @@ package com.live.emmazone.activities.main
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -23,11 +24,9 @@ import com.live.emmazone.databinding.ActivityShopDetailBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
-import com.live.emmazone.response_model.AddFavouriteResponse
-import com.live.emmazone.response_model.Product
-import com.live.emmazone.response_model.ShopDetailResponse
-import com.live.emmazone.response_model.ShopReviewModel
+import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.openGoogleMaps
 import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.utils.LocationUpdateUtility
@@ -45,11 +44,14 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
 
     lateinit var binding: ActivityShopDetailBinding
     private var listSDProduct = ArrayList<Product>()
+    private var cachedProducts = ArrayList<Product>()
     lateinit var adapter: AdapterShopDetailCategory
-    //Reviews
-    private lateinit var reviewsAdapter : AdapterShopReviews
-    private val reviewsList = ArrayList<ShopReviewModel>()
 
+    //Reviews
+    private lateinit var reviewsAdapter: AdapterShopReviews
+    private val reviewsList = ArrayList<ShopReviewModel>()
+    private lateinit var productAdapter: AdapterShopDetailProducts
+    private var selectedPos: Int? = null
     override fun updatedLatLng(lat: Double?, lng: Double?) {
 
         if (lat != null && lng != null) {
@@ -67,10 +69,10 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         clicksHandle()
         binding.recyclerShopDetailProducts.layoutManager = GridLayoutManager(this, 2)
         getLiveLocation(this)
-        val mLatitude = getPreference(AppConstants.LATITUDE,"")
-        val mLongitude = getPreference(AppConstants.LONGITUDE,"")
-        if(mLatitude.isNotEmpty() && mLongitude.isNotEmpty()){
-            shopDetailApiHit(mLatitude,mLongitude)
+        val mLatitude = getPreference(AppConstants.LATITUDE, "")
+        val mLongitude = getPreference(AppConstants.LONGITUDE, "")
+        if (mLatitude.isNotEmpty() && mLongitude.isNotEmpty()) {
+            shopDetailApiHit(mLatitude, mLongitude)
         }
 
     }
@@ -133,19 +135,18 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         }
         binding.tvShopAddress.setOnClickListener {
             response?.let {
-                it.body.let { details->
+                it.body.let { details ->
                     try {
-                        openGoogleMaps(details.latitude,details.longitude)
-                    }
-                    catch (e : Exception){
+                        openGoogleMaps(details.latitude, details.longitude)
+                    } catch (e: Exception) {
                         showToast("Google Maps is not installed in the device.")
                     }
                 }
             }
         }
         binding.rate.setOnClickListener {
-            val intent = Intent(this,ShopReviewsActivity::class.java)
-            intent.putExtra(AppConstants.SHOP_DETAIL_RESPONSE,response!!.body)
+            val intent = Intent(this, ShopReviewsActivity::class.java)
+            intent.putExtra(AppConstants.SHOP_DETAIL_RESPONSE, response!!.body)
             startActivity(intent)
         }
         reviewsAdapter = AdapterShopReviews(reviewsList)
@@ -153,6 +154,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         binding.recyclerViewShopReviews.layoutManager = LinearLayoutManager(this)
 
     }
+
     private fun showLoginDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -220,6 +222,10 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
                         }
                     }
 
+                } else if (t.data is CommonResponse) {
+                    if (t.data.code == AppConstants.SUCCESS_CODE) {
+                        productAdapter.notifyItemChanged(selectedPos!!)
+                    }
                 }
             }
             else -> {}
@@ -227,8 +233,21 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
     }
 
     private fun setCategoryAdapter() {
-        val shopCategory = AdapterShopDetailCategory(response!!.body.shopCategories){
-
+        val shopCategory = AdapterShopDetailCategory(response!!.body.shopCategories,true) {
+            when (it) {
+                -1 -> {
+                    listSDProduct.clear()
+                    listSDProduct.addAll(cachedProducts)
+                    productAdapter!!.notifyDataSetChanged()
+                }
+                else -> {
+                    listSDProduct.clear()
+                    listSDProduct.addAll(cachedProducts.filter { product ->
+                        product.categoryId == response!!.body.shopCategories[it].categoryId
+                    })
+                    productAdapter!!.notifyDataSetChanged()
+                }
+            }
         }
         binding.recyclerShopDetailCategory.adapter = shopCategory
     }
@@ -241,7 +260,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         binding.tvShopFY.text = getString(R.string.since, response!!.body.year.toString())
         binding.tvShopAddress.text = response!!.body.shopAddress
         binding.tvWishListRatingText.text = response!!.body.ratings.toString() + "/" + "5"
-        val distance = intent.getIntExtra("distance",0)
+        val distance = intent.getIntExtra("distance", 0)
         binding.tvWishListDistance.text = distance.toString() + " " + getString(R.string.miles_away)
 
         if (response!!.body.ratings.isNotEmpty()) {
@@ -253,10 +272,20 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
             binding.itemHeartShopDetail.setImageResource(R.drawable.heart_unselect)
         }
         if (response!!.body.products.isNotEmpty()) {
-            listSDProduct = response!!.body.products
+            cachedProducts.clear()
+            listSDProduct.clear()
+            cachedProducts.addAll(response!!.body.products)
+            listSDProduct.addAll(response!!.body.products)
 
 
-            val productAdapter = AdapterShopDetailProducts(this, listSDProduct)
+            productAdapter = AdapterShopDetailProducts(this, listSDProduct) {
+                if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                    showLoginDialog()
+                    return@AdapterShopDetailProducts
+                }
+                selectedPos = it
+                favUnFavApiHit(it)
+            }
             binding.recyclerShopDetailProducts.adapter = productAdapter
 
             productAdapter.onItemClick = { productId: String ->
@@ -273,15 +302,18 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         } else {
             binding.tvNoProduct.visibility = View.VISIBLE
         }
-        if(response!!.body.reviews.isNotEmpty()){
+
+        if (response!!.body.reviews.isNotEmpty()) {
             reviewsList.clear()
             reviewsList.addAll(response!!.body.reviews)
             reviewsAdapter.notifyDataSetChanged()
-            binding.recyclerViewShopReviews.visibility = View.VISIBLE
         }
-        else{
-            binding.recyclerViewShopReviews.visibility = View.GONE
+        if (reviewsList.size == 0) {
+            binding.noReviews.visibility = View.VISIBLE
+        } else {
+            binding.noReviews.visibility = View.GONE
         }
+
         if (response!!.body.cartCount == 0) {
             binding.ivRedCart.visibility = View.GONE
         } else {
@@ -292,12 +324,27 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         binding.tvNoData.visibility = View.GONE
 
         val canRate = response!!.body.canRate
-        if(!canRate){
+        if (!canRate) {
             binding.rate.visibility = View.VISIBLE
-        }
-        else{
+        } else {
             binding.rate.visibility = View.GONE
         }
+    }
+
+    private fun favUnFavApiHit(pos: Int) {
+        val data = listSDProduct[pos]
+        val hashMap = HashMap<String, String>()
+        hashMap["productId"] = data.id.toString()
+        if (data.isLiked == 1) {
+            hashMap["status"] = "0"
+            data.isLiked = 0
+        } else {
+            hashMap["status"] = "1"
+            data.isLiked = 1
+        }
+//        arrayList[pos] = data
+        appViewModel.likeOrDislikeProduct(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
     }
 
     override fun onStop() {

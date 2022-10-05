@@ -193,10 +193,11 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             val intent = Intent(activity, Notifications::class.java)
             startActivity(intent)
         }
+
         binding.edtSearchWishList.setOnFocusChangeListener { view, focus ->
             if(focus){
                 if(searchTypeProduct){
-                    binding.edtSearchWishList.clearFocus()
+                    binding.searchHomeLayout.requestFocus()
                     val intent = Intent(requireContext(), SearchProductActivity::class.java)
                     startActivity(intent)
                 }

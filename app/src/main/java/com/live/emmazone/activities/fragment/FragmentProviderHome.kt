@@ -147,7 +147,7 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
             orderStatusUpdate // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
 
         appViewModel.orderStatusApi(requireActivity(), hashMap, true)
-        appViewModel.getResponse().observe(this, this)
+        appViewModel.getResponse().observe(requireActivity(), this)
 
     }
 

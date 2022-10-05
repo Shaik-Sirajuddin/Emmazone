@@ -38,6 +38,7 @@ import com.live.emmazone.response_model.SearchProductResponse
 import com.live.emmazone.utils.App
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toBody
 import kotlinx.android.synthetic.main.activity_search_product.*
@@ -128,6 +129,8 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     private fun searchApiHit(s: String) {
         val hashMap = HashMap<String, String>()
         hashMap["keyword"] = s
+        hashMap["latitude"] = mLatitude
+        hashMap["longitude"] = mLongitude
         appViewModel.searchProductApi(this, hashMap, false)
         appViewModel.getResponse().observe(this, this)
     }
@@ -147,6 +150,10 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             ""
         } else {
             sizeID
+        }
+
+        if(mDistance.trim().isEmpty()){
+            mDistance = "200"
         }
         val hashMap = HashMap<String, String>()
         val minPrice = bottomDialog!!.minPrice.text.toString().trim().toIntOrNull() ?: 0
@@ -183,6 +190,10 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     }
     private fun setSearchAdapter() {
         searchAdapter = SearchProductAdapter(arrayList){
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest"){
+                AppUtils.showMsgOnlyWithoutClick(this,"You need to login to perform this action.")
+                return@SearchProductAdapter
+            }
             selectedPos = it
             favUnFavApiHit(it)
         }
@@ -193,6 +204,7 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
             intent.putExtra(AppConstants.USER2_IMAGE, arrayList[pos].vendorDetail.image)
             intent.putExtra(AppConstants.SHOP_NAME_VISIBLE, true)
             intent.putExtra("productId", arrayList[pos].id.toString())
+            intent.putExtra("groupId",arrayList[pos].group?.id.toString())
             startActivity(intent)
         }
     }

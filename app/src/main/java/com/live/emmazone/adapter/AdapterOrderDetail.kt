@@ -2,6 +2,7 @@ package com.live.emmazone.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,8 @@ class AdapterOrderDetail(
         if(data.mainImage!=null){
             var image = data.mainImage.toString()
             if(image.contains("http")){
-                image =  image.replace("192.168.137.43:8101" , AppConstants.IP)
+                image = "https://emmazones3.s3.eu-west-2.amazonaws.com/product/" +  image.substring(image.lastIndexOf('/') + 1)
+                Log.e("this",image)
             }
             Glide.with(context).load(image).into(holder.imageOD)
         }

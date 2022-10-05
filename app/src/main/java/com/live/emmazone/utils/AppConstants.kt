@@ -5,7 +5,8 @@ object AppConstants {
     const val SHARED_NAME = "emmaZone"
     const val AUTHORIZATION = "Authorization"
     const val SECURITY_KEY = "emmazone12@"
-   // const val SECURITY_KEY = ""
+
+    // const val SECURITY_KEY = ""
     const val SUCCESS_CODE = 200
     const val DEVICE_TYPE = "1"    //1 ->Android, 2->iOS
     const val USER_ROLE = "1"
@@ -49,35 +50,38 @@ object AppConstants {
     const val LOCATION = "location"
     const val FILTER = "filter"
     const val SELECTED_BANK_ACCOUNT = "selectedBankAcc"
-    const val CATEGORY_DROP_DOWN =1
-    const val COLOUR_DROP_DOWN =2
-    const val SIZE_DROP_DOWN =3
-    const val IS_FILTER ="isFilter"
-    const val CATEGORY_NAME ="categoryName"
-    const val CATEGORY_ID ="categoryID"
-    const val COLOUR_NAME ="colourName"
-    const val COLOUR_ID ="colourID"
-    const val SIZE_NAME="sizeName"
-    const val SIZE_ID="sizeID"
-    const val PRICE_RANGE="priceRange"
-    const val PRICE="price"
+    const val CATEGORY_DROP_DOWN = 1
+    const val COLOUR_DROP_DOWN = 2
+    const val SIZE_DROP_DOWN = 3
+    const val IS_FILTER = "isFilter"
+    const val CATEGORY_NAME = "categoryName"
+    const val CATEGORY_ID = "categoryID"
+    const val COLOUR_NAME = "colourName"
+    const val COLOUR_ID = "colourID"
+    const val SIZE_NAME = "sizeName"
+    const val SIZE_ID = "sizeID"
+    const val PRICE_RANGE = "priceRange"
+    const val PRICE = "price"
     const val MIN_PRICE = "filter_min_price"
 
 
-
     /*******URLs*****/
-    //const val BASE_DOMAIN = "http://app.emmazn.de:8101/"
-    const val BASE_DOMAIN = "http://192.168.31.78:8101"
-    //const val IP = "app.emmazn.de:8101"
-    const val IP = "192.168.31.78"
+//    const val BASE_DOMAIN = "http://app.emmazn.de:8101"
+//    const val IP = "app.emmazn.de:8101"
+//
+    const val BASE_DOMAIN = "http://192.168.0.105:8101"
+    const val IP = "192.168.0.105:8101"
+
+    const val S3Url = "https://emmazones3.s3.eu-west-2.amazonaws.com"
+
     const val BASE_URL = "${BASE_DOMAIN}/api/"
-   //const val SOCKET_BASE_URL = "https://app.emmazn.de/"l
+
+    //const val SOCKET_BASE_URL = "https://app.emmazn.de/"
     const val SOCKET_BASE_URL = BASE_DOMAIN
-    const val IMAGE_CATEGORY_URL = "${BASE_DOMAIN}/uploads/category/"
-    const val IMAGE_USER_URL = "${BASE_DOMAIN}/uploads/user/"
-    //const val IMAGE_USER_URL = "http:// 192.168.137.171:8101/uploads/user/"
-    const val SHOP_IMAGE_URL = "${BASE_DOMAIN}/uploads/shop_images/"
-    const val PRODUCT_IMAGE_URL = "${BASE_DOMAIN}/uploads/product/"
+    const val IMAGE_CATEGORY_URL = "${S3Url}/category/"
+    const val IMAGE_USER_URL = "${S3Url}/user/"
+    const val SHOP_IMAGE_URL = "${S3Url}/shop_images/"
+    const val PRODUCT_IMAGE_URL = "${S3Url}/product/"
     const val SIGN_UP = "signup_user"
     const val OTP_VERIFY = "otp_verify"
     const val RESEND_OTP = "resend_otp"
@@ -144,6 +148,7 @@ object AppConstants {
     const val GET_MY_PRODUCT_REVIEW = "productMyReviews"
     const val GET_WISHLIST_PRODUCTS = "get_product_wish_list"
     const val MODIFY_WISHLIST_PRODUCT = "like_dislike_product"
+
     //My changes :
     const val IS_FIREBASE_NOTIFICATION = "firebase_notification"
     const val NEW_SALE = "new_sale"

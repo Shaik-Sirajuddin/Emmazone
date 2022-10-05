@@ -62,6 +62,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     var productId = ""
     var shopName = ""
+    var groupId = ""
     var shopImage = ""
     private var selectedPaymentType = "" // 0=>Wallet 1=>Card 2=>cash
     private var selectedCardId = ""
@@ -76,7 +77,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private var imagePaymentMethod: ImageView? = null
     private var llPaymentMethod: LinearLayout? = null
     private var rlAddress: RelativeLayout? = null
-
     private var shopProductDetailResponse: ShopProductDetailResponse? = null
     val hashMap = HashMap<String, String>()
     private var bottomDialog: BottomSheetDialog? = null
@@ -140,7 +140,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
         if (intent.getStringExtra("productId") != null) {
             productId = intent.getStringExtra("productId")!!
-
+        }
+        if (intent.getStringExtra("groupId") != null) {
+            groupId = intent.getStringExtra("groupId")!!
         }
 
         if (intent.getStringExtra(AppConstants.USER2_NAME) != null &&
@@ -253,7 +255,12 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     }
     private fun productDetailApiHit() {
         val hashMap = HashMap<String, String>()
-        hashMap["id"] = productId
+        if(groupId.isNotEmpty()){
+            hashMap["groupId"] = groupId
+        }
+        else{
+            hashMap["id"] = productId
+        }
         appViewModel.shopProductDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
 

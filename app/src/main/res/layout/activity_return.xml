@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true"
+    tools:context=".activities.ReturnActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_20sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="24dp"
+                android:padding="8dp"
+                android:src="@drawable/arrow_back"
+                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
+                app:layout_constraintEnd_toStartOf="@+id/changePassword"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/layoutMain"
+                app:layout_constraintTop_toTopOf="@+id/changePassword" />
+
+            <TextView
+                android:id="@+id/changePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Return"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp20"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/layoutMain"
+                app:layout_constraintStart_toStartOf="@+id/layoutMain"
+                app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/courier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/faq_bg"
+            android:layout_margin="7dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutMain">
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/tvOrderPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Courier"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="@dimen/sp18"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/courier"
+                app:layout_constraintTop_toTopOf="@+id/courier" />
+
+            <TextView
+                android:id="@+id/tvOrderDeliveryAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:text="I will return the product through a courier to the shop"
+                android:textColor="@color/normalBlack"
+                android:textSize="@dimen/sp15"
+                app:layout_constraintBottom_toBottomOf="@+id/courier"
+                app:layout_constraintEnd_toStartOf="@+id/courierRadio"
+                app:layout_constraintHorizontal_bias="0.11"
+                app:layout_constraintStart_toStartOf="@+id/tvOrderPersonName"
+                app:layout_constraintTop_toBottomOf="@+id/tvOrderPersonName" />
+
+            <RadioButton
+                android:id="@+id/courierRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp10"
+                android:checked="true"
+                app:layout_constraintBottom_toBottomOf="@+id/tvOrderDeliveryAddress"
+                app:layout_constraintEnd_toEndOf="@+id/courier"
+                app:layout_constraintTop_toTopOf="@+id/tvOrderPersonName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/manual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/faq_bg"
+            android:layout_margin="7dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/courier">
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/manualName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manual"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="@dimen/sp18"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/manual"
+                app:layout_constraintTop_toTopOf="@+id/manual" />
+
+            <TextView
+                android:id="@+id/manualDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:text="I will return the product by myself manually to the shop"
+                android:textColor="@color/normalBlack"
+                android:textSize="@dimen/sp15"
+                app:layout_constraintBottom_toBottomOf="@+id/manual"
+                app:layout_constraintEnd_toStartOf="@+id/manualRadio"
+                app:layout_constraintHorizontal_bias="0.11"
+                app:layout_constraintStart_toStartOf="@+id/manualName"
+                app:layout_constraintTop_toBottomOf="@+id/manualName" />
+
+            <RadioButton
+                android:id="@+id/manualRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp10"
+                app:layout_constraintBottom_toBottomOf="@+id/manualDetails"
+                app:layout_constraintEnd_toEndOf="@+id/manual"
+                app:layout_constraintTop_toTopOf="@+id/manualName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/save"
+            android:background="@drawable/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

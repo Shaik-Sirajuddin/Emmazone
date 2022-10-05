@@ -26,7 +26,7 @@ data class UserOrderListing(
             @SerializedName("adminCommission")
             var adminCommission: String, // 0.00
             @SerializedName("created")
-            var created: Int, // 1646369423
+            var created: Long, // 1646369423
             @SerializedName("createdAt")
             var createdAt: String, // 2022-03-04T04:50:23.000Z
             @SerializedName("customerId")
@@ -56,7 +56,7 @@ data class UserOrderListing(
             @SerializedName("total")
             var total: String, // 1270.50
             @SerializedName("updated")
-            var updated: Int, // 1646369423
+            var updated: Long, // 1646369423
             @SerializedName("updatedAt")
             var updatedAt: String, // 2022-03-04T04:50:23.000Z
             @SerializedName("userAddressId")

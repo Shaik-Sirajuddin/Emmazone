@@ -346,6 +346,16 @@
                     tools:itemCount="2"
                     tools:listitem="@layout/item_layout_rating_reviews"
                      />
+                <TextView
+                    android:id="@+id/noReviews"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/hr"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/no_data_found"
+                    app:layout_constraintTop_toBottomOf="@id/tvShopReviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <View
                     android:id="@+id/hr"
                     android:layout_marginTop="10dp"

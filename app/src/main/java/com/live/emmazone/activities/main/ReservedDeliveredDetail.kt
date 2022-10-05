@@ -1,6 +1,10 @@
 package com.live.emmazone.activities.main
 
+import android.content.Intent
+import android.icu.util.TimeUnit
 import android.os.Bundle
+import android.util.Log
+import android.util.TimeUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -10,15 +14,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
+import com.live.emmazone.activities.ReturnActivity
 import com.live.emmazone.adapter.AdapterOrderDetail
 import com.live.emmazone.databinding.ActivityReservedDeliveredDetailBinding
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
+import com.live.emmazone.response_model.ScanOrderResponse
 import com.live.emmazone.response_model.UserOrderListing
+import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
@@ -61,7 +71,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         }
 
         binding.btnCancel.setOnClickListener {
-            orderStatusApiHit()
+            performUpdateStatus()
         }
 
         binding.recyclerOrderDetail.layoutManager =
@@ -69,6 +79,31 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
 
         binding.recyclerOrderDetail.adapter = AdapterOrderDetail(this, list,true)
 
+    }
+    private fun performUpdateStatus(){
+        val status = userData!!.orderStatus
+        if(status == 0){
+            orderStatusApiHit(3)
+        }
+        else if(status == 2){
+
+            val milliSeconds = Date().time/1000L - Date(userData!!.created).time
+            val returnPeriodInSeconds = 604800000
+            Log.e("dif" , milliSeconds.toString())
+            Log.e("time",returnPeriodInSeconds.toString())
+            if(milliSeconds>=returnPeriodInSeconds){
+                AppUtils.showMsgOnlyWithoutClick(this,"Return period closed")
+            }
+            else{
+                val intent = Intent(this,ReturnActivity::class.java)
+                intent.putExtra(AppConstants.ORDER_ID,userData!!.id.toString())
+                startActivity(intent)
+                finish()
+            }
+        }
+        else if(status == 7){
+            orderStatusApiHit(2)
+        }
     }
 
     private fun setData(data: UserOrderListing.Body.Response) {
@@ -98,12 +133,24 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
             }
             2 -> {
                 binding.tvOrderStatus.text = getString(R.string.completed)
-                binding.btnCancel.visibility = View.GONE
+                binding.btnCancel.text = "Return"
+                binding.btnCancel.visibility = View.VISIBLE
                 binding.btnQRScanner.visibility = View.GONE
                 binding.tvQRCode.visibility = View.GONE
             }
             3 -> {
                 binding.tvOrderStatus.text = getString(R.string.cancel)
+                binding.btnCancel.visibility = View.GONE
+                binding.btnQRScanner.visibility = View.GONE
+                binding.tvQRCode.visibility = View.GONE
+            }
+            7->{
+                binding.tvOrderStatus.text = "Return in transit"
+                binding.btnCancel.text = "Cancel Return"
+                binding.btnCancel.visibility = View.VISIBLE
+            }
+            8->{
+                binding.tvOrderStatus.text = "Returned"
                 binding.btnCancel.visibility = View.GONE
                 binding.btnQRScanner.visibility = View.GONE
                 binding.tvQRCode.visibility = View.GONE
@@ -138,20 +185,26 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
 
     }
 
-    private fun orderStatusApiHit() {
+    private fun orderStatusApiHit(status : Int) {
         val hashMap = HashMap<String, String>()
         hashMap["id"] = userData!!.id.toString()
-        hashMap["orderStatus"] = "3" // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
-
-        appViewModel.cancelOrderApi(this, hashMap, true)
+        hashMap["orderStatus"] = status.toString() // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
+        if(status == 3){
+            appViewModel.cancelOrderApi(this, hashMap, true)
+        }
+        else{
+            appViewModel.orderStatusApi(this,hashMap,true)
+        }
         appViewModel.getResponse().observe(this, this)
-
     }
 
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is CommonResponse) {
+                    onBackPressed()
+                }
+                if(t.data is ScanOrderResponse){
                     onBackPressed()
                 }
             }

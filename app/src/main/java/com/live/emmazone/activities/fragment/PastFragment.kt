@@ -41,13 +41,8 @@ class PastFragment : Fragment(), View.OnClickListener, Observer<RestObservable> 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setOnClicks()
-
         setAdapter()
-
-
-
     }
 
     private fun getPastOrdersApi() {

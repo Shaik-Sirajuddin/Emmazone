@@ -85,7 +85,9 @@ class SearchActivity : AppCompatActivity() {
             )
         )*/
 
-        binding.recyclerSearch.adapter = AdapterShopDetailProducts(this,list)
+        binding.recyclerSearch.adapter = AdapterShopDetailProducts(this,list){
+
+        }
 
     }
 

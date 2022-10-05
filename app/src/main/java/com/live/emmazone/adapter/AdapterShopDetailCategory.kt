@@ -13,6 +13,7 @@ import com.live.emmazone.response_model.SellerShopDetailResponse
 
 class AdapterShopDetailCategory(
     private val list: ArrayList<SellerShopDetailResponse.Body.ShopDetails.ShopCategory>,
+    val isShopDetail:Boolean = false,
     private val onClick : (ind : Int) -> Unit
     ) :
     RecyclerView.Adapter<AdapterShopDetailCategory.CategoryViewHolder>() {
@@ -26,11 +27,17 @@ class AdapterShopDetailCategory(
         val holder = CategoryViewHolder(binding)
         binding.root.setOnClickListener {
             when (holder.adapterPosition) {
-                list.size-1 -> {
+                (list.size-1) -> {
                     if(ind!=-1){
                         notifyItemChanged(ind)
                     }
-                    ind = list.size-1
+                    if(ind == list.size-1 && isShopDetail){
+                        ind = -1;
+                    }
+                    else{
+                        ind = list.size-1
+                        notifyItemChanged(ind)
+                    }
                 }
                 ind -> {
                     notifyItemChanged(ind)

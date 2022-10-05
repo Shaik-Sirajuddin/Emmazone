@@ -41,7 +41,6 @@ class OnGoingSalesProviderFragment : Fragment(), Observer<RestObservable> {
     private fun apiHitSales() {
         val hashMap = HashMap<String, String>()
         hashMap["status"] = "2" //1=>New Orders, 2=> On going Orders, 3=> Past Orders
-
         appViewModel.salesListApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(requireActivity(), this)
 

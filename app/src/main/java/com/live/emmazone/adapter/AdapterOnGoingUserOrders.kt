@@ -61,6 +61,7 @@ class AdapterOnGoingUserOrders(
 
             when (model.orderStatus) {
                 0 -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
+                    //7-> Return in transit // 8-> Returned
                     tvOrderStatus.text = context.getString(R.string.pending)
                 }
                 1 -> {
@@ -71,6 +72,12 @@ class AdapterOnGoingUserOrders(
                 }
                 3 -> {
                     tvOrderStatus.text = context.getString(R.string.cancel)
+                }
+                7->{
+                    tvOrderStatus.text = "Return in transit"
+                }
+                8->{
+                    tvOrderStatus.text = "Returned"
                 }
             }
 

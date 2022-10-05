@@ -22,6 +22,7 @@ import com.live.emmazone.activities.listeners.OnActionListenerNew
 import com.live.emmazone.activities.main.ChatActivity
 import com.live.emmazone.adapter.AdapterOnGoingOrders
 import com.live.emmazone.databinding.ActivityOrderDetailNewSaleBinding
+import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
@@ -73,7 +74,12 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
             if (result.resultCode == RESULT_OK) {
                 val orderId = result.data!!.getStringExtra(AppConstants.ORDER_ID)
                 if (model!!.id.toString() == orderId) {
-                    orderStatusApiHit("2")
+                    if(model!!.orderStatus == 7){
+                        orderStatusApiHit("8")
+                    }
+                    else{
+                        orderStatusApiHit("2")
+                    }
                 }
             }
         }
@@ -131,8 +137,12 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
         hashMap["id"] = model!!.id.toString()
         hashMap["orderStatus"] =
             orderStatusUpdate // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
-
-        appViewModel.orderStatusApi(this, hashMap, true)
+        if(orderStatusUpdate == "8"){
+            appViewModel.cancelOrderApi(this,hashMap,true)
+        }
+        else{
+            appViewModel.orderStatusApi(this, hashMap, true)
+        }
         appViewModel.getResponse().observe(this, this)
 
     }
@@ -269,6 +279,14 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
                 binding.tvOrderStatus.text = getString(R.string.cancel)
                 binding.btnReadyDelivery.visibility = View.GONE
             }
+            7->{
+                binding.tvOrderStatus.text = "Return in transit"
+                binding.btnReadyDelivery.visibility = View.GONE
+            }
+            8->{
+                binding.tvOrderStatus.text = "Returned"
+                binding.btnReadyDelivery.visibility = View.GONE
+            }
         }
 
         when (model.deliveryType) {
@@ -296,7 +314,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
             }
         }
 
-        if (model.deliveryType == 0 && model.orderStatus == 1) {
+        if (model.deliveryType == 0 &&  ( model.orderStatus == 1 || model.orderStatus==7 ) ) {
             binding.btnScan.visibility = View.VISIBLE
             binding.btnDelivered.visibility = View.GONE
         }
@@ -309,6 +327,13 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
             Status.SUCCESS -> {
                 if (t.data is ScanOrderResponse) {
                     onBackPressed()
+                }
+                if(t.data is CommonResponse){
+                    AppUtils.showMsgOnlyWithClick(this,"Return confirmed", object : OnPopupClick{
+                        override fun onPopupClickListener() {
+                            finish()
+                        }
+                    })
                 }
             }
             else -> {}

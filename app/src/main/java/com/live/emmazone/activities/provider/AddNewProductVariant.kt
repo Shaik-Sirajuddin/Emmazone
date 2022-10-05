@@ -148,7 +148,7 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         appViewModel.getResponse().observe(this, this)
     }
     private fun validateAndPush(){
-        val price = binding.productPrice.text.toString().trim().toDoubleOrNull()
+        val price = binding.productPrice.text.toString().replace(",","").trim().toDoubleOrNull()
         val quantity = binding.proQuantity.text.toString().trim().toIntOrNull()
         var isValid = true
         isValid = price !=null && isValid

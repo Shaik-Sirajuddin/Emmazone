@@ -486,8 +486,10 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/cancel"
-                android:visibility="gone" />
+                android:text="Cancel"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_fill_sqaure"
+                android:visibility="visible" />
 
         </LinearLayout>
 

@@ -44,6 +44,8 @@ data class Product(
     var shortDescription: String, // Good Quality
     @SerializedName("status")
     var status: Int, // 1
+    @SerializedName("isLiked")
+    var isLiked : Int ,
     @SerializedName("product_group")
     var group : SearchProductResponse.Body.Group?
  ):Serializable{

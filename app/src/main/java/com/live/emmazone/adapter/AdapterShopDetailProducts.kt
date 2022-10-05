@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.response_model.Product
 import com.schunts.extensionfuncton.loadImage
+import kotlinx.android.synthetic.main.item_layout_shopdetail_products.view.*
 
 
 class AdapterShopDetailProducts(
     val mContext: Context,
-    private val list: ArrayList<Product>
+    private val list: ArrayList<Product>,
+    val wishListClick : (pos:Int)->Unit,
 ) :
     RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
 
@@ -42,7 +44,6 @@ class AdapterShopDetailProducts(
 
         }
 
-
         holder.productItemNameSD.text = data.name
         holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol, data.productPrice)
         holder.tvShopDetailProductBrandSD.text = data.shortDescription
@@ -53,6 +54,15 @@ class AdapterShopDetailProducts(
         }
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(list[position].id.toString())
+        }
+        if(data.isLiked == 1){
+            holder.itemView.heart.setImageResource(R.drawable.heart)
+        }
+        else{
+            holder.itemView.heart.setImageResource(R.drawable.heart_unselect)
+        }
+        holder.itemView.heart.setOnClickListener {
+            wishListClick(position)
         }
     }
 

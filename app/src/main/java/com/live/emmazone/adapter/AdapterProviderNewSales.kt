@@ -49,6 +49,7 @@ class AdapterProviderNewSales(
 
         when (model.orderStatus) {
             0 -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
+                //7-> Return in transit // 8-> Returned
                 holder.tvOrderStatus.text = context.getString(R.string.pending)
             }
             1 -> {
@@ -59,6 +60,12 @@ class AdapterProviderNewSales(
             }
             3 -> {
                 holder.tvOrderStatus.text = context.getString(R.string.cancel)
+            }
+            7->{
+                holder.tvOrderStatus.text = "Return in transit"
+            }
+            8->{
+                holder.tvOrderStatus.text = "Returned"
             }
         }
 
@@ -120,7 +127,6 @@ class AdapterProviderNewSales(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val tvOrder: TextView = itemView.findViewById(R.id.tvOrder)
         val tvOrderID: TextView = itemView.findViewById(R.id.tvOrderID)
         val tvUsername: TextView = itemView.findViewById(R.id.tvUsername)
