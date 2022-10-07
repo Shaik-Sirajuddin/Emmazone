@@ -8,6 +8,7 @@ import com.live.emmazone.utils.AppConstants
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
+import io.socket.engineio.client.transports.WebSocket
 import org.json.JSONObject
 import java.net.URISyntaxException
 
@@ -58,7 +59,7 @@ object SocketManager {
 
     private fun createSocketOptions() {
         val opts = IO.Options()
-
+        //opts.transports  = arrayOf(WebSocket.NAME)
         opts.reconnection = true
         mSocket = IO.socket(AppConstants.SOCKET_BASE_URL, opts)
         if (observerList == null || observerList!!.size == 0) {
@@ -66,7 +67,7 @@ object SocketManager {
         }
     }
 
-    fun onConnect() {
+    private fun onConnect() {
         if (mSocket == null)
             return
         if (!mSocket!!.connected()) {

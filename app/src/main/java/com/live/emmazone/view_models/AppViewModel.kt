@@ -95,7 +95,6 @@ class AppViewModel : ViewModel() {
                             )
 
                         }
-
                     }
 
                     override fun onFailure(call: Call<OtpVerifyResponse>, t: Throwable) {
