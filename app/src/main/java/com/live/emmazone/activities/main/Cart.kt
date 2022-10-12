@@ -221,7 +221,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
 
         tvCountItem.text = response!!.body.cartItems.size.toString()
         tvSubTotalPrice.text =
-            getString(R.string.euro_symbol, DecimalFormat("##.##").format(response!!.body.subTotal))
+            getString(R.string.euro_symbol, AppUtils.getFormattedAmount(response!!.body.subTotal))
         tvDeliveryChargesPrice.text =
             getString(
                 R.string.euro_symbol,

@@ -1,33 +1,33 @@
 package com.live.emmazone.activities.provider
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Filter
 import androidx.activity.viewModels
-import com.live.emmazone.model.ProductVariant
-import com.live.emmazone.net.RestObservable
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityAddNewProductVariantBinding
 import com.live.emmazone.interfaces.OnPopupClick
+import com.live.emmazone.net.RestObservable
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.AppUtils.Companion.getFormattedAmount
+import com.live.emmazone.utils.AppUtils.Companion.getFormattedAmountForEdit
+import com.live.emmazone.utils.AppUtils.Companion.setEuroLocale
 import com.live.emmazone.utils.ToastUtils
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toBody
 import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 import okhttp3.RequestBody
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import kotlin.math.roundToInt
+import java.util.*
 
 class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
 
@@ -71,7 +71,9 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         else{
             binding.title.text = "Edit variant"
             product?.let{
-                binding.productPrice.setText(it.productPrice.toDouble().roundToInt().toString())
+                val price = it.productPrice.replace(".",",")
+                Log.e("herePrice",price)
+                binding.productPrice.setText(price)
                 binding.proQuantity.setText(it.productQuantity.toString())
             }
         }
@@ -85,11 +87,13 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         binding.pickColor.setDropDownBackgroundResource(R.color.white)
         binding.pickColor.setOnItemClickListener { adapterView, view, i, l ->
            color = i
-           Log.d("color",color.toString())
         }
+        binding.productPrice.addTextChangedListener(MyTextWatcher(binding.productPrice))
+        binding.proQuantity.addTextChangedListener(MyTextWatcher(binding.proQuantity))
+
+
         binding.pickSize.setOnItemClickListener { adapterView, view, i, l ->
             size = i
-            Log.d("sizer",size.toString())
         }
         binding.addSize.setOnClickListener {
             if(binding.cardView1.visibility == View.VISIBLE){
@@ -148,8 +152,12 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         appViewModel.getResponse().observe(this, this)
     }
     private fun validateAndPush(){
-        val price = binding.productPrice.text.toString().replace(",","").trim().toDoubleOrNull()
+        val text = binding.productPrice.text.toString().replace(".","").trim()
+        val priceText = text.replace(",",".")
+        val price = priceText.toDoubleOrNull()
+
         val quantity = binding.proQuantity.text.toString().trim().toIntOrNull()
+
         var isValid = true
         isValid = price !=null && isValid
         isValid = quantity !=null  && isValid
@@ -247,4 +255,51 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
             }
         }
     }
+    inner class MyTextWatcher(private val editText: EditText) : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun afterTextChanged(e: Editable) {
+            if(editText.tag == "this")return
+            val text = editText.text.toString().replace(".","").trim()
+            val priceText = text.replace(",",".")
+            var price = priceText.toDoubleOrNull()
+                ?: return
+            Log.e("price",price.toString())
+            editText.tag = "this"
+            price *= 100
+            val res = price.toInt()
+            price = res.toDouble() / 100
+            var formattedText = getFormattedAmountForEdit(price)
+            if(text.contains(',')){
+
+                val comma = text.indexOf(',')
+                var afterText = ""
+                if(comma != text.lastIndex){
+                    afterText = text.substring(comma)
+                    if(afterText.length > 3){
+                        afterText = afterText.substring(0,3)
+                    }
+                    if(afterText == ",0" || afterText == ",00"){
+                        formattedText = "$formattedText$afterText"
+                    }
+                    else if(afterText.length == 3 && afterText[2]=='0'){
+                        formattedText = "${formattedText}0"
+                    }
+                }
+                else{
+                    formattedText = "$formattedText,"
+                }
+
+            }
+
+            editText.setText(formattedText)
+
+            editText.tag = null
+            editText.setSelection(editText.length())
+        }
+
+    }
+
 }

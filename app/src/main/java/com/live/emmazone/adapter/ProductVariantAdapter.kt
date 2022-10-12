@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.model.ProductVariant
 import com.live.emmazone.response_model.Product
+import com.live.emmazone.utils.AppUtils
 import kotlinx.android.synthetic.main.item_product_variant.view.*
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
@@ -55,8 +56,8 @@ class ProductVariantAdapter(
                 itemView.color.text = model.productColor.color
                 itemView.no.text = pos.toString()
                 itemView.quantity.text = model.productQuantity.toString()
-                val formatter = DecimalFormat("#,###,###,###")
-                val price = formatter.format(model.productPrice.toDouble().roundToInt())
+
+                val price = AppUtils.getFormattedAmount(model.productPrice.toDouble())
                 itemView.price.text = "$price €"
                 itemView.imgEdit.setOnClickListener {
                     editItem(pos)

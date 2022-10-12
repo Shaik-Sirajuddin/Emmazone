@@ -1,4 +1,4 @@
-package com.live.emmazone.activities.fragment
+package com.live.emmazone.activities.provider
 
 import android.Manifest
 import android.app.Activity
@@ -6,14 +6,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -22,86 +20,33 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
+import com.live.emmazone.activities.fragment.FragmentProviderSale
+import com.live.emmazone.activities.fragment.OnGoingSalesProviderFragment
+import com.live.emmazone.activities.fragment.PastSalesProviderFragment
 import com.live.emmazone.activities.main.Notifications
-import com.live.emmazone.activities.provider.ProviderMainActivity
-import com.live.emmazone.activities.provider.ReturnsActivity
-import com.live.emmazone.databinding.FragmentSaleProviderBinding
-import com.live.emmazone.extensionfuncton.savePreference
+import com.live.emmazone.databinding.ActivityReturnsBinding
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
-import com.live.emmazone.response_model.NotificationListingResponse
 import com.live.emmazone.response_model.ScanOrderResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.SimpleScannerActivity
 import com.live.emmazone.view_models.AppViewModel
 
-class FragmentProviderSale(val notificationResponse: NotificationListingResponse.Body?) :
-    Fragment() , Observer<RestObservable> {
-
-    companion object {
-        lateinit var imageRedDot: ImageView
-    }
-
-    private lateinit var binding: FragmentSaleProviderBinding
+class ReturnsActivity : AppCompatActivity() , Observer<RestObservable> {
+    private lateinit var binding:ActivityReturnsBinding
     private val appViewModel: AppViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSaleProviderBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityReturnsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         clicksHandle()
-        savePreference(AppConstants.NEW_SALE,false)
-        (requireActivity() as ProviderMainActivity).hideBadge()
-        if (notificationResponse != null) {
-            //  orderStatus  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
-                notificationReadApiHit()
-            if (notificationResponse.orderStatus == 0) {
-                newSaleClick()
-            } else if (notificationResponse.orderStatus == 1) {
-                onGoingClick()
-            } else if (notificationResponse.orderStatus == 2||notificationResponse.orderStatus == 3) {
-                pastClick()
-            }
-            else if(notificationResponse.orderStatus == 7 || notificationResponse.orderStatus == 8 ){
-                binding.openReturns.performClick()
-            }
-
-        } else {
-            newSaleClick()
-        }
-
+        onGoingClick()
     }
-    private fun notificationReadApiHit() {
-        val hashMap = HashMap<String, String>()
-        hashMap["id"] = notificationResponse!!.id.toString()
-
-        appViewModel.readNotificationApi(requireActivity(), hashMap, true)
-        appViewModel.getResponse().observe(requireActivity(), this)
-    }
-
-
     private fun clicksHandle() {
 
-        imageRedDot = binding.notifyRedBG
-
-        binding.imageNotifications.setOnClickListener {
-            val intent = Intent(activity, Notifications::class.java)
-            startActivity(intent)
-        }
-
-        binding.newSale.setOnClickListener {
-            newSaleClick()
-        }
 
         binding.onGoingSale.setOnClickListener {
             onGoingClick()
@@ -113,52 +58,27 @@ class FragmentProviderSale(val notificationResponse: NotificationListingResponse
         binding.scanQR.setOnClickListener {
             checkCameraPermission()
         }
-        binding.openReturns.setOnClickListener {
-            val intent = Intent(requireContext(),ReturnsActivity::class.java)
-            startActivity(intent)
-        }
     }
-
     private fun pastClick() {
-        openSalesFragment(PastSalesProviderFragment())
+        openSalesFragment(PastSalesProviderFragment(true))
         binding.onGoingSale.setTextColor(Color.BLACK)
         binding.onGoingSale.setBackgroundColor(Color.TRANSPARENT)
-        binding.newSale.setTextColor(Color.BLACK)
-        binding.salesLayout.setBackgroundResource(R.drawable.bg_earning)
-        binding.newSale.setBackgroundColor(Color.TRANSPARENT)
         binding.pastSale.setTextColor(Color.WHITE)
         binding.pastSale.setBackgroundResource(R.drawable.bg_fill_earning)
     }
 
     private fun onGoingClick() {
-        openSalesFragment(OnGoingSalesProviderFragment())
+        openSalesFragment(OnGoingSalesProviderFragment(true))
         binding.onGoingSale.setTextColor(Color.WHITE)
         binding.onGoingSale.setBackgroundResource(R.drawable.bg_fill_earning)
-        binding.newSale.setTextColor(Color.BLACK)
-        binding.newSale.setBackgroundColor(Color.TRANSPARENT)
-        binding.salesLayout.setBackgroundResource(R.drawable.bg_earning)
         binding.pastSale.setTextColor(Color.BLACK)
         binding.pastSale.setBackgroundColor(Color.TRANSPARENT)
     }
-
-    private fun newSaleClick() {
-        openSalesFragment(NewSalesProviderFragment())
-        binding.newSale.setBackgroundResource(R.drawable.bg_fill_earning)
-        binding.newSale.setTextColor(Color.WHITE)
-        binding.onGoingSale.setTextColor(Color.BLACK)
-        binding.onGoingSale.setBackgroundColor(Color.TRANSPARENT)
-        binding.pastSale.setTextColor(Color.BLACK)
-        binding.pastSale.setBackgroundColor(Color.TRANSPARENT)
-        binding.salesLayout.setBackgroundResource(R.drawable.bg_earning)
-    }
-
-
     private fun openSalesFragment(fragment: Fragment) {
-        val transaction = activity?.supportFragmentManager?.beginTransaction()
-        transaction?.replace(R.id.fragmentProviderSalesContainer, fragment)
-        transaction?.commit()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentProviderSalesContainer, fragment)
+        transaction.commit()
     }
-
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
@@ -166,27 +86,26 @@ class FragmentProviderSale(val notificationResponse: NotificationListingResponse
 
                 }
                 if (t.data is ScanOrderResponse) {
-                    AppUtils.showMsgOnlyWithoutClick(requireActivity(), t.data.message)
+                    AppUtils.showMsgOnlyWithoutClick(this, t.data.message)
                 }
             }
             else -> {}
         }
     }
-
     /** Scan Qr Implementation **/
     // util method
     private val permissions = arrayOf(Manifest.permission.CAMERA)
 
     private fun hasPermissionsCheck(permissions: Array<String>): Boolean = permissions.all {
         ActivityCompat.checkSelfPermission(
-            requireContext(),
+            this,
             it
         ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun checkPermissionDenied(permissions: String) {
         if (shouldShowRequestPermissionRationale(permissions)) {
-            val mBuilder = AlertDialog.Builder(requireContext())
+            val mBuilder = AlertDialog.Builder(this)
             val dialog: AlertDialog =
                 mBuilder.setTitle(R.string.alert).setMessage(R.string.permissionRequired)
                     .setPositiveButton(
@@ -200,13 +119,13 @@ class FragmentProviderSale(val notificationResponse: NotificationListingResponse
             dialog.setOnShowListener {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
                     ContextCompat.getColor(
-                        requireContext(), R.color.green
+                        this, R.color.green
                     )
                 )
             }
             dialog.show()
         } else {
-            val builder = AlertDialog.Builder(requireContext())
+            val builder = AlertDialog.Builder(this)
             val dialog: AlertDialog =
                 builder.setTitle(R.string.alert).setMessage(R.string.permissionRequired)
                     .setCancelable(
@@ -228,7 +147,7 @@ class FragmentProviderSale(val notificationResponse: NotificationListingResponse
             dialog.setOnShowListener {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
                     ContextCompat.getColor(
-                        requireContext(), R.color.green
+                        this, R.color.green
                     )
                 )
             }
@@ -257,7 +176,7 @@ class FragmentProviderSale(val notificationResponse: NotificationListingResponse
 
                 if (camera == true) {
                     Log.e("permissions", "Permission Granted Successfully")
-                    val intent = Intent(requireContext(), SimpleScannerActivity::class.java)
+                    val intent = Intent(this, SimpleScannerActivity::class.java)
                     scanLauncher.launch(intent)
                 } else {
                     Log.e("permissions", "Permission not granted")
@@ -273,8 +192,8 @@ class FragmentProviderSale(val notificationResponse: NotificationListingResponse
         hashMap["id"] = id
         hashMap["orderStatus"] =
             orderStatusUpdate // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
-        appViewModel.orderStatusApi(requireActivity(), hashMap, true)
-        appViewModel.getResponse().observe(requireActivity(), this)
+        appViewModel.orderStatusApi(this, hashMap, true)
+        appViewModel.getResponse().observe(this, this)
 
     }
 
@@ -282,7 +201,7 @@ class FragmentProviderSale(val notificationResponse: NotificationListingResponse
 
         if (hasPermissionsCheck(permissions)) {
             Log.e("Permissions", "Permissions Granted")
-            val intent = Intent(requireContext(), SimpleScannerActivity::class.java)
+            val intent = Intent(this, SimpleScannerActivity::class.java)
             scanLauncher.launch(intent)
         } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
             checkPermissionDenied(Manifest.permission.CAMERA)

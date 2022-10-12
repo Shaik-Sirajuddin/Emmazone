@@ -323,12 +323,12 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         binding.nestedScroll.visibility = View.VISIBLE
         binding.tvNoData.visibility = View.GONE
 
-        val canRate = response!!.body.canRate
-        if (!canRate) {
-            binding.rate.visibility = View.VISIBLE
-        } else {
-            binding.rate.visibility = View.GONE
-        }
+//        val canRate = response!!.body.canRate
+//        if (!canRate) {
+//            binding.rate.visibility = View.VISIBLE
+//        } else {
+//            binding.rate.visibility = View.GONE
+//        }
     }
 
     private fun favUnFavApiHit(pos: Int) {

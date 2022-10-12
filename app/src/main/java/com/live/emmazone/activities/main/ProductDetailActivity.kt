@@ -231,8 +231,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                 images
             )
             binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
-            val formatter = DecimalFormat("#,###,###,###")
-            val price = formatter.format(model.productPrice.toDouble().roundToInt())
+            val price = AppUtils.getFormattedAmount(model.productPrice.toDouble())
             binding.tvPriceInteger.text = "$price €"
             binding.tvSize.text = model.productSize.size
             binding.tvColor.text = model.productColor.color
@@ -329,9 +328,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         val totalPrice = taxCharged + subTotal
 
         tvCountItem.text = "1"
-        tvSubTotalPrice.text = DecimalFormat("##.##").format(subTotal.toDouble())
-        tvTaxPrice.text = DecimalFormat("##.##").format(taxCharged.toDouble())
-        tvTotalPrice.text = DecimalFormat("##.##").format(totalPrice.toDouble())
+        tvSubTotalPrice.text = AppUtils.getFormattedAmount(subTotal.toDouble())
+        tvTaxPrice.text = AppUtils.getFormattedAmount(taxCharged.toDouble())
+        tvTotalPrice.text = AppUtils.getFormattedAmount(totalPrice.toDouble())
 
 
         val milliSeconds = System.currentTimeMillis() + 604800000L //after 7 days

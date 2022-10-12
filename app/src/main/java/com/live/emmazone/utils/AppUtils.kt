@@ -16,6 +16,7 @@ import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
 import com.live.emmazone.interfaces.OnAcceptRejectListener
 import com.live.emmazone.interfaces.OnPopupClick
+import java.text.DecimalFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -315,10 +316,36 @@ class AppUtils {
             startActivity(mapIntent)
         }
         fun Activity.getURLForResource(resourceId: Int): String {
-            //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are not same
             return Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/" + resourceId)
                 .toString()
         }
+        fun Activity.setEuroLocale(){
+            val locale = Locale("de")
+            Locale.setDefault(locale)
+            val config  = baseContext.resources.configuration
+            config.locale = locale
+            baseContext.resources.updateConfiguration(
+                config,
+                baseContext.resources.displayMetrics
+            )
+        }
+        fun getDelimeter() = ","
+        fun getFormattedAmount(amount: Double): String {
+            var text =  DecimalFormat("###,###.##").format(amount)
+            val comma = text.indexOf(getDelimeter())
+            var afterText = ""
+            if(text.contains(getDelimeter()) && comma != text.lastIndex){
+                afterText = text.substring(comma)
+                if(afterText.length == 2 && afterText[1]!='0'){
+                    text = "${text}0"
+                }
+            }
+            return text
+        }
+        fun getFormattedAmountForEdit(amount: Double) : String {
+            return  DecimalFormat("###,###.##").format(amount)
+        }
+
     }
 
 }

@@ -26,6 +26,12 @@
         android:theme="@style/Theme.EmmaZone"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.provider.ReturnsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
             android:name=".activities.ReturnActivity"
             android:exported="false" />
         <activity

@@ -76,10 +76,16 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     private val filterLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                mDistance = result.data?.getStringExtra(AppConstants.DISTANCE)!!
-                mLatitude = result.data?.getStringExtra(AppConstants.LATITUDE)!!
-                mLongitude = result.data?.getStringExtra(AppConstants.LONGITUDE)!!
-                mLocation = result.data?.getStringExtra(AppConstants.LOCATION)!!
+                val dis = result.data?.getStringExtra(AppConstants.DISTANCE)!!
+                val lat = result.data?.getStringExtra(AppConstants.LATITUDE)!!
+                val lon = result.data?.getStringExtra(AppConstants.LONGITUDE)!!
+                val loc = result.data?.getStringExtra(AppConstants.LOCATION)!!
+
+                if(dis.isNotEmpty()) mDistance = dis
+                if(lat.isNotEmpty())  mLatitude = lat
+                if(lon.isNotEmpty()) mLongitude = lon
+                if(loc.isNotEmpty()) mLocation = loc
+
                 showBottomDialog()
             }
         }
@@ -100,7 +106,6 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
         }
         edtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -136,6 +141,7 @@ class SearchProductActivity : AppCompatActivity(), Observer<RestObservable> {
     }
 
     private fun filterApiHit(s: String) {
+        if(s.isEmpty())return
         catid = if (categoryID == "0") {
             ""
         } else {

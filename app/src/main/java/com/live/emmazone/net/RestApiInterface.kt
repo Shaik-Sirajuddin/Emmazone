@@ -196,6 +196,10 @@ interface RestApiInterface {
     fun rating(@FieldMap hashMap: HashMap<String, String>): Call<RatingResponse>
 
     @FormUrlEncoded
+    @POST(AppConstants.GET_MY_REVIEW_SHOP)
+    fun getMyReviewShop(@FieldMap hashMap: HashMap<String, String>): Call<RatingResponse>
+
+    @FormUrlEncoded
     @POST(AppConstants.CATEGORY_COLOR_SIZE)
     fun categoryColorSize(@FieldMap hashMap: HashMap<String, String>): Call<CategoryColorSizeResponse>
 

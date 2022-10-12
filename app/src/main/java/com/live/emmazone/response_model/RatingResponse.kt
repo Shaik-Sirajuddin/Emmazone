@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 data class RatingResponse(
     @SerializedName("body")
-    var body: Body,
+    var body: Body?,
     @SerializedName("code")
     var code: Int, // 200
     @SerializedName("message")
-    var message: String, // Ratings Added successfully
+    var message: String, // Ratings Added successfully //Ratings fetched successfully
     @SerializedName("success")
     var success: Boolean // true
 ) {

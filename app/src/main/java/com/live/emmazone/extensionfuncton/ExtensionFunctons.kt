@@ -102,6 +102,11 @@ fun letterByteArray(letter: String): ByteArray {
     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
     return stream.toByteArray()
 }
+fun bitmapToByte(bitmap: Bitmap) : ByteArray {
+    val stream = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+    return stream.toByteArray()
+}
 fun drawableToBitmap(drawable: Drawable): Bitmap {
     if (drawable is BitmapDrawable) {
         return drawable.bitmap

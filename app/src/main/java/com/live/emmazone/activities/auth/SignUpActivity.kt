@@ -49,14 +49,20 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
     var termsConditionCheck = false
 
     private var mImagePath = ""
+    private var byteArray:ByteArray? = null
 
     private val appViewModel: AppViewModel by viewModels()
     private var deviceToken = ""
 
-    override fun selectedImage(imagePath: String?, code: Int) {
+    override fun selectedImage(imagePath: String?, code: Int , bitmap: Bitmap?) {
         if (imagePath != null) {
             mImagePath = imagePath
             binding.pickImage.loadImage(imagePath)
+        }
+        if(bitmap != null){
+            byteArray = bitmapToByte(bitmap)
+            mImagePath = ""
+            binding.pickImage.loadImage(bitmap)
         }
     }
 
@@ -119,17 +125,13 @@ class SignUpActivity : ImagePickerUtility(), Observer<RestObservable> {
         val password = binding.edtPwd.text.toString().trim()
         val confirmPass = binding.edtConfirmPwd.text.toString().trim()
         var mainImage: MultipartBody.Part? = null
-        if (mImagePath.isNotEmpty()) {
+        if (mImagePath.isNotEmpty())
             mainImage = prepareMultiPart("image", File(mImagePath))
-        }
-        else{
-            var firstLetter = "U"
-            if(name.isNotEmpty()){
-                firstLetter = name.subSequence(0, 1).toString()
-            }
-            val data = letterByteArray(firstLetter)
-            mainImage = prepareMultiPart("image",data)
-        }
+        else if (byteArray!=null)
+            mainImage = prepareMultiPart("image",byteArray)
+        else
+            mainImage = prepareMultiPart("image", "")
+
         if (Validator.signUpValidation(
                 name,
                 email,

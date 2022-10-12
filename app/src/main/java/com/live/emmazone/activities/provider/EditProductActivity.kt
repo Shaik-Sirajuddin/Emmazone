@@ -1,6 +1,7 @@
 package com.live.emmazone.activities.provider
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import com.live.emmazone.net.RestObservable
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.AppUtils.Companion.setEuroLocale
 import com.live.emmazone.utils.ImagePickerUtility
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
@@ -52,7 +54,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     var mainImagePath = ""
     var id = ""
     var isRefresh = false
-    override fun selectedImage(imagePath: String?, code: Int) {
+    override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
             if (code == 0) {
                 //0 for Main Pic
@@ -72,8 +74,8 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
         productGroup = intent.extras?.get("group") as ProductGroup
         addDummyData()
-        if(!productGroup!!.products.isNullOrEmpty())
-        list.addAll(productGroup!!.products)
+//        if(!productGroup!!.products.isNullOrEmpty())
+//        list.addAll(productGroup!!.products)
         adapter = ProductVariantAdapter(list,this,{
             editVariant(it)
         },{
@@ -101,7 +103,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 Product.Category("",""),0,0,0,0,"","",0,"","",0,
                 Product.ProductColor(0,"","",0,0,""),0, arrayListOf() ,
                 "",0,"",Product.ProductSize(0,"",0,0,"",""),
-                "",0,SearchProductResponse.Body.Group(0, arrayListOf()))
+                "",0,0,SearchProductResponse.Body.Group(0, arrayListOf()))
         )
     }
     private fun productDetailApiHit() {
@@ -140,6 +142,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
 
     private fun setData(productGroup: ProductGroup) {
+
         productGroup.mainImage?.let { mainImage = it }
         id = productGroup.id.toString()
         imageList.clear()
@@ -154,12 +157,13 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         if(!productGroup.products.isNullOrEmpty()){
             list.addAll(productGroup.products)
         }
-        adapter.notifyDataSetChanged()
+      adapter.notifyDataSetChanged()
         setImageAdapter()
     }
 
     override fun onResume() {
         super.onResume()
+//        setEuroLocale()
         if(isRefresh){
             productDetailApiHit()
         }

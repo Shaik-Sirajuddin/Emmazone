@@ -3,6 +3,7 @@ package com.live.emmazone.activities.provider
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.AppUtils.Companion.setEuroLocale
 import com.live.emmazone.utils.ImagePickerUtility
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
@@ -46,6 +48,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     lateinit var binding: ActivityAddNewProductBinding
     private val list: ArrayList<CategoryListResponse.Body> = ArrayList()
+    private var byteArray:ByteArray? = null
 
 
     private var categoryAdapter: CategoriesAdapter? = null
@@ -61,7 +64,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var mainImage = ""
 
 
-    override fun selectedImage(imagePath: String?, code: Int) {
+    override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
             if (code == 0) {
                 //0 for Main Pic
@@ -256,7 +259,11 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         myPopupWindow.showAsDropDown(it, 0, -180)
     }
 
+    override fun onResume() {
+        super.onResume()
+//        setEuroLocale()
 
+    }
     private fun selectImage() {
         Album.image(this)
             .multipleChoice()

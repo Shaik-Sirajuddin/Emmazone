@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.live.emmazone.R
 import com.live.emmazone.activities.AddProductReview
+import com.live.emmazone.activities.main.ShopReviewsActivity
 import com.live.emmazone.response_model.UserOrderListing
 import com.live.emmazone.utils.AppConstants
 import kotlinx.android.synthetic.main.fragment_provider_home.view.*
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 class AdapterOrderDetail(
     val context: Context,
     private val list: ArrayList<UserOrderListing.Body.Response.OrderJson.OrderItem>,
-    private val isOnGoing : Boolean = false
+    private val isOnGoing : Boolean
 ) :
     RecyclerView.Adapter<AdapterOrderDetail.ViewHolder>() {
 
@@ -43,16 +44,26 @@ class AdapterOrderDetail(
         holder.productItemNameOD.text = data.name
         holder.tvOrderQuantityNumberOD.text = data.orderedQty.toString()
         holder.productPriceOD.text = context.getString(R.string.euro_symbol, data.productPrice)
+
         holder.review.setOnClickListener {
             val intent = Intent(context,AddProductReview::class.java)
             intent.putExtra("id",data.id.toString())
             context.startActivity(intent)
         }
+        holder.rateShop.setOnClickListener {
+            val intent = Intent(context,ShopReviewsActivity::class.java)
+            intent.putExtra("vendorId",data.vendorId.toString())
+            context.startActivity(intent)
+        }
         if(isOnGoing){
             holder.review.visibility = View.GONE
+            holder.seperator.visibility = View.GONE
+            holder.rateShop.visibility = View.GONE
         }
         else{
             holder.review.visibility = View.VISIBLE
+            holder.seperator.visibility = View.VISIBLE
+            holder.rateShop.visibility = View.VISIBLE
         }
     }
 
@@ -67,5 +78,7 @@ class AdapterOrderDetail(
         val tvOrderQuantityNumberOD = itemView.findViewById<TextView>(R.id.tvOrderQuantityNumber)
         val productPriceOD = itemView.findViewById<TextView>(R.id.productPrice)
         val review = itemView.findViewById<Button>(R.id.button)
+        val rateShop = itemView.findViewById<Button>(R.id.rateShop)
+        val seperator = itemView.findViewById<View>(R.id.seperator)
     }
 }

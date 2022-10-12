@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -60,7 +61,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
     var combineids = ""*/
 
     private var fields =
-        Arrays.asList(Place.Field.LAT_LNG, Place.Field.ADDRESS, Place.Field.ID, Place.Field.NAME)
+        listOf(Place.Field.LAT_LNG, Place.Field.ADDRESS, Place.Field.ID, Place.Field.NAME)
 
     private val locationLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -80,7 +81,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
     }
 
 
-    override fun selectedImage(imagePath: String?, code: Int) {
+    override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
             mImagePath = imagePath
             binding.imgEditShop.loadImage(imagePath)

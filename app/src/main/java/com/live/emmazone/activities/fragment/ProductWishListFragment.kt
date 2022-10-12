@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
+import com.live.emmazone.activities.main.ProductDetailActivity
 import com.live.emmazone.activities.main.ShopDetailActivity
 import com.live.emmazone.adapter.AdapterWishList
 import com.live.emmazone.adapter.SearchProductAdapter
@@ -62,6 +63,15 @@ class ProductWishListFragment : Fragment() , Observer<RestObservable> {
         adapter = SearchProductAdapter(list) {
             selectedPos = it
             favUnFavApiHit(list[it])
+        }
+        adapter.onItemClick = {
+            val intent = Intent(requireContext(), ProductDetailActivity::class.java)
+            intent.putExtra(AppConstants.USER2_NAME, list[it].vendorDetail.shopName)
+            intent.putExtra(AppConstants.USER2_IMAGE, list[it].vendorDetail.image)
+            intent.putExtra(AppConstants.SHOP_NAME_VISIBLE, true)
+            intent.putExtra("productId",list[it].id.toString())
+            intent.putExtra("groupId",list[it].group?.id.toString())
+            startActivity(intent)
         }
         binding.recyclerWishList.adapter = adapter
     }

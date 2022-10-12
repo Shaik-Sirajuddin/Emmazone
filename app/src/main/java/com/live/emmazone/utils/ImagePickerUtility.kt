@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
@@ -20,6 +21,8 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.live.emmazone.R
 import com.permissionx.guolindev.PermissionX
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -32,6 +35,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
     private var mCode = 0
     private lateinit var mImageFile: File
     private val CAMERA_REQUEST_CODE = 1001
+    private val CROP_PIC_REQUEST_CODE = 9090
 
 
     private val videoCameraLauncher =
@@ -42,7 +46,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
                 val contentURI = result.data?.data
 
                 val selectedVideoPath = getPath(contentURI!!)
-                selectedImage(selectedVideoPath, mCode)
+                selectedImage(selectedVideoPath, mCode,null)
             }
         }
 
@@ -51,7 +55,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
             if (result.resultCode == RESULT_OK) {
                 val uri = Uri.fromFile(mImageFile)
                 val picturePath = getAbsolutePath(uri)
-                selectedImage(picturePath, mCode)
+                selectedImage(picturePath, mCode,null)
             }
 
         }
@@ -66,16 +70,34 @@ abstract class ImagePickerUtility : AppCompatActivity() {
 
                 val selectedVideoPath = getPath(contentURI!!)
 //                val dummyPath = "/storage/emulated/0/Movies/Instagram/VID_53050323_203748_988.mp4"
-                selectedImage(selectedVideoPath, mCode)
+                selectedImage(selectedVideoPath, mCode,null)
             }
         }
+   private fun cropImage (uri: Uri) {
 
+       val intent = Intent("com.android.camera.action.CROP")
+      // intent.setClassName("com.android.camera", "com.android.camera.CropImage")
+//                val file: File = File(picturePath)
+//                val uri = Uri.fromFile(file)
+       intent.data = uri
+       intent.putExtra("crop", "true")
+//       intent.putExtra("aspectX", 1)
+//       intent.putExtra("aspectY", 1)
+       intent.putExtra("outputX", 400)
+       intent.putExtra("outputY", 400)
+       intent.putExtra("noFaceDetection", true)
+       intent.putExtra("return-data", true)
+       startActivityForResult(intent,CROP_PIC_REQUEST_CODE)
+   }
     private val imageGalleryLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val uri = result.data?.data
-                val picturePath = getAbsolutePath(uri!!)
-                selectedImage(picturePath, mCode)
+//                val picturePath = getAbsolutePath(uri!!)
+//                selectedImage(picturePath, mCode)
+                if (uri != null) {
+                    cropImage(uri)
+                }
             }
         }
 
@@ -199,8 +221,11 @@ abstract class ImagePickerUtility : AppCompatActivity() {
 
 
     private fun openGalleryForImage() {
-        val intent = Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI)
-        imageGalleryLauncher.launch(intent)
+        CropImage.activity()
+            .setGuidelines(CropImageView.Guidelines.ON)
+            .start(this)
+//        val intent = Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI)
+//        imageGalleryLauncher.launch(intent)
     }
 
     @Throws(IOException::class)
@@ -220,8 +245,24 @@ abstract class ImagePickerUtility : AppCompatActivity() {
         if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST_CODE) {
             val contentURI = data?.data
             val selectedImagePath = getAbsolutePath(contentURI!!)
-            selectedImage(selectedImagePath, mCode)
-
+            selectedImage(selectedImagePath, mCode,null)
+        }
+        if (resultCode == RESULT_OK && requestCode == CROP_PIC_REQUEST_CODE) {
+            if (data != null) {
+                val extras = data.extras
+                val bitmap = extras!!.getParcelable<Bitmap>("data")
+                selectedImage(null,mCode,bitmap)
+            }
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
+                val resultUri = result.uri
+                selectedImage(getAbsolutePath(resultUri),mCode,null)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                Log.e("imageUtility",error.message.toString())
+            }
         }
     }
 
@@ -261,5 +302,5 @@ abstract class ImagePickerUtility : AppCompatActivity() {
         } else null
     }
 
-    abstract fun selectedImage(imagePath: String?, code: Int)
+    abstract fun selectedImage(imagePath: String?, code: Int , bitmap : Bitmap?)
 }

@@ -14,7 +14,9 @@ import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.SalesResponse
 import com.live.emmazone.view_models.AppViewModel
 
-class PastSalesProviderFragment : Fragment(), Observer<RestObservable> {
+class PastSalesProviderFragment(
+    private val isReturnsActivity: Boolean = false
+): Fragment(), Observer<RestObservable> {
 
     private val appViewModel: AppViewModel by viewModels()
     val list = ArrayList<SalesResponse.Body.Response>()
@@ -59,7 +61,21 @@ class PastSalesProviderFragment : Fragment(), Observer<RestObservable> {
             Status.SUCCESS -> {
                 if (t.data is SalesResponse) {
                     list.clear()
-                    list.addAll(t.data.body.response)
+                    if (isReturnsActivity) {
+                        list.addAll(
+                            t.data.body.response
+                                .filter {
+                                    it.orderStatus == 8
+                                }
+                        )
+                    } else {
+                        list.addAll(
+                            t.data.body.response
+                                .filter {
+                                    it.orderStatus != 8
+                                }
+                        )
+                    }
                     if(list.size>0){
                         binding.tvNoData.visibility= View.GONE
                         binding.rvPastSalesPro.visibility= View.VISIBLE
@@ -68,13 +84,14 @@ class PastSalesProviderFragment : Fragment(), Observer<RestObservable> {
                         binding.tvNoData.visibility= View.VISIBLE
                         binding.rvPastSalesPro.visibility= View.GONE
                     }
-
-
-                    if (t.data.body.notificationCount ==0){
-                        FragmentProviderSale.imageRedDot.visibility = View.GONE
-                    }else{
-                        FragmentProviderSale.imageRedDot.visibility = View.VISIBLE
+                    if(!isReturnsActivity){
+                        if (t.data.body.notificationCount ==0){
+                            FragmentProviderSale.imageRedDot.visibility = View.GONE
+                        }else{
+                            FragmentProviderSale.imageRedDot.visibility = View.VISIBLE
+                        }
                     }
+
                 }
             }
             else -> {}

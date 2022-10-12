@@ -36,7 +36,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
     lateinit var binding: ActivityReservedDeliveredDetailBinding
     val list = ArrayList<UserOrderListing.Body.Response.OrderJson.OrderItem>()
     lateinit var adapter: AdapterOrderDetail
-
+    private var isOnGoing = false
     var userData: UserOrderListing.Body.Response? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         setContentView(binding.root)
 
         userData = intent.extras!!.get("data") as UserOrderListing.Body.Response
-
+        isOnGoing = intent.extras!!.get("onGoing") as Boolean
         setData(userData!!)
 
         binding.btnQRScanner.setOnClickListener {
@@ -77,7 +77,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         binding.recyclerOrderDetail.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        binding.recyclerOrderDetail.adapter = AdapterOrderDetail(this, list,true)
+        binding.recyclerOrderDetail.adapter = AdapterOrderDetail(this, list,isOnGoing)
 
     }
     private fun performUpdateStatus(){
@@ -85,7 +85,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         if(status == 0){
             orderStatusApiHit(3)
         }
-        else if(status == 2){
+        else if(status == 2 ){
 
             val milliSeconds = Date().time/1000L - Date(userData!!.created).time
             val returnPeriodInSeconds = 604800000
@@ -108,7 +108,8 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
 
     private fun setData(data: UserOrderListing.Body.Response) {
         list.addAll(data.orderJson.orderItems)
-        adapter = AdapterOrderDetail(this, list,true)
+
+        adapter = AdapterOrderDetail(this, list,isOnGoing)
         binding.tvOrderID.text = data.orderNo
         binding.tvSubTotalPrice.text = data.netAmount
         binding.tvItemCount.text = data.orderJson.orderItems.size.toString()
@@ -193,6 +194,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
             appViewModel.cancelOrderApi(this, hashMap, true)
         }
         else{
+            Log.d("status", hashMap["orderStatus"].toString())
             appViewModel.orderStatusApi(this,hashMap,true)
         }
         appViewModel.getResponse().observe(this, this)

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.response_model.SearchProductResponse
+import com.live.emmazone.utils.AppUtils
 import com.schunts.extensionfuncton.loadImage
 import kotlinx.android.synthetic.main.item_layout_shopdetail_products.view.*
 
@@ -57,7 +58,8 @@ class SearchProductAdapter(
             }catch (e : Exception){
                 Log.e("searchProductAdapter:55" , e.message.toString())
             }
-            itemView.productItemPrice.text = mContext.getString(R.string.euro_symbol, model.minPrice)
+            itemView.productItemPrice.text = mContext.getString(R.string.euro_symbol,
+                model.minPrice.toDoubleOrNull()?.let { AppUtils.getFormattedAmount(it) })
             itemView.tvShopDetailProductBrand.text = model.shortDescription
 
             itemView.setOnClickListener {

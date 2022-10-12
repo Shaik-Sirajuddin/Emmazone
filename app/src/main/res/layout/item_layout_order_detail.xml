@@ -72,15 +72,38 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cornerRadius="5dp"
-        android:layout_marginVertical="5dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="#C3ECECEC"
         android:drawableEnd="@drawable/arrow_right"
-        android:padding="6dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:paddingEnd="14dp"
         android:text="Write a review"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        app:cornerRadius="5dp"
         app:layout_constraintTop_toBottomOf="@id/imageOrder" />
+   <View
+       android:id="@+id/seperator"
+       android:background="@color/black"
+       app:layout_constraintTop_toBottomOf="@id/button"
+       android:layout_width="match_parent"
+       android:layout_height="1dp" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/rateShop"
+        android:layout_width="match_parent"
+        android:layout_marginTop="1dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#C3ECECEC"
+        android:drawableEnd="@drawable/arrow_right"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingEnd="14dp"
+        android:text="Rate Shop"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:cornerRadius="5dp"
+        app:layout_constraintTop_toBottomOf="@id/button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

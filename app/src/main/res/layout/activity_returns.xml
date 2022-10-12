@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/sales"
+            android:text="Returns"
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textSize="@dimen/sp20"
@@ -27,55 +27,17 @@
             app:layout_constraintEnd_toEndOf="@+id/layoutMain"
             app:layout_constraintStart_toStartOf="@+id/layoutMain"
             app:layout_constraintTop_toTopOf="@+id/layoutMain" />
-        <com.google.android.material.button.MaterialButton
-            app:cornerRadius="5dp"
-            android:id="@+id/openReturns"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/sp12"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/green"
-            app:layout_constraintHorizontal_bias="0.9"
-            android:layout_marginTop="20dp"
-            android:text="Returns"
-            android:textAllCaps="true"
-            app:layout_constraintEnd_toEndOf="@+id/layoutMain"
-            app:layout_constraintStart_toStartOf="@+id/layoutMain"
-            app:layout_constraintTop_toBottomOf="@id/textView2" />
+
         <ImageView
             android:id="@+id/scanQR"
-            app:layout_constraintTop_toTopOf="@id/image_notifications"
-            app:layout_constraintBottom_toBottomOf="@id/image_notifications"
-            app:layout_constraintEnd_toStartOf="@id/image_notifications"
+            app:layout_constraintTop_toTopOf="@id/textView2"
+            app:layout_constraintBottom_toBottomOf="@id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="25dp"
             android:src="@drawable/qr_code_scanner"
             android:layout_width="25dp"
             android:layout_height="25dp" />
-        <ImageView
-            android:id="@+id/image_notifications"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="24dp"
-            android:src="@drawable/bell"
-            app:layout_constraintBottom_toBottomOf="@+id/textView2"
-            app:layout_constraintEnd_toEndOf="@+id/layoutMain"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.42000002" />
 
-
-        <ImageView
-            android:id="@+id/notifyRedBG"
-            android:layout_width="@dimen/dp10"
-            android:layout_height="@dimen/dp10"
-            android:background="@drawable/notification_red_color"
-            app:layout_constraintBottom_toBottomOf="@+id/image_notifications"
-            app:layout_constraintEnd_toEndOf="@+id/image_notifications"
-            app:layout_constraintHorizontal_bias="0.88"
-            app:layout_constraintStart_toStartOf="@+id/image_notifications"
-            app:layout_constraintTop_toTopOf="@+id/image_notifications"
-            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -93,23 +55,14 @@
         app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
         <TextView
-            android:id="@+id/newSale"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/bg_fill_earning"
-            android:gravity="center"
-            android:text="New"
-            android:textColor="@color/white" />
-
-        <TextView
             android:id="@+id/onGoingSale"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/bg_fill_earning"
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/on_going"
-            android:textColor="@color/black" />
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/pastSale"

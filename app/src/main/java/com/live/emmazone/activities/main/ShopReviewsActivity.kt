@@ -1,7 +1,9 @@
 package com.live.emmazone.activities.main
 
+import android.media.Rating
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -33,51 +35,18 @@ class ShopReviewsActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivityShopReviewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//        if (intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE) != null) {
-//
-//            val shopResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
-//                    as ShopListingResponse.Body.Shop
-//
-//            shopId = shopResponse.id.toString()
-//            setDataOnView(shopResponse.image, shopResponse.shopName, shopResponse.ratings)
-//
-//        } else if (intent.getSerializableExtra(AppConstants.WISH_LIST_RESPONSE) != null) {
-//            val wishListResponse = intent.getSerializableExtra(AppConstants.SHOP_LISTING_RESPONSE)
-//                    as WishListResponse.Body.Wish
-//
-//            shopId = wishListResponse.id.toString()
-//            setDataOnView(
-//                wishListResponse.image, wishListResponse.shopName,
-//                wishListResponse.ratings
-//            )
-//
-//        }
-        val shopDetails = intent.getParcelableExtra<ShopDetailResponse.Body>(AppConstants.SHOP_DETAIL_RESPONSE) as ShopDetailResponse.Body
-        shopId = shopDetails.userId.toString()
-        setDataOnView(
-            shopDetails.image,
-            shopDetails.shopName,
-            shopDetails.ratings
-        )
-        val obj = shopDetails.reviews.find {
-            it.userId == getPreference(AppConstants.USER_ID,"").toIntOrNull()
-        }
-        obj?.let {
-            binding.ratingbarShopReviews.rating = it.rating.toFloat()
-            binding.edtInsertCommentShopReview.setText(it.comment)
-        }
+//        val shopDetails = intent.getParcelableExtra<ShopDetailResponse.Body>(AppConstants.SHOP_DETAIL_RESPONSE) as ShopDetailResponse.Body
+        shopId = intent.getStringExtra("vendorId").toString()
         clicksHandle()
-
+        getReview()
     }
 
-    private fun setDataOnView(image: String, shopName: String, ratings: String) {
-        binding.imageShopDetail.loadImage(AppConstants.IMAGE_USER_URL + image)
-        binding.tvWishListStoreName.text = shopName
-        binding.tvWishListRatingText.text = "$ratings/5"
-
-        if (ratings.isNotEmpty()) {
-            binding.ratingBarWishList.rating = ratings.toFloat()
+    private fun setData(data : RatingResponse) {
+        data.body?.ratings?.toFloatOrNull()?.let {
+            binding.ratingbarShopReviews.rating = it
+        }
+        data.body?.comment?.let {
+            binding.edtInsertCommentShopReview.setText(it)
         }
     }
 
@@ -107,15 +76,25 @@ class ShopReviewsActivity : AppCompatActivity(),
             AppUtils.showMsgOnlyWithoutClick(this, Validator.errorMessage)
         }
     }
+    private fun getReview(){
+        val hashMap = HashMap<String, String>()
+        hashMap["vendorId"] = shopId
+
+        appViewModel.getMyReviewShop(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+    }
 
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is RatingResponse) {
                     val response: RatingResponse = t.data
-
                     if (response.code == AppConstants.SUCCESS_CODE) {
-                        AppUtils.showMsgOnlyWithClick(this, response.message, this)
+                        if (response.message == "Ratings fetched successfully") {
+                            setData(response)
+                        } else {
+                            AppUtils.showMsgOnlyWithClick(this, response.message, this)
+                        }
                     }
                 }
             }

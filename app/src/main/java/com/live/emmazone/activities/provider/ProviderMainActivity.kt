@@ -13,6 +13,9 @@ import com.live.emmazone.databinding.ActivityProviderMainBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.NotificationListingResponse
 import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.AppUtils.Companion.setEuroLocale
+import java.util.*
 
 class ProviderMainActivity : AppCompatActivity() {
     lateinit var binding: ActivityProviderMainBinding
@@ -86,6 +89,10 @@ class ProviderMainActivity : AppCompatActivity() {
         return supportFragmentManager.findFragmentById(R.id.fragmentProviderContainer)
     }
 
+    override fun onResume() {
+        super.onResume()
+//        setEuroLocale()
+    }
     override fun onBackPressed() {
 
         if (currentFragment() !is FragmentProviderHome) {

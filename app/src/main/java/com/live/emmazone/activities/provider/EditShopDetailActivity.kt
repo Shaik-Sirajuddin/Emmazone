@@ -1,6 +1,7 @@
 package com.live.emmazone.activities.provider
 
 import android.app.Activity
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,6 +30,7 @@ import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.ImagePickerUtility
 import com.live.emmazone.view_models.AppViewModel
+import com.schunts.extensionfuncton.bitmapToByte
 import com.schunts.extensionfuncton.loadImage
 import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
@@ -51,6 +53,7 @@ class EditShopDetailActivity : ImagePickerUtility(),
     private var latitude = ""
     private var longitude = ""
     private var mImagePath = ""
+    private var byteArray:ByteArray? = null
     private lateinit var sellerShopDetail: SellerShopDetailResponse
 
     private var fields =
@@ -71,10 +74,15 @@ class EditShopDetailActivity : ImagePickerUtility(),
         }
     }
 
-    override fun selectedImage(imagePath: String?, code: Int) {
+    override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
             mImagePath = imagePath
             binding.imgEditShop.loadImage(imagePath)
+        }
+        if(bitmap != null){
+            byteArray = bitmapToByte(bitmap)
+            mImagePath = ""
+            binding.imgEditShop.loadImage(bitmap)
         }
     }
 

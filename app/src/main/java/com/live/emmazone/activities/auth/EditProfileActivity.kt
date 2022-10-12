@@ -24,10 +24,7 @@ import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.utils.ImagePickerUtility
 import com.live.emmazone.view_models.AppViewModel
-import com.schunts.extensionfuncton.letterByteArray
-import com.schunts.extensionfuncton.loadImage
-import com.schunts.extensionfuncton.prepareMultiPart
-import com.schunts.extensionfuncton.toBody
+import com.schunts.extensionfuncton.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
@@ -45,11 +42,16 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var profileDetail: ProfileResponse? = null
 
 
-    override fun selectedImage(imagePath: String?, code: Int) {
+    override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
             mImagePath = imagePath
             binding.ivProfile.loadImage(imagePath)
             byteArray = null
+        }
+        if(bitmap != null){
+            byteArray = bitmapToByte(bitmap)
+            mImagePath = ""
+            binding.ivProfile.loadImage(bitmap)
         }
     }
 
@@ -84,13 +86,6 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
             profileDetail!!.body.user.countryCode + profileDetail!!.body.user.phone
 
         binding.imageDelete.setOnClickListener {
-//            val profile =  AppCompatResources.getDrawable(this,R.drawable.default_profile)
-//            val bitmap = (profile as BitmapDrawable).bitmap
-//            val stream = ByteArrayOutputStream()
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-//            byteArray = stream.toByteArray()
-//            mImagePath = ""
-//            binding.ivProfile.loadImage(profile)
 //
             val name = binding.edtName.text.toString().trim()
             if(name.isEmpty()){

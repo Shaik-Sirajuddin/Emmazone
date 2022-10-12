@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
 import com.live.emmazone.response_model.Product
+import com.live.emmazone.utils.AppUtils
 import com.schunts.extensionfuncton.loadImage
 import kotlinx.android.synthetic.main.item_layout_shopdetail_products.view.*
 
@@ -45,7 +46,8 @@ class AdapterShopDetailProducts(
         }
 
         holder.productItemNameSD.text = data.name
-        holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol, data.productPrice)
+        holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol,
+            data.productPrice.toDoubleOrNull()?.let { AppUtils.getFormattedAmount(it) })
         holder.tvShopDetailProductBrandSD.text = data.shortDescription
         holder.ratingText.text = data.productReview
         val rate = data.productReview.toFloatOrNull()

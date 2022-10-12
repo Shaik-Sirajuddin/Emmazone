@@ -176,7 +176,7 @@ class AppViewModel : ViewModel() {
 
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
-                        Log.e("loginFail",mResponse.value?.error.toString())
+                        Log.e("loginFail", mResponse.value?.error.toString())
                     }
 
                 })
@@ -249,6 +249,7 @@ class AppViewModel : ViewModel() {
 
                         }
                     }
+
                     override fun onFailure(call: Call<PrivacyPolicyResponse>, t: Throwable) {
                         mResponse.value = RestObservable.error(activity, t)
                     }
@@ -376,6 +377,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     // Changes-------------------------------------------------------
     fun deleteProductApi(activity: Activity, isDialogShow: Boolean, productId: String) {
         if (activity.checkIfHasNetwork()) {
@@ -488,11 +490,12 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     fun addSize(
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>
-    ){
+    ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.addSize(hashMap)
@@ -526,11 +529,12 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     fun addColor(
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>,
-    ){
+    ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.addColor(hashMap)
@@ -564,12 +568,13 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     fun addCategory(
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>,
         image: MultipartBody.Part
-    ){
+    ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.addCategory(hashMap, image)
@@ -603,6 +608,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     fun addShopApi(
         activity: Activity, isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>, image: MultipartBody.Part
@@ -1111,7 +1117,7 @@ class AppViewModel : ViewModel() {
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody> /* = java.util.HashMap<kotlin.String, okhttp3.RequestBody> */
-    ){
+    ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.addProductReview(hashMap)
@@ -1147,47 +1153,48 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
-   fun getMyProductReview(
-       activity: Activity,
-       isDialogShow: Boolean,
-       hashMap: HashMap<String, RequestBody> /* = java.util.HashMap<kotlin.String, okhttp3.RequestBody> */
-   ){
-       if (activity.checkIfHasNetwork()) {
-           RestObservable.loading(activity, isDialogShow)
-           service.getMyProductReview(hashMap)
-               .enqueue(object : Callback<ProductReviewResponse> {
-                   override fun onResponse(
-                       call: Call<ProductReviewResponse>,
-                       response: Response<ProductReviewResponse>
-                   ) {
-                       if (response.isSuccessful) {
-                           Log.e("this",response.body().toString())
-                           mResponse.value = RestObservable.success(response.body()!!)
-                       } else {
-                           mResponse.value = RestObservable.errorWithSuccess(
-                               activity,
-                               response.code(),
-                               response.errorBody()!!
-                           )
 
-                       }
+    fun getMyProductReview(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, RequestBody> /* = java.util.HashMap<kotlin.String, okhttp3.RequestBody> */
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.getMyProductReview(hashMap)
+                .enqueue(object : Callback<ProductReviewResponse> {
+                    override fun onResponse(
+                        call: Call<ProductReviewResponse>,
+                        response: Response<ProductReviewResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            Log.e("this", response.body().toString())
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
 
-                   }
+                        }
 
-                   override fun onFailure(call: Call<ProductReviewResponse>, t: Throwable) {
-                       mResponse.value = RestObservable.error(activity, t)
-                   }
+                    }
 
-               })
-       } else {
-           AppUtils.showMsgOnlyWithClick(activity,
-               activity.getString(R.string.no_internet_connection), object : OnPopupClick {
-                   override fun onPopupClickListener() {
-                       getMyProductReview(activity, isDialogShow, hashMap)
-                   }
-               })
-       }
-   }
+                    override fun onFailure(call: Call<ProductReviewResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        getMyProductReview(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
 
     fun ratingApi(
         activity: Activity,
@@ -1230,6 +1237,46 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun getMyReviewShop(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.getMyReviewShop(hashMap)
+                .enqueue(object : Callback<RatingResponse> {
+                    override fun onResponse(
+                        call: Call<RatingResponse>,
+                        response: Response<RatingResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<RatingResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        getMyReviewShop(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
 
     fun categoryColorSizeApi(
         activity: Activity,
@@ -1413,7 +1460,12 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
-    fun likeOrDislikeProduct(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
+
+    fun likeOrDislikeProduct(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>
+    ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
             service.likeOrDislikeProduct(hashMap)
@@ -1447,6 +1499,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     fun wishListApi(activity: Activity, isDialogShow: Boolean, hashMap: HashMap<String, String>) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
@@ -1538,12 +1591,12 @@ class AppViewModel : ViewModel() {
                                 response.code(),
                                 response.errorBody()!!
                             )
-                            Log.e("error",response.errorBody().toString())
+                            Log.e("error", response.errorBody().toString())
                         }
                     }
 
                     override fun onFailure(call: Call<ShopProductDetailResponse>, t: Throwable) {
-                        Log.e("error",t.message.toString())
+                        Log.e("error", t.message.toString())
                         mResponse.value = RestObservable.error(activity, t)
 
                     }
@@ -1712,7 +1765,7 @@ class AppViewModel : ViewModel() {
         hashMap: HashMap<String, RequestBody>,
     ) {
         if (activity.checkIfHasNetwork()) {
-            Log.e("edit","entered")
+            Log.e("edit", "entered")
             RestObservable.loading(activity, isDialogShow)
             service.editShopProduct(hashMap)
                 .enqueue(object : Callback<AddProductResponse> {
@@ -1723,7 +1776,7 @@ class AppViewModel : ViewModel() {
                         if (response.isSuccessful) {
                             mResponse.value = RestObservable.success(response.body()!!)
                         } else {
-                            Log.e("edit",response.errorBody().toString())
+                            Log.e("edit", response.errorBody().toString())
                             mResponse.value = RestObservable.errorWithSuccess(
                                 activity,
                                 response.code(),
@@ -1748,6 +1801,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     //New function for productGroup
     fun editProductGroup(
         activity: Activity,
@@ -1755,10 +1809,10 @@ class AppViewModel : ViewModel() {
         hashMap: HashMap<String, RequestBody>,
         images: ArrayList<MultipartBody.Part>?,
         mainImage: MultipartBody.Part?
-    ){
+    ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
-            service.editProductGroup(hashMap,images,mainImage)
+            service.editProductGroup(hashMap, images, mainImage)
                 .enqueue(object : Callback<EditProductGroupResponse> {
                     override fun onResponse(
                         call: Call<EditProductGroupResponse>,
@@ -1783,21 +1837,22 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        editProductGroup(activity, isDialogShow, hashMap,images,mainImage)
+                        editProductGroup(activity, isDialogShow, hashMap, images, mainImage)
                     }
                 })
         }
     }
+
     fun addProductGroup(
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>,
         images: ArrayList<MultipartBody.Part>,
         mainImage: MultipartBody.Part
-    ){
+    ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
-            service.addProductGroup(hashMap,images,mainImage)
+            service.addProductGroup(hashMap, images, mainImage)
                 .enqueue(object : Callback<AddProductGroupResponse> {
                     override fun onResponse(
                         call: Call<AddProductGroupResponse>,
@@ -1826,11 +1881,12 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        addProductGroup(activity, isDialogShow, hashMap,images,mainImage)
+                        addProductGroup(activity, isDialogShow, hashMap, images, mainImage)
                     }
                 })
         }
     }
+
     // New Function for product
     fun addProductVariant(
         activity: Activity,
@@ -1872,6 +1928,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     fun editProductVariant(
         activity: Activity,
         isDialogShow: Boolean,
@@ -1912,6 +1969,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     ///
     fun getProductReviews(
         activity: Activity,
@@ -1951,6 +2009,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     fun editShopDetail(
         activity: Activity,
         isDialogShow: Boolean,
@@ -1958,7 +2017,7 @@ class AppViewModel : ViewModel() {
         image: MultipartBody.Part
     ) {
         if (activity.checkIfHasNetwork()) {
-            Log.e("image",image.body.toString())
+            Log.e("image", image.body.toString())
             RestObservable.loading(activity, isDialogShow)
             service.editShopDetail(hashMap, image)
                 .enqueue(object : Callback<EditShopDeatilResponse> {

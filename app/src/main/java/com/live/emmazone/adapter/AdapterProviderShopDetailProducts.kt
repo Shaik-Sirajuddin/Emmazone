@@ -14,7 +14,10 @@ import com.live.emmazone.activities.fragment.FragmentProviderAddProduct
 import com.live.emmazone.activities.provider.AddNewProductActivity
 import com.live.emmazone.activities.provider.EditProductActivity
 import com.live.emmazone.response_model.ProductGroup
+import com.live.emmazone.utils.AppUtils.Companion.getFormattedAmount
 import com.schunts.extensionfuncton.loadImage
+import kotlin.math.min
+import kotlin.math.roundToInt
 
 class AdapterProviderShopDetailProducts(
     private val context: Context,
@@ -45,12 +48,40 @@ class AdapterProviderShopDetailProducts(
 
             holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
 
-//            holder.productItemPriceSD.text =
-//                context.getString(R.string.euro_symbol, model.price.toDoubleOrNull().toString())
-//            if (!model.productReview.isNullOrEmpty()) {
-//                holder.ratingBar.rating = model.productReview.toFloat()
-//                holder.tvShopDetailProductText.text = model.productReview
-//            }
+            val products = list[position].products
+            if (products.isNotEmpty()) {
+                var price = Double.MAX_VALUE
+                var averageRating = 0f
+                var count = 0
+                products.forEach {
+                    it.productPrice.toDoubleOrNull()?.let { pr ->
+                        price = min(price, pr)
+                    }
+                    it.productReview.toFloatOrNull()?.let { rat ->
+                        if (rat != 0f) {
+                            averageRating += rat
+                            count++
+                        }
+                    }
+                }
+
+                if (price != Double.MAX_VALUE){
+                    holder.productItemPriceSD.text = context.getString(
+                        R.string.euro_symbol,
+                        getFormattedAmount(price)
+                    )
+                }
+                else{
+                    holder.productItemPriceSD.text = context.getString(
+                        R.string.euro_symbol,
+                        "__"
+                    )
+                }
+                if(count != 0){
+                    holder.tvShopDetailProductText.text = ((averageRating/count).toString())
+                    holder.ratingBar.rating = (averageRating/count)
+                }
+            }
         }
 
 
@@ -63,7 +94,9 @@ class AdapterProviderShopDetailProducts(
 
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
-            intent.putExtra("group", model)
+            val temp = model.copy()
+            temp.products = arrayListOf()
+            intent.putExtra("group", temp)
             holder.itemView.context.startActivity(intent)
         }
 

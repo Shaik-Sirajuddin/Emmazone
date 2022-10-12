@@ -11,7 +11,10 @@ import com.live.emmazone.R
 import com.live.emmazone.activities.fragment.FragmentProviderHome
 import com.live.emmazone.activities.provider.EditProductActivity
 import com.live.emmazone.response_model.ProductGroup
+import com.live.emmazone.utils.AppUtils
 import com.schunts.extensionfuncton.loadImage
+import kotlin.math.min
+import kotlin.math.roundToInt
 
 class AdapterProShopProducts(
     private val context: Context,
@@ -30,22 +33,53 @@ class AdapterProShopProducts(
         val ModelProShopDetailProducts = list[position]
         ModelProShopDetailProducts.mainImage?.let { holder.imageProductSD.loadImage(it) }
         holder.productItemNameSD.text = ModelProShopDetailProducts.name
-//        holder.productItemPriceSD.text = context.getString(
-//            R.string.euro_symbol,
-//            ModelProShopDetailProducts.price.toDouble().toString()
-//        )
-        holder.tvShopDetailProductBrandSD.text = ModelProShopDetailProducts.shortDescription   //short description
+        val products = list[position].products
+        if (products.isNotEmpty()) {
+            var price = Double.MAX_VALUE
+            var averageRating = 0f
+            var count = 0
+            products.forEach {
+                it.productPrice.toDoubleOrNull()?.let { pr ->
+                    price = min(price, pr)
+                }
+                it.productReview.toFloatOrNull()?.let { rat ->
+                    if (rat != 0f) {
+                        averageRating += rat
+                        count++
+                    }
+                }
+            }
+
+            if (price != Double.MAX_VALUE){
+
+                holder.productItemPriceSD.text = context.getString(
+                    R.string.euro_symbol,
+                    AppUtils.getFormattedAmount(price)
+                )
+            }
+            else{
+                holder.productItemPriceSD.text = context.getString(
+                    R.string.euro_symbol,
+                    "__"
+                )
+            }
+            if(count != 0){
+                holder.tvShopDetailProductText.text = ((averageRating/count).toString())
+                holder.ratingBar.rating = (averageRating/count)
+            }
+        }
+
+        holder.tvShopDetailProductBrandSD.text =
+            ModelProShopDetailProducts.shortDescription   //short description
 
         holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
 
-//        if (!ModelProShopDetailProducts.productReview.isNullOrEmpty()){
-//            holder.tvShopDetailProductText.text = ModelProShopDetailProducts.productReview
-//            holder.ratingBar.rating = ModelProShopDetailProducts.productReview.toFloat()
-//        }
 
         holder.imageEditSDProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, EditProductActivity::class.java)
-            intent.putExtra("group", ModelProShopDetailProducts)
+            val temp = ModelProShopDetailProducts.copy()
+            temp.products = arrayListOf()
+            intent.putExtra("group", temp)
             holder.itemView.context.startActivity(intent)
         }
 

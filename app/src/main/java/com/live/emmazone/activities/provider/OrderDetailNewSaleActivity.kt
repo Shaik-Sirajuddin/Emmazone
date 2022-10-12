@@ -106,7 +106,12 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
 
         binding.btnReadyDelivery.setOnClickListener {
             //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
-            orderStatusApiHit("1")
+            if(model!!.orderStatus == 7){
+                orderStatusApiHit("8")
+            }
+            else{
+                orderStatusApiHit("1")
+            }
         }
 
         binding.btnReadyPickup.setOnClickListener {
@@ -281,7 +286,8 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
             }
             7->{
                 binding.tvOrderStatus.text = "Return in transit"
-                binding.btnReadyDelivery.visibility = View.GONE
+                binding.btnReadyDelivery.visibility = View.VISIBLE
+                binding.btnReadyDelivery.text = "Confirm Return"
             }
             8->{
                 binding.tvOrderStatus.text = "Returned"

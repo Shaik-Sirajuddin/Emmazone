@@ -64,41 +64,6 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
                 getSellerShopDetails()
             }
         }
-    private val permissions = arrayOf(Manifest.permission.CAMERA)
-
-    private val cameraPermissions =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-
-            if (permissions.isNotEmpty()) {
-                permissions.entries.forEach {
-                    Log.d("permissions", "${it.key} = ${it.value}")
-                }
-
-                val camera = permissions[Manifest.permission.CAMERA]
-
-                if (camera == true) {
-                    Log.e("permissions", "Permission Granted Successfully")
-                    val intent = Intent(requireContext(), SimpleScannerActivity::class.java)
-                    scanLauncher.launch(intent)
-                } else {
-                    Log.e("permissions", "Permission not granted")
-                    checkCameraPermission()
-                }
-
-            }
-
-        }
-
-
-    private val scanLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val orderId = result.data!!.getStringExtra(AppConstants.ORDER_ID)
-                if (!orderId.isNullOrEmpty()) {
-                    orderStatusApiHit("2" , orderId)
-                }
-            }
-        }
 
 
     override fun onCreateView(
@@ -140,16 +105,7 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
             checkCameraPermission()
         }
     }
-    private fun orderStatusApiHit(orderStatusUpdate: String , id:String) {
-        val hashMap = HashMap<String, String>()
-        hashMap["id"] = id
-        hashMap["orderStatus"] =
-            orderStatusUpdate // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
 
-        appViewModel.orderStatusApi(requireActivity(), hashMap, true)
-        appViewModel.getResponse().observe(requireActivity(), this)
-
-    }
 
     private fun getSellerShopDetails() {
         appViewModel.sellerShopDetailsApi(requireActivity(), true)
@@ -165,32 +121,28 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
                         setDetailData(response)
                     }
 
-                }
-                else if (t.data is CommonResponse) {
+                } else if (t.data is CommonResponse) {
                     val response: CommonResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         ToastUtils.showLongToast(response.message)
                         productAdapter!!.deleteItem(pos)
                     }
-                }
-                else if( t.data is AddCategoryResponse){
+                } else if (t.data is AddCategoryResponse) {
                     val response: AddCategoryResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         ToastUtils.showLongToast(response.message)
                     }
-                    if(requireView().newCategoryName.hasFocus()){
-                        hideKeyboardFrom(requireContext(),requireView().newCategoryName)
+                    if (requireView().newCategoryName.hasFocus()) {
+                        hideKeyboardFrom(requireContext(), requireView().newCategoryName)
                     }
                     requireView().cardView.visibility = View.GONE
                     getSellerShopDetails()
-                }
-                else if(t.data is ScanOrderResponse){
-                    AppUtils.showMsgOnlyWithoutClick(requireActivity(),t.data.message)
+                } else if (t.data is ScanOrderResponse) {
+                    AppUtils.showMsgOnlyWithoutClick(requireActivity(), t.data.message)
                 }
             }
             Status.ERROR -> {
                 ToastUtils.showLongToast(t.error.toString())
-
             }
             else -> {}
         }
@@ -228,7 +180,7 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         requireView().recyclerProviderSDProducts.adapter = productAdapter
 //        requireView().recyclerProviderSDProducts.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         requireView().recyclerProviderShopDetailCategory.adapter = AdapterShopDetailCategory(list) {
-            Log.e("cat",it.toString())
+            Log.e("cat", it.toString())
             when (it) {
                 (list.size - 1) -> {
                     toggleAddCategory()
@@ -262,19 +214,21 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         hashMap["name"] = toBody(name)
         hashMap["vendorId"] = toBody(response.body.shopDetails.id.toString())
 
-        val byteArray = letterByteArray(name.substring(0,1))
+        val byteArray = letterByteArray(name.substring(0, 1))
         val image = prepareMultiPart("image", byteArray)
         appViewModel.addCategory(requireActivity(), true, hashMap, image)
-        appViewModel.getResponse().observe(requireActivity(),this)
+        appViewModel.getResponse().observe(requireActivity(), this)
     }
+
     private fun hideKeyboardFrom(context: Context, view: View) {
         val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
     private fun toggleAddCategory() {
         if (requireView().cardView.visibility == View.VISIBLE) {
-            if(requireView().newCategoryName.hasFocus()){
-                hideKeyboardFrom(requireContext(),requireView().newCategoryName)
+            if (requireView().newCategoryName.hasFocus()) {
+                hideKeyboardFrom(requireContext(), requireView().newCategoryName)
             }
             requireView().cardView.visibility = View.GONE
         } else {
@@ -295,9 +249,15 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         getSellerShopDetails()
     }
 
+
     // util method
+    private val permissions = arrayOf(Manifest.permission.CAMERA)
+
     private fun hasPermissionsCheck(permissions: Array<String>): Boolean = permissions.all {
-        ActivityCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
+        ActivityCompat.checkSelfPermission(
+            requireContext(),
+            it
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun checkPermissionDenied(permissions: String) {
@@ -351,6 +311,49 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
             dialog.show()
         }
     }
+
+    private val scanLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val orderId = result.data!!.getStringExtra(AppConstants.ORDER_ID)
+                if (!orderId.isNullOrEmpty()) {
+                    orderStatusApiHit("2", orderId)
+                }
+            }
+        }
+    private val cameraPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
+            if (permissions.isNotEmpty()) {
+                permissions.entries.forEach {
+                    Log.d("permissions", "${it.key} = ${it.value}")
+                }
+
+                val camera = permissions[Manifest.permission.CAMERA]
+
+                if (camera == true) {
+                    Log.e("permissions", "Permission Granted Successfully")
+                    val intent = Intent(requireContext(), SimpleScannerActivity::class.java)
+                    scanLauncher.launch(intent)
+                } else {
+                    Log.e("permissions", "Permission not granted")
+                    checkCameraPermission()
+                }
+
+            }
+
+        }
+
+    private fun orderStatusApiHit(orderStatusUpdate: String, id: String) {
+        val hashMap = HashMap<String, String>()
+        hashMap["id"] = id
+        hashMap["orderStatus"] =
+            orderStatusUpdate // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
+        appViewModel.orderStatusApi(requireActivity(), hashMap, true)
+        appViewModel.getResponse().observe(requireActivity(), this)
+
+    }
+
     private fun checkCameraPermission() {
 
         if (hasPermissionsCheck(permissions)) {
@@ -364,6 +367,7 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
             requestPermission()
         }
     }
+
     private fun requestPermission() {
         cameraPermissions.launch(permissions)
     }

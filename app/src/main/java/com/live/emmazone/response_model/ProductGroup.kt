@@ -22,7 +22,7 @@ data class ProductGroup(
     val productImages: List<ProductImage>,
     @SerializedName("shortDescription")
     val shortDescription: String,
-    @SerializedName("product")
+    @SerializedName("products")
     var products : ArrayList<Product> = arrayListOf(),
 
 ) : Serializable {

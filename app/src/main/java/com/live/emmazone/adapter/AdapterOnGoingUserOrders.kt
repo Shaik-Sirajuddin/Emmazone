@@ -106,6 +106,7 @@ class AdapterOnGoingUserOrders(
     private fun openDetailScreen(model: UserOrderListing.Body.Response, position: Int) {
         val intent = Intent(context, ReservedDeliveredDetail::class.java)
         intent.putExtra("data", model)
+        intent.putExtra("onGoing",onGoingFragment)
         context.startActivity(intent)
     }
 
