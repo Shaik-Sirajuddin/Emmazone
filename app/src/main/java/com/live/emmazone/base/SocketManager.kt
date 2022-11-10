@@ -61,6 +61,7 @@ object SocketManager {
         val opts = IO.Options()
         //opts.transports  = arrayOf(WebSocket.NAME)
         opts.reconnection = true
+        Log.e("socket",AppConstants.SOCKET_BASE_URL)
         mSocket = IO.socket(AppConstants.SOCKET_BASE_URL, opts)
         if (observerList == null || observerList!!.size == 0) {
             observerList = ArrayList()

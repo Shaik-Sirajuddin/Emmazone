@@ -186,7 +186,7 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
         list.add(ProductGroup(
             ProductGroup.Category("",""),0,"",-1,"","",0,
-        arrayListOf(),"", arrayListOf()))
+        arrayListOf(),"", arrayListOf(),0))
 
         list.addAll(response.body.groups)
         productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)

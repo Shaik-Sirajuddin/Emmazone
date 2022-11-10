@@ -24,6 +24,8 @@ data class ProductGroup(
     val shortDescription: String,
     @SerializedName("products")
     var products : ArrayList<Product> = arrayListOf(),
+    @SerializedName("registerCode")
+    var registerCode : Int
 
 ) : Serializable {
     data class Category(

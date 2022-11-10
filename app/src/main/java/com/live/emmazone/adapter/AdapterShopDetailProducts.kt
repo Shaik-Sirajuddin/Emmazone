@@ -22,7 +22,7 @@ class AdapterShopDetailProducts(
 ) :
     RecyclerView.Adapter<AdapterShopDetailProducts.ViewHolder>() {
 
-    var onItemClick:((productId:String)->Unit)? = null
+    var onItemClick:((productId:String,groupId:String)->Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -55,7 +55,7 @@ class AdapterShopDetailProducts(
             holder.ratingBar.rating = it
         }
         holder.itemView.setOnClickListener {
-            onItemClick?.invoke(list[position].id.toString())
+            onItemClick?.invoke(list[position].id.toString() , list[position].group?.id.toString())
         }
         if(data.isLiked == 1){
             holder.itemView.heart.setImageResource(R.drawable.heart)

@@ -31,6 +31,7 @@ import com.live.emmazone.databinding.BottomSheetFilterProductDialogBinding
 import com.live.emmazone.databinding.FragmentHomeBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.extensionfuncton.savePreference
+import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.*
@@ -45,6 +46,7 @@ import kotlinx.android.synthetic.main.dialog_category.*
 import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
@@ -57,6 +59,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     private lateinit var binding: FragmentHomeBinding
 
     private val list = ArrayList<ShopListingResponse.Body.Shop>()
+    private val cachedList = ArrayList<ShopListingResponse.Body.Shop>()
     lateinit var nearShopAdapter: AdapterNearbyShops
     private var selectedPos: Int? = null
     private val filterLauncher =
@@ -317,15 +320,15 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     }
 
     private fun searchShopsFilter(text: String) {
-        val filterList = ArrayList<ShopListingResponse.Body.Shop>()
 
-        list.forEach {
+        list.clear()
+        cachedList.forEach {
             if (it.shopName.contains(text, true)) {
-                filterList.add(it)
+                list.add(it)
             }
         }
 
-        nearShopAdapter.notifyData(filterList)
+        nearShopAdapter.notifyDataSetChanged()
     }
 
     private fun shopListingApi() {
@@ -364,7 +367,9 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         list.clear()
+                        cachedList.clear()
                         list.addAll(t.data.body.shopList)
+                        cachedList.addAll(t.data.body.shopList)
 
                         setShopAdapter()
 
@@ -390,7 +395,11 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                         list[selectedPos!!].isLiked = response.body.status
                         nearShopAdapter.notifyDataSetChanged()
 //                        setShopAdapter()
-                        AppUtils.showMsgOnlyWithoutClick(requireActivity(), response.message)
+                        AppUtils.showMsgOnlyWithClick(requireActivity(), response.message ,object : OnPopupClick{
+                            override fun onPopupClickListener() {
+                                sortShopsList()
+                            }
+                        })
 
                     }
                 }
@@ -708,7 +717,17 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         appViewModel.categoryColorSizeApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
+    private fun sortShopsList(){
 
+        cachedList.sortByDescending {
+            it.isLiked
+        }
+        list.sortByDescending {
+            it.isLiked
+        }
+
+        nearShopAdapter.notifyDataSetChanged()
+    }
     lateinit var dialog: Dialog
 
     private fun showCategoryDialog() {
@@ -755,7 +774,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             colorID = ""
             bottomDialog!!.tvSelectSize.text = "Select Size"
             sizeID = ""
-
 
         }
 

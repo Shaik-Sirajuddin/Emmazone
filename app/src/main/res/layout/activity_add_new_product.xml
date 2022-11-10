@@ -175,7 +175,32 @@
             app:layout_constraintEnd_toEndOf="@+id/tvShotDesc"
             app:layout_constraintStart_toStartOf="@+id/tvShotDesc"
             app:layout_constraintTop_toBottomOf="@+id/tvShotDesc" />
+        <TextView
+            android:id="@+id/tvRegisterCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:text="Product Code"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/edtShopName"
+            app:layout_constraintStart_toStartOf="@+id/edtShopName"
+            app:layout_constraintTop_toBottomOf="@+id/edtShotDesc" />
 
+        <EditText
+            android:id="@+id/edtRegisterCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:autofillHints="false"
+            android:background="@drawable/login_bg"
+            android:inputType="number"
+            android:maxLength="25"
+            android:paddingStart="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvShotDesc"
+            app:layout_constraintStart_toStartOf="@+id/tvShotDesc"
+            app:layout_constraintTop_toBottomOf="@+id/tvRegisterCode" />
 
         <TextView
             android:id="@+id/tvDescP"
@@ -188,7 +213,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/edtShotDesc"
             app:layout_constraintStart_toStartOf="@+id/edtShotDesc"
-            app:layout_constraintTop_toBottomOf="@+id/edtShotDesc" />
+            app:layout_constraintTop_toBottomOf="@+id/edtRegisterCode" />
 
         <EditText
             android:id="@+id/edtDesc"

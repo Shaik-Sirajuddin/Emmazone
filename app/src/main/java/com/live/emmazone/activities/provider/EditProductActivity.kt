@@ -151,6 +151,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding.edtShopName.setText(productGroup.name)
         binding.edtShotDesc.setText(productGroup.shortDescription)
         binding.edtDesc.setText(productGroup.description)
+        binding.edtRegisterCode.setText(productGroup.registerCode.toString())
         selectedCategoryId = productGroup.categoryId.toString()
         list.clear()
         addDummyData()
@@ -251,9 +252,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         val productName = binding.edtShopName.text.toString().trim()
         val description = binding.edtDesc.text.toString().trim()
         val shotDesc = binding.edtShotDesc.text.toString().trim()
+        val registerCode = binding.edtRegisterCode.text.toString().trim().toIntOrNull()
 
         if (Validator.editProductValidation(
                 productName, description,selectedCategoryId,
+                registerCode,
                 imageList
             )
         ) {
@@ -269,6 +272,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["description"] = toBody(description)
             hashMap["categoryId"] = toBody(selectedCategoryId)
             hashMap["product_highlight"] = toBody(highlightValue.toString())
+            hashMap["registerCode"] = toBody(registerCode.toString())
             var mainImage: MultipartBody.Part? = null
             if (mainImagePath.isNotEmpty()) {
                 mainImage = prepareMultiPart("mainImage", File(mainImagePath))

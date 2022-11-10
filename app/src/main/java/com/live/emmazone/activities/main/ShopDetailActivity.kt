@@ -288,7 +288,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
             }
             binding.recyclerShopDetailProducts.adapter = productAdapter
 
-            productAdapter.onItemClick = { productId: String ->
+            productAdapter.onItemClick = { productId: String  , groupId:String->
                 val intent = Intent(this, ProductDetailActivity::class.java)
                 intent.putExtra(AppConstants.USER2_NAME, response!!.body.shopName)
                 intent.putExtra(
@@ -296,6 +296,10 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
                     AppConstants.IMAGE_USER_URL + response!!.body.image
                 )
                 intent.putExtra("productId", productId)
+                if(groupId.isNotEmpty()){
+                    intent.putExtra("groupId",groupId)
+                }
+
                 startActivity(intent)
             }
 

@@ -198,6 +198,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         val productName = binding.edtShopName.text.toString().trim()
         val shotDesc = binding.edtShotDesc.text.toString().trim()
         val description = binding.edtDesc.text.toString().trim()
+        val registerCode = binding.edtRegisterCode.text.toString().trim().toIntOrNull()
 
         if (Validator.addProductValidation(
                 productName,
@@ -205,6 +206,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 description,
                 selectedCategoryId,
                 imageList,
+                registerCode,
                 mainImagePath
             )
         ) {
@@ -221,6 +223,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["description"] = toBody(description)
             hashMap["categoryId"] = toBody(selectedCategoryId)
             hashMap["product_highlight"] = toBody(highlightValue.toString())
+            hashMap["registerCode"] = toBody(registerCode.toString())
             val mainImage = prepareMultiPart("mainImage", File(mainImagePath))
 
             appViewModel.addProductGroup(this, true, hashMap, image, mainImage)

@@ -82,7 +82,9 @@ data class SearchProductResponse(
             @SerializedName("isMainImage")
             var isMainImage: Int, // 0
             @SerializedName("group_id")
-            var productId: Int // 152
+            var productId: Int, // 152
+            @SerializedName("registerCode")
+            var registerCode : Int
         ):Serializable
 
         data class VendorDetail(

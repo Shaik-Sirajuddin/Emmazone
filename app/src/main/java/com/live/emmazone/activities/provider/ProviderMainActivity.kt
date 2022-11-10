@@ -103,6 +103,7 @@ class ProviderMainActivity : AppCompatActivity() {
 
         }
     }
+
     //Open MessagesActivity on pop up firebase notification click
     private fun openMessagesOnFirebaseNotification(){
         val isFirebaseNotificationClick = intent.getBooleanExtra(AppConstants.IS_FIREBASE_NOTIFICATION,false)

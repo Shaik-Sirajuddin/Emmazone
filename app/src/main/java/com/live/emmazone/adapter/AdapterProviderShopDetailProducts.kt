@@ -42,7 +42,7 @@ class AdapterProviderShopDetailProducts(
             holder.cardView.visibility = View.VISIBLE
             holder.layoutAddProduct.visibility = View.GONE
 
-            model.mainImage.let { holder.imageProductSD.loadImage(it) }
+            model.mainImage?.let { holder.imageProductSD.loadImage(it) }
             holder.productItemNameSD.text = model.name
             holder.tvShopDetailProductBrandSD.text = model.shortDescription  //short description
 

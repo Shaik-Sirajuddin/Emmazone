@@ -197,6 +197,7 @@ object Validator {
         name: String,
         desc: String,
         categories: String,
+        registerCode: Int?,
         imageList: ArrayList<ProductImage>
     ): Boolean {
 
@@ -209,7 +210,12 @@ object Validator {
         } else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
             false
-        }  else if (TextUtils.isEmpty(categories)) {
+        }
+        else if(registerCode == null){
+            errorMessage = "Please enter valid product code"
+            false
+        }
+        else if (TextUtils.isEmpty(categories)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_category_1)
             false
         } else true
@@ -223,6 +229,7 @@ object Validator {
         desc: String,
         categories: String,
         imageList: ArrayList<ProductImage>,
+        registerCode : Int?,
         mainImagePath: String? = null
     ): Boolean {
 
@@ -241,7 +248,12 @@ object Validator {
         } else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
             false
-        } else if (TextUtils.isEmpty(categories)) {
+        }
+        else if(registerCode == null){
+            errorMessage = "Please enter valid product code"
+            false
+        }
+        else if (TextUtils.isEmpty(categories)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_category_1)
             false
         } else true
