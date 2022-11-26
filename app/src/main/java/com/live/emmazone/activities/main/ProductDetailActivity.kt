@@ -171,11 +171,35 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                 startActivity(Intent(this, Cart::class.java))
             }
         }
-
+        binding.descriptionBox.setOnClickListener {
+            toogleDescription()
+        }
+        binding.reviewBox.setOnClickListener {
+            toogleReviews()
+        }
         initAdapters()
 
     }
-
+    private fun toogleDescription(){
+        if(binding.containerDescription.visibility == View.VISIBLE){
+            binding.containerDescription.visibility = View.GONE
+            binding.toogleDescription.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+        }
+        else{
+            binding.containerDescription.visibility = View.VISIBLE
+            binding.toogleDescription.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+        }
+    }
+    private fun toogleReviews(){
+        if(binding.containerReviews.visibility == View.VISIBLE){
+            binding.containerReviews.visibility = View.GONE
+            binding.toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+        }
+        else{
+            binding.containerReviews.visibility = View.VISIBLE
+            binding.toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+        }
+    }
     private fun initAdapters() {
         reviewsAdapter = AdapterRatingReviews(reviewsList)
         binding.reviewsRecyclerView.adapter = reviewsAdapter
@@ -247,6 +271,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                 binding.btnBuyDeliver.visibility = View.VISIBLE
                 binding.btnClickCollect.visibility = View.VISIBLE
             }
+
         }catch (e:Exception){
             Log.e("variantFindError",e.message.toString())
         }

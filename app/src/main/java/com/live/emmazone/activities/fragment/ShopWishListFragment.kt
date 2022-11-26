@@ -72,7 +72,6 @@ class ShopWishListFragment : LocationUpdateUtilityFragment(),
         wishListAdapter = AdapterWishList(wishList)
         binding.recyclerWishList.adapter = wishListAdapter
 
-
         wishListAdapter.onClickListener = { wishListModel, clickOn ->
 
             if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {

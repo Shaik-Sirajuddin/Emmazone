@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.live.emmazone.R
+import com.live.emmazone.databinding.ItemLayoutHomeNearbyShopBinding
 import com.live.emmazone.databinding.ItemLayoutPaymentMethodBinding
 import com.live.emmazone.databinding.ItemLayoutWishlistBinding
 import com.live.emmazone.model.ModelDeliveryAddress
@@ -26,7 +27,11 @@ class AdapterWishList(private var list: ArrayList<WishListResponse.Body.Wish>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishListViewHolder {
         mContext = parent.context
-        val binding = ItemLayoutWishlistBinding.inflate(LayoutInflater.from(parent.context))
+        val binding =  ItemLayoutHomeNearbyShopBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return WishListViewHolder(binding)
     }
 
@@ -38,7 +43,7 @@ class AdapterWishList(private var list: ArrayList<WishListResponse.Body.Wish>) :
         return list.size
     }
 
-    inner class WishListViewHolder(val binding: ItemLayoutWishlistBinding) :
+    inner class WishListViewHolder(val binding: ItemLayoutHomeNearbyShopBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
             val nearShopModel = list[pos]

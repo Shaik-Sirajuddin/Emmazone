@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="5dp"
     android:background="@color/white"
-    android:paddingBottom="@dimen/dp8">
+    android:paddingBottom="@dimen/dp10">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
+        app:cardElevation="5dp"
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp8"
         android:layout_marginBottom="@dimen/dp8"
-        app:cardCornerRadius="@dimen/dp8"
+        app:cardCornerRadius="0dp"
+        app:cardBackgroundColor="@color/white"
+        app:strokeColor="@color/quantum_grey"
+        app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,19 +29,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutCardSales"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dp8">
+            android:padding="2dp"
+            android:layout_height="match_parent">
 
 
             <TextView
                 android:id="@+id/tvOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp16"
-                android:layout_marginTop="@dimen/dp16"
+                android:layout_marginStart="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8"
                 android:text="Order ID -"
                 android:textAllCaps="true"
-                android:textColor="@color/green"
+                android:textColor="@color/black"
                 android:textSize="@dimen/sp12"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp5"
-                android:layout_marginTop="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp8"
                 android:layout_marginEnd="@dimen/dp24"
                 android:text="PLU9540572"
                 android:textAllCaps="true"
@@ -58,14 +65,14 @@
 
             <ImageView
                 android:id="@+id/imgCodeScanner"
-                android:layout_width="@dimen/dp32"
-                android:layout_height="@dimen/dp32"
-                android:layout_marginTop="@dimen/dp8"
-                android:layout_marginEnd="@dimen/dp16"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginEnd="@dimen/dp8"
+                android:elevation="5dp"
+                android:layout_marginBottom="8dp"
                 android:src="@drawable/qr_code_scanner"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -77,65 +84,61 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toTopOf="@+id/tvStatus"
                 app:layout_constraintEnd_toEndOf="@+id/imgCodeScanner"
                 app:layout_constraintStart_toStartOf="@+id/tvOrder"
-                app:layout_constraintTop_toBottomOf="@+id/tvOrderID" />
+                app:layout_constraintTop_toBottomOf="@+id/tvOrderID"
+                tools:listitem="@layout/item_layout_ongoing_myorders"
+                tools:itemCount="1"
+                />
 
-            <TextView
-                android:id="@+id/tvStatus"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp16"
-                android:text="@string/status"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/rvMyOrderOnGoing" />
+                android:orientation="horizontal"
+                android:paddingVertical="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvMyOrderOnGoing">
 
-            <TextView
-                android:id="@+id/tvOrderStatus"
-                android:layout_width="@dimen/dp80"
-                android:layout_height="@dimen/dp20"
-                android:layout_marginStart="@dimen/dp5"
-                android:background="@drawable/bg_green_15dp"
-                android:paddingStart="@dimen/_4sdp"
-                android:paddingTop="@dimen/_2sdp"
-                android:paddingEnd="@dimen/_4sdp"
-                android:paddingBottom="@dimen/_2sdp"
-                android:text=""
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
-                app:layout_constraintStart_toEndOf="@+id/tvStatus"
-                app:layout_constraintTop_toTopOf="@+id/tvStatus" />
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status :"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp12" />
 
-            <TextView
-                android:id="@+id/tvODOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp5"
-                android:text="Order :"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp12"
-                app:layout_constraintBottom_toBottomOf="@+id/tvODOrderDate"
-                app:layout_constraintEnd_toStartOf="@+id/tvODOrderDate"
-                app:layout_constraintTop_toTopOf="@+id/tvODOrderDate" />
+                <TextView
+                    android:id="@+id/tvOrderStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:background="@drawable/bg_green_15dp"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:paddingTop="@dimen/_2sdp"
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_2sdp"
+                    android:text="Return in transit"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tvODOrderDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="@dimen/dp16"
+                android:layout_marginEnd="8dp"
                 android:text="29-Mar-2021"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/rvMyOrderOnGoing" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvOrderID" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -83,16 +83,12 @@ class WishListFragment : Fragment() {
     private fun productsClick() {
         openFragment(ProductWishListFragment())
         binding.tvShops.setBackgroundColor(Color.TRANSPARENT)
-        binding.tvShops.setTextColor(Color.BLACK)
-        binding.tvProducts.setTextColor(Color.WHITE)
         binding.tvProducts.setBackgroundResource(R.drawable.bg_fill_earning)
     }
 
     private fun shopsClick() {
         openFragment(ShopWishListFragment())
         binding.tvShops.setBackgroundResource(R.drawable.bg_fill_earning)
-        binding.tvShops.setTextColor(Color.WHITE)
-        binding.tvProducts.setTextColor(Color.BLACK)
         binding.tvProducts.setBackgroundColor(Color.TRANSPARENT)
     }
 

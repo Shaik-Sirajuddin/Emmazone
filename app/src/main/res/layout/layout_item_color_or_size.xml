@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     app:strokeColor="@color/light_black"
-    app:strokeWidth="1dp"
+    app:strokeWidth="2dp"
     android:layout_margin="4dp"
     app:cardCornerRadius="2dp">
    <TextView

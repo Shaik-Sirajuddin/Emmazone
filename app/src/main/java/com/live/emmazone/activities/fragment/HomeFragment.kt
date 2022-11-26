@@ -173,20 +173,22 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             val intent = Intent(activity, Cart::class.java)
             startActivity(intent)
         }
-
-        binding.imageFilterHome.setOnClickListener {
-            if(isShopSearch){
-                val intent = Intent(activity, FilterActivity::class.java)
-                intent.putExtra(AppConstants.DISTANCE, mDistance)
-                intent.putExtra(AppConstants.LATITUDE, mLatitude)
-                intent.putExtra(AppConstants.LONGITUDE, mLongitude)
-                intent.putExtra(AppConstants.LOCATION, binding.tvLocation.text)
-                filterLauncher.launch(intent)
-            }
-            else {
-                showBottomDialog()
-            }
+        binding.tvLocation.setOnClickListener {
+            openDistanceFilter()
         }
+//        binding.imageFilterHome.setOnClickListener {
+//            if(isShopSearch){
+//                val intent = Intent(activity, FilterActivity::class.java)
+//                intent.putExtra(AppConstants.DISTANCE, mDistance)
+//                intent.putExtra(AppConstants.LATITUDE, mLatitude)
+//                intent.putExtra(AppConstants.LONGITUDE, mLongitude)
+//                intent.putExtra(AppConstants.LOCATION, binding.tvLocation.text)
+//                filterLauncher.launch(intent)
+//            }
+//            else {
+//                showBottomDialog()
+//            }
+//        }
 
         binding.imageNotifications.setOnClickListener {
             if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
@@ -252,7 +254,14 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             }
         }
     }
-
+    private fun openDistanceFilter(){
+        val intent = Intent(activity, FilterActivity::class.java)
+        intent.putExtra(AppConstants.DISTANCE, mDistance)
+        intent.putExtra(AppConstants.LATITUDE, mLatitude)
+        intent.putExtra(AppConstants.LONGITUDE, mLongitude)
+        intent.putExtra(AppConstants.LOCATION, binding.tvLocation.text)
+        filterLauncher.launch(intent)
+    }
     private fun locationEnableDialog() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

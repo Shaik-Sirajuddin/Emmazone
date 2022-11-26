@@ -149,12 +149,37 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
             intent.putExtra(AppConstants.SHOP_DETAIL_RESPONSE, response!!.body)
             startActivity(intent)
         }
+        binding.aboutContainer.setOnClickListener {
+            toogleAbout()
+        }
+        binding.reviewContainer.setOnClickListener {
+            toogleReviews()
+        }
         reviewsAdapter = AdapterShopReviews(reviewsList)
         binding.recyclerViewShopReviews.adapter = reviewsAdapter
         binding.recyclerViewShopReviews.layoutManager = LinearLayoutManager(this)
 
     }
-
+    private fun toogleAbout(){
+        if(binding.containerAbout.visibility == View.VISIBLE){
+            binding.containerAbout.visibility = View.GONE
+            binding.toogleAbout.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+        }
+        else{
+            binding.containerAbout.visibility = View.VISIBLE
+            binding.toogleAbout.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+        }
+    }
+    private fun toogleReviews(){
+        if(binding.containerReviews.visibility == View.VISIBLE){
+            binding.containerReviews.visibility = View.GONE
+            binding.toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+        }
+        else{
+            binding.containerReviews.visibility = View.VISIBLE
+            binding.toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+        }
+    }
     private fun showLoginDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

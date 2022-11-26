@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/light_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutMain"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/header"
+        android:layout_height="70dp"
+        android:background="@color/light_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/my_orders"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/sp20"
             android:textStyle="bold"
@@ -51,15 +51,14 @@
 
         <ImageView
             android:id="@+id/cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/cart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.19" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/ivRedCart"
@@ -75,15 +74,21 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/layoutMyOrders"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dp40"
-        android:layout_marginStart="@dimen/dp16"
-        android:layout_marginEnd="@dimen/dp16"
-        android:background="@drawable/bg_earning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_top"
+        android:id="@+id/container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutMain">
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain"
+        >
+    <LinearLayout
+        android:id="@+id/layoutMyOrders"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/bg_earning"
+        android:layout_marginHorizontal="35dp">
 
         <TextView
             android:id="@+id/tvOnGoingMyOrders"
@@ -93,29 +98,34 @@
             android:background="@drawable/bg_fill_earning"
             android:gravity="center"
             android:text="@string/on_going"
+            android:textSize="16sp"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tvPastMyOrders"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textSize="16sp"
             android:gravity="center"
             android:text="Past"
             android:textAllCaps="false"
             android:textColor="@color/black" />
 
     </LinearLayout>
+    </LinearLayout>
 
     <FrameLayout
+        android:paddingTop="10dp"
         android:id="@+id/fragmentContainerMyOrders"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/layoutMyOrders"
-        app:layout_constraintStart_toStartOf="@+id/layoutMyOrders"
-        app:layout_constraintTop_toBottomOf="@+id/layoutMyOrders" />
+        app:layout_constraintEnd_toEndOf="@+id/container"
+        app:layout_constraintStart_toStartOf="@+id/container"
+        app:layout_constraintTop_toBottomOf="@+id/container" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

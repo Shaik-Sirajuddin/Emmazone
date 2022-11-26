@@ -13,5 +13,5 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/placeholder"
-        app:riv_corner_radius="20dp" />
+        app:riv_corner_radius="0dp" />
 </FrameLayout>

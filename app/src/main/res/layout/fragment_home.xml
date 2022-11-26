@@ -15,8 +15,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@drawable/header"
+            android:layout_height="100dp"
+            android:background="#DEFBE1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -121,6 +121,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:background="@drawable/header_gradient"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:id="@+id/searchHomeLayout"
@@ -138,16 +139,17 @@
                 android:focusableInTouchMode="true"
                 android:id="@+id/edtSearchWishList"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp10"
+                android:layout_height="35dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginEnd="@dimen/dp10"
                 android:layout_weight="1"
-                android:background="@drawable/search_bg"
-                android:drawableRight="@drawable/search"
+                android:background="@drawable/search_background"
+                android:drawableEnd="@drawable/search"
                 android:hint="Search"
                 android:imeOptions="actionDone"
                 android:maxLines="1"
-                android:padding="@dimen/dp10"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
                 android:textSize="@dimen/sp15"
                 app:layout_constraintBottom_toBottomOf="@+id/searchHomeLayout"
                 app:layout_constraintEnd_toEndOf="@+id/searchHomeLayout"
@@ -156,8 +158,8 @@
 
             <ImageView
                 android:id="@+id/ivMyOrder"
-                android:layout_width="27dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:src="@drawable/my_orderg" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -167,6 +169,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/imageFilterHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -214,6 +217,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -257,7 +261,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
-            android:text="Near By Shops"
+            android:text="Nearby Shops"
             android:textColor="@color/black"
             android:textSize="@dimen/sp20"
             android:textStyle="bold"
@@ -268,7 +272,6 @@
 
         <RelativeLayout
             android:id="@+id/shopsLayout"
-
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -281,9 +284,10 @@
                 android:id="@+id/rvHomeNearbyShops"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_layout_home_nearby_shop" />
 
             <TextView
                 android:id="@+id/tvNoShop"
@@ -295,7 +299,8 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp18"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:visibility="gone"
+                />
 
         </RelativeLayout>
 

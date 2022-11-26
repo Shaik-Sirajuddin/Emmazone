@@ -275,7 +275,7 @@
     <string name="since">Since %s</string>
     <string name="euro_symbol">%s €</string>
     <string name="no_items_in_shopping_cart">No items in shopping cart</string>
-    <string name="of">maximum quantity: %s</string>
+    <string name="of">Max: %s</string>
     <string name="product_out_of_stock">Out of stock.</string>
     <string name="shot_description">Short Description</string>
     <string name="only_25_characters">only 25 characters</string>

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/light_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutMain"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/header"
+        android:layout_height="70dp"
+        android:background="@color/light_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/wishlist"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/sp20"
             android:textStyle="bold"
@@ -52,8 +52,8 @@
 
         <ImageView
             android:id="@+id/cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="@dimen/dp20"
             android:src="@drawable/cart"
@@ -72,50 +72,61 @@
             app:layout_constraintTop_toTopOf="@+id/cart" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <LinearLayout
-        android:id="@+id/layoutWishList"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dp40"
-        android:layout_marginStart="@dimen/dp16"
-        android:layout_marginEnd="@dimen/dp16"
-        android:background="@drawable/bg_earning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_top"
+        android:id="@+id/container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutMain">
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain"
+        >
 
-        <TextView
-            android:id="@+id/tvShops"
+        <LinearLayout
+            android:layout_marginTop="26dp"
+            android:id="@+id/layoutWishList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/bg_fill_earning"
-            android:gravity="center"
-            android:text="Shops"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:layout_height="35dp"
+            android:layout_marginHorizontal="35dp"
+            android:background="@drawable/bg_earning"
+           >
 
-        <TextView
-            android:id="@+id/tvProducts"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Products"
-            android:textAllCaps="false"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tvShops"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_fill_earning"
+                android:gravity="center"
+                android:text="Shops"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
 
+            <TextView
+                android:id="@+id/tvProducts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:text="Products"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <FrameLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="1dp"
         android:id="@+id/containerWishList"
         android:layout_width="0dp"
+        android:background="@color/white"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/layoutWishList"
-        app:layout_constraintStart_toStartOf="@+id/layoutWishList"
-        app:layout_constraintTop_toBottomOf="@+id/layoutWishList" />
+        app:layout_constraintEnd_toEndOf="@+id/container"
+        app:layout_constraintStart_toStartOf="@+id/container"
+        app:layout_constraintTop_toBottomOf="@+id/container" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -96,16 +96,12 @@ class FragmentMyOrders(
     private fun pastClick() {
         openOnGoingOrdersFragment(PastFragment())
         binding.tvOnGoingMyOrders.setBackgroundColor(Color.TRANSPARENT)
-        binding.tvOnGoingMyOrders.setTextColor(Color.BLACK)
-        binding.tvPastMyOrders.setTextColor(Color.WHITE)
         binding.tvPastMyOrders.setBackgroundResource(R.drawable.bg_fill_earning)
     }
 
     private fun onGoingClick() {
         openOnGoingOrdersFragment(OnGoingOrdersFragment())
         binding.tvOnGoingMyOrders.setBackgroundResource(R.drawable.bg_fill_earning)
-        binding.tvOnGoingMyOrders.setTextColor(Color.WHITE)
-        binding.tvPastMyOrders.setTextColor(Color.BLACK)
         binding.tvPastMyOrders.setBackgroundColor(Color.TRANSPARENT)
     }
 
