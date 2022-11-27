@@ -21,6 +21,7 @@
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/header_curved.xml" value="0.151" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/header_gradient.xml" value="0.151" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/heart_unselect.xml" value="0.1495" />
+        <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/home_blue_gradient.xml" value="0.1595" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/nearby_shop_gradient.xml" value="0.151" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/product_highlight.xml" value="0.236" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/quantity_button_back.xml" value="0.1595" />
@@ -43,6 +44,7 @@
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/activity_main.xml" value="0.1890625" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/activity_message.xml" value="0.24547101449275363" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/activity_order_delivered_detail.xml" value="0.20854700854700856" />
+        <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/activity_order_detail_delivered_status.xml" value="0.20854700854700856" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/activity_order_detail_new_sale.xml" value="0.20854700854700856" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/activity_product_detail.xml" value="0.2059071729957806" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/activity_product_reviews.xml" value="0.20854700854700856" />
@@ -103,6 +105,7 @@
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/item_product_variant.xml" value="0.264" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/item_provider_add_products.xml" value="0.20854700854700856" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/item_provider_new_sale_layout.xml" value="0.20854700854700856" />
+        <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/item_provider_order_detail_new_sale_layout.xml" value="0.20854700854700856" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/item_provider_shopdetail_products.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/layout_item_color_or_size.xml" value="0.2361111111111111" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/on_going_orders_fragment.xml" value="0.2059071729957806" />

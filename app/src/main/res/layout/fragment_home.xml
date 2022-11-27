@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/home_blue_gradient"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scrollLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#DEFBE1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -121,12 +121,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:background="@drawable/header_gradient"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:id="@+id/searchHomeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="@dimen/dp5"
@@ -135,8 +134,6 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
             <EditText
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:id="@+id/edtSearchWishList"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
@@ -145,6 +142,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/search_background"
                 android:drawableEnd="@drawable/search"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:hint="Search"
                 android:imeOptions="actionDone"
                 android:maxLines="1"
@@ -164,17 +163,17 @@
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchSearch"
-                android:layout_marginEnd="5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp" />
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/imageFilterHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dp10"
-                android:src="@drawable/filter" />
+                android:src="@drawable/filter"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -206,24 +205,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Shop"></RadioButton>
+                    android:text="Shop" />
 
                 <RadioButton
                     android:id="@+id/radioProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Product"></RadioButton>
+                    android:text="Product" />
             </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="@dimen/dp5"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/searchHomeLayout"
             app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
             app:layout_constraintTop_toBottomOf="@+id/search_type_layout">
@@ -254,88 +253,61 @@
                 android:background="@drawable/click_here" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvNearByShop"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="16dp"
-            android:text="Nearby Shops"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp20"
-            android:textStyle="bold"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/search"
-            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/search"
-            app:layout_constraintTop_toBottomOf="@+id/search" />
-
-        <RelativeLayout
-            android:id="@+id/shopsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvNearByShop"
-            app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
-            app:layout_constraintTop_toBottomOf="@+id/tvNearByShop">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvHomeNearbyShops"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_layout_home_nearby_shop" />
+            app:layout_constraintTop_toBottomOf="@+id/search">
 
             <TextView
-                android:id="@+id/tvNoShop"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvNearByShop"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/no_shops_serving_near_you"
+                android:layout_marginTop="5dp"
+                android:paddingHorizontal="16dp"
+                android:text="Nearby Shops"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp18"
-                android:textStyle="bold"
-                android:visibility="gone"
-                />
+                android:textSize="@dimen/sp20"
+                android:textStyle="bold" />
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/productsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvNearByShop"
-            app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
-            app:layout_constraintTop_toBottomOf="@+id/tvNearByShop">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSearchProduct"
+            <RelativeLayout
+                android:id="@+id/shopsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_white_top"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/dp16"
-                android:paddingTop="@dimen/_10sdp"
-                android:paddingEnd="@dimen/dp16"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
-                tools:listitem="@layout/item_provider_shopdetail_products" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvNearByShop"
+                app:layout_constraintStart_toStartOf="@+id/tvNearByShop"
+                app:layout_constraintTop_toBottomOf="@+id/tvNearByShop">
 
-            <TextView
-                android:id="@+id/tvNoData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/no_data_found"
-                android:textColor="@color/black" />
 
-        </RelativeLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHomeNearbyShops"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_layout_home_nearby_shop" />
+
+                <TextView
+                    android:id="@+id/tvNoShop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/no_shops_serving_near_you"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp18"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/messagesIcon"
