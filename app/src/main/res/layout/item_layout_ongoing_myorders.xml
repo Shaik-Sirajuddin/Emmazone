@@ -16,7 +16,7 @@
         android:layout_marginTop="@dimen/dp10"
         android:scaleType="centerCrop"
         android:src="@drawable/shoes_square"
-        app:riv_corner_radius="@dimen/dp5"
+        app:riv_corner_radius="0dp"
         app:riv_mutate_background="true"
         app:riv_tile_mode="clamp" />
     <LinearLayout
@@ -56,6 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="Quantity:"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="@dimen/sp12"
         app:layout_constraintVertical_bias="0.0" />
@@ -67,6 +68,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginStart="@dimen/dp2"
         android:textColor="@color/black"
+        android:textStyle="bold"
         android:text="@string/_02"
         android:textSize="@dimen/sp12" />
 

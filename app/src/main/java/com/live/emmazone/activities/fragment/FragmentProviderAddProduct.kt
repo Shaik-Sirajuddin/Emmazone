@@ -40,7 +40,6 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
     private lateinit var binding: FragmentAddProductProviderBinding
     private val list = ArrayList<ProductGroup>()
-    private var isChecked = true
     private val appViewModel: AppViewModel by viewModels()
     var productAdapter: AdapterProviderShopDetailProducts? = null
     var pos = 0
@@ -55,38 +54,6 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        binding.checkBox.setOnClickListener {
-            isChecked = !isChecked
-            binding.checkBox.setImageResource(
-                if (isChecked)
-                    R.drawable.checkbox_g
-                else
-                    R.drawable.checkbox_tick
-            )
-        }
-
-        binding.checkBoxLife.setOnClickListener {
-
-            isChecked = !isChecked
-            binding.checkBoxLife.setImageResource(
-                if (isChecked)
-                    R.drawable.checkbox_g
-                else
-                    R.drawable.checkbox_tick
-            )
-        }
-
-        binding.checkOwnDelvry.setOnClickListener {
-            isChecked = !isChecked
-            binding.checkOwnDelvry.setImageResource(
-                if (isChecked)
-                    R.drawable.checkbox_g
-                else
-                    R.drawable.checkbox_tick
-            )
-        }
 
 
         binding.back.setOnClickListener {

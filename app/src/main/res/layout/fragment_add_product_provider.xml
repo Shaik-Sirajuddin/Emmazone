@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:orientation="vertical"
+        android:background="@color/light_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@drawable/header"
+            android:layout_height="70dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -79,185 +80,63 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/searchLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchWishListLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginEnd="@dimen/dp16"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/dp5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutMain">
+            android:paddingHorizontal="@dimen/dp10"
+            android:layout_marginVertical="16dp"
+            >
 
             <EditText
+                android:background="@drawable/search_background"
                 android:id="@+id/edtSearchAddProduct"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/search_bg"
-                android:drawableEnd="@drawable/search"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:drawableRight="@drawable/search"
                 android:hint="Search"
                 android:imeOptions="actionDone"
                 android:maxLines="1"
-                android:paddingStart="@dimen/dp16"
-                android:paddingEnd="@dimen/dp24"
+                android:padding="@dimen/dp10"
                 android:textSize="@dimen/sp15"
-                app:layout_constraintBottom_toBottomOf="@+id/searchHomeLayout"
-                app:layout_constraintEnd_toEndOf="@+id/searchHomeLayout"
-                app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
-                app:layout_constraintTop_toTopOf="@+id/searchHomeLayout" />
+                app:layout_constraintBottom_toBottomOf="@+id/searchWishListLayout"
+                app:layout_constraintEnd_toEndOf="@+id/searchWishListLayout"
+                app:layout_constraintStart_toStartOf="@+id/searchWishListLayout"
+                app:layout_constraintTop_toTopOf="@+id/searchWishListLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:background="@drawable/bg_white_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/tvProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp16"
+                android:layout_marginEnd="@dimen/dp16"
+                android:text="@string/products"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp18"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAdProductProvider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="true"
+                android:paddingBottom="16dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/item_provider_shopdetail_products" />
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imgSort"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:padding="@dimen/dp5"
-            android:src="@drawable/sort"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/searchLayout"
-            app:layout_constraintTop_toBottomOf="@+id/searchLayout" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/dp16"
-            android:visibility="gone"
-            app:cardCornerRadius="@dimen/dp16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgSort">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutCardView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/status_bar">
-
-                <TextView
-                    android:id="@+id/tvChoose"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="@dimen/dp16"
-                    android:text="@string/choose_your_services"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp18"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/layoutCardView"
-                    app:layout_constraintStart_toStartOf="@+id/layoutCardView"
-                    app:layout_constraintTop_toTopOf="@+id/layoutCardView" />
-
-                <ImageView
-                    android:id="@+id/checkBox"
-                    android:layout_width="@dimen/dp30"
-                    android:layout_height="@dimen/dp20"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="@dimen/dp5"
-                    android:src="@drawable/checkbox_tick"
-                    app:layout_constraintStart_toStartOf="@+id/tvChoose"
-                    app:layout_constraintTop_toBottomOf="@+id/tvChoose" />
-
-                <TextView
-                    android:id="@+id/click"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp5"
-                    android:text="@string/click_and_collect"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/checkBox"
-                    app:layout_constraintStart_toEndOf="@+id/checkBox"
-                    app:layout_constraintTop_toTopOf="@+id/checkBox" />
-
-                <ImageView
-                    android:id="@+id/checkBoxLife"
-                    android:layout_width="@dimen/dp30"
-                    android:layout_height="@dimen/dp20"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="@dimen/dp5"
-                    android:src="@drawable/checkbox_g"
-                    app:layout_constraintBottom_toBottomOf="@+id/click"
-                    app:layout_constraintStart_toEndOf="@+id/click"
-                    app:layout_constraintTop_toTopOf="@+id/click" />
-
-                <TextView
-                    android:id="@+id/clickLife"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp5"
-                    android:text="@string/lifernado"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/checkBoxLife"
-                    app:layout_constraintStart_toEndOf="@+id/checkBoxLife"
-                    app:layout_constraintTop_toTopOf="@+id/checkBoxLife" />
-
-                <ImageView
-                    android:id="@+id/checkOwnDelvry"
-                    android:layout_width="@dimen/dp30"
-                    android:layout_height="@dimen/dp20"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="@dimen/dp5"
-                    android:src="@drawable/checkbox_tick"
-                    app:layout_constraintStart_toStartOf="@+id/checkBox"
-                    app:layout_constraintTop_toBottomOf="@+id/checkBox" />
-
-                <TextView
-                    android:id="@+id/ownDelvery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp5"
-                    android:text="@string/own_delivery"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/checkOwnDelvry"
-                    app:layout_constraintStart_toEndOf="@+id/checkOwnDelvry"
-                    app:layout_constraintTop_toTopOf="@+id/checkOwnDelvry" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/tvProducts"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_marginEnd="@dimen/dp16"
-            android:text="@string/products"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp18"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAdProductProvider"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:nestedScrollingEnabled="false"
-            android:paddingBottom="16dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintEnd_toEndOf="@+id/tvProducts"
-            app:layout_constraintStart_toStartOf="@+id/tvProducts"
-            app:layout_constraintTop_toBottomOf="@+id/tvProducts"
-            app:spanCount="2"
-            tools:listitem="@layout/item_provider_shopdetail_products" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

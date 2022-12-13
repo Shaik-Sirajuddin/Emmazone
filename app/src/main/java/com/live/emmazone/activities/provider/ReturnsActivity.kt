@@ -61,17 +61,13 @@ class ReturnsActivity : AppCompatActivity() , Observer<RestObservable> {
     }
     private fun pastClick() {
         openSalesFragment(PastSalesProviderFragment(true))
-        binding.onGoingSale.setTextColor(Color.BLACK)
         binding.onGoingSale.setBackgroundColor(Color.TRANSPARENT)
-        binding.pastSale.setTextColor(Color.WHITE)
         binding.pastSale.setBackgroundResource(R.drawable.bg_fill_earning)
     }
 
     private fun onGoingClick() {
         openSalesFragment(OnGoingSalesProviderFragment(true))
-        binding.onGoingSale.setTextColor(Color.WHITE)
         binding.onGoingSale.setBackgroundResource(R.drawable.bg_fill_earning)
-        binding.pastSale.setTextColor(Color.BLACK)
         binding.pastSale.setBackgroundColor(Color.TRANSPARENT)
     }
     private fun openSalesFragment(fragment: Fragment) {

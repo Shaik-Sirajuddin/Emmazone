@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
         android:src="@drawable/shoes2"
-        app:riv_corner_radius="@dimen/dp15"
+        app:riv_corner_radius="0dp"
         app:riv_mutate_background="true"
         app:riv_tile_mode="clamp" />
 

@@ -284,10 +284,10 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         binding.tvDesc.text = response!!.body.shopDescription
         binding.tvShopFY.text = getString(R.string.since, response!!.body.year.toString())
         binding.tvShopAddress.text = response!!.body.shopAddress
-        binding.tvWishListRatingText.text = response!!.body.ratings.toString() + "/" + "5"
         val distance = intent.getIntExtra("distance", 0)
         binding.tvWishListDistance.text = distance.toString() + " " + getString(R.string.miles_away)
 
+        binding.tvWishListRatingText.text = response!!.body.ratings.toString() + "/" + "5"
         if (response!!.body.ratings.isNotEmpty()) {
             binding.ratingBarWishList.rating = response!!.body.ratings.toFloat()
         }

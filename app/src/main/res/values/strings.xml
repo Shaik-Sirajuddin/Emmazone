@@ -169,7 +169,7 @@
     <string name="click_and_collect">Click And Collect</string>
     <string name="lifernado">Liferando</string>
     <string name="own_delivery">Own Delivery</string>
-    <string name="delivery_type">Delivery Type</string>
+    <string name="delivery_type">Delivery Type :</string>
     <string name="home_delivery">Home Delivery</string>
     <string name="add_product_images">Add/Edit Product Images</string>
     <string name="product_name">Product Name</string>

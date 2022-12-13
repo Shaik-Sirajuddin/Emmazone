@@ -19,7 +19,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.slider.Slider
 import com.live.emmazone.MainActivity
 import com.live.emmazone.R
 import com.live.emmazone.activities.auth.LoginActivity
@@ -27,7 +26,6 @@ import com.live.emmazone.activities.auth.UserLoginChoice
 import com.live.emmazone.activities.main.*
 import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.adapter.*
-import com.live.emmazone.databinding.BottomSheetFilterProductDialogBinding
 import com.live.emmazone.databinding.FragmentHomeBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.extensionfuncton.savePreference
@@ -35,7 +33,6 @@ import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.*
-import com.live.emmazone.utils.App
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.LocationUpdateUtilityFragment
@@ -79,7 +76,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         }
     //Switch Search Type
     private var isShopSearch = true
-    private var searchAdapter: SearchProductAdapter? = null
     private val arrayList = ArrayList<SearchProductResponse.Body>()
     private var bottomDialog: BottomSheetDialog? = null
     var categoryID = ""
@@ -129,7 +125,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setSearchAdapter()
         clicksHandle()
         getLiveLocation(requireActivity())
         mLatitude = getPreference(AppConstants.LATITUDE,"")
@@ -224,16 +219,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 else{
                     if (!s.isNullOrEmpty()) {
                         searchApiHit(s.toString())
-                    } else {
-                        arrayList.clear()
-                        searchAdapter?.notifyDataSetChanged()
-                        if (arrayList.isEmpty()) {
-                            //binding.imageFilterHome.visibility = View.GONE
-                            binding.tvNoData.visibility = View.VISIBLE
-                        } else {
-                            // binding.imageFilterHome.visibility = View.VISIBLE
-                            binding.tvNoData.visibility = View.GONE
-                        }
                     }
                 }
             }
@@ -241,10 +226,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         })
 
         //Radio Group
-        binding.searchRadioGroup.setOnCheckedChangeListener { radioGroup, id->
-            isShopSearch = ( id == binding.radioShop.id )
-            switchSearchType()
-        }
+
         binding.switchSearch.setOnClickListener {
             searchTypeProduct = !searchTypeProduct
             if(binding.edtSearchWishList.hasFocus() && searchTypeProduct){
@@ -411,27 +393,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                         })
 
                     }
-                }
-                else if (t.data is SearchProductResponse) {
-                    val response: SearchProductResponse = t.data
-                    if (response.code == AppConstants.SUCCESS_CODE) {
-                        arrayList.clear()
-                        arrayList.addAll(response.body)
-                        searchAdapter?.notifyDataSetChanged()
-
-
-                        if (arrayList.isEmpty()) {
-                            //binding.imageFilterHome.visibility = View.GONE
-                            binding.tvNoData.visibility = View.VISIBLE
-                        } else {
-                           // binding.imageFilterHome.visibility = View.VISIBLE
-                            binding.tvNoData.visibility = View.GONE
-                        }
-                        if(isShopSearch){
-                           // binding.imageFilterHome.visibility = View.VISIBLE
-                        }
-                    }
-
                 } else if (t.data is CategoryListResponse) {
                     val response: CategoryListResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
@@ -469,12 +430,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 } else {
                     binding.tvNoShop.visibility = View.VISIBLE
                 }
-                if(categoryList.size > 0){
-                    binding.tvNoData.visibility = View.GONE
-                }
-                else{
-                    binding.tvNoData.visibility = View.VISIBLE
-                }
+
             }
             else -> {}
         }
@@ -536,24 +492,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         stopLocationUpdates()
     }
 
-    // Feature : Switch Search Type
-    private fun switchSearchType(){
-        if(isShopSearch){
-            binding.shopsLayout.visibility = View.VISIBLE
-            binding.productsLayout.visibility = View.GONE
-            binding.imageFilterHome.visibility = View.VISIBLE
-        }
-        else {
-            binding.shopsLayout.visibility = View.GONE
-            binding.productsLayout.visibility = View.VISIBLE
-            if(binding.edtSearchWishList.text.toString().trim().isEmpty()){
-               // binding.imageFilterHome.visibility = View.GONE
-            }
-            else{
-                //binding.imageFilterHome.visibility = View.VISIBLE
-            }
-        }
-    }
     private fun searchApiHit(s: String) {
         val hashMap = HashMap<String, String>()
         hashMap["keyword"] = s
@@ -590,20 +528,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         appViewModel.filterProductApi(requireActivity(), hashMap, false)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
-    private fun setSearchAdapter() {
-        searchAdapter = SearchProductAdapter(arrayList){
 
-        }
-        rvSearchProduct.adapter = searchAdapter
-        searchAdapter?.onItemClick = { pos ->
-            val intent = Intent(requireActivity(), ProductDetailActivity::class.java)
-            intent.putExtra(AppConstants.USER2_NAME, arrayList[pos].vendorDetail.shopName)
-            intent.putExtra(AppConstants.USER2_IMAGE, arrayList[pos].vendorDetail.image)
-            intent.putExtra(AppConstants.SHOP_NAME_VISIBLE, true)
-            intent.putExtra("productId", arrayList[pos].id.toString())
-            startActivity(intent)
-        }
-    }
     private fun showBottomDialog() {
         AppUtils.hideSoftKeyboard(requireActivity())
         bottomDialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)

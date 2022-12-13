@@ -27,13 +27,12 @@
             android:id="@+id/clData"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
             android:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutMain"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="70dp"
                 android:background="@color/light_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,57 +65,69 @@
                     app:layout_constraintTop_toTopOf="@+id/layoutMain" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <LinearLayout
-                android:background="@drawable/bg_white_top"
                 android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/light_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutMain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                app:layout_constraintTop_toBottomOf="@+id/layoutMain">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerCart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp16"
+                    android:paddingTop="16dp"
+                    android:paddingHorizontal="16dp"
+                    android:background="@drawable/bg_white_top"
                     android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layoutMain"
-                    tools:layout_editor_absoluteX="-16dp"
-                    tools:layout_editor_absoluteY="268dp">
+                   >
 
                 </androidx.recyclerview.widget.RecyclerView>
+
             </LinearLayout>
+
+            <View
+                android:id="@+id/hr"
+                app:layout_constraintTop_toBottomOf="@id/container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginVertical="8dp"
+                android:background="@color/quantum_grey600" />
 
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginEnd="16dp"
-                android:elevation="@dimen/dp8"
-                app:cardCornerRadius="@dimen/dp8"
+                android:layout_marginHorizontal="16dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="@+id/container"
                 app:layout_constraintStart_toStartOf="@+id/container"
-                app:layout_constraintTop_toBottomOf="@+id/container">
+                app:layout_constraintTop_toBottomOf="@+id/hr"
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cardLayout"
+                >
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/dp8"
-                    android:paddingBottom="@dimen/dp8">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tvPriceDetails"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:layout_marginTop="@dimen/dp5"
                         android:text="@string/price_details"
                         android:textColor="@color/black"
@@ -127,155 +138,164 @@
                         app:layout_constraintTop_toTopOf="@+id/cardLayout" />
 
                     <LinearLayout
-                        android:id="@+id/itemLayout"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/underline_grey"
+                        android:layout_marginHorizontal="20dp"
                         android:orientation="horizontal"
-                        android:padding="@dimen/dp8"
-                        app:layout_constraintEnd_toEndOf="@+id/tvPriceDetails"
-                        app:layout_constraintStart_toStartOf="@+id/cardLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/tvPriceDetails">
+                        android:padding="8dp">
 
-                        <TextView
-                            android:id="@+id/tvItem"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp2"
-                            android:text="@string/item"
-                            android:textColor="@color/light_black"
-                            android:textSize="@dimen/sp12" />
-
-                        <TextView
-                            android:id="@+id/tvItemCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp5"
-                            android:text="@string/_3"
-                            android:textColor="@color/light_black"
-                            android:textSize="@dimen/sp12" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/subTotalLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp10"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/dp5"
-                        app:layout_constraintEnd_toEndOf="@+id/itemLayout"
-                        app:layout_constraintStart_toStartOf="@+id/itemLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/itemLayout">
-
-                        <TextView
-                            android:id="@+id/tvSubTotal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp5"
                             android:layout_weight="1"
-                            android:text="@string/sub_total"
-                            android:textColor="@color/light_black" />
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tvSubTotalPrice"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/tvItem"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="2dp"
+                                android:text="@string/item"
+                                android:textColor="@color/light_black" />
+
+                            <TextView
+                                android:id="@+id/tvSubTotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="2dp"
+                                android:text="@string/sub_total"
+                                android:textColor="@color/light_black" />
+
+                            <TextView
+                                android:id="@+id/tvDeliveryCharges"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="2dp"
+                                android:layout_weight="1"
+                                android:text="@string/delivery_charges"
+                                android:textColor="@color/light_black"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/tvTax"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="2dp"
+                                android:layout_weight="1"
+                                android:text="@string/tax"
+                                android:textColor="@color/light_black"
+
+                                />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp10"
-                            android:layout_marginEnd="@dimen/dp24"
-                            android:text="120.00€"
-                            android:textColor="@color/light_black" />
+                            android:layout_weight="2"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:id="@+id/tvItemCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="2dp"
+                                android:text="@string/_3"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/tvSubTotalPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="2dp"
+                                android:textColor="@color/black"
+                                tools:text="120.00€"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/tvDeliveryChargesPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="2dp"
+                                android:textColor="@color/black"
+                                tools:text="10.00€"
+
+                                />
+
+
+                            <TextView
+                                android:id="@+id/tvTaxPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="2dp"
+                                android:text="00.00€"
+                                android:textColor="@color/black"
+
+                                />
+
+
+                        </LinearLayout>
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="14dp"
+                        android:layout_marginVertical="2dp"
+                        android:background="@color/quantum_grey600" />
                     <LinearLayout
-                        android:id="@+id/deliveryChargesLayout"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
                         android:orientation="horizontal"
-                        android:padding="@dimen/dp5"
-                        app:layout_constraintEnd_toEndOf="@+id/subTotalLayout"
-                        app:layout_constraintStart_toStartOf="@+id/subTotalLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/subTotalLayout">
-
-                        <TextView
-                            android:id="@+id/tvDeliveryCharges"
-                            android:layout_width="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="3dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp5"
                             android:layout_weight="1"
-                            android:text="@string/delivery_charges"
-                            android:textColor="@color/light_black" />
+                            >
+                            <TextView
+                                android:id="@+id/tvTotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/total"
+                                android:textColor="@color/light_black"
 
-                        <TextView
-                            android:id="@+id/tvDeliveryChargesPrice"
-                            android:layout_width="wrap_content"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="2"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp10"
-                            android:layout_marginEnd="@dimen/dp24"
-                            android:text="10.00€"
-                            android:textColor="@color/light_black" />
+                            >
+                            <TextView
+                                android:id="@+id/tvTotalPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="130.00€"
+                                android:textColor="@color/black"
+
+                                />
+
+                        </LinearLayout>
+
                     </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="14dp"
+                        android:layout_marginVertical="2dp"
+                        android:background="@color/quantum_grey600" />
 
-                    <LinearLayout
-                        android:id="@+id/taxLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/underline_grey"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/dp5"
-                        app:layout_constraintEnd_toEndOf="@+id/deliveryChargesLayout"
-                        app:layout_constraintStart_toStartOf="@+id/deliveryChargesLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/deliveryChargesLayout">
-
-                        <TextView
-                            android:id="@+id/tvTax"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp5"
-                            android:layout_weight="1"
-                            android:text="@string/tax"
-                            android:textColor="@color/light_black" />
-
-                        <TextView
-                            android:id="@+id/tvTaxPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp10"
-                            android:layout_marginEnd="@dimen/dp24"
-                            android:text="00.00€"
-                            android:textColor="@color/light_black" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/totalLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp10"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/dp5"
-                        app:layout_constraintEnd_toEndOf="@+id/taxLayout"
-                        app:layout_constraintStart_toStartOf="@+id/taxLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/taxLayout">
-
-                        <TextView
-                            android:id="@+id/tvTotal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp5"
-                            android:layout_weight="1"
-                            android:text="@string/total"
-                            android:textColor="@color/light_black" />
-
-                        <TextView
-                            android:id="@+id/tvTotalPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp10"
-                            android:layout_marginEnd="23dp"
-                            android:text="130.00€"
-                            android:textColor="@color/light_black" />
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -293,7 +313,7 @@
                 android:id="@+id/tvYouMayLike"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp10"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="@dimen/dp16"
                 android:text="@string/you_may_like"
                 android:textColor="@color/black"

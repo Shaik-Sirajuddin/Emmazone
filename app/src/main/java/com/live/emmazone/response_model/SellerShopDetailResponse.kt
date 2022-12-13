@@ -53,7 +53,9 @@ data class SellerShopDetailResponse(
             @SerializedName("isLiked")
             val isLiked: Int,
             @SerializedName("ratings")
-            val ratings: String,
+            var reviews : ArrayList<ShopReviewModel>,
+            @SerializedName("rating")
+            var rating : String = "",
             @SerializedName("distance")
             val distance: Int
         ) : Serializable {

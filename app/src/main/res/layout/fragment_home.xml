@@ -177,43 +177,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/search_type_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/searchHomeLayout"
-            app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
-            app:layout_constraintTop_toBottomOf="@+id/searchHomeLayout">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Search Type : " />
-
-            <RadioGroup
-                android:id="@+id/searchRadioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radioShop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Shop" />
-
-                <RadioButton
-                    android:id="@+id/radioProduct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Product" />
-            </RadioGroup>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/search"
@@ -225,7 +189,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/searchHomeLayout"
             app:layout_constraintStart_toStartOf="@+id/searchHomeLayout"
-            app:layout_constraintTop_toBottomOf="@+id/search_type_layout">
+            app:layout_constraintTop_toBottomOf="@+id/searchHomeLayout">
 
             <ImageView
                 android:id="@+id/imgHome"

@@ -30,6 +30,7 @@ import com.live.emmazone.activities.provider.EditShopDetailActivity
 import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.adapter.AdapterProShopProducts
 import com.live.emmazone.adapter.AdapterShopDetailCategory
+import com.live.emmazone.adapter.AdapterShopReviews
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.*
@@ -57,7 +58,9 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
     private lateinit var response: SellerShopDetailResponse
     var selectedCatID = -1
-
+    //Reviews
+    private lateinit var reviewsAdapter: AdapterShopReviews
+    private val reviewsList = ArrayList<ShopReviewModel>()
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -104,6 +107,15 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         requireView().scanQR.setOnClickListener {
             checkCameraPermission()
         }
+        requireView().aboutContainer.setOnClickListener {
+            toogleAbout()
+        }
+        requireView().reviewContainer.setOnClickListener {
+            toogleReviews()
+        }
+        reviewsAdapter = AdapterShopReviews(reviewsList)
+        requireView().recyclerViewShopReviews.adapter = reviewsAdapter
+        requireView().recyclerViewShopReviews.layoutManager = LinearLayoutManager(requireContext())
     }
 
 
@@ -159,10 +171,13 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
         } else {
             requireView().notifyRedBG.visibility = View.VISIBLE
         }
-
+        requireView().tvWishListRatingText.text = response!!.body.shopDetails.rating+  "/" + "5"
+        if (response!!.body.shopDetails.rating.isNotEmpty()) {
+            requireView().ratingBarWishList.rating = response!!.body.shopDetails.rating.toFloat()
+        }
         requireView().tvWishListStoreName.text = response.body.shopDetails.shopName
         requireView().tvDesc.text = response.body.shopDetails.shopDescription
-        requireView().tvFYear.text = response.body.shopDetails.year.toString()
+        requireView().tvFYear.text = "Since "+response.body.shopDetails.year.toString()
         requireView().tvShopAddress.text = response.body.shopDetails.shopAddress
         requireView().tvHeartsCount.text = response.body.shopDetails.likesCount.toString()
         list.clear()
@@ -200,6 +215,17 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
                 }
             }
         }
+        if (response.body.shopDetails.reviews.isNotEmpty()) {
+            reviewsList.clear()
+            reviewsList.addAll(response.body.shopDetails.reviews)
+            reviewsAdapter.notifyDataSetChanged()
+        }
+        if (reviewsList.size == 0) {
+            requireView().noReviews.visibility = View.VISIBLE
+        } else {
+            requireView().noReviews.visibility = View.GONE
+        }
+        requireView().tvShopReviews.text = "Review(${reviewsList.size})"
 
     }
 
@@ -370,5 +396,25 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
 
     private fun requestPermission() {
         cameraPermissions.launch(permissions)
+    }
+    private fun toogleAbout(){
+        if(requireView().containerAbout.visibility == View.VISIBLE){
+            requireView().containerAbout.visibility = View.GONE
+            requireView().toogleAbout.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+        }
+        else{
+            requireView().containerAbout.visibility = View.VISIBLE
+            requireView().toogleAbout.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+        }
+    }
+    private fun toogleReviews(){
+        if(requireView().containerReviews.visibility == View.VISIBLE){
+            requireView().containerReviews.visibility = View.GONE
+            requireView().toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+        }
+        else{
+            requireView().containerReviews.visibility = View.VISIBLE
+            requireView().toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+        }
     }
 }

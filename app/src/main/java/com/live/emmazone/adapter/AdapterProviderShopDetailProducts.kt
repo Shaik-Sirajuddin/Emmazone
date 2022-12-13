@@ -143,8 +143,7 @@ class AdapterProviderShopDetailProducts(
         val tvSDDeliveryEstimateSD = itemView.findViewById<TextView>(R.id.tvSDDeliveryEstimate)
         val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBar)
         val layoutAddProduct = itemView.findViewById<LinearLayout>(R.id.layoutAddProduct)
-        val layoutConst = itemView.findViewById<ConstraintLayout>(R.id.layoutConst)
-        val cardView = itemView.findViewById<CardView>(R.id.cardView)
+        val cardView = itemView.findViewById<ConstraintLayout>(R.id.cardView)
 
     }
 
