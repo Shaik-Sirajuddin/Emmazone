@@ -69,16 +69,14 @@ object  AppConstants {
     const val BASE_DOMAIN = "http://app.emmazn.de:8101"
     const val IP = "app.emmazn.de:8101"
 
-//    const val BASE_DOMAIN = "http://192.168.1.78:8101"
-//    const val IP = "192.168.1.78:8101"
-
 
     const val S3Url = "https://emmazones3.s3.eu-west-2.amazonaws.com"
 
     const val BASE_URL = "${BASE_DOMAIN}/api/"
 
-    //const val SOCKET_BASE_URL = "https://app.emmazn.de/"
-    const val SOCKET_BASE_URL = BASE_DOMAIN
+
+    const val SOCKET_BASE_URL = "http://app.emmazn.de:8101"
+//    const val SOCKET_BASE_URL = BASE_DOMAIN
     const val IMAGE_CATEGORY_URL = "${S3Url}/category/"
     const val IMAGE_USER_URL = "${S3Url}/user/"
     const val SHOP_IMAGE_URL = "${S3Url}/shop_images/"

@@ -26,6 +26,12 @@
         android:theme="@style/Theme.EmmaZone"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AddShopStory"
+            android:exported="false" />
+        <activity
+            android:name=".ImageGetter"
+            android:exported="false" />
+        <activity
             android:name=".activities.provider.ReturnsActivity"
             android:exported="false" />
         <activity

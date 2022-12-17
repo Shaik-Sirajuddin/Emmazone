@@ -7,7 +7,11 @@
         android:icon="@drawable/home_selector"
         android:title="@string/home"
         app:showAsAction="withText" />
-
+    <item
+        android:id="@+id/shopStory"
+        android:icon="@drawable/bell"
+        android:title="Story"
+        app:showAsAction="withText" />
     <item
         android:id="@+id/wishList"
         android:icon="@drawable/wishlist_selector"

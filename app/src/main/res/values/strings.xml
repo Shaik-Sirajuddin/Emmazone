@@ -316,6 +316,7 @@
     <string name="save_close"><![CDATA[Save & Close]]></string>
     <string name="save_continue"><![CDATA[Save & Continue]]></string>
     <string name="category">Category</string>
+    <string name="shop_stories">Stories</string>
 
 
 </resources>

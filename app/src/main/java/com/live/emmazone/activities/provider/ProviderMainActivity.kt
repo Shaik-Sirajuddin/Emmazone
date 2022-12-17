@@ -5,10 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.live.emmazone.R
-import com.live.emmazone.activities.fragment.FragmentProviderAddProduct
-import com.live.emmazone.activities.fragment.FragmentProviderHome
-import com.live.emmazone.activities.fragment.FragmentProviderSale
-import com.live.emmazone.activities.fragment.ProviderAccountFragment
+import com.live.emmazone.activities.fragment.*
 import com.live.emmazone.databinding.ActivityProviderMainBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.response_model.NotificationListingResponse
@@ -34,6 +31,11 @@ class ProviderMainActivity : AppCompatActivity() {
                 R.id.addProduct -> {
                     if (currentFragment() !is FragmentProviderAddProduct)
                         loadFragment(FragmentProviderAddProduct())
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.shopStory -> {
+                    if( currentFragment() !is ShopStoriesProviderFragment)
+                        loadFragment(ShopStoriesProviderFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.sale -> {

@@ -13,6 +13,11 @@
         app:showAsAction="withText"
         android:icon="@drawable/add_product_selector"
         />
+    <item android:id="@+id/shopStory"
+        android:title="Story"
+        app:showAsAction="withText"
+        android:icon="@drawable/bell"
+        />
 
     <item android:id="@+id/sale"
         android:title="@string/sales"

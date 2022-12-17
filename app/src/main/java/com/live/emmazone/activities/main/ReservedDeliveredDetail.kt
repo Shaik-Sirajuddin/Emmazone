@@ -73,12 +73,29 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         binding.btnCancel.setOnClickListener {
             performUpdateStatus()
         }
-
+        binding.rateShop.setOnClickListener {
+            rateShop()
+        }
         binding.recyclerOrderDetail.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         binding.recyclerOrderDetail.adapter = AdapterOrderDetail(this, list,isOnGoing)
-
+        initRateShop()
+    }
+    private fun initRateShop(){
+        if(isOnGoing){
+            binding.rateShop.visibility = View.GONE
+        }
+        else{
+            binding.rateShop.visibility = View.VISIBLE
+        }
+    }
+    private fun rateShop(){
+        if(list.size>0){
+            val intent = Intent(this,ShopReviewsActivity::class.java)
+            intent.putExtra("vendorId",list[0].vendorId.toString())
+            startActivity(intent)
+        }
     }
     private fun performUpdateStatus(){
         val status = userData!!.orderStatus

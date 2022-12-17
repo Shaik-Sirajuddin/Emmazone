@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/shop_stories"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/layoutMain"
+            app:layout_constraintStart_toStartOf="@+id/layoutMain"
+            app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+        <ImageView
+            android:id="@+id/image_notifications"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/bell"
+            app:layout_constraintBottom_toBottomOf="@+id/cart"
+            app:layout_constraintEnd_toStartOf="@+id/cart"
+            app:layout_constraintTop_toTopOf="@+id/cart" />
+
+        <ImageView
+            android:id="@+id/notifyRedBG"
+            android:layout_width="@dimen/dp10"
+            android:layout_height="@dimen/dp10"
+            android:background="@drawable/notification_red_color"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/cart"
+            app:layout_constraintHorizontal_bias="0.58"
+            app:layout_constraintStart_toStartOf="@+id/image_notifications"
+            app:layout_constraintTop_toTopOf="@+id/image_notifications" />
+
+
+        <ImageView
+            android:id="@+id/cart"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/cart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/ivRedCart"
+            android:layout_width="@dimen/dp10"
+            android:layout_height="@dimen/dp10"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/notification_red_color"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/cart"
+            app:layout_constraintTop_toTopOf="@+id/cart" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_white_top"
+        android:id="@+id/container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shopStoryRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

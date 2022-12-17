@@ -50,20 +50,12 @@ class AdapterOrderDetail(
             intent.putExtra("id",data.id.toString())
             context.startActivity(intent)
         }
-        holder.rateShop.setOnClickListener {
-            val intent = Intent(context,ShopReviewsActivity::class.java)
-            intent.putExtra("vendorId",data.vendorId.toString())
-            context.startActivity(intent)
-        }
+
         if(isOnGoing){
             holder.review.visibility = View.GONE
-            holder.seperator.visibility = View.GONE
-            holder.rateShop.visibility = View.GONE
         }
         else{
             holder.review.visibility = View.VISIBLE
-            holder.seperator.visibility = View.VISIBLE
-            holder.rateShop.visibility = View.VISIBLE
         }
     }
 
@@ -78,7 +70,6 @@ class AdapterOrderDetail(
         val tvOrderQuantityNumberOD = itemView.findViewById<TextView>(R.id.tvOrderQuantityNumber)
         val productPriceOD = itemView.findViewById<TextView>(R.id.productPrice)
         val review = itemView.findViewById<Button>(R.id.button)
-        val rateShop = itemView.findViewById<Button>(R.id.rateShop)
         val seperator = itemView.findViewById<View>(R.id.seperator)
     }
 }

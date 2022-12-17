@@ -11,10 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.live.emmazone.activities.auth.UserLoginChoice
-import com.live.emmazone.activities.fragment.AccountFragment
-import com.live.emmazone.activities.fragment.FragmentMyOrders
-import com.live.emmazone.activities.fragment.HomeFragment
-import com.live.emmazone.activities.fragment.WishListFragment
+import com.live.emmazone.activities.fragment.*
 import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.databinding.ActivityMainBinding
 import com.live.emmazone.extensionfuncton.getPreference
@@ -30,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var ordersFragment: FragmentMyOrders
     lateinit var accountFragment: AccountFragment
     lateinit var wishListFragment: WishListFragment
+    lateinit var shopStoryFragment: ShopStoriesFragment
     lateinit var currentFragment: Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +72,14 @@ class MainActivity : AppCompatActivity() {
                         loadFragment(homeFragment)
                     //   binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(R.drawable.home_selected)
                 }
+                R.id.shopStory -> {
+                    if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                        showLoginDialog()
+                    } else {
+                        if (currentFragment() !is ShopStoriesFragment)
+                            loadFragment(shopStoryFragment)
+                    }
+                }
             }
             true
         }
@@ -84,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         homeFragment = HomeFragment()
         ordersFragment = FragmentMyOrders(null)
         accountFragment = AccountFragment()
-
+        shopStoryFragment = ShopStoriesFragment()
         //ordersFragment
         addAndHideFragment(ordersFragment)
         //wishListFragment
@@ -92,19 +98,23 @@ class MainActivity : AppCompatActivity() {
         //accountFragment
         addAndHideFragment(accountFragment)
         //HomeFragment
+        addAndHideFragment(shopStoryFragment)
+
         supportFragmentManager.beginTransaction()
             .add(R.id.fragmentContainer, homeFragment)
             .commit()
 
         currentFragment = homeFragment
     }
-    private fun addAndHideFragment(fragment: Fragment){
+
+    private fun addAndHideFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .add(R.id.fragmentContainer, fragment)
             .setMaxLifecycle(fragment, Lifecycle.State.CREATED)
             .hide(fragment).commit()
         currentFragment = fragment
     }
+
     private fun getNotificationClick() {
         if (intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE) != null) {
             val notificationResponse =

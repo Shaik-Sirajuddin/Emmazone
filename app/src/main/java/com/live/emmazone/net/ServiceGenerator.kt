@@ -28,7 +28,7 @@ object ServiceGenerator {
         .create()
 
     private val builder = Retrofit.Builder()
-        .baseUrl(AppConstants.BASE_URL)
+        .baseUrl("http://app.emmazn.de:8101/api/")
         .addConverterFactory(GsonConverterFactory.create(gson))
 //            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
