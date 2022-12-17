@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.utils.App
 import com.live.emmazone.utils.AppConstants
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -62,7 +63,7 @@ object SocketManager {
         //opts.transports  = arrayOf(WebSocket.NAME)
         opts.reconnection = true
         Log.e("socket",AppConstants.SOCKET_BASE_URL)
-        mSocket = IO.socket("http://app.emmazn.de:8101", opts)
+        mSocket = IO.socket("http://192.168.43.78:8101", opts)
         if (observerList == null || observerList!!.size == 0) {
             observerList = ArrayList()
         }

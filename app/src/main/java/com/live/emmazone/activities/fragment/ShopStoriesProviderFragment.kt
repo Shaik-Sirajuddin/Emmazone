@@ -24,6 +24,7 @@ class ShopStoriesProviderFragment : Fragment() {
                 val imagePath =  result.data?.getStringExtra("imagePath")
                 if(!imagePath.isNullOrEmpty()){
                     val intent = Intent(requireContext(),AddShopStory::class.java)
+                    intent.putExtra("imagePath",imagePath)
                     startActivity(intent)
                 }
             }

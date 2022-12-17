@@ -54,6 +54,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     var mainImagePath = ""
     var id = ""
     var isRefresh = false
+
     override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
             if (code == 0) {

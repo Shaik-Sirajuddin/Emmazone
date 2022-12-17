@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.live.emmazone.databinding.ActivityImageGetterBinding
 import com.live.emmazone.response_model.ProductImage
 import com.live.emmazone.utils.ImagePickerUtility
@@ -16,6 +17,7 @@ class ImageGetter : ImagePickerUtility() {
         val intent = Intent()
         if (imagePath != null) {
             intent.putExtra("imagePath",imagePath.toString())
+            Log.d("imagePath",imagePath)
             setResult(RESULT_OK,intent)
         }
         else{
@@ -28,5 +30,8 @@ class ImageGetter : ImagePickerUtility() {
         binding = ActivityImageGetterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getImage(0,false)
+        binding.retry.setOnClickListener {
+            getImage(0,false)
+        }
     }
 }

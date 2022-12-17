@@ -31,6 +31,7 @@ import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.adapter.AdapterProShopProducts
 import com.live.emmazone.adapter.AdapterShopDetailCategory
 import com.live.emmazone.adapter.AdapterShopReviews
+import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.*
@@ -161,11 +162,12 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
     }
 
     private fun setDetailData(response: SellerShopDetailResponse) {
+
         if (response.body.shopDetails.image != null) {
             Log.e("image", response.body.shopDetails.image)
             requireView().imageShopDetail.loadImage(response.body.shopDetails.image)
         }
-
+        savePreference(AppConstants.VENDOR_ID,response.body.shopDetails.id.toString())
         if (response.body.notificationCount == 0) {
             requireView().notifyRedBG.visibility = View.GONE
         } else {

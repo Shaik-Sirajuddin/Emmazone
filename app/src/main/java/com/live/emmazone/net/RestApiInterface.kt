@@ -1,6 +1,7 @@
 package com.live.emmazone.net
 
 
+import com.google.android.gms.common.internal.service.Common
 import com.live.emmazone.model.CartResponsModel
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.response_model.*
@@ -130,6 +131,7 @@ interface RestApiInterface {
         @Part images: ArrayList<MultipartBody.Part>,
         @Part mainImage: MultipartBody.Part
     ): Call<AddProductGroupResponse>
+
     @Multipart
     @POST(AppConstants.EDIT_PRODUCT_GROUP)
     fun editProductGroup(
@@ -137,6 +139,13 @@ interface RestApiInterface {
         @Part images: ArrayList<MultipartBody.Part>?,
         @Part mainImage: MultipartBody.Part?
     ): Call<EditProductGroupResponse>
+
+    @Multipart
+    @POST(AppConstants.ADD_SHOP_STORY)
+    fun addShopStory(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+        @Part image: MultipartBody.Part?
+    ):Call<CommonResponse>
     //
     @FormUrlEncoded
     @POST(AppConstants.CHANGE_PASSWORD)
