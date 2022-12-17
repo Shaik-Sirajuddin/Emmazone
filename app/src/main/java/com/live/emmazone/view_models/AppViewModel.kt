@@ -1847,7 +1847,7 @@ class AppViewModel : ViewModel() {
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, RequestBody>,
-        mainImage: MultipartBody.Part
+        mainImage: MultipartBody.Part?
     ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
@@ -1877,6 +1877,84 @@ class AppViewModel : ViewModel() {
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
                         addShopStory(activity, isDialogShow, hashMap, mainImage)
+                    }
+                })
+        }
+    }
+    //get stories of a specific shop or all shops
+    fun getShopStories(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, RequestBody>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.getShopStories(hashMap)
+                .enqueue(object : Callback<ShopStoryResponse> {
+                    override fun onResponse(
+                        call: Call<ShopStoryResponse>,
+                        response: Response<ShopStoryResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                            Log.e("f",mResponse.value?.data.toString())
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ShopStoryResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        getShopStories(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun deleteShopStories(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, RequestBody>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.deleteShopStory(hashMap)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                            Log.e("f",mResponse.value?.data.toString())
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        deleteShopStories(activity, isDialogShow, hashMap)
                     }
                 })
         }

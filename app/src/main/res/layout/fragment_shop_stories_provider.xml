@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/sales"
+            android:text="@string/my_stories"
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textSize="@dimen/sp20"
@@ -69,10 +69,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:background="@drawable/bg_white_top"
         >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/toHide"
+            android:text="Tap on camera icon to add a story"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addStory"

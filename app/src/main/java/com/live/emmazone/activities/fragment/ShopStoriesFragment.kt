@@ -16,8 +16,6 @@ class ShopStoriesFragment : Fragment() {
 
     private lateinit var binding: FragmentShopStoriesBinding
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

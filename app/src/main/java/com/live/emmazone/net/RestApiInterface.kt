@@ -146,6 +146,19 @@ interface RestApiInterface {
         @PartMap hashMap: HashMap<String, RequestBody>,
         @Part image: MultipartBody.Part?
     ):Call<CommonResponse>
+
+    @Multipart
+    @POST(AppConstants.GET_SHOP_STORIES)
+    fun getShopStories(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+    ) : Call<ShopStoryResponse>
+
+    @Multipart
+    @POST(AppConstants.DELETE_SHOP_STORY)
+    fun deleteShopStory(
+        @PartMap hashMap: HashMap<String, RequestBody>,
+    ) : Call<CommonResponse>
+
     //
     @FormUrlEncoded
     @POST(AppConstants.CHANGE_PASSWORD)

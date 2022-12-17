@@ -8,7 +8,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/retry"
-        android:text="Retry"
+        android:text="@string/upload"
         android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
