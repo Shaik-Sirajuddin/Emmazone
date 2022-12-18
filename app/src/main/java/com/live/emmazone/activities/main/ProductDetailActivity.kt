@@ -91,6 +91,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private lateinit var colorAdapter: ProductSizeAndColorAdapter
     private val sizeList = ArrayList<SizeAndColorItem>()
     private val colorList = ArrayList<SizeAndColorItem>()
+    private val imageList = arrayListOf<String>()
     //Review Data
     private lateinit var reviewsAdapter: AdapterRatingReviews
     private val reviewsList  =  ArrayList<ProductReviewModel>()
@@ -244,16 +245,21 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             binding.tvDesc.text = model.shortDescription
             binding.tvDelivery.text = model.description
 
-            val images = if(model.group != null && !model.group!!.productImages.isNullOrEmpty()){
+            val productImages = if(model.group != null && !model.group!!.productImages.isNullOrEmpty()){
                  model.group!!.productImages
             }
             else{
                  model.images
             }
+            imageList.clear()
+            productImages.forEach {
+                imageList.add(it.image)
+            }
             binding.itemImageProductDetail.adapter = ImageSliderCustomeAdapter(
                 this@ProductDetailActivity,
-                images
+                imageList
             )
+
             binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
             val price = AppUtils.getFormattedAmount(model.productPrice.toDouble())
             binding.tvPriceInteger.text = "$price €"

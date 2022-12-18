@@ -40,7 +40,8 @@
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/wishlist_button_background"
             android:padding="4dp"
-            android:layout_marginEnd="@dimen/dp20"
+            android:elevation="2dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/heart_unselect"
             app:layout_constraintEnd_toEndOf="@+id/containerImage"
             app:layout_constraintTop_toTopOf="@+id/containerImage" />

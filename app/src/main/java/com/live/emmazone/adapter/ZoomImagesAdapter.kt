@@ -10,7 +10,7 @@ import com.live.emmazone.response_model.Product
 import com.schunts.extensionfuncton.loadImage
 import kotlinx.android.synthetic.main.item_zoom_image.view.*
 
-class ZoomImagesAdapter(val imagesArrayList: ArrayList<Product.ProductImage>) :
+class ZoomImagesAdapter(val imagesArrayList: ArrayList<String>) :
     RecyclerView.Adapter<ZoomImagesAdapter.ZoomImageViewHolder>() {
 
 
@@ -31,7 +31,7 @@ class ZoomImagesAdapter(val imagesArrayList: ArrayList<Product.ProductImage>) :
     inner class ZoomImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(pos: Int) {
-            itemView.zoomAgeImage.loadImage(imagesArrayList[pos].image)
+            itemView.zoomAgeImage.loadImage(imagesArrayList[pos])
         }
     }
 }

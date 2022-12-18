@@ -21,7 +21,8 @@ import kotlin.collections.ArrayList
  */
 class ImageSliderCustomeAdapter(
     private val context: Context,
-    private val imagesArrayList: ArrayList<Product.ProductImage>
+    private val imagesArrayList: ArrayList<String>,
+    private val isStory: Boolean = false,
 ) : PagerAdapter() {
     private val inflater: LayoutInflater
     var big_image: ImageView? = null
@@ -38,15 +39,14 @@ class ImageSliderCustomeAdapter(
         val myImage = myImageLayout.findViewById<View>(R.id.imagslideid) as ImageView
         //final ProgressBar progressbar=(ProgressBar) myImageLayout.findViewById(R.id.progressbar);
 
-        myImage.loadImage(imagesArrayList[position].image)
+        myImage.loadImage(imagesArrayList[position])
 
-
-        myImage.setOnClickListener {
-            val intent = Intent(context, ImageZoomActivity::class.java)
-            intent.putExtra(AppConstants.IMAGES_ARRAYLIST, imagesArrayList)
-            context.startActivity(intent)
-
-        }
+//        if (!isStory)
+            myImage.setOnClickListener {
+                val intent = Intent(context, ImageZoomActivity::class.java)
+                intent.putExtra(AppConstants.IMAGES_ARRAYLIST, imagesArrayList)
+                context.startActivity(intent)
+            }
 
         view.addView(myImageLayout, 0)
         return myImageLayout

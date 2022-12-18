@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/likeShop"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/wishlist_button_background"
+            android:padding="4dp"
+            android:elevation="1dp"
+            android:src="@drawable/heart_unselect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <RelativeLayout
+            android:id="@+id/rl_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/itemImageProductDetail"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="center"
+                android:src="@drawable/placeholder" />
+
+
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/indicator_product"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/itemImageProductDetail"
+                android:layout_gravity="center"
+                app:ci_drawable="@drawable/circleindicator_round" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:paddingBottom="6dp"
+            app:layout_constraintTop_toBottomOf="@id/rl_view_pager"
+            >
+            <TextView
+                android:id="@+id/shopName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Okeefe Fashion isklfjal"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:lines="1"
+                android:layout_weight="1"
+                />
+            <ImageView
+                android:id="@+id/imageLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="2dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/location" />
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp12"
+                tools:text="2km away"
+                />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

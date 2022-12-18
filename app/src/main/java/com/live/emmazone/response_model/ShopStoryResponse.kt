@@ -13,10 +13,10 @@ data class ShopStoryResponse(
     var message: String, // Signup successfully
     @SerializedName("success")
     var success: Boolean // true
-):Serializable{
+) : Serializable {
     data class Shop(
         @SerializedName("id")
-        var id : String,
+        var id: String,
         @SerializedName("latitude")
         var latitude: String, // 30.71450000
         @SerializedName("longitude")
@@ -25,9 +25,13 @@ data class ShopStoryResponse(
         var distance: Int, // 8738
         @SerializedName("isLiked")
         var isLiked: Int, // 1
+        @SerializedName("shopName")
+        var shopName: String,
         @SerializedName("rating")
         var ratings: String, // 0.0
+        @SerializedName("userId")
+        var userId: String,
         @SerializedName("shop_stories")
-        var stories : ArrayList<ModelShopStory>
-    ):Serializable
+        var stories: ArrayList<ModelShopStory>
+    ) : Serializable
 }

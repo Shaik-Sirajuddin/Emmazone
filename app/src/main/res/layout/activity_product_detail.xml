@@ -77,18 +77,6 @@
             android:orientation="vertical"
             android:paddingTop="20dp">
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/bannerProductDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp16"
-                android:layout_marginEnd="@dimen/dp16"
-                android:scaleType="centerCrop"
-                android:src="@drawable/banner_product_detail"
-                android:visibility="gone"
-                app:riv_corner_radius="@dimen/dp10"
-                tools:layout_editor_absoluteX="42dp"
-                tools:layout_editor_absoluteY="225dp" />
 
             <RelativeLayout
                 android:id="@+id/rl_view_pager"

@@ -80,7 +80,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutMain"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        >
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="10dp"
@@ -90,5 +92,12 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             />
+        <TextView
+            android:id="@+id/toHide"
+            android:text="@string/no_data_found"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
