@@ -36,12 +36,12 @@ class ShopWishListFragment : LocationUpdateUtilityFragment(),
     private var listLoaded = false
 
     private var locationLoaded = false
-    private var lat:String = ""
-    private var lng:String = ""
-    private lateinit var binding : FragmentShopWishListBinding
+    private var lat: String = ""
+    private var lng: String = ""
+    private lateinit var binding: FragmentShopWishListBinding
     override fun updatedLatLng(lat: Double?, lng: Double?) {
         if (lat != null && lng != null) {
-            if (activity != null){
+            if (activity != null) {
                 locationLoaded = true
                 this.lat = lat.toString()
                 this.lng = lng.toString()
@@ -50,6 +50,7 @@ class ShopWishListFragment : LocationUpdateUtilityFragment(),
             }
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -92,6 +93,7 @@ class ShopWishListFragment : LocationUpdateUtilityFragment(),
         }
 
     }
+
     private fun clicksHandle() {
 
         binding.edtSearchWishList.addTextChangedListener(object : TextWatcher {
@@ -192,13 +194,18 @@ class ShopWishListFragment : LocationUpdateUtilityFragment(),
 
     override fun onResume() {
         super.onResume()
-        if(locationLoaded){
-            if(!listLoaded){
-                wishListApiHit(lat,lng)
+        if (locationLoaded) {
+            if (!listLoaded) {
+                wishListApiHit(lat, lng)
             }
-        }
-        else{
-            getLiveLocation(requireActivity())
+        } else {
+            lat = getPreference(AppConstants.LATITUDE, "")
+            lng = getPreference(AppConstants.LONGITUDE, "")
+            if (lat.isEmpty() || lng.isEmpty()) {
+                getLiveLocation(requireActivity())
+            } else {
+                wishListApiHit(lat, lng)
+            }
         }
     }
 

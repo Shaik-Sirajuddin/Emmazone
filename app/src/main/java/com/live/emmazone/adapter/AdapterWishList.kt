@@ -18,16 +18,19 @@ import com.live.emmazone.model.ModelWishList
 import com.live.emmazone.response_model.WishListResponse
 import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
+import com.smarteist.autoimageslider.SliderAnimations
 
 class AdapterWishList(private var list: ArrayList<WishListResponse.Body.Wish>) :
     RecyclerView.Adapter<AdapterWishList.WishListViewHolder>() {
 
     private lateinit var mContext: Context
-    var onClickListener: ((wishListModel: WishListResponse.Body.Wish, clickOn: String) -> Unit)? = null
+    var onClickListener: ((wishListModel: WishListResponse.Body.Wish, clickOn: String) -> Unit)? =
+        null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishListViewHolder {
         mContext = parent.context
-        val binding =  ItemLayoutHomeNearbyShopBinding.inflate(
+        val binding = ItemLayoutHomeNearbyShopBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -46,40 +49,51 @@ class AdapterWishList(private var list: ArrayList<WishListResponse.Body.Wish>) :
     inner class WishListViewHolder(val binding: ItemLayoutHomeNearbyShopBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pos: Int) {
-            val nearShopModel = list[pos]
+            with(binding) {
+                val nearShopModel = list[pos]
+                val images = arrayListOf<String>()
+                nearShopModel.stories.forEach {
+                    images.add(it.image)
+                }
+                images.add(AppConstants.IMAGE_USER_URL + nearShopModel.image)
+                val adapter = ImageSliderCustomeAdapter(
+                    mContext,
+                    images,
+                    false
+                ) {
+                    onClickListener?.invoke(list[pos], "itemClick")
+                }
+                slider.setSliderAdapter(adapter)
+                slider.setIndicatorAnimation(IndicatorAnimationType.WORM)
+                slider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+                slider.scrollTimeInSec = 3
+                slider.startAutoCycle()
 
-            binding.itemImageHome.loadImage(AppConstants.IMAGE_USER_URL + nearShopModel.image)
-            binding.tvWishListStoreName.text = nearShopModel.shopName
-            binding.tvWishListRatingText.text = nearShopModel.ratings + "/" + "5"
-            binding.tvWishListDistance.text = nearShopModel.distance.toString() + " " +
-                    mContext.getString(R.string.miles_away)
+                tvWishListStoreName.text = nearShopModel.shopName
+                tvWishListRatingText.text = nearShopModel.ratings + "/" + "5"
+                tvWishListDistance.text = nearShopModel.distance.toString() + " " +
+                        mContext.getString(R.string.miles_away)
 
-            if (nearShopModel.ratings.isNotEmpty()) {
-                binding.ratingBarWishList.rating = nearShopModel.ratings.toFloat()
+                if (nearShopModel.ratings.isNotEmpty()) {
+                    ratingBarWishList.rating = nearShopModel.ratings.toFloat()
+                }
+
+                if (nearShopModel.isLiked == 1) {
+                    itemHeartWishList.setImageResource(R.drawable.heart)
+                } else {
+                    itemHeartWishList.setImageResource(R.drawable.heart_unselect)
+                }
+
+                itemHeartWishList.setOnClickListener {
+                    onClickListener?.invoke(list[pos], "favourite")
+                }
+                ratingBarWishList.setOnClickListener {
+                    onClickListener?.invoke(list[pos], "rating")
+                }
+                tvWishListRatingText.setOnClickListener {
+                    onClickListener?.invoke(list[pos], "rating")
+                }
             }
-
-            if (nearShopModel.isLiked == 1) {
-                binding.itemHeartWishList.setImageResource(R.drawable.heart)
-            } else {
-                binding.itemHeartWishList.setImageResource(R.drawable.heart_unselect)
-            }
-
-            binding.itemHeartWishList.setOnClickListener {
-                onClickListener?.invoke(list[pos], "favourite")
-            }
-
-            binding.itemImageHome.setOnClickListener {
-                onClickListener?.invoke(list[pos], "itemClick")
-            }
-
-            binding.ratingBarWishList.setOnClickListener {
-                onClickListener?.invoke(list[pos], "rating")
-            }
-
-            binding.tvWishListRatingText.setOnClickListener {
-                onClickListener?.invoke(list[pos], "rating")
-            }
-
         }
     }
 

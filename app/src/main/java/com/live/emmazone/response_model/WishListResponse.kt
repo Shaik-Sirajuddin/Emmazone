@@ -2,6 +2,7 @@ package com.live.emmazone.response_model
 
 
 import com.google.gson.annotations.SerializedName
+import com.live.emmazone.model.ModelShopStory
 import java.io.Serializable
 
 data class WishListResponse(
@@ -42,7 +43,9 @@ data class WishListResponse(
             @SerializedName("shopName")
             var shopName: String, // collection
             @SerializedName("userId")
-            var userId: Int // 263
+            var userId: Int, // 263
+            @SerializedName("shop_stories")
+            var stories: ArrayList<ModelShopStory>
         ) : Serializable
     }
 }

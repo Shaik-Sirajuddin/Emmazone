@@ -10,53 +10,57 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.live.emmazone.R
 import com.live.emmazone.activities.ImageZoomActivity
+import com.live.emmazone.databinding.ItemLayoutHomeNearbyShopBinding
+import com.live.emmazone.databinding.RowImageSliderBinding
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.response_model.Product
 import com.live.emmazone.utils.AppConstants
 import com.schunts.extensionfuncton.loadImage
+import com.smarteist.autoimageslider.SliderViewAdapter
 import kotlin.collections.ArrayList
 
-/**
- * Created by Gagan Deep Singh on 9/2/2017.
- */
+
 class ImageSliderCustomeAdapter(
     private val context: Context,
     private val imagesArrayList: ArrayList<String>,
-    private val isStory: Boolean = false,
-) : PagerAdapter() {
-    private val inflater: LayoutInflater
-    var big_image: ImageView? = null
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as View)
-    }
+    private val zoomImage: Boolean = true,
+    private val onClick: () -> Unit = {}
+) : SliderViewAdapter<ImageSliderCustomeAdapter.ImageSliderViewHolder>() {
 
     override fun getCount(): Int {
         return imagesArrayList.size
     }
 
-    override fun instantiateItem(view: ViewGroup, position: Int): Any {
-        val myImageLayout = inflater.inflate(R.layout.row_image_slider, view, false)
-        val myImage = myImageLayout.findViewById<View>(R.id.imagslideid) as ImageView
-        //final ProgressBar progressbar=(ProgressBar) myImageLayout.findViewById(R.id.progressbar);
+    inner class ImageSliderViewHolder(val binding: RowImageSliderBinding) :
+        SliderViewAdapter.ViewHolder(binding.root) {
+        fun bind(pos: Int) {
+            with(binding) {
+                imagslideid.loadImage(imagesArrayList[pos])
 
-        myImage.loadImage(imagesArrayList[position])
-
-//        if (!isStory)
-            myImage.setOnClickListener {
-                val intent = Intent(context, ImageZoomActivity::class.java)
-                intent.putExtra(AppConstants.IMAGES_ARRAYLIST, imagesArrayList)
-                context.startActivity(intent)
+                imagslideid.setOnClickListener {
+                    if (zoomImage) {
+                        val intent = Intent(context, ImageZoomActivity::class.java)
+                        intent.putExtra(AppConstants.IMAGES_ARRAYLIST, imagesArrayList)
+                        context.startActivity(intent)
+                    } else {
+                        onClick()
+                    }
+                }
             }
 
-        view.addView(myImageLayout, 0)
-        return myImageLayout
+        }
     }
 
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view == `object`
+    override fun onCreateViewHolder(parent: ViewGroup?): ImageSliderViewHolder {
+        val binding = RowImageSliderBinding.inflate(
+            LayoutInflater.from(context),
+            parent,
+            false
+        )
+        return ImageSliderViewHolder(binding)
     }
 
-    init {
-        inflater = LayoutInflater.from(context)
+    override fun onBindViewHolder(viewHolder: ImageSliderViewHolder, position: Int) {
+        viewHolder.bind(position)
     }
 }

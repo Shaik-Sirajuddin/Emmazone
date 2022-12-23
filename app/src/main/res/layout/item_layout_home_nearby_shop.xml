@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_marginTop="16dp"
-    android:layout_marginHorizontal="2dp"
     android:layout_height="wrap_content"
-    app:cardElevation="0dp"
-    app:cardCornerRadius="0dp"
+    android:layout_marginHorizontal="2dp"
+    android:layout_marginTop="16dp"
     android:elevation="4dp"
     app:cardBackgroundColor="@android:color/transparent"
-    >
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/containerImage"
             android:layout_width="match_parent"
@@ -21,15 +21,33 @@
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
-            <ImageView
-                android:id="@+id/itemImageHome"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder"
-                />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderIndicatorEnabled="true"
+                    app:sliderIndicatorPadding="2dp"
+                    app:sliderIndicatorRadius="1.2dp"
+                    app:sliderIndicatorSelectedColor="@color/green"
+                    app:sliderIndicatorUnselectedColor="#FFF"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderStartAutoCycle="true"
+                    />
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -38,33 +56,32 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginTop="@dimen/dp16"
-            android:background="@drawable/wishlist_button_background"
-            android:padding="4dp"
-            android:elevation="2dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/wishlist_button_background"
+            android:elevation="2dp"
+            android:padding="4dp"
             android:src="@drawable/heart_unselect"
             app:layout_constraintEnd_toEndOf="@+id/containerImage"
             app:layout_constraintTop_toTopOf="@+id/containerImage" />
 
         <LinearLayout
-            android:elevation="10dp"
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/nearby_shop_gradient"
+            android:elevation="10dp"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/containerImage"
-            app:layout_constraintStart_toStartOf="@+id/containerImage"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:paddingHorizontal="10dp"
             android:paddingVertical="2dp"
-            >
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/containerImage"
+            app:layout_constraintStart_toStartOf="@+id/containerImage">
 
             <LinearLayout
                 android:id="@+id/layoutWishListStore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvWishListStoreName"
@@ -107,8 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:orientation="horizontal"
-                 >
+                android:orientation="horizontal">
 
                 <RatingBar
                     android:id="@+id/ratingBarWishList"
@@ -120,11 +136,11 @@
 
 
                 <TextView
-                    android:background="@android:color/transparent"
                     android:id="@+id/tvWishListRatingText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
                     android:text="4.5/5"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp12" />

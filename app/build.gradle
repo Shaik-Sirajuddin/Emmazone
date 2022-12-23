@@ -113,11 +113,14 @@ dependencies {
     //SwipeMenu
     implementation 'com.tubb.smrv:swipemenu-recyclerview:5.4.5'
 
-    //Crop image
+    //Crop imagen
     implementation 'com.github.dhaval2404:imagepicker:2.1'
 
     //Letter Image
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    // Image Slider
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
 
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 }
