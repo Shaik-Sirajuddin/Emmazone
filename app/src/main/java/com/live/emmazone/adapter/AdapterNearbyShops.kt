@@ -53,9 +53,10 @@ class AdapterNearbyShops(
 
                 val nearShopModel = list[pos]
                 val images = arrayListOf<String>()
-                nearShopModel.stories.forEach {
-                    images.add(it.image)
-                }
+                if (nearShopModel.isLiked == 1)
+                    nearShopModel.stories.forEach {
+                        images.add(it.image)
+                    }
                 images.add(AppConstants.IMAGE_USER_URL + nearShopModel.image)
                 val adapter = ImageSliderCustomeAdapter(
                     mContext,
@@ -70,6 +71,7 @@ class AdapterNearbyShops(
                 slider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
                 slider.scrollTimeInSec = 3
                 slider.startAutoCycle()
+
 
                 //setting data
                 tvWishListStoreName.text = nearShopModel.shopName

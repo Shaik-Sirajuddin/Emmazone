@@ -29,7 +29,7 @@ object ServiceGenerator {
         .create()
 
     private val builder = Retrofit.Builder()
-        .baseUrl("http://192.168.191.78:8101/api/")
+        .baseUrl(AppConstants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
 //            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
