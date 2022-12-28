@@ -33,6 +33,7 @@ class AdapterProShopProducts(
         val ModelProShopDetailProducts = list[position]
         ModelProShopDetailProducts.mainImage?.let { holder.imageProductSD.loadImage(it) }
         holder.productItemNameSD.text = ModelProShopDetailProducts.name
+        holder.productItemShortDescription.text = ModelProShopDetailProducts.shortDescription
         val products = list[position].products
         if (products.isNotEmpty()) {
             var price = Double.MAX_VALUE
@@ -122,6 +123,7 @@ class AdapterProShopProducts(
         val imageEditSDProduct: ImageView = itemView.findViewById(R.id.imgEdit)
         val imageDelete: ImageView = itemView.findViewById(R.id.imgDelete)
         val productItemNameSD = itemView.findViewById<TextView>(R.id.productItemName)
+        val productItemShortDescription = itemView.findViewById<TextView>(R.id.productItemShortDescription)
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
         val tvShopDetailProductBrandSD =
             itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)

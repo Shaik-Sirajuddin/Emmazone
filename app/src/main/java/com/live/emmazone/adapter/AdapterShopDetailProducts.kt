@@ -46,6 +46,7 @@ class AdapterShopDetailProducts(
         }
 
         holder.productItemNameSD.text = data.name
+        holder.productItemShortDescription.text = data.shortDescription
         holder.productItemPriceSD.text = mContext.getString(R.string.euro_symbol,
             data.productPrice.toDoubleOrNull()?.let { AppUtils.getFormattedAmount(it) })
         holder.tvShopDetailProductBrandSD.text = data.shortDescription
@@ -75,6 +76,7 @@ class AdapterShopDetailProducts(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageProductSD: ImageView = itemView.findViewById(R.id.imageProductShopDetail)
         val productItemNameSD = itemView.findViewById<TextView>(R.id.productItemName)
+        val productItemShortDescription = itemView.findViewById<TextView>(R.id.productItemShortDescription)
         val productItemPriceSD = itemView.findViewById<TextView>(R.id.productItemPrice)
         val tvShopDetailProductBrandSD =
             itemView.findViewById<TextView>(R.id.tvShopDetailProductBrand)

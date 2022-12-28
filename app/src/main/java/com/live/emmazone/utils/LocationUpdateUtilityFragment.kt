@@ -31,7 +31,7 @@ abstract class LocationUpdateUtilityFragment : Fragment() {
     private var locationRequest: LocationRequest? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
-
+    private var initialized = false
     private val permissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
@@ -81,7 +81,7 @@ abstract class LocationUpdateUtilityFragment : Fragment() {
         }
 
     open fun getLiveLocation(activity: Activity) {
-
+        initialized = true
         mActivity = activity
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(mActivity)
@@ -250,6 +250,7 @@ abstract class LocationUpdateUtilityFragment : Fragment() {
 
     //call stopLocationUpdates() method for stop live location update
     fun stopLocationUpdates() {
+        if(initialized)
         fusedLocationClient.removeLocationUpdates(locationCallback)
         Log.e(TAG, "Get Live Location Stop")
     }

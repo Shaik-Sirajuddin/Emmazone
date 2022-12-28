@@ -44,6 +44,7 @@ class AdapterProviderShopDetailProducts(
 
             model.mainImage?.let { holder.imageProductSD.loadImage(it) }
             holder.productItemNameSD.text = model.name
+            holder.shortDescription.text = model.shortDescription
             holder.tvShopDetailProductBrandSD.text = model.shortDescription  //short description
 
             holder.tvSDDeliveryEstimateSD.text = "Delivery Estimate 7 Days"
@@ -144,6 +145,7 @@ class AdapterProviderShopDetailProducts(
         val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBar)
         val layoutAddProduct = itemView.findViewById<LinearLayout>(R.id.layoutAddProduct)
         val cardView = itemView.findViewById<ConstraintLayout>(R.id.cardView)
+        val shortDescription = itemView.findViewById<TextView>(R.id.productItemShortDescription)
 
     }
 

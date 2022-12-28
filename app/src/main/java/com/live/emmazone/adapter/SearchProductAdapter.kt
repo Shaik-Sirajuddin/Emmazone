@@ -52,6 +52,7 @@ class SearchProductAdapter(
             }
 
             itemView.productItemName.text = model.name
+            itemView.productItemShortDescription.text = model.shortDescription
             itemView.rating.text = model.productReview
             try{
                 itemView.ratingBar.rating = model.productReview.toFloat()

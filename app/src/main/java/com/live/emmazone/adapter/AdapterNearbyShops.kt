@@ -75,6 +75,7 @@ class AdapterNearbyShops(
 
                 //setting data
                 tvWishListStoreName.text = nearShopModel.shopName
+                if(nearShopModel.ratings.toFloatOrNull() != 0f)
                 tvWishListRatingText.text = nearShopModel.ratings + "/" + "5"
                 tvWishListDistance.text = nearShopModel.distance.toString() + " " +
                         mContext.getString(R.string.miles_away)

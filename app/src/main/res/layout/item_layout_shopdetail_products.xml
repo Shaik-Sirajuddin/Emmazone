@@ -48,7 +48,7 @@
             android:paddingVertical="10dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:lines="2"
+            android:lines="1"
             android:text="this is the product name and its this"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
@@ -57,7 +57,21 @@
             app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
             app:layout_constraintEnd_toEndOf="parent"
             />
-
+        <TextView
+            android:id="@+id/productItemShortDescription"
+            android:layout_width="0dp"
+            android:paddingHorizontal="10dp"
+            android:paddingBottom="10dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="short description"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            app:layout_constraintTop_toBottomOf="@id/productItemName"
+            app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
         <TextView
             android:id="@+id/productItemPrice"
             android:layout_width="wrap_content"
@@ -68,7 +82,7 @@
             android:text="30.00€"
             android:textStyle="bold"
             android:textSize="@dimen/sp12"
-            app:layout_constraintTop_toBottomOf="@+id/productItemName"
+            app:layout_constraintTop_toBottomOf="@+id/productItemShortDescription"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -85,7 +99,7 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/rating"
             app:layout_constraintEnd_toStartOf="@+id/rating"
-            app:layout_constraintTop_toBottomOf="@+id/productItemName" />
+            app:layout_constraintTop_toBottomOf="@+id/productItemShortDescription" />
 
         <TextView
             android:id="@+id/rating"
@@ -94,10 +108,10 @@
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="2dp"
-            android:text="4.8"
+            android:text="NA"
             android:textColor="@color/black"
             android:textSize="@dimen/sp12"
-            app:layout_constraintTop_toBottomOf="@id/productItemName"
+            app:layout_constraintTop_toBottomOf="@id/productItemShortDescription"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView

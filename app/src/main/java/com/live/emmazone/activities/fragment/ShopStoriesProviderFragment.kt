@@ -1,10 +1,14 @@
 package com.live.emmazone.activities.fragment
 
+import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Html
 import android.util.Log
 import android.view.*
@@ -13,13 +17,17 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.common.internal.service.Common
+import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
 import com.live.emmazone.activities.ImageGetter
+import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.AddShopStory
 import com.live.emmazone.adapter.ShopStoryProviderAdapter
 import com.live.emmazone.databinding.FragmentShopStoriesProviderBinding
@@ -28,10 +36,12 @@ import com.live.emmazone.model.ModelShopStory
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
+import com.live.emmazone.response_model.ScanOrderResponse
 import com.live.emmazone.response_model.ShopStoryResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.ImagePickerUtility
+import com.live.emmazone.utils.SimpleScannerActivity
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toBody
 import okhttp3.RequestBody
@@ -82,6 +92,13 @@ class ShopStoriesProviderFragment : Fragment(), Observer<RestObservable> {
     }
 
     private fun initViews() {
+        binding.notifications.setOnClickListener {
+            val intent = Intent(activity, Notifications::class.java)
+            startActivity(intent)
+        }
+        binding.scanQR.setOnClickListener {
+            checkCameraPermission()
+        }
         binding.addStory.setOnClickListener {
             launcher.launch(Intent(requireContext(), ImageGetter::class.java))
         }
@@ -149,11 +166,136 @@ class ShopStoriesProviderFragment : Fragment(), Observer<RestObservable> {
                     }
                     AppUtils.showMsgOnlyWithoutClick(requireActivity(),t.data.message)
                 }
+                if (t.data is ScanOrderResponse) {
+                    AppUtils.showMsgOnlyWithoutClick(requireActivity(), t.data.message)
+                }
             }
             Status.ERROR->{
                 AppUtils.showMsgOnlyWithoutClick(requireContext(),t.error.toString())
             }
             else->{}
         }
+    }
+    /** Scan Qr Implementation **/
+    // util method
+    private val permissions = arrayOf(Manifest.permission.CAMERA)
+
+    private fun hasPermissionsCheck(permissions: Array<String>): Boolean = permissions.all {
+        ActivityCompat.checkSelfPermission(
+            requireContext(),
+            it
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun checkPermissionDenied(permissions: String) {
+        if (shouldShowRequestPermissionRationale(permissions)) {
+            val mBuilder = AlertDialog.Builder(requireContext())
+            val dialog: AlertDialog =
+                mBuilder.setTitle(R.string.alert).setMessage(R.string.permissionRequired)
+                    .setPositiveButton(
+                        R.string.ok
+                    ) { dialog, which -> requestPermission() }
+                    .setNegativeButton(
+                        R.string.cancel
+                    ) { dialog, which ->
+
+                    }.create()
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.green
+                    )
+                )
+            }
+            dialog.show()
+        } else {
+            val builder = AlertDialog.Builder(requireContext())
+            val dialog: AlertDialog =
+                builder.setTitle(R.string.alert).setMessage(R.string.permissionRequired)
+                    .setCancelable(
+                        false
+                    )
+                    .setPositiveButton(R.string.openSettings) { dialog, which ->
+//finish()
+                        val intent = Intent(
+                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.fromParts(
+                                "package",
+                                BuildConfig.APPLICATION_ID + ".provider",
+                                null
+                            )
+                        )
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }.create()
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.green
+                    )
+                )
+            }
+            dialog.show()
+        }
+    }
+
+    private val scanLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val orderId = result.data!!.getStringExtra(AppConstants.ORDER_ID)
+                if (!orderId.isNullOrEmpty()) {
+                    orderStatusApiHit("2", orderId)
+                }
+            }
+        }
+    private val cameraPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
+            if (permissions.isNotEmpty()) {
+                permissions.entries.forEach {
+                    Log.d("permissions", "${it.key} = ${it.value}")
+                }
+
+                val camera = permissions[Manifest.permission.CAMERA]
+
+                if (camera == true) {
+                    Log.e("permissions", "Permission Granted Successfully")
+                    val intent = Intent(requireContext(), SimpleScannerActivity::class.java)
+                    scanLauncher.launch(intent)
+                } else {
+                    Log.e("permissions", "Permission not granted")
+                    checkCameraPermission()
+                }
+
+            }
+
+        }
+
+    private fun orderStatusApiHit(orderStatusUpdate: String, id: String) {
+        val hashMap = HashMap<String, String>()
+        hashMap["id"] = id
+        hashMap["orderStatus"] =
+            orderStatusUpdate // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
+        appViewModel.orderStatusApi(requireActivity(), hashMap, true)
+        appViewModel.getResponse().observe(requireActivity(), this)
+
+    }
+
+    private fun checkCameraPermission() {
+
+        if (hasPermissionsCheck(permissions)) {
+            Log.e("Permissions", "Permissions Granted")
+            val intent = Intent(requireContext(), SimpleScannerActivity::class.java)
+            scanLauncher.launch(intent)
+        } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+            checkPermissionDenied(Manifest.permission.CAMERA)
+        } else {
+            Log.e("Permissions", "Request for Permissions")
+            requestPermission()
+        }
+    }
+
+    private fun requestPermission() {
+        cameraPermissions.launch(permissions)
     }
 }

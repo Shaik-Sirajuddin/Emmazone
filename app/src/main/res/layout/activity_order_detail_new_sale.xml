@@ -328,7 +328,7 @@
                                 android:id="@+id/tvPaymentMethod"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:text="Payment method:"
                                 android:textColor="@color/light_black" />
 
@@ -336,7 +336,7 @@
                                 android:id="@+id/tvItem"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:text="Quantity"
                                 android:textColor="@color/light_black" />
 
@@ -344,7 +344,7 @@
                                 android:id="@+id/tvSubTotal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:layout_weight="1"
                                 android:text="@string/sub_total"
                                 android:textColor="@color/light_black"
@@ -355,7 +355,7 @@
                                 android:id="@+id/tvDeliveryCharges"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:layout_weight="1"
                                 android:text="@string/delivery_charges"
                                 android:textColor="@color/light_black"
@@ -366,7 +366,7 @@
                                 android:id="@+id/tvTax"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:layout_weight="1"
                                 android:text="@string/tax"
                                 android:textColor="@color/light_black"
@@ -377,7 +377,7 @@
                                 android:id="@+id/tvTotal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:layout_weight="1"
                                 android:text="@string/total"
                                 android:textColor="@color/light_black"
@@ -388,7 +388,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_weight="1.7"
                             android:orientation="vertical"
 
                             >
@@ -397,15 +397,15 @@
                                 android:id="@+id/tvPayment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:textColor="@color/black"
-                                tools:text="PayPal" />
+                                tools:text="Paypal" />
 
                             <TextView
                                 android:id="@+id/tvItemCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:text="@string/_3"
                                 android:textColor="@color/black" />
 
@@ -413,7 +413,7 @@
                                 android:id="@+id/tvSubTotalPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:textColor="@color/black"
                                 tools:text="120.00€"
 
@@ -423,7 +423,7 @@
                                 android:id="@+id/tvDeliveryChargesPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:textColor="@color/black"
                                 tools:text="10.00€"
 
@@ -434,7 +434,7 @@
                                 android:id="@+id/tvTaxPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:text="00.00€"
                                 android:textColor="@color/black"
 
@@ -445,7 +445,7 @@
                                 android:id="@+id/tvTotalPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="2dp"
+                                android:layout_marginVertical="3dp"
                                 android:text="130.00€"
                                 android:textColor="@color/black"
 

@@ -29,15 +29,15 @@
 
         <ImageView
             android:id="@+id/scanQR"
-            app:layout_constraintTop_toTopOf="@id/image_notifications"
-            app:layout_constraintBottom_toBottomOf="@id/image_notifications"
-            app:layout_constraintEnd_toStartOf="@id/image_notifications"
+            app:layout_constraintTop_toTopOf="@id/notifications"
+            app:layout_constraintBottom_toBottomOf="@id/notifications"
+            app:layout_constraintEnd_toStartOf="@id/notifications"
             android:layout_marginEnd="25dp"
             android:src="@drawable/qr_code_scanner"
             android:layout_width="25dp"
             android:layout_height="25dp" />
         <ImageView
-            android:id="@+id/image_notifications"
+            android:id="@+id/notifications"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="24dp"
@@ -55,11 +55,11 @@
             android:layout_width="@dimen/dp10"
             android:layout_height="@dimen/dp10"
             android:background="@drawable/notification_red_color"
-            app:layout_constraintBottom_toBottomOf="@+id/image_notifications"
-            app:layout_constraintEnd_toEndOf="@+id/image_notifications"
+            app:layout_constraintBottom_toBottomOf="@+id/notifications"
+            app:layout_constraintEnd_toEndOf="@+id/notifications"
             app:layout_constraintHorizontal_bias="0.88"
-            app:layout_constraintStart_toStartOf="@+id/image_notifications"
-            app:layout_constraintTop_toTopOf="@+id/image_notifications"
+            app:layout_constraintStart_toStartOf="@+id/notifications"
+            app:layout_constraintTop_toTopOf="@+id/notifications"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
