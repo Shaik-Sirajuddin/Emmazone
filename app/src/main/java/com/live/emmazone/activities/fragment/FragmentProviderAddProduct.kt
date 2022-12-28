@@ -90,7 +90,9 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
         val filterList = ArrayList<ProductGroup>()
 
         list.forEach {
-            if (it.name.contains(text, true)) {
+            if (it.name.contains(text, true) ||
+                it.id.toString().contains(text) ||
+                it.registerCode.toString().contains(text)) {
                 filterList.add(it)
             }
         }

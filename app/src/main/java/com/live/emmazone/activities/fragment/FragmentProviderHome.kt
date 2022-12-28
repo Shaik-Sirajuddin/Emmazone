@@ -131,6 +131,7 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
                 if (t.data is SellerShopDetailResponse) {
                     response = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
+
                         setDetailData(response)
                     }
 

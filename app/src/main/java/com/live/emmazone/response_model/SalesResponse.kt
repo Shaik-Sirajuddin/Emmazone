@@ -13,13 +13,13 @@ data class SalesResponse(
     var message: String, // Status fetched successfully
     @SerializedName("success")
     var success: Boolean // true
-) :Serializable{
+) : Serializable {
     data class Body(
         @SerializedName("notificationCount")
         var notificationCount: Int, // 3
         @SerializedName("response")
         var response: List<Response>
-    ):Serializable {
+    ) : Serializable {
         data class Response(
             @SerializedName("adminCommission")
             var adminCommission: String, // 0.00
@@ -64,8 +64,8 @@ data class SalesResponse(
             @SerializedName("vendor")
             var vendor: Vendor,
             @SerializedName("vendorId")
-            var vendorId: Int // 299
-        ) :Serializable{
+            var vendorId: Int, // 299,
+        ) : Serializable {
             data class Customer(
                 @SerializedName("id")
                 var id: Int, // 267
@@ -73,7 +73,7 @@ data class SalesResponse(
                 var image: String, // http://202.164.42.227:8188/uploads/user/f4859e2f-e933-4a98-a122-c263f9e99b2a.jpg
                 @SerializedName("username")
                 var username: String // test user
-            ):Serializable
+            ) : Serializable
 
             data class OrderJson(
                 @SerializedName("orderItems")
@@ -84,7 +84,7 @@ data class SalesResponse(
                 var paymentMethod: String, // 2
                 @SerializedName("userAddress")
                 var userAddress: UserAddress
-            ) :Serializable{
+            ) : Serializable {
                 data class OrderItem(
                     @SerializedName("categoryColorId")
                     var categoryColorId: Int, // 33
@@ -123,8 +123,10 @@ data class SalesResponse(
                     @SerializedName("vendor")
                     var vendor: Vendor,
                     @SerializedName("vendorId")
-                    var vendorId: Int // 299
-                ) :Serializable{
+                    var vendorId: Int,// 299
+                    @SerializedName("product")
+                    var product :Product?
+                ) : Serializable {
                     data class Vendor(
                         @SerializedName("id")
                         var id: Int, // 299
@@ -132,10 +134,22 @@ data class SalesResponse(
                         var image: String, // http://202.164.42.227:8188/uploads/user/bf2ab579-f34d-4d5c-9469-fafb00b9e882.jpg
                         @SerializedName("username")
                         var username: String // new user
-                    ):Serializable
+                    ) : Serializable
+                    data class  Product(
+                        @SerializedName("id")
+                        var id: Int, // 299
+                        @SerializedName("product_group")
+                        var productGroup : ProductGroup?
+                    ):Serializable{
+                        data class ProductGroup(
+                            @SerializedName("registerCode")
+                            var registerCode : Int = 0
+                        ):Serializable
+                    }
+
                 }
 
-                class Payment():Serializable{
+                class Payment() : Serializable {
 
                 }
 
@@ -162,7 +176,7 @@ data class SalesResponse(
                     var userId: Int, // 267
                     @SerializedName("zipcode")
                     var zipcode: String // 160071
-                ):Serializable
+                ) : Serializable
             }
 
             data class Vendor(
@@ -172,7 +186,7 @@ data class SalesResponse(
                 var image: String, // http://202.164.42.227:8188/uploads/user/bf2ab579-f34d-4d5c-9469-fafb00b9e882.jpg
                 @SerializedName("username")
                 var username: String // new user
-            ):Serializable
+            ) : Serializable
         }
     }
 } 
