@@ -87,14 +87,15 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private var selectedPos = 0
     private var selectedColor = 0
     private var selectedSize = 0
-    private lateinit var sizeAdapter:ProductSizeAndColorAdapter
+    private lateinit var sizeAdapter: ProductSizeAndColorAdapter
     private lateinit var colorAdapter: ProductSizeAndColorAdapter
     private val sizeList = ArrayList<SizeAndColorItem>()
     private val colorList = ArrayList<SizeAndColorItem>()
     private val imageList = arrayListOf<String>()
+
     //Review Data
     private lateinit var reviewsAdapter: AdapterRatingReviews
-    private val reviewsList  =  ArrayList<ProductReviewModel>()
+    private val reviewsList = ArrayList<ProductReviewModel>()
 
 
     private val launcherPayment =
@@ -181,76 +182,81 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         initAdapters()
 
     }
-    private fun toogleDescription(){
-        if(binding.containerDescription.visibility == View.VISIBLE){
+
+    private fun toogleDescription() {
+        if (binding.containerDescription.visibility == View.VISIBLE) {
             binding.containerDescription.visibility = View.GONE
             binding.toogleDescription.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-        }
-        else{
+        } else {
             binding.containerDescription.visibility = View.VISIBLE
             binding.toogleDescription.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
         }
     }
-    private fun toogleReviews(){
-        if(binding.containerReviews.visibility == View.VISIBLE){
+
+    private fun toogleReviews() {
+        if (binding.containerReviews.visibility == View.VISIBLE) {
             binding.containerReviews.visibility = View.GONE
             binding.toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-        }
-        else{
+        } else {
             binding.containerReviews.visibility = View.VISIBLE
             binding.toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
         }
     }
+
     private fun initAdapters() {
         reviewsAdapter = AdapterRatingReviews(reviewsList)
         binding.reviewsRecyclerView.adapter = reviewsAdapter
         binding.reviewsRecyclerView.layoutManager = LinearLayoutManager(this)
-        sizeAdapter = ProductSizeAndColorAdapter(this,sizeList){
+        sizeAdapter = ProductSizeAndColorAdapter(this, sizeList) {
             selectedSize = it
             updateVariant()
         }
-        colorAdapter = ProductSizeAndColorAdapter(this,colorList){
+        colorAdapter = ProductSizeAndColorAdapter(this, colorList) {
             selectedColor = it
             updateVariant()
         }
         binding.sizeRecyclerView.adapter = sizeAdapter
         binding.colorRecyclerView.adapter = colorAdapter
-        binding.sizeRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        binding.colorRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        binding.sizeRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.colorRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
-    private fun updateVariant(){
-        try{
-            Log.d("this",selectedColor.toString())
+
+    private fun updateVariant() {
+        try {
+            Log.d("this", selectedColor.toString())
             val model = shopProductDetailResponse!!.body.products.find {
                 it.categoryColorId == colorList[selectedColor].id &&
                         it.categorySizeId == sizeList[selectedSize].id
             }
-            if(model == null){
-              binding.tvQty.text =  (0).toString()
+            if (model == null) {
+                binding.tvQty.text = (0).toString()
                 binding.tvOutOfStock.visibility = View.VISIBLE
                 binding.btnBuyDeliver.visibility = View.GONE
                 binding.btnClickCollect.visibility = View.GONE
-              return
+                return
             }
             selectedPos = shopProductDetailResponse!!.body.products.indexOf(model)
 
             binding.productItemName.text = model.name
+            Log.e("rating",model.productReview)
             try {
                 binding.ratingBarProductDetail.rating = model.productReview.toFloat()
             } catch (e: Exception) {
-
+                Log.e("error",e.message.toString())
             }
             binding.rating.text =
-                "${binding.ratingBarProductDetail.rating}/5"
+                "${model.productReview}/5"
             binding.tvDesc.text = model.shortDescription
             binding.tvDelivery.text = model.description
 
-            val productImages = if(model.group != null && !model.group!!.productImages.isNullOrEmpty()){
-                 model.group!!.productImages
-            }
-            else{
-                 model.images
-            }
+            val productImages =
+                if (model.group != null && !model.group!!.productImages.isNullOrEmpty()) {
+                    model.group!!.productImages
+                } else {
+                    model.images
+                }
             imageList.clear()
             productImages.forEach {
                 imageList.add(it.image)
@@ -259,6 +265,8 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                 this@ProductDetailActivity,
                 imageList
             )
+            totalQty = model.productQuantity
+            qty = minOf(qty, totalQty)
 
             binding.indicatorProduct.setViewPager(binding.itemImageProductDetail)
             val price = AppUtils.getFormattedAmount(model.productPrice.toDouble())
@@ -266,8 +274,8 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             binding.tvSize.text = model.productSize.size
             binding.tvColor.text = model.productColor.color
             binding.tvQty.text = getString(R.string.of, model.productQuantity.toString())
-            totalQty = model.productQuantity
 
+            binding.tvCount.text = qty.toString()
             if (model.productQuantity == 0) {
                 binding.tvOutOfStock.visibility = View.VISIBLE
                 binding.btnBuyDeliver.visibility = View.GONE
@@ -278,28 +286,29 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                 binding.btnClickCollect.visibility = View.VISIBLE
             }
 
-        }catch (e:Exception){
-            Log.e("variantFindError",e.message.toString())
+        } catch (e: Exception) {
+            Log.e("variantFindError", e.message.toString())
         }
 
     }
+
     private fun productDetailApiHit() {
         val hashMap = HashMap<String, String>()
-        if(groupId.isNotEmpty()){
+        if (groupId.isNotEmpty()) {
             hashMap["groupId"] = groupId
-        }
-        else{
+        } else {
             hashMap["id"] = productId
         }
         appViewModel.shopProductDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
 
+    }
+    private fun reviewsApiHit(){
         val map = HashMap<String, RequestBody>()
         map["productId"] = toBody(productId)
-        appViewModel.getProductReviews(this,true,map)
-        appViewModel.getResponse().observe(this,this)
+        appViewModel.getProductReviews(this, true, map)
+        appViewModel.getResponse().observe(this, this)
     }
-
     private fun setOnClicks() {
         binding.ivPlus.setOnClickListener(this)
         binding.ivMinus.setOnClickListener(this)
@@ -353,7 +362,8 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         tvChangeDateTime.visibility = View.GONE
         getSavedPaymentType()
 
-        val subTotal = shopProductDetailResponse!!.body.products[selectedPos].productPrice.toFloat() * qty
+        val subTotal =
+            shopProductDetailResponse!!.body.products[selectedPos].productPrice.toFloat() * qty
         val tax = shopProductDetailResponse!!.body.taxValue!!.value.toInt()
         val taxCharged = ((subTotal / 100) * tax)
         val totalPrice = taxCharged + subTotal
@@ -503,40 +513,43 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         appViewModel.addOrderApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
     }
-    private fun createSizeList(products : ArrayList<Product>): ArrayList<SizeAndColorItem> {
+
+    private fun createSizeList(products: ArrayList<Product>): ArrayList<SizeAndColorItem> {
         val list = ArrayList<SizeAndColorItem>()
-        for(product in products){
+        for (product in products) {
             val item = SizeAndColorItem(
                 product.productSize.categorySizeId,
                 product.productSize.size,
                 true
             )
-            if(!list.contains(item)){
+            if (!list.contains(item)) {
                 list.add(item)
             }
         }
         return list
     }
-    private fun createColorList(products : ArrayList<Product>): ArrayList<SizeAndColorItem> {
+
+    private fun createColorList(products: ArrayList<Product>): ArrayList<SizeAndColorItem> {
         val list = ArrayList<SizeAndColorItem>()
-        for(product in products){
+        for (product in products) {
             val item = SizeAndColorItem(
                 product.productColor.categoryColorId,
                 product.productColor.color,
                 true
             )
-            if(!list.contains(item)){
+            if (!list.contains(item)) {
                 list.add(item)
             }
         }
         return list
     }
-    private fun setSelectedPosition(){
+
+    private fun setSelectedPosition() {
         val product = shopProductDetailResponse!!.body.products.find {
             it.id == productId.toInt()
         }
-        selectedPos =  shopProductDetailResponse!!.body.products.indexOf(product)
-        Log.d("pos",selectedPos.toString())
+        selectedPos = shopProductDetailResponse!!.body.products.indexOf(product)
+        Log.d("pos", selectedPos.toString())
         selectedColor = colorList.indexOf(colorList.find {
             it.id == product!!.productColor.categoryColorId
         })
@@ -548,6 +561,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         binding.sizeRecyclerView.findViewHolderForAdapterPosition(selectedSize)?.itemView?.performClick()
 
     }
+
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
@@ -577,6 +591,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                     } else {
                         binding.ivRedCart.visibility = View.VISIBLE
                     }
+                    reviewsApiHit()
 
                 } else if (t.data is CommonResponse) {
                     AppUtils.showMsgOnlyWithClick(this, "Item add to cart successfully", this)
@@ -586,8 +601,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         thankYouDialog()
                     }
-                }
-                else if (t.data is ReviewsResponse){
+                } else if (t.data is ReviewsResponse) {
                     updateReviews(t.data.body)
                 }
             }
@@ -611,7 +625,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
         dialogOrderPlaced.setOnClickListener {
             bottomDialog?.dismiss()
-            openGoogleMaps(latitude,longitude)
+            openGoogleMaps(latitude, longitude)
 //
 //            val intent = Intent(this, MainActivity::class.java)
 //            intent.putExtra(AppConstants.OPEN_BY_CART, true)

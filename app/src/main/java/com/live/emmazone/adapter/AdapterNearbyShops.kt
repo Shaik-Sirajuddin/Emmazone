@@ -53,11 +53,11 @@ class AdapterNearbyShops(
 
                 val nearShopModel = list[pos]
                 val images = arrayListOf<String>()
+                images.add(AppConstants.IMAGE_USER_URL + nearShopModel.image)
                 if (nearShopModel.isLiked == 1)
                     nearShopModel.stories.forEach {
                         images.add(it.image)
                     }
-                images.add(AppConstants.IMAGE_USER_URL + nearShopModel.image)
                 val adapter = ImageSliderCustomeAdapter(
                     mContext,
                     images,

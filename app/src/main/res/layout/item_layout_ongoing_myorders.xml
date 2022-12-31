@@ -38,7 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -47,13 +47,11 @@
                 android:text="Register Code:"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12"
-                android:textStyle="bold"
-                app:layout_constraintVertical_bias="0.0" />
+                android:textStyle="bold"/>
             <TextView
                 android:id="@+id/productCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
                 android:text="NA"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12"

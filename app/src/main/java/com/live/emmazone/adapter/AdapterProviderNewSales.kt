@@ -62,10 +62,10 @@ class AdapterProviderNewSales(
                 holder.tvOrderStatus.text = context.getString(R.string.cancel)
             }
             7->{
-                holder.tvOrderStatus.text = "Return in transit"
+                holder.tvOrderStatus.text = context.getString(R.string.return_in_transit)
             }
             8->{
-                holder.tvOrderStatus.text = "Returned"
+                holder.tvOrderStatus.text = context.getString(R.string.returned)
             }
         }
 

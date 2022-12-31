@@ -37,11 +37,6 @@ class MyEarningsActivity : AppCompatActivity(), Observer<RestObservable> {
             onBackPressed()
         }
 
-        binding.btnWithdraw.setOnClickListener {
-            val intent = Intent(this, Withdrawal2Activity::class.java)
-            startActivity(intent)
-        }
-
         binding.tvToday.setOnClickListener {
             todayClk()
         }
@@ -50,13 +45,14 @@ class MyEarningsActivity : AppCompatActivity(), Observer<RestObservable> {
             weeklyClick()
         }
     }
-
+    private fun openWithdrawalActivity(){
+        val intent = Intent(this, Withdrawal2Activity::class.java)
+        startActivity(intent)
+    }
     private fun todayClk() {
         binding.tvToday.background =
             ContextCompat.getDrawable(this, R.drawable.bg_fill_earning)
         binding.tvWeekly.setBackgroundColor(Color.TRANSPARENT)
-        binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.white))
-        binding.tvWeekly.setTextColor(ContextCompat.getColor(this, R.color.black))
 
         earningApiHit("1") //1 for ToDay Earnings
     }
@@ -66,8 +62,6 @@ class MyEarningsActivity : AppCompatActivity(), Observer<RestObservable> {
         binding.tvWeekly.background =
             ContextCompat.getDrawable(this, R.drawable.bg_fill_earning)
         binding.tvToday.setBackgroundColor(Color.TRANSPARENT)
-        binding.tvWeekly.setTextColor(ContextCompat.getColor(this, R.color.white))
-        binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.black))
 
         earningApiHit("2") //2 for Weekly Earning
     }

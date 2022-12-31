@@ -563,7 +563,7 @@
                         app:srb_clickable="false"
                         app:srb_drawableEmpty="@drawable/star"
                         app:srb_drawableFilled="@drawable/star_fill"
-                        app:srb_isIndicator="false"
+                        app:srb_isIndicator="true"
                         app:srb_numStars="5"
                         app:srb_scrollable="false"
                         app:srb_starHeight="15dp"
@@ -577,7 +577,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="4.5/5"
+                        android:text="@string/na"
                         android:textColor="@color/black"
                         android:textSize="@dimen/sp14" />
 

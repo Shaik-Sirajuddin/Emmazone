@@ -22,7 +22,11 @@ class ShopStoryProviderAdapter(
                 delete.setOnClickListener {
                     onDelete(pos)
                 }
-                createdDate.text = AppUtils.getNotificationTimeAgo(list[pos].created) +" ago"
+                var agoText =  AppUtils.getNotificationTimeAgo(list[pos].created)
+                if(agoText != "Just now"){
+                    agoText += " ago"
+                }
+                createdDate.text = agoText
             }
         }
     }

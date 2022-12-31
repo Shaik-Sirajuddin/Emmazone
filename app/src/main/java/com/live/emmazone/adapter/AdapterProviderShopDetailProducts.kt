@@ -155,8 +155,4 @@ class AdapterProviderShopDetailProducts(
         notifyItemRangeChanged(position, list.size)
     }
 
-    fun notifyData(arrayList: ArrayList<ProductGroup>) {
-        list = arrayList
-        notifyDataSetChanged()
-    }
 }

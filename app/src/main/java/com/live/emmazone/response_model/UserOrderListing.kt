@@ -13,7 +13,7 @@ data class UserOrderListing(
     var message: String, // Status fetched successfully
     @SerializedName("success")
     var success: Boolean // true
-) :Serializable{
+) : Serializable {
     data class Body(
         @SerializedName("cartCount")
         var cartCount: Int, // 1
@@ -21,7 +21,7 @@ data class UserOrderListing(
         var notificationCount: Int, // 0
         @SerializedName("response")
         var response: ArrayList<Response>
-    ):Serializable {
+    ) : Serializable {
         data class Response(
             @SerializedName("adminCommission")
             var adminCommission: String, // 0.00
@@ -62,8 +62,9 @@ data class UserOrderListing(
             @SerializedName("userAddressId")
             var userAddressId: Int, // 19
             @SerializedName("vendorId")
-            var vendorId: Int // 0
-        ):Serializable {
+            var vendorId: Int, // 0
+
+        ) : Serializable {
             data class OrderJson(
                 @SerializedName("orderItems")
                 var orderItems: ArrayList<OrderItem>,
@@ -73,7 +74,7 @@ data class UserOrderListing(
                 var paymentMethod: String, // 1
                 @SerializedName("userAddress")
                 var userAddress: UserAddress
-            ):Serializable {
+            ) : Serializable {
                 data class OrderItem(
                     @SerializedName("categoryColorId")
                     var categoryColorId: Int, // 5
@@ -111,9 +112,15 @@ data class UserOrderListing(
                     var userId: Int, // 299
                     @SerializedName("vendor")
                     var vendor: Vendor,
+                    @SerializedName("registerCode")
+                    var registerCode: Int,
+                    @SerializedName("productId")
+                    var productId: Int,
                     @SerializedName("vendorId")
-                    var vendorId: Int // 299
-                ):Serializable {
+                    var vendorId: Int, // 299
+                    @SerializedName("group_id")
+                    var productGroupId : Int
+                ) : Serializable {
                     data class Vendor(
                         @SerializedName("id")
                         var id: Int, // 299
@@ -121,7 +128,7 @@ data class UserOrderListing(
                         var image: String, // http://202.164.42.227:8188/uploads/user/bf2ab579-f34d-4d5c-9469-fafb00b9e882.jpg
                         @SerializedName("username")
                         var username: String // new user
-                    ):Serializable
+                    ) : Serializable
                 }
 
                 data class Payment(
@@ -213,7 +220,7 @@ data class UserOrderListing(
                     var transferData: Any, // null
                     @SerializedName("transfer_group")
                     var transferGroup: Any // null
-                ) :Serializable{
+                ) : Serializable {
                     data class BillingDetails(
                         @SerializedName("address")
                         var address: Address,
@@ -223,7 +230,7 @@ data class UserOrderListing(
                         var name: Any, // null
                         @SerializedName("phone")
                         var phone: Any // null
-                    ) :Serializable{
+                    ) : Serializable {
                         data class Address(
                             @SerializedName("city")
                             var city: Any, // null
@@ -237,7 +244,7 @@ data class UserOrderListing(
                             var postalCode: Any, // null
                             @SerializedName("state")
                             var state: Any // null
-                        ):Serializable
+                        ) : Serializable
                     }
 
 
@@ -254,14 +261,14 @@ data class UserOrderListing(
                         var sellerMessage: String, // Payment complete.
                         @SerializedName("type")
                         var type: String // authorized
-                    ):Serializable
+                    ) : Serializable
 
                     data class PaymentMethodDetails(
                         @SerializedName("card")
                         var card: Card,
                         @SerializedName("type")
                         var type: String // card
-                    ) :Serializable{
+                    ) : Serializable {
                         data class Card(
                             @SerializedName("brand")
                             var brand: String, // visa
@@ -287,7 +294,7 @@ data class UserOrderListing(
                             var threeDSecure: Any, // null
                             @SerializedName("wallet")
                             var wallet: Any // null
-                        ):Serializable {
+                        ) : Serializable {
                             data class Checks(
                                 @SerializedName("address_line1_check")
                                 var addressLine1Check: Any, // null
@@ -295,7 +302,7 @@ data class UserOrderListing(
                                 var addressPostalCodeCheck: Any, // null
                                 @SerializedName("cvc_check")
                                 var cvcCheck: String // pass
-                            ):Serializable
+                            ) : Serializable
                         }
                     }
 
@@ -310,7 +317,7 @@ data class UserOrderListing(
                         var totalCount: Int, // 0
                         @SerializedName("url")
                         var url: String // /v1/charges/ch_1KZT5uIZXks92CWPQQwlTPxK/refunds
-                    ):Serializable
+                    ) : Serializable
 
                     data class Source(
                         @SerializedName("address_city")
@@ -357,7 +364,7 @@ data class UserOrderListing(
                         var objectX: String, // card
                         @SerializedName("tokenization_method")
                         var tokenizationMethod: Any // null
-                    ) :Serializable{
+                    ) : Serializable {
 
                     }
                 }
@@ -385,7 +392,7 @@ data class UserOrderListing(
                     var userId: Int, // 267
                     @SerializedName("zipcode")
                     var zipcode: String // 160071
-                ):Serializable
+                ) : Serializable
             }
         }
     }

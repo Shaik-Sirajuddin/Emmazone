@@ -124,8 +124,10 @@ data class SalesResponse(
                     var vendor: Vendor,
                     @SerializedName("vendorId")
                     var vendorId: Int,// 299
-                    @SerializedName("product")
-                    var product :Product?
+                    @SerializedName("registerCode")
+                    var registerCode: Int = 0,
+                    @SerializedName("group_id")
+                    var productGroupId : Int
                 ) : Serializable {
                     data class Vendor(
                         @SerializedName("id")
@@ -135,17 +137,6 @@ data class SalesResponse(
                         @SerializedName("username")
                         var username: String // new user
                     ) : Serializable
-                    data class  Product(
-                        @SerializedName("id")
-                        var id: Int, // 299
-                        @SerializedName("product_group")
-                        var productGroup : ProductGroup?
-                    ):Serializable{
-                        data class ProductGroup(
-                            @SerializedName("registerCode")
-                            var registerCode : Int = 0
-                        ):Serializable
-                    }
 
                 }
 

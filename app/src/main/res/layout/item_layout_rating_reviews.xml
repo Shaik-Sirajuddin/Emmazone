@@ -11,18 +11,17 @@
         android:id="@+id/profileRatingReviews"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:layout_marginEnd="@dimen/dp20"
         android:src="@drawable/avtar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_border_color="@color/normalBlack"
         app:riv_border_width="1dp"
-        app:riv_corner_radius="30dip"
+        app:riv_corner_radius="30dp"
         app:riv_mutate_background="true"
-        app:riv_oval="true"
+        app:riv_oval="false"
         app:riv_tile_mode="clamp" />
-
     <TextView
         android:id="@+id/tvPersonName"
         android:layout_width="wrap_content"

@@ -34,7 +34,7 @@ class AdapterOrderDetail(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = list[position]
         if(data.mainImage!=null){
-            var image = data.mainImage.toString()
+            var image = data.mainImage
             if(image.contains("http")){
                 image = "https://emmazones3.s3.eu-west-2.amazonaws.com/product/" +  image.substring(image.lastIndexOf('/') + 1)
                 Log.e("this",image)
@@ -46,8 +46,10 @@ class AdapterOrderDetail(
         holder.productPriceOD.text = context.getString(R.string.euro_symbol, data.productPrice)
 
         holder.review.setOnClickListener {
+            Log.e("registerCode",data.registerCode.toString())
+            Log.e("productId",data.productId.toString())
             val intent = Intent(context,AddProductReview::class.java)
-            intent.putExtra("id",data.id.toString())
+            intent.putExtra("id",data.productId.toString())
             context.startActivity(intent)
         }
 

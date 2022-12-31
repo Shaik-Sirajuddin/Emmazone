@@ -29,7 +29,7 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentNewSalesProviderBinding.inflate(layoutInflater)
         return binding.root
     }

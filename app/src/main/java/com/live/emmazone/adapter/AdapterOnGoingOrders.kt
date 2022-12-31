@@ -40,7 +40,9 @@ class AdapterOnGoingOrders(
             onGoingItemQuantity.text = model.orderedQty.toString()
             productPrice.text = context.getString(R.string.euro_symbol,model.orderedQtyPrice.toString())
             productDescription.text = model.description
-            productCode.text = model.product?.productGroup?.registerCode.toString()
+            model.registerCode.let{
+                productCode.text = it.toString()
+            }
         }
 
         holder.itemView.setOnClickListener {

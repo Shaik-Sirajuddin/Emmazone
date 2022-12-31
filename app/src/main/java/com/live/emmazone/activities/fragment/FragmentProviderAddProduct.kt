@@ -40,8 +40,9 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
     private lateinit var binding: FragmentAddProductProviderBinding
     private val list = ArrayList<ProductGroup>()
+    private val cachedList = ArrayList<ProductGroup>()
     private val appViewModel: AppViewModel by viewModels()
-    var productAdapter: AdapterProviderShopDetailProducts? = null
+    private lateinit var productAdapter: AdapterProviderShopDetailProducts
     var pos = 0
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,33 +77,38 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                filterProduct(s.toString())
+                filterProduct(s.toString().trim())
             }
-
         })
 
         binding.scanQR.setOnClickListener {
             checkCameraPermission()
         }
+        productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)
+        binding.rvAdProductProvider.adapter = productAdapter
+
     }
 
     private fun filterProduct(text: String) {
-        val filterList = ArrayList<ProductGroup>()
-
-        list.forEach {
-            if (it.name.contains(text, true) ||
-                it.id.toString().contains(text) ||
-                it.registerCode.toString().contains(text)) {
-                filterList.add(it)
+        list.clear()
+        if(text.isEmpty()){
+            list.addAll(cachedList)
+        }
+        else{
+            cachedList.forEach {
+                if (it.name.contains(text, true) ||
+                    it.id.toString().contains(text) ||
+                    it.registerCode.toString().contains(text)) {
+                    list.add(it)
+                }
             }
         }
-        productAdapter?.notifyData(filterList)
+        productAdapter.notifyDataSetChanged()
     }
 
     override fun onResume() {
         super.onResume()
         getSellerShopDetails()
-
     }
 
     override fun onChanged(t: RestObservable?) {
@@ -113,7 +119,6 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         setDetailData(response)
                     }
-
                 }
                 if (t.data is CommonResponse) {
                     val response: CommonResponse = t.data
@@ -148,20 +153,12 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
             binding.notifyRedBG.visibility = View.VISIBLE
         }
 
-        val category = Product.Category("", "")
-        val product_images: List<Product.ProductImage> =
-            ArrayList()
-
-        list.clear()
-
-        list.add(ProductGroup(
+        cachedList.clear()
+        cachedList.add(ProductGroup(
             ProductGroup.Category("",""),0,"",-1,"","",0,
         arrayListOf(),"", arrayListOf(),0))
-
-        list.addAll(response.body.groups)
-        productAdapter = AdapterProviderShopDetailProducts(requireContext(), list, this)
-        binding.rvAdProductProvider.adapter = productAdapter
-
+        cachedList.addAll(response.body.groups)
+        filterProduct(binding.edtSearchAddProduct.text.toString().trim())
     }
 
     fun deleteProductAPIMethod(position: Int, productId: String) {

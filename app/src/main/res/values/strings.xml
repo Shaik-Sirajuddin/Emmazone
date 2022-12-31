@@ -320,6 +320,9 @@
     <string name="shop_stories">Stories</string>
     <string name="my_stories">My Stories</string>
     <string name="upload">Upload</string>
+    <string name="return_in_transit">Return in transit</string>
+    <string name="returned">Returned</string>
+    <string name="na">NA</string>
 
 
 </resources>

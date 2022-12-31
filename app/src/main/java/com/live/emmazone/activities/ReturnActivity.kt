@@ -54,7 +54,7 @@ class ReturnActivity : AppCompatActivity(), Observer<RestObservable> {
         val hashMap = HashMap<String, String>()
         hashMap["id"] = id
         hashMap["orderStatus"] =
-            status.toString() // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
+            status.toString() // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled // 7=> return
 
         appViewModel.orderStatusApi(this, hashMap, true)
 

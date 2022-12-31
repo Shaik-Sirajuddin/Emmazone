@@ -14,10 +14,10 @@ import com.live.emmazone.utils.AppUtils
 class AdapterMyEarnings(private val list: ArrayList<MyEarningResponse.Body.FindOrder>) :
     RecyclerView.Adapter<AdapterMyEarnings.ViewHolder>() {
 
-    private lateinit var mContext: Context
+    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        mContext = parent.context
+        context = parent.context
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_layout_my_earnings, parent, false)
         return ViewHolder(view)
@@ -29,7 +29,28 @@ class AdapterMyEarnings(private val list: ArrayList<MyEarningResponse.Body.FindO
         holder.tvMyEarningDate.text =
             AppUtils.secondsToTime(modelMyEarnings.created.toLong(), AppConstants.DATE_FORMAT)
         holder.tvearningsDollar.text =
-            mContext.getString(R.string.euro_symbol, modelMyEarnings.netAmount)
+            context.getString(R.string.euro_symbol, modelMyEarnings.netAmount)
+        when (modelMyEarnings.orderStatus) {
+            0 -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
+                //7-> Return in transit // 8-> Returned
+                holder.tvOrderStatus.text = context.getString(R.string.pending)
+            }
+            1 -> {
+                holder.tvOrderStatus.text = context.getString(R.string.on_the_way)
+            }
+            2 -> {
+                holder.tvOrderStatus.text = context.getString(R.string.completed)
+            }
+            3 -> {
+                holder.tvOrderStatus.text = context.getString(R.string.cancel)
+            }
+            7->{
+                holder.tvOrderStatus.text = context.getString(R.string.return_in_transit)
+            }
+            8->{
+                holder.tvOrderStatus.text = context.getString(R.string.returned)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -41,6 +62,7 @@ class AdapterMyEarnings(private val list: ArrayList<MyEarningResponse.Body.FindO
         val tvproductName = itemView.findViewById<TextView>(R.id.productName)
         val tvMyEarningDate = itemView.findViewById<TextView>(R.id.tvMyEarningsDate)
         val tvearningsDollar = itemView.findViewById<TextView>(R.id.earningsDollar)
+        val tvOrderStatus = itemView.findViewById<TextView>(R.id.orderStaus)
 
     }
 }

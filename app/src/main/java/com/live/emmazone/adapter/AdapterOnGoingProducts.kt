@@ -37,19 +37,22 @@ class AdapterOnGoingProducts(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = list[position]
         with(holder.binding) {
-            if(model.mainImage!=null){
+            if (model.mainImage != null) {
                 var image = model.mainImage.toString()
-                if(image.contains("http")){
-                    image = "https://emmazones3.s3.eu-west-2.amazonaws.com/product/" +  image.substring(image.lastIndexOf('/') + 1)
-                    Log.e("this",image)
+                if (image.contains("http")) {
+                    image =
+                        "https://emmazones3.s3.eu-west-2.amazonaws.com/product/" + image.substring(
+                            image.lastIndexOf('/') + 1
+                        )
+                    Log.e("this", image)
                 }
                 Glide.with(context).load(image).into(onGoingItem)
             }
             onGoingItemName.text = model.name
             productDescription.text = model.description
             onGoingItemQuantity.text = model.orderedQty.toString()
-            productPrice.text = context.getString(R.string.euro_symbol,model.productPrice)
-            productPrice.text = context.getString(R.string.euro_symbol,model.productPrice)
+            productPrice.text = context.getString(R.string.euro_symbol, model.productPrice)
+            productCode.text = model.registerCode.toString()
         }
 
         holder.itemView.setOnClickListener {
@@ -58,13 +61,13 @@ class AdapterOnGoingProducts(
     }
 
     override fun getItemCount(): Int {
-        if(type=="list"){
-            if(list.size>=2){
+        if (type == "list") {
+            if (list.size >= 2) {
                 return 2
-            }else{
+            } else {
                 return list.size
             }
-        }else{
+        } else {
             return list.size
         }
     }

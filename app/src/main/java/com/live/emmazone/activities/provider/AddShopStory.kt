@@ -1,6 +1,5 @@
 package com.live.emmazone.activities.provider
 
-import android.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityAddShopStoryBinding
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.interfaces.OnPopupClick
@@ -48,9 +48,9 @@ class AddShopStory : AppCompatActivity(), Observer<RestObservable> {
             finish()
         }
         binding.image.loadImage(image)
-        val adapter = ArrayAdapter<String>(
+        val adapter = ArrayAdapter(
             this,
-            R.layout.simple_spinner_dropdown_item,
+            android.R.layout.simple_spinner_dropdown_item,
             nameList
         )
         binding.spinner.adapter = adapter

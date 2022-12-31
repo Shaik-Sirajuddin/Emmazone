@@ -49,23 +49,24 @@ import okhttp3.RequestBody
 class ShopStoriesProviderFragment : Fragment(), Observer<RestObservable> {
 
     private lateinit var binding: FragmentShopStoriesProviderBinding
-    private lateinit var adapter : ShopStoryProviderAdapter
-    private val list =  ArrayList<ModelShopStory>()
+    private lateinit var adapter: ShopStoryProviderAdapter
+    private val list = ArrayList<ModelShopStory>()
     private val appViewModel: AppViewModel by viewModels()
     private var position = -1
     private var count = 0
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val imagePath =  result.data?.getStringExtra("imagePath")
-                if(!imagePath.isNullOrEmpty()){
-                    val intent = Intent(requireContext(),AddShopStory::class.java)
-                    intent.putExtra("imagePath",imagePath)
+                val imagePath = result.data?.getStringExtra("imagePath")
+                if (!imagePath.isNullOrEmpty()) {
+                    val intent = Intent(requireContext(), AddShopStory::class.java)
+                    intent.putExtra("imagePath", imagePath)
                     count = 1
                     startActivity(intent)
                 }
             }
         }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,16 +77,16 @@ class ShopStoriesProviderFragment : Fragment(), Observer<RestObservable> {
 
     override fun onResume() {
         super.onResume()
-        Log.d("resume",count.toString())
+        Log.d("resume", count.toString())
 
-        if(count == 1){
+        if (count == 1) {
             count++
-        }
-        else if(count == 2){
+        } else if (count == 2) {
             loadStories()
             count = 0
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
@@ -102,22 +103,24 @@ class ShopStoriesProviderFragment : Fragment(), Observer<RestObservable> {
         binding.addStory.setOnClickListener {
             launcher.launch(Intent(requireContext(), ImageGetter::class.java))
         }
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
-        adapter = ShopStoryProviderAdapter(requireContext(),list){
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        adapter = ShopStoryProviderAdapter(requireContext(), list) {
             position = it
             deleteStories(list[it].id)
         }
         binding.recyclerView.adapter = adapter
         loadStories()
     }
-    private fun loadStories(){
-        val vendorId = getPreference(AppConstants.VENDOR_ID,"")
-        val map = HashMap<String,RequestBody>()
+
+    private fun loadStories() {
+        val vendorId = getPreference(AppConstants.VENDOR_ID, "")
+        val map = HashMap<String, RequestBody>()
         map["vendorId"] = toBody(vendorId)
-        appViewModel.getShopStories(requireActivity(),true,map)
-        appViewModel.mResponse.observe(requireActivity(),this)
+        appViewModel.getShopStories(requireActivity(), true, map)
+        appViewModel.mResponse.observe(requireActivity(), this)
     }
-    private fun deleteStories(id:Int) {
+
+    private fun deleteStories(id: Int) {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
@@ -134,48 +137,51 @@ class ShopStoriesProviderFragment : Fragment(), Observer<RestObservable> {
         noBtn.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
-    private fun confirmDelete(id:Int){
+
+    private fun confirmDelete(id: Int) {
         val map = HashMap<String, RequestBody>()
         map["id"] = toBody(id.toString())
         appViewModel.deleteShopStories(requireActivity(), true, map)
         appViewModel.mResponse.observe(requireActivity(), this)
     }
+
     override fun onChanged(t: RestObservable?) {
-        when(t!!.status){
-            Status.SUCCESS->{
-                if(t.data is ShopStoryResponse){
-                    if(t.data.body.size > 0){
+        when (t!!.status) {
+            Status.SUCCESS -> {
+                if (t.data is ShopStoryResponse) {
+                    if (t.data.body.size > 0) {
                         list.clear()
                         list.addAll(t.data.body[0].stories)
                         adapter.notifyDataSetChanged()
-                        if(list.size == 0){
+                        if (list.size == 0) {
+                            binding.recyclerView.visibility = View.GONE
                             binding.toHide.visibility = View.VISIBLE
-                        }
-                        else{
+                        } else {
+                            binding.recyclerView.visibility = View.VISIBLE
                             binding.toHide.visibility = View.GONE
                         }
-                    }
-                    else{
+                    } else {
+                        binding.recyclerView.visibility = View.GONE
                         binding.toHide.visibility = View.VISIBLE
                     }
-                }
-                else if(t.data is CommonResponse){
-                    if(position>=0 && position<list.size){
+                } else if (t.data is CommonResponse) {
+                    if (position >= 0 && position < list.size) {
                         list.removeAt(position)
                         adapter.notifyItemRemoved(position)
                     }
-                    AppUtils.showMsgOnlyWithoutClick(requireActivity(),t.data.message)
+                    AppUtils.showMsgOnlyWithoutClick(requireActivity(), t.data.message)
                 }
                 if (t.data is ScanOrderResponse) {
                     AppUtils.showMsgOnlyWithoutClick(requireActivity(), t.data.message)
                 }
             }
-            Status.ERROR->{
-                AppUtils.showMsgOnlyWithoutClick(requireContext(),t.error.toString())
+            Status.ERROR -> {
+                AppUtils.showMsgOnlyWithoutClick(requireContext(), t.error.toString())
             }
-            else->{}
+            else -> {}
         }
     }
+
     /** Scan Qr Implementation **/
     // util method
     private val permissions = arrayOf(Manifest.permission.CAMERA)

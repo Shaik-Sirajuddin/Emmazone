@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutMyEarnings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-      android:layout_margin="@dimen/dp2"
-        android:background="@drawable/bg_my_earning_rv"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="@dimen/dp2"
         android:layout_marginBottom="@dimen/dp10"
+        android:background="@drawable/bg_my_earning_rv"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,17 +22,44 @@
             android:id="@+id/productName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginStart="@dimen/dp8"
+            android:gravity="center"
             android:text="@string/brend_shoes"
-            app:layout_constraintTop_toTopOf="@+id/layoutMyEarnings"
-            app:layout_constraintStart_toStartOf="@+id/layoutMyEarnings"
             android:textColor="@color/black"
             android:textSize="@dimen/sp18"
             android:textStyle="bold"
-            />
+            app:layout_constraintStart_toStartOf="@+id/layoutMyEarnings"
+            app:layout_constraintTop_toTopOf="@+id/layoutMyEarnings" />
 
+
+
+        <LinearLayout
+            android:id="@+id/statusContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productName">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OrderStatus : "
+                android:textColor="@color/light_black"
+                />
+
+            <TextView
+                android:id="@+id/orderStaus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_black"
+                />
+
+        </LinearLayout>
         <TextView
+            android:layout_marginTop="3dp"
             android:id="@+id/tvMyEarningsDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,9 +67,8 @@
             android:textAllCaps="false"
             android:textColor="@color/light_black"
             android:textSize="@dimen/sp12"
-            app:layout_constraintStart_toStartOf="@+id/productName"
-            app:layout_constraintTop_toBottomOf="@+id/productName" />
-
+            app:layout_constraintStart_toStartOf="@+id/statusContainer"
+            app:layout_constraintTop_toBottomOf="@+id/statusContainer" />
         <TextView
             android:id="@+id/earningsDollar"
             android:layout_width="wrap_content"

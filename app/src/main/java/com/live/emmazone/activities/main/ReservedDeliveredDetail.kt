@@ -163,12 +163,12 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
                 binding.tvQRCode.visibility = View.GONE
             }
             7->{
-                binding.tvOrderStatus.text = "Return in transit"
+                binding.tvOrderStatus.text =  getString(R.string.return_in_transit)
                 binding.btnCancel.text = "Cancel Return"
                 binding.btnCancel.visibility = View.VISIBLE
             }
             8->{
-                binding.tvOrderStatus.text = "Returned"
+                binding.tvOrderStatus.text = getString(R.string.returned)
                 binding.btnCancel.visibility = View.GONE
                 binding.btnQRScanner.visibility = View.GONE
                 binding.tvQRCode.visibility = View.GONE
@@ -206,7 +206,8 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
     private fun orderStatusApiHit(status : Int) {
         val hashMap = HashMap<String, String>()
         hashMap["id"] = userData!!.id.toString()
-        hashMap["orderStatus"] = status.toString() // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
+        hashMap["orderStatus"] = status.toString() //
+        // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled  7=> Return in transit
         if(status == 3){
             appViewModel.cancelOrderApi(this, hashMap, true)
         }

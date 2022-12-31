@@ -90,7 +90,6 @@ class AdapterOnGoingUserOrders(
                     openDetailScreen(model, holder.adapterPosition)
                 }
             }
-
             rvMyOrderOnGoing.adapter =
                 AdapterOnGoingProducts(
                     context,
