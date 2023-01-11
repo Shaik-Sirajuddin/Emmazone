@@ -53,7 +53,7 @@
         <RelativeLayout
             android:id="@+id/main_image_layout"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="192dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -63,14 +63,24 @@
             app:layout_constraintTop_toTopOf="@+id/layoutConstraint"
             app:layout_constraintVertical_bias="0.17000002">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imgEditShop"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/imgEditShoplayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:background="@color/black"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/roundedImageView1" />
+                android:layout_height="wrap_content"
+                app:shapeAppearanceOverlay="@style/roundedImageView1" >
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgEditShop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="16:9"
+                    android:adjustViewBounds="true"
+                    android:background="@color/black"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/roundedImageView1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -216,12 +226,15 @@
         <EditText
             android:id="@+id/edtShopDesc"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/login_bg"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="textMultiLine"
+            android:gravity="start"
             android:paddingStart="8dp"
+            android:paddingEnd="0dp"
+            android:textAlignment="textStart"
             android:textColorHint="@color/black"
             android:textSize="@dimen/sp15"
             app:layout_constraintEnd_toEndOf="@+id/tvDESC"

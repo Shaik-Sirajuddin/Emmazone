@@ -181,6 +181,9 @@ interface RestApiInterface {
         @Part image: MultipartBody.Part
     ): Call<EditProfileResponse>
 
+    @POST(AppConstants.DELETE_PROFILE)
+    fun deleteProfile(): Call<CommonResponse>
+
     @FormUrlEncoded
     @POST(AppConstants.ADD_NEW_ADDRESS)
     fun addAddress(@FieldMap hashMap: HashMap<String, String>): Call<AddNewAddressResponse>

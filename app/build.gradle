@@ -107,6 +107,9 @@ dependencies {
     //Scanner
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
 
+    //bar code generator
+    implementation 'com.google.zxing:core:3.5.1'
+
     //Multiple selection images
     implementation 'com.yanzhenjie:album:2.1.3'
 

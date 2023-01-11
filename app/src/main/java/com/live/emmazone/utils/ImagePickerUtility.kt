@@ -27,6 +27,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 
 abstract class ImagePickerUtility : AppCompatActivity() {
@@ -46,7 +47,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
                 val contentURI = result.data?.data
 
                 val selectedVideoPath = getPath(contentURI!!)
-                selectedImage(selectedVideoPath, mCode,null)
+                selectedImage(selectedVideoPath, mCode, null)
             }
         }
 
@@ -55,7 +56,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
             if (result.resultCode == RESULT_OK) {
                 val uri = Uri.fromFile(mImageFile)
                 val picturePath = getAbsolutePath(uri)
-                selectedImage(picturePath, mCode,null)
+                selectedImage(picturePath, mCode, null)
             }
 
         }
@@ -70,25 +71,27 @@ abstract class ImagePickerUtility : AppCompatActivity() {
 
                 val selectedVideoPath = getPath(contentURI!!)
 //                val dummyPath = "/storage/emulated/0/Movies/Instagram/VID_53050323_203748_988.mp4"
-                selectedImage(selectedVideoPath, mCode,null)
+                selectedImage(selectedVideoPath, mCode, null)
             }
         }
-   private fun cropImage (uri: Uri) {
 
-       val intent = Intent("com.android.camera.action.CROP")
-      // intent.setClassName("com.android.camera", "com.android.camera.CropImage")
+    private fun cropImage(uri: Uri) {
+
+        val intent = Intent("com.android.camera.action.CROP")
+        // intent.setClassName("com.android.camera", "com.android.camera.CropImage")
 //                val file: File = File(picturePath)
 //                val uri = Uri.fromFile(file)
-       intent.data = uri
-       intent.putExtra("crop", "true")
+        intent.data = uri
+        intent.putExtra("crop", "true")
 //       intent.putExtra("aspectX", 1)
 //       intent.putExtra("aspectY", 1)
-       intent.putExtra("outputX", 400)
-       intent.putExtra("outputY", 400)
-       intent.putExtra("noFaceDetection", true)
-       intent.putExtra("return-data", true)
-       startActivityForResult(intent,CROP_PIC_REQUEST_CODE)
-   }
+        intent.putExtra("outputX", 400)
+        intent.putExtra("outputY", 400)
+        intent.putExtra("noFaceDetection", true)
+        intent.putExtra("return-data", true)
+        startActivityForResult(intent, CROP_PIC_REQUEST_CODE)
+    }
+
     private val imageGalleryLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -101,11 +104,19 @@ abstract class ImagePickerUtility : AppCompatActivity() {
             }
         }
 
-    open fun getImage(code: Int, videoDialog: Boolean) {
+    open fun getImage(
+        code: Int, videoDialog: Boolean,
+        aspectRatioX: Float = -1f,
+        aspectRatioY: Float = -1f,
+        hasCropAspectRatio: Boolean = false
+    ) {
 
         //*****videoDialog -> put false for pick the Image.*****
         //*****videoDialog -> put true for pick the Video.*****
-
+        if (hasCropAspectRatio && (aspectRatioX == -1f || aspectRatioY == -1f)) {
+            Log.e("ImagePicker : GetImage", "Invalid Aspect Ratio")
+            return
+        }
         mCode = code
         mVideoDialog = videoDialog
 
@@ -133,14 +144,18 @@ abstract class ImagePickerUtility : AppCompatActivity() {
             }
             .request { allGranted, _, _ ->
                 if (allGranted) {
-                    imageDialog()
+                    imageDialog(aspectRatioX,aspectRatioY,hasCropAspectRatio)
                 } else
                     ToastUtils.showToast("Unable to perform action due to permissions")
             }
     }
 
 
-    private fun imageDialog() {
+    private fun imageDialog(
+        aspectRatioX: Float = -1f,
+        aspectRatioY: Float = -1f,
+        hasCropAspectRatio: Boolean = false
+    ) {
         val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
@@ -163,7 +178,13 @@ abstract class ImagePickerUtility : AppCompatActivity() {
                 captureVideo()
             } else {
                 /* captureImage()*/
-                ImagePicker.with(this).cameraOnly().crop().start(CAMERA_REQUEST_CODE)
+                if (hasCropAspectRatio){
+                    ImagePicker.with(this).cameraOnly().crop(aspectRatioX, aspectRatioY)
+                        .start(CAMERA_REQUEST_CODE)
+                }
+                else{
+                    ImagePicker.with(this).cameraOnly().crop().start(CAMERA_REQUEST_CODE)
+                }
             }
         }
 
@@ -172,7 +193,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
             if (mVideoDialog) {
                 openGalleryForVideo()
             } else {
-                openGalleryForImage()
+                openGalleryForImage(aspectRatioX,aspectRatioY,hasCropAspectRatio)
             }
         }
 
@@ -200,7 +221,7 @@ abstract class ImagePickerUtility : AppCompatActivity() {
         }
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val fileUri = FileProvider.getUriForFile(
-            Objects.requireNonNull(this),"com.live.emmazone"+ ".provider",
+            Objects.requireNonNull(this), "com.live.emmazone" + ".provider",
             mImageFile
         )
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
@@ -220,10 +241,19 @@ abstract class ImagePickerUtility : AppCompatActivity() {
     }
 
 
-    private fun openGalleryForImage() {
-        CropImage.activity()
+    private fun openGalleryForImage(
+        aspectRatioX: Float = -1f,
+        aspectRatioY: Float = -1f,
+        hasCropAspectRatio: Boolean = false
+    ) {
+        val cropImageTask = CropImage.activity()
             .setGuidelines(CropImageView.Guidelines.ON)
-            .start(this)
+
+        if (hasCropAspectRatio) {
+            cropImageTask.setAspectRatio(aspectRatioX.roundToInt(), aspectRatioY.roundToInt())
+        }
+
+        cropImageTask.start(this)
 //        val intent = Intent(Intent.ACTION_PICK, Images.Media.EXTERNAL_CONTENT_URI)
 //        imageGalleryLauncher.launch(intent)
     }
@@ -245,23 +275,23 @@ abstract class ImagePickerUtility : AppCompatActivity() {
         if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST_CODE) {
             val contentURI = data?.data
             val selectedImagePath = getAbsolutePath(contentURI!!)
-            selectedImage(selectedImagePath, mCode,null)
+            selectedImage(selectedImagePath, mCode, null)
         }
         if (resultCode == RESULT_OK && requestCode == CROP_PIC_REQUEST_CODE) {
             if (data != null) {
                 val extras = data.extras
                 val bitmap = extras!!.getParcelable<Bitmap>("data")
-                selectedImage(null,mCode,bitmap)
+                selectedImage(null, mCode, bitmap)
             }
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
             if (resultCode == RESULT_OK) {
                 val resultUri = result.uri
-                selectedImage(getAbsolutePath(resultUri),mCode,null)
+                selectedImage(getAbsolutePath(resultUri), mCode, null)
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
-                Log.e("imageUtility",error.message.toString())
+                Log.e("imageUtility", error.message.toString())
             }
         }
     }
@@ -302,5 +332,5 @@ abstract class ImagePickerUtility : AppCompatActivity() {
         } else null
     }
 
-    abstract fun selectedImage(imagePath: String?, code: Int , bitmap : Bitmap?)
+    abstract fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?)
 }

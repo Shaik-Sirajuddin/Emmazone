@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.common.internal.service.Common
 import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
@@ -103,7 +104,7 @@ class ShopStoriesProviderFragment : Fragment(), Observer<RestObservable> {
         binding.addStory.setOnClickListener {
             launcher.launch(Intent(requireContext(), ImageGetter::class.java))
         }
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
         adapter = ShopStoryProviderAdapter(requireContext(), list) {
             position = it
             deleteStories(list[it].id)

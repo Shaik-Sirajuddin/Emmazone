@@ -15,6 +15,8 @@
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/bg_earning.xml" value="0.151" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/bg_edit_text.xml" value="0.1495" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/bg_fill_earning.xml" value="0.151" />
+        <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/bg_fill_sqaure.xml" value="0.175" />
+        <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/bg_fill_square_red.xml" value="0.175" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/bg_green_15dp.xml" value="0.151" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/bg_white_top.xml" value="0.151" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/drawable/circleindicator_round.xml" value="0.175" />
@@ -74,6 +76,7 @@
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/dialog_category.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/dialog_common_accept_reject.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/dialog_common_with_ok.xml" value="0.23148148148148148" />
+        <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/dialog_delete_account.xml" value="0.20854700854700856" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/dialog_delete_product.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/dialog_delete_story.xml" value="0.2076923076923077" />
         <entry key="..\:/Users/siraj/StudioProjects/EmmaZone/app/src/main/res/layout/dialog_input_variant.xml" value="0.23148148148148148" />

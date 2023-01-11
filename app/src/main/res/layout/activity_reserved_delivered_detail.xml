@@ -229,6 +229,27 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <LinearLayout
+                android:id="@+id/clickAndCollectContainer"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="@dimen/dp8"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/tvDeliveryAddress"
+                app:layout_constraintStart_toStartOf="@+id/tvDeliveryAddress"
+                app:layout_constraintTop_toBottomOf="@+id/layoutItemDeliveryAdrs">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Click And Collect"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

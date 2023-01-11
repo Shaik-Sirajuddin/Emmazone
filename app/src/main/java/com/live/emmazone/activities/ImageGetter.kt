@@ -29,9 +29,9 @@ class ImageGetter : ImagePickerUtility() {
         super.onCreate(savedInstanceState)
         binding = ActivityImageGetterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        getImage(0,false)
+        getImage(0,false,16f,9f,true)
         binding.retry.setOnClickListener {
-            getImage(0,false)
+            getImage(0,false,16f,9f,true)
         }
     }
 }

@@ -1,22 +1,29 @@
 package com.live.emmazone.activities.auth
 
+import android.app.Dialog
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityEditProfileBinding
 import com.live.emmazone.extensionfuncton.Validator
+import com.live.emmazone.extensionfuncton.clearPreferences
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
+import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.EditProfileResponse
 import com.live.emmazone.response_model.ProfileResponse
 import com.live.emmazone.utils.AppConstants
@@ -103,8 +110,40 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
             byteArray = letterByteArray(text)
             binding.ivProfile.loadImage(byteArray!!)
         }
+        binding.deleteAccount.setOnClickListener {
+            handleDeleteAccount()
+        }
     }
+    private fun handleDeleteAccount(){
 
+
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        dialog.setContentView(R.layout.dialog_delete_account)
+        dialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(this, android.R.color.transparent)
+        )
+
+        val yesBtn: Button = dialog.findViewById(R.id.btnCancelYes)
+        val noBtn: Button = dialog.findViewById(R.id.btnCancelNo)
+
+        yesBtn.setOnClickListener {
+            dialog.dismiss()
+            deleteProfileApiHit()
+        }
+        noBtn.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+
+    }
+    private fun deleteProfileApiHit(){
+        appViewModel.deleteProfileApi(this, true)
+        appViewModel.getResponse().observe(this, this)
+    }
     private fun alertDialog() {
 
         val alertDialog = AlertDialog.Builder(this)
@@ -112,6 +151,7 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
         val view: View = factory.inflate(R.layout.dialog_profile_updated, null)
 
         val buttonOk = view.findViewById<Button>(R.id.ok)
+
 
         buttonOk.setOnClickListener {
             onBackPressed()
@@ -158,14 +198,20 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
                     val response: EditProfileResponse = t.data
                     setResult(RESULT_OK)
                     alertDialog()
-
+                }
+                if(t.data is CommonResponse){
+                    val response = t.data
+                    if (response.code == AppConstants.SUCCESS_CODE) {
+                        clearPreferences()
+                        val intent = Intent(this, UserLoginChoice::class.java)
+                        startActivity(intent)
+                        finishAffinity()
+                    }
                 }
 
             }
-
             else -> {}
         }
     }
-
 
 }

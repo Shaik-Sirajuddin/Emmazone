@@ -298,8 +298,10 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
         when (model.deliveryType) {
             0 -> {   //   0-> click & collect 1-> Lifernado 2-> Home Delivery
                 binding.tvDeliveryType.text = getString(R.string.click_and_collect)
+                binding.tvOrderDeliveryAddress.visibility = View.GONE
+                binding.tvOrderPersonName.visibility = View.GONE
                 binding.tvDeliveryAddress.visibility = View.GONE
-                binding.layoutItemDeliveryAdrs.visibility = View.GONE
+//                binding.layoutItemDeliveryAdrs.visibility = View.GONE
             }
             1 -> {
                 binding.tvDeliveryType.text = getString(R.string.lifernado)

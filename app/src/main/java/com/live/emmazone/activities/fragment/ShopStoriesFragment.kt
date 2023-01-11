@@ -109,11 +109,14 @@ class ShopStoriesFragment : Fragment(), Observer<RestObservable> {
                         adapter.notifyDataSetChanged()
                         if (list.size == 0) {
                             binding.toHide.visibility = View.VISIBLE
+                            binding.shopStoryRecyclerView.visibility = View.GONE
                         } else {
                             binding.toHide.visibility = View.GONE
+                            binding.shopStoryRecyclerView.visibility = View.VISIBLE
                         }
                     } else {
                         binding.toHide.visibility = View.VISIBLE
+                        binding.shopStoryRecyclerView.visibility = View.GONE
                     }
                 } else if (t.data is AddFavouriteResponse) {
                     val response: AddFavouriteResponse = t.data

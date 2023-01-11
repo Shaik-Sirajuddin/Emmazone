@@ -21,12 +21,16 @@ class MyEarningsActivity : AppCompatActivity(), Observer<RestObservable> {
     lateinit var binding: ActivityMyEarningsBinding
     lateinit var adapter: AdapterMyEarnings
     val list = ArrayList<ModelMyEarnings>()
+    val orders = ArrayList<MyEarningResponse.Body.FindOrder>()
     private val appViewModel: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyEarningsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        adapter = AdapterMyEarnings(orders)
+        binding.rvMyEarnings.adapter = adapter
 
         clicksHandle()
         earningApiHit("1")
@@ -83,8 +87,11 @@ class MyEarningsActivity : AppCompatActivity(), Observer<RestObservable> {
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         binding.totalEarning.text =
                             getString(R.string.euro_symbol, response.body.totalEarning.toString())
+
                         binding.totalProducts.text = response.body.totalProduct.toString()
-                        binding.rvMyEarnings.adapter = AdapterMyEarnings(response.body.findOrder)
+                        orders.clear()
+                        orders.addAll(response.body.findOrder)
+                        adapter.notifyDataSetChanged()
                     }
 
                 }

@@ -220,8 +220,22 @@
                 android:layout_marginTop="@dimen/dp25"
                 android:layout_marginEnd="@dimen/dp16"
                 android:layout_marginBottom="@dimen/dp16"
-                android:background="@drawable/update" />
-
+                android:background="@drawable/bg_fill_sqaure"
+                android:text="Update"
+                android:textColor="@color/white"
+                />
+            <android.widget.Button
+                android:id="@+id/deleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp25"
+                android:layout_marginEnd="@dimen/dp16"
+                android:layout_marginBottom="@dimen/dp16"
+                android:background="@drawable/bg_fill_square_red"
+                android:text="Delete Account"
+                android:textColor="@color/white"
+                />
 
         </LinearLayout>
 

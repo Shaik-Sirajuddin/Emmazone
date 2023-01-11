@@ -34,7 +34,7 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/itemImageProductDetail"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="230dp"
                 android:scaleType="center"
                 android:src="@drawable/placeholder" />
 
@@ -42,7 +42,7 @@
             <me.relex.circleindicator.CircleIndicator
                 android:id="@+id/indicator_product"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="10dp"
                 android:layout_below="@+id/itemImageProductDetail"
                 android:layout_gravity="center"
                 app:ci_drawable="@drawable/circleindicator_round" />

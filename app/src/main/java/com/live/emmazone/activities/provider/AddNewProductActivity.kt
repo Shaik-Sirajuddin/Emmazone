@@ -1,20 +1,28 @@
 package com.live.emmazone.activities.provider
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
+import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
 import com.live.emmazone.activities.ImageZoomActivity
 import com.live.emmazone.adapter.CategoriesAdapter
@@ -31,6 +39,7 @@ import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.setEuroLocale
 import com.live.emmazone.utils.ImagePickerUtility
+import com.live.emmazone.utils.SimpleScannerActivity
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.loadImage
 import com.schunts.extensionfuncton.prepareMultiPart
@@ -180,7 +189,9 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding.ivAdd.setOnClickListener {
             getImage(0, false)
         }
-
+        binding.scanCode.setOnClickListener {
+            checkCameraPermission()
+        }
         binding.ivShop.setOnClickListener {
             if (mainImagePath.isNotEmpty()) {
                 val intent = Intent(this, ImageZoomActivity::class.java)
@@ -341,6 +352,117 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             }
             else -> {}
         }
+    }
+
+
+    //handling camera permissions
+    private val permissions = arrayOf(Manifest.permission.CAMERA)
+
+    private fun hasPermissionsCheck(permissions: Array<String>): Boolean = permissions.all {
+        ActivityCompat.checkSelfPermission(
+            this,
+            it
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun checkPermissionDenied(permissions: String) {
+        if (shouldShowRequestPermissionRationale(permissions)) {
+            val mBuilder = AlertDialog.Builder(this)
+            val dialog: AlertDialog =
+                mBuilder.setTitle(R.string.alert).setMessage(R.string.permissionRequired)
+                    .setPositiveButton(
+                        R.string.ok
+                    ) { dialog, which -> requestPermission() }
+                    .setNegativeButton(
+                        R.string.cancel
+                    ) { dialog, which ->
+
+                    }.create()
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                    ContextCompat.getColor(
+                        this, R.color.green
+                    )
+                )
+            }
+            dialog.show()
+        } else {
+            val builder = AlertDialog.Builder(this)
+            val dialog: AlertDialog =
+                builder.setTitle(R.string.alert).setMessage(R.string.permissionRequired)
+                    .setCancelable(
+                        false
+                    )
+                    .setPositiveButton(R.string.openSettings) { dialog, which ->
+//finish()
+                        val intent = Intent(
+                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.fromParts(
+                                "package",
+                                BuildConfig.APPLICATION_ID + ".provider",
+                                null
+                            )
+                        )
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }.create()
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
+                    ContextCompat.getColor(
+                        this, R.color.green
+                    )
+                )
+            }
+            dialog.show()
+        }
+    }
+
+    private val scanLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val code = result.data!!.getStringExtra(AppConstants.ORDER_ID).toString().trim()
+                binding.edtRegisterCode.setText(code)
+            }
+        }
+    private val cameraPermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
+            if (permissions.isNotEmpty()) {
+                permissions.entries.forEach {
+                    Log.d("permissions", "${it.key} = ${it.value}")
+                }
+
+                val camera = permissions[Manifest.permission.CAMERA]
+
+                if (camera == true) {
+                    Log.e("permissions", "Permission Granted Successfully")
+                    val intent = Intent(this, SimpleScannerActivity::class.java)
+                    scanLauncher.launch(intent)
+                } else {
+                    Log.e("permissions", "Permission not granted")
+                    checkCameraPermission()
+                }
+
+            }
+
+        }
+
+    private fun checkCameraPermission() {
+
+        if (hasPermissionsCheck(permissions)) {
+            Log.e("Permissions", "Permissions Granted")
+            val intent = Intent(this, SimpleScannerActivity::class.java)
+            scanLauncher.launch(intent)
+        } else if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+            checkPermissionDenied(Manifest.permission.CAMERA)
+        } else {
+            Log.e("Permissions", "Request for Permissions")
+            requestPermission()
+        }
+    }
+
+    private fun requestPermission() {
+        cameraPermissions.launch(permissions)
     }
 }
 

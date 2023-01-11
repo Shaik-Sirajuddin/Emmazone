@@ -89,8 +89,7 @@
             android:id="@+id/shopStoryRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
         <TextView
             android:id="@+id/toHide"

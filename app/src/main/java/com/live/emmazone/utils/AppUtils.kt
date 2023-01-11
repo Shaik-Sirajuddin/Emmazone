@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -12,10 +13,14 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
 import com.live.emmazone.BuildConfig
 import com.live.emmazone.R
 import com.live.emmazone.interfaces.OnAcceptRejectListener
 import com.live.emmazone.interfaces.OnPopupClick
+import com.live.emmazone.utils.AppUtils.Companion.dpToPx
 import java.text.DecimalFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -46,6 +51,14 @@ class AppUtils {
 
                 false
             }
+        }
+
+        fun Context.dpToPx(dp: Int): Int {
+            return (dp * resources.displayMetrics.density).toInt()
+        }
+
+        fun Context.pxToDp(px: Int): Int {
+            return (px / resources.displayMetrics.density).toInt()
         }
 
         //--------------------------Keyboard Hide ----------------------//
@@ -172,7 +185,7 @@ class AppUtils {
         //------------------------Return Time in String------------------//
         fun secondsToTime(seconds: Long, format: String): String {
             val sdf = SimpleDateFormat(format, Locale.getDefault())
-            val milliSeconds = seconds*1000 // if "timeInMillis" in Seconds than use it.
+            val milliSeconds = seconds * 1000 // if "timeInMillis" in Seconds than use it.
             return sdf.format(milliSeconds)
         }
 
@@ -232,7 +245,7 @@ class AppUtils {
         fun getTimeTest(timeStamp: Long): String? {
             return try {
                 val sdf = SimpleDateFormat("hh:mm a")
-                sdf.timeZone= TimeZone.getTimeZone("GMT")
+                sdf.timeZone = TimeZone.getTimeZone("GMT")
                 val netDate = Date(timeStamp * 1000L)
                 sdf.format(netDate)
             } catch (ex: java.lang.Exception) {
@@ -240,10 +253,10 @@ class AppUtils {
             }
         }
 
-        fun getDateTime(timestamp: Long):String{
+        fun getDateTime(timestamp: Long): String {
             return try {
                 val sdf = SimpleDateFormat("dd-MMM-yyyy")
-                sdf.timeZone= TimeZone.getTimeZone("GMT")
+                sdf.timeZone = TimeZone.getTimeZone("GMT")
                 val netDate = Date(timestamp * 1000L)
                 sdf.format(netDate)
             } catch (ex: java.lang.Exception) {
@@ -305,47 +318,86 @@ class AppUtils {
                 }
             }
         }
-        fun Activity.showToast(message : String){
-            Toast.makeText( this,message, Toast.LENGTH_SHORT).show()
+
+        fun Activity.showToast(message: String) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
-        fun Activity.openGoogleMaps(latitude : String , longitude : String){
+
+        fun Activity.openGoogleMaps(latitude: String, longitude: String) {
             val gmmIntentUri =
                 Uri.parse("google.navigation:q=${latitude},${longitude}")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             startActivity(mapIntent)
         }
+
         fun Activity.getURLForResource(resourceId: Int): String {
             return Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/" + resourceId)
                 .toString()
         }
-        fun Activity.setEuroLocale(){
+
+        fun Activity.setEuroLocale() {
             val locale = Locale("de")
             Locale.setDefault(locale)
-            val config  = baseContext.resources.configuration
+            val config = baseContext.resources.configuration
             config.locale = locale
             baseContext.resources.updateConfiguration(
                 config,
                 baseContext.resources.displayMetrics
             )
         }
+
         fun getDelimeter() = ","
         fun getFormattedAmount(amount: Double): String {
-            var text =  DecimalFormat("###,###.##").format(amount)
+            var text = DecimalFormat("###,###.##").format(amount)
             val comma = text.indexOf(getDelimeter())
             var afterText = ""
-            if(text.contains(getDelimeter()) && comma != text.lastIndex){
+            if (text.contains(getDelimeter()) && comma != text.lastIndex) {
                 afterText = text.substring(comma)
-                if(afterText.length == 2 && afterText[1]!='0'){
+                if (afterText.length == 2 && afterText[1] != '0') {
                     text = "${text}0"
                 }
             }
             return text
         }
-        fun getFormattedAmountForEdit(amount: Double) : String {
-            return  DecimalFormat("###,###.##").format(amount)
+
+        fun getFormattedAmountForEdit(amount: Double): String {
+            return DecimalFormat("###,###.##").format(amount)
         }
 
+        //Generate Barcode
+        private fun generateBarCode(code: Int) {
+
+//            val width = if (binding.barCode.width > 0) binding.barCode.width else dpToPx(100)
+//            val height = if (binding.barCode.height > 0) binding.barCode.height else dpToPx(40)
+            val width = 100
+            val height = 300
+            val multiFormatWriter = MultiFormatWriter()
+            try {
+                val bitMatrix = multiFormatWriter.encode(
+                    code.toString(),
+                    BarcodeFormat.CODE_128,
+                    width,
+                    height
+                )
+                val bitmap = Bitmap.createBitmap(
+                    width,
+                    height,
+                    Bitmap.Config.RGB_565
+                )
+                for (i in 0 until width) {
+                    for (j in 0 until height) {
+                        var currentColor = Color.WHITE
+                        if (bitMatrix.get(i, j)) currentColor = Color.BLACK
+                        bitmap.setPixel(i, j, currentColor)
+                    }
+                }
+                // binding.barCode.setImageBitmap(bitmap);
+            } catch (e: WriterException) {
+                e.printStackTrace()
+            }
+
+        }
     }
 
 }

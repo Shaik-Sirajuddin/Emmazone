@@ -801,6 +801,46 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun deleteProfileApi(
+        activity: Activity,
+        isDialogShow: Boolean,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.deleteProfile()
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        deleteProfileApi(activity, isDialogShow)
+                    }
+                })
+        }
+    }
+
     fun editProfileApi(
         activity: Activity,
         isDialogShow: Boolean,
@@ -860,7 +900,6 @@ class AppViewModel : ViewModel() {
                                 response.code(),
                                 response.errorBody()!!
                             )
-
                         }
 
                     }
@@ -934,7 +973,6 @@ class AppViewModel : ViewModel() {
                                 response.code(),
                                 response.errorBody()!!
                             )
-
                         }
 
                     }
@@ -1842,6 +1880,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     //sho stories
     fun addShopStory(
         activity: Activity,
@@ -1881,6 +1920,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     //get stories of a specific shop or all shops
     fun getShopStories(
         activity: Activity,
@@ -1897,7 +1937,7 @@ class AppViewModel : ViewModel() {
                     ) {
                         if (response.isSuccessful) {
                             mResponse.value = RestObservable.success(response.body()!!)
-                            Log.e("f",mResponse.value?.data.toString())
+                            Log.e("f", mResponse.value?.data.toString())
                         } else {
                             mResponse.value = RestObservable.errorWithSuccess(
                                 activity,
@@ -1936,7 +1976,7 @@ class AppViewModel : ViewModel() {
                     ) {
                         if (response.isSuccessful) {
                             mResponse.value = RestObservable.success(response.body()!!)
-                            Log.e("f",mResponse.value?.data.toString())
+                            Log.e("f", mResponse.value?.data.toString())
                         } else {
                             mResponse.value = RestObservable.errorWithSuccess(
                                 activity,

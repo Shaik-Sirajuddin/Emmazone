@@ -127,7 +127,7 @@ class EditShopDetailActivity : ImagePickerUtility(),
         }
 
         binding.mainImageLayout.setOnClickListener {
-            getImage(0, false)
+            getImage(0, false,16f,9f,true)
         }
 
         binding.edtShopYearFoundation.setOnClickListener {

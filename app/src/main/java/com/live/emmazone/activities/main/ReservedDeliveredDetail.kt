@@ -176,8 +176,8 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
         }
         when (data.deliveryType) {
             0 -> {   //   0-> click & collect 1-> Lifernado 2-> Own Delivery
-                binding.tvDeliveryAddress.visibility = View.GONE
                 binding.layoutItemDeliveryAdrs.visibility = View.GONE
+                binding.clickAndCollectContainer.visibility = View.VISIBLE
             }
             1 -> {
                 binding.btnQRScanner.visibility = View.GONE
