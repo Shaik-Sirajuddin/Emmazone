@@ -70,7 +70,6 @@ class ChatAdapter(val list: ArrayList<ChatModel>) :
 
         fun bind(pos: Int) {
             val chatModel = list[pos]
-
             binding.civUser.loadImage(chatModel.senderImg)
             binding.tvMsg.text = chatModel.msg
             binding.tvTime.text =
