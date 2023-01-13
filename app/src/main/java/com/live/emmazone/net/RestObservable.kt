@@ -42,6 +42,7 @@ class RestObservable(
                 )
                 progressDialog!!.show()
             }
+
             return RestObservable(Status.LOADING, null, null)
         }
 

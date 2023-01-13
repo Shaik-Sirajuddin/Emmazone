@@ -7,8 +7,9 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:orientation="vertical"
         android:background="@drawable/alert_dialog_shape"
-        android:orientation="vertical">
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,7 +18,7 @@
             android:layout_marginTop="15dp"
             android:text="@string/alert"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -32,64 +33,31 @@
             android:textColor="@color/black"
             android:textSize="12dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/darker_gray" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp25"
+            android:gravity="center"
             android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1">
+            <android.widget.Button
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp10"
+                android:background="@drawable/yes" />
 
-                <TextView
-                    android:id="@+id/tv_cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:text="@string/no"
-                    android:textColor="@color/skyBlue"
-                    android:textSize="16dp" />
+            <android.widget.Button
+                android:id="@+id/tv_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp10"
+                android:background="@drawable/no" />
 
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:background="@android:color/darker_gray" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/tv_ok"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:padding="10dp"
-                    android:text="@string/yes"
-                    android:textColor="@color/skyBlue"
-                    android:textSize="16dp" />
-
-            </RelativeLayout>
         </LinearLayout>
+
 
     </LinearLayout>
 
