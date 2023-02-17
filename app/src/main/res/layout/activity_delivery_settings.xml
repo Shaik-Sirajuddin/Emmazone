@@ -83,9 +83,10 @@
                     >
                     <TextView
                         android:layout_weight="1"
-                        android:padding="2dp"
+                        android:paddingVertical="4dp"
+                        android:paddingHorizontal="2dp"
                         android:layout_marginEnd="6dp"
-                        android:text="Tick this option if your shop delivery to certain Postalcodes by itself. \nPostalcodes can be changed in settings."
+                        android:text="Option to offer self delivery to certain Postal codes . \nPostal codes can be changed in settings."
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -188,7 +189,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="2dp"
-                        android:text="Third party delivery method is mandatory and as you should delivery everywhere in the Germany"
+                        android:text="Third party delivery method is mandatory to make sure the delivery is possible all over the country"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -262,7 +263,7 @@
                     <TextView
                         android:layout_weight="1"
                         android:padding="2dp"
-                        android:text="Amount for free Order : "
+                        android:text="Amount for free Order (€): "
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"

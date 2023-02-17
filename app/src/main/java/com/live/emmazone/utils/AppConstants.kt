@@ -163,6 +163,8 @@ object AppConstants {
     //Delivery System
     const val EDIT_SHOP_DELIVERY = "edit_shop_delivery"
     const val GET_SHOP_DELIVERY = "get_shop_delivery"
-
+    const val GET_SHOP_POSTAL_CODES = "get_postal_codes"
+    const val ADD_SHOP_POSTAL_CODE = "add_postal_code"
+    const val DELETE_SHOP_POSTAL_CODE = "delete_postal_code"
 
 }

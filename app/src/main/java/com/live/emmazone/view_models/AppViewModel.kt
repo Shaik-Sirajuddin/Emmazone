@@ -2811,7 +2811,8 @@ class AppViewModel : ViewModel() {
                     }
                 })
         }
-        }
+    }
+
     //Delivery system
     fun editShopDelivery(
         activity: Activity,
@@ -2853,6 +2854,7 @@ class AppViewModel : ViewModel() {
                 })
         }
     }
+
     fun getShopDelivery(
         activity: Activity,
         isDialogShow: Boolean,
@@ -2894,4 +2896,119 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun getShopPostalCodes(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.getShopPostalCodes(hashMap)
+                .enqueue(object : Callback<PostalCodesResponse> {
+                    override fun onResponse(
+                        call: Call<PostalCodesResponse>,
+                        response: Response<PostalCodesResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PostalCodesResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        getShopDelivery(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun addShopPostalCode(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addShopPostalCode(hashMap)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        getShopDelivery(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun deleteShopPostalCode(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.deleteShopPostalCode(hashMap)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        getShopDelivery(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
 }

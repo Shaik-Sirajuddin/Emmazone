@@ -1,5 +1,6 @@
 package com.live.emmazone.activities.provider
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -40,6 +41,10 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
         binding.saveButton.setOnClickListener {
             apiHit()
         }
+        binding.managePostalCodes.setOnClickListener {
+            val intent = Intent(this, ShopPostalCodes::class.java)
+            startActivity(intent)
+        }
         getData()
     }
 
@@ -55,7 +60,7 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
         val map = HashMap<String, String>()
         map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
         appViewModel.getShopDelivery(this, true, map)
-        appViewModel.mResponse.observe(this,this)
+        appViewModel.mResponse.observe(this, this)
     }
 
     private fun apiHit() {
@@ -80,7 +85,7 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
     }
 
     private fun setData(data: ShopDeliveryResponse.Body) {
-        Log.d("This",data.logistics_available.toString())
+        Log.d("This", data.logistics_available.toString())
         binding.bicycleDelivery.isChecked = data.bicycle_available
         binding.selfDelivery.isChecked = data.shop_available
         if (data.limit_price == null) {
@@ -106,7 +111,7 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
                 }
             }
             Status.ERROR -> {
-                if(t.data is CommonResponse){
+                if (t.data is CommonResponse) {
                     val response: CommonResponse = t.data
                     showToast(response.message)
                 }

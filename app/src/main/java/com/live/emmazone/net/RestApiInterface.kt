@@ -365,4 +365,15 @@ interface RestApiInterface {
     @POST(AppConstants.GET_SHOP_DELIVERY)
     fun getShopDelivery(@FieldMap hashMap: HashMap<String, String>) : Call<ShopDeliveryResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.GET_SHOP_POSTAL_CODES)
+    fun getShopPostalCodes(@FieldMap hashMap: HashMap<String, String>) : Call<PostalCodesResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.ADD_SHOP_POSTAL_CODE)
+    fun addShopPostalCode(@FieldMap hashMap: HashMap<String, String>) : Call<CommonResponse>
+    @FormUrlEncoded
+    @POST(AppConstants.DELETE_SHOP_POSTAL_CODE)
+    fun deleteShopPostalCode(@FieldMap hashMap: HashMap<String, String>) : Call<CommonResponse>
+
 }
