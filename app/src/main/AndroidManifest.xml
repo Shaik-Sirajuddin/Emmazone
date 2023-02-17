@@ -16,7 +16,6 @@
     <application
         android:name=".base.AppController"
         android:allowBackup="false"
-        tools:replace="android:allowBackup,android:theme"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -25,7 +24,11 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.EmmaZone"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup,android:theme">
+        <activity
+            android:name=".activities.provider.DeliverySettings"
+            android:exported="false" />
         <activity
             android:name=".activities.provider.AddShopStory"
             android:exported="false" />

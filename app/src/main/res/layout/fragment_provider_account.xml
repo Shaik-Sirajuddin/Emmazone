@@ -242,9 +242,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/changePwdLayout"
+                android:id="@+id/deliverySettingLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/faq"
@@ -252,6 +251,40 @@
                 app:layout_constraintEnd_toEndOf="@+id/myEarningLayout"
                 app:layout_constraintStart_toStartOf="@+id/myEarningLayout"
                 app:layout_constraintTop_toBottomOf="@+id/myEarningLayout"
+                tools:layout_editor_absoluteX="25dp"
+                tools:layout_editor_absoluteY="140dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:paddingLeft="@dimen/dp15"
+                    android:text="Delivery Settings"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:src="@drawable/arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/changePwdLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/faq"
+                android:padding="@dimen/dp16"
+                app:layout_constraintEnd_toEndOf="@+id/deliverySettingLayout"
+                app:layout_constraintStart_toStartOf="@+id/deliverySettingLayout"
+                app:layout_constraintTop_toBottomOf="@+id/deliverySettingLayout"
                 tools:layout_editor_absoluteX="25dp"
                 tools:layout_editor_absoluteY="140dp">
 

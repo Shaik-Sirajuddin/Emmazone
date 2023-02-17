@@ -66,10 +66,10 @@ object AppConstants {
 
 
     /*******URLs*****/
-    const val BASE_DOMAIN = "http://app.emmazn.de:8101"
+//    const val BASE_DOMAIN = "http://app.emmazn.de:8101"
 //    const val IP = "app.emmazn.de:8101"
 
-//    const val BASE_DOMAIN = "http://192.168.201.218:8101"
+    const val BASE_DOMAIN = "http://192.168.201.78:8101"
 //    const val IP = "192.168.113.218:8101"
 
     const val S3Url = "https://emmazones3.s3.eu-west-2.amazonaws.com"
@@ -159,5 +159,10 @@ object AppConstants {
     const val ADD_SHOP_STORY = "add_shop_story"
     const val DELETE_SHOP_STORY = "delete_shop_story"
     const val GET_SHOP_STORIES = "get_shop_stories"
+
+    //Delivery System
+    const val EDIT_SHOP_DELIVERY = "edit_shop_delivery"
+    const val GET_SHOP_DELIVERY = "get_shop_delivery"
+
 
 }

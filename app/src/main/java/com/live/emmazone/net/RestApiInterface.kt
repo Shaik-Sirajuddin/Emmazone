@@ -357,4 +357,12 @@ interface RestApiInterface {
         @FieldMap hashMap: HashMap<String, String>
     ): Call<SearchProductResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.EDIT_SHOP_DELIVERY)
+    fun editShopDelivery(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.GET_SHOP_DELIVERY)
+    fun getShopDelivery(@FieldMap hashMap: HashMap<String, String>) : Call<ShopDeliveryResponse>
+
 }

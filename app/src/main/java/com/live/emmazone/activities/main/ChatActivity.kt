@@ -134,7 +134,7 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
                     newMsg.senderId.toString(),
                     newMsg.receiverId.toString()
                 )
-                if(chatModel.senderId == getPreference(AppConstants.USER_ID, "")){
+                if (chatModel.senderId == getPreference(AppConstants.USER_ID, "")) {
                     binding.edtMsg.text.clear()
                 }
                 chatList.add(chatModel)
