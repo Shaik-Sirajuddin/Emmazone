@@ -105,6 +105,12 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
                     setData(response.body)
                 }
             }
+            Status.ERROR -> {
+                if(t.data is CommonResponse){
+                    val response: CommonResponse = t.data
+                    showToast(response.message)
+                }
+            }
             else -> {}
         }
     }

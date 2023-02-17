@@ -40,6 +40,8 @@ data class SellerShopDetailResponse(
             val cartCount: Int?,
             @SerializedName("shopAddress")
             val shopAddress: String,
+            @SerializedName("postalCode")
+            val postalCode : String,
             @SerializedName("shop_categories")
             val shopCategories: ArrayList<ShopCategory>,
             @SerializedName("shopDescription")

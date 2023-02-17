@@ -101,6 +101,8 @@ object Validator {
         image: String,
         shopName: String,
         shopYear: String,
+        postalCode : String,
+
         address: String,
         desc: String,
         categories: String
@@ -114,7 +116,12 @@ object Validator {
         } else if (TextUtils.isEmpty(shopYear)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_shop_year)
             false
-        } else if (TextUtils.isEmpty(address)) {
+        }
+        else if(TextUtils.isEmpty(postalCode)){
+            errorMessage = "Please enter postal code"
+            false
+        }
+        else if (TextUtils.isEmpty(address)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_address)
             false
         } else if (TextUtils.isEmpty(desc)) {
@@ -319,6 +326,7 @@ object Validator {
         shopName: String,
         shopYear: String,
         address: String,
+        postalCode: String,
         desc: String,
         categories: String
     ): Boolean {
@@ -331,7 +339,12 @@ object Validator {
         } else if (TextUtils.isEmpty(address)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_address)
             false
-        } else if (TextUtils.isEmpty(desc)) {
+        }
+        else if(TextUtils.isEmpty(postalCode)){
+            errorMessage = "Please enter postal code"
+            false
+        }
+        else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
             false
         } else if (TextUtils.isEmpty(categories)) {

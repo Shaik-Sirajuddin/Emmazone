@@ -105,6 +105,7 @@ class EditShopDetailActivity : ImagePickerUtility(),
         binding.edtShopYearFoundation.setText(sellerShopDetail.body.shopDetails.year.toString())
         binding.edtShopAddress.setText(sellerShopDetail.body.shopDetails.shopAddress)
         binding.edtShopDesc.setText(sellerShopDetail.body.shopDetails.shopDescription)
+        binding.edtPostalCode.setText(sellerShopDetail.body.shopDetails.postalCode)
         latitude = sellerShopDetail.body.shopDetails.latitude
         longitude = sellerShopDetail.body.shopDetails.longitude
 
@@ -209,11 +210,12 @@ class EditShopDetailActivity : ImagePickerUtility(),
         val shopYear = binding.edtShopYearFoundation.text.toString().trim()
         val shopAddress = binding.edtShopAddress.text.toString().trim()
         val shopDesc = binding.edtShopDesc.text.toString().trim()
+        val postalCode = binding.edtPostalCode.text.toString().trim()
 
 
         if (Validator.validateEditShop(
-                shopName, shopYear,
-                shopAddress, shopDesc, selectedCategories
+                shopName, shopYear,shopAddress,
+                postalCode, shopDesc, selectedCategories
             )
         ) {
 
@@ -225,6 +227,7 @@ class EditShopDetailActivity : ImagePickerUtility(),
             hashMap["shopDescription"] = toBody(shopDesc)
             hashMap["latitude"] = toBody(latitude)
             hashMap["longitude"] = toBody(longitude)
+            hashMap["postalCode"] = toBody(postalCode)
             hashMap["category"] = toBody(selectedCategories.substring(0, selectedCategories.length))
 
             val image: MultipartBody.Part
