@@ -45,6 +45,13 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
             val intent = Intent(this, ShopPostalCodes::class.java)
             startActivity(intent)
         }
+        binding.manageDeliveryTemplates.setOnClickListener {
+            val intent = Intent(this,DeliveryPricingTemplatesActivity::class.java)
+            startActivity(intent)
+        }
+        binding.back.setOnClickListener {
+            finish()
+        }
         getData()
     }
 

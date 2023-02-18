@@ -27,6 +27,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:theme">
         <activity
+            android:name=".activities.provider.DeliveryPricingTemplatesActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.provider.ShopPostalCodes"
             android:exported="false" />
         <activity
@@ -35,7 +38,7 @@
         <activity
             android:name=".activities.provider.AddShopStory"
             android:exported="false" />
-        <activity android:name="net.rdrei.android.dirchooser.DirectoryChooserActivity" />
+<!--        <activity android:name="net.rdrei.android.dirchooser.DirectoryChooserActivity" />-->
         <activity
             android:name=".activities.ImageGetter"
             android:exported="false" />

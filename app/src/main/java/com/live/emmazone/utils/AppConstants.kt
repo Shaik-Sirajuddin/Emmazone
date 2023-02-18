@@ -166,5 +166,6 @@ object AppConstants {
     const val GET_SHOP_POSTAL_CODES = "get_postal_codes"
     const val ADD_SHOP_POSTAL_CODE = "add_postal_code"
     const val DELETE_SHOP_POSTAL_CODE = "delete_postal_code"
-
+    const val GET_DELIVERY_TEMPLATES_SHOP = "get_delivery_template_shop"
+    const val EDIT_DELIVERY_TEMPLATES_SHOP = "edit_delivery_template_shop"
 }

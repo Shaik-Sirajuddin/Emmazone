@@ -78,38 +78,38 @@ interface RestApiInterface {
     @POST(AppConstants.ADD_PRODUCT_REVIEW)
     fun addProductReview(
         @PartMap hashMap: HashMap<String, RequestBody>
-    ) : Call<CommonResponse>
+    ): Call<CommonResponse>
 
     @Multipart
     @POST(AppConstants.GET_PRODUCT_REVIEWS)
     fun getProductReviews(
         @PartMap hashMap: HashMap<String, RequestBody>
-    ) : Call<ReviewsResponse>
+    ): Call<ReviewsResponse>
 
     @Multipart
     @POST(AppConstants.GET_MY_PRODUCT_REVIEW)
     fun getMyProductReview(
         @PartMap hashMap: HashMap<String, RequestBody>
-    ) : Call<ProductReviewResponse>
+    ): Call<ProductReviewResponse>
 
     @Multipart
     @POST(AppConstants.ADD_CATEGORY)
     fun addCategory(
         @PartMap hashMap: HashMap<String, RequestBody>,
-        @Part image : MultipartBody.Part
-    ) : Call<AddCategoryResponse>
+        @Part image: MultipartBody.Part
+    ): Call<AddCategoryResponse>
 
     @Multipart
     @POST(AppConstants.ADD_SIZE)
     fun addSize(
         @PartMap hashMap: HashMap<String, RequestBody>,
-    ) : Call<AddCategoryResponse>
+    ): Call<AddCategoryResponse>
 
     @Multipart
     @POST(AppConstants.ADD_COLOR)
     fun addColor(
         @PartMap hashMap: HashMap<String, RequestBody>,
-    ) : Call<AddCategoryResponse>
+    ): Call<AddCategoryResponse>
 
 
     @FormUrlEncoded
@@ -145,19 +145,19 @@ interface RestApiInterface {
     fun addShopStory(
         @PartMap hashMap: HashMap<String, RequestBody>,
         @Part image: MultipartBody.Part?
-    ):Call<CommonResponse>
+    ): Call<CommonResponse>
 
     @Multipart
     @POST(AppConstants.GET_SHOP_STORIES)
     fun getShopStories(
         @PartMap hashMap: HashMap<String, RequestBody>,
-    ) : Call<ShopStoryResponse>
+    ): Call<ShopStoryResponse>
 
     @Multipart
     @POST(AppConstants.DELETE_SHOP_STORY)
     fun deleteShopStory(
         @PartMap hashMap: HashMap<String, RequestBody>,
-    ) : Call<CommonResponse>
+    ): Call<CommonResponse>
 
     //
     @FormUrlEncoded
@@ -244,11 +244,11 @@ interface RestApiInterface {
     fun wishList(@FieldMap hashMap: HashMap<String, String>): Call<WishListResponse>
 
     @GET(AppConstants.GET_WISHLIST_PRODUCTS)
-    fun getWishProducts() : Call<SearchProductResponse>
+    fun getWishProducts(): Call<SearchProductResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.MODIFY_WISHLIST_PRODUCT)
-    fun likeOrDislikeProduct(@FieldMap hashMap: HashMap<String, String>) :Call<CommonResponse>
+    fun likeOrDislikeProduct(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 
 
     @FormUrlEncoded
@@ -288,7 +288,6 @@ interface RestApiInterface {
         @PartMap hashMap: HashMap<String, RequestBody>,
         @Part image: MultipartBody.Part
     ): Call<EditShopDeatilResponse>
-
 
 
     @FormUrlEncoded
@@ -357,23 +356,34 @@ interface RestApiInterface {
         @FieldMap hashMap: HashMap<String, String>
     ): Call<SearchProductResponse>
 
+    /**
+     * Shop Delivery System Routes
+     **/
     @FormUrlEncoded
     @POST(AppConstants.EDIT_SHOP_DELIVERY)
     fun editShopDelivery(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.GET_SHOP_DELIVERY)
-    fun getShopDelivery(@FieldMap hashMap: HashMap<String, String>) : Call<ShopDeliveryResponse>
+    fun getShopDelivery(@FieldMap hashMap: HashMap<String, String>): Call<ShopDeliveryResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.GET_SHOP_POSTAL_CODES)
-    fun getShopPostalCodes(@FieldMap hashMap: HashMap<String, String>) : Call<PostalCodesResponse>
+    fun getShopPostalCodes(@FieldMap hashMap: HashMap<String, String>): Call<PostalCodesResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.ADD_SHOP_POSTAL_CODE)
-    fun addShopPostalCode(@FieldMap hashMap: HashMap<String, String>) : Call<CommonResponse>
+    fun addShopPostalCode(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
     @FormUrlEncoded
     @POST(AppConstants.DELETE_SHOP_POSTAL_CODE)
-    fun deleteShopPostalCode(@FieldMap hashMap: HashMap<String, String>) : Call<CommonResponse>
+    fun deleteShopPostalCode(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 
+    @FormUrlEncoded
+    @POST(AppConstants.GET_DELIVERY_TEMPLATES_SHOP)
+    fun getDeliveryTemplate(@FieldMap hashMap: HashMap<String, String>): Call<DeliveryTemplateResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.EDIT_DELIVERY_TEMPLATES_SHOP)
+    fun editDeliveryTemplate(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 }

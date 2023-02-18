@@ -324,5 +324,11 @@
     <string name="returned">Returned</string>
     <string name="na">NA</string>
 
+    <string-array name="delivery_template_names">
+        <item>Small Package</item>
+        <item>Medium Package</item>
+        <item>Large Package</item>
+    </string-array>
+
 
 </resources>

@@ -313,6 +313,37 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/manageDeliveryTemplates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/faq"
+            android:padding="@dimen/dp16"
+            app:layout_constraintEnd_toEndOf="@+id/changePwdLayout"
+            app:layout_constraintStart_toStartOf="@+id/changePwdLayout"
+            app:layout_constraintTop_toBottomOf="@+id/changePwdLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:paddingLeft="@dimen/dp15"
+                android:text="Manage Delivery Pricing Templates"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/saveButton"

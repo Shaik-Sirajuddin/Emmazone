@@ -48,6 +48,9 @@ class ShopPostalCodes : AppCompatActivity(), Observer<RestObservable> {
         binding.addPostalCode.setOnClickListener {
             validateAddData()
         }
+        binding.back.setOnClickListener {
+            finish()
+        }
         getData()
     }
     private fun validateAddData(){
