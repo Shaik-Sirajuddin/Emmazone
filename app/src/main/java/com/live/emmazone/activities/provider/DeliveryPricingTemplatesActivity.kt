@@ -34,12 +34,10 @@ class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObser
         binding.back.setOnClickListener {
             finish()
         }
-        /* Setting adapter configuration */
+
+        /** Start : Setting up autoCompleteTextview configuration */
         val templateNames = resources.getStringArray(R.array.delivery_template_names)
-        // create an array adapter and pass the required parameter
-        // in our case pass the context, drop down layout , and array.
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, templateNames)
-        // get reference to the autocomplete text view
         binding.autoCompleteTextView.setAdapter(adapter)
         binding.autoCompleteTextView.setDropDownBackgroundResource(R.color.white)
         binding.autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
@@ -47,6 +45,9 @@ class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObser
             loadTemplate()
         }
         binding.autoCompleteTextView.setText(templateNames[templateNo],false)
+        /**End*/
+
+
         binding.updateButton.setOnClickListener {
             update()
         }

@@ -26,6 +26,7 @@ import com.live.emmazone.activities.main.Notifications
 import com.live.emmazone.activities.provider.ProviderMainActivity
 import com.live.emmazone.adapter.AdapterProviderShopDetailProducts
 import com.live.emmazone.databinding.FragmentAddProductProviderBinding
+import com.live.emmazone.model.ProductDeliveryModel
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.*
@@ -91,14 +92,14 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
 
     private fun filterProduct(text: String) {
         list.clear()
-        if(text.isEmpty()){
+        if (text.isEmpty()) {
             list.addAll(cachedList)
-        }
-        else{
+        } else {
             cachedList.forEach {
                 if (it.name.contains(text, true) ||
                     it.id.toString().contains(text) ||
-                    it.registerCode.toString().contains(text)) {
+                    it.registerCode.toString().contains(text)
+                ) {
                     list.add(it)
                 }
             }
@@ -145,7 +146,6 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
     }
 
 
-
     private fun setDetailData(response: SellerShopDetailResponse) {
         if (response.body.notificationCount == 0) {
             binding.notifyRedBG.visibility = View.GONE
@@ -154,9 +154,22 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
         }
 
         cachedList.clear()
-        cachedList.add(ProductGroup(
-            ProductGroup.Category("",""),0,"",-1,"","",0,
-        arrayListOf(),"", arrayListOf(),0))
+        cachedList.add(
+            ProductGroup(
+                ProductGroup.Category("", ""), 0, "", -1, "", "", 0,
+                arrayListOf(), "", arrayListOf(), 0,
+                ProductDeliveryModel(
+                    0,
+                    bicycle_available = false,
+                    shop_available = false,
+                    logistics_available = false,
+                    bicycle_price = 0,
+                    shop_price = 0,
+                    logistics_price = 0,
+                    product_group_id = 0
+                )
+            )
+        )
         cachedList.addAll(response.body.groups)
         filterProduct(binding.edtSearchAddProduct.text.toString().trim())
     }

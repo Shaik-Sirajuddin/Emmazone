@@ -12,6 +12,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
@@ -31,6 +32,7 @@ import com.live.emmazone.adapter.ImageAdapter
 import com.live.emmazone.adapter.SizeAdapter
 import com.live.emmazone.databinding.ActivityAddNewProductBinding
 import com.live.emmazone.extensionfuncton.Validator
+import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.model.ImageModel
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
@@ -72,6 +74,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var mainImagePath = ""
     private var mainImage = ""
 
+    private var templateNo = 0
 
     override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
@@ -110,7 +113,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     }
 
-    fun highlightSwitchListener() {
+    private fun highlightSwitchListener() {
         binding.switchHighlight.setOnCheckedChangeListener { buttonView, isChecked ->
             // do something, the isChecked will be
             // true if the switch is in the On position
@@ -121,6 +124,21 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 highlightValue = 0
             }
         }
+    }
+
+    /** Delivery templates loading and handling
+     * */
+    private fun loadTemplate() {
+        val map = HashMap<String, String>()
+        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
+        map["templateNo"] = templateNo.toString()
+        appViewModel.getDeliveryTemplate(this, true, map)
+        appViewModel.mResponse.observe(this, this)
+    }
+    private fun setData(body: DeliveryTemplateResponse.Body) {
+        binding.bicyclePricing.setText(body.bicycle_price.toString())
+        binding.shopPricing.setText(body.shop_price.toString())
+        binding.thirdPartyPricing.setText(body.logistics_price.toString())
     }
 
 
@@ -203,6 +221,16 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 startActivity(intent)
             }
         }
+        /** Start : Setting up autoCompleteTextview configuration */
+        val templateNames = resources.getStringArray(R.array.delivery_template_names)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, templateNames)
+        binding.autoCompleteTextView.setAdapter(adapter)
+        binding.autoCompleteTextView.setDropDownBackgroundResource(R.color.white)
+        binding.autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
+            templateNo = i
+            loadTemplate()
+        }
+        /**End*/
     }
 
     private fun validateAddProduct() {
@@ -210,6 +238,11 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         val shotDesc = binding.edtShotDesc.text.toString().trim()
         val description = binding.edtDesc.text.toString().trim()
         val registerCode = binding.edtRegisterCode.text.toString().trim().toIntOrNull()
+        val bicycleDeliveryEnabled = binding.bicycleDeliveryCheckbox.isChecked
+        val shopDeliveryEnabled = binding.selfDeliveryCheckbox.isChecked
+        var bicyclePricing = binding.bicyclePricing.text.toString().trim().toIntOrNull()
+        var shopPricing = binding.shopPricing.text.toString().trim().toIntOrNull()
+        val thirdPartyPricing = binding.thirdPartyPricing.text.toString().trim().toIntOrNull()
 
         if (Validator.addProductValidation(
                 productName,
@@ -218,7 +251,12 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 selectedCategoryId,
                 imageList,
                 registerCode,
-                mainImagePath
+                mainImagePath,
+                bicycleDeliveryEnabled,
+                shopDeliveryEnabled,
+                bicyclePricing,
+                shopPricing,
+                thirdPartyPricing
             )
         ) {
             val image: ArrayList<MultipartBody.Part> = ArrayList()
@@ -227,6 +265,8 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                     image.add(prepareMultiPart("image", File(it.image)))
                 }
             }
+            shopPricing = shopPricing ?: 0
+            bicyclePricing = bicyclePricing ?: 0
 
             val hashMap = HashMap<String, RequestBody>()
             hashMap["product_name"] = toBody(productName)
@@ -235,6 +275,12 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["categoryId"] = toBody(selectedCategoryId)
             hashMap["product_highlight"] = toBody(highlightValue.toString())
             hashMap["registerCode"] = toBody(registerCode.toString())
+            hashMap["bicycle_available"] = toBody(bicycleDeliveryEnabled.toString())
+            hashMap["shop_available"] = toBody(shopDeliveryEnabled.toString())
+            hashMap["logistics_price"] = toBody(thirdPartyPricing.toString())
+            hashMap["bicycle_price"] = toBody(bicyclePricing.toString())
+            hashMap["shop_price"] = toBody(shopPricing.toString())
+
             val mainImage = prepareMultiPart("mainImage", File(mainImagePath))
 
             appViewModel.addProductGroup(this, true, hashMap, image, mainImage)
@@ -348,6 +394,10 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                             launchEdit(t.data.body.group)
                         }
                     }
+                }
+                else if (t.data is DeliveryTemplateResponse) {
+                    val response: DeliveryTemplateResponse = t.data
+                    setData(response.body)
                 }
             }
             else -> {}

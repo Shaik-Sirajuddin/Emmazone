@@ -1,6 +1,7 @@
 package com.live.emmazone.response_model
 
 import com.google.gson.annotations.SerializedName
+import com.live.emmazone.model.ProductDeliveryModel
 import java.io.Serializable
 
 data class ProductGroup(
@@ -25,7 +26,9 @@ data class ProductGroup(
     @SerializedName("products")
     var products : ArrayList<Product> = arrayListOf(),
     @SerializedName("registerCode")
-    var registerCode : Int
+    var registerCode : Int,
+    @SerializedName("product_delivery")
+    var productDelivery : ProductDeliveryModel
 
 ) : Serializable {
     data class Category(

@@ -12,6 +12,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -33,15 +34,19 @@ import com.live.emmazone.adapter.ImageAdapter
 import com.live.emmazone.adapter.ProductVariantAdapter
 import com.live.emmazone.databinding.ActivityEditProductBinding
 import com.live.emmazone.extensionfuncton.Validator
+import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.model.ImageModel
+import com.live.emmazone.model.ProductDeliveryModel
 import com.live.emmazone.model.ProductVariant
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.net.RestObservable
+import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.dpToPx
 import com.live.emmazone.utils.AppUtils.Companion.setEuroLocale
+import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.utils.ImagePickerUtility
 import com.live.emmazone.utils.SimpleScannerActivity
 import com.live.emmazone.view_models.AppViewModel
@@ -72,7 +77,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     var mainImagePath = ""
     var id = ""
     var isRefresh = false
-
+    private var templateNo = -1
     override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
             if (code == 0) {
@@ -180,8 +185,8 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding.edtShopName.setText(productGroup.name)
         binding.edtShotDesc.setText(productGroup.shortDescription)
         binding.edtDesc.setText(productGroup.description)
-
         selectedCategoryId = productGroup.categoryId.toString()
+        setDeliveryData(productGroup.productDelivery)
         list.clear()
         addDummyData()
         if (!productGroup.products.isNullOrEmpty()) {
@@ -227,6 +232,9 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
 
     private fun initListener() {
+        val templateNames = resources.getStringArray(R.array.delivery_template_names)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, templateNames)
+
         binding.apply {
 
             back.setOnClickListener { onBackPressed() }
@@ -254,7 +262,41 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             scanCode.setOnClickListener {
                 checkCameraPermission()
             }
+            /** Start : Setting up autoCompleteTextview configuration */
+            autoCompleteTextView.setAdapter(adapter)
+            autoCompleteTextView.setDropDownBackgroundResource(R.color.white)
+            autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
+                templateNo = i
+                loadTemplate()
+            }
+            /**End*/
         }
+
+
+    }
+
+    /** Delivery templates loading and handling
+     * */
+    private fun loadTemplate() {
+        val map = HashMap<String, String>()
+        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
+        map["templateNo"] = templateNo.toString()
+        appViewModel.getDeliveryTemplate(this, true, map)
+        appViewModel.mResponse.observe(this, this)
+    }
+
+    private fun setTemplateData(body: DeliveryTemplateResponse.Body) {
+        binding.bicyclePricing.setText(body.bicycle_price.toString())
+        binding.shopPricing.setText(body.shop_price.toString())
+        binding.thirdPartyPricing.setText(body.logistics_price.toString())
+    }
+
+    private fun setDeliveryData(body: ProductDeliveryModel) {
+        binding.bicyclePricing.setText(body.bicycle_price.toString())
+        binding.shopPricing.setText(body.shop_price.toString())
+        binding.thirdPartyPricing.setText(body.logistics_price.toString())
+        binding.selfDeliveryCheckbox.isChecked = body.shop_available
+        binding.bicycleDeliveryCheckbox.isChecked = body.bicycle_available
     }
 
     private fun selectImage() {
@@ -289,10 +331,20 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         val shotDesc = binding.edtShotDesc.text.toString().trim()
         val registerCode = binding.edtRegisterCode.text.toString().trim().toIntOrNull()
 
+        val bicycleDeliveryEnabled = binding.bicycleDeliveryCheckbox.isChecked
+        val shopDeliveryEnabled = binding.selfDeliveryCheckbox.isChecked
+        var bicyclePricing = binding.bicyclePricing.text.toString().trim().toIntOrNull()
+        var shopPricing = binding.shopPricing.text.toString().trim().toIntOrNull()
+        val thirdPartyPricing = binding.thirdPartyPricing.text.toString().trim().toIntOrNull()
         if (Validator.editProductValidation(
                 productName, description, selectedCategoryId,
                 registerCode,
-                imageList
+                imageList,
+                bicycleDeliveryEnabled,
+                shopDeliveryEnabled,
+                bicyclePricing,
+                shopPricing,
+                thirdPartyPricing
             )
         ) {
 
@@ -300,6 +352,8 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 AppUtils.showMsgOnlyWithoutClick(this, "Please select main image")
                 return
             }
+            shopPricing = shopPricing ?: 0
+            bicyclePricing = bicyclePricing ?: 0
             val hashMap = HashMap<String, RequestBody>()
             hashMap["id"] = toBody(id)
             hashMap["product_name"] = toBody(productName)
@@ -308,6 +362,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             hashMap["categoryId"] = toBody(selectedCategoryId)
             hashMap["product_highlight"] = toBody(highlightValue.toString())
             hashMap["registerCode"] = toBody(registerCode.toString())
+            hashMap["bicycle_available"] = toBody(bicycleDeliveryEnabled.toString())
+            hashMap["shop_available"] = toBody(shopDeliveryEnabled.toString())
+            hashMap["logistics_price"] = toBody(thirdPartyPricing.toString())
+            hashMap["bicycle_price"] = toBody(bicyclePricing.toString())
+            hashMap["shop_price"] = toBody(shopPricing.toString())
             var mainImage: MultipartBody.Part? = null
             if (mainImagePath.isNotEmpty()) {
                 mainImage = prepareMultiPart("mainImage", File(mainImagePath))
@@ -362,13 +421,34 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     }
 
     override fun onChanged(t: RestObservable) {
-        if (t.data is EditProductGroupResponse) {
-            showProductUpdateDialog()
-        } else if (t.data is ShopProductDetailResponse) {
-            productGroup!!.products = t.data.body.products
-            setData(productGroup!!)
-        } else if (t.data is CommonResponse) {
-            deleteVariant()
+        when (t.status) {
+            Status.SUCCESS -> {
+                if (t.data is EditProductGroupResponse) {
+                    showProductUpdateDialog()
+                } else if (t.data is ShopProductDetailResponse) {
+                    productGroup!!.products = t.data.body.products
+                    setData(productGroup!!)
+                } else if (t.data is CommonResponse) {
+                    deleteVariant()
+                } else if (t.data is DeliveryTemplateResponse) {
+                    val response: DeliveryTemplateResponse = t.data
+                    setTemplateData(response.body)
+                }
+            }
+            Status.ERROR -> {
+                if (t.data is EditProductGroupResponse) {
+                    AppUtils.showMsgOnlyWithoutClick(this, t.data.message)
+                } else if (t.data is ShopProductDetailResponse) {
+                    AppUtils.showMsgOnlyWithoutClick(this, t.data.message)
+                } else if (t.data is CommonResponse) {
+                    AppUtils.showMsgOnlyWithoutClick(this, t.data.message)
+                } else if (t.data is DeliveryTemplateResponse) {
+                    AppUtils.showMsgOnlyWithoutClick(this, t.data.message)
+                } else {
+                    AppUtils.showMsgOnlyWithoutClick(this, "Something went wrong")
+                }
+            }
+            else -> {}
         }
     }
 

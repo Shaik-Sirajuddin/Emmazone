@@ -101,7 +101,7 @@ object Validator {
         image: String,
         shopName: String,
         shopYear: String,
-        postalCode : String,
+        postalCode: String,
 
         address: String,
         desc: String,
@@ -116,12 +116,10 @@ object Validator {
         } else if (TextUtils.isEmpty(shopYear)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_shop_year)
             false
-        }
-        else if(TextUtils.isEmpty(postalCode)){
+        } else if (TextUtils.isEmpty(postalCode)) {
             errorMessage = "Please enter postal code"
             false
-        }
-        else if (TextUtils.isEmpty(address)) {
+        } else if (TextUtils.isEmpty(address)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_address)
             false
         } else if (TextUtils.isEmpty(desc)) {
@@ -205,7 +203,12 @@ object Validator {
         desc: String,
         categories: String,
         registerCode: Int?,
-        imageList: ArrayList<ProductImage>
+        imageList: ArrayList<ProductImage>,
+        bicycleEnabled: Boolean,
+        shopEnabled: Boolean,
+        bicyclePrice: Int?,
+        shopPrice: Int?,
+        thirdPartyPrice: Int?,
     ): Boolean {
 
         return if (imageList.size == 0) {
@@ -217,13 +220,20 @@ object Validator {
         } else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
             false
-        }
-        else if(registerCode == null){
+        } else if (registerCode == null) {
             errorMessage = "Please enter valid product code"
             false
-        }
-        else if (TextUtils.isEmpty(categories)) {
+        } else if (TextUtils.isEmpty(categories)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_category_1)
+            false
+        } else if (thirdPartyPrice == null) {
+            errorMessage = "Please enter price for ThirdPartyDelivery"
+            false
+        } else if (shopEnabled && shopPrice == null) {
+            errorMessage = "Please enter price for SelfDelivery"
+            false
+        } else if (bicycleEnabled && bicyclePrice == null) {
+            errorMessage = "Please enter price for LieferradDa"
             false
         } else true
 
@@ -236,8 +246,13 @@ object Validator {
         desc: String,
         categories: String,
         imageList: ArrayList<ProductImage>,
-        registerCode : Int?,
-        mainImagePath: String? = null
+        registerCode: Int?,
+        mainImagePath: String? = null,
+        bicycleEnabled: Boolean,
+        shopEnabled: Boolean,
+        bicyclePrice: Int?,
+        shopPrice: Int?,
+        thirdPartyPrice: Int?,
     ): Boolean {
 
         return if (mainImagePath?.isNullOrEmpty()!!) {
@@ -255,13 +270,20 @@ object Validator {
         } else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
             false
-        }
-        else if(registerCode == null){
+        } else if (registerCode == null) {
             errorMessage = "Please enter valid product code"
             false
-        }
-        else if (TextUtils.isEmpty(categories)) {
+        } else if (TextUtils.isEmpty(categories)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_select_category_1)
+            false
+        } else if (thirdPartyPrice == null) {
+            errorMessage = "Please enter price for ThirdPartyDelivery"
+            false
+        } else if (shopEnabled && shopPrice == null) {
+            errorMessage = "Please enter price for SelfDelivery"
+            false
+        } else if (bicycleEnabled && bicyclePrice == null) {
+            errorMessage = "Please enter price for LieferradDa"
             false
         } else true
 
@@ -339,12 +361,10 @@ object Validator {
         } else if (TextUtils.isEmpty(address)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_address)
             false
-        }
-        else if(TextUtils.isEmpty(postalCode)){
+        } else if (TextUtils.isEmpty(postalCode)) {
             errorMessage = "Please enter postal code"
             false
-        }
-        else if (TextUtils.isEmpty(desc)) {
+        } else if (TextUtils.isEmpty(desc)) {
             errorMessage = AppController.instance!!.getString(R.string.msg_enter_description)
             false
         } else if (TextUtils.isEmpty(categories)) {
@@ -373,14 +393,14 @@ object Validator {
         } else if (TextUtils.isEmpty(selectCardId)) {
             errorMessage = AppController.instance!!.getString(R.string.please_select_payment)
             false
-        }else return true
+        } else return true
     }
 
     fun buyProduct(selectCardId: String): Boolean {
         return if (TextUtils.isEmpty(selectCardId)) {
             errorMessage = AppController.instance!!.getString(R.string.please_select_payment)
             false
-        }else return true
+        } else return true
     }
 
 

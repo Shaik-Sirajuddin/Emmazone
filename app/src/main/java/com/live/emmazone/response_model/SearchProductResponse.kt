@@ -73,6 +73,7 @@ data class SearchProductResponse(
             var id : Int,
             @SerializedName("product_images")
             var productImages: ArrayList<Product.ProductImage>,
+
         ):Serializable
         data class ProductImage(
             @SerializedName("id")

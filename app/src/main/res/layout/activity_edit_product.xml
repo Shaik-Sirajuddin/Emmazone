@@ -240,7 +240,166 @@
             app:layout_constraintStart_toStartOf="@+id/tvDescP"
             app:layout_constraintTop_toBottomOf="@+id/tvDescP" />
 
+        <TextView
+            android:id="@+id/tvDeliveryPricing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp24"
+            android:text="Delivery Pricing"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp15"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/edtDesc"
+            app:layout_constraintTop_toBottomOf="@+id/edtDesc" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
 
+            app:layout_constraintEnd_toEndOf="@+id/edtDesc"
+            app:layout_constraintStart_toStartOf="@+id/edtDesc"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeliveryPricing">
+
+            <!-- Inside text input layout add
+                  an auto complete text view
+                    and make its input type to none-->
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:editable="false"
+                android:inputType="none"
+                android:text="Choose Template to load from" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:id="@+id/holderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/edtDesc"
+            app:layout_constraintStart_toStartOf="@+id/edtDesc"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <CheckBox
+                    android:id="@+id/selfDeliveryCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:padding="5dp"
+                    />
+                <CheckBox
+                    android:id="@+id/bicycleDeliveryCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:padding="5dp"
+                    />
+                <CheckBox
+                    android:id="@+id/thirdPartyDeliveryCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:padding="5dp"
+                    android:clickable="false"
+                    android:checked="true"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvPaymentMethod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:padding="5dp"
+                    android:text="Self/Shop    Pricing(€):"
+                    android:textColor="@color/light_black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tvTax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:text="LieferradDa Pricing(€):"
+                    android:textColor="@color/light_black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tvTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:text="Third Party  Pricing(€):"
+                    android:textColor="@color/light_black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.7"
+                android:orientation="vertical"
+
+                >
+
+                <EditText
+                    android:id="@+id/shopPricing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="5dp" />
+
+                <EditText
+                    android:id="@+id/bicyclePricing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="5dp" />
+
+                <EditText
+                    android:id="@+id/thirdPartyPricing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="5dp" />
+            </LinearLayout>
+        </LinearLayout>
         <TextView
             android:id="@+id/tvProductHighLight"
             android:layout_width="wrap_content"
@@ -251,7 +410,7 @@
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/edtDesc"
-            app:layout_constraintTop_toBottomOf="@+id/edtDesc" />
+            app:layout_constraintTop_toBottomOf="@+id/holderLayout" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_notification"
