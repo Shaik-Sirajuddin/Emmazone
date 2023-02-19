@@ -3,6 +3,7 @@ package com.live.emmazone.model
 import java.io.Serializable
 import com.google.gson.annotations.SerializedName
 import com.live.emmazone.response_model.Product
+import com.live.emmazone.response_model.ShopDeliveryResponse
 
 
 data class ShopProductDetailResponse(
@@ -14,7 +15,7 @@ data class ShopProductDetailResponse(
     var message: String, // product Updated successfully
     @SerializedName("success")
     var success: Boolean // true
-):Serializable {
+) : Serializable {
     data class Body(
         @SerializedName("cartCount")
         var cartCount: Int, // 1
@@ -23,12 +24,16 @@ data class ShopProductDetailResponse(
         @SerializedName("taxValue")
         var taxValue: TaxValue?,
         @SerializedName("latitude")
-        var latitude:String,
+        var latitude: String,
         @SerializedName("longitude")
-        var longitude:String,
+        var longitude: String,
         @SerializedName("products")
-        var products:ArrayList<Product>
-    ):Serializable {
+        var products: ArrayList<Product>,
+        @SerializedName("product_delivery")
+        var productDelivery: ProductDeliveryModel,
+        @SerializedName("shop_delivery")
+        var shopDelivery: ShopDeliveryModel
+    ) : Serializable {
         data class TaxValue(
             @SerializedName("comment")
             var comment: String,
@@ -46,6 +51,6 @@ data class ShopProductDetailResponse(
             var updatedAt: String, // 2022-03-02T07:03:20.000Z
             @SerializedName("value")
             var value: String // 5
-        ):Serializable
+        ) : Serializable
     }
 }

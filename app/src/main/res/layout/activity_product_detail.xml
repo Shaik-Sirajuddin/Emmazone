@@ -400,12 +400,14 @@
                         android:padding="10dp"
                         >
                         <TextView
+                            android:id="@+id/deliveryTime"
                             android:text="8-48h"
                             android:textStyle="bold"
                             android:textSize="16sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <TextView
+                            android:id="@+id/deliveryType"
                             android:text="Standard delivery "
                             android:layout_weight="1"
                             android:textSize="16sp"
@@ -413,12 +415,22 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"/>
                         <TextView
+                            android:id="@+id/deliveryPrice"
                             android:text="1,99€"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/freeDeliveryText"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:padding="10dp"
+                        />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
             <LinearLayout

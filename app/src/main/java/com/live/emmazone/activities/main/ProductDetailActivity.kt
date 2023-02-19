@@ -97,6 +97,10 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private lateinit var reviewsAdapter: AdapterRatingReviews
     private val reviewsList = ArrayList<ProductReviewModel>()
 
+    /**Delivery Pricing*/
+    private var deliveryPrice = 0
+    private var deliveryType = "Self Delivery"
+    private var deliveryTime = "On Arrival"
 
     private val launcherPayment =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -240,11 +244,11 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             selectedPos = shopProductDetailResponse!!.body.products.indexOf(model)
 
             binding.productItemName.text = model.name
-            Log.e("rating",model.productReview)
+            Log.e("rating", model.productReview)
             try {
                 binding.ratingBarProductDetail.rating = model.productReview.toFloat()
             } catch (e: Exception) {
-                Log.e("error",e.message.toString())
+                Log.e("error", e.message.toString())
             }
             binding.rating.text =
                 "${model.productReview}/5"
@@ -303,12 +307,14 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         appViewModel.getResponse().observe(this, this)
 
     }
-    private fun reviewsApiHit(){
+
+    private fun reviewsApiHit() {
         val map = HashMap<String, RequestBody>()
         map["productId"] = toBody(productId)
         appViewModel.getProductReviews(this, true, map)
         appViewModel.getResponse().observe(this, this)
     }
+
     private fun setOnClicks() {
         binding.ivPlus.setOnClickListener(this)
         binding.ivMinus.setOnClickListener(this)
@@ -562,35 +568,65 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
 
     }
 
+    private fun setData(data: ShopProductDetailResponse.Body) {
+        sizeList.clear()
+        colorList.clear()
+        sizeList.addAll(createSizeList(data.products))
+        colorList.addAll(createColorList(data.products))
+        sizeAdapter.notifyDataSetChanged()
+        colorAdapter.notifyDataSetChanged()
+
+        setSelectedPosition()
+
+        latitude = data.latitude
+        longitude = data.longitude
+
+        updateVariant()
+
+        if (data.cartCount == 0) {
+            binding.ivRedCart.visibility = View.GONE
+        } else {
+            binding.ivRedCart.visibility = View.VISIBLE
+        }
+        val shopDelivery = data.shopDelivery
+        val productDelivery = data.productDelivery
+        if (productDelivery.shop_available && shopDelivery.shop_available) {
+            deliveryPrice = productDelivery.shop_price
+            deliveryType = "Shop Delivery"
+            deliveryTime = "2 Days"
+        } else if (productDelivery.bicycle_available && shopDelivery.bicycle_available) {
+            deliveryPrice = productDelivery.bicycle_price
+            deliveryType = "LieferradDa"
+            deliveryTime = "24 Hrs"
+        } else {
+            deliveryPrice = productDelivery.logistics_price
+            deliveryType = "Standard Delivery"
+            deliveryTime = "2 Days"
+        }
+        if (deliveryPrice == 0) {
+            binding.deliveryPrice.text = "Free"
+        } else {
+            binding.deliveryPrice.text = getString(R.string.euro_symbol, deliveryPrice.toString())
+        }
+        binding.deliveryType.text = deliveryType
+        binding.deliveryTime.text = deliveryTime
+
+        if (shopDelivery.limit_price == null) {
+            binding.freeDeliveryText.visibility = View.GONE
+        } else {
+            binding.freeDeliveryText.text =
+                getString(R.string.free_delivery_text, shopDelivery.limit_price)
+            binding.freeDeliveryText.visibility = View.VISIBLE
+        }
+    }
+
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
                 if (t.data is ShopProductDetailResponse) {
 
                     shopProductDetailResponse = t.data
-
-                    val data = t.data.body
-
-                    sizeList.clear()
-                    colorList.clear()
-                    sizeList.addAll(createSizeList(data.products))
-                    colorList.addAll(createColorList(data.products))
-                    sizeAdapter.notifyDataSetChanged()
-                    colorAdapter.notifyDataSetChanged()
-
-                    setSelectedPosition()
-
-                    latitude = data.latitude
-                    longitude = data.longitude
-
-
-                    updateVariant()
-
-                    if (data.cartCount == 0) {
-                        binding.ivRedCart.visibility = View.GONE
-                    } else {
-                        binding.ivRedCart.visibility = View.VISIBLE
-                    }
+                    setData(t.data.body)
                     reviewsApiHit()
 
                 } else if (t.data is CommonResponse) {

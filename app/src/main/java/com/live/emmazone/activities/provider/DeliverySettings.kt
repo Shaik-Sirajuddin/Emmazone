@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.live.emmazone.databinding.ActivityDeliverySettingsBinding
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.model.ShopDeliveryModel
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
@@ -46,7 +47,7 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
             startActivity(intent)
         }
         binding.manageDeliveryTemplates.setOnClickListener {
-            val intent = Intent(this,DeliveryPricingTemplatesActivity::class.java)
+            val intent = Intent(this, DeliveryPricingTemplatesActivity::class.java)
             startActivity(intent)
         }
         binding.back.setOnClickListener {
@@ -91,7 +92,7 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
         appViewModel.mResponse.observe(this, this)
     }
 
-    private fun setData(data: ShopDeliveryResponse.Body) {
+    private fun setData(data: ShopDeliveryModel) {
         Log.d("This", data.logistics_available.toString())
         binding.bicycleDelivery.isChecked = data.bicycle_available
         binding.selfDelivery.isChecked = data.shop_available
