@@ -33,6 +33,7 @@ import com.live.emmazone.adapter.SizeAdapter
 import com.live.emmazone.databinding.ActivityAddNewProductBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.model.DeliveryTemplateModel
 import com.live.emmazone.model.ImageModel
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
@@ -59,7 +60,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     lateinit var binding: ActivityAddNewProductBinding
     private val list: ArrayList<CategoryListResponse.Body> = ArrayList()
-    private var byteArray:ByteArray? = null
+    private var byteArray: ByteArray? = null
 
 
     private var categoryAdapter: CategoriesAdapter? = null
@@ -74,8 +75,10 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private var mainImagePath = ""
     private var mainImage = ""
 
-    private var templateNo = 0
-
+    private var selectedIndex = -1
+    private lateinit var adapter: ArrayAdapter<String>
+    private val templates = ArrayList<DeliveryTemplateModel>()
+    private val templateNames = ArrayList<String>()
     override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
             if (code == 0) {
@@ -128,19 +131,30 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     /** Delivery templates loading and handling
      * */
-    private fun loadTemplate() {
-        val map = HashMap<String, String>()
-        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
-        map["templateNo"] = templateNo.toString()
-        appViewModel.getDeliveryTemplate(this, true, map)
-        appViewModel.mResponse.observe(this, this)
-    }
-    private fun setData(body: DeliveryTemplateResponse.Body) {
+
+    private fun loadData() {
+        val body = templates[selectedIndex]
         binding.bicyclePricing.setText(body.bicycle_price.toString())
         binding.shopPricing.setText(body.shop_price.toString())
         binding.thirdPartyPricing.setText(body.logistics_price.toString())
     }
 
+    private fun getTemplates() {
+        val map = HashMap<String, String>()
+        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
+        appViewModel.getDeliveryTemplates(this, true, map)
+        appViewModel.mResponse.observe(this, this)
+    }
+
+    private fun setData(body: List<DeliveryTemplateModel>) {
+        templates.clear()
+        templates.addAll(body)
+        templateNames.clear()
+        templates.forEach {
+            templateNames.add(it.templateName)
+        }
+        adapter.notifyDataSetChanged()
+    }
 
     private fun setCategoryAdapter() {
         categoryAdapter = CategoriesAdapter(list)
@@ -222,15 +236,15 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             }
         }
         /** Start : Setting up autoCompleteTextview configuration */
-        val templateNames = resources.getStringArray(R.array.delivery_template_names)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, templateNames)
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, templateNames)
         binding.autoCompleteTextView.setAdapter(adapter)
         binding.autoCompleteTextView.setDropDownBackgroundResource(R.color.white)
         binding.autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
-            templateNo = i
-            loadTemplate()
+            selectedIndex = i
+            loadData()
         }
         /**End*/
+        getTemplates()
     }
 
     private fun validateAddProduct() {
@@ -324,6 +338,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 //        setEuroLocale()
 
     }
+
     private fun selectImage() {
         Album.image(this)
             .multipleChoice()
@@ -350,12 +365,13 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             }.start()
     }
 
-    private fun launchEdit(product: ProductGroup){
-        val intent = Intent(this,EditProductActivity::class.java)
-        intent.putExtra("group",product)
+    private fun launchEdit(product: ProductGroup) {
+        val intent = Intent(this, EditProductActivity::class.java)
+        intent.putExtra("group", product)
         startActivity(intent)
         finish()
     }
+
     override fun onChanged(t: RestObservable?) {
         when (t!!.status) {
             Status.SUCCESS -> {
@@ -394,8 +410,7 @@ class AddNewProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                             launchEdit(t.data.body.group)
                         }
                     }
-                }
-                else if (t.data is DeliveryTemplateResponse) {
+                } else if (t.data is DeliveryTemplateResponse) {
                     val response: DeliveryTemplateResponse = t.data
                     setData(response.body)
                 }

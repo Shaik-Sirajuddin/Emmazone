@@ -8,9 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
         android:background="@color/white"
         android:orientation="vertical"
-        android:layout_marginHorizontal="2dp"
         tools:context=".activities.provider.DeliverySettings">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,43 +54,40 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="6dp"
             app:cardBackgroundColor="@color/white"
-            >
+            app:cardCornerRadius="6dp"
+            app:cardElevation="2dp">
 
             <LinearLayout
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:background="@color/white"
-                android:padding="0dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Self Delivery"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    >
+                    android:layout_marginVertical="5dp">
+
                     <TextView
-                        android:layout_weight="1"
-                        android:paddingVertical="4dp"
-                        android:paddingHorizontal="2dp"
-                        android:layout_marginEnd="6dp"
-                        android:text="Option to offer self delivery to certain Postal codes . \nPostal codes can be changed in settings."
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        />
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="2dp"
+                        android:paddingVertical="4dp"
+                        android:text="Option to offer self delivery to certain Postal codes . \nPostal codes can be changed in settings."
+                        android:textColor="@color/black" />
 
                     <CheckBox
                         android:id="@+id/selfDelivery"
@@ -102,47 +99,46 @@
 
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bicycleCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="6dp"
             app:cardBackgroundColor="@color/white"
-            >
+            app:cardCornerRadius="6dp"
+            app:cardElevation="2dp">
 
             <LinearLayout
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:background="@color/white"
-                android:padding="0dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="LieferradDa"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    >
+                    android:layout_marginVertical="5dp">
+
                     <TextView
-                        android:layout_weight="1"
-                        android:padding="2dp"
-                        android:layout_marginEnd="6dp"
-                        android:text="LieferradDa will delivery in PostalCodes in it service radar if not done by Self Delivery.\nThis option is only available if your shop is under radar of LieferradDa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        />
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:padding="2dp"
+                        android:text="LieferradDa will delivery in PostalCodes in it service radar if not done by Self Delivery.\nThis option is only available if your shop is under radar of LieferradDa"
+                        android:textColor="@color/black" />
 
                     <CheckBox
                         android:id="@+id/bicycleDelivery"
@@ -154,134 +150,131 @@
 
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="6dp"
             app:cardBackgroundColor="@color/white"
-            >
+            app:cardCornerRadius="6dp"
+            app:cardElevation="2dp">
 
             <LinearLayout
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:background="@color/white"
-                android:padding="0dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Third Party Delivery"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    >
+                    android:layout_marginVertical="5dp">
+
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="2dp"
                         android:text="Third party delivery method is mandatory to make sure the delivery is possible all over the country"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        />
+                        android:textColor="@color/black" />
 
                     <CheckBox
                         android:id="@+id/thirdPartyDelivery"
-                        android:checked="true"
-                        android:clickable="false"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:clickable="false" />
                 </LinearLayout>
 
             </LinearLayout>
 
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="6dp"
             app:cardBackgroundColor="@color/white"
-            >
+            app:cardCornerRadius="6dp"
+            app:cardElevation="2dp">
 
             <LinearLayout
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:background="@color/white"
-                android:padding="0dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Free Delivery"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    >
+                    android:layout_marginVertical="5dp">
+
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="2dp"
                         android:text="My shop will provide free delivery if the total amount for an order exceeds an particular amount."
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        />
+                        android:textColor="@color/black" />
 
                     <CheckBox
                         android:id="@+id/limitPriceCheckbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/freeOrderInternalLayout"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
-                    >
+                    android:visibility="gone">
+
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="2dp"
                         android:text="Amount for free Order (€): "
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        />
+                        android:textColor="@color/black" />
 
                     <EditText
                         android:id="@+id/limitPrice"
-                        android:layout_weight="2"
-                        android:padding="4dp"
-                        android:inputType="number"
-                        android:background="@drawable/bg_edit_text"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@drawable/bg_edit_text"
+                        android:inputType="number"
+                        android:padding="4dp" />
                 </LinearLayout>
             </LinearLayout>
 
 
         </com.google.android.material.card.MaterialCardView>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/managePostalCodes"
             android:layout_width="match_parent"
@@ -313,6 +306,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/manageDeliveryTemplates"
             android:layout_width="match_parent"
@@ -347,14 +341,14 @@
 
         <Button
             android:id="@+id/saveButton"
-            android:background="@drawable/bg_fill_sqaure"
-            android:layout_gravity="center"
-            android:text="Save and Continue"
-            android:paddingHorizontal="40dp"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/bg_fill_sqaure"
+            android:paddingHorizontal="40dp"
+            android:text="Save and Continue"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </ScrollView>

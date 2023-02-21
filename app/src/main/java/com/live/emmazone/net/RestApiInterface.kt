@@ -381,9 +381,13 @@ interface RestApiInterface {
 
     @FormUrlEncoded
     @POST(AppConstants.GET_DELIVERY_TEMPLATES_SHOP)
-    fun getDeliveryTemplate(@FieldMap hashMap: HashMap<String, String>): Call<DeliveryTemplateResponse>
+    fun getDeliveryTemplates(@FieldMap hashMap: HashMap<String, String>): Call<DeliveryTemplateResponse>
 
     @FormUrlEncoded
     @POST(AppConstants.EDIT_DELIVERY_TEMPLATES_SHOP)
     fun editDeliveryTemplate(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.ADD_DELIVERY_TEMPLATES_SHOP)
+    fun addDeliveryTemplate(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 }

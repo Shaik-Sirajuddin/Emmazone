@@ -67,6 +67,7 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
     private fun getData() {
         val map = HashMap<String, String>()
         map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
+        map["checkService"] = true.toString()
         appViewModel.getShopDelivery(this, true, map)
         appViewModel.mResponse.observe(this, this)
     }
@@ -103,6 +104,11 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
             binding.limitPriceCheckbox.isChecked = true
             binding.limitPrice.setText(data.limit_price.toString())
             switchVisibility(true)
+        }
+        if (data.serviceable) {
+            binding.bicycleCard.visibility = View.VISIBLE
+        } else {
+            binding.bicycleCard.visibility = View.GONE
         }
     }
 

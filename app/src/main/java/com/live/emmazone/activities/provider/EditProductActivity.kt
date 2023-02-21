@@ -35,10 +35,7 @@ import com.live.emmazone.adapter.ProductVariantAdapter
 import com.live.emmazone.databinding.ActivityEditProductBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.getPreference
-import com.live.emmazone.model.ImageModel
-import com.live.emmazone.model.ProductDeliveryModel
-import com.live.emmazone.model.ProductVariant
-import com.live.emmazone.model.ShopProductDetailResponse
+import com.live.emmazone.model.*
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.*
@@ -77,7 +74,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     var mainImagePath = ""
     var id = ""
     var isRefresh = false
-    private var templateNo = -1
+
+    private var selectedIndex = -1
+    private lateinit var templateAdapter: ArrayAdapter<String>
+    private val templates = ArrayList<DeliveryTemplateModel>()
+    private val templateNames = ArrayList<String>()
     override fun selectedImage(imagePath: String?, code: Int, bitmap: Bitmap?) {
         if (imagePath != null) {
             if (code == 0) {
@@ -119,10 +120,8 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         images = arrayListOf()
 
         highlightSwitchListener()
-        appViewModel.selectedCategoryListApi(this, true)
-        appViewModel.getResponse().observe(this, this)
-        productDetailApiHit()
 
+//        productDetailApiHit()
     }
 
     private fun addDummyData() {
@@ -134,6 +133,11 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 "", 0, 0, SearchProductResponse.Body.Group(0, arrayListOf())
             )
         )
+    }
+
+    private fun categoryApi() {
+        appViewModel.selectedCategoryListApi(this, true)
+        appViewModel.getResponse().observe(this, this)
     }
 
     private fun productDetailApiHit() {
@@ -232,8 +236,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
 
     private fun initListener() {
-        val templateNames = resources.getStringArray(R.array.delivery_template_names)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, templateNames)
+        templateAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, templateNames)
 
         binding.apply {
 
@@ -263,32 +266,42 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 checkCameraPermission()
             }
             /** Start : Setting up autoCompleteTextview configuration */
-            autoCompleteTextView.setAdapter(adapter)
+            autoCompleteTextView.setAdapter(templateAdapter)
             autoCompleteTextView.setDropDownBackgroundResource(R.color.white)
             autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
-                templateNo = i
-                loadTemplate()
+                selectedIndex = i
+                setTemplateData()
             }
             /**End*/
         }
-
-
+        getTemplates()
     }
 
     /** Delivery templates loading and handling
      * */
-    private fun loadTemplate() {
-        val map = HashMap<String, String>()
-        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
-        map["templateNo"] = templateNo.toString()
-        appViewModel.getDeliveryTemplate(this, true, map)
-        appViewModel.mResponse.observe(this, this)
-    }
 
-    private fun setTemplateData(body: DeliveryTemplateResponse.Body) {
+    private fun setTemplateData() {
+        val body = templates[selectedIndex]
         binding.bicyclePricing.setText(body.bicycle_price.toString())
         binding.shopPricing.setText(body.shop_price.toString())
         binding.thirdPartyPricing.setText(body.logistics_price.toString())
+    }
+
+    private fun getTemplates() {
+        val map = HashMap<String, String>()
+        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
+        appViewModel.getDeliveryTemplates(this, true, map)
+        appViewModel.mResponse.observe(this, this)
+    }
+
+    private fun setData(body: List<DeliveryTemplateModel>) {
+        templates.clear()
+        templates.addAll(body)
+        templateNames.clear()
+        templates.forEach {
+            templateNames.add(it.templateName)
+        }
+        adapter.notifyDataSetChanged()
     }
 
     private fun setDeliveryData(body: ProductDeliveryModel) {
@@ -297,6 +310,23 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding.thirdPartyPricing.setText(body.logistics_price.toString())
         binding.selfDeliveryCheckbox.isChecked = body.shop_available
         binding.bicycleDeliveryCheckbox.isChecked = body.bicycle_available
+        Log.d(
+            "HereBody",
+            body.bicycle_price.toString() + " , " + body.logistics_price.toString() + " , " + body.shop_price.toString()
+        )
+
+        val template = templates.find {
+            Log.d(
+                "Here",
+                it.bicycle_price.toString() + " , " + it.logistics_price.toString() + " , " + it.shop_price.toString()
+            )
+            it.bicycle_price == body.bicycle_price &&
+                    it.logistics_price == body.logistics_price &&
+                    it.shop_price == body.shop_price
+        }
+        if (template != null) {
+            binding.autoCompleteTextView.setText(template.templateName, false)
+        }
     }
 
     private fun selectImage() {
@@ -416,9 +446,6 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         }
     }
 
-    private fun deleteVariant() {
-        productDetailApiHit()
-    }
 
     override fun onChanged(t: RestObservable) {
         when (t.status) {
@@ -428,11 +455,13 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 } else if (t.data is ShopProductDetailResponse) {
                     productGroup!!.products = t.data.body.products
                     setData(productGroup!!)
+                    categoryApi()
                 } else if (t.data is CommonResponse) {
-                    deleteVariant()
+                    productDetailApiHit()
                 } else if (t.data is DeliveryTemplateResponse) {
                     val response: DeliveryTemplateResponse = t.data
-                    setTemplateData(response.body)
+                    setData(response.body)
+                    productDetailApiHit()
                 }
             }
             Status.ERROR -> {

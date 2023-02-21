@@ -42,6 +42,9 @@ class ReturnActivity : AppCompatActivity(), Observer<RestObservable> {
         binding.save.setOnClickListener {
             orderStatusApiHit(status = 7)
         }
+        binding.back.setOnClickListener {
+            finish()
+        }
     }
 
 

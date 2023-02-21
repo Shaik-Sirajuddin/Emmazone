@@ -2,12 +2,14 @@ package com.live.emmazone.activities.provider
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityDeliveryPricingTemplatesBinding
 import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.model.DeliveryTemplateModel
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
@@ -20,9 +22,12 @@ import com.live.emmazone.view_models.AppViewModel
 class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObservable> {
 
     private lateinit var binding: ActivityDeliveryPricingTemplatesBinding
-    private var templateNo = 0
+    private var selectedIndex = -1
     private val appViewModel: AppViewModel by viewModels()
-
+    private lateinit var adapter: ArrayAdapter<String>
+    private val templates = ArrayList<DeliveryTemplateModel>()
+    private val templateNames = ArrayList<String>()
+    val TEMPLATE_ADDED = "Delivery template added"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDeliveryPricingTemplatesBinding.inflate(layoutInflater)
@@ -35,30 +40,57 @@ class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObser
             finish()
         }
 
+        binding.addTemplate.setOnClickListener {
+            if (binding.cardView1.visibility == View.VISIBLE) {
+                binding.cardView1.visibility = View.GONE
+            } else {
+                binding.cardView1.visibility = View.VISIBLE
+            }
+        }
+        binding.addTemplateButton.setOnClickListener {
+            addTemplate()
+        }
         /** Start : Setting up autoCompleteTextview configuration */
-        val templateNames = resources.getStringArray(R.array.delivery_template_names)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, templateNames)
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, templateNames)
         binding.autoCompleteTextView.setAdapter(adapter)
         binding.autoCompleteTextView.setDropDownBackgroundResource(R.color.white)
         binding.autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
-            templateNo = i
-            loadTemplate()
+            selectedIndex = i
+            loadData()
         }
-        binding.autoCompleteTextView.setText(templateNames[templateNo],false)
         /**End*/
 
 
         binding.updateButton.setOnClickListener {
             update()
         }
-        loadTemplate()
+        loadTemplates()
     }
 
-    private fun loadTemplate() {
+    private fun loadData() {
+        val body = templates[selectedIndex]
+        binding.bicyclePricing.setText(body.bicycle_price.toString())
+        binding.shopPricing.setText(body.shop_price.toString())
+        binding.thirdPartyPricing.setText(body.logistics_price.toString())
+    }
+
+    private fun loadTemplates() {
         val map = HashMap<String, String>()
         map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
-        map["templateNo"] = templateNo.toString()
-        appViewModel.getDeliveryTemplate(this, true, map)
+        appViewModel.getDeliveryTemplates(this, true, map)
+        appViewModel.mResponse.observe(this, this)
+    }
+
+    private fun addTemplate() {
+        val templateName = binding.newTemplateName.text.toString().trim()
+        if (templateName.isEmpty()) {
+            showToast("Please enter a valid template name")
+            return
+        }
+        val map = HashMap<String, String>()
+        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
+        map["templateName"] = templateName
+        appViewModel.addDeliveryTemplate(this, true, map)
         appViewModel.mResponse.observe(this, this)
     }
 
@@ -75,15 +107,19 @@ class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObser
         map["shop_price"] = shopPricing.toString()
         map["logistics_price"] = thirdPartyPricing.toString()
         map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
-        map["templateNo"] = templateNo.toString()
+        map["id"] = templates[selectedIndex].id.toString()
         appViewModel.editDeliveryTemplate(this, true, map)
         appViewModel.mResponse.observe(this, this)
     }
 
-    private fun setData(body: DeliveryTemplateResponse.Body) {
-        binding.bicyclePricing.setText(body.bicycle_price.toString())
-        binding.shopPricing.setText(body.shop_price.toString())
-        binding.thirdPartyPricing.setText(body.logistics_price.toString())
+    private fun setData(body: List<DeliveryTemplateModel>) {
+        templates.clear()
+        templates.addAll(body)
+        templateNames.clear()
+        templates.forEach {
+            templateNames.add(it.templateName)
+        }
+        adapter.notifyDataSetChanged()
     }
 
     override fun onChanged(t: RestObservable?) {
@@ -92,6 +128,10 @@ class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObser
                 if (t.data is CommonResponse) {
                     val response: CommonResponse = t.data
                     showToast(response.message)
+                    if (response.message == TEMPLATE_ADDED) {
+                        binding.newTemplateName.setText("")
+                    }
+                    loadTemplates()
                 } else if (t.data is DeliveryTemplateResponse) {
                     val response: DeliveryTemplateResponse = t.data
                     setData(response.body)

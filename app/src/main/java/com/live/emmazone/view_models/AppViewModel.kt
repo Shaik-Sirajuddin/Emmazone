@@ -3012,14 +3012,14 @@ class AppViewModel : ViewModel() {
         }
     }
 
-    fun getDeliveryTemplate(
+    fun getDeliveryTemplates(
         activity: Activity,
         isDialogShow: Boolean,
         hashMap: HashMap<String, String>,
     ) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
-            service.getDeliveryTemplate(hashMap)
+            service.getDeliveryTemplates(hashMap)
                 .enqueue(object : Callback<DeliveryTemplateResponse> {
                     override fun onResponse(
                         call: Call<DeliveryTemplateResponse>,
@@ -3044,7 +3044,7 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        getDeliveryTemplate(activity, isDialogShow, hashMap)
+                        getDeliveryTemplates(activity, isDialogShow, hashMap)
                     }
                 })
         }
@@ -3083,6 +3083,44 @@ class AppViewModel : ViewModel() {
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
                         editDeliveryTemplate(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun addDeliveryTemplate(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.addDeliveryTemplate(hashMap)
+                .enqueue(object : Callback<CommonResponse> {
+                    override fun onResponse(
+                        call: Call<CommonResponse>,
+                        response: Response<CommonResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        addDeliveryTemplate(activity, isDialogShow, hashMap)
                     }
                 })
         }
