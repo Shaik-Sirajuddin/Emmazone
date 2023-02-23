@@ -11,6 +11,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
@@ -21,6 +22,8 @@ import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityEditProfileBinding
 import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.clearPreferences
+import com.live.emmazone.extensionfuncton.getPreference
+import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.net.RestObservable
 import com.live.emmazone.net.Status
 import com.live.emmazone.response_model.CommonResponse
@@ -37,6 +40,7 @@ import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
@@ -45,7 +49,7 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
     private val appViewModel: AppViewModel by viewModels()
 
     private var mImagePath = ""
-    private var byteArray:ByteArray? = null
+    private var byteArray: ByteArray? = null
     private var profileDetail: ProfileResponse? = null
 
 
@@ -55,7 +59,7 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
             binding.ivProfile.loadImage(imagePath)
             byteArray = null
         }
-        if(bitmap != null){
+        if (bitmap != null) {
             byteArray = bitmapToByte(bitmap)
             mImagePath = ""
             binding.ivProfile.loadImage(bitmap)
@@ -95,16 +99,16 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
         binding.imageDelete.setOnClickListener {
 //
             val name = binding.edtName.text.toString().trim()
-            if(name.isEmpty()){
+            if (name.isEmpty()) {
                 showToast("Name must not be empty!")
                 return@setOnClickListener
             }
-            byteArray = letterByteArray(name.substring(0,1))
+            byteArray = letterByteArray(name.substring(0, 1))
             mImagePath = ""
             binding.ivProfile.loadImage(byteArray!!)
         }
         binding.edtName.doAfterTextChanged {
-            if(mImagePath.isNotEmpty())return@doAfterTextChanged
+            if (mImagePath.isNotEmpty()) return@doAfterTextChanged
             val text = it.toString().trim()
             if (text.length != 1) return@doAfterTextChanged
             byteArray = letterByteArray(text)
@@ -114,9 +118,9 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
             handleDeleteAccount()
         }
     }
-    private fun handleDeleteAccount(){
 
-
+    private fun isSeller() = getPreference(AppConstants.PROFILE_TYPE, "") == "seller"
+    private fun handleDeleteAccount() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
@@ -125,12 +129,20 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog.setContentView(R.layout.dialog_delete_account)
+
         dialog.window?.setBackgroundDrawable(
             ContextCompat.getDrawable(this, android.R.color.transparent)
         )
 
         val yesBtn: Button = dialog.findViewById(R.id.btnCancelYes)
         val noBtn: Button = dialog.findViewById(R.id.btnCancelNo)
+        val text: TextView = dialog.findViewById(R.id.tv1)
+
+        if (isSeller()) {
+            text.setText(R.string.delete_seller_account_text)
+        } else {
+            text.setText(R.string.delete_user_account_text)
+        }
 
         yesBtn.setOnClickListener {
             dialog.dismiss()
@@ -140,10 +152,21 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
         dialog.show()
 
     }
-    private fun deleteProfileApiHit(){
-        appViewModel.deleteProfileApi(this, true)
-        appViewModel.getResponse().observe(this, this)
+
+    private fun deleteProfileApiHit() {
+        if (isSeller()) {
+            //seller
+            val hashMap = HashMap<String, String>()
+            hashMap["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
+            appViewModel.initiateDeleteShopProfile(this, true, hashMap)
+            appViewModel.getResponse().observe(this, this)
+        } else {
+            //user
+            appViewModel.deleteProfileApi(this, true)
+            appViewModel.getResponse().observe(this, this)
+        }
     }
+
     private fun alertDialog() {
 
         val alertDialog = AlertDialog.Builder(this)
@@ -168,8 +191,8 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
         val mobileNo = binding.edtMobile.text.toString().trim()
         if (mImagePath.isNotEmpty())
             image = prepareMultiPart("image", File(mImagePath))
-        else if (byteArray!=null)
-            image = prepareMultiPart("image",byteArray)
+        else if (byteArray != null)
+            image = prepareMultiPart("image", byteArray)
         else
             image = prepareMultiPart("image", "")
 
@@ -199,13 +222,25 @@ class EditProfileActivity : ImagePickerUtility(), Observer<RestObservable> {
                     setResult(RESULT_OK)
                     alertDialog()
                 }
-                if(t.data is CommonResponse){
+                if (t.data is CommonResponse) {
                     val response = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
-                        clearPreferences()
-                        val intent = Intent(this, UserLoginChoice::class.java)
-                        startActivity(intent)
-                        finishAffinity()
+                        if (isSeller()) {
+                            AppUtils.showMsgOnlyWithClick(
+                                this,
+                                response.message,
+                                object : OnPopupClick {
+                                    override fun onPopupClickListener() {
+                                        finish()
+                                    }
+                                }
+                            )
+                        } else {
+                            clearPreferences()
+                            val intent = Intent(this, UserLoginChoice::class.java)
+                            startActivity(intent)
+                            finishAffinity()
+                        }
                     }
                 }
 

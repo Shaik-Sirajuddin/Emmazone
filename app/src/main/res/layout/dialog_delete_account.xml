@@ -37,7 +37,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:layout_marginEnd="10dp"
-        android:text="Are you sure want to delete the account ? \n All your personal data associated with us will be erased permanently!"
+        android:text="@string/delete_user_account_text"
         android:textColor="@android:color/darker_gray"
         android:textSize="@dimen/sp18"
         app:layout_constraintEnd_toEndOf="parent"

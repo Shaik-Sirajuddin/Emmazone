@@ -390,4 +390,10 @@ interface RestApiInterface {
     @FormUrlEncoded
     @POST(AppConstants.ADD_DELIVERY_TEMPLATES_SHOP)
     fun addDeliveryTemplate(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
+    /**Deleting shop profile routes*/
+
+    @FormUrlEncoded
+    @POST(AppConstants.INITIATE_DELETE_SHOP_PROFILE)
+    fun initiateDeleteShopProfile(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 }
