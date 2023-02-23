@@ -33,15 +33,17 @@
                 app:layout_constraintEnd_toEndOf="@+id/layoutMain"
                 app:layout_constraintStart_toStartOf="@+id/layoutMain"
                 app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
             <ImageView
                 android:id="@+id/scanQR"
-                app:layout_constraintTop_toTopOf="@id/image_notifications"
-                app:layout_constraintBottom_toBottomOf="@id/image_notifications"
-                app:layout_constraintEnd_toStartOf="@id/image_notifications"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginEnd="25dp"
                 android:src="@drawable/qr_code_scanner"
-                android:layout_width="25dp"
-                android:layout_height="25dp" />
+                app:layout_constraintBottom_toBottomOf="@id/image_notifications"
+                app:layout_constraintEnd_toStartOf="@id/image_notifications"
+                app:layout_constraintTop_toTopOf="@id/image_notifications" />
+
             <ImageView
                 android:id="@+id/image_notifications"
                 android:layout_width="25dp"
@@ -242,6 +244,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/deliverySettingLayout"
                 android:layout_width="match_parent"
@@ -277,14 +280,49 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/adminPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/faq"
+                android:padding="@dimen/dp16"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/deliverySettingLayout"
+                app:layout_constraintStart_toStartOf="@+id/deliverySettingLayout"
+                app:layout_constraintTop_toBottomOf="@+id/deliverySettingLayout"
+                tools:layout_editor_absoluteX="25dp"
+                tools:layout_editor_absoluteY="140dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:paddingLeft="@dimen/dp15"
+                    android:text="Admin Panel"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:src="@drawable/arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/changePwdLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/faq"
                 android:padding="@dimen/dp16"
-                app:layout_constraintEnd_toEndOf="@+id/deliverySettingLayout"
-                app:layout_constraintStart_toStartOf="@+id/deliverySettingLayout"
-                app:layout_constraintTop_toBottomOf="@+id/deliverySettingLayout"
+                app:layout_constraintEnd_toEndOf="@+id/adminPanel"
+                app:layout_constraintStart_toStartOf="@+id/adminPanel"
+                app:layout_constraintTop_toBottomOf="@+id/adminPanel"
                 tools:layout_editor_absoluteX="25dp"
                 tools:layout_editor_absoluteY="140dp">
 

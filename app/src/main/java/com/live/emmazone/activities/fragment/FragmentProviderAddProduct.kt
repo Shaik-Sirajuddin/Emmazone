@@ -163,9 +163,9 @@ class FragmentProviderAddProduct : Fragment(), Observer<RestObservable> {
                     bicycle_available = false,
                     shop_available = false,
                     logistics_available = false,
-                    bicycle_price = 0,
-                    shop_price = 0,
-                    logistics_price = 0,
+                    bicycle_price = 0.0,
+                    shop_price = 0.0,
+                    logistics_price = 0.0,
                     product_group_id = 0
                 )
             )

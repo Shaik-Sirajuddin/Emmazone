@@ -25,6 +25,7 @@ import com.live.emmazone.activities.TermsCondition
 import com.live.emmazone.activities.auth.ChangePassword
 import com.live.emmazone.activities.auth.ProfileActivity
 import com.live.emmazone.activities.main.Notifications
+import com.live.emmazone.activities.provider.DeletedShopsActivity
 import com.live.emmazone.activities.provider.DeliverySettings
 import com.live.emmazone.activities.provider.MessageActivity
 import com.live.emmazone.activities.provider.MyEarningsActivity
@@ -128,15 +129,24 @@ class ProviderAccountFragment : Fragment(), Observer<RestObservable> {
             checkCameraPermission()
         }
         binding.deliverySettingLayout.setOnClickListener {
-            val intent = Intent(requireContext(),DeliverySettings::class.java)
+            val intent = Intent(requireContext(), DeliverySettings::class.java)
             startActivity(intent)
         }
+        binding.adminPanel.setOnClickListener {
+            val intent = Intent(requireContext(), DeletedShopsActivity::class.java)
+            startActivity(intent)
+        }
+        if (getPreference(AppConstants.VENDOR_ID, "") == "135") {
+            binding.adminPanel.visibility = View.VISIBLE
+        } else {
+            binding.adminPanel.visibility = View.GONE
+        }
+
     }
 
     private fun hitNotificationUpdateApi(type: String) {
         val hashMap = HashMap<String, String>()
         hashMap["notification_status"] = type
-
         appViewModel.notificationStatusApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
@@ -194,8 +204,7 @@ class ProviderAccountFragment : Fragment(), Observer<RestObservable> {
 
                     }
 
-                }
-                else if (t.data is ScanOrderResponse) {
+                } else if (t.data is ScanOrderResponse) {
                     AppUtils.showMsgOnlyWithoutClick(requireActivity(), t.data.message)
                 }
             }
@@ -204,6 +213,7 @@ class ProviderAccountFragment : Fragment(), Observer<RestObservable> {
             else -> {}
         }
     }
+
     /** Scan Qr Implementation **/
     // util method
     private val permissions = arrayOf(android.Manifest.permission.CAMERA)

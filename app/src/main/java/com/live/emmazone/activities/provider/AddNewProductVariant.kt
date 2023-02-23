@@ -19,13 +19,10 @@ import com.live.emmazone.net.RestObservable
 import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
-import com.live.emmazone.utils.AppUtils.Companion.getFormattedAmount
 import com.live.emmazone.utils.AppUtils.Companion.getFormattedAmountForEdit
-import com.live.emmazone.utils.AppUtils.Companion.setEuroLocale
 import com.live.emmazone.utils.ToastUtils
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toBody
-import kotlinx.android.synthetic.main.fragment_provider_home.view.*
 import okhttp3.RequestBody
 import java.util.*
 
@@ -66,6 +63,8 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
             validateAndPush()
         }
     }
+
+
 
     private fun setData() {
         if (isNew) {

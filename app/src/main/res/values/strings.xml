@@ -275,7 +275,7 @@
     <string name="msg_enter_exp_date">Please enter exp date</string>
     <string name="since">Since %s</string>
     <string name="euro_symbol">%s €</string>
-    <string name="free_delivery_text">Free delivery for orders above %d € by the shop</string>
+    <string name="free_delivery_text">Free delivery for orders above %lf € by the shop</string>
     <string name="no_items_in_shopping_cart">No items in shopping cart</string>
     <string name="of">Max: %s</string>
     <string name="product_out_of_stock">Out of stock.</string>

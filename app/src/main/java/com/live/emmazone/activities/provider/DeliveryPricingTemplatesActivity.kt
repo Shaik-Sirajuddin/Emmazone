@@ -2,8 +2,12 @@ package com.live.emmazone.activities.provider
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.live.emmazone.R
@@ -16,6 +20,7 @@ import com.live.emmazone.response_model.CommonResponse
 import com.live.emmazone.response_model.DeliveryTemplateResponse
 import com.live.emmazone.response_model.ShopDeliveryResponse
 import com.live.emmazone.utils.AppConstants
+import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.view_models.AppViewModel
 
@@ -64,14 +69,19 @@ class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObser
         binding.updateButton.setOnClickListener {
             update()
         }
+
+        binding.shopPricing.addTextChangedListener(MyTextWatcher(binding.shopPricing))
+        binding.bicyclePricing.addTextChangedListener(MyTextWatcher(binding.bicyclePricing))
+        binding.thirdPartyPricing.addTextChangedListener(MyTextWatcher(binding.thirdPartyPricing))
+
         loadTemplates()
     }
 
     private fun loadData() {
         val body = templates[selectedIndex]
-        binding.bicyclePricing.setText(body.bicycle_price.toString())
-        binding.shopPricing.setText(body.shop_price.toString())
-        binding.thirdPartyPricing.setText(body.logistics_price.toString())
+        binding.bicyclePricing.setText(priceStringToShow(body.bicycle_price.toString()))
+        binding.shopPricing.setText(priceStringToShow(body.shop_price.toString()))
+        binding.thirdPartyPricing.setText(priceStringToShow(body.logistics_price.toString()))
     }
 
     private fun loadTemplates() {
@@ -94,10 +104,21 @@ class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObser
         appViewModel.mResponse.observe(this, this)
     }
 
+    private fun priceStringToDouble(productPrice: String): Double? {
+        val text = productPrice.replace(".", "").trim()
+        val priceText = text.replace(",", ".")
+        return priceText.toDoubleOrNull()
+    }
+
+    private fun priceStringToShow(productPrice: String): String {
+        return productPrice.replace(".", ",")
+    }
+
     private fun update() {
-        val shopPricing = binding.shopPricing.text.toString().trim().toIntOrNull()
-        val bicyclePricing = binding.bicyclePricing.text.toString().trim().toIntOrNull()
-        val thirdPartyPricing = binding.thirdPartyPricing.text.toString().trim().toIntOrNull()
+        val shopPricing = priceStringToDouble(binding.shopPricing.text.toString().trim())
+        val bicyclePricing = priceStringToDouble(binding.bicyclePricing.text.toString().trim())
+        val thirdPartyPricing =
+            priceStringToDouble(binding.thirdPartyPricing.text.toString().trim())
         if (shopPricing == null || bicyclePricing == null || thirdPartyPricing == null) {
             showToast("Please fill all fields")
             return
@@ -146,6 +167,51 @@ class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObser
             }
             else -> {}
         }
+    }
+
+    inner class MyTextWatcher(private val editText: EditText) : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun afterTextChanged(e: Editable) {
+            if (editText.tag == "this") return
+            val text = editText.text.toString().replace(".", "").trim()
+            val priceText = text.replace(",", ".")
+            var price = priceText.toDoubleOrNull()
+                ?: return
+            Log.e("price", price.toString())
+            editText.tag = "this"
+            price *= 100
+            val res = price.toInt()
+            price = res.toDouble() / 100
+            var formattedText = AppUtils.getFormattedAmountForEdit(price)
+            if (text.contains(',')) {
+
+                val comma = text.indexOf(',')
+                var afterText = ""
+                if (comma != text.lastIndex) {
+                    afterText = text.substring(comma)
+                    if (afterText.length > 3) {
+                        afterText = afterText.substring(0, 3)
+                    }
+                    if (afterText == ",0" || afterText == ",00") {
+                        formattedText = "$formattedText$afterText"
+                    } else if (afterText.length == 3 && afterText[2] == '0') {
+                        formattedText = "${formattedText}0"
+                    }
+                } else {
+                    formattedText = "$formattedText,"
+                }
+
+            }
+
+            editText.setText(formattedText)
+
+            editText.tag = null
+            editText.setSelection(editText.length())
+        }
+
     }
 
 }

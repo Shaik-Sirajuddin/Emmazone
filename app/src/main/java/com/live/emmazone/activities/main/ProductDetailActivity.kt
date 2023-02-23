@@ -98,7 +98,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private val reviewsList = ArrayList<ProductReviewModel>()
 
     /**Delivery Pricing*/
-    private var deliveryPrice = 0
+    private var deliveryPrice = 0.0
     private var deliveryType = "Self Delivery"
     private var deliveryTime = "On Arrival"
 
@@ -603,7 +603,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             deliveryType = "Standard Delivery"
             deliveryTime = "2 Days"
         }
-        if (deliveryPrice == 0) {
+        if (deliveryPrice == 0.0) {
             binding.deliveryPrice.text = "Free"
         } else {
             binding.deliveryPrice.text = getString(R.string.euro_symbol, deliveryPrice.toString())

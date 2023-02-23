@@ -3,8 +3,11 @@ package com.live.emmazone.activities.provider
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -53,7 +56,53 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
         binding.back.setOnClickListener {
             finish()
         }
+        binding.limitPrice.addTextChangedListener(MyTextWatcher(binding.limitPrice))
         getData()
+    }
+
+    inner class MyTextWatcher(private val editText: EditText) : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun afterTextChanged(e: Editable) {
+            if (editText.tag == "this") return
+            val text = editText.text.toString().replace(".", "").trim()
+            val priceText = text.replace(",", ".")
+            var price = priceText.toDoubleOrNull()
+                ?: return
+            Log.e("price", price.toString())
+            editText.tag = "this"
+            price *= 100
+            val res = price.toInt()
+            price = res.toDouble() / 100
+            var formattedText = AppUtils.getFormattedAmountForEdit(price)
+            if (text.contains(',')) {
+
+                val comma = text.indexOf(',')
+                var afterText = ""
+                if (comma != text.lastIndex) {
+                    afterText = text.substring(comma)
+                    if (afterText.length > 3) {
+                        afterText = afterText.substring(0, 3)
+                    }
+                    if (afterText == ",0" || afterText == ",00") {
+                        formattedText = "$formattedText$afterText"
+                    } else if (afterText.length == 3 && afterText[2] == '0') {
+                        formattedText = "${formattedText}0"
+                    }
+                } else {
+                    formattedText = "$formattedText,"
+                }
+
+            }
+
+            editText.setText(formattedText)
+
+            editText.tag = null
+            editText.setSelection(editText.length())
+        }
+
     }
 
     private fun switchVisibility(checked: Boolean) {
@@ -72,11 +121,22 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
         appViewModel.mResponse.observe(this, this)
     }
 
+    private fun priceStringToDouble(productPrice: String): Double? {
+        val text = productPrice.replace(".", "").trim()
+        val priceText = text.replace(",", ".")
+        return priceText.toDoubleOrNull()
+    }
+
+    private fun priceStringToShow(productPrice: String): String {
+        return productPrice.replace(".", ",")
+    }
+
     private fun apiHit() {
         val isLimitPrice = binding.limitPriceCheckbox.isChecked
-        var limitPrice: Int? = null
+        var limitPrice: Double? = null
         if (isLimitPrice) {
-            val amount = binding.limitPrice.text.toString().toIntOrNull()
+            val amountText = binding.limitPrice.text.toString()
+            val amount = priceStringToDouble(amountText)
             if (amount == null) {
                 toast("Enter valid amount")
                 return
@@ -102,7 +162,7 @@ class DeliverySettings : AppCompatActivity(), Observer<RestObservable> {
             switchVisibility(false)
         } else {
             binding.limitPriceCheckbox.isChecked = true
-            binding.limitPrice.setText(data.limit_price.toString())
+            binding.limitPrice.setText(priceStringToShow(data.limit_price))
             switchVisibility(true)
         }
         if (data.serviceable) {

@@ -8,12 +8,15 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -52,6 +55,7 @@ import com.schunts.extensionfuncton.prepareMultiPart
 import com.schunts.extensionfuncton.toBody
 import com.yanzhenjie.album.Album
 import com.yanzhenjie.album.api.widget.Widget
+import kotlinx.android.synthetic.main.dialog_input_variant.view.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -204,7 +208,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     override fun onResume() {
         super.onResume()
-//        setEuroLocale()
+        setEuroLocale()
         if (isRefresh) {
             productDetailApiHit()
         }
@@ -274,6 +278,9 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
             }
             /**End*/
         }
+        binding.thirdPartyPricing.addTextChangedListener(MyTextWatcher(binding.thirdPartyPricing))
+        binding.shopPricing.addTextChangedListener(MyTextWatcher(binding.shopPricing))
+        binding.bicyclePricing.addTextChangedListener(MyTextWatcher(binding.bicyclePricing))
         getTemplates()
     }
 
@@ -304,10 +311,20 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         adapter.notifyDataSetChanged()
     }
 
+    private fun priceStringToDouble(productPrice: String): Double? {
+        val text = productPrice.replace(".", "").trim()
+        val priceText = text.replace(",", ".")
+        return priceText.toDoubleOrNull()
+    }
+
+    private fun priceStringToShow(productPrice: String): String {
+        return productPrice.replace(".", ",")
+    }
+
     private fun setDeliveryData(body: ProductDeliveryModel) {
-        binding.bicyclePricing.setText(body.bicycle_price.toString())
-        binding.shopPricing.setText(body.shop_price.toString())
-        binding.thirdPartyPricing.setText(body.logistics_price.toString())
+        binding.bicyclePricing.setText(priceStringToShow(body.bicycle_price.toString()))
+        binding.shopPricing.setText(priceStringToShow(body.shop_price.toString()))
+        binding.thirdPartyPricing.setText(priceStringToShow(body.logistics_price.toString()))
         binding.selfDeliveryCheckbox.isChecked = body.shop_available
         binding.bicycleDeliveryCheckbox.isChecked = body.bicycle_available
         Log.d(
@@ -363,9 +380,10 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
         val bicycleDeliveryEnabled = binding.bicycleDeliveryCheckbox.isChecked
         val shopDeliveryEnabled = binding.selfDeliveryCheckbox.isChecked
-        var bicyclePricing = binding.bicyclePricing.text.toString().trim().toIntOrNull()
-        var shopPricing = binding.shopPricing.text.toString().trim().toIntOrNull()
-        val thirdPartyPricing = binding.thirdPartyPricing.text.toString().trim().toIntOrNull()
+        var bicyclePricing = priceStringToDouble(binding.bicyclePricing.text.toString().trim())
+        var shopPricing = priceStringToDouble(binding.shopPricing.text.toString().trim())
+        val thirdPartyPricing =
+            priceStringToDouble(binding.thirdPartyPricing.text.toString().trim())
         if (Validator.editProductValidation(
                 productName, description, selectedCategoryId,
                 registerCode,
@@ -382,8 +400,8 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 AppUtils.showMsgOnlyWithoutClick(this, "Please select main image")
                 return
             }
-            shopPricing = shopPricing ?: 0
-            bicyclePricing = bicyclePricing ?: 0
+            shopPricing = shopPricing ?: 0.0
+            bicyclePricing = bicyclePricing ?: 0.0
             val hashMap = HashMap<String, RequestBody>()
             hashMap["id"] = toBody(id)
             hashMap["product_name"] = toBody(productName)
@@ -590,4 +608,50 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
     private fun requestPermission() {
         cameraPermissions.launch(permissions)
     }
+
+    inner class MyTextWatcher(private val editText: EditText) : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun afterTextChanged(e: Editable) {
+            if (editText.tag == "this") return
+            val text = editText.text.toString().replace(".", "").trim()
+            val priceText = text.replace(",", ".")
+            var price = priceText.toDoubleOrNull()
+                ?: return
+            Log.e("price", price.toString())
+            editText.tag = "this"
+            price *= 100
+            val res = price.toInt()
+            price = res.toDouble() / 100
+            var formattedText = AppUtils.getFormattedAmountForEdit(price)
+            if (text.contains(',')) {
+
+                val comma = text.indexOf(',')
+                var afterText = ""
+                if (comma != text.lastIndex) {
+                    afterText = text.substring(comma)
+                    if (afterText.length > 3) {
+                        afterText = afterText.substring(0, 3)
+                    }
+                    if (afterText == ",0" || afterText == ",00") {
+                        formattedText = "$formattedText$afterText"
+                    } else if (afterText.length == 3 && afterText[2] == '0') {
+                        formattedText = "${formattedText}0"
+                    }
+                } else {
+                    formattedText = "$formattedText,"
+                }
+
+            }
+
+            editText.setText(formattedText)
+
+            editText.tag = null
+            editText.setSelection(editText.length())
+        }
+
+    }
+
 }

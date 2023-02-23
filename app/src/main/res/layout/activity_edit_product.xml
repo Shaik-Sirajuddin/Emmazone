@@ -180,23 +180,23 @@
             android:id="@+id/tvRegisterCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Product Code"
             android:layout_marginVertical="25dp"
+            android:text="Product Code"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/edtShopName"
             app:layout_constraintTop_toBottomOf="@+id/edtShotDesc" />
+
         <ImageView
             android:id="@+id/scanCode"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/qr_code_scanner"
             android:layout_marginStart="10dp"
-            app:layout_constraintStart_toEndOf="@id/tvRegisterCode"
-            app:layout_constraintTop_toTopOf="@id/tvRegisterCode"
+            android:src="@drawable/qr_code_scanner"
             app:layout_constraintBottom_toBottomOf="@id/tvRegisterCode"
-            />
+            app:layout_constraintStart_toEndOf="@id/tvRegisterCode"
+            app:layout_constraintTop_toTopOf="@id/tvRegisterCode" />
 
         <EditText
             android:id="@+id/edtRegisterCode"
@@ -211,6 +211,7 @@
             app:layout_constraintEnd_toEndOf="@+id/tvShotDesc"
             app:layout_constraintStart_toStartOf="@+id/tvShotDesc"
             app:layout_constraintTop_toBottomOf="@+id/scanCode" />
+
         <TextView
             android:id="@+id/tvDescP"
             android:layout_width="0dp"
@@ -251,6 +252,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/edtDesc"
             app:layout_constraintTop_toBottomOf="@+id/edtDesc" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
@@ -274,6 +276,7 @@
                 android:inputType="none"
                 android:text="Choose Template to load from" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:id="@+id/holderLayout"
             android:layout_width="match_parent"
@@ -285,35 +288,36 @@
             app:layout_constraintEnd_toEndOf="@+id/edtDesc"
             app:layout_constraintStart_toStartOf="@+id/edtDesc"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <CheckBox
                     android:id="@+id/selfDeliveryCheckbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
-                    android:padding="5dp"
-                    />
+                    android:padding="5dp" />
+
                 <CheckBox
                     android:id="@+id/bicycleDeliveryCheckbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
-                    android:padding="5dp"
-                    />
+                    android:padding="5dp" />
+
                 <CheckBox
                     android:id="@+id/thirdPartyDeliveryCheckbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
-                    android:padding="5dp"
-                    android:clickable="false"
                     android:checked="true"
-                    />
+                    android:clickable="false"
+                    android:padding="5dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -375,7 +379,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
                     android:background="@drawable/bg_edit_text"
-                    android:inputType="number"
+
+                    android:digits="0123456789,."
+                    android:inputType="phone"
                     android:maxLines="1"
                     android:padding="5dp" />
 
@@ -385,7 +391,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
                     android:background="@drawable/bg_edit_text"
-                    android:inputType="number"
+                    android:digits="0123456789,."
+                    android:inputType="phone"
                     android:maxLines="1"
                     android:padding="5dp" />
 
@@ -395,11 +402,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
                     android:background="@drawable/bg_edit_text"
-                    android:inputType="number"
+                    android:digits="0123456789,."
+                    android:inputType="phone"
                     android:maxLines="1"
                     android:padding="5dp" />
             </LinearLayout>
         </LinearLayout>
+
         <TextView
             android:id="@+id/tvProductHighLight"
             android:layout_width="wrap_content"
@@ -428,26 +437,27 @@
             app:layout_constraintStart_toEndOf="@+id/tvProductHighLight"
             app:layout_constraintTop_toTopOf="@+id/tvProductHighLight"
             app:track="@android:color/transparent" />
+
         <TextView
             android:id="@+id/variantsText"
-            android:layout_marginTop="@dimen/dp32"
-            app:layout_constraintStart_toStartOf="@+id/edtDesc"
-            app:layout_constraintEnd_toEndOf="@id/edtDesc"
-            app:layout_constraintTop_toBottomOf="@id/switch_notification"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp32"
             android:text="Variants :"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            />
+            app:layout_constraintEnd_toEndOf="@id/edtDesc"
+            app:layout_constraintStart_toStartOf="@+id/edtDesc"
+            app:layout_constraintTop_toBottomOf="@id/switch_notification" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/variantRecyclerView"
-            android:layout_marginTop="@dimen/dp32"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            app:layout_constraintTop_toBottomOf="@id/variantsText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/dp32"
+            app:layout_constraintTop_toBottomOf="@id/variantsText" />
 
         <android.widget.Button
             android:id="@+id/btnUpdate"

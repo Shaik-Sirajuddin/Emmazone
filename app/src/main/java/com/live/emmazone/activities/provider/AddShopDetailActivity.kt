@@ -105,7 +105,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
     private fun clicksHandle() {
 
         binding.imgEditShop.setOnClickListener {
-            getImage(0, false)
+            getImage(0, false, 16f, 9f, true)
         }
 
         binding.imageAddCat.setOnClickListener {
@@ -187,7 +187,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
         val postalCode = binding.edtPostalCode.text.toString().trim()
 
         if (Validator.validateAddShop(
-                mImagePath, shopName, shopYear,postalCode,
+                mImagePath, shopName, shopYear, postalCode,
                 shopAddress, shopDesc, selectedCategories
             )
         ) {

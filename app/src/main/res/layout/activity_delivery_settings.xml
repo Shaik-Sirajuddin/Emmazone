@@ -267,7 +267,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:background="@drawable/bg_edit_text"
-                        android:inputType="number"
+                        android:digits="0123456789,."
+                        android:inputType="phone"
+                        android:textAlignment="textEnd"
+                        android:maxLines="1"
                         android:padding="4dp" />
                 </LinearLayout>
             </LinearLayout>

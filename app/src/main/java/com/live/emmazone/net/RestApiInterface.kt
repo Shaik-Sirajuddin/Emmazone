@@ -396,4 +396,11 @@ interface RestApiInterface {
     @FormUrlEncoded
     @POST(AppConstants.INITIATE_DELETE_SHOP_PROFILE)
     fun initiateDeleteShopProfile(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.CONFORM_DELETE_SHOP_PROFILE)
+    fun conformDeleteShopProfile(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
+
+    @GET(AppConstants.GET_ALL_SHOPS_UNDER_DELETION)
+    fun getAllShopsUnderDelete(): Call<DeletedShopsResponse>
 }

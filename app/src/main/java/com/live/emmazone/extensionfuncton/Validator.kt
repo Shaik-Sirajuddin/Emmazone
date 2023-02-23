@@ -206,9 +206,9 @@ object Validator {
         imageList: ArrayList<ProductImage>,
         bicycleEnabled: Boolean,
         shopEnabled: Boolean,
-        bicyclePrice: Int?,
-        shopPrice: Int?,
-        thirdPartyPrice: Int?,
+        bicyclePrice: Double?,
+        shopPrice: Double?,
+        thirdPartyPrice: Double?,
     ): Boolean {
 
         return if (imageList.size == 0) {

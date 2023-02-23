@@ -15,7 +15,7 @@ class ShopDeliveryModel(
     @SerializedName("logistics_available")
     val logistics_available: Boolean,
     @SerializedName("limit_price")
-    val limit_price: Int?,
+    val limit_price: String?,
     @SerializedName("serviceable")
     val serviceable: Boolean = false
 ) : Serializable
