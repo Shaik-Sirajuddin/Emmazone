@@ -125,9 +125,9 @@ data class SalesResponse(
                     @SerializedName("vendorId")
                     var vendorId: Int,// 299
                     @SerializedName("registerCode")
-                    var registerCode: Int = 0,
+                    var registerCode: Long = 0,
                     @SerializedName("group_id")
-                    var productGroupId : Int
+                    var productGroupId: Int
                 ) : Serializable {
                     data class Vendor(
                         @SerializedName("id")

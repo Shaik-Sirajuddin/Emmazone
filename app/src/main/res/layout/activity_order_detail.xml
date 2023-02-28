@@ -410,7 +410,7 @@
             android:layout_width="@dimen/dp80"
             android:layout_height="@dimen/dp20"
             android:layout_marginStart="@dimen/dp8"
-            android:background="@drawable/bg_fill_earning"
+            android:background="@drawable/bg_spinner"
             android:text="@string/on_the_way"
             android:textAllCaps="false"
             android:textColor="@color/white"

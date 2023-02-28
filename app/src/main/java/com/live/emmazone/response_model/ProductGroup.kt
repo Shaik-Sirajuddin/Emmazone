@@ -26,7 +26,7 @@ data class ProductGroup(
     @SerializedName("products")
     var products : ArrayList<Product> = arrayListOf(),
     @SerializedName("registerCode")
-    var registerCode : Int,
+    var registerCode : Long,
     @SerializedName("product_delivery")
     var productDelivery : ProductDeliveryModel
 

@@ -376,7 +376,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
         val productName = binding.edtShopName.text.toString().trim()
         val description = binding.edtDesc.text.toString().trim()
         val shotDesc = binding.edtShotDesc.text.toString().trim()
-        val registerCode = binding.edtRegisterCode.text.toString().trim().toIntOrNull()
+        val registerCode = binding.edtRegisterCode.text.toString().trim().toLongOrNull()
 
         val bicycleDeliveryEnabled = binding.bicycleDeliveryCheckbox.isChecked
         val shopDeliveryEnabled = binding.selfDeliveryCheckbox.isChecked

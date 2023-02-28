@@ -7,5 +7,5 @@ data class OrderItem(
     @SerializedName("id")
     var id : Int ,
     @SerializedName("registerCode")
-    var registerCode : Int,
+    var registerCode : Long,
 ):Serializable

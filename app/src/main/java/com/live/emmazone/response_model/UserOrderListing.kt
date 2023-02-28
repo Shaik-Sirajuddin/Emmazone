@@ -113,7 +113,7 @@ data class UserOrderListing(
                     @SerializedName("vendor")
                     var vendor: Vendor,
                     @SerializedName("registerCode")
-                    var registerCode: Int,
+                    var registerCode: Long,
                     @SerializedName("productId")
                     var productId: Int,
                     @SerializedName("vendorId")

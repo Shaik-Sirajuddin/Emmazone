@@ -85,7 +85,7 @@ data class SearchProductResponse(
             @SerializedName("group_id")
             var productId: Int, // 152
             @SerializedName("registerCode")
-            var registerCode : Int
+            var registerCode : Long
         ):Serializable
 
         data class VendorDetail(
