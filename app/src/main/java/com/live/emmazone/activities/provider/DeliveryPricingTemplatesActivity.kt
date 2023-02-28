@@ -21,6 +21,7 @@ import com.live.emmazone.response_model.DeliveryTemplateResponse
 import com.live.emmazone.response_model.ShopDeliveryResponse
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
+import com.live.emmazone.utils.AppUtils.Companion.setEuroLocale
 import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.view_models.AppViewModel
 
@@ -40,6 +41,10 @@ class DeliveryPricingTemplatesActivity : AppCompatActivity(), Observer<RestObser
         init()
     }
 
+    override fun onResume() {
+        super.onResume()
+//        setEuroLocale()
+    }
     private fun init() {
         binding.back.setOnClickListener {
             finish()

@@ -208,7 +208,7 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     override fun onResume() {
         super.onResume()
-        setEuroLocale()
+//        setEuroLocale()
         if (isRefresh) {
             productDetailApiHit()
         }
@@ -289,9 +289,9 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
 
     private fun setTemplateData() {
         val body = templates[selectedIndex]
-        binding.bicyclePricing.setText(body.bicycle_price.toString())
-        binding.shopPricing.setText(body.shop_price.toString())
-        binding.thirdPartyPricing.setText(body.logistics_price.toString())
+        binding.bicyclePricing.setText(priceStringToShow(body.bicycle_price.toString()))
+        binding.shopPricing.setText(priceStringToShow(body.shop_price.toString()))
+        binding.thirdPartyPricing.setText(priceStringToShow(body.logistics_price.toString()))
     }
 
     private fun getTemplates() {

@@ -29,7 +29,7 @@ object ServiceGenerator {
         .create()
 
     private val builder = Retrofit.Builder()
-        .baseUrl(AppConstants.BASE_URL)
+        .baseUrl("http://app.emmazn.de:8101/api/")
         .addConverterFactory(GsonConverterFactory.create(gson))
 //            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
@@ -65,7 +65,10 @@ object ServiceGenerator {
             if (getPreference(AppConstants.AUTHORIZATION, "").isNotEmpty()) {
                 Log.d("Authorization", "Bearer " + getPreference(AppConstants.AUTHORIZATION, ""))
                 request = chain.request().newBuilder()
-                    .header("Authorization", "Bearer " + getPreference(AppConstants.AUTHORIZATION, ""))
+                    .header(
+                        "Authorization",
+                        "Bearer " + getPreference(AppConstants.AUTHORIZATION, "")
+                    )
                     .header("securitykey", AppConstants.SECURITY_KEY)
                     .header("Accept", "application/json")
                     .build()

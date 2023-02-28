@@ -66,11 +66,8 @@ object AppConstants {
 
 
     /*******URLs*****/
-//    const val BASE_DOMAIN = "http://app.emmazn.de:8101"
-//    const val IP = "app.emmazn.de:8101"
-
-    const val BASE_DOMAIN = "http://192.168.74.78:8101"
-    const val IP = "192.168.74.78:8101"
+    const val BASE_DOMAIN = "http://app.emmazn.de:8101"
+    const val IP = "app.emmazn.de:8101"
 
     const val S3Url = "https://emmazones3.s3.eu-west-2.amazonaws.com"
 
