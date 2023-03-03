@@ -14,6 +14,8 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.live.emmazone.R
 import com.live.emmazone.databinding.ActivityFilterBinding
+import com.live.emmazone.extensionfuncton.savePreference
+import com.live.emmazone.utils.App
 import com.live.emmazone.utils.AppConstants
 import java.io.IOException
 import java.util.*
@@ -26,9 +28,9 @@ class FilterActivity : AppCompatActivity() {
     private var mLongitude = ""
     private var mDistance = ""
     private var mLocation = ""
-
+    private var pinCode = ""
     private var fields =
-        Arrays.asList(Place.Field.LAT_LNG, Place.Field.ADDRESS, Place.Field.ID, Place.Field.NAME)
+        listOf(Place.Field.LAT_LNG, Place.Field.ADDRESS, Place.Field.ID, Place.Field.NAME)
 
     private val locationLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -36,7 +38,6 @@ class FilterActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val place = Autocomplete.getPlaceFromIntent(result.data!!)
             Log.d("Place: ", place.address)
-
             mLatitude = place.latLng!!.latitude.toString()
             mLongitude = place.latLng!!.longitude.toString()
 
@@ -69,7 +70,7 @@ class FilterActivity : AppCompatActivity() {
 
     private fun clicksHandle() {
         binding.btnApply.setOnClickListener {
-            if (binding.slDistance.value != 0.0f){
+            if (binding.slDistance.value != 0.0f) {
                 mDistance = binding.slDistance.value.toString()
             }
             val intent = Intent()
@@ -77,6 +78,7 @@ class FilterActivity : AppCompatActivity() {
             intent.putExtra(AppConstants.LATITUDE, mLatitude)
             intent.putExtra(AppConstants.LONGITUDE, mLongitude)
             intent.putExtra(AppConstants.LOCATION, mLocation)
+            savePreference(AppConstants.POSTAL_CODE, pinCode)
             setResult(RESULT_OK, intent)
             finish()
         }
@@ -94,8 +96,8 @@ class FilterActivity : AppCompatActivity() {
         binding.back.setOnClickListener { onBackPressed() }
 
         binding.edtLocation.setOnClickListener {
-            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
-                .build(this)
+            val intent =
+                Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this)
 
             locationLauncher.launch(intent)
         }
@@ -132,6 +134,8 @@ class FilterActivity : AppCompatActivity() {
                 val pinCode = addresses[0].postalCode
                 val latitudeAddress = addresses[0].latitude
                 val longitudeAddress = addresses[0].longitude
+
+                this.pinCode = pinCode.toString()
 
                 // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                 location = addresses[0].getAddressLine(0)

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.live.emmazone.R
 import com.live.emmazone.interfaces.OnPopupClick
 import com.live.emmazone.model.CartResponsModel
+import com.live.emmazone.model.ProductDeliveryModel
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.net.CartUpdateResponse
 import com.live.emmazone.net.RestApiInterface
@@ -2973,6 +2974,47 @@ class AppViewModel : ViewModel() {
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
                         getShopDelivery(activity, isDialogShow, hashMap)
+                    }
+                })
+        }
+    }
+
+    fun getProductDelivery(
+        activity: Activity,
+        isDialogShow: Boolean,
+        hashMap: HashMap<String, String>,
+    ) {
+        if (activity.checkIfHasNetwork()) {
+            RestObservable.loading(activity, isDialogShow)
+            service.getProductDelivery(hashMap)
+                .enqueue(object : Callback<ProductDeliveryResponse> {
+                    override fun onResponse(
+                        call: Call<ProductDeliveryResponse>,
+                        response: Response<ProductDeliveryResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            mResponse.value = RestObservable.success(response.body()!!)
+                        } else {
+                            mResponse.value = RestObservable.errorWithSuccess(
+                                activity,
+                                response.code(),
+                                response.errorBody()!!
+                            )
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<ProductDeliveryResponse>, t: Throwable) {
+                        mResponse.value = RestObservable.error(activity, t)
+                    }
+
+                })
+        } else {
+            AppUtils.showMsgOnlyWithClick(activity,
+                activity.getString(R.string.no_internet_connection), object : OnPopupClick {
+                    override fun onPopupClickListener() {
+                        getProductDelivery(activity, isDialogShow, hashMap)
                     }
                 })
         }

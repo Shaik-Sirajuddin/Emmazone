@@ -74,6 +74,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 }
             }
         }
+
     //Switch Search Type
     private var isShopSearch = true
     private val arrayList = ArrayList<SearchProductResponse.Body>()
@@ -98,18 +99,17 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             if (activity != null) {
                 mLatitude = lat.toString()
                 mLongitude = lng.toString()
-                savePreference(AppConstants.LATITUDE,mLatitude)
-                savePreference(AppConstants.LONGITUDE,mLongitude)
+                savePreference(AppConstants.LATITUDE, mLatitude)
+                savePreference(AppConstants.LONGITUDE, mLongitude)
                 shopListingApi()
                 stopLocationUpdates()
                 binding.tvLocation.text = completedAddress(lat, lng)
-                savePreference(AppConstants.LOCATION,binding.tvLocation.text)
+                savePreference(AppConstants.LOCATION, binding.tvLocation.text)
             }
-        }
-        else{
-            mLatitude = getPreference(AppConstants.LATITUDE,"")
-            mLongitude = getPreference(AppConstants.LONGITUDE,"")
-            binding.tvLocation.text = getPreference(AppConstants.LOCATION,"")
+        } else {
+            mLatitude = getPreference(AppConstants.LATITUDE, "")
+            mLongitude = getPreference(AppConstants.LONGITUDE, "")
+            binding.tvLocation.text = getPreference(AppConstants.LOCATION, "")
         }
     }
 
@@ -127,12 +127,14 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         super.onViewCreated(view, savedInstanceState)
         clicksHandle()
         getLiveLocation(requireActivity())
-        mLatitude = getPreference(AppConstants.LATITUDE,"")
-        mLongitude = getPreference(AppConstants.LONGITUDE,"")
-        binding.tvLocation.text = getPreference(AppConstants.LOCATION,"")
-        if(mLatitude.isNotEmpty() && mLongitude.isNotEmpty()){
-            binding.tvLocation.text = mLatitude.toDoubleOrNull()?.let { mLongitude.toDoubleOrNull()
-                ?.let { it1 -> completedAddress(it, it1) } }
+        mLatitude = getPreference(AppConstants.LATITUDE, "")
+        mLongitude = getPreference(AppConstants.LONGITUDE, "")
+        binding.tvLocation.text = getPreference(AppConstants.LOCATION, "")
+        if (mLatitude.isNotEmpty() && mLongitude.isNotEmpty()) {
+            binding.tvLocation.text = mLatitude.toDoubleOrNull()?.let {
+                mLongitude.toDoubleOrNull()
+                    ?.let { it1 -> completedAddress(it, it1) }
+            }
             shopListingApi()
         }
     }
@@ -144,7 +146,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             binding.tvUserName.text = getPreference(AppConstants.NAME, "").toString()
         }
         binding.messagesIcon.setOnClickListener {
-            val intent = Intent(requireContext(),MessageActivity::class.java)
+            val intent = Intent(requireContext(), MessageActivity::class.java)
             startActivity(intent)
         }
         binding.btnClickHereHome.setOnClickListener {
@@ -171,19 +173,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         binding.tvLocation.setOnClickListener {
             openDistanceFilter()
         }
-//        binding.imageFilterHome.setOnClickListener {
-//            if(isShopSearch){
-//                val intent = Intent(activity, FilterActivity::class.java)
-//                intent.putExtra(AppConstants.DISTANCE, mDistance)
-//                intent.putExtra(AppConstants.LATITUDE, mLatitude)
-//                intent.putExtra(AppConstants.LONGITUDE, mLongitude)
-//                intent.putExtra(AppConstants.LOCATION, binding.tvLocation.text)
-//                filterLauncher.launch(intent)
-//            }
-//            else {
-//                showBottomDialog()
-//            }
-//        }
+
 
         binding.imageNotifications.setOnClickListener {
             if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
@@ -195,8 +185,8 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         }
 
         binding.edtSearchWishList.setOnFocusChangeListener { view, focus ->
-            if(focus){
-                if(searchTypeProduct){
+            if (focus) {
+                if (searchTypeProduct) {
                     binding.searchHomeLayout.requestFocus()
                     val intent = Intent(requireContext(), SearchProductActivity::class.java)
                     startActivity(intent)
@@ -213,10 +203,9 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if(isShopSearch){
+                if (isShopSearch) {
                     searchShopsFilter(s.toString())
-                }
-                else{
+                } else {
                     if (!s.isNullOrEmpty()) {
                         searchApiHit(s.toString())
                     }
@@ -229,14 +218,15 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
         binding.switchSearch.setOnClickListener {
             searchTypeProduct = !searchTypeProduct
-            if(binding.edtSearchWishList.hasFocus() && searchTypeProduct){
+            if (binding.edtSearchWishList.hasFocus() && searchTypeProduct) {
                 binding.edtSearchWishList.clearFocus()
                 val intent = Intent(requireContext(), SearchProductActivity::class.java)
                 startActivity(intent)
             }
         }
     }
-    private fun openDistanceFilter(){
+
+    private fun openDistanceFilter() {
         val intent = Intent(activity, FilterActivity::class.java)
         intent.putExtra(AppConstants.DISTANCE, mDistance)
         intent.putExtra(AppConstants.LATITUDE, mLatitude)
@@ -244,6 +234,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         intent.putExtra(AppConstants.LOCATION, binding.tvLocation.text)
         filterLauncher.launch(intent)
     }
+
     private fun locationEnableDialog() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -278,33 +269,33 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         binding.rvHomeNearbyShops.adapter = nearShopAdapter
 
         nearShopAdapter.onClickListener = { shopModel, clickOn ->
-          /*  if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
-                (context as MainActivity).showLoginDialog()
-            } else {*/
+            /*  if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                  (context as MainActivity).showLoginDialog()
+              } else {*/
 
-                if (clickOn == "favourite") {
-                    if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
-                        (context as MainActivity).showLoginDialog()
-                    } else {
-                        selectedPos = list.indexOf(shopModel)
-                        favUnFavApiHit(shopModel)
-                    }
-
-                } else if (clickOn == "itemClick") {
-                    val intent = Intent(requireContext(), ShopDetailActivity::class.java)
-                    intent.putExtra(AppConstants.SHOP_ID, shopModel.id.toString())
-                    intent.putExtra("distance",shopModel.distance)
-                    startActivity(intent)
-                } else if (clickOn == "rating") {
-                    if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
-                        (requireContext().applicationContext as MainActivity).showLoginDialog()
-                    } else {
-                        val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
-                        intent.putExtra(AppConstants.SHOP_LISTING_RESPONSE, shopModel)
-                        startActivity(intent)
-                    }
-
+            if (clickOn == "favourite") {
+                if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                    (context as MainActivity).showLoginDialog()
+                } else {
+                    selectedPos = list.indexOf(shopModel)
+                    favUnFavApiHit(shopModel)
                 }
+
+            } else if (clickOn == "itemClick") {
+                val intent = Intent(requireContext(), ShopDetailActivity::class.java)
+                intent.putExtra(AppConstants.SHOP_ID, shopModel.id.toString())
+                intent.putExtra("distance", shopModel.distance)
+                startActivity(intent)
+            } else if (clickOn == "rating") {
+                if (getPreference(AppConstants.PROFILE_TYPE, "") == AppConstants.GUEST) {
+                    (requireContext().applicationContext as MainActivity).showLoginDialog()
+                } else {
+                    val intent = Intent(requireContext(), ShopReviewsActivity::class.java)
+                    intent.putExtra(AppConstants.SHOP_LISTING_RESPONSE, shopModel)
+                    startActivity(intent)
+                }
+
+            }
 
             /*}*/
         }
@@ -386,11 +377,14 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                         list[selectedPos!!].isLiked = response.body.status
                         nearShopAdapter.notifyDataSetChanged()
 //                        setShopAdapter()
-                        AppUtils.showMsgOnlyWithClick(requireActivity(), response.message ,object : OnPopupClick{
-                            override fun onPopupClickListener() {
-                                sortShopsList()
-                            }
-                        })
+                        AppUtils.showMsgOnlyWithClick(
+                            requireActivity(),
+                            response.message,
+                            object : OnPopupClick {
+                                override fun onPopupClickListener() {
+                                    sortShopsList()
+                                }
+                            })
 
                     }
                 } else if (t.data is CategoryListResponse) {
@@ -398,7 +392,10 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         categoryList.clear()
                         categoryList.addAll(response.body)
-                        categoryList.add(0, CategoryListResponse.Body(0, "", "Select Category", false))
+                        categoryList.add(
+                            0,
+                            CategoryListResponse.Body(0, "", "Select Category", false)
+                        )
                         showCategoryDialog()
                     }
                 } else if (t.data is CategoryColorSizeResponse) {
@@ -438,11 +435,6 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("mLifeCycle","onResume")
-//        getLiveLocation(requireActivity())
-    }
 
     private fun completedAddress(latitude: Double, longitude: Double): String {
         var addresses: List<Address>? = null
@@ -457,33 +449,28 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
                 val state = addresses[0].subAdminArea
                 val address = addresses[0].featureName
                 val island = addresses[0].adminArea
-// val city = addresses[0].locality
-
-
+                // val city = addresses[0].locality
                 try {
                     city = addresses[0].locality
                     if (city == null) city = addresses[0].subLocality
                     if (city == null) city = addresses[0].subAdminArea
                     if (city == null) city = addresses[0].adminArea
-// addressCity = city
+                    // addressCity = city
                 } catch (e: Exception) {
-// addressCity = ""
+                    // addressCity = ""
                 }
 
                 val pinCode = addresses[0].postalCode
                 val latitudeAddress = addresses[0].latitude
                 val longitudeAddress = addresses[0].longitude
-
-// If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                savePreference(AppConstants.POSTAL_CODE, pinCode.toString())
+                // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                 location = addresses[0].getAddressLine(0)
-
-
             }
         } catch (e: IOException) {
             e.printStackTrace()
             location = ""
         }
-
         return location
     }
 
@@ -651,7 +638,8 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         appViewModel.categoryColorSizeApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(requireActivity(), this)
     }
-    private fun sortShopsList(){
+
+    private fun sortShopsList() {
 
         cachedList.sortByDescending {
             it.isLiked
@@ -662,6 +650,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
 
         nearShopAdapter.notifyDataSetChanged()
     }
+
     lateinit var dialog: Dialog
 
     private fun showCategoryDialog() {
@@ -729,10 +718,11 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
     }
 
     override fun onDestroy() {
-        Log.d("mLifeCycle","onDestroy")
+        Log.d("mLifeCycle", "onDestroy")
         savePreference(AppConstants.IS_FILTER, false)
         super.onDestroy()
     }
+
     private fun setSizeAdapter() {
         sizeAdapter = SizeAdapter(sizeList)
         dialog.rvAvatars.adapter = sizeAdapter
@@ -748,5 +738,7 @@ class HomeFragment : LocationUpdateUtilityFragment(), Observer<RestObservable> {
         }
 
     }
+
+
 
 }

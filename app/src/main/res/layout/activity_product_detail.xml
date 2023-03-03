@@ -148,6 +148,7 @@
                     android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,6 +156,7 @@
                     android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/tvShopName"
                     android:layout_width="wrap_content"
@@ -166,8 +168,6 @@
                     android:textSize="16sp" />
 
             </LinearLayout>
-
-
 
 
             <LinearLayout
@@ -243,13 +243,13 @@
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="-"
+                            android:background="@drawable/quantity_button_back"
                             android:paddingBottom="2dp"
+                            android:text="-"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            android:background="@drawable/quantity_button_back" />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvCount"
@@ -261,7 +261,7 @@
                             android:gravity="center"
                             android:text="1"
                             android:textColor="@color/black"
-                            android:textSize="15dp" />
+                            android:textSize="15sp" />
 
 
                         <TextView
@@ -269,13 +269,13 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
-                            android:text="+"
+                            android:background="@drawable/quantity_button_back"
                             android:paddingBottom="1dp"
+                            android:text="+"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textAlignment="center"
-                            android:background="@drawable/quantity_button_back" />
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -291,7 +291,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/tvDelivery"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -301,9 +300,11 @@
                     android:text=""
                     android:textAlignment="viewStart"
                     android:textColor="@color/light_black"
-                    android:textSize="@dimen/sp12" />
+                    android:textSize="@dimen/sp12"
+                    android:visibility="gone" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/spinnerLayout"
                 android:layout_width="match_parent"
@@ -374,65 +375,101 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/quantum_grey700"
-                app:cardCornerRadius="0dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="15dp"
                 app:cardBackgroundColor="@android:color/transparent"
-                >
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/quantum_grey700"
+                app:strokeWidth="1dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Delivery:"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:drawablePadding="10dp"
+                        android:text="Delivery to Postal Code:"
                         android:textSize="16sp"
-                        android:padding="10dp"
-                        />
+                        app:drawableStartCompat="@drawable/location" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <EditText
+                            android:id="@+id/postalCode"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/login_bg"
+                            android:digits="0123456789,."
+                            android:hint="Enter postal code"
+                            android:inputType="phone"
+                            android:maxLines="1"
+                            android:padding="10dp"
+                            android:textAlignment="textStart" />
+
+                        <Button
+                            android:id="@+id/checkDeliveryButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_green_15dp"
+                            android:text="Apply"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="10dp"
-                        >
+                        android:padding="10dp">
+
                         <TextView
                             android:id="@+id/deliveryTime"
-                            android:text="8-48h"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:text="8-48h"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/deliveryType"
-                            android:text="Standard delivery "
-                            android:layout_weight="1"
-                            android:textSize="16sp"
-                            android:layout_marginHorizontal="10dp"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_weight="1"
+                            android:text="Standard delivery "
+                            android:textSize="16sp" />
+
                         <TextView
                             android:id="@+id/deliveryPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="1,99€"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textSize="16sp" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/freeDeliveryText"
-                        android:visibility="gone"
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
                         android:padding="10dp"
-                        />
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -526,8 +563,8 @@
                         android:layout_marginVertical="10dp"
                         android:textAlignment="viewStart"
                         android:textColor="@color/black"
-                        tools:text="this is a sample product desctiption"
-                        android:textSize="@dimen/sp14" />
+                        android:textSize="@dimen/sp14"
+                        tools:text="this is a sample product desctiption" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -548,10 +585,10 @@
 
                 <LinearLayout
                     android:id="@+id/reviewBox"
-                    android:layout_marginHorizontal="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="15dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -569,9 +606,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:scaleY="1.2"
-                        android:scaleX="1.2"
                         android:layout_marginEnd="@dimen/dp15"
+                        android:scaleX="1.2"
+                        android:scaleY="1.2"
                         app:srb_clickable="false"
                         app:srb_drawableEmpty="@drawable/star"
                         app:srb_drawableFilled="@drawable/star_fill"
@@ -605,18 +642,19 @@
                     android:id="@+id/containerReviews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="2dp"
                         android:background="@color/quantum_grey600" />
+
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginHorizontal="18dp"
                         android:id="@+id/reviewsRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="18dp"
                         android:layout_marginTop="@dimen/dp16"
                         android:maxHeight="180dp"
                         android:orientation="vertical"

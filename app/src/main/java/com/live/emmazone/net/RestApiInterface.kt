@@ -403,4 +403,8 @@ interface RestApiInterface {
 
     @GET(AppConstants.GET_ALL_SHOPS_UNDER_DELETION)
     fun getAllShopsUnderDelete(): Call<DeletedShopsResponse>
+
+    @FormUrlEncoded
+    @POST(AppConstants.GET_PRODUCT_DELIVERY)
+    fun getProductDelivery(@FieldMap hashMap: HashMap<String, String>): Call<ProductDeliveryResponse>
 }

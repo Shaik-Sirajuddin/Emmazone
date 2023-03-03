@@ -53,34 +53,38 @@ class ShopPostalCodes : AppCompatActivity(), Observer<RestObservable> {
         }
         getData()
     }
-    private fun validateAddData(){
+
+    private fun validateAddData() {
         val code = binding.enterPostalCode.text.toString().trim().toIntOrNull()
-        if(code == null){
+        if (code == null) {
             showToast("Please enter valid code")
             return
         }
         binding.enterPostalCode.setText("")
         addPostalCode(code)
     }
-    private fun getData(){
-        val map = HashMap<String,String>()
-        map["vendorId"] = getPreference(AppConstants.VENDOR_ID,"")
-        appViewModel.getShopPostalCodes(this,true,map)
-        appViewModel.mResponse.observe(this,this)
+
+    private fun getData() {
+        val map = HashMap<String, String>()
+        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
+        appViewModel.getShopPostalCodes(this, true, map)
+        appViewModel.mResponse.observe(this, this)
     }
+
     private fun deleteCode(pos: Int) {
-        val map = HashMap<String,String>()
-        map["vendorId"] = getPreference(AppConstants.VENDOR_ID,"")
+        val map = HashMap<String, String>()
+        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
         map["postal_code"] = list[pos].postalCode.toString()
-        appViewModel.deleteShopPostalCode(this,true,map)
-        appViewModel.mResponse.observe(this,this)
+        appViewModel.deleteShopPostalCode(this, true, map)
+        appViewModel.mResponse.observe(this, this)
     }
-    private fun addPostalCode(code : Int){
-        val map = HashMap<String,String>()
-        map["vendorId"] = getPreference(AppConstants.VENDOR_ID,"")
+
+    private fun addPostalCode(code: Int) {
+        val map = HashMap<String, String>()
+        map["vendorId"] = getPreference(AppConstants.VENDOR_ID, "")
         map["postal_code"] = code.toString()
-        appViewModel.addShopPostalCode(this,true,map)
-        appViewModel.mResponse.observe(this,this)
+        appViewModel.addShopPostalCode(this, true, map)
+        appViewModel.mResponse.observe(this, this)
     }
 
     override fun onChanged(t: RestObservable?) {
@@ -91,28 +95,25 @@ class ShopPostalCodes : AppCompatActivity(), Observer<RestObservable> {
                     list.clear()
                     list.addAll(response.body)
                     adapter.notifyDataSetChanged()
-                    if(list.isEmpty()){
+                    if (list.isEmpty()) {
                         binding.toHide.visibility = View.VISIBLE
                         binding.recyclerView.visibility = View.GONE
-                    }
-                    else{
+                    } else {
                         binding.toHide.visibility = View.GONE
                         binding.recyclerView.visibility = View.VISIBLE
                     }
-                }
-                else if(t.data is CommonResponse){
-                    val response : CommonResponse = t.data
+                } else if (t.data is CommonResponse) {
+                    val response: CommonResponse = t.data
                     showToast(response.message)
                     getData()
                 }
             }
             Status.ERROR -> {
-                if(t.data is PostalCodesResponse){
+                if (t.data is PostalCodesResponse) {
                     val response: PostalCodesResponse = t.data
                     showToast(response.message)
-                }
-                else if(t.data is CommonResponse){
-                    val response : CommonResponse = t.data
+                } else if (t.data is CommonResponse) {
+                    val response: CommonResponse = t.data
                     showToast(response.message)
                 }
             }

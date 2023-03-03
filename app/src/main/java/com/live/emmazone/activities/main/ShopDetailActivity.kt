@@ -52,6 +52,8 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
     private val reviewsList = ArrayList<ShopReviewModel>()
     private lateinit var productAdapter: AdapterShopDetailProducts
     private var selectedPos: Int? = null
+    private var latitude = ""
+    private var longitude = ""
     override fun updatedLatLng(lat: Double?, lng: Double?) {
 
         if (lat != null && lng != null) {
@@ -83,7 +85,8 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         hashMap["shopId"] = shopId!!
         hashMap["latitude"] = latitude
         hashMap["longitude"] = longitude
-
+        this.latitude = latitude
+        this.longitude = longitude
         appViewModel.shopDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
     }
@@ -160,26 +163,27 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         binding.recyclerViewShopReviews.layoutManager = LinearLayoutManager(this)
 
     }
-    private fun toogleAbout(){
-        if(binding.containerAbout.visibility == View.VISIBLE){
+
+    private fun toogleAbout() {
+        if (binding.containerAbout.visibility == View.VISIBLE) {
             binding.containerAbout.visibility = View.GONE
             binding.toogleAbout.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-        }
-        else{
+        } else {
             binding.containerAbout.visibility = View.VISIBLE
             binding.toogleAbout.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
         }
     }
-    private fun toogleReviews(){
-        if(binding.containerReviews.visibility == View.VISIBLE){
+
+    private fun toogleReviews() {
+        if (binding.containerReviews.visibility == View.VISIBLE) {
             binding.containerReviews.visibility = View.GONE
             binding.toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-        }
-        else{
+        } else {
             binding.containerReviews.visibility = View.VISIBLE
             binding.toogleReviews.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
         }
     }
+
     private fun showLoginDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -258,7 +262,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
     }
 
     private fun setCategoryAdapter() {
-        val shopCategory = AdapterShopDetailCategory(response!!.body.shopCategories,true) {
+        val shopCategory = AdapterShopDetailCategory(response!!.body.shopCategories, true) {
             when (it) {
                 -1 -> {
                     listSDProduct.clear()
@@ -313,16 +317,18 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
             }
             binding.recyclerShopDetailProducts.adapter = productAdapter
 
-            productAdapter.onItemClick = { productId: String  , groupId:String->
+            productAdapter.onItemClick = { productId: String, groupId: String ->
                 val intent = Intent(this, ProductDetailActivity::class.java)
+                intent.putExtra(AppConstants.LATITUDE, latitude)
+                intent.putExtra(AppConstants.LONGITUDE, longitude)
                 intent.putExtra(AppConstants.USER2_NAME, response!!.body.shopName)
                 intent.putExtra(
                     AppConstants.USER2_IMAGE,
                     AppConstants.IMAGE_USER_URL + response!!.body.image
                 )
                 intent.putExtra("productId", productId)
-                if(groupId.isNotEmpty()){
-                    intent.putExtra("groupId",groupId)
+                if (groupId.isNotEmpty()) {
+                    intent.putExtra("groupId", groupId)
                 }
 
                 startActivity(intent)

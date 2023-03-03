@@ -63,19 +63,20 @@ object AppConstants {
     const val PRICE_RANGE = "priceRange"
     const val PRICE = "price"
     const val MIN_PRICE = "filter_min_price"
+    const val POSTAL_CODE = "postal_code"
 
 
     /*******URLs*****/
-    const val BASE_DOMAIN = "http://app.emmazn.de:8101"
-    const val IP = "app.emmazn.de:8101"
+//    const val BASE_DOMAIN = "http://app.emmazn.de:8101"
 
-    const val S3Url = "https://emmazones3.s3.eu-west-2.amazonaws.com"
+    const val BASE_DOMAIN = "http://192.168.74.78:8101"
 
+
+    const val SOCKET_BASE_URL = BASE_DOMAIN
     const val BASE_URL = "${BASE_DOMAIN}/api/"
 
 
-    //    const val SOCKET_BASE_URL = "http://app.emmazn.de:8101"
-    const val SOCKET_BASE_URL = BASE_DOMAIN
+    const val S3Url = "https://emmazones3.s3.eu-west-2.amazonaws.com"
     const val IMAGE_CATEGORY_URL = "${S3Url}/category/"
     const val IMAGE_USER_URL = "${S3Url}/user/"
     const val SHOP_IMAGE_URL = "${S3Url}/shop_images/"
@@ -169,4 +170,5 @@ object AppConstants {
     const val INITIATE_DELETE_SHOP_PROFILE = "initiate_shop_profile_delete"
     const val CONFORM_DELETE_SHOP_PROFILE = "conform_shop_profile_delete"
     const val GET_ALL_SHOPS_UNDER_DELETION = "get_all_delete_progress_shops"
+    const val GET_PRODUCT_DELIVERY = "get_product_delivery"
 }

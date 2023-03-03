@@ -85,6 +85,7 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
 
 
 
+
     private fun completedAddress(latitude: Double, longitude: Double): String {
         var addresses: List<Address>? = null
         var city: String? = ""

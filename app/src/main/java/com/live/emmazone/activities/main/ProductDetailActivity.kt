@@ -31,6 +31,8 @@ import com.live.emmazone.extensionfuncton.Validator
 import com.live.emmazone.extensionfuncton.getPreference
 import com.live.emmazone.extensionfuncton.savePreference
 import com.live.emmazone.interfaces.OnPopupClick
+import com.live.emmazone.model.ProductDeliveryModel
+import com.live.emmazone.model.ShopDeliveryModel
 import com.live.emmazone.model.ShopProductDetailResponse
 import com.live.emmazone.model.SizeAndColorItem
 import com.live.emmazone.net.RestObservable
@@ -39,13 +41,16 @@ import com.live.emmazone.response_model.*
 import com.live.emmazone.utils.AppConstants
 import com.live.emmazone.utils.AppUtils
 import com.live.emmazone.utils.AppUtils.Companion.openGoogleMaps
+import com.live.emmazone.utils.AppUtils.Companion.showToast
 import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toBody
+import kotlinx.android.synthetic.main.activity_add_shop_story.*
 import okhttp3.RequestBody
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.math.roundToInt
 
 
@@ -57,7 +62,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private var selectedDate: Date? = null
 
     private val appViewModel: AppViewModel by viewModels()
-    var qty = 0
+    var qty = 1
     var totalQty = 0
 
     var productId = ""
@@ -101,7 +106,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
     private var deliveryPrice = 0.0
     private var deliveryType = "Self Delivery"
     private var deliveryTime = "On Arrival"
-
+    private var postalCode: String = ""
     private val launcherPayment =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -142,8 +147,16 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        qty = binding.tvCount.text.toString().toInt()
 
+
+        /**Get intent data should be first*/
+        getIntentData()
+        setOnClicks()
+        initAdapters()
+
+    }
+
+    private fun getIntentData() {
         if (intent.getStringExtra("productId") != null) {
             productId = intent.getStringExtra("productId")!!
         }
@@ -162,29 +175,10 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             binding.tvShopName.text = shopName
             binding.tvShopName.visibility = View.VISIBLE
         }
-
-        setOnClicks()
-
-
-        binding.back.setOnClickListener {
-            onBackPressed()
+        postalCode = getPreference(AppConstants.POSTAL_CODE, "")
+        if (postalCode.isNotEmpty()) {
+            binding.postalCode.setText(postalCode)
         }
-
-        binding.imageCart.setOnClickListener {
-            if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
-                showLoginDialog()
-            } else {
-                startActivity(Intent(this, Cart::class.java))
-            }
-        }
-        binding.descriptionBox.setOnClickListener {
-            toogleDescription()
-        }
-        binding.reviewBox.setOnClickListener {
-            toogleReviews()
-        }
-        initAdapters()
-
     }
 
     private fun toogleDescription() {
@@ -303,6 +297,9 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         } else {
             hashMap["id"] = productId
         }
+        if (postalCode.isNotEmpty()) {
+            hashMap["postal_code"] = postalCode
+        }
         appViewModel.shopProductDetailApi(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
 
@@ -321,7 +318,41 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         binding.btnBuyDeliver.setOnClickListener(this)
         binding.btnClickCollect.setOnClickListener(this)
         binding.imageAskExpert.setOnClickListener(this)
+        binding.back.setOnClickListener {
+            onBackPressed()
+        }
 
+        binding.imageCart.setOnClickListener {
+            if (getPreference(AppConstants.PROFILE_TYPE, "") == "guest") {
+                showLoginDialog()
+            } else {
+                startActivity(Intent(this, Cart::class.java))
+            }
+        }
+        binding.descriptionBox.setOnClickListener {
+            toogleDescription()
+        }
+        binding.reviewBox.setOnClickListener {
+            toogleReviews()
+        }
+        binding.checkDeliveryButton.setOnClickListener {
+            val code = binding.postalCode.text.toString().trim().toIntOrNull()
+            if (code == null) {
+                showToast("Please enter a valid code")
+                return@setOnClickListener
+            }
+            postalCode = code.toString()
+
+            if (shopProductDetailResponse == null ||
+                shopProductDetailResponse!!.body.products.isEmpty() ||
+                shopProductDetailResponse!!.body.products[0].group == null
+            ) {
+                showToast("Product details not fetched yet")
+                return@setOnClickListener
+            }
+            val groupId = shopProductDetailResponse!!.body.products[0].group!!.id
+            productDeliveryApiHit(groupId)
+        }
     }
 
     private fun addToCart() {
@@ -394,16 +425,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             validateData()
         }
 
-//        tvSelectAddress?.setOnClickListener {
-//            val intent = Intent(this, DeliveryAddress::class.java)
-//            launcherAddress.launch(intent)
-//        }
-
-//        tvChangeDeliveryAdd.setOnClickListener {
-//            val intent = Intent(this, DeliveryAddress::class.java)
-//            launcherAddress.launch(intent)
-//        }
-
         tvSelectPayment?.setOnClickListener {
             val intent = Intent(this, PaymentMethod::class.java)
             launcherPayment.launch(intent)
@@ -413,30 +434,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             launcherPayment.launch(intent)
         }
         bottomDialog?.show()
-    }
-
-    private fun openDateTimerPicker() {
-        val c = Calendar.getInstance()
-        if (selectedDate != null)
-            c.time = selectedDate!!
-
-        val year = c[Calendar.YEAR]
-        val month = c[Calendar.MONTH]
-        val day = c[Calendar.DAY_OF_MONTH]
-
-        val dpd = DatePickerDialog(
-            this, { _, sYear, sMonth, sDay ->
-                run {
-                    selectedDate = DateHelper.getDate(sDay, sMonth, sYear)
-                    showTimePicker()
-                }
-            },
-            year,
-            month,
-            day
-        )
-        dpd.datePicker.minDate = Calendar.getInstance().timeInMillis
-        dpd.show()
     }
 
     private fun showTimePicker() {
@@ -590,6 +587,23 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         }
         val shopDelivery = data.shopDelivery
         val productDelivery = data.productDelivery
+        setDeliveryDetails(shopDelivery, productDelivery)
+
+    }
+
+    private fun productDeliveryApiHit(groupId: Int) {
+        if (postalCode.isEmpty()) return
+        val hashMap = HashMap<String, String>()
+        hashMap["groupId"] = groupId.toString()
+        hashMap["postal_code"] = postalCode
+        appViewModel.getProductDelivery(this, true, hashMap)
+        appViewModel.getResponse().observe(this, this)
+    }
+
+    private fun setDeliveryDetails(
+        shopDelivery: ShopDeliveryModel,
+        productDelivery: ProductDeliveryModel
+    ) {
         if (productDelivery.shop_available && shopDelivery.shop_available) {
             deliveryPrice = productDelivery.shop_price
             deliveryType = "Shop Delivery"
@@ -603,6 +617,7 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
             deliveryType = "Standard Delivery"
             deliveryTime = "2 Days"
         }
+
         if (deliveryPrice == 0.0) {
             binding.deliveryPrice.text = "Free"
         } else {
@@ -639,9 +654,16 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                     }
                 } else if (t.data is ReviewsResponse) {
                     updateReviews(t.data.body)
+                } else if (t.data is ProductDeliveryResponse) {
+                    val data = t.data.body
+                    shopProductDetailResponse?.body?.productDelivery = data.productDelivery
+                    shopProductDetailResponse?.body?.shopDelivery = data.shopDelivery
+                    setDeliveryDetails(data.shopDelivery, data.productDelivery)
                 }
             }
-            else -> {}
+            else -> {
+                showToast("Unknown error occurred")
+            }
         }
     }
 
@@ -662,11 +684,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         dialogOrderPlaced.setOnClickListener {
             bottomDialog?.dismiss()
             openGoogleMaps(latitude, longitude)
-//
-//            val intent = Intent(this, MainActivity::class.java)
-//            intent.putExtra(AppConstants.OPEN_BY_CART, true)
-//            startActivity(intent)
-//            finishAffinity()
         }
         alertDialog.setCancelable(true)
 
