@@ -54,7 +54,7 @@ class AdapterOnGoingUserOrders(
                     imgCodeScanner.visibility = View.GONE
                 }
 
-            }else{
+            } else {
                 imgCodeScanner.visibility = View.GONE
             }
 
@@ -73,10 +73,10 @@ class AdapterOnGoingUserOrders(
                 3 -> {
                     tvOrderStatus.text = context.getString(R.string.cancel)
                 }
-                7->{
+                7 -> {
                     tvOrderStatus.text = "Return in transit"
                 }
-                8->{
+                8 -> {
                     tvOrderStatus.text = "Returned"
                 }
             }
@@ -86,7 +86,7 @@ class AdapterOnGoingUserOrders(
             }
 
             val onActionListenerNew = object : OnActionListenerNew {
-                override fun notifyOnClick() {
+                override fun notifyOnClick(pos: Int) {
                     openDetailScreen(model, holder.adapterPosition)
                 }
             }
@@ -105,7 +105,7 @@ class AdapterOnGoingUserOrders(
     private fun openDetailScreen(model: UserOrderListing.Body.Response, position: Int) {
         val intent = Intent(context, ReservedDeliveredDetail::class.java)
         intent.putExtra("data", model)
-        intent.putExtra("onGoing",onGoingFragment)
+        intent.putExtra("onGoing", onGoingFragment)
         context.startActivity(intent)
     }
 

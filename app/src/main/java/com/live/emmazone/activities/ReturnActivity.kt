@@ -19,6 +19,7 @@ class ReturnActivity : AppCompatActivity(), Observer<RestObservable> {
     private var isCourier = true
     private val appViewModel: AppViewModel by viewModels()
     private var id = ""
+    private lateinit var idsList: ArrayList<Int>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReturnBinding.inflate(layoutInflater)
@@ -31,6 +32,7 @@ class ReturnActivity : AppCompatActivity(), Observer<RestObservable> {
         binding.courierRadio.isClickable = false
 
         id = intent.getStringExtra(AppConstants.ORDER_ID).toString()
+        idsList = intent.getSerializableExtra(AppConstants.ORDER_ITEMS) as ArrayList<Int>
         binding.courier.setOnClickListener {
             isCourier = true
             toggleRadioButton()
@@ -58,7 +60,10 @@ class ReturnActivity : AppCompatActivity(), Observer<RestObservable> {
         hashMap["id"] = id
         hashMap["orderStatus"] =
             status.toString() // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled // 7=> return
-
+        hashMap["orderItemIds"] = idsList.joinToString(
+            prefix = "[",
+            postfix = "]"
+        )
         appViewModel.orderStatusApi(this, hashMap, true)
 
         appViewModel.getResponse().observe(this, this)
@@ -69,8 +74,7 @@ class ReturnActivity : AppCompatActivity(), Observer<RestObservable> {
             Status.SUCCESS -> {
                 if (t.data is ScanOrderResponse) {
                     AppUtils.showMsgOnlyWithClick(
-                        this, "Return initiated successfully"
-                    ,object : OnPopupClick{
+                        this, "Return initiated successfully", object : OnPopupClick {
                             override fun onPopupClickListener() {
                                 finish()
                             }

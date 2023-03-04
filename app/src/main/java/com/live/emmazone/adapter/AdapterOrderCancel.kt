@@ -30,7 +30,7 @@ class AdapterOrderCancel(
         holder.tvproductPrice.setText(ModelOnGoingOrders.productPrice)
 
         holder.itemView.setOnClickListener {
-            onActionListenerNew?.notifyOnClick()
+            onActionListenerNew?.notifyOnClick(position)
         }
     }
 

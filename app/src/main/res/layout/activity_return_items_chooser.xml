@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true"
+    tools:context=".activities.ReturnActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_20sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="24dp"
+                android:padding="8dp"
+                android:src="@drawable/arrow_back"
+                app:layout_constraintBottom_toBottomOf="@+id/changePassword"
+                app:layout_constraintEnd_toStartOf="@+id/changePassword"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/layoutMain"
+                app:layout_constraintTop_toTopOf="@+id/changePassword" />
+
+            <TextView
+                android:id="@+id/changePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Return products"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp20"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/layoutMain"
+                app:layout_constraintStart_toStartOf="@+id/layoutMain"
+                app:layout_constraintTop_toTopOf="@+id/layoutMain" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/continuButton"
+            app:layout_constraintTop_toBottomOf="@id/layoutMain" />
+
+        <Button
+            android:id="@+id/continuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_fill_sqaure"
+            android:text="Continue"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

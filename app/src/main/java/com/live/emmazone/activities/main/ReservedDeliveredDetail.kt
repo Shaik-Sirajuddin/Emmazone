@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.live.emmazone.R
 import com.live.emmazone.activities.ReturnActivity
+import com.live.emmazone.activities.ReturnItemsChooser
 import com.live.emmazone.adapter.AdapterOrderDetail
 import com.live.emmazone.databinding.ActivityReservedDeliveredDetailBinding
 import com.live.emmazone.model.OrderStatus
@@ -114,8 +115,9 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
             if (milliSeconds >= returnPeriodInMilliSeconds) {
                 AppUtils.showMsgOnlyWithoutClick(this, "Return period closed")
             } else {
-                val intent = Intent(this, ReturnActivity::class.java)
+                val intent = Intent(this, ReturnItemsChooser::class.java)
                 intent.putExtra(AppConstants.ORDER_ID, userData!!.id.toString())
+                intent.putExtra(AppConstants.ORDER_ITEMS, userData!!.orderJson.orderItems)
                 startActivity(intent)
                 finish()
             }

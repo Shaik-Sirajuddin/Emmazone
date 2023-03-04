@@ -63,7 +63,7 @@ object SocketManager {
         //opts.transports  = arrayOf(WebSocket.NAME)
         opts.reconnection = true
         Log.e("socket", AppConstants.SOCKET_BASE_URL)
-        mSocket = IO.socket("http://192.168.74.78:8101", opts)
+        mSocket = IO.socket("http://app.emmazn.de:8101", opts)
         if (observerList == null || observerList!!.size == 0) {
             observerList = ArrayList()
         }

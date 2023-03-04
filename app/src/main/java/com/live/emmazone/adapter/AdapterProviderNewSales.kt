@@ -61,17 +61,17 @@ class AdapterProviderNewSales(
             3 -> {
                 holder.tvOrderStatus.text = context.getString(R.string.cancel)
             }
-            7->{
+            7 -> {
                 holder.tvOrderStatus.text = context.getString(R.string.return_in_transit)
             }
-            8->{
+            8 -> {
                 holder.tvOrderStatus.text = context.getString(R.string.returned)
             }
         }
 
 
         val onActionListenerNew = object : OnActionListenerNew {
-            override fun notifyOnClick() {
+            override fun notifyOnClick(pos: Int) {
                 openDetailScreen(model, holder.adapterPosition)
             }
         }

@@ -46,7 +46,7 @@ class AdapterOnGoingOrders(
         }
 
         holder.itemView.setOnClickListener {
-            onActionListenerNew?.notifyOnClick()
+            onActionListenerNew?.notifyOnClick(position)
         }
     }
 

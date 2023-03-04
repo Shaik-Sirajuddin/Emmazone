@@ -90,7 +90,7 @@ class OrderDetailNewSaleActivity : AppCompatActivity(), Observer<RestObservable>
         setContentView(binding.root)
 
         val onActionListenerNew = object : OnActionListenerNew {
-            override fun notifyOnClick() {
+            override fun notifyOnClick(pos : Int) {
                 //openDetailScreen(model, holder.adapterPosition)
             }
         }

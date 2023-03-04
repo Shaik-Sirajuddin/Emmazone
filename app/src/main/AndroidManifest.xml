@@ -27,6 +27,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:theme">
         <activity
+            android:name=".activities.ReturnItemsChooser"
+            android:exported="false" />
+        <activity
             android:name=".activities.provider.DeletedShopsActivity"
             android:exported="false" />
         <activity

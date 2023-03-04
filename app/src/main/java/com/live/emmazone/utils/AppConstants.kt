@@ -39,6 +39,7 @@ object AppConstants {
     const val SHOP_ID = "shopId"
     const val IMAGES_ARRAYLIST = "imagesList"
     const val ORDER_ID = "orderId"
+    const val ORDER_ITEMS = "orderItems"
     const val NOTIFICATION_RESPONSE = "notificationResponse"
     const val SAVED_ADDRESS_RESPONSE = "saveAddress"
     const val PAYMENT_TYPE = "paymentType"
@@ -67,9 +68,9 @@ object AppConstants {
 
 
     /*******URLs*****/
-//    const val BASE_DOMAIN = "http://app.emmazn.de:8101"
+    const val BASE_DOMAIN = "http://app.emmazn.de:8101"
 
-    const val BASE_DOMAIN = "http://192.168.74.78:8101"
+//    const val BASE_DOMAIN = "http://192.168.74.78:8101"
 
 
     const val SOCKET_BASE_URL = BASE_DOMAIN

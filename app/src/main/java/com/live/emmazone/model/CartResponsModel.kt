@@ -19,7 +19,7 @@ data class CartResponsModel(
         @SerializedName("cartItems")
         var cartItems: List<CartItem>,
         @SerializedName("deliveryCharge")
-        var deliveryCharge: Int, // 10
+        var deliveryCharge: Double, // 10
         @SerializedName("subTotal")
         var subTotal: Double, // 1601.38
         @SerializedName("tax")

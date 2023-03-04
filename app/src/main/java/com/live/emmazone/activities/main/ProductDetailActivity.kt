@@ -46,6 +46,7 @@ import com.live.emmazone.utils.DateHelper
 import com.live.emmazone.view_models.AppViewModel
 import com.schunts.extensionfuncton.toBody
 import kotlinx.android.synthetic.main.activity_add_shop_story.*
+import net.minidev.json.JSONArray
 import okhttp3.RequestBody
 import java.text.DecimalFormat
 import java.util.*
@@ -596,6 +597,13 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
         val hashMap = HashMap<String, String>()
         hashMap["groupId"] = groupId.toString()
         hashMap["postal_code"] = postalCode
+
+        val arr = listOf(13)
+        arr.joinToString(
+            prefix = "[",
+            postfix = "]",
+        )
+
         appViewModel.getProductDelivery(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
     }

@@ -3,6 +3,7 @@ package com.live.emmazone.adapter
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,7 +18,8 @@ class AdapterOnGoingProducts(
     private val context: Context,
     private val list: ArrayList<UserOrderListing.Body.Response.OrderJson.OrderItem>,
     private val onActionListenerNew: OnActionListenerNew? = null,
-    private val type: String
+    private val type: String,
+    private val checkedList: ArrayList<Boolean>? = null,
 ) :
     RecyclerView.Adapter<AdapterOnGoingProducts.ViewHolder>() {
 
@@ -53,10 +55,16 @@ class AdapterOnGoingProducts(
             onGoingItemQuantity.text = model.orderedQty.toString()
             productPrice.text = context.getString(R.string.euro_symbol, model.productPrice)
             productCode.text = model.registerCode.toString()
+            if (checkedList != null) {
+                selectRadio.visibility = View.VISIBLE
+                selectRadio.isChecked = checkedList[position]
+            } else {
+                selectRadio.visibility = View.GONE
+            }
         }
 
         holder.itemView.setOnClickListener {
-            onActionListenerNew?.notifyOnClick()
+            onActionListenerNew?.notifyOnClick(position)
         }
     }
 
