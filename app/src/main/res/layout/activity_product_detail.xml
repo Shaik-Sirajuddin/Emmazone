@@ -393,7 +393,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginTop="10dp"
                         android:drawablePadding="10dp"
-                        android:text="Delivery to Postal Code:"
+                        android:text="Delivery :"
                         android:textSize="16sp"
                         app:drawableStartCompat="@drawable/location" />
 
@@ -402,7 +402,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:visibility="gone">
 
                         <EditText
                             android:id="@+id/postalCode"
