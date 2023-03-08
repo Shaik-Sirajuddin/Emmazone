@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -41,6 +42,7 @@ import java.util.*
 
 class Cart : AppCompatActivity(), Observer<RestObservable> {
 
+    private var dialog: BottomSheetDialog? = null
     private lateinit var binding: ActivityCartBinding
     private lateinit var cartAdapter: AdapterCart
     private lateinit var youMayLikeProductAdapter: YouMyLikeProductAdapter
@@ -66,25 +68,25 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
     private var selectedAddressId = ""
     val hashMap = HashMap<String, String>()
     private var deleteClick = false
-
+    private var showDialog = false
     private val launcherAddress =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-
             if (result.resultCode == RESULT_OK) {
                 val data =
                     result.data?.getSerializableExtra(AppConstants.Address_LIST_RESPONSE) as
                             AddressListResponse.Body
 
+                showDialog = true
+                savePrefObject(AppConstants.SAVED_ADDRESS_RESPONSE, data)
                 selectedAddressId = data.id.toString()
                 tvOrderPersonName?.text = data.name
                 tvOrderDeliveryAddress?.text = data.address + " , ".plus(data.city)
-
                 rlAddress?.visibility = View.VISIBLE
                 tvSelectAddress?.visibility = View.GONE
+                getCartListing()
 
-                savePrefObject(AppConstants.SAVED_ADDRESS_RESPONSE, data)
+
             }
-
         }
 
 
@@ -132,7 +134,6 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
         setCartAdapter()
         setLikeProductAdapter()
         clicksHandle()
-
     }
 
 
@@ -188,16 +189,21 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
     }
 
     private fun getCartListing() {
-        appViewModel.cartListing(this, true)
+        val hashMap = HashMap<String, String>()
+        val postalCode = getSavedZipCode()
+        postalCode?.let {
+            hashMap["postal_code"] = it
+        }
+        appViewModel.cartListing(hashMap, this, true)
         appViewModel.getResponse().observe(this, this)
     }
 
 
     private fun showBottomDialog() {
-        val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
+        dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.activity_bottom_sheet_dialog, null)
-        dialog.setCancelable(true)
-        dialog.setContentView(view)
+        dialog!!.setCancelable(true)
+        dialog!!.setContentView(view)
 
         tvDeliveryDate = view.findViewById(R.id.tvDeliveryDate)
         val tvChangeDateTime = view.findViewById<TextView>(R.id.tvChangeDateTime)
@@ -268,9 +274,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
             val intent = Intent(this, PaymentMethod::class.java)
             launcherPayment.launch(intent)
         }
-
-
-        dialog.show()
+        dialog!!.show()
     }
 
     private fun getSavedPaymentType() {
@@ -311,6 +315,15 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
             tvSelectAddress?.visibility = View.GONE
         }
 
+    }
+
+    private fun getSavedZipCode(): String? {
+        val savedAddress: AddressListResponse.Body? =
+            getPrefObject(AppConstants.SAVED_ADDRESS_RESPONSE) as AddressListResponse.Body?
+        if (savedAddress != null) {
+            return savedAddress.zipcode
+        }
+        return null
     }
 
     private fun validateData() {
@@ -402,10 +415,10 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                 kotlin.run {
                     val date: Date? = DateHelper.getDate(sHour, sMinute)
                     val milliSeconds = System.currentTimeMillis() + 604800000L
-                    if(date == null)return@run
-                    val tempDate  = DateHelper.combineDateTime(selectedDate!!, date)
+                    if (date == null) return@run
+                    val tempDate = DateHelper.combineDateTime(selectedDate!!, date)
                     if (tempDate != null) {
-                        if(tempDate.time < milliSeconds){
+                        if (tempDate.time < milliSeconds) {
                             showToast("Date cannot be earlier than estimated date")
                             return@run
                         }
@@ -436,7 +449,7 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                     binding.tvDeliveryChargesPrice.text =
                         getString(
                             R.string.euro_symbol,
-                            response!!.body.deliveryCharge.toDouble().toString()
+                            response!!.body.deliveryCharge.toString()
                         )
                     binding.tvTaxPrice.text = response!!.body.tax.toString() + "%"
                     binding.tvTotalPrice.text =
@@ -447,12 +460,13 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                     binding.tvItemCount.text = response!!.body.cartItems.size.toString()
 
 
-
                     for (i in 0 until response!!.body.youMayLikeProducts.size) {
                         response!!.body.youMayLikeProducts[i].apply {
-                            if(this.group==null){
-                                this.group = SearchProductResponse.Body.Group(0,
-                                this.productImages)
+                            if (this.group == null) {
+                                this.group = SearchProductResponse.Body.Group(
+                                    0,
+                                    this.productImages
+                                )
                             }
                             listMayLike.add(
                                 CartResponsModel.Body.CartItem.Product(
@@ -473,13 +487,18 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                                     this.userId,
                                     null,
                                     arrayListOf(),
-                                this.group)
+                                    this.group
+                                )
                             )
 
                         }
                     }
                     noDataVisible()
-
+                    if (showDialog) {
+                        dialog?.dismiss()
+                        showDialog = false
+                        showBottomDialog()
+                    }
 
                 } else if (t.data is CommonResponse) {
                     getCartListing()

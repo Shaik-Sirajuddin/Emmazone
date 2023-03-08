@@ -70,7 +70,7 @@ object AppConstants {
     /*******URLs*****/
     const val BASE_DOMAIN = "http://app.emmazn.de:8101"
 
-//    const val BASE_DOMAIN = "http://192.168.74.78:8101"
+//    const val BASE_DOMAIN = "http://192.168.231.78:8101"
 
 
     const val SOCKET_BASE_URL = BASE_DOMAIN

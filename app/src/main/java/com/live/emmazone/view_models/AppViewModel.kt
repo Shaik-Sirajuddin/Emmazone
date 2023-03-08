@@ -1770,10 +1770,10 @@ class AppViewModel : ViewModel() {
     }
 
 
-    fun cartListing(activity: Activity, isDialogShow: Boolean) {
+    fun cartListing(hashMap: HashMap<String, String>,activity: Activity, isDialogShow: Boolean) {
         if (activity.checkIfHasNetwork()) {
             RestObservable.loading(activity, isDialogShow)
-            service.cartItemListing()
+            service.cartItemListing(hashMap)
                 .enqueue(object : Callback<CartResponsModel> {
                     override fun onResponse(
                         call: Call<CartResponsModel>,
@@ -1799,7 +1799,7 @@ class AppViewModel : ViewModel() {
             AppUtils.showMsgOnlyWithClick(activity,
                 activity.getString(R.string.no_internet_connection), object : OnPopupClick {
                     override fun onPopupClickListener() {
-                        cartListing(activity, isDialogShow)
+                        cartListing(hashMap,activity, isDialogShow)
                     }
                 })
         }

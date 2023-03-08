@@ -273,8 +273,9 @@ interface RestApiInterface {
     @POST(AppConstants.ADD_CART_ITEMS)
     fun addCartItems(@FieldMap hashMap: HashMap<String, String>): Call<CommonResponse>
 
-    @GET(AppConstants.CART_LISTING)
-    fun cartItemListing(): Call<CartResponsModel>
+    @FormUrlEncoded
+    @POST(AppConstants.CART_LISTING)
+    fun cartItemListing(@FieldMap hashMap: HashMap<String, String>): Call<CartResponsModel>
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = AppConstants.DELETE_CART_ITEM, hasBody = true)
