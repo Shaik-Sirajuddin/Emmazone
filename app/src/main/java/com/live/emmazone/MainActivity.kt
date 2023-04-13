@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
     private fun getNotificationClick() {
         if (intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE) != null) {
             val notificationResponse =
+
                 intent.getSerializableExtra(AppConstants.NOTIFICATION_RESPONSE)
                         as NotificationListingResponse.Body
             binding.bottomNavigationView.menu.findItem(R.id.myOrders).isChecked = true

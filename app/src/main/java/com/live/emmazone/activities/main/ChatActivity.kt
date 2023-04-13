@@ -84,7 +84,7 @@ class ChatActivity : AppCompatActivity(), SocketManager.SocketInterface {
             jsonObject.put("senderId", getPreference(AppConstants.USER_ID, ""))
             jsonObject.put("receiverId", user2Id)
             jsonObject.put("messageType", "1") // 1=> text Msg
-            jsonObject.put("message", msg)
+                jsonObject.put("message", msg)
             SocketManager.sendDataToServer(SocketManager.SEND_MSG, jsonObject)
         }
 

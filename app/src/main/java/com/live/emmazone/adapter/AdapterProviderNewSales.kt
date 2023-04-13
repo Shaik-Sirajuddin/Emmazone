@@ -46,7 +46,6 @@ class AdapterProviderNewSales(
                 holder.tvHomeDelivery.text = context.getString(R.string.home_delivery)
             }
         }
-
         when (model.orderStatus) {
             0 -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
                 //7-> Return in transit // 8-> Returned

@@ -453,7 +453,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:padding="5dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:strokeColor="@color/light_black"
                     app:strokeWidth="2dp"
                     app:cardCornerRadius="7dp"

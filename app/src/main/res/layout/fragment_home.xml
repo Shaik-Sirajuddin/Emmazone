@@ -10,8 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scrollLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
->
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutMain"
@@ -176,7 +175,6 @@
                 android:visibility="gone" />
 
         </LinearLayout>
-
 
 
         <LinearLayout

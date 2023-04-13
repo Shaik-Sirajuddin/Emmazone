@@ -24,10 +24,8 @@ class MessageActivity : AppCompatActivity(), SocketManager.SocketInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
-
         clicksHandle()
         setMsgAdapter()
-
     }
 
     private fun getChatList() {

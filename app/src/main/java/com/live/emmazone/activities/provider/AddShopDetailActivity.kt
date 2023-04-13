@@ -227,9 +227,7 @@ class AddShopDetailActivity : ImagePickerUtility(),
                         savePreference(AppConstants.ROLE, AppConstants.SELLER_ROLE)
                         savePreference(AppConstants.IS_LOGIN, true)
                         profileCompletedDialog()
-
                     }
-
 
                 }
             }

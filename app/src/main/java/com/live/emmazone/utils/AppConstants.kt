@@ -168,6 +168,7 @@ object AppConstants {
     const val GET_DELIVERY_TEMPLATES_SHOP = "get_delivery_templates_shop"
     const val EDIT_DELIVERY_TEMPLATES_SHOP = "edit_delivery_template_shop"
     const val ADD_DELIVERY_TEMPLATES_SHOP = "add_delivery_template_shop"
+
     const val INITIATE_DELETE_SHOP_PROFILE = "initiate_shop_profile_delete"
     const val CONFORM_DELETE_SHOP_PROFILE = "conform_shop_profile_delete"
     const val GET_ALL_SHOPS_UNDER_DELETION = "get_all_delete_progress_shops"

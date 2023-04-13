@@ -247,7 +247,6 @@ data class UserOrderListing(
                         ) : Serializable
                     }
 
-
                     data class Outcome(
                         @SerializedName("network_status")
                         var networkStatus: String, // approved_by_network

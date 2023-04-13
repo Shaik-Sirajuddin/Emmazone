@@ -216,7 +216,7 @@ class ShopDetailActivity : LocationUpdateUtility(), Observer<RestObservable> {
         val hashMap = HashMap<String, String>()
         hashMap["vendorId"] = response!!.body.userId.toString()
 
-        if (response!!.body.isLiked == 1)
+        if (response!!.body.isLiked == 1    )
             hashMap["status"] = "0"
         else {
             hashMap["status"] = "1"

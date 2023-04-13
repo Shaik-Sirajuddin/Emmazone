@@ -1,5 +1,6 @@
 package com.live.emmazone.adapter
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Handler
@@ -75,8 +76,8 @@ class AdapterNearbyShops(
 
                 //setting data
                 tvWishListStoreName.text = nearShopModel.shopName
-                if(nearShopModel.ratings.toFloatOrNull() != 0f)
-                tvWishListRatingText.text = nearShopModel.ratings + "/" + "5"
+                if (nearShopModel.ratings.toFloatOrNull() != 0f)
+                    tvWishListRatingText.text = nearShopModel.ratings + "/" + "5"
                 tvWishListDistance.text = nearShopModel.distance.toString() + " " +
                         mContext.getString(R.string.miles_away)
 

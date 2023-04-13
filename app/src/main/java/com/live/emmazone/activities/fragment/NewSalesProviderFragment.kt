@@ -37,25 +37,19 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setNewSalesAdapter()
-
     }
 
     private fun apiHitSales() {
         val hashMap = HashMap<String, String>()
         hashMap["status"] = "1" //1=>New Orders, 2=> On going Orders, 3=> Past Orders
-
         appViewModel.salesListApi(requireActivity(), true, hashMap)
         appViewModel.getResponse().observe(requireActivity(), this)
-
     }
 
     private fun setNewSalesAdapter() {
         adapter= AdapterProviderNewSales(requireContext(), list)
-
         binding.rvNewSales.adapter = adapter
-
     }
 
     override fun onChanged(t: RestObservable?) {
@@ -72,10 +66,7 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
                         binding.tvNoData.visibility= View.VISIBLE
                         binding.rvNewSales.visibility= View.GONE
                     }
-
                     adapter.notifyDataSetChanged()
-
-
                     if (t.data.body.notificationCount ==0){
                         FragmentProviderSale.imageRedDot.visibility = View.GONE
                     }else{
@@ -89,7 +80,6 @@ class NewSalesProviderFragment : Fragment(), Observer<RestObservable> {
 
     override fun onResume() {
         super.onResume()
-
         apiHitSales()
     }
 }

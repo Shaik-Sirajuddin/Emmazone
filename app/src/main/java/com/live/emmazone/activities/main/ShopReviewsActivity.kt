@@ -79,7 +79,6 @@ class ShopReviewsActivity : AppCompatActivity(),
     private fun getReview(){
         val hashMap = HashMap<String, String>()
         hashMap["vendorId"] = shopId
-
         appViewModel.getMyReviewShop(this, true, hashMap)
         appViewModel.getResponse().observe(this, this)
     }

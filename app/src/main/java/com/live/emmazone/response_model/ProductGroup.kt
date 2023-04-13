@@ -38,5 +38,4 @@ data class ProductGroup(
         val name: String
     ) : Serializable
 
-
 }

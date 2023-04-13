@@ -87,7 +87,6 @@ class MyEarningsActivity : AppCompatActivity(), Observer<RestObservable> {
         binding.tvToday.background =
             ContextCompat.getDrawable(this, R.drawable.bg_fill_earning)
         binding.tvWeekly.setBackgroundColor(Color.TRANSPARENT)
-
         earningApiHit("1") //1 for ToDay Earnings
     }
 

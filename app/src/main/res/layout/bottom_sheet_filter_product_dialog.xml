@@ -233,6 +233,7 @@
             android:checked="false"
             android:padding="@dimen/_5sdp"
             android:text="None"
+
             android:textColor="@color/green"
             android:textSize="@dimen/sp18" />
     </RadioGroup>

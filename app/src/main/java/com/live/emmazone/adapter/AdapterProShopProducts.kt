@@ -30,11 +30,13 @@ class AdapterProShopProducts(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         val ModelProShopDetailProducts = list[position]
         ModelProShopDetailProducts.mainImage?.let { holder.imageProductSD.loadImage(it) }
         holder.productItemNameSD.text = ModelProShopDetailProducts.name
         holder.productItemShortDescription.text = ModelProShopDetailProducts.shortDescription
         val products = list[position].products
+
         if (products.isNotEmpty()) {
             var price = Double.MAX_VALUE
             var averageRating = 0f

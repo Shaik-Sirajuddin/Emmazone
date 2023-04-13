@@ -147,6 +147,7 @@ class ReservedDeliveredDetail : AppCompatActivity(), Observer<RestObservable> {
             OrderStatus.PENDING -> { //  order status  0-> Pending  1-> on the way 2-> Delivered 3-> cancelled
                 binding.tvOrderStatus.text = getString(R.string.pending)
                 binding.btnCancel.visibility = View.VISIBLE
+
             }
             OrderStatus.ON_THE_WAY -> {
                 binding.tvOrderStatus.text = getString(R.string.on_the_way)

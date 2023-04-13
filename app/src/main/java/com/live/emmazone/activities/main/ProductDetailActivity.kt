@@ -656,7 +656,6 @@ class ProductDetailActivity : AppCompatActivity(), Observer<RestObservable>, OnP
                     AppUtils.showMsgOnlyWithClick(this, "Item add to cart successfully", this)
                 } else if (t.data is AddOrderResponse) {
                     val response: AddOrderResponse = t.data
-
                     if (response.code == AppConstants.SUCCESS_CODE) {
                         thankYouDialog()
                     }

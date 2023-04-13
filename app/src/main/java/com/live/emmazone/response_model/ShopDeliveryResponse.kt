@@ -13,5 +13,4 @@ class ShopDeliveryResponse(
     val message: String,
     @SerializedName("success")
     val success: Boolean,
-
 ) : Serializable

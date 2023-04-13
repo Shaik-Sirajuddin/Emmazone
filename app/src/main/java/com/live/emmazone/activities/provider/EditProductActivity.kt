@@ -134,8 +134,8 @@ class EditProductActivity : ImagePickerUtility(), Observer<RestObservable> {
                 Product.Category("", ""), 0, 0, 0, 0, "", "", 0, "", "", 0,
                 Product.ProductColor(0, "", "", 0, 0, ""), 0, arrayListOf(),
                 "", 0, "", Product.ProductSize(0, "", 0, 0, "", ""),
-                "", 0, 0, SearchProductResponse.Body.Group(0, arrayListOf())
-            )
+                "", 0, 0,Product.Group(1, arrayListOf()))
+
         )
     }
 

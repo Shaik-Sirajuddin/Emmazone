@@ -176,11 +176,12 @@ interface RestApiInterface {
 
     @Multipart
     @POST(AppConstants.EDIT_PROFILE)
-    fun editProfile(
+    fun     editProfile(
         @PartMap hashMap: HashMap<String, RequestBody>,
         @Part image: MultipartBody.Part
     ): Call<EditProfileResponse>
 
+    /** Delete user profile **/
     @POST(AppConstants.DELETE_PROFILE)
     fun deleteProfile(): Call<CommonResponse>
 

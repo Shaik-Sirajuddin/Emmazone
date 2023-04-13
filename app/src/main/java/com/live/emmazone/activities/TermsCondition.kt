@@ -2,6 +2,7 @@ package com.live.emmazone.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.text.HtmlCompat
@@ -41,13 +42,13 @@ class TermsCondition : AppCompatActivity(), Observer<RestObservable> {
                 if (t.data is TermsConditionResponse) {
                     val response: TermsConditionResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
+                        var text =  HtmlCompat.fromHtml(
 
-                        binding.tvTermsCondition.text =
-                            HtmlCompat.fromHtml(
-                                response.body.content,
-                                HtmlCompat.FROM_HTML_MODE_LEGACY
-                            ).toString()
-
+                            response.body.content,
+                            HtmlCompat.FROM_HTML_MODE_LEGACY
+                        ).toString()
+                        binding.tvTermsCondition.text =text
+                        Log.d("terms"  , text)
                     }
                 }
             }

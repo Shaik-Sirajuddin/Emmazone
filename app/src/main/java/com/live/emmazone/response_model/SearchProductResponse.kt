@@ -40,7 +40,7 @@ data class SearchProductResponse(
         @SerializedName("product_images")
         var images : ArrayList<ProductImage>,
         @SerializedName("product_price")
-        val minPrice : String , //2000.00
+        val minPrice : String , //2000.0    0
         @SerializedName("productReview")
         var productReview: String, // 0.0
         @SerializedName("product_type")

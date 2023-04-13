@@ -69,7 +69,6 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
             }
         }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -131,7 +130,6 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
                 if (t.data is SellerShopDetailResponse) {
                     response = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
-
                         setDetailData(response)
                     }
 
@@ -380,7 +378,6 @@ class FragmentProviderHome : Fragment(), Observer<RestObservable> {
             orderStatusUpdate // 0=>pending 1=>On The Way 2=>Delivered 3=>cancelled
         appViewModel.orderStatusApi(requireActivity(), hashMap, true)
         appViewModel.getResponse().observe(requireActivity(), this)
-
     }
 
     private fun checkCameraPermission() {

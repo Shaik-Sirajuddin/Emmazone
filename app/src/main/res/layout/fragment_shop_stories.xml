@@ -91,7 +91,8 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="16dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"/>
+            app:spanCount="2"
+            />
 
         <TextView
             android:id="@+id/toHide"

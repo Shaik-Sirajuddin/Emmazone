@@ -109,7 +109,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text=""
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
@@ -134,7 +133,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="Test"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/sp15"
                 android:textStyle="bold" />
@@ -144,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"
-                android:text=""
+                android:text="test@gmail.com"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12" />
 
@@ -152,7 +151,7 @@
                 android:id="@+id/tvPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="+34565654546654465"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12" />
 

@@ -84,8 +84,6 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                 rlAddress?.visibility = View.VISIBLE
                 tvSelectAddress?.visibility = View.GONE
                 getCartListing()
-
-
             }
         }
 
@@ -269,7 +267,6 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
             val intent = Intent(this, PaymentMethod::class.java)
             launcherPayment.launch(intent)
         }
-
         tvChangePaymentMethod.setOnClickListener {
             val intent = Intent(this, PaymentMethod::class.java)
             launcherPayment.launch(intent)
@@ -338,7 +335,6 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                 hashMap["cardId"] = selectedCardId
                 hashMap["cvv"] = selectedCardCvv
                 addOderApi()
-
             } else {
                 addOderApi()
             }
@@ -500,7 +496,8 @@ class Cart : AppCompatActivity(), Observer<RestObservable> {
                         showBottomDialog()
                     }
 
-                } else if (t.data is CommonResponse) {
+                }
+                else if (t.data is CommonResponse) {
                     getCartListing()
                     noDataVisible()
                 } else if (t.data is CartUpdateResponse) {

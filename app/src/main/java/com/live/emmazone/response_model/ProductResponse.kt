@@ -47,7 +47,7 @@ data class Product(
     @SerializedName("isLiked")
     var isLiked : Int ,
     @SerializedName("product_group")
-    var group : SearchProductResponse.Body.Group?
+    var group : Group?
  ):Serializable{
 
     data class Category(
@@ -57,6 +57,12 @@ data class Product(
         var name: String // Jeans
     ):Serializable
 
+    data class Group(
+        @SerializedName("id")
+        var id : Int,
+        @SerializedName("product_images")
+        var productImages: ArrayList<ProductImage>,
+        ):Serializable
     data class ProductColor(
         @SerializedName("categoryColorId")
         var categoryColorId: Int, // 80

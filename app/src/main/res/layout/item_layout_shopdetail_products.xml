@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="7dp"
-    android:elevation="1dp"
     android:layout_marginTop="@dimen/dp8"
     android:layout_marginBottom="@dimen/dp8"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:elevation="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_shop_detail_product"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_shop_detail_product"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,73 +30,74 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="0dp" />
+
         <ImageView
             android:id="@+id/heart"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginTop="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp20"
             android:background="@drawable/wishlist_button_background"
             android:padding="4dp"
-            android:layout_marginEnd="@dimen/dp20"
+            android:src="@drawable/heart_unselect"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/heart_unselect" />
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/productItemName"
             android:layout_width="0dp"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="10dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
             android:text="this is the product name and its this"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/imageProductShopDetail"
-            app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
+            app:layout_constraintTop_toBottomOf="@id/imageProductShopDetail" />
+
         <TextView
             android:id="@+id/productItemShortDescription"
             android:layout_width="0dp"
-            android:paddingHorizontal="10dp"
-            android:paddingBottom="10dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
+            android:paddingHorizontal="10dp"
+            android:paddingBottom="10dp"
             android:text="short description"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"
-            app:layout_constraintTop_toBottomOf="@id/productItemName"
-            app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="@+id/imageProductShopDetail"
+            app:layout_constraintTop_toBottomOf="@id/productItemName" />
+
         <TextView
             android:id="@+id/productItemPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="@color/black"
             android:paddingHorizontal="10dp"
             android:text="30.00€"
-            android:textStyle="bold"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp12"
-            app:layout_constraintTop_toBottomOf="@+id/productItemShortDescription"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/productItemShortDescription" />
 
         <RatingBar
             android:id="@+id/ratingBar"
-            android:clickable="false"
-            android:focusable="false"
+            style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-            android:numStars="5"
-            android:layout_marginEnd="5dp"
-            android:layout_marginTop="3dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:numStars="5"
             android:src="@drawable/rating"
             app:layout_constraintEnd_toStartOf="@+id/rating"
             app:layout_constraintTop_toBottomOf="@+id/productItemShortDescription" />
@@ -111,11 +112,10 @@
             android:text="NA"
             android:textColor="@color/black"
             android:textSize="@dimen/sp12"
-            app:layout_constraintTop_toBottomOf="@id/productItemShortDescription"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productItemShortDescription" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tvShopDetailProductBrand"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -126,6 +126,7 @@
             android:text="@string/lorem_ipsum_dolor"
             android:textColor="@color/black"
             android:textSize="@dimen/sp10"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/ratingBar"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
@@ -138,8 +139,8 @@
             android:layout_marginTop="@dimen/dp2"
             android:text="@string/delivery_estimate_4_5_days"
             android:textColor="@color/green"
-            android:visibility="gone"
             android:textSize="@dimen/sp10"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/tvShopDetailProductBrand"
             app:layout_constraintTop_toBottomOf="@+id/tvShopDetailProductBrand" />
 

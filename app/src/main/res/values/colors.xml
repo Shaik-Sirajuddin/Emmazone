@@ -21,10 +21,8 @@
     <color name="yellow">#FF9800</color>
     <color name="red">#E73527</color>
     <color name="splash_bg">#D2E8C4</color>
-
     <color name="track_active">#457F59</color>
     <color name="track_inactive">#EDEDED</color>
-
     <color name="image_bg">#DEDDDC</color>
     <color name="light_gray">#B5B5B5</color>
     <color name="skyBlue">#03A9F4</color>

@@ -171,11 +171,9 @@ class PaymentMethod : AppCompatActivity(), Observer<RestObservable> {
                 cardList.forEachIndexed { index, body ->
                     body.isSelected = index == pos
                 }
-
                 addPaymentAdapter?.notifyDataSetChanged()
             } else if (clickOn == "deleteCard") {
                 deletePos = pos
-
                 deleteCardApiHit(cardList[pos].id)
             }
         }

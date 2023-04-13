@@ -116,6 +116,7 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                         savePreference(AppConstants.USER_ID, response.body.id.toString())
                         savePreference(AppConstants.NAME, response.body.username)
                         savePreference(AppConstants.AUTHORIZATION, response.body.token)
+
                         Log.d("tAuth" ,response.body.token)
                         savePreference(
                             AppConstants.NOTIFICATION_TYPE,
@@ -144,7 +145,6 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                                 savePreference(AppConstants.IS_LOGIN, true)
                                 startActivity(Intent(this, MainActivity::class.java))
                                 finishAffinity()
-
                             }
 
                         } else {
@@ -152,8 +152,6 @@ class LoginActivity : AppCompatActivity(), Observer<RestObservable> {
                             startActivity(intent)
                             finish()
                         }
-
-
                     }
                 }
             }

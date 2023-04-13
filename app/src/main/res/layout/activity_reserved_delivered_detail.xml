@@ -149,7 +149,6 @@
                     android:layout_weight="1"
                     android:text="Sthsljfjlsldflj :"
                     android:textColor="@color/black"
-
                     android:textSize="@dimen/sp12" />
 
                 <TextView

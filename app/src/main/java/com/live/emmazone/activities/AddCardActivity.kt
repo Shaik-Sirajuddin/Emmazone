@@ -164,7 +164,6 @@ class AddCardActivity : AppCompatActivity(),Observer<RestObservable>,OnPopupClic
             val hashMap = HashMap<String, String>()
             hashMap["cardType"] = cardType
             hashMap["name"] = name
-            hashMap["name"] = name
             hashMap["cardNumber"] = edtCardNo.text.toString()
             hashMap["month"] = selectedMonth
             hashMap["year"] = selectedYear

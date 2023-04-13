@@ -1,6 +1,7 @@
 package com.live.emmazone.activities
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
@@ -38,13 +39,15 @@ class PrivacyPolicy : AppCompatActivity(), Observer<RestObservable> {
                 if (t.data is PrivacyPolicyResponse) {
                     val response: PrivacyPolicyResponse = t.data
                     if (response.code == AppConstants.SUCCESS_CODE) {
-
                         binding.tvPrivacyPolicy.text =
                             HtmlCompat.fromHtml(
                                 response.body.content,
                                 HtmlCompat.FROM_HTML_MODE_LEGACY
                             ).toString()
-
+                        Log.d("privacy" , HtmlCompat.fromHtml(
+                            response.body.content,
+                            HtmlCompat.FROM_HTML_MODE_LEGACY
+                        ).toString())
                     }
                 }
             }

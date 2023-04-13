@@ -144,6 +144,7 @@ class AddNewAddress : AppCompatActivity(),Observer<RestObservable> {
             //************Forgot Password API hit*********************
 
             val hashMap = HashMap<String, String>()
+
             hashMap["name"] = name
             hashMap["address"] = address
             hashMap["city"] = state

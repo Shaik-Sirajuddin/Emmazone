@@ -14,7 +14,7 @@ data class CategoryColorSizeResponse(
     var success: Boolean // true
 ) {
     data class Body(
-        @SerializedName("category_colors")
+            @SerializedName("category_colors")
         var categoryColors: List<CategoryColor>,
         @SerializedName("category_sizes")
         var categorySizes: List<CategorySize>,

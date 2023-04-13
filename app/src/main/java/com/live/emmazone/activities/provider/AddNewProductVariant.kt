@@ -180,7 +180,6 @@ class AddNewProductVariant : AppCompatActivity(), Observer<RestObservable> {
         hashMap["product_name"] = toBody(group.name)
         hashMap["shortDescription"] = toBody(group.shortDescription)
         hashMap["description"] = toBody(group.description)
-        hashMap["categoryId"] = toBody(group.categoryId.toString())
         hashMap["product_highlight"] = toBody(group.productHighlight.toString())
         hashMap["groupId"] = toBody(group.id.toString())
         hashMap["categoryId"] = toBody(categoryId.toString())
